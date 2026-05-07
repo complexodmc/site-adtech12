@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Painel administrativo · Plataforma Complexo DMC.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel Administrativo · Complexo DMC</title>
+
+  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/plataforma.css">
+</head>
+<body class="bg-grid">
+  <div class="glow-corner"></div>
+
+  <header class="app-nav">
+    <div class="app-nav__inner">
+      <a class="app-brand" href="dashboard.html">
+        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
+        <span class="app-brand__label">Complexo DMC</span>
+        <span class="app-brand__sub">Admin</span>
+      </a>
+      <div class="app-user">
+        <a class="btn-ghost" href="loja.html">Loja</a>
+        <a class="btn-ghost" href="dashboard.html">Painel do aluno</a>
+        <span data-user-nome></span>
+        <span class="user-avatar" data-user-iniciais></span>
+        <button class="btn-ghost" data-logout>Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-shell">
+    <div class="admin-inner">
+
+      <section class="admin-hero">
+        <div class="admin-hero__title">
+          <span class="overline">Painel Administrativo</span>
+          <h1>Edição de cursos, módulos e aulas</h1>
+          <p>Edite tudo direto na tela. Cada alteração é salva automaticamente. Use <strong>Exportar JSON</strong> ao final para gerar a versão definitiva e <strong>Importar JSON</strong> para colar uma estrutura pronta.</p>
+        </div>
+        <div class="admin-hero__actions">
+          <button class="btn-ghost" id="btn-export"></button>
+          <button class="btn-ghost" id="btn-import"></button>
+          <button class="btn-ghost danger" id="btn-reset"></button>
+        </div>
+      </section>
+
+      <div class="admin-grid">
+        <aside class="admin-sidebar">
+          <div class="admin-sidebar__head">
+            <span class="overline">Cursos</span>
+            <h3>Programas cadastrados</h3>
+          </div>
+          <div id="curso-list"></div>
+          <button class="btn-add-curso" id="btn-add-curso"></button>
+        </aside>
+
+        <section class="admin-main" id="curso-editor"></section>
+      </div>
+
+      <!-- ============ LIBERAÇÕES — gerenciamento de acesso por aluno ============ -->
+      <section class="lib-section" id="liberacoes-pane">
+        <div class="editor-section__head">
+          <div>
+            <span class="overline">Acesso</span>
+            <h2 style="margin-top:0.4rem">Liberar cursos para alunos</h2>
+            <p class="lib-help">Use esta seção quando precisar liberar manualmente o acesso de um aluno (cortesia, conferência ou ajuste pós-pagamento). Em compras concluídas pela Loja, a liberação é automática após o checkout.</p>
+          </div>
+        </div>
+
+        <div class="lib-grid">
+          <form class="lib-form" id="lib-form" autocomplete="off">
+            <div class="field-row cols-2">
+              <div>
+                <label class="field-label">Nome do aluno (opcional)</label>
+                <input class="input" id="lib-nome" placeholder="Ex.: Maria de Souza">
+              </div>
+              <div>
+                <label class="field-label">E-mail do aluno</label>
+                <input class="input" id="lib-email" type="email" required placeholder="aluno@dominio.com">
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div>
+                <label class="field-label">Cursos a liberar</label>
+                <div class="lib-cursos" id="lib-cursos"></div>
+              </div>
+            </div>
+
+            <div class="lib-form__actions">
+              <button class="btn-primary" type="submit" style="width:auto;margin-top:0">Liberar acesso</button>
+              <button class="btn-ghost" type="button" id="lib-clear">Limpar</button>
+            </div>
+          </form>
+
+          <aside class="lib-list-wrap">
+            <div class="lib-list-head">
+              <span class="overline">Alunos com acesso</span>
+              <span class="lib-list-count" id="lib-list-count">0</span>
+            </div>
+            <div class="lib-list" id="lib-list"></div>
+          </aside>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="toast" id="toast">Salvo</div>
+
+  <div class="modal-overlay" id="modal-import">
+    <div class="modal">
+      <h3>Importar JSON</h3>
+      <p>Cole abaixo o JSON com a estrutura de cursos. Esse conteúdo substitui tudo o que existe hoje na plataforma.</p>
+      <textarea id="import-json" placeholder='{"cursos": [...], "cursoAtivoId": "..."}'></textarea>
+      <div class="modal-actions">
+        <button class="btn-ghost" data-modal-close>Cancelar</button>
+        <button class="btn-primary" id="btn-import-confirm" style="width:auto;margin-top:0">Substituir conteúdo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-export">
+    <div class="modal">
+      <h3>Exportar JSON</h3>
+      <p>Estrutura atual da plataforma. Copie e salve em um arquivo, ou cole em <code>js/data.js</code> como novo seed.</p>
+      <textarea id="export-json" readonly></textarea>
+      <div class="modal-actions">
+        <button class="btn-ghost" data-modal-close>Fechar</button>
+        <button class="btn-primary" id="btn-copy-json" style="width:auto;margin-top:0">Copiar para área de transferência</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+  <script>DMC_bootAdmin();</script>
+</body>
+</html>

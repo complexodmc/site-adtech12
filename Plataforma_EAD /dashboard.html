@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plataforma Complexo DMC — Painel do aluno: módulos, aulas e progresso.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel · Plataforma Complexo DMC</title>
+
+  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/plataforma.css">
+</head>
+<body class="bg-grid">
+  <div class="glow-corner"></div>
+
+  <header class="app-nav">
+    <div class="app-nav__inner">
+      <a class="app-brand" href="dashboard.html">
+        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
+        <span class="app-brand__label">Complexo DMC</span>
+        <span class="app-brand__sub">Plataforma</span>
+      </a>
+      <div class="app-user">
+        <a class="btn-ghost" href="loja.html">Loja</a>
+        <a class="btn-ghost" href="admin.html" data-admin-only>Admin</a>
+        <span data-user-nome></span>
+        <span class="user-avatar" data-user-iniciais></span>
+        <button class="btn-ghost" data-logout>Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dash-shell">
+    <div class="dash-inner">
+
+      <section class="catalog-section">
+        <div class="section-title-row">
+          <div>
+            <span class="overline">Catálogo</span>
+            <h2>Escolha seu curso</h2>
+          </div>
+          <span>Selecione o programa que você vai cursar</span>
+        </div>
+        <div class="catalog-track-wrap">
+          <button class="catalog-arrow" data-catalog-prev aria-label="Anterior">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="catalog-track" id="catalog-track"></div>
+          <button class="catalog-arrow" data-catalog-next aria-label="Próximo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="dash-hero">
+        <span class="overline">Curso selecionado</span>
+        <h1><span data-curso-titulo>—</span></h1>
+        <p>Bem-vindo, <strong data-user-nome></strong>. Acompanhe o progresso da trilha do curso selecionado abaixo. Trocar de curso é simples: basta clicar em outro card no catálogo acima.</p>
+
+        <div class="progress-summary">
+          <div class="summary-stat">
+            <div class="summary-stat__label">Progresso</div>
+            <div class="summary-stat__num" data-stat-pct>0%</div>
+            <div class="progress-bar"><div class="progress-bar__fill" data-progress-fill></div></div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-stat__label">Aulas concluídas</div>
+            <div class="summary-stat__num"><span data-stat-done>0</span><small>/<span data-stat-total>0</span></small></div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-stat__label">Módulos</div>
+            <div class="summary-stat__num" data-stat-modulos>10</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-stat__label">Carga horária</div>
+            <div class="summary-stat__num" data-curso-carga>—</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="modules-section">
+        <div class="section-title-row">
+          <h2>Trilha do programa</h2>
+          <span>Clique no módulo para expandir e acessar as aulas</span>
+        </div>
+        <div id="modules-list" class="modules-list"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>DMC_bootDashboard();</script>
+</body>
+</html>

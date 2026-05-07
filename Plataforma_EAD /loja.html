@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Loja Complexo DMC — Programas de formação institucional disponíveis para aquisição.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Loja · Plataforma Complexo DMC</title>
+
+  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/plataforma.css">
+</head>
+<body class="bg-grid">
+  <div class="glow-corner"></div>
+
+  <header class="app-nav">
+    <div class="app-nav__inner">
+      <a class="app-brand" href="dashboard.html">
+        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
+        <span class="app-brand__label">Complexo DMC</span>
+        <span class="app-brand__sub">Loja</span>
+      </a>
+      <div class="app-user">
+        <a class="btn-ghost" href="dashboard.html">Meu painel</a>
+        <a class="btn-ghost" href="admin.html" data-admin-only>Admin</a>
+        <button class="btn-ghost cart-trigger" data-cart-open type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Carrinho
+          <span class="cart-badge is-empty" data-cart-count>0</span>
+        </button>
+        <span data-user-nome></span>
+        <span class="user-avatar" data-user-iniciais></span>
+        <button class="btn-ghost" data-logout>Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="loja-shell">
+    <div class="dash-inner">
+
+      <section class="loja-hero">
+        <span class="overline">Loja Institucional</span>
+        <h1>Programas de formação <span class="gradient-text">Complexo DMC</span></h1>
+        <p>Cada programa foi desenhado como sistema — não como aula avulsa. Selecione um ou mais cursos, finalize o pedido e o time administrativo confirma o pagamento e libera o acesso na sua dashboard.</p>
+      </section>
+
+      <section class="loja-grid" id="loja-grid"></section>
+
+    </div>
+  </main>
+
+  <!-- Drawer do carrinho -->
+  <aside class="cart-drawer" id="cart-drawer" aria-hidden="true">
+    <div class="cart-drawer__panel">
+      <header class="cart-drawer__head">
+        <div>
+          <span class="overline">Seu carrinho</span>
+          <h3>Programas selecionados</h3>
+        </div>
+        <button class="btn-icon" data-cart-close type="button" aria-label="Fechar carrinho">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </header>
+
+      <div id="cart-empty" class="cart-empty">
+        <div class="cart-empty__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </div>
+        <p>Seu carrinho está vazio.</p>
+        <small>Adicione cursos do catálogo para finalizar o pedido.</small>
+      </div>
+
+      <div id="cart-list" class="cart-list" style="display:none"></div>
+
+      <form id="cart-checkout" class="cart-checkout" style="display:none">
+        <div class="cart-total">
+          <span class="cart-total__label">Total</span>
+          <span class="cart-total__val" data-cart-total>R$ 0,00</span>
+        </div>
+        <button class="btn-primary" type="submit" style="margin-top:0.4rem;width:100%">Finalizar compra</button>
+        <p class="cart-help">Você será encaminhado para o pagamento. Após a confirmação, o time administrativo libera o acesso na sua dashboard.</p>
+      </form>
+    </div>
+    <div class="cart-drawer__backdrop" data-cart-close></div>
+  </aside>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>DMC_bootLoja();</script>
+</body>
+</html>

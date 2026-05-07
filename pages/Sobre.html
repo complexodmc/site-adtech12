@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conheça o Complexo DMC e Daniel Mathias Chagas — consultoria estratégica que sincretiza Direito, Tecnologia, Administração e Contabilidade para arquitetar negócios milionários.">
+  <meta name="keywords" content="Daniel Mathias Chagas, Complexo DMC, consultoria estratégica, Empresarização, holdings, Bear Finance, arquiteto de impérios">
+  <title>Sobre | Complexo DMC — Arquitetos de Impérios Modernos</title>
+
+  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/shared.css">
+
+  <style>
+    /* ============ SOBRE — PAGE-SPECIFIC STYLES ============ */
+
+    /* Hide default page-hero decorations so we can build a custom 3D stage */
+    .sobre-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 7rem 0 4rem;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 60% 50% at 85% 20%, rgba(0, 231, 252, 0.08), transparent 60%),
+        radial-gradient(ellipse 50% 40% at 15% 80%, rgba(0, 255, 77, 0.05), transparent 60%),
+        var(--bg-primary);
+      perspective: 1600px;
+    }
+
+    .sobre-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .sobre-hero__canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .sobre-hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+      width: 100%;
+    }
+
+    .sobre-hero__content {
+      transform-style: preserve-3d;
+    }
+
+    .sobre-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      background: rgba(0, 231, 252, 0.06);
+      border: 1px solid rgba(0, 231, 252, 0.22);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--primary-cyan);
+      margin-bottom: 1.75rem;
+      animation: fadeInUp .8s ease-out .05s both;
+    }
+    .sobre-hero__eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--primary-green);
+      box-shadow: 0 0 10px var(--primary-green);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .sobre-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4.6vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      margin-bottom: 1.4rem;
+      animation: fadeInUp .9s ease-out .15s both;
+    }
+
+    .sobre-hero__subtitle {
+      font-size: clamp(1rem, 1.2vw, 1.15rem);
+      color: rgba(255,255,255,0.72);
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 2.25rem;
+      animation: fadeInUp .9s ease-out .25s both;
+    }
+
+    .sobre-hero__meta {
+      display: flex;
+      gap: 2.25rem;
+      margin-bottom: 2.25rem;
+      flex-wrap: wrap;
+      animation: fadeInUp .9s ease-out .35s both;
+    }
+    .sobre-hero__meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .sobre-hero__meta-num {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      font-weight: 800;
+      line-height: 1;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .sobre-hero__meta-label {
+      font-size: 0.72rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .sobre-hero__actions {
+      display: inline-flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: fadeInUp .9s ease-out .45s both;
+    }
+
+    /* ============ 3D PORTRAIT STAGE ============ */
+    .portrait-stage {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      aspect-ratio: 3 / 4;
+      margin: 0 auto;
+      transform-style: preserve-3d;
+      transition: transform .25s cubic-bezier(.2,.7,.2,1);
+      animation: fadeInRight 1s ease-out .3s both;
+    }
+
+    /* outer holographic conic ring */
+    .portrait-stage__ring {
+      position: absolute;
+      inset: -22px;
+      border-radius: 32px;
+      background: conic-gradient(
+        from 0deg,
+        rgba(0, 231, 252, 0) 0deg,
+        rgba(0, 231, 252, 0.6) 40deg,
+        rgba(0, 255, 77, 0.75) 120deg,
+        rgba(0, 231, 252, 0) 200deg,
+        rgba(0, 255, 77, 0.45) 280deg,
+        rgba(0, 231, 252, 0) 360deg
+      );
+      filter: blur(18px);
+      opacity: 0.55;
+      animation: ringSpin 18s linear infinite;
+      z-index: 0;
+      transform: translateZ(-60px);
+    }
+    @keyframes ringSpin {
+      to { transform: translateZ(-60px) rotate(360deg); }
+    }
+
+    /* orbit ring (static outline) */
+    .portrait-stage__orbit {
+      position: absolute;
+      inset: -30px;
+      border-radius: 32px;
+      border: 1px dashed rgba(0, 231, 252, 0.18);
+      pointer-events: none;
+      transform: translateZ(-40px);
+    }
+
+    /* inner card — the frame containing the photo */
+    .portrait-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      background: linear-gradient(140deg, #121212 0%, #0a0a0a 60%, #0a1a1c 100%);
+      box-shadow:
+        0 30px 60px -20px rgba(0,0,0,0.7),
+        0 0 40px rgba(0, 231, 252, 0.12),
+        0 0 80px rgba(0, 255, 77, 0.08),
+        inset 0 0 0 1px rgba(255,255,255,0.06);
+      transform-style: preserve-3d;
+      z-index: 2;
+    }
+
+    /* gradient border mask */
+    .portrait-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1.5px;
+      background: linear-gradient(140deg,
+        rgba(0, 231, 252, 0.7) 0%,
+        rgba(0, 255, 77, 0.5) 40%,
+        rgba(255,255,255,0.08) 60%,
+        rgba(0, 231, 252, 0.5) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* the photo layer */
+    .portrait-card__photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      filter: contrast(1.05) saturate(1.05);
+      transform: translateZ(30px) scale(1.02);
+      transition: transform .4s cubic-bezier(.2,.7,.2,1);
+    }
+
+    /* placeholder (shown if image missing) */
+    .portrait-card__placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(0, 231, 252, 0.25), transparent 60%),
+        radial-gradient(circle at 70% 80%, rgba(0, 255, 77, 0.18), transparent 60%),
+        #0d1315;
+      color: rgba(255,255,255,0.5);
+      font-family: var(--font-display);
+      text-align: center;
+      padding: 2rem;
+    }
+    .portrait-card__placeholder-mark {
+      font-size: clamp(3rem, 10vw, 5rem);
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.9;
+    }
+    .portrait-card__placeholder-text {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      font-family: var(--font-primary);
+      max-width: 24ch;
+      line-height: 1.5;
+    }
+
+    /* scanline overlay */
+    .portrait-card__scan {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,0.00) 0px,
+        rgba(255,255,255,0.00) 2px,
+        rgba(0, 231, 252, 0.035) 3px,
+        rgba(255,255,255,0.00) 4px
+      );
+      pointer-events: none;
+      mix-blend-mode: screen;
+      z-index: 4;
+      transform: translateZ(40px);
+    }
+
+    /* sheen on hover/tilt */
+    .portrait-card__sheen {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        115deg,
+        transparent 40%,
+        rgba(255,255,255,0.12) 50%,
+        transparent 60%
+      );
+      pointer-events: none;
+      mix-blend-mode: overlay;
+      opacity: 0;
+      transition: opacity .4s ease;
+      z-index: 6;
+      transform: translateZ(50px);
+    }
+    .portrait-stage:hover .portrait-card__sheen { opacity: 1; }
+
+    /* bottom plaque with name */
+    .portrait-plaque {
+      position: absolute;
+      left: 50%;
+      bottom: -28px;
+      transform: translateX(-50%) translateZ(60px);
+      padding: 0.75rem 1.5rem;
+      border-radius: 100px;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(0, 255, 77, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.5),
+        0 0 20px rgba(0, 231, 252, 0.2);
+      z-index: 10;
+      white-space: nowrap;
+    }
+    .portrait-plaque__avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.65rem;
+      color: var(--bg-primary);
+      letter-spacing: 0.05em;
+    }
+    .portrait-plaque__name {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+    .portrait-plaque__role {
+      font-size: 0.65rem;
+      color: var(--primary-green);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* floating chips around portrait */
+    .portrait-chip {
+      position: absolute;
+      padding: 0.5rem 0.95rem;
+      background: rgba(15, 15, 15, 0.72);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 231, 252, 0.25);
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      z-index: 9;
+      animation: chipFloat 6s ease-in-out infinite;
+    }
+    .portrait-chip i {
+      color: var(--primary-green);
+      font-size: 0.8rem;
+    }
+    .portrait-chip--one {
+      top: 8%; left: -18%;
+      transform: translateZ(90px) rotate(-6deg);
+      animation-delay: 0s;
+    }
+    .portrait-chip--two {
+      top: 36%; right: -22%;
+      transform: translateZ(120px) rotate(5deg);
+      animation-delay: 1.5s;
+      border-color: rgba(0, 255, 77, 0.32);
+    }
+    .portrait-chip--three {
+      bottom: 20%; left: -15%;
+      transform: translateZ(80px) rotate(4deg);
+      animation-delay: 3s;
+    }
+    @keyframes chipFloat {
+      0%, 100% { transform: translateZ(90px) translateY(0) rotate(-6deg); }
+      50%      { transform: translateZ(90px) translateY(-10px) rotate(-6deg); }
+    }
+    .portrait-chip--two { animation-name: chipFloatB; }
+    @keyframes chipFloatB {
+      0%, 100% { transform: translateZ(120px) translateY(0) rotate(5deg); }
+      50%      { transform: translateZ(120px) translateY(-14px) rotate(5deg); }
+    }
+    .portrait-chip--three { animation-name: chipFloatC; }
+    @keyframes chipFloatC {
+      0%, 100% { transform: translateZ(80px) translateY(0) rotate(4deg); }
+      50%      { transform: translateZ(80px) translateY(-8px) rotate(4deg); }
+    }
+
+    /* ============ MANIFESTO SECTION ============ */
+    .manifesto {
+      position: relative;
+      padding: 6rem 2rem 4rem;
+      overflow: hidden;
+    }
+    .manifesto__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .manifesto__text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .manifesto__text p {
+      color: var(--text-secondary);
+      font-size: 1.02rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .manifesto__quote {
+      margin-top: 1.75rem;
+      padding: 1.25rem 1.5rem;
+      border-left: 2px solid var(--primary-green);
+      background: rgba(0, 255, 77, 0.04);
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      color: rgba(255,255,255,0.85);
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+
+    /* ============ OCTAEDRO 3D — WebGL canvas (Three.js) ============ */
+    .octaedro-3d {
+      position: relative;
+      width: 100%;
+      max-width: 580px;
+      aspect-ratio: 1;
+      margin: 0 auto;
+      display: block;
+    }
+    .octaedro-3d canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+    .octaedro-3d__caption {
+      position: absolute;
+      left: 50%;
+      bottom: -20px;
+      transform: translateX(-50%);
+      padding: 0.5rem 1.15rem;
+      border-radius: 100px;
+      background: rgba(10,10,10,0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(0, 255, 77, 0.3);
+      font-family: var(--font-display);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      font-weight: 700;
+      white-space: nowrap;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 20px rgba(0, 231, 252, 0.18);
+      pointer-events: none;
+    }
+    .octaedro-3d__caption em {
+      color: var(--primary-green);
+      font-style: normal;
+    }
+
+    /* ============ TIMELINE / JORNADA ============ */
+    .journey {
+      position: relative;
+      padding: 5rem 2rem;
+      background:
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(0, 231, 252, 0.04), transparent 70%),
+        var(--bg-primary);
+    }
+    .journey__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .journey__header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .journey__header .page-section__title {
+      margin-bottom: 0.75rem;
+    }
+
+    .journey__track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      counter-reset: journey;
+    }
+    .journey__track::before {
+      content: '';
+      position: absolute;
+      top: 26px;
+      left: 5%;
+      right: 5%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(0, 231, 252, 0.4), rgba(0, 255, 77, 0.4), transparent);
+      z-index: 0;
+    }
+
+    .journey__step {
+      position: relative;
+      counter-increment: journey;
+      z-index: 1;
+      text-align: center;
+      padding: 0 0.5rem;
+    }
+    .journey__step-node {
+      position: relative;
+      width: 54px; height: 54px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      background: linear-gradient(140deg, #0e0e0e, #1a1a1a);
+      border: 1.5px solid rgba(0, 231, 252, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--primary-cyan);
+      box-shadow: 0 0 0 6px rgba(10,10,10,1), 0 0 24px rgba(0, 231, 252, 0.2);
+      transition: var(--transition);
+    }
+    .journey__step-node::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: inherit;
+      border: 1px solid rgba(0, 231, 252, 0.15);
+      animation: journeyRing 3s ease-in-out infinite;
+    }
+    @keyframes journeyRing {
+      0%,100% { transform: scale(1); opacity: 0.6; }
+      50%     { transform: scale(1.1); opacity: 0; }
+    }
+
+    .journey__step:hover .journey__step-node {
+      border-color: var(--primary-green);
+      color: var(--primary-green);
+      transform: translateY(-3px);
+    }
+
+    .journey__step-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: #fff;
+    }
+    .journey__step-text {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ============ FOUNDER DEEP BIO ============ */
+    .founder {
+      position: relative;
+      padding: 5rem 2rem;
+      overflow: hidden;
+    }
+    .founder__glow {
+      position: absolute;
+      width: 800px; height: 800px;
+      border-radius: 50%;
+      top: 50%; left: -200px;
+      transform: translateY(-50%);
+      background: radial-gradient(circle, rgba(0, 231, 252, 0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .founder__inner {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .founder__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .founder__lead {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .founder__list {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: grid;
+      gap: 0.85rem;
+    }
+    .founder__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.55;
+    }
+    .founder__list li i {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      background: rgba(0, 255, 77, 0.1);
+      color: var(--primary-green);
+      border: 1px solid rgba(0, 255, 77, 0.25);
+      margin-top: 2px;
+    }
+
+    /* Floating 3D credentials grid */
+    .creds-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      perspective: 1400px;
+      transform-style: preserve-3d;
+    }
+    .cred-card {
+      position: relative;
+      padding: 1.5rem 1.25rem;
+      border-radius: 16px;
+      background: linear-gradient(140deg, rgba(20, 20, 20, 0.8), rgba(10, 10, 10, 0.9));
+      border: 1px solid rgba(255,255,255,0.06);
+      backdrop-filter: blur(14px);
+      transition: transform .35s cubic-bezier(.2,.7,.2,1), border-color .3s;
+      transform-style: preserve-3d;
+    }
+    .cred-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(0, 231, 252, 0.3), transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+    .cred-card:hover {
+      transform: translateY(-4px) rotateX(4deg) rotateY(-4deg);
+      border-color: rgba(0, 231, 252, 0.25);
+    }
+    .cred-card__icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: rgba(0, 231, 252, 0.1);
+      border: 1px solid rgba(0, 231, 252, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-cyan);
+      font-size: 0.95rem;
+      margin-bottom: 0.9rem;
+    }
+    .cred-card:nth-child(even) .cred-card__icon {
+      background: rgba(0, 255, 77, 0.08);
+      border-color: rgba(0, 255, 77, 0.22);
+      color: var(--primary-green);
+    }
+    .cred-card__label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--primary-green);
+      margin-bottom: 0.25rem;
+    }
+    .cred-card:nth-child(even) .cred-card__label { color: var(--primary-cyan); }
+    .cred-card__title {
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 0.35rem;
+    }
+    .cred-card__text {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    /* ============ VALORES (FLOATING ISOMETRIC) ============ */
+    .valores {
+      position: relative;
+      padding: 5rem 2rem;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(0, 255, 77, 0.04), transparent 70%),
+        var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .valores__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .valores__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+      perspective: 1500px;
+    }
+    .valor-card {
+      position: relative;
+      padding: 2rem 1.5rem;
+      border-radius: 20px;
+      background: linear-gradient(160deg, rgba(18, 18, 18, 0.95), rgba(8, 10, 12, 1));
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+    .valor-card::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: conic-gradient(from 0deg, transparent 0deg, rgba(0, 231, 252, 0.08) 60deg, transparent 120deg);
+      animation: valorSpin 14s linear infinite;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+    .valor-card:hover::before { opacity: 1; }
+    @keyframes valorSpin {
+      to { transform: rotate(360deg); }
+    }
+    .valor-card:hover {
+      transform: translateY(-6px) rotateX(3deg);
+      box-shadow: 0 20px 50px -20px rgba(0, 231, 252, 0.25);
+      border-color: rgba(0, 231, 252, 0.2);
+    }
+    .valor-card__inner {
+      position: relative;
+      z-index: 1;
+    }
+    .valor-card__num {
+      font-family: var(--font-display);
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1;
+      color: rgba(255,255,255,0.06);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .valor-card__icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(0, 255, 77, 0.08);
+      border: 1px solid rgba(0, 255, 77, 0.2);
+      color: var(--primary-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .valor-card__title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    .valor-card__text {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ============ NUMBERS ============ */
+    .sobre-stats {
+      padding: 4rem 2rem;
+      background: var(--bg-primary);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .sobre-stats__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .sobre-stats__item {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-right: 1px solid rgba(255,255,255,0.05);
+    }
+    .sobre-stats__item:last-child { border-right: none; }
+    .sobre-stats__num {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      line-height: 1;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.02em;
+    }
+    .sobre-stats__label {
+      font-size: 0.82rem;
+      color: var(--text-tertiary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1024px) {
+      .sobre-hero__inner,
+      .manifesto__inner,
+      .founder__inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 0 2rem;
+      }
+      .portrait-stage { max-width: 420px; }
+      .journey__track { grid-template-columns: repeat(2, 1fr); }
+      .journey__track::before { display: none; }
+      .valores__grid { grid-template-columns: repeat(2, 1fr); }
+      .sobre-stats__inner { grid-template-columns: repeat(2, 1fr); }
+      .octaedro-3d { max-width: 460px; }
+    }
+
+    @media (max-width: 640px) {
+      .sobre-hero { padding: 6rem 0 3rem; }
+      .portrait-stage { max-width: 320px; }
+      .portrait-chip--one { left: -8%; top: 5%; font-size: 0.62rem; }
+      .portrait-chip--two { right: -10%; font-size: 0.62rem; }
+      .portrait-chip--three { left: -5%; font-size: 0.62rem; }
+      .sobre-hero__meta { gap: 1.5rem; }
+      .journey__track { grid-template-columns: 1fr; }
+      .valores__grid { grid-template-columns: 1fr; }
+      .octaedro-3d { max-width: 340px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .portrait-stage__ring,
+      .valor-card::before,
+      .journey__step-node::after,
+      .portrait-chip { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="page-nav" aria-label="Navegação principal">
+    <div class="nav__container">
+      <a href="../index.html" class="nav__logo" aria-label="Complexo DMC - Página Inicial">
+        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC Logo">
+      </a>
+
+      <ul class="nav__links" id="navLinks">
+        <li><a href="../index.html" class="nav__link">Início</a></li>
+        <li><a href="Sobre.html" class="nav__link nav__link--active">Sobre</a></li>
+        <li><a href="Consultoria%20Imobiili%C3%A1ria.html" class="nav__link">Produtos</a></li>
+        <li><a href="../index.html#contact" class="nav__link">Fale Conosco</a></li>
+        <li><a href="#" class="nav__cta" aria-label="Acessar área de login">Login</a></li>
+      </ul>
+
+      <button class="nav__toggle" id="navToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="sobre-hero" aria-label="Sobre o Complexo DMC e Daniel Mathias Chagas">
+    <canvas class="sobre-hero__canvas" id="particleCanvas" aria-hidden="true"></canvas>
+
+    <div class="sobre-hero__inner">
+      <!-- LEFT: text -->
+      <div class="sobre-hero__content">
+        <span class="sobre-hero__eyebrow">
+          <span class="sobre-hero__eyebrow-dot"></span>
+          Sobre o Complexo DMC
+        </span>
+
+        <h1 class="sobre-hero__title">
+          Arquitetamos <span class="gradient-text">impérios modernos</span> —<br>
+          sobre os 4 pilares que o mercado <span class="gradient-text">não integra</span>.
+        </h1>
+
+        <p class="sobre-hero__subtitle">
+          O <strong>Complexo DMC</strong> é uma consultoria estratégica pioneira que sincretiza <strong>Direito, Tecnologia, Administração e Contabilidade</strong> em uma única infraestrutura. Liderado por <strong>Daniel Mathias Chagas</strong> — CEO e Sócio-Administrador —, o ecossistema desenha holdings sofisticadas, planejamentos tributários inovadores e operações que elevam empresários comuns ao patamar de players institucionais.
+        </p>
+
+        <div class="sobre-hero__meta">
+          <div class="sobre-hero__meta-item">
+            <span class="sobre-hero__meta-num">R$ 200MM+</span>
+            <span class="sobre-hero__meta-label">em negócios efetivados</span>
+          </div>
+          <div class="sobre-hero__meta-item">
+            <span class="sobre-hero__meta-num">4</span>
+            <span class="sobre-hero__meta-label">pilares integrados</span>
+          </div>
+          <div class="sobre-hero__meta-item">
+            <span class="sobre-hero__meta-num">USP</span>
+            <span class="sobre-hero__meta-label">Largo de São Francisco</span>
+          </div>
+        </div>
+
+        <div class="sobre-hero__actions">
+          <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20Daniel%2C%20quero%20conhecer%20o%20Complexo%20DMC" target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+            <i class="fas fa-comments"></i>
+            <span>Falar com Daniel</span>
+          </a>
+          <a href="Consultoria%20Imobiili%C3%A1ria.html" class="btn btn--secondary">
+            <span>Nossos serviços</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: 3D portrait -->
+      <div class="sobre-hero__visual" aria-hidden="true">
+        <div class="portrait-stage" id="portraitStage">
+          <div class="portrait-stage__ring"></div>
+          <div class="portrait-stage__orbit"></div>
+
+          <div class="portrait-card">
+            <img
+              src="../assets/images/daniel-mathias-chagas.jpg"
+              alt="Daniel Mathias Chagas — Fundador do Complexo DMC"
+              class="portrait-card__photo"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            >
+            <div class="portrait-card__placeholder" style="display:none;">
+              <div class="portrait-card__placeholder-mark">DMC</div>
+              <div class="portrait-card__placeholder-text">
+                Salve a foto em<br>
+                <code style="color:var(--primary-green);font-family:monospace;">assets/images/daniel-mathias-chagas.jpg</code>
+              </div>
+            </div>
+            <div class="portrait-card__scan"></div>
+            <div class="portrait-card__sheen"></div>
+          </div>
+
+          <!-- Floating chips (4 pilares) -->
+          <div class="portrait-chip portrait-chip--one">
+            <i class="fas fa-landmark"></i> Direito · USP
+          </div>
+          <div class="portrait-chip portrait-chip--two">
+            <i class="fas fa-chart-pie"></i> Administração & Contabilidade
+          </div>
+          <div class="portrait-chip portrait-chip--three">
+            <i class="fas fa-microchip"></i> Tecnologia
+          </div>
+
+          <!-- Plaque -->
+          <div class="portrait-plaque">
+            <div class="portrait-plaque__avatar">DC</div>
+            <div>
+              <div class="portrait-plaque__name">Daniel Mathias Chagas</div>
+              <div class="portrait-plaque__role">CEO · Arquiteto de Impérios</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MANIFESTO ========== -->
+  <section class="manifesto" aria-label="Manifesto Complexo DMC">
+    <div class="manifesto__inner">
+      <div class="manifesto__text reveal">
+        <p class="page-section__overline" style="text-align:left;">Manifesto</p>
+        <h2>Uma consultoria que não <span class="gradient-text">dá parecer</span> — <span class="gradient-text">arquiteta estrutura</span>.</h2>
+        <p>O mercado brasileiro trata <strong>Direito, Tecnologia, Administração e Contabilidade</strong> como disciplinas separadas — cada uma com seu prestador, sua agenda, sua fatura. O empresário, no meio, paga pela soma — mas raramente recebe a <strong>sinergia</strong>.</p>
+        <p>O <strong>Complexo DMC</strong> nasceu para reintegrar esses quatro pilares em uma única mesa de arquitetura. Mais que consultoria: somos a engenharia que transforma operações dispersas em <strong>holdings sofisticadas</strong>, planejamentos tributários inovadores e empresas preparadas para jogar o jogo dos grandes.</p>
+        <blockquote class="manifesto__quote">
+          "Não somos consultores. Somos <strong>arquitetos de impérios modernos</strong>."
+        </blockquote>
+      </div>
+
+      <!-- Octaedro 3D (WebGL/Three.js) — cristal iridescente representando os 4 pilares unificados -->
+      <div class="octaedro-3d reveal" id="octaedro3d" aria-label="Cristal 3D iridescente — os 4 pilares do Complexo DMC unificados">
+        <!-- canvas inserted by Three.js -->
+        <span class="octaedro-3d__caption"><em>4 pilares</em>&nbsp;· 1 arquitetura</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== JOURNEY / TRAJETÓRIA ========== -->
+  <section class="journey" aria-label="Trajetória do Complexo DMC">
+    <div class="journey__inner">
+      <div class="journey__header reveal">
+        <p class="page-section__overline">Trajetória</p>
+        <h2 class="page-section__title">A construção de um <span class="gradient-text">arquiteto de impérios</span></h2>
+        <p class="page-section__description">De formações duplas em gestão e finanças ao Largo de São Francisco e ao movimento que está redefinindo consultoria estratégica no Brasil.</p>
+      </div>
+
+      <div class="journey__track reveal">
+        <div class="journey__step">
+          <div class="journey__step-node">01</div>
+          <h4 class="journey__step-title">Formação</h4>
+          <p class="journey__step-text">Contabilidade e Administração de Empresas — base dupla em gestão estratégica e leitura contábil-financeira das operações.</p>
+        </div>
+        <div class="journey__step">
+          <div class="journey__step-node">02</div>
+          <h4 class="journey__step-title">Direito · USP</h4>
+          <p class="journey__step-text">Cursando Direito na Faculdade de Direito da USP — Largo de São Francisco, a mais prestigiada do país.</p>
+        </div>
+        <div class="journey__step">
+          <div class="journey__step-node">03</div>
+          <h4 class="journey__step-title">Complexo DMC</h4>
+          <p class="journey__step-text">Fundação do Complexo DMC — consultoria que integra os 4 pilares e já movimentou mais de R$ 200 milhões em negócios.</p>
+        </div>
+        <div class="journey__step">
+          <div class="journey__step-node">04</div>
+          <h4 class="journey__step-title">Empresarização</h4>
+          <p class="journey__step-text">Sócio da Bear Finance e criador do movimento Empresarização — metodologia de mentalidade de governança para empresários visionários.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOUNDER DEEP BIO ========== -->
+  <section class="founder" aria-label="Sobre Daniel Mathias Chagas">
+    <div class="founder__glow" aria-hidden="true"></div>
+    <div class="founder__inner">
+      <div class="reveal">
+        <p class="page-section__overline" style="text-align:left;">O fundador</p>
+        <h2 class="founder__title">Daniel Mathias <span class="gradient-text">Chagas</span></h2>
+        <p class="founder__lead">
+          Daniel Mathias Chagas é o visionário <strong>CEO e Sócio-Administrador do Complexo DMC</strong> — empresa pioneira em consultoria estratégica que sincretiza <strong>Direito, Tecnologia, Administração e Contabilidade</strong> para arquitetar negócios milionários.
+        </p>
+        <p class="founder__lead">
+          Formado em <strong>Contabilidade e Administração de Empresas</strong>, Daniel representa a rara junção de gestão prática e excelência estratégica. Atualmente, é <strong>estudante de Direito na Universidade de São Paulo (USP — Largo de São Francisco)</strong>, a mais prestigiada faculdade de Direito do Brasil — consolidando a formação de elite para liderar transformações empresariais complexas.
+        </p>
+        <p class="founder__lead">
+          Sob liderança implacável (perfil DISC Alto D), o Complexo DMC já efetivou <strong>mais de R$ 200 milhões em negócios</strong> — estruturando holdings familiares sofisticadas, planejamentos tributários inovadores e operações que elevam empresários comuns a players institucionais.
+        </p>
+        <p class="founder__lead">
+          Também sócio da <strong>Bear Finance</strong>, Daniel é criador do movimento disruptivo <strong>"Empresarização"</strong> — metodologia que ensina empresários visionários a modelar mentalidades de gigantes globais através de PNL avançada, frameworks jurídicos/tecnológicos e mentalidade de governança.
+        </p>
+
+        <ul class="founder__list">
+          <li><i class="fas fa-check"></i><span><strong>CEO e Sócio-Administrador</strong> do Complexo DMC LTDA.</span></li>
+          <li><i class="fas fa-check"></i><span>Formado em <strong>Contabilidade</strong> e <strong>Administração de Empresas</strong>.</span></li>
+          <li><i class="fas fa-check"></i><span>Estudante de <strong>Direito</strong> na <strong>USP — Largo de São Francisco</strong>.</span></li>
+          <li><i class="fas fa-check"></i><span>Sócio da <strong>Bear Finance</strong> e criador do movimento <strong>Empresarização</strong>.</span></li>
+        </ul>
+      </div>
+
+      <div class="creds-grid reveal">
+        <article class="cred-card">
+          <div class="cred-card__icon"><i class="fas fa-calculator"></i></div>
+          <div class="cred-card__label">Formação</div>
+          <h4 class="cred-card__title">Contabilidade & Administração</h4>
+          <p class="cred-card__text">Dupla formação em gestão empresarial e análise contábil — o vocabulário nativo do C-level e dos family offices.</p>
+        </article>
+        <article class="cred-card">
+          <div class="cred-card__icon"><i class="fas fa-landmark"></i></div>
+          <div class="cred-card__label">Em formação</div>
+          <h4 class="cred-card__title">Direito · USP</h4>
+          <p class="cred-card__text">Estudante de Direito na Faculdade do Largo de São Francisco — a mais prestigiada do país.</p>
+        </article>
+        <article class="cred-card">
+          <div class="cred-card__icon"><i class="fas fa-crown"></i></div>
+          <div class="cred-card__label">Liderança</div>
+          <h4 class="cred-card__title">Complexo DMC</h4>
+          <p class="cred-card__text">CEO e Sócio-Administrador — R$ 200 milhões+ em negócios estruturados sob sua direção estratégica.</p>
+        </article>
+        <article class="cred-card">
+          <div class="cred-card__icon"><i class="fas fa-rocket"></i></div>
+          <div class="cred-card__label">Movimento</div>
+          <h4 class="cred-card__title">Empresarização · Bear Finance</h4>
+          <p class="cred-card__text">Sócio da Bear Finance e criador da metodologia Empresarização — mentalidade de governança para o próximo nível.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== VALORES ========== -->
+  <section class="valores" aria-label="Valores do Complexo DMC">
+    <div class="valores__inner">
+      <div class="page-section__header reveal">
+        <p class="page-section__overline">Princípios</p>
+        <h2 class="page-section__title">O que nos faz <span class="gradient-text">diferentes</span></h2>
+        <p class="page-section__description">Três princípios que guiam cada estrutura, cada decisão estratégica e cada entrega do Complexo DMC.</p>
+      </div>
+
+      <div class="valores__grid reveal">
+        <article class="valor-card">
+          <div class="valor-card__inner">
+            <div class="valor-card__num">01</div>
+            <div class="valor-card__icon"><i class="fas fa-layer-group"></i></div>
+            <h3 class="valor-card__title">Integração dos 4 Pilares</h3>
+            <p class="valor-card__text">Direito, Tecnologia, Administração e Contabilidade na mesma mesa. Zero handoff entre disciplinas, zero ruído na decisão.</p>
+          </div>
+        </article>
+        <article class="valor-card">
+          <div class="valor-card__inner">
+            <div class="valor-card__num">02</div>
+            <div class="valor-card__icon"><i class="fas fa-chess-king"></i></div>
+            <h3 class="valor-card__title">Mentalidade Institucional</h3>
+            <p class="valor-card__text">Empresarização: pensar e operar como um player global — governança, holdings e inteligência tributária desde o primeiro milhão.</p>
+          </div>
+        </article>
+        <article class="valor-card">
+          <div class="valor-card__inner">
+            <div class="valor-card__num">03</div>
+            <div class="valor-card__icon"><i class="fas fa-compass-drafting"></i></div>
+            <h3 class="valor-card__title">Arquitetura, não Parecer</h3>
+            <p class="valor-card__text">Entregamos estrutura que sustenta o crescimento — não opinião avulsa. Cada recomendação é viga, não decoração.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== NUMBERS ========== -->
+  <section class="sobre-stats reveal" aria-label="Números Complexo DMC">
+    <div class="sobre-stats__inner">
+      <div class="sobre-stats__item">
+        <div class="sobre-stats__num"><span data-count="200" data-prefix="+R$ " data-suffix=" MM">+R$ 0 MM</span></div>
+        <div class="sobre-stats__label">em negócios efetivados</div>
+      </div>
+      <div class="sobre-stats__item">
+        <div class="sobre-stats__num"><span data-count="4" data-prefix="" data-suffix="">0</span></div>
+        <div class="sobre-stats__label">pilares integrados</div>
+      </div>
+      <div class="sobre-stats__item">
+        <div class="sobre-stats__num">USP</div>
+        <div class="sobre-stats__label">Largo de São Francisco</div>
+      </div>
+      <div class="sobre-stats__item">
+        <div class="sobre-stats__num">∞</div>
+        <div class="sobre-stats__label">ambição institucional</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="cta-section" aria-label="Chamada para ação">
+    <div class="cta-section__container reveal">
+      <h2 class="cta-section__title">Conheça o <span class="gradient-text">ecossistema DMC</span> por dentro</h2>
+      <p class="cta-section__text">Agende uma conversa com Daniel e nossa equipe para desenhar a estrutura do seu próximo ciclo empresarial — sem compromisso.</p>
+      <div class="cta-section__actions">
+        <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20Daniel%2C%20quero%20conhecer%20o%20Complexo%20DMC" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar com Especialista
+        </a>
+        <a href="Consultoria%20Imobiili%C3%A1ria.html" class="btn btn--secondary">
+          <span>Ver nossos serviços</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="page-footer">
+    <div class="page-footer__container">
+      <a href="../index.html" class="page-footer__logo">
+        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
+      </a>
+      <ul class="page-footer__links">
+        <li><a href="../index.html" class="page-footer__link">Início</a></li>
+        <li><a href="Sobre.html" class="page-footer__link">Sobre</a></li>
+        <li><a href="Consultoria%20Imobiili%C3%A1ria.html" class="page-footer__link">Serviços</a></li>
+        <li><a href="#" class="page-footer__link">Política de Privacidade</a></li>
+      </ul>
+      <p class="page-footer__copy">&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ========== WHATSAPP FLOAT ========== -->
+  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20Daniel" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Contato via WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Mobile menu toggle
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+      });
+    }
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('.page-nav');
+      if (window.scrollY > 50) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ========== 3D PORTRAIT TILT (mouse parallax) ==========
+    (function() {
+      const stage = document.getElementById('portraitStage');
+      if (!stage) return;
+      const max = 12; // max rotation in degrees
+      let rafId = null;
+      let targetX = 0, targetY = 0, currX = 0, currY = 0;
+
+      function onMove(e) {
+        const rect = stage.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        targetY = Math.max(-1, Math.min(1, dx)) * max;
+        targetX = Math.max(-1, Math.min(1, -dy)) * max;
+        if (!rafId) rafId = requestAnimationFrame(loop);
+      }
+      function onLeave() {
+        targetX = 0; targetY = 0;
+        if (!rafId) rafId = requestAnimationFrame(loop);
+      }
+      function loop() {
+        currX += (targetX - currX) * 0.12;
+        currY += (targetY - currY) * 0.12;
+        stage.style.transform = `rotateX(${currX}deg) rotateY(${currY}deg)`;
+        if (Math.abs(targetX - currX) > 0.05 || Math.abs(targetY - currY) > 0.05) {
+          rafId = requestAnimationFrame(loop);
+        } else {
+          stage.style.transform = `rotateX(${targetX}deg) rotateY(${targetY}deg)`;
+          rafId = null;
+        }
+      }
+
+      const hero = stage.closest('.sobre-hero');
+      hero.addEventListener('mousemove', onMove);
+      hero.addEventListener('mouseleave', onLeave);
+    })();
+
+
+    // ========== PARTICLE CANVAS (hero backdrop) ==========
+    (function() {
+      const canvas = document.getElementById('particleCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * DPR;
+        canvas.height = rect.height * DPR;
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const COLORS = ['#00e7fc', '#00ff4d', '#00cfb6'];
+      const count = Math.min(70, Math.round(window.innerWidth / 20));
+      const nodes = [];
+      for (let i = 0; i < count; i++) {
+        nodes.push({
+          x: Math.random() * canvas.width / DPR,
+          y: Math.random() * canvas.height / DPR,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: Math.random() * 1.6 + 0.6,
+          c: COLORS[Math.floor(Math.random() * COLORS.length)],
+          a: Math.random() * 0.6 + 0.2
+        });
+      }
+
+      function hex2rgb(h) {
+        return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)].join(',');
+      }
+
+      function draw() {
+        const W = canvas.width / DPR;
+        const H = canvas.height / DPR;
+        ctx.clearRect(0, 0, W, H);
+
+        for (let i = 0; i < nodes.length; i++) {
+          const n = nodes[i];
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+        }
+
+        // connections
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const d = Math.sqrt(dx*dx + dy*dy);
+            if (d < 130) {
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.strokeStyle = `rgba(${hex2rgb(nodes[i].c)},${(1 - d/130) * 0.25})`;
+              ctx.lineWidth = 0.7;
+              ctx.stroke();
+            }
+          }
+        }
+
+        // dots
+        for (let k = 0; k < nodes.length; k++) {
+          const n = nodes[k];
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${hex2rgb(n.c)},${n.a})`;
+          ctx.fill();
+        }
+
+        requestAnimationFrame(draw);
+      }
+      draw();
+    })();
+
+    // ========== NUMBER COUNT-UP ==========
+    (function() {
+      const items = document.querySelectorAll('[data-count]');
+      if (!items.length) return;
+
+      const format = (n, prefix, suffix) => prefix + n.toLocaleString('pt-BR') + suffix;
+
+      const animate = (el) => {
+        const target = parseInt(el.dataset.count, 10);
+        const prefix = el.dataset.prefix || '';
+        const suffix = el.dataset.suffix || '';
+        const duration = 1600;
+        const start = performance.now();
+        const tick = (now) => {
+          const p = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = format(Math.round(target * eased), prefix, suffix);
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animate(e.target);
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      items.forEach(el => io.observe(el));
+    })();
+  </script>
+
+  <!-- ========== THREE.JS — OCTAEDRO CRISTAL IRIDESCENTE ========== -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.162.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass }     from 'three/addons/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+    import { OutputPass }     from 'three/addons/postprocessing/OutputPass.js';
+    import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+    const container = document.getElementById('octaedro3d');
+    if (container && window.WebGLRenderingContext) {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // --- Renderer ---
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.05;
+      container.appendChild(renderer.domElement);
+
+      // --- Scene + camera ---
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+      camera.position.set(0, 0, 5.5);
+
+      // --- Environment for PBR reflections ---
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      pmrem.compileEquirectangularShader();
+      scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+      // --- Group (for easier rotation + float) ---
+      const group = new THREE.Group();
+      scene.add(group);
+
+      // --- Octahedron (the crystal) ---
+      const geo = new THREE.OctahedronGeometry(1.45, 0);
+      const mat = new THREE.MeshPhysicalMaterial({
+        color: 0x0a1418,
+        metalness: 0.35,
+        roughness: 0.08,
+        transmission: 0.9,
+        thickness: 1.2,
+        ior: 1.55,
+        attenuationColor: new THREE.Color(0x00ffb4),
+        attenuationDistance: 2.2,
+        iridescence: 1.0,
+        iridescenceIOR: 1.7,
+        iridescenceThicknessRange: [200, 900],
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.08,
+        envMapIntensity: 1.6,
+        sheen: 0.6,
+        sheenColor: new THREE.Color(0x7effc8),
+      });
+      const crystal = new THREE.Mesh(geo, mat);
+      group.add(crystal);
+
+      // --- Edge wireframe (subtle iridescent rim) ---
+      const edges = new THREE.EdgesGeometry(geo);
+      const edgeMat = new THREE.LineBasicMaterial({
+        color: 0xc8fff0,
+        transparent: true,
+        opacity: 0.55,
+      });
+      const edgeLines = new THREE.LineSegments(edges, edgeMat);
+      crystal.add(edgeLines);
+
+      // --- Inner glowing core sphere ---
+      const coreMat = new THREE.MeshBasicMaterial({
+        color: 0x9effd8,
+        transparent: true,
+        opacity: 0.85,
+      });
+      const core = new THREE.Mesh(new THREE.SphereGeometry(0.18, 24, 24), coreMat);
+      group.add(core);
+
+      // --- Colored point lights (the magic) ---
+      const lightA = new THREE.PointLight(0x00e7fc, 12, 12, 1.2); // cyan
+      const lightB = new THREE.PointLight(0x00ff6a, 10, 12, 1.2); // green
+      const lightC = new THREE.PointLight(0xb784ff, 8,  12, 1.2); // purple
+      const lightD = new THREE.PointLight(0xffb86b, 6,  12, 1.2); // amber
+      lightA.position.set( 2.5,  1.8,  2.0);
+      lightB.position.set(-2.5, -1.8,  2.0);
+      lightC.position.set( 0.0,  2.5, -2.0);
+      lightD.position.set( 0.0, -2.5, -2.0);
+      scene.add(lightA, lightB, lightC, lightD);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+
+      // --- Post-processing (bloom = the iridescent glow) ---
+      const composer = new EffectComposer(renderer);
+      composer.addPass(new RenderPass(scene, camera));
+      const bloom = new UnrealBloomPass(
+        new THREE.Vector2(container.clientWidth, container.clientHeight),
+        0.85,   // strength
+        0.85,   // radius
+        0.12    // threshold
+      );
+      composer.addPass(bloom);
+      composer.addPass(new OutputPass());
+
+      // --- Interaction: mouse parallax tilt ---
+      let targetRotX = 0, targetRotY = 0, curRotX = 0, curRotY = 0;
+      function handlePointer(ev) {
+        const rect = container.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top  + rect.height / 2;
+        const dx = (ev.clientX - cx) / (window.innerWidth  * 0.5);
+        const dy = (ev.clientY - cy) / (window.innerHeight * 0.5);
+        targetRotY =  Math.max(-1, Math.min(1, dx)) * 0.45;
+        targetRotX = -Math.max(-1, Math.min(1, dy)) * 0.35;
+      }
+      window.addEventListener('pointermove', handlePointer, { passive: true });
+
+      // --- Resize ---
+      function resize() {
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+        composer.setSize(w, h);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      // --- Pause when offscreen (saves battery) ---
+      let visible = true;
+      const visObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => { visible = e.isIntersecting; });
+      }, { threshold: 0.05 });
+      visObserver.observe(container);
+
+      // --- Animation loop ---
+      const clock = new THREE.Clock();
+      function tick() {
+        requestAnimationFrame(tick);
+        if (!visible) return;
+        const t = clock.getElapsedTime();
+
+        // Smooth interp to mouse target
+        curRotX += (targetRotX - curRotX) * 0.06;
+        curRotY += (targetRotY - curRotY) * 0.06;
+
+        // Auto-rotation + mouse offset
+        const autoSpeed = prefersReduced ? 0 : 0.25;
+        group.rotation.y = t * autoSpeed + curRotY;
+        group.rotation.x = Math.sin(t * 0.35) * 0.12 + curRotX;
+        group.rotation.z = Math.sin(t * 0.22) * 0.06;
+
+        // Gentle float
+        group.position.y = prefersReduced ? 0 : Math.sin(t * 0.9) * 0.08;
+
+        // Orbiting lights → iridescent highlights sweep across faces
+        lightA.position.set( Math.cos(t * 0.60)       * 2.8,  Math.sin(t * 0.50)       * 2.0,  Math.sin(t * 0.40) * 2.0 + 0.6);
+        lightB.position.set( Math.cos(t * 0.55 + 2.1) * 2.8,  Math.sin(t * 0.48 + 2.1) * 2.0,  Math.cos(t * 0.43) * 2.0 + 0.6);
+        lightC.position.set( Math.cos(t * 0.42 + 4.2) * 2.5,  Math.sin(t * 0.46 + 4.2) * 2.5, -Math.sin(t * 0.38) * 1.8);
+        lightD.position.set( Math.cos(t * 0.38 + 1.0) * 2.5, -Math.sin(t * 0.44 + 1.0) * 2.5, -Math.cos(t * 0.35) * 1.8);
+
+        // Pulsing core
+        const pulse = 0.88 + Math.sin(t * 2.2) * 0.12;
+        core.scale.setScalar(pulse);
+        coreMat.opacity = 0.65 + Math.sin(t * 2.2) * 0.2;
+
+        composer.render();
+      }
+      tick();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Apresentação institucional Complexo DMC — Consultoria Imobiliária para construtoras e incorporadoras.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Apresentação Institucional | Complexo DMC</title>
+
+  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/shared.css">
+
+  <style>
+    /* ============ DECK BASE ============ */
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #0a0a0a;
+      color: #fff;
+      font-family: var(--font-primary);
+    }
+    .deck {
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      perspective: 1200px;
+    }
+    .deck::-webkit-scrollbar { width: 0; }
+
+    .slide {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      padding: 5vh 6vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      scroll-snap-align: start;
+      overflow: hidden;
+      background: #0a0a0a;
+      transform-style: preserve-3d;
+    }
+
+    /* Subtle grid bg on every slide */
+    .slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+      z-index: 0;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    }
+
+    .slide__inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .slide__footer {
+      position: absolute;
+      bottom: 2.5vh;
+      left: 6vw;
+      right: 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      z-index: 3;
+    }
+    .slide__brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .slide__brand img { height: 22px; width: auto; opacity: 0.7; }
+
+    .slide__glow {
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(0, 231, 252, 0.10) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+      animation: float 20s ease-in-out infinite alternate;
+    }
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-40px, 30px); }
+    }
+
+    /* ============ TYPOGRAPHY ============ */
+    .deck-overline {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--primary-green);
+      margin-bottom: 1rem;
+    }
+    .deck-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.2rem, 4.6vw, 3.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .deck-subtitle {
+      font-size: clamp(1rem, 1.3vw, 1.3rem);
+      color: rgba(255,255,255,0.7);
+      line-height: 1.5;
+      max-width: 70ch;
+    }
+    .gradient-text {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ============ REVEAL ANIMATION ============ */
+    /* Reveal: SEMPRE visível por padrão (failsafe).
+       fill-mode: backwards = só aplica FROM durante o delay, depois volta ao default. */
+    .reveal { opacity: 1; transform: none; }
+    .slide.has-entered .reveal {
+      animation: revealIn .9s cubic-bezier(.2,.7,.2,1) backwards;
+    }
+    .slide.has-entered .reveal:nth-child(2) { animation-delay: .08s; }
+    .slide.has-entered .reveal:nth-child(3) { animation-delay: .16s; }
+    .slide.has-entered .reveal:nth-child(4) { animation-delay: .24s; }
+    .slide.has-entered .reveal:nth-child(5) { animation-delay: .32s; }
+    .slide.has-entered .reveal:nth-child(6) { animation-delay: .40s; }
+    .slide.has-entered .reveal:nth-child(7) { animation-delay: .48s; }
+    .slide.has-entered .reveal:nth-child(8) { animation-delay: .56s; }
+    @keyframes revealIn {
+      from { opacity: 0; transform: translateY(32px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* Stagger: SEMPRE visível por padrão; anima só com backwards */
+    .stagger > * { opacity: 1; transform: none; }
+    .slide.has-entered .stagger > * {
+      animation: staggerIn .8s cubic-bezier(.2,.7,.2,1) backwards;
+    }
+    .slide.has-entered .stagger > *:nth-child(1) { animation-delay: .15s; }
+    .slide.has-entered .stagger > *:nth-child(2) { animation-delay: .25s; }
+    .slide.has-entered .stagger > *:nth-child(3) { animation-delay: .35s; }
+    .slide.has-entered .stagger > *:nth-child(4) { animation-delay: .45s; }
+    .slide.has-entered .stagger > *:nth-child(5) { animation-delay: .55s; }
+    .slide.has-entered .stagger > *:nth-child(6) { animation-delay: .65s; }
+    .slide.has-entered .stagger > *:nth-child(7) { animation-delay: .75s; }
+    @keyframes staggerIn {
+      from { opacity: 0; transform: translateY(28px) scale(.96); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* ============ SLIDE 1 — COVER (tech-net) ============ */
+    .slide--cover {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .slide--cover .slide__inner { max-width: 1100px; }
+    .cover-canvas-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    #techNetCanvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .cover-mark {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(5rem, 14vw, 11rem);
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, #00e7fc 0%, #00ff4d 50%, #00e7fc 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      pointer-events: none;
+      opacity: 0.18;
+      user-select: none;
+      z-index: 1;
+    }
+    .slide--cover .slide__inner { z-index: 2; }
+    .cover-eyebrow {
+      font-size: 0.95rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--primary-green);
+      margin-bottom: 1.5rem;
+    }
+    .cover-logo {
+      height: 80px;
+      width: auto;
+      margin: 0 auto 2rem;
+      filter: drop-shadow(0 0 32px rgba(0,231,252,.35));
+    }
+    .cover-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+    }
+    .cover-tagline {
+      font-size: clamp(1.05rem, 1.5vw, 1.4rem);
+      color: rgba(255,255,255,0.75);
+      max-width: 64ch;
+      margin: 0 auto 2.5rem;
+      line-height: 1.55;
+    }
+    .cover-meta {
+      display: inline-flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 0.85rem 1.75rem;
+      border: 1px solid rgba(0, 255, 77, 0.3);
+      border-radius: 999px;
+      background: rgba(0, 231, 252, 0.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.06em;
+    }
+    .cover-meta strong { color: var(--primary-green); font-weight: 700; }
+    .cover-meta__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--primary-green);
+      box-shadow: 0 0 12px var(--primary-green);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    /* ============ SECTION DIVIDER SLIDE ============ */
+    .slide--section {
+      justify-content: center;
+      text-align: center;
+    }
+    .section-pre {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--primary-green);
+      margin-bottom: 1.5rem;
+    }
+    .section-num {
+      font-family: var(--font-display);
+      font-size: clamp(5rem, 12vw, 9rem);
+      font-weight: 800;
+      line-height: 1;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .section-tagline {
+      font-size: clamp(1.1rem, 1.5vw, 1.5rem);
+      color: rgba(255,255,255,0.7);
+      max-width: 60ch;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* ============ PILLARS GRID ============ */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .pillar {
+      padding: 2rem 1.75rem;
+      background: linear-gradient(180deg, rgba(0, 231, 252, 0.05), rgba(10,10,10,0.55) 60%);
+      border: 1px solid rgba(0, 255, 77, 0.2);
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform .35s ease, border-color .3s ease, box-shadow .3s ease;
+    }
+    .pillar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-green));
+      opacity: .65;
+    }
+    .pillar:hover {
+      transform: translateY(-6px) rotateX(2deg);
+      border-color: var(--primary-cyan);
+      box-shadow: 0 18px 40px rgba(0, 231, 252, 0.18);
+    }
+    .pillar__icon {
+      width: 54px; height: 54px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 231, 252, 0.10);
+      border: 1px solid rgba(0, 231, 252, 0.30);
+      color: var(--primary-cyan);
+      margin-bottom: 1.2rem;
+    }
+    .pillar__tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary-green);
+      display: block;
+      margin-bottom: .5rem;
+    }
+    .pillar__title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: .75rem;
+      letter-spacing: -0.01em;
+    }
+    .pillar__text {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* ============ RINO ORBIT (4K-grade) ============ */
+    .orbit-stage {
+      position: relative;
+      width: 100%;
+      max-width: 760px;
+      aspect-ratio: 1;
+      margin: 1rem auto 0;
+    }
+    .orbit-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 110%; height: 110%;
+      background: radial-gradient(circle,
+        rgba(0, 255, 77, 0.18) 0%,
+        rgba(0, 231, 252, 0.10) 35%,
+        transparent 65%);
+      pointer-events: none;
+      animation: orbit-pulse 4s ease-in-out infinite;
+    }
+    @keyframes orbit-pulse {
+      0%, 100% { opacity: 0.85; transform: translate(-50%,-50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%,-50%) scale(1.05); }
+    }
+    .orbit-ring {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 92%; height: 92%;
+      border: 1px solid rgba(0, 231, 252, 0.28);
+      border-radius: 50%;
+      pointer-events: none;
+      box-shadow:
+        inset 0 0 60px rgba(0, 231, 252, 0.06),
+        0 0 40px rgba(0, 255, 77, 0.08);
+    }
+    .orbit-ring::before, .orbit-ring::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      border-radius: 50%;
+    }
+    .orbit-ring::before {
+      width: 72%; height: 72%;
+      transform: translate(-50%,-50%);
+      border: 1px dashed rgba(0, 255, 77, 0.18);
+      animation: rotate 60s linear infinite;
+    }
+    .orbit-ring::after {
+      width: 110%; height: 110%;
+      transform: translate(-50%,-50%);
+      border: 1px dashed rgba(0, 231, 252, 0.14);
+      animation: rotate 90s linear infinite reverse;
+    }
+    @keyframes rotate {
+      to { transform: translate(-50%,-50%) rotate(360deg); }
+    }
+    .orbit-video {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 56%;
+      height: auto;
+      z-index: 5;
+      filter: drop-shadow(0 0 60px rgba(0, 255, 77, 0.45))
+              drop-shadow(0 0 30px rgba(0, 231, 252, 0.3));
+      animation: rino-float 6s ease-in-out infinite;
+    }
+    @keyframes rino-float {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+      50% { transform: translate(-50%, -50%) translateY(-8px); }
+    }
+    .orbit-anchor {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+    }
+    /* Cards estáticos — sem rotação, melhor legibilidade pra apresentação */
+    .orbit-item {
+      position: absolute;
+      top: 0; left: 0;
+      transform-origin: 0 0;
+      transform: rotate(var(--angle, 0deg)) translateX(48%) rotate(calc(-1 * var(--angle, 0deg)));
+    }
+    .orbit-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 130px;
+      width: max-content;
+      max-width: 200px;
+      min-height: 56px;
+      padding: 12px 18px;
+      transform: translate(-50%, -50%);
+      background: rgba(10, 10, 10, 0.92);
+      border: 1px solid rgba(0, 255, 77, 0.45);
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      line-height: 1.25;
+      color: #fff;
+      text-align: center;
+      transition: all .3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    .orbit-card:hover {
+      border-color: var(--primary-cyan);
+      background: rgba(0, 231, 252, 0.20);
+      transform: translate(-50%, -50%) scale(1.10);
+      box-shadow:
+        0 10px 32px rgba(0, 231, 252, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    /* ============ STATS HERO ============ */
+    .stats-hero {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem 4rem;
+      margin-top: 2rem;
+    }
+    .stat-big {
+      padding: 1.25rem 0 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .stat-big::before {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0;
+      width: 60px; height: 2px;
+      background: var(--gradient-primary);
+    }
+    .stat-big__num {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 7vw, 5rem);
+      font-weight: 800;
+      line-height: 1;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: .5rem;
+    }
+    .stat-big__label {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.78);
+      letter-spacing: 0.02em;
+    }
+
+    /* ============ TWO-FRENTE SPLIT ============ */
+    .frentes-split {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1.5rem;
+      align-items: stretch;
+      margin-top: 2rem;
+    }
+    .frente-card {
+      padding: 2rem;
+      background: linear-gradient(180deg, rgba(0, 231, 252, 0.06), rgba(10,10,10,0.6) 60%);
+      border: 1px solid rgba(0, 255, 77, 0.22);
+      border-radius: 22px;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform .35s ease, border-color .3s ease, box-shadow .3s ease;
+    }
+    .frente-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-green));
+    }
+    .frente-card:hover {
+      transform: translateY(-8px) rotateX(2deg);
+      border-color: var(--primary-cyan);
+      box-shadow: 0 20px 50px rgba(0, 231, 252, 0.18);
+    }
+    .frente-card__icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 231, 252, 0.12);
+      border: 1px solid rgba(0, 231, 252, 0.35);
+      color: var(--primary-cyan);
+      margin-bottom: 1.2rem;
+    }
+    .frente-card__tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary-green);
+      display: block;
+      margin-bottom: .4rem;
+    }
+    .frente-card__title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: .5rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .frente-card__sub {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .frente-card__list {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 1rem;
+    }
+    .frente-card__list li {
+      position: relative;
+      padding: .35rem 0 .35rem 1.4rem;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .frente-card__list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .65em;
+      width: 12px;
+      height: 7px;
+      border-left: 2px solid var(--primary-green);
+      border-bottom: 2px solid var(--primary-green);
+      transform: rotate(-45deg);
+    }
+    .frentes-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      width: 50px;
+      position: relative;
+    }
+    .frentes-divider::before {
+      content: '';
+      position: absolute;
+      top: 10%; bottom: 10%;
+      left: 50%;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.15), transparent);
+    }
+    .frentes-divider span {
+      background: #0a0a0a;
+      padding: 6px 0;
+      z-index: 1;
+    }
+
+    /* ============ PRODUCT SLIDE (4K · executive-grade) ============ */
+    .product-slide {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.7fr);
+      gap: 3.5rem;
+      align-items: center;
+      width: 100%;
+      position: relative;
+    }
+
+    /* Linha de varredura horizontal (efeito tech) */
+    .product-slide::before {
+      content: '';
+      position: absolute;
+      left: -10vw;
+      right: -10vw;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(0, 231, 252, 0.5) 50%,
+        transparent 100%);
+      opacity: 0.5;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .product-slide__left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2rem;
+      position: relative;
+    }
+    .product-slide__right {
+      display: block;
+      min-width: 0;
+      position: relative;
+    }
+
+    .product-slide__num {
+      font-family: var(--font-display);
+      font-size: clamp(7rem, 13vw, 12rem);
+      font-weight: 800;
+      line-height: .85;
+      background: linear-gradient(135deg, #00e7fc 0%, #00ff4d 60%, rgba(0,255,77,0.25) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 40px rgba(0, 231, 252, 0.4));
+      letter-spacing: -0.05em;
+      position: relative;
+      margin-bottom: .75rem;
+    }
+    .product-slide__num::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 70%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-cyan), transparent);
+      border-radius: 2px;
+      box-shadow: 0 0 12px rgba(0, 231, 252, 0.5);
+    }
+
+    .product-slide__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--primary-green);
+      padding: 9px 16px;
+      border: 1px solid rgba(0, 255, 77, 0.55);
+      border-radius: 999px;
+      background: rgba(0, 255, 77, 0.08);
+      box-shadow: 0 0 20px rgba(0, 255, 77, 0.12);
+    }
+    .product-slide__tag::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--primary-green);
+      box-shadow: 0 0 10px var(--primary-green);
+      animation: pulse-dot 1.6s ease-in-out infinite;
+    }
+
+    /* Ícone com aura/ring + glow */
+    .product-slide__icon {
+      position: relative;
+      width: 124px; height: 124px;
+      border-radius: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,0.12), transparent 50%),
+        linear-gradient(160deg, rgba(0, 231, 252, 0.22), rgba(0, 255, 77, 0.06));
+      border: 1px solid rgba(0, 231, 252, 0.55);
+      color: var(--primary-cyan);
+      box-shadow:
+        0 18px 50px rgba(0, 231, 252, 0.28),
+        inset 0 2px 0 rgba(255, 255, 255, 0.15),
+        inset 0 -2px 12px rgba(0, 0, 0, 0.4);
+      margin-top: 1rem;
+    }
+    .product-slide__icon svg {
+      filter: drop-shadow(0 0 8px rgba(0, 231, 252, 0.6));
+      width: 56px; height: 56px;
+    }
+    /* Anel pontilhado girando */
+    .product-slide__icon::before {
+      content: '';
+      position: absolute;
+      inset: -14px;
+      border-radius: 50%;
+      border: 1px dashed rgba(0, 231, 252, 0.35);
+      animation: rotate 18s linear infinite;
+      pointer-events: none;
+    }
+    /* Glow externo pulsante */
+    .product-slide__icon::after {
+      content: '';
+      position: absolute;
+      inset: -32px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 255, 77, 0.18);
+      box-shadow: 0 0 60px rgba(0, 231, 252, 0.2);
+      animation: orbit-pulse 3.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* Right column */
+    .product-slide__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      margin-bottom: 1.4rem;
+      color: #fff;
+    }
+    .product-slide__title .gradient-text {
+      display: inline-block;
+    }
+    .product-slide__text {
+      font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+      color: rgba(255,255,255,0.85);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+      max-width: 64ch;
+    }
+
+    /* Bullets em grade 2 colunas (mais compacto + impressionante) */
+    .product-slide__bullets {
+      list-style: none;
+      padding: 1.4rem 0 0;
+      border-top: 1px solid;
+      border-image: linear-gradient(90deg, rgba(0,231,252,0.4), transparent) 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem 1.5rem;
+    }
+    .product-slide__bullets li {
+      position: relative;
+      padding: 0 0 0 2rem;
+      font-size: 0.98rem;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.45;
+    }
+    .product-slide__bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .15em;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 255, 77, 0.12);
+      border: 1px solid rgba(0, 255, 77, 0.5);
+    }
+    .product-slide__bullets li::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: .42em;
+      width: 11px;
+      height: 6px;
+      border-left: 2px solid var(--primary-green);
+      border-bottom: 2px solid var(--primary-green);
+      transform: rotate(-45deg);
+      filter: drop-shadow(0 0 6px rgba(0, 255, 77, 0.5));
+    }
+
+
+    /* ============ BENEFITS GRID (Consultoria 6) ============ */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .benefit {
+      padding: 1.4rem 1.3rem;
+      background: rgba(17, 17, 17, 0.6);
+      border: 1px solid rgba(0, 255, 77, 0.16);
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: all .3s ease;
+    }
+    .benefit::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-green));
+      opacity: .55;
+    }
+    .benefit:hover {
+      transform: translateY(-6px) rotateX(2deg);
+      border-color: var(--primary-cyan);
+      box-shadow: 0 14px 30px rgba(0, 231, 252, 0.15);
+    }
+    .benefit__tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary-green);
+      margin-bottom: .5rem;
+      padding: 3px 8px;
+      border: 1px solid rgba(0, 255, 77, 0.3);
+      border-radius: 999px;
+    }
+    .benefit__title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .5rem;
+      line-height: 1.25;
+    }
+    .benefit__text {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    /* ============ PROCESS FLOW ============ */
+    .process-flow {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      position: relative;
+    }
+    .flow-step {
+      padding: 2rem 1.75rem;
+      background: linear-gradient(180deg, rgba(0, 231, 252, 0.05), rgba(10,10,10,0.55) 60%);
+      border: 1px solid rgba(0, 255, 77, 0.2);
+      border-radius: 18px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform .35s ease, border-color .3s ease;
+    }
+    .flow-step:hover {
+      transform: translateY(-6px) rotateX(2deg);
+      border-color: var(--primary-cyan);
+    }
+    .flow-step::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-green));
+      opacity: .65;
+    }
+    .flow-step + .flow-step::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -1.05rem;
+      width: 0; height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 11px solid var(--primary-green);
+      opacity: .65;
+      transform: translateY(-50%);
+    }
+    .flow-step__num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      height: 44px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(0, 255, 77, 0.3);
+      background: rgba(0, 231, 252, 0.06);
+      color: var(--primary-cyan);
+      font-family: var(--font-display);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .flow-step__title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: .65rem;
+      letter-spacing: -0.01em;
+    }
+    .flow-step__text {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    /* ============ CTA SLIDE ============ */
+    .slide--cta {
+      justify-content: center;
+      text-align: center;
+    }
+    .slide--cta .slide__glow {
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(0, 231, 252, 0.18) 0%, rgba(0, 255, 77, 0.08) 40%, transparent 70%);
+    }
+    .cta-block { max-width: 900px; margin: 0 auto; }
+    .cta-block__pre {
+      font-size: 0.95rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--primary-green);
+      margin-bottom: 1rem;
+    }
+    .cta-block__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .cta-block__text {
+      font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+      color: rgba(255,255,255,0.75);
+      line-height: 1.55;
+      margin-bottom: 2.5rem;
+      max-width: 60ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-channels {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cta-channel {
+      display: inline-flex;
+      align-items: center;
+      gap: .65rem;
+      padding: 1rem 1.8rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .cta-channel--primary {
+      background: var(--gradient-primary);
+      color: #0a0a0a;
+      box-shadow: 0 10px 28px rgba(0, 255, 77, 0.22);
+    }
+    .cta-channel--primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0, 231, 252, 0.4);
+    }
+    .cta-channel--ghost {
+      border: 1px solid rgba(0, 231, 252, 0.4);
+      color: #fff;
+    }
+    .cta-channel--ghost:hover {
+      border-color: var(--primary-cyan);
+      background: rgba(0, 231, 252, 0.10);
+    }
+
+    /* ============ NAV CONTROLS ============ */
+    .deck-nav {
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .5rem .75rem;
+      background: rgba(11, 14, 20, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      z-index: 100;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .deck-nav button {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+    }
+    .deck-nav button:hover { background: rgba(0, 231, 252, 0.18); }
+    .deck-nav__counter {
+      min-width: 56px;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+    }
+    .deck-nav__hint {
+      font-size: 0.7rem;
+      opacity: 0.55;
+      margin-left: .5rem;
+      letter-spacing: 0.05em;
+    }
+    .deck-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0;
+      background: var(--gradient-primary);
+      z-index: 200;
+      transition: width .25s ease;
+      box-shadow: 0 0 12px rgba(0, 255, 77, 0.4);
+    }
+
+    /* ============ PRINT (PDF export) ============ */
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+    @media print {
+      html, body {
+        height: auto;
+        overflow: visible;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .deck { height: auto; overflow: visible; scroll-snap-type: none; perspective: none; }
+      .slide {
+        width: 297mm;
+        height: 209mm;
+        padding: 14mm 18mm;
+        page-break-after: always;
+        break-after: page;
+      }
+      .slide:last-child { page-break-after: auto; break-after: auto; }
+      .deck-nav, .deck-progress { display: none !important; }
+      .reveal, .stagger > * { opacity: 1 !important; transform: none !important; animation: none !important; }
+      .orbit-ring::before, .orbit-ring::after,
+      .orbit-video, .orbit-glow,
+      .slide__glow, .cover-meta__dot,
+      .product-slide__icon::before, .product-slide__icon::after,
+      .product-slide__tag::before { animation: none !important; }
+      #techNetCanvas { display: none; }
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1100px) {
+      .product-slide { grid-template-columns: 1fr; gap: 1.5rem; }
+      .product-slide__left { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 1.25rem; }
+      .product-slide__num { font-size: clamp(4rem, 9vw, 6rem); }
+      .product-slide__icon { width: 72px; height: 72px; border-radius: 18px; }
+    }
+    @media (max-width: 900px) {
+      .pillars-grid, .benefits-grid, .process-flow { grid-template-columns: 1fr 1fr; }
+      .stats-hero { grid-template-columns: 1fr 1fr; gap: 1rem 2rem; }
+      .frentes-split { grid-template-columns: 1fr; }
+      .frentes-divider { width: 100%; height: 40px; }
+      .frentes-divider::before { top: 50%; bottom: auto; left: 10%; right: 10%; width: auto; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); }
+      .flow-step + .flow-step::after { display: none; }
+    }
+    @media (max-width: 600px) {
+      .pillars-grid, .benefits-grid, .process-flow, .stats-hero { grid-template-columns: 1fr; }
+      .orbit-card { width: 100px; height: 44px; font-size: 11px; margin-left: -50px; margin-top: -22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal, .stagger > * { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-progress" id="progress"></div>
+
+  <main class="deck" id="deck">
+
+    <!-- ===================== SLIDE 1 — CAPA (tech-net 3D) ===================== -->
+    <section class="slide slide--cover" id="slide-1" data-slide-name="Capa">
+      <div class="cover-canvas-wrap">
+        <canvas id="techNetCanvas"></canvas>
+        <span class="cover-mark" aria-hidden="true">DMC</span>
+      </div>
+      <div class="slide__inner">
+        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC" class="cover-logo reveal">
+        <p class="cover-eyebrow reveal">Apresentação Institucional</p>
+        <h1 class="cover-title reveal">Do terreno à <span class="gradient-text">chave do cliente</span></h1>
+        <p class="cover-tagline reveal">Consultoria Imobiliária 360° para construtoras e incorporadoras — Jurídico Imobiliário e Jurídico Vendas integrados, com IA, advocacia especializada e cartórios parceiros.</p>
+        <div class="cover-meta reveal">
+          <span class="cover-meta__dot"></span>
+          <span><strong>Complexo DMC</strong> · 15+ anos · +180 construtoras atendidas</span>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">complexodmc.com.br</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 2 — QUEM SOMOS ===================== -->
+    <section class="slide" id="slide-2" data-slide-name="Quem Somos">
+      <div class="slide__glow"></div>
+      <div class="slide__inner">
+        <p class="deck-overline reveal">Quem Somos</p>
+        <h2 class="deck-title reveal">Três pilares <span class="gradient-text">integrados</span></h2>
+        <p class="deck-subtitle reveal">Uma consultoria de negócios feita para construtoras e incorporadoras — combinamos tecnologia, advocacia e cartório em um único fluxo.</p>
+
+        <div class="pillars-grid stagger">
+          <div class="pillar">
+            <div class="pillar__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
+            </div>
+            <span class="pillar__tag">Tecnologia</span>
+            <h3 class="pillar__title">Inteligência Artificial</h3>
+            <p class="pillar__text">Algoritmos analisam matrículas, certidões e cadeias dominiais. Geram minutas e calculam riscos em minutos — não em semanas.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a4 4 0 0 0 8 0L7 7"/><path d="M19 7l-3 7a4 4 0 0 0 8 0l-3-7"/><path d="M7 21h10"/></svg>
+            </div>
+            <span class="pillar__tag">Advocacia</span>
+            <h3 class="pillar__title">Backoffice Jurídico</h3>
+            <p class="pillar__text">Advogados especialistas em Direito Imobiliário validam minutas e blindam cada ato contra riscos jurídicos.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9 21v-7h6v7"/><circle cx="12" cy="11" r="1.5"/></svg>
+            </div>
+            <span class="pillar__tag">Cartório</span>
+            <h3 class="pillar__title">Cartórios Parceiros</h3>
+            <p class="pillar__text">Rede credenciada de Cartórios de Notas e Registros de Imóveis em todo o Brasil — com fé pública e prazo recorde.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Complexo DMC</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 3 — ECOSSISTEMA (Rino orbit) ===================== -->
+    <section class="slide" id="slide-3" data-slide-name="Ecossistema">
+      <div class="slide__glow"></div>
+      <div class="slide__inner">
+        <p class="deck-overline reveal">Ecossistema</p>
+        <h2 class="deck-title reveal">Um único <span class="gradient-text">parceiro</span> para toda a operação</h2>
+
+        <div class="orbit-stage reveal">
+          <div class="orbit-glow"></div>
+          <div class="orbit-ring"></div>
+          <video class="orbit-video" autoplay muted loop playsinline>
+            <source src="../assets/videos/rino-video-transparent.mp4" type="video/mp4">
+          </video>
+          <div class="orbit-anchor">
+            <!-- 6 produtos Jurídico Vendas — posições fixas (12/2/4/6/8/10) -->
+            <div class="orbit-item" style="--angle: -90deg;"><div class="orbit-card">DISTRATO</div></div>
+            <div class="orbit-item" style="--angle: -30deg;"><div class="orbit-card">RECUPERAÇÃO<br>DE ATIVOS</div></div>
+            <div class="orbit-item" style="--angle: 30deg;"><div class="orbit-card">PROCURAÇÕES</div></div>
+            <div class="orbit-item" style="--angle: 90deg;"><div class="orbit-card">ATA NOTARIAL</div></div>
+            <div class="orbit-item" style="--angle: 150deg;"><div class="orbit-card">CONTRATOS</div></div>
+            <div class="orbit-item" style="--angle: 210deg;"><div class="orbit-card">ESCRITURAÇÃO</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Complexo DMC</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 4 — RESULTADOS (counter) ===================== -->
+    <section class="slide" id="slide-4" data-slide-name="Resultados">
+      <div class="slide__glow"></div>
+      <div class="slide__inner">
+        <p class="deck-overline reveal">Resultados</p>
+        <h2 class="deck-title reveal">Números que <span class="gradient-text">comprovam</span></h2>
+        <p class="deck-subtitle reveal">15 anos atendendo construtoras e incorporadoras em todo o Brasil — com tecnologia que entrega prazo, blindagem e escala.</p>
+
+        <div class="stats-hero stagger">
+          <div class="stat-big">
+            <div class="stat-big__num"><span data-counter="12500" data-prefix="+" data-format="dot">+12.500</span></div>
+            <div class="stat-big__label">Atos Notariais Lavrados</div>
+          </div>
+          <div class="stat-big">
+            <div class="stat-big__num"><span data-counter="180" data-prefix="+">+180</span></div>
+            <div class="stat-big__label">Construtoras Atendidas</div>
+          </div>
+          <div class="stat-big">
+            <div class="stat-big__num"><span data-counter="9" data-prefix="+" data-suffix=" Bi">+9 Bi</span></div>
+            <div class="stat-big__label">VGV Estruturado</div>
+          </div>
+          <div class="stat-big">
+            <div class="stat-big__num"><span data-counter="70" data-prefix="−" data-suffix="%">−70%</span></div>
+            <div class="stat-big__label">Tempo médio até o registro</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Complexo DMC</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 5 — DUAS FRENTES ===================== -->
+    <section class="slide" id="slide-5" data-slide-name="Duas Frentes">
+      <div class="slide__glow"></div>
+      <div class="slide__inner">
+        <p class="deck-overline reveal">Nossa Atuação</p>
+        <h2 class="deck-title reveal">Duas frentes, <span class="gradient-text">um único parceiro</span></h2>
+        <p class="deck-subtitle reveal">Cobrimos toda a jornada do empreendimento — do primeiro contrato com o adquirente à individualização das matrículas.</p>
+
+        <div class="frentes-split reveal">
+          <div class="frente-card">
+            <div class="frente-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5l-2-2H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-7l-2-2z"/></svg>
+            </div>
+            <span class="frente-card__tag">Frente 01</span>
+            <h3 class="frente-card__title">Jurídico Vendas</h3>
+            <p class="frente-card__sub">A relação com o comprador final</p>
+            <ul class="frente-card__list">
+              <li>Contratos blindados sob a Lei 13.786</li>
+              <li>Due diligence patrimonial com IA</li>
+              <li>Escritura digital em dias, não semanas</li>
+              <li>Distrato extrajudicial com retenção</li>
+              <li>Procurações digitais com governança</li>
+            </ul>
+          </div>
+
+          <div class="frentes-divider"><span>OU</span></div>
+
+          <div class="frente-card">
+            <div class="frente-card__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9 21v-7h6v7"/></svg>
+            </div>
+            <span class="frente-card__tag">Frente 02</span>
+            <h3 class="frente-card__title">Jurídico Imobiliário</h3>
+            <p class="frente-card__sub">Do terreno à individualização das matrículas</p>
+            <ul class="frente-card__list">
+              <li>Assessoria registral estratégica</li>
+              <li>Regularização fundiária e retificação</li>
+              <li>Usucapião extrajudicial</li>
+              <li>Pareceres registrais e notariais</li>
+              <li>Estruturação jurídica do empreendimento</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Complexo DMC</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 6 — DIVISOR FRENTE 01 ===================== -->
+    <section class="slide slide--section" id="slide-6" data-slide-name="Frente 01">
+      <div class="slide__glow"></div>
+      <div class="slide__inner">
+        <p class="section-pre reveal">Frente 01</p>
+        <div class="section-num reveal">01</div>
+        <h2 class="section-title reveal">Jurídico <span class="gradient-text">Imobiliário</span></h2>
+        <p class="section-tagline reveal">Do terreno à individualização das matrículas — blindagem registral e estruturação completa do empreendimento.</p>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Complexo DMC</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ============ PRODUTOS JURÍDICO IMOBILIÁRIO (6 slides) ============ -->
+
+    <section class="slide" id="slide-7" data-slide-name="Imob. 01 — Aquisição">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">01</div>
+          <span class="product-slide__tag">Aquisição</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 13h8M8 17h5"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Assessoria Registral Estratégica</h2>
+          <p class="product-slide__text">Antes da aquisição do terreno, mapeamos toda a sequência de atos no Cartório de Registro de Imóveis — averbações pendentes, inconsistências na cadeia dominial e exigências registrais. O terreno chega limpo à fase de incorporação, com prazos previsíveis e custos de registro controlados.</p>
+          <ul class="product-slide__bullets">
+            <li>Análise da matrícula e da cadeia dominial dos últimos 20 anos</li>
+            <li>Mapa das exigências registrais antes do fechamento</li>
+            <li>Previsibilidade de prazos e custos de registro</li>
+            <li>Sem surpresas que atrasem o lançamento</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Imobiliário</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-8" data-slide-name="Imob. 02 — Regularização">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">02</div>
+          <span class="product-slide__tag">Regularização</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Regularização Fundiária e Retificação de Área</h2>
+          <p class="product-slide__text">Corrigimos pela via administrativa as divergências entre a realidade física do imóvel e a matrícula — diferenças de metragem, confrontações desatualizadas e ausência de georreferenciamento. Com a matrícula saneada, eliminamos riscos de impugnação e viabilizamos o registro da incorporação.</p>
+          <ul class="product-slide__bullets">
+            <li>Levantamento topográfico e memorial descritivo</li>
+            <li>Anuência dos confrontantes e protocolo no RI</li>
+            <li>Averbação da nova descrição na matrícula</li>
+            <li>Valoriza o ativo antes mesmo do lançamento</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Imobiliário</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-9" data-slide-name="Imob. 03 — Usucapião">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">03</div>
+          <span class="product-slide__tag">Usucapião</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Usucapião Extrajudicial</h2>
+          <p class="product-slide__text">Transferência da propriedade pela via cartorária — sem processo judicial — para áreas ocupadas há tempo suficiente mas sem título registral. Ideal para áreas remanescentes, faixas de terreno, servidões ou imóveis encravados no perímetro do empreendimento.</p>
+          <ul class="product-slide__bullets">
+            <li>Ata notarial e planta georreferenciada</li>
+            <li>Anuência de confrontantes e titulares registrais</li>
+            <li>Abertura de matrícula em nome da construtora</li>
+            <li>Prazo significativamente menor que a via judicial</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Imobiliário</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-10" data-slide-name="Imob. 04 — Pareceres">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">04</div>
+          <span class="product-slide__tag">Pareceres</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Pareceres Registrais e Notariais</h2>
+          <p class="product-slide__text">Opiniões técnicas formais sobre a viabilidade jurídica de atos específicos — registro de incorporação, instituição de patrimônio de afetação, alienação fiduciária, cessão de direitos e operações de SCP, SPE, CRI e fundos imobiliários.</p>
+          <ul class="product-slide__bullets">
+            <li>Análise da legislação, jurisprudência e Corregedoria</li>
+            <li>Mapa de riscos, exigências e rota mais segura</li>
+            <li>Sem devoluções ou notas de exigência do cartório</li>
+            <li>Decisões estruturantes com respaldo técnico</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Imobiliário</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-11" data-slide-name="Imob. 05 — Matrículas">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">05</div>
+          <span class="product-slide__tag">Matrículas</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Individualização das Matrículas</h2>
+          <p class="product-slide__text">Após a averbação do habite-se, cada unidade autônoma do empreendimento ganha matrícula própria no Cartório de Registro de Imóveis, desmembrada da matrícula-mãe do terreno. É o ato que destrava o repasse bancário e o fechamento financeiro.</p>
+          <ul class="product-slide__bullets">
+            <li>Conferência do quadro de áreas e do memorial</li>
+            <li>Conformidade com habite-se e NBR 12.721</li>
+            <li>Protocolo e abertura das matrículas individuais</li>
+            <li>Pré-requisito do repasse bancário</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Imobiliário</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-12" data-slide-name="Imob. 06 — Estruturação">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">06</div>
+          <span class="product-slide__tag">Estruturação</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9 21v-9h6v9"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Estruturação Jurídica do Empreendimento</h2>
+          <p class="product-slide__text">Antes do lançamento, desenhamos toda a arquitetura legal e societária da operação: SPE, integralização do terreno, registro do memorial de incorporação, instituição do patrimônio de afetação, convenção de condomínio e contratos-padrão.</p>
+          <ul class="product-slide__bullets">
+            <li>SPE + integralização + memorial de incorporação</li>
+            <li>Patrimônio de afetação e convenção de condomínio</li>
+            <li>Aderência às Leis 4.591/64, 10.931/04 e 13.786/18</li>
+            <li>Empreendimento apto a captar, vender e entregar</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Imobiliário</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE — DIVISOR FRENTE 02 ===================== -->
+    <section class="slide slide--section" id="slide-13" data-slide-name="Frente 02">
+      <div class="slide__glow"></div>
+      <div class="slide__inner">
+        <p class="section-pre reveal">Frente 02</p>
+        <div class="section-num reveal">02</div>
+        <h2 class="section-title reveal">Jurídico <span class="gradient-text">Vendas</span></h2>
+        <p class="section-tagline reveal">Do contrato com o adquirente ao repasse bancário — blindagem da relação comercial e aceleração do caixa.</p>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Complexo DMC</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ============ PRODUTOS JURÍDICO VENDAS (6 slides) ============ -->
+
+    <section class="slide" id="slide-14" data-slide-name="Vendas 01 — Contratos">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">01</div>
+          <span class="product-slide__tag">Contratos</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Contrato Blindado · Assinatura Segura</h2>
+          <p class="product-slide__text">Nossa IA redige todos os tipos contratuais ajustados às necessidades do cliente. Na mesma plataforma é possível assinar eletronicamente, com quadro-resumo e cláusulas protetivas, e encaminhamos aos cartórios parceiros para registro.</p>
+          <ul class="product-slide__bullets">
+            <li>Promessa de compra e venda sob a Lei 13.786/18</li>
+            <li>Quadro-resumo, cláusula penal e tolerância calibrados</li>
+            <li>Ata notarial eletrônica de ciência do comprador</li>
+            <li>Risco de judicialização drasticamente reduzido</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Vendas</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-15" data-slide-name="Vendas 02 — Due Diligence">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">02</div>
+          <span class="product-slide__tag">Due Diligence</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6M11 8v6"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Investigação Patrimonial e Documental</h2>
+          <p class="product-slide__text">Algoritmos verificam matrícula, cadeia dominial dos últimos 20 anos, certidões cíveis, fiscais, trabalhistas e criminais, ônus, tributos e a viabilidade urbanística e ambiental do terreno. O Backoffice Jurídico valida e entrega relatório com riscos classificados.</p>
+          <ul class="product-slide__bullets">
+            <li>Matrícula + cadeia dominial dos últimos 20 anos</li>
+            <li>Certidões pessoais, fiscais, trabalhistas e criminais</li>
+            <li>Análise de ônus, tributos e viabilidade do terreno</li>
+            <li>Relatório com riscos classificados e recomendações</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Vendas</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-16" data-slide-name="Vendas 03 — Escrituração">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">03</div>
+          <span class="product-slide__tag">Escrituração</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Escritura Digital Otimizada</h2>
+          <p class="product-slide__text">A IA faz a análise completa do comprador — certidões, restrições e ITBI — em minutos. Pelos cartórios parceiros, a escritura pública é assinada por videoconferência e segue direto ao Registro de Imóveis, com acompanhamento até a entrega ao cliente.</p>
+          <ul class="product-slide__bullets">
+            <li>Análise do comprador (certidões + ITBI) em minutos</li>
+            <li>Escritura por videoconferência via cartórios parceiros</li>
+            <li>Cumprimento de exigências sem retrabalho</li>
+            <li>Entrega ao cliente sem burocracia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Vendas</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-17" data-slide-name="Vendas 04 — Distrato">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">04</div>
+          <span class="product-slide__tag">Distrato</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0z"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Recuperação Extrajudicial de Unidades</h2>
+          <p class="product-slide__text">O sistema analisa documentos e projeta o risco de default. Em conjunto com o Backoffice, validamos a notificação notarial eletrônica que constitui o adquirente em mora e habilita a execução extrajudicial sob a Lei 9.514/97.</p>
+          <ul class="product-slide__bullets">
+            <li>Projeção de risco de default por carteira</li>
+            <li>Notificação notarial eletrônica de mora</li>
+            <li>Execução extrajudicial sob a Lei 9.514/97</li>
+            <li>Unidade pronta para revenda sem judicialização</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Vendas</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-18" data-slide-name="Vendas 05 — Renegociação">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">05</div>
+          <span class="product-slide__tag">Apoio Adm.</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9c2.5 0 4.7 1 6.4 2.6"/><polyline points="21 3 21 9 15 9"/><path d="M21 12a9 9 0 0 1-9 9c-2.5 0-4.7-1-6.4-2.6"/><polyline points="3 21 3 15 9 15"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Renegociação e Repactuação de Contratos</h2>
+          <p class="product-slide__text">Soluções juridicamente seguras para inadimplência: alongamento de prazo, revisão de índice, reescalonamento de parcelas ou reforço de garantias — formalizadas por aditivo contratual que preserva os direitos da construtora.</p>
+          <ul class="product-slide__bullets">
+            <li>Alongamento de prazo e revisão de índice</li>
+            <li>Reescalonamento de parcelas em atraso</li>
+            <li>Reforço de garantias por aditivo contratual</li>
+            <li>Reduz inadimplência e mantém o fluxo de recebíveis</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Vendas</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <section class="slide" id="slide-19" data-slide-name="Vendas 06 — Procuração">
+      <div class="slide__glow"></div>
+      <div class="slide__inner product-slide">
+        <div class="product-slide__left reveal">
+          <div class="product-slide__num">06</div>
+          <span class="product-slide__tag">Procuração</span>
+          <div class="product-slide__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 14 0v1"/></svg>
+          </div>
+        </div>
+        <div class="product-slide__right reveal">
+          <h2 class="product-slide__title">Governança Comercial com Procurações Digitais</h2>
+          <p class="product-slide__text">Desenhamos a matriz de poderes por cargo. O sistema minuta a procuração em minutos no modelo do cliente, encaminhamos ao cartório parceiro e acompanhamos a assinatura eletrônica via painel — prazo, revogação e log de atos.</p>
+          <ul class="product-slide__bullets">
+            <li>Matriz de poderes por cargo da equipe comercial</li>
+            <li>Procuração eletrônica em minutos via cartório parceiro</li>
+            <li>Painel com prazo, revogação e log de atos</li>
+            <li>Consulta via CENSEC integrada</li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Jurídico Vendas</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE — CONSULTORIA 360° (6 benefícios) ===================== -->
+    <section class="slide" id="slide-20" data-slide-name="Consultoria 360°">
+      <div class="slide__glow"></div>
+      <div class="slide__inner">
+        <p class="deck-overline reveal">Consultoria 360°</p>
+        <h2 class="deck-title reveal">Por que escolher a <span class="gradient-text">Complexo DMC</span></h2>
+        <p class="deck-subtitle reveal">Seis diferenciais que conectam tecnologia, advocacia e cartório em um único fluxo de operação.</p>
+
+        <div class="benefits-grid stagger">
+          <div class="benefit">
+            <span class="benefit__tag">Velocidade</span>
+            <h3 class="benefit__title">Caixa em Prazo Recorde</h3>
+            <p class="benefit__text">Reduzimos em até 70% o tempo entre venda e repasse bancário, antecipando o reconhecimento de VGV.</p>
+          </div>
+          <div class="benefit">
+            <span class="benefit__tag">Previsibilidade</span>
+            <h3 class="benefit__title">Registros Sem Devolução</h3>
+            <p class="benefit__text">Qualificação prévia e minutas padronizadas eliminam notas de exigência que travam empreendimentos.</p>
+          </div>
+          <div class="benefit">
+            <span class="benefit__tag">Tecnologia</span>
+            <h3 class="benefit__title">IA Jurídica Aplicada</h3>
+            <p class="benefit__text">Algoritmos analisam matrículas, cadeias dominiais e certidões em minutos — não em semanas.</p>
+          </div>
+          <div class="benefit">
+            <span class="benefit__tag">Rede</span>
+            <h3 class="benefit__title">Cobertura Notarial Nacional</h3>
+            <p class="benefit__text">Cartórios de Notas e Registros de Imóveis parceiros em todas as regiões, com fluxo 100% digital.</p>
+          </div>
+          <div class="benefit">
+            <span class="benefit__tag">Blindagem</span>
+            <h3 class="benefit__title">Riscos Jurídicos Mapeados</h3>
+            <p class="benefit__text">Due diligence completa do terreno, comprador e empreendimento — relatórios práticos com riscos classificados.</p>
+          </div>
+          <div class="benefit">
+            <span class="benefit__tag">Escala</span>
+            <h3 class="benefit__title">Operação Sob Medida</h3>
+            <p class="benefit__text">Modelos por ato avulso, pacote por empreendimento ou mensalidade dedicada para alto volume.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Complexo DMC</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE — PROCESSO ===================== -->
+    <section class="slide" id="slide-21" data-slide-name="Processo">
+      <div class="slide__glow"></div>
+      <div class="slide__inner">
+        <p class="deck-overline reveal">Como Funciona</p>
+        <h2 class="deck-title reveal">Processo de <span class="gradient-text">atendimento</span></h2>
+        <p class="deck-subtitle reveal">Três etapas claras para destravar o ciclo de vida do empreendimento — do diagnóstico à averbação final.</p>
+
+        <div class="process-flow stagger">
+          <div class="flow-step">
+            <div class="flow-step__num">01</div>
+            <h3 class="flow-step__title">Diagnóstico Imobiliário</h3>
+            <p class="flow-step__text">Mapeamento completo do empreendimento e da carteira: matrícula, regime de incorporação, contratos vigentes e gargalos registrais.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step__num">02</div>
+            <h3 class="flow-step__title">Estratégia &amp; Execução</h3>
+            <p class="flow-step__text">IA e advogados imobiliários elaboram minutas, qualificam documentos e protocolam atos junto aos cartórios parceiros com SLA acordado.</p>
+          </div>
+          <div class="flow-step">
+            <div class="flow-step__num">03</div>
+            <h3 class="flow-step__title">Acompanhamento Contínuo</h3>
+            <p class="flow-step__text">Monitoramos cada protocolo no Registro de Imóveis até a averbação final, com relatórios periódicos de status.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Complexo DMC</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE — CTA / CONTATO ===================== -->
+    <section class="slide slide--cta" id="slide-22" data-slide-name="Contato">
+      <div class="slide__glow"></div>
+      <div class="slide__inner">
+        <div class="cta-block">
+          <p class="cta-block__pre reveal">Vamos Conversar</p>
+          <h2 class="cta-block__title reveal">Acelere o ciclo do seu <span class="gradient-text">empreendimento</span></h2>
+          <p class="cta-block__text reveal">Agende um diagnóstico gratuito com nossos advogados imobiliários e veja, em 30 minutos, como destravar registros, blindar contratos e antecipar repasses bancários.</p>
+
+          <div class="cta-channels reveal">
+            <a class="cta-channel cta-channel--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%20Complexo%20DMC%2C%20vi%20a%20apresenta%C3%A7%C3%A3o%20e%20quero%20agendar%20um%20diagn%C3%B3stico" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              WhatsApp · (11) 91526-7749
+            </a>
+            <a class="cta-channel cta-channel--ghost" href="https://www.complexodmc.com.br" target="_blank" rel="noopener noreferrer">
+              complexodmc.com.br
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="slide__footer">
+        <span class="slide__brand"><img src="../assets/images/RINO_logo.png" alt="">Complexo DMC</span>
+        <span data-page-num></span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== NAV ===================== -->
+  <div class="deck-nav" aria-label="Controles de navegação">
+    <button id="prevBtn" aria-label="Slide anterior" title="Slide anterior (←)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <span class="deck-nav__counter" id="counter">01 / 22</span>
+    <button id="nextBtn" aria-label="Próximo slide" title="Próximo slide (→ ou espaço)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <span class="deck-nav__hint">←/→ · espaço · F (fullscreen) · P (PDF)</span>
+  </div>
+
+  <script>
+    /* ============ DECK NAVIGATION + ACTIVE SLIDE TRACKING ============ */
+    (function () {
+      const deck = document.getElementById('deck');
+      const slides = Array.from(deck.querySelectorAll('.slide'));
+      const total = slides.length;
+      const counter = document.getElementById('counter');
+      const progress = document.getElementById('progress');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const pageNumEls = document.querySelectorAll('[data-page-num]');
+
+      const pad = n => String(n).padStart(2, '0');
+      const totalStr = pad(total);
+
+      // Set page numbers on every slide footer
+      pageNumEls.forEach((el, idx) => {
+        el.textContent = pad(idx + 1) + ' / ' + totalStr;
+      });
+
+      function currentIndex() {
+        const top = deck.scrollTop;
+        const h = window.innerHeight;
+        return Math.min(total - 1, Math.max(0, Math.round(top / h)));
+      }
+
+      function goTo(i) {
+        const idx = Math.min(total - 1, Math.max(0, i));
+        slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        updateUi(idx);
+      }
+
+      function updateUi(idx) {
+        counter.textContent = pad(idx + 1) + ' / ' + totalStr;
+        progress.style.width = ((idx + 1) / total * 100) + '%';
+      }
+
+      // Active class + reveal trigger via IntersectionObserver
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting && e.intersectionRatio > 0.4) {
+            // has-entered: classe permanente que dispara animação 1 vez
+            // (CSS animation com 'both' fill-mode mantém estado final).
+            // Removemos antes de re-adicionar para permitir replay.
+            e.target.classList.remove('has-entered');
+            // force reflow para reiniciar animação
+            void e.target.offsetWidth;
+            e.target.classList.add('has-entered');
+
+            slides.forEach(s => s.classList.remove('is-active'));
+            e.target.classList.add('is-active');
+            const idx = slides.indexOf(e.target);
+            updateUi(idx);
+            if (e.target.querySelector('[data-counter]')) animateCounters(e.target);
+          }
+        });
+      }, { threshold: [0.4] });
+      slides.forEach(s => io.observe(s));
+
+      // First slide ativo + animado por padrão
+      slides[0].classList.add('is-active', 'has-entered');
+
+      prevBtn.addEventListener('click', () => goTo(currentIndex() - 1));
+      nextBtn.addEventListener('click', () => goTo(currentIndex() + 1));
+
+      // Keyboard
+      document.addEventListener('keydown', (e) => {
+        if (e.target.matches('input, textarea')) return;
+        switch (e.key) {
+          case 'ArrowRight':
+          case 'ArrowDown':
+          case 'PageDown':
+          case ' ':
+            e.preventDefault(); goTo(currentIndex() + 1); break;
+          case 'ArrowLeft':
+          case 'ArrowUp':
+          case 'PageUp':
+            e.preventDefault(); goTo(currentIndex() - 1); break;
+          case 'Home':
+            e.preventDefault(); goTo(0); break;
+          case 'End':
+            e.preventDefault(); goTo(total - 1); break;
+          case 'p': case 'P':
+            e.preventDefault(); window.print(); break;
+          case 'f': case 'F':
+            e.preventDefault();
+            if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+            else document.exitFullscreen();
+            break;
+        }
+      });
+
+      /* ============ COUNTER ANIMATION ============ */
+      function animateCounters(slide) {
+        const els = slide.querySelectorAll('[data-counter]');
+        els.forEach(el => {
+          if (el.dataset.done) return;
+          el.dataset.done = '1';
+          const target = parseFloat(el.dataset.counter);
+          const prefix = el.dataset.prefix || '';
+          const suffix = el.dataset.suffix || '';
+          const useDot = el.dataset.format === 'dot';
+          const duration = 1400;
+          const start = performance.now();
+
+          function tick(now) {
+            const t = Math.min(1, (now - start) / duration);
+            // easeOutCubic
+            const eased = 1 - Math.pow(1 - t, 3);
+            const value = target * eased;
+            let display;
+            if (target >= 1000 || useDot) {
+              display = Math.round(value).toLocaleString('pt-BR');
+            } else {
+              display = Math.round(value);
+            }
+            el.textContent = prefix + display + suffix;
+            if (t < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+      }
+    })();
+
+    /* ============ TECH-NET CANVAS (cover slide) ============ */
+    (function () {
+      const canvas = document.getElementById('techNetCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const COLORS = ['#00e7fc', '#00ff4d', '#00cfb6', '#00f5b4', '#00f683', '#00d4aa'];
+      const hexToRgb = (h) => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)].join(',');
+
+      let nodes = [];
+      const COUNT = 80;
+
+      function init() {
+        const W = canvas.getBoundingClientRect().width;
+        const H = canvas.getBoundingClientRect().height;
+        nodes = [];
+        for (let i = 0; i < COUNT; i++) {
+          nodes.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: (Math.random() - 0.5) * 0.45,
+            vy: (Math.random() - 0.5) * 0.45,
+            r: Math.random() * 2.2 + 1,
+            color: COLORS[Math.floor(Math.random() * COLORS.length)],
+            pulse: Math.random() * Math.PI * 2,
+          });
+        }
+      }
+      init();
+      window.addEventListener('resize', init);
+
+      const MAX_DIST = 140;
+      const mouse = { x: -9999, y: -9999 };
+      let running = true;
+
+      // Pause when cover slide isn't visible (perf)
+      const coverSlide = document.getElementById('slide-1');
+      const visObserver = new IntersectionObserver((entries) => {
+        running = entries[0].isIntersecting;
+        if (running) loop();
+      }, { threshold: 0.05 });
+      if (coverSlide) visObserver.observe(coverSlide);
+
+      canvas.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+      canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+      function loop() {
+        if (!running) return;
+        const W = canvas.getBoundingClientRect().width;
+        const H = canvas.getBoundingClientRect().height;
+        ctx.clearRect(0, 0, W, H);
+
+        for (const n of nodes) {
+          n.x += n.vx; n.y += n.vy;
+          n.pulse += 0.02;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+        }
+
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const d = Math.sqrt(dx*dx + dy*dy);
+            if (d < MAX_DIST) {
+              const a = (1 - d / MAX_DIST) * 0.45;
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.strokeStyle = `rgba(${hexToRgb(nodes[i].color)},${a})`;
+              ctx.lineWidth = 0.7;
+              ctx.stroke();
+            }
+          }
+          // mouse interaction
+          const mdx = nodes[i].x - mouse.x;
+          const mdy = nodes[i].y - mouse.y;
+          const md = Math.sqrt(mdx*mdx + mdy*mdy);
+          if (md < 180) {
+            const ma = (1 - md / 180) * 0.7;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.strokeStyle = `rgba(${hexToRgb(nodes[i].color)},${ma})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+
+        for (const n of nodes) {
+          const p = 0.7 + 0.3 * Math.sin(n.pulse);
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r * p, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${hexToRgb(n.color)},0.95)`;
+          ctx.fill();
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r * 4 * p, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${hexToRgb(n.color)},0.06)`;
+          ctx.fill();
+        }
+
+        requestAnimationFrame(loop);
+      }
+      loop();
+    })();
+
+    /* ============ 3D TILT ON HOVER (subtle) ============ */
+    (function () {
+      const tiltables = document.querySelectorAll('.pillar, .frente-card, .benefit, .flow-step');
+      tiltables.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          const cx = r.width / 2;
+          const cy = r.height / 2;
+          const x = e.clientX - r.left - cx;
+          const y = e.clientY - r.top - cy;
+          const rx = (-y / cy) * 4;  // max 4deg
+          const ry = (x / cx) * 4;
+          el.style.transform = `translateY(-6px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = '';
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
