@@ -148,7 +148,7 @@
       const raw = localStorage.getItem(STORAGE_AUTH);
       return raw ? JSON.parse(raw) : null;
     },
-    requireOrRedirect(to = 'index.html') {
+    requireOrRedirect(to = 'login.html') {
       if (!this.isLogged()) { window.location.href = to; return false; }
       return true;
     },
@@ -366,13 +366,33 @@
     if (Auth.isLogged()) { window.location.href = 'dashboard.html'; return; }
     const form = document.querySelector('#login-form');
     if (!form) return;
+    const errorEl = document.querySelector('#login-error');
+    function showError(msg) {
+      if (errorEl) { errorEl.textContent = msg; errorEl.hidden = false; }
+    }
+    function clearError() {
+      if (errorEl) { errorEl.textContent = ''; errorEl.hidden = true; }
+    }
+    form.addEventListener('input', clearError);
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = form.email.value.trim();
+      clearError();
+      const email = (form.email.value || '').trim();
+      const senha = form.senha ? (form.senha.value || '') : '';
       const nome = form.nome ? form.nome.value.trim() : '';
-      if (!email) return;
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('Informe um e-mail válido.');
+        return;
+      }
+      if (!senha) {
+        showError('Informe sua senha.');
+        return;
+      }
       Auth.login(email, nome);
-      window.location.href = 'dashboard.html';
+      const params = new URLSearchParams(window.location.search);
+      const next = params.get('next');
+      const safeNext = next && /^[a-z0-9_-]+\.html(\?.*)?$/i.test(next) ? next : 'dashboard.html';
+      window.location.href = safeNext;
     });
   }
   window.DMC_bootLogin = bootLogin;
@@ -750,57 +770,54 @@
       }));
     }
 
-    // ============ Drawer do carrinho (estrutura do user) ============
+    // ============ Drawer do carrinho ============
     const drawer = document.querySelector('#cart-drawer');
-    const body = document.querySelector('#cart-body');
+    const emptyEl = document.querySelector('#cart-empty');
+    const listEl = document.querySelector('#cart-list');
+    const checkoutForm = document.querySelector('#cart-checkout');
     const totalEl = document.querySelector('[data-cart-total]');
-    const checkoutBtn = document.querySelector('#btn-checkout');
-    const openBtn = document.querySelector('#btn-open-cart');
-    const closeBtn = document.querySelector('#btn-close-cart');
+
+    function openDrawer() {
+      if (!drawer) return;
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden', 'false');
+    }
+    function closeDrawer() {
+      if (!drawer) return;
+      drawer.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden', 'true');
+    }
 
     function renderDrawer() {
       const ids = Carrinho.items();
-      const foot = document.querySelector('.cart-drawer__foot');
-      if (!ids.length) {
-        body.innerHTML = `
-          <div class="cart-empty">
-            <div class="cart-empty__icon">${I.cart}</div>
-            <h4>Seu carrinho está vazio</h4>
-            <p>Adicione um programa à esquerda para começar.</p>
-            <button class="btn-ghost" id="btn-cart-back">Voltar à vitrine</button>
-          </div>`;
-        body.querySelector('#btn-cart-back')?.addEventListener('click', () => drawer.classList.remove('is-open'));
-        if (checkoutBtn) checkoutBtn.disabled = true;
-        if (foot) foot.style.display = 'none';
-      } else {
-        if (foot) foot.style.display = '';
-        body.innerHTML = `
-          <div class="cart-list">
-            ${ids.map(id => {
-              const c = Data.getCursoById(id);
-              if (!c) return '';
-              return `
-                <div class="cart-item">
-                  <div class="cart-item__icon">${COURSE_ICONS[c.iconeKey] || COURSE_ICONS.graduation}</div>
-                  <div class="cart-item__main">
-                    <div class="cart-item__title">${escapeHtml(c.titulo)}</div>
-                    <div class="cart-item__sub">${escapeHtml(c.modalidade || 'Online')} · ${escapeHtml(c.cargaHoraria || '')}</div>
-                    <div class="cart-item__price">${formatPreco(c.preco)}</div>
-                  </div>
-                  <button class="cart-item__remove" data-remove-cart="${c.id}" title="Remover" aria-label="Remover">${I.close}</button>
-                </div>`;
-            }).join('')}
-          </div>`;
-        body.querySelectorAll('[data-remove-cart]').forEach(b => b.addEventListener('click', () => {
+      const has = ids.length > 0;
+      if (emptyEl) emptyEl.style.display = has ? 'none' : '';
+      if (listEl) listEl.style.display = has ? '' : 'none';
+      if (checkoutForm) checkoutForm.style.display = has ? '' : 'none';
+
+      if (listEl) {
+        listEl.innerHTML = ids.map(id => {
+          const c = Data.getCursoById(id);
+          if (!c) return '';
+          return `
+            <div class="cart-item">
+              <div class="cart-item__icon">${COURSE_ICONS[c.iconeKey] || COURSE_ICONS.graduation}</div>
+              <div class="cart-item__main">
+                <div class="cart-item__title">${escapeHtml(c.titulo)}</div>
+                <div class="cart-item__sub">${escapeHtml(c.modalidade || 'Online')} · ${escapeHtml(c.cargaHoraria || '')}</div>
+                <div class="cart-item__price">${formatPreco(c.preco)}</div>
+              </div>
+              <button class="cart-item__remove" data-remove-cart="${c.id}" title="Remover" aria-label="Remover">${I.close}</button>
+            </div>`;
+        }).join('');
+        listEl.querySelectorAll('[data-remove-cart]').forEach(b => b.addEventListener('click', () => {
           Carrinho.remove(b.dataset.removeCart);
           renderGrid();
           renderDrawer();
           showToast('Item removido');
         }));
-        if (checkoutBtn) checkoutBtn.disabled = false;
       }
       if (totalEl) totalEl.textContent = formatPreco(Carrinho.total());
-      // Badge do carrinho na nav
       document.querySelectorAll('[data-cart-count]').forEach(el => {
         const n = Carrinho.count();
         el.textContent = n;
@@ -808,11 +825,12 @@
       });
     }
 
-    if (openBtn) openBtn.addEventListener('click', () => drawer.classList.add('is-open'));
-    if (closeBtn) closeBtn.addEventListener('click', () => drawer.classList.remove('is-open'));
-    document.querySelectorAll('[data-cart-close]').forEach(btn => btn.addEventListener('click', () => drawer.classList.remove('is-open')));
+    document.querySelectorAll('[data-cart-open]').forEach(btn => btn.addEventListener('click', openDrawer));
+    document.querySelectorAll('[data-cart-close]').forEach(btn => btn.addEventListener('click', closeDrawer));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
 
-    if (checkoutBtn) checkoutBtn.addEventListener('click', () => {
+    if (checkoutForm) checkoutForm.addEventListener('submit', (e) => {
+      e.preventDefault();
       const ids = Carrinho.items();
       if (!ids.length) return;
       const user = Auth.user() || {};
@@ -822,7 +840,7 @@
       }).filter(Boolean).join('\n');
       const total = formatPreco(Carrinho.total());
       const subject = `Pedido Loja Complexo DMC — ${ids.length} programa(s)`;
-      const body = [
+      const corpo = [
         'Olá, time administrativo do Complexo DMC.',
         '',
         'Gostaria de adquirir os seguintes programas:',
@@ -838,21 +856,24 @@
         '',
         'Obrigado.'
       ].join('\n');
-      const mailto = `mailto:administrativo@complexodmc.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      // Abre cliente de email do usuário
-      window.location.href = mailto;
-      // Em paralelo, redireciona pra obrigado.html
+      const mailto = `mailto:administrativo@complexodmc.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(corpo)}`;
+      window.open(mailto, '_blank');
       const params = new URLSearchParams({
         cursos: ids.join(','),
         email: user.email || '',
         total: Carrinho.total().toFixed(2)
       });
-      setTimeout(() => { window.location.href = `obrigado.html?${params.toString()}`; }, 600);
+      window.location.href = `obrigado.html?${params.toString()}`;
     });
 
     function showToast(msg) {
-      const t = document.querySelector('#toast');
-      if (!t) return;
+      let t = document.querySelector('#toast');
+      if (!t) {
+        t = document.createElement('div');
+        t.id = 'toast';
+        t.className = 'toast';
+        document.body.appendChild(t);
+      }
       t.textContent = msg;
       t.classList.add('is-show');
       clearTimeout(showToast._t);
@@ -921,7 +942,7 @@
       document.querySelectorAll('[data-user-nome]').forEach(el => el.textContent = user.nome);
     }
     document.querySelectorAll('[data-logout]').forEach(btn => btn.addEventListener('click', () => {
-      Auth.logout(); window.location.href = 'index.html';
+      Auth.logout(); window.location.href = 'login.html';
     }));
     // Esconde Admin pra não-admin
     if (user && !user.isAdmin) {

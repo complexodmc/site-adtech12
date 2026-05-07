@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Obrigado pelo interesse em nossos treinamentos - Complexo DMC">
+  <title>Interesse em Treinamento | Complexo DMC</title>
+  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&family=Raleway:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/shared.css?v=2">
+  <style>
+    .thank-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-3xl) var(--spacing-lg);
+      position: relative;
+    }
+
+    .thank-section__glow {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: var(--gradient-glow);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .thank-container {
+      max-width: 620px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .thank-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto var(--spacing-lg);
+      border-radius: 50%;
+      background: rgba(0, 255, 77, 0.1);
+      border: 1px solid rgba(0, 255, 77, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .thank-icon svg {
+      width: 40px;
+      height: 40px;
+      stroke: var(--primary-green);
+    }
+
+    .thank-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.2;
+    }
+
+    .thank-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .thank-course-name {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(0, 231, 252, 0.1);
+      border: 1px solid rgba(0, 231, 252, 0.2);
+      border-radius: 20px;
+      color: var(--primary-cyan);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .thank-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+      backdrop-filter: blur(10px);
+      text-align: left;
+    }
+
+    .thank-form__title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: var(--spacing-xs);
+      text-align: center;
+    }
+
+    .thank-form__desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      text-align: center;
+      margin-bottom: var(--spacing-lg);
+    }
+
+    .form-group {
+      margin-bottom: var(--spacing-md);
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-primary);
+      font-size: 0.95rem;
+      transition: var(--transition-fast);
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(0, 255, 77, 0.1);
+    }
+
+    .form-group input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: #0a0a0a;
+      font-family: var(--font-primary);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: var(--spacing-sm);
+    }
+
+    .form-submit:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: var(--spacing-lg);
+    }
+
+    .form-success.active {
+      display: block;
+    }
+
+    .form-success svg {
+      width: 48px;
+      height: 48px;
+      stroke: var(--primary-green);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .form-success h3 {
+      font-size: 1.2rem;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .form-success p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .thank-back {
+      margin-top: var(--spacing-lg);
+    }
+
+    .thank-back a {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition-fast);
+    }
+
+    .thank-back a:hover {
+      color: var(--primary-green);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <img src="../assets/images/RINO_logo.png" alt="RINO" />
+      </a>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../index.html#hero" class="nav-link">Início</a></li>
+        <li><a href="../index.html#conheca" class="nav-link">Sobre</a></li>
+        <li><a href="../index.html#features" class="nav-link">Produtos</a></li>
+        <li><a href="../index.html#contact" class="nav-link">Fale Conosco</a></li>
+        <li><a href="consultoria-imobiliaria.html" class="nav-link">Consultoria Imobiliária</a></li>
+        <li>
+          <a href="https://adtech-app.complexodmc.com.br" class="nav-cta"><span>Login</span></a>
+        </li>
+      </ul>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <section class="thank-section">
+    <div class="thank-section__glow" aria-hidden="true"></div>
+    <div class="thank-container">
+      <div class="thank-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+
+      <h1 class="thank-title">Obrigado pelo seu <span class="gradient-text">interesse!</span></h1>
+
+      <div class="thank-course-name" id="courseName"></div>
+
+      <p class="thank-subtitle">
+        Este treinamento ainda <strong>nao esta disponivel</strong>, mas estamos preparando tudo com muito cuidado para oferecer a melhor experiencia. Deixe seu contato abaixo e avisaremos assim que as inscricoes abrirem!
+      </p>
+
+      <div class="thank-form" id="contactForm">
+        <h3 class="thank-form__title">Deixe seu contato</h3>
+        <p class="thank-form__desc">Entraremos em contato quando o treinamento estiver disponivel.</p>
+
+        <form id="interestForm">
+          <div class="form-group">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="telefone">Telefone / WhatsApp</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">Quero ser avisado</button>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3>Contato registrado!</h3>
+          <p>Voce recebera um e-mail de confirmacao em breve. Fique de olho na sua caixa de entrada!</p>
+        </div>
+      </div>
+
+      <div class="thank-back">
+        <a href="../index.html#treinamentos">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Voltar para treinamentos
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <div class="page-footer__container">
+      <a href="../index.html" class="page-footer__logo"><img src="../assets/images/RINO_logo.png" alt="Complexo DMC"></a>
+      <ul class="page-footer__links">
+        <li><a href="../index.html" class="page-footer__link">Inicio</a></li>
+        <li><a href="../index.html#features" class="page-footer__link">Servicos</a></li>
+        <li><a href="../index.html#contact" class="page-footer__link">Contato</a></li>
+        <li><a href="#" class="page-footer__link">Politica de Privacidade</a></li>
+      </ul>
+      <p class="page-footer__copy">&copy; 2025 Complexo DMC. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+
+  <script>
+    // Nav toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    menuToggle && navMenu && menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      menuToggle.classList.toggle('open');
+    });
+    window.addEventListener('scroll', () => {
+      const n = document.getElementById('navbar');
+      if (!n) return;
+      window.scrollY > 50 ? n.classList.add('scrolled') : n.classList.remove('scrolled');
+    });
+
+    // Pega o nome do curso da URL
+    const params = new URLSearchParams(window.location.search);
+    const curso = params.get('curso') || 'Treinamento';
+    document.getElementById('courseName').textContent = curso;
+
+    // Mascara de telefone
+    const telInput = document.getElementById('telefone');
+    telInput.addEventListener('input', function(e) {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.slice(0, 11);
+      if (v.length > 6) {
+        v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+      } else if (v.length > 2) {
+        v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+      } else if (v.length > 0) {
+        v = '(' + v;
+      }
+      e.target.value = v;
+    });
+
+    // Envio do formulario via mailto (envia email pelo site)
+    document.getElementById('interestForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const telefone = document.getElementById('telefone').value;
+      const btn = document.getElementById('submitBtn');
+
+      btn.disabled = true;
+      btn.textContent = 'Enviando...';
+
+      // Monta o corpo do email
+      const assunto = encodeURIComponent('Interesse no Treinamento: ' + curso);
+      const corpo = encodeURIComponent(
+        'Novo interesse em treinamento!\n\n' +
+        'Curso: ' + curso + '\n' +
+        'Nome: ' + nome + '\n' +
+        'E-mail: ' + email + '\n' +
+        'Telefone: ' + telefone + '\n\n' +
+        'Este contato demonstrou interesse e deseja ser avisado quando o treinamento estiver disponivel.'
+      );
+
+      // Abre o cliente de email do usuario para enviar
+      window.location.href = 'mailto:contato@complexodmc.com.br?subject=' + assunto + '&body=' + corpo;
+
+      // Mostra mensagem de sucesso apos um breve delay
+      setTimeout(function() {
+        document.getElementById('interestForm').style.display = 'none';
+        document.querySelector('.thank-form__title').style.display = 'none';
+        document.querySelector('.thank-form__desc').style.display = 'none';
+        document.getElementById('formSuccess').classList.add('active');
+      }, 1000);
+    });
+  </script>
+</body>
+</html>
