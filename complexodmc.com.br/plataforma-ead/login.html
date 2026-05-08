@@ -12,6 +12,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/plataforma.css">
+  <style>
+    .auth-tabs { display:flex; gap:0; margin:1.4rem 0 1.2rem; border-radius:0.6rem; background:rgba(255,255,255,0.04); padding:0.25rem; }
+    .auth-tab { flex:1; background:transparent; border:none; padding:0.6rem 0.75rem; color:var(--ink-2,#9aa3b2); font-family:inherit; font-size:0.85rem; font-weight:600; letter-spacing:0.04em; cursor:pointer; border-radius:0.45rem; transition:all 0.18s ease; }
+    .auth-tab.is-active { background:rgba(255,255,255,0.08); color:var(--ink-0,#fff); box-shadow:0 1px 0 rgba(255,255,255,0.04) inset; }
+    .auth-tab:hover:not(.is-active) { color:var(--ink-1,#cdd5e1); }
+    .login-notice { margin:0.6rem 0 0; padding:0.7rem 0.85rem; background:rgba(34,197,94,0.10); border:1px solid rgba(34,197,94,0.35); color:#86efac; border-radius:0.5rem; font-size:0.85rem; }
+  </style>
 </head>
 <body class="bg-grid">
   <div class="glow-corner"></div>
@@ -23,13 +30,18 @@
       <h1 class="login-title">Arquitetura Patrimonial <span class="gradient-text">Estratégica</span></h1>
       <p class="login-sub">Acesso reservado aos alunos e clientes institucionais do Complexo DMC.</p>
 
-      <form id="login-form" autocomplete="off" novalidate>
-        <div class="field">
-          <label for="nome">Nome</label>
+      <div class="auth-tabs" role="tablist">
+        <button type="button" class="auth-tab is-active" data-auth-tab="signin" role="tab">Entrar</button>
+        <button type="button" class="auth-tab" data-auth-tab="signup" role="tab">Criar conta</button>
+      </div>
+
+      <form id="login-form" autocomplete="off" novalidate data-auth-mode="signin">
+        <div class="field" data-auth-only="signup">
+          <label for="nome">Nome completo</label>
           <input type="text" id="nome" name="nome" placeholder="Como gostaria de ser chamado" autocomplete="name">
         </div>
         <div class="field">
-          <label for="email">E-mail institucional</label>
+          <label for="email">E-mail</label>
           <input type="email" id="email" name="email" required placeholder="seuemail@dominio.com" autocomplete="email">
         </div>
         <div class="field">
@@ -37,16 +49,21 @@
           <input type="password" id="senha" name="senha" required placeholder="••••••••" autocomplete="current-password">
         </div>
         <p id="login-error" class="login-error" role="alert" hidden></p>
+        <p id="login-notice" class="login-notice" role="status" hidden></p>
         <button type="submit" class="btn-primary">Acessar plataforma</button>
       </form>
 
-      <p class="login-foot">
-        Acesso problemas? Entre em contato com <a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a>
+      <p class="login-foot" data-auth-only="signin">
+        Problemas de acesso? Entre em contato com <a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a>
+      </p>
+      <p class="login-foot" data-auth-only="signup">
+        Após criar a conta, você verá os cursos disponíveis. Para liberar o acesso a um curso, finalize a compra na loja — o administrativo confirma o pagamento e libera.
       </p>
     </section>
   </main>
 
-  <script src="js/data.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="js/supabase-client.js"></script>
   <script src="js/app.js"></script>
   <script>DMC_bootLogin();</script>
 </body>

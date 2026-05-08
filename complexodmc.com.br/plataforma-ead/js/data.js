@@ -1,6 +1,12 @@
 // =============================================================
-// COMPLEXO DMC · PLATAFORMA — Seed dos cursos
-// Estrutura multi-curso. Edite via admin.html ou aqui mesmo.
+// [DEPRECATED] COMPLEXO DMC · PLATAFORMA — Seed antigo dos cursos
+// Este arquivo NÃO é mais carregado pela plataforma.
+// Os cursos vivem no Supabase (tabelas cursos/modulos/aulas).
+// Mantido apenas como referência histórica do conteúdo inicial.
+// Para popular o banco, use database/seed.sql.
+// =============================================================
+// Seed dos cursos
+// Estrutura multi-curso.
 // Campos por curso: titulo, subtitulo, descricao, cargaHoraria,
 //   modalidade ('Online' | 'Presencial' | 'Híbrido'),
 //   iconeKey  ('graduation' | 'monitor' | 'shield' | 'building' | 'briefcase' | 'scale'),

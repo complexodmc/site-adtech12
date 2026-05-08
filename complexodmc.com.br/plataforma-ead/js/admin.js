@@ -1,63 +1,93 @@
 // =============================================================
 // COMPLEXO DMC · PAINEL ADMINISTRATIVO
-// CRUD de cursos, módulos e aulas — auto-save em localStorage
+// CRUD de cursos, módulos e aulas — write-through pro Supabase.
 // =============================================================
 (function () {
   'use strict';
 
-  function bootAdmin() {
-    // Em produção: trocar por requireAdminOrRedirect()
-    if (!DMC_Auth.requireOrRedirect()) return;
+  async function bootAdmin() {
+    await DMC_init();
+    if (!DMC_Auth.requireAdminOrRedirect()) return;
     DMC_bindHeader();
 
     const I = DMC_Icons;
     const esc = DMC_escapeHtml;
     const Data = DMC_Data;
+    const Liberacoes = DMC_Liberacoes;
 
     let snapshot = Data.get();
     if (!snapshot.cursos.length) {
-      const id = Data.uid('curso');
-      snapshot.cursos.push({ id, titulo: 'Novo curso', subtitulo: '', cargaHoraria: '', modulos: [] });
-      snapshot.cursoAtivoId = id;
-      Data.save(snapshot);
+      const novo = makeNovoCurso();
+      try { await Data.upsertCurso(novo); }
+      catch (err) { alert('Erro ao criar curso inicial: ' + err.message); return; }
+      await Data.refresh();
+      snapshot = Data.get();
     }
-    let selectedCursoId = snapshot.cursoAtivoId || snapshot.cursos[0].id;
-    if (!snapshot.cursos.find(c => c.id === selectedCursoId)) selectedCursoId = snapshot.cursos[0].id;
 
-    // Botões de cabeçalho com ícones
-    document.querySelector('#btn-export').innerHTML = `${I.download} Exportar JSON`;
-    document.querySelector('#btn-import').innerHTML = `${I.upload} Importar JSON`;
-    document.querySelector('#btn-reset').innerHTML = `${I.refresh} Restaurar seed`;
-    document.querySelector('#btn-add-curso').innerHTML = `${I.plus} Novo curso`;
+    let selectedCursoId = snapshot.cursos[0].id;
+
+    // Botões de cabeçalho
+    const btnAddCurso = document.querySelector('#btn-add-curso');
+    if (btnAddCurso) btnAddCurso.innerHTML = `${I.plus} Novo curso`;
+    // Export/import/reset eram localStorage — não fazem mais sentido.
+    // Deixo Export como "exportar JSON do estado atual" (útil pra backup).
+    const btnExport = document.querySelector('#btn-export');
+    const btnImport = document.querySelector('#btn-import');
+    const btnReset = document.querySelector('#btn-reset');
+    if (btnExport) btnExport.innerHTML = `${I.download} Exportar JSON`;
+    if (btnImport) btnImport.style.display = 'none';   // import desativado (precisaria bulk-insert)
+    if (btnReset) btnReset.style.display = 'none';     // reset desativado (rodar seed.sql se quiser)
 
     // ============ TOAST ============
     const toastEl = document.querySelector('#toast');
     let toastTimer;
     function toast(msg) {
+      if (!toastEl) return;
       toastEl.textContent = msg;
       toastEl.classList.add('is-show');
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toastEl.classList.remove('is-show'), 1600);
     }
-
-    // ============ PERSIST ============
-    function persist(silent) {
-      Data.save(snapshot);
-      if (!silent) toast('Salvo');
+    function toastErr(err) {
+      console.error(err);
+      toast('Erro: ' + (err && err.message ? err.message : 'salvar'));
     }
+
+    // ============ HELPERS ============
     function getCurso() { return snapshot.cursos.find(c => c.id === selectedCursoId); }
+    function refreshSnapshot() { snapshot = Data.get(); }
+
+    function makeNovoCurso() {
+      const proximaOrdem = (snapshot.cursos.reduce((m, c) => Math.max(m, c.ordem || 0), 0)) + 1;
+      return {
+        id: Data.uid('curso'),
+        titulo: 'Novo curso',
+        subtitulo: '',
+        descricao: '',
+        cargaHoraria: '',
+        modalidade: 'Online',
+        iconeKey: 'graduation',
+        preco: 0,
+        linkCheckout: '',
+        beneficios: [],
+        ordem: proximaOrdem,
+        isAtivo: true,
+        modulos: []
+      };
+    }
 
     // ============ RENDER ============
     function render() {
       renderSidebar();
       renderEditor();
+      renderLiberacoesUI();
     }
 
     function renderSidebar() {
       const list = document.querySelector('#curso-list');
+      if (!list) return;
       list.innerHTML = snapshot.cursos.map(c => {
         const isSelected = c.id === selectedCursoId;
-        const isActive = c.id === snapshot.cursoAtivoId;
         const totalAulas = (c.modulos || []).reduce((s, m) => s + (m.aulas || []).length, 0);
         return `
           <div class="curso-item ${isSelected ? 'is-selected' : ''}" data-curso-id="${c.id}">
@@ -65,7 +95,6 @@
               <div class="curso-item__title">${esc(c.titulo) || '<em>(sem título)</em>'}</div>
               <div class="curso-item__sub">${(c.modulos || []).length} módulos · ${totalAulas} aulas</div>
             </div>
-            ${isActive ? `<span class="curso-item__active">Ativo</span>` : ''}
           </div>`;
       }).join('');
       list.querySelectorAll('.curso-item').forEach(el => {
@@ -78,6 +107,7 @@
 
     function renderEditor() {
       const main = document.querySelector('#curso-editor');
+      if (!main) return;
       const curso = getCurso();
       if (!curso) {
         main.innerHTML = `
@@ -87,7 +117,6 @@
           </div>`;
         return;
       }
-      const isActive = curso.id === snapshot.cursoAtivoId;
       main.innerHTML = `
         <section class="editor-section">
           <div class="editor-section__head">
@@ -96,9 +125,6 @@
               <h2 style="margin-top:0.4rem">Identidade do programa</h2>
             </div>
             <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
-              ${isActive
-                ? `<span class="curso-item__active">Curso ativo no painel do aluno</span>`
-                : `<button class="btn-ghost" id="btn-set-active">Definir como ativo</button>`}
               <button class="btn-ghost danger" id="btn-delete-curso">${I.trash} Excluir curso</button>
             </div>
           </div>
@@ -113,10 +139,26 @@
               <input class="input" data-curso-field="cargaHoraria" value="${esc(curso.cargaHoraria || '')}" placeholder="Ex.: 42h">
             </div>
           </div>
+          <div class="field-row cols-2">
+            <div>
+              <label class="field-label">Modalidade</label>
+              <input class="input" data-curso-field="modalidade" value="${esc(curso.modalidade || 'Online')}" placeholder="Online / Presencial / Híbrido">
+            </div>
+            <div>
+              <label class="field-label">Preço (R$)</label>
+              <input class="input" type="number" min="0" step="0.01" data-curso-field="preco" value="${Number(curso.preco) || 0}" placeholder="0.00">
+            </div>
+          </div>
           <div class="field-row">
             <div>
               <label class="field-label">Subtítulo</label>
               <input class="input" data-curso-field="subtitulo" value="${esc(curso.subtitulo || '')}" placeholder="Linha de apoio do programa">
+            </div>
+          </div>
+          <div class="field-row">
+            <div>
+              <label class="field-label">Descrição</label>
+              <textarea class="input" data-curso-field="descricao" placeholder="Descrição completa do programa">${esc(curso.descricao || '')}</textarea>
             </div>
           </div>
         </section>
@@ -187,79 +229,93 @@
     function bindEditorEvents() {
       const main = document.querySelector('#curso-editor');
       const curso = getCurso();
+      if (!main || !curso) return;
 
-      // Curso fields
+      // ----- Curso fields: salva no blur -----
       main.querySelectorAll('[data-curso-field]').forEach(el => {
-        el.addEventListener('input', () => {
-          curso[el.dataset.cursoField] = el.value;
-          persist(true);
+        el.addEventListener('blur', async () => {
+          const field = el.dataset.cursoField;
+          let value = el.value;
+          if (field === 'preco') value = Number(value) || 0;
+          if (curso[field] === value) return;
+          curso[field] = value;
+          try { await Data.upsertCurso(curso); toast('Salvo'); }
+          catch (err) { toastErr(err); return; }
+          renderSidebar();
         });
-        el.addEventListener('blur', () => { persist(); renderSidebar(); });
       });
 
-      // Set active
-      const setActiveBtn = main.querySelector('#btn-set-active');
-      if (setActiveBtn) setActiveBtn.addEventListener('click', () => {
-        snapshot.cursoAtivoId = curso.id;
-        persist();
-        render();
-      });
-
-      // Delete curso
+      // ----- Delete curso -----
       const delCurso = main.querySelector('#btn-delete-curso');
-      if (delCurso) delCurso.addEventListener('click', () => {
+      if (delCurso) delCurso.addEventListener('click', async () => {
         if (!confirm(`Excluir o curso "${curso.titulo}"? Essa ação não pode ser desfeita.`)) return;
-        snapshot.cursos = snapshot.cursos.filter(c => c.id !== curso.id);
-        if (snapshot.cursoAtivoId === curso.id) snapshot.cursoAtivoId = snapshot.cursos[0] ? snapshot.cursos[0].id : null;
+        try { await Data.deleteCurso(curso.id); }
+        catch (err) { toastErr(err); return; }
+        await Data.refresh();
+        refreshSnapshot();
         selectedCursoId = snapshot.cursos[0] ? snapshot.cursos[0].id : null;
-        persist();
+        toast('Curso excluído');
         render();
       });
 
-      // Add módulo
+      // ----- Add módulo -----
       const addModBtn = main.querySelector('#btn-add-modulo');
-      if (addModBtn) addModBtn.addEventListener('click', () => {
-        const nextNum = String((curso.modulos || []).length + 1).padStart(2, '0');
-        curso.modulos = curso.modulos || [];
-        curso.modulos.push({
+      if (addModBtn) addModBtn.addEventListener('click', async () => {
+        const ordem = (curso.modulos || []).length + 1;
+        const novo = {
           id: Data.uid('m'),
-          numero: nextNum,
+          numero: String(ordem).padStart(2, '0'),
           titulo: 'Novo módulo',
           resumo: '',
           duracao: '',
+          ordem,
           aulas: []
-        });
-        persist();
+        };
+        try { await Data.upsertModulo(novo, curso.id); }
+        catch (err) { toastErr(err); return; }
+        await Data.refresh();
+        refreshSnapshot();
+        toast('Módulo adicionado');
         render();
       });
 
-      // Módulo fields
+      // ----- Módulo fields: salva no blur -----
       main.querySelectorAll('[data-modulo-field]').forEach(el => {
-        el.addEventListener('input', () => {
+        el.addEventListener('blur', async () => {
           const m = curso.modulos.find(x => x.id === el.dataset.moduloId);
-          if (m) { m[el.dataset.moduloField] = el.value; persist(true); }
+          if (!m) return;
+          const field = el.dataset.moduloField;
+          if (m[field] === el.value) return;
+          m[field] = el.value;
+          try { await Data.upsertModulo(m, curso.id); toast('Salvo'); }
+          catch (err) { toastErr(err); return; }
+          renderSidebar();
         });
-        el.addEventListener('blur', () => { persist(); renderSidebar(); });
       });
 
-      // Módulo: up/down/delete
-      main.querySelectorAll('[data-modulo-up]').forEach(b => b.addEventListener('click', () => {
+      // ----- Módulo: up/down/delete -----
+      main.querySelectorAll('[data-modulo-up]').forEach(b => b.addEventListener('click', async () => {
         const id = b.dataset.moduloUp;
         const idx = curso.modulos.findIndex(m => m.id === id);
-        if (idx > 0) { [curso.modulos[idx - 1], curso.modulos[idx]] = [curso.modulos[idx], curso.modulos[idx - 1]]; persist(); render(); }
+        if (idx <= 0) return;
+        await swapModulos(curso, idx - 1, idx);
       }));
-      main.querySelectorAll('[data-modulo-down]').forEach(b => b.addEventListener('click', () => {
+      main.querySelectorAll('[data-modulo-down]').forEach(b => b.addEventListener('click', async () => {
         const id = b.dataset.moduloDown;
         const idx = curso.modulos.findIndex(m => m.id === id);
-        if (idx >= 0 && idx < curso.modulos.length - 1) { [curso.modulos[idx + 1], curso.modulos[idx]] = [curso.modulos[idx], curso.modulos[idx + 1]]; persist(); render(); }
+        if (idx < 0 || idx >= curso.modulos.length - 1) return;
+        await swapModulos(curso, idx, idx + 1);
       }));
-      main.querySelectorAll('[data-modulo-delete]').forEach(b => b.addEventListener('click', () => {
+      main.querySelectorAll('[data-modulo-delete]').forEach(b => b.addEventListener('click', async () => {
         const id = b.dataset.moduloDelete;
         const m = curso.modulos.find(x => x.id === id);
         if (!m) return;
         if (!confirm(`Excluir o módulo "${m.titulo}" e todas as suas aulas?`)) return;
-        curso.modulos = curso.modulos.filter(x => x.id !== id);
-        persist();
+        try { await Data.deleteModulo(id); }
+        catch (err) { toastErr(err); return; }
+        await Data.refresh();
+        refreshSnapshot();
+        toast('Módulo excluído');
         render();
       }));
       main.querySelectorAll('[data-modulo-toggle]').forEach(b => b.addEventListener('click', () => {
@@ -269,54 +325,93 @@
         b.style.transform = body.style.display === 'none' ? 'rotate(-90deg)' : '';
       }));
 
-      // Aula: add
-      main.querySelectorAll('[data-aula-add]').forEach(b => b.addEventListener('click', () => {
+      // ----- Aula: add -----
+      main.querySelectorAll('[data-aula-add]').forEach(b => b.addEventListener('click', async () => {
         const m = curso.modulos.find(x => x.id === b.dataset.aulaAdd);
         if (!m) return;
-        m.aulas = m.aulas || [];
-        m.aulas.push({
+        const ordem = (m.aulas || []).length + 1;
+        const novo = {
           id: Data.uid('a'),
           titulo: 'Nova aula',
           duracao: '',
-          videoUrl: ''
-        });
-        persist();
+          videoUrl: '',
+          ordem
+        };
+        try { await Data.upsertAula(novo, m.id); }
+        catch (err) { toastErr(err); return; }
+        await Data.refresh();
+        refreshSnapshot();
+        toast('Aula adicionada');
         render();
       }));
 
-      // Aula fields
+      // ----- Aula fields: salva no blur -----
       main.querySelectorAll('[data-aula-field]').forEach(el => {
-        el.addEventListener('input', () => {
-          const a = findAulaById(curso, el.dataset.aulaId);
-          if (a) { a[el.dataset.aulaField] = el.value; persist(true); }
+        el.addEventListener('blur', async () => {
+          const found = findAulaWithModulo(curso, el.dataset.aulaId);
+          if (!found) return;
+          const field = el.dataset.aulaField;
+          if (found.aula[field] === el.value) return;
+          found.aula[field] = el.value;
+          try { await Data.upsertAula(found.aula, found.modulo.id); toast('Salvo'); }
+          catch (err) { toastErr(err); }
         });
-        el.addEventListener('blur', () => { persist(); });
       });
 
-      // Aula: up/down/delete
-      main.querySelectorAll('[data-aula-up]').forEach(b => b.addEventListener('click', () => {
-        moveAula(curso, b.dataset.aulaUp, -1);
+      // ----- Aula: up/down/delete -----
+      main.querySelectorAll('[data-aula-up]').forEach(b => b.addEventListener('click', async () => {
+        await swapAulas(curso, b.dataset.aulaUp, -1);
       }));
-      main.querySelectorAll('[data-aula-down]').forEach(b => b.addEventListener('click', () => {
-        moveAula(curso, b.dataset.aulaDown, 1);
+      main.querySelectorAll('[data-aula-down]').forEach(b => b.addEventListener('click', async () => {
+        await swapAulas(curso, b.dataset.aulaDown, 1);
       }));
-      main.querySelectorAll('[data-aula-delete]').forEach(b => b.addEventListener('click', () => {
+      main.querySelectorAll('[data-aula-delete]').forEach(b => b.addEventListener('click', async () => {
         const id = b.dataset.aulaDelete;
         const found = findAulaWithModulo(curso, id);
         if (!found) return;
         if (!confirm(`Excluir a aula "${found.aula.titulo}"?`)) return;
-        found.modulo.aulas = found.modulo.aulas.filter(a => a.id !== id);
-        persist();
+        try { await Data.deleteAula(id); }
+        catch (err) { toastErr(err); return; }
+        await Data.refresh();
+        refreshSnapshot();
+        toast('Aula excluída');
         render();
       }));
     }
 
-    function findAulaById(curso, aulaId) {
-      for (const m of curso.modulos || []) {
-        const a = (m.aulas || []).find(x => x.id === aulaId);
-        if (a) return a;
-      }
-      return null;
+    async function swapModulos(curso, i, j) {
+      const a = curso.modulos[i], b = curso.modulos[j];
+      const ordemA = a.ordem, ordemB = b.ordem;
+      a.ordem = ordemB; b.ordem = ordemA;
+      try {
+        await Promise.all([
+          Data.upsertModulo(a, curso.id),
+          Data.upsertModulo(b, curso.id)
+        ]);
+      } catch (err) { toastErr(err); return; }
+      await Data.refresh();
+      refreshSnapshot();
+      render();
+    }
+    async function swapAulas(curso, aulaId, delta) {
+      const found = findAulaWithModulo(curso, aulaId);
+      if (!found) return;
+      const arr = found.modulo.aulas;
+      const idx = arr.indexOf(found.aula);
+      const ni = idx + delta;
+      if (ni < 0 || ni >= arr.length) return;
+      const a = arr[idx], b = arr[ni];
+      const ordemA = a.ordem, ordemB = b.ordem;
+      a.ordem = ordemB; b.ordem = ordemA;
+      try {
+        await Promise.all([
+          Data.upsertAula(a, found.modulo.id),
+          Data.upsertAula(b, found.modulo.id)
+        ]);
+      } catch (err) { toastErr(err); return; }
+      await Data.refresh();
+      refreshSnapshot();
+      render();
     }
     function findAulaWithModulo(curso, aulaId) {
       for (const m of curso.modulos || []) {
@@ -325,90 +420,46 @@
       }
       return null;
     }
-    function moveAula(curso, aulaId, delta) {
-      const found = findAulaWithModulo(curso, aulaId);
-      if (!found) return;
-      const arr = found.modulo.aulas;
-      const idx = arr.indexOf(found.aula);
-      const ni = idx + delta;
-      if (ni < 0 || ni >= arr.length) return;
-      [arr[idx], arr[ni]] = [arr[ni], arr[idx]];
-      persist();
-      render();
-    }
 
     // ============ HEADER ACTIONS ============
-    document.querySelector('#btn-add-curso').addEventListener('click', () => {
-      const id = Data.uid('curso');
-      snapshot.cursos.push({ id, titulo: 'Novo curso', subtitulo: '', cargaHoraria: '', modulos: [] });
-      selectedCursoId = id;
-      if (!snapshot.cursoAtivoId) snapshot.cursoAtivoId = id;
-      persist();
+    if (btnAddCurso) btnAddCurso.addEventListener('click', async () => {
+      const novo = makeNovoCurso();
+      try { await Data.upsertCurso(novo); }
+      catch (err) { toastErr(err); return; }
+      await Data.refresh();
+      refreshSnapshot();
+      selectedCursoId = novo.id;
+      toast('Curso criado');
       render();
     });
 
-    document.querySelector('#btn-reset').addEventListener('click', () => {
-      if (!confirm('Restaurar o conteúdo original do seed (data.js)? Isso descarta TODAS as suas edições.')) return;
-      Data.reset();
-      snapshot = Data.get();
-      selectedCursoId = snapshot.cursoAtivoId || (snapshot.cursos[0] && snapshot.cursos[0].id);
-      toast('Seed restaurado');
-      render();
-    });
-
-    // Export
+    // Export JSON do estado atual (read-only — backup)
     const modalExport = document.querySelector('#modal-export');
-    document.querySelector('#btn-export').addEventListener('click', () => {
-      const ta = document.querySelector('#export-json');
-      ta.value = JSON.stringify(snapshot, null, 2);
-      modalExport.classList.add('is-open');
-      setTimeout(() => ta.select(), 50);
-    });
-    document.querySelector('#btn-copy-json').addEventListener('click', async () => {
-      const ta = document.querySelector('#export-json');
-      try {
-        await navigator.clipboard.writeText(ta.value);
-        toast('JSON copiado');
-      } catch {
-        ta.select(); document.execCommand('copy'); toast('JSON copiado');
-      }
-    });
-
-    // Import
-    const modalImport = document.querySelector('#modal-import');
-    document.querySelector('#btn-import').addEventListener('click', () => {
-      document.querySelector('#import-json').value = '';
-      modalImport.classList.add('is-open');
-    });
-    document.querySelector('#btn-import-confirm').addEventListener('click', () => {
-      const txt = document.querySelector('#import-json').value.trim();
-      if (!txt) return;
-      try {
-        const parsed = JSON.parse(txt);
-        if (!parsed.cursos || !Array.isArray(parsed.cursos)) throw new Error('JSON precisa ter "cursos" como array');
-        snapshot = parsed;
-        if (!snapshot.cursoAtivoId && snapshot.cursos[0]) snapshot.cursoAtivoId = snapshot.cursos[0].id;
-        selectedCursoId = snapshot.cursoAtivoId;
-        persist();
-        modalImport.classList.remove('is-open');
-        toast('Conteúdo importado');
-        render();
-      } catch (err) {
-        alert('JSON inválido: ' + err.message);
-      }
-    });
+    if (btnExport && modalExport) {
+      btnExport.addEventListener('click', () => {
+        const ta = document.querySelector('#export-json');
+        ta.value = JSON.stringify(snapshot, null, 2);
+        modalExport.classList.add('is-open');
+        setTimeout(() => ta.select(), 50);
+      });
+      const btnCopy = document.querySelector('#btn-copy-json');
+      if (btnCopy) btnCopy.addEventListener('click', async () => {
+        const ta = document.querySelector('#export-json');
+        try { await navigator.clipboard.writeText(ta.value); toast('JSON copiado'); }
+        catch { ta.select(); document.execCommand('copy'); toast('JSON copiado'); }
+      });
+    }
 
     // Modal close
     document.querySelectorAll('[data-modal-close]').forEach(b => b.addEventListener('click', () => {
-      modalImport.classList.remove('is-open');
-      modalExport.classList.remove('is-open');
+      if (modalExport) modalExport.classList.remove('is-open');
     }));
-    [modalImport, modalExport].forEach(m => m.addEventListener('click', (e) => {
-      if (e.target === m) m.classList.remove('is-open');
-    }));
+    if (modalExport) modalExport.addEventListener('click', (e) => {
+      if (e.target === modalExport) modalExport.classList.remove('is-open');
+    });
 
     // ============ LIBERAÇÕES ============
-    function renderLiberacoesUI() {
+    async function renderLiberacoesUI() {
       const cursos = (Data.get().cursos || []);
       const container = document.querySelector('#lib-cursos');
       if (!container) return;
@@ -420,6 +471,8 @@
         </label>
       `).join('');
 
+      try { await Liberacoes.loadAll(); }
+      catch (err) { toastErr(err); }
       renderLibList();
     }
 
@@ -427,11 +480,11 @@
       const list = document.querySelector('#lib-list');
       const counter = document.querySelector('#lib-list-count');
       if (!list) return;
-      const todas = (DMC_Liberacoes._read && DMC_Liberacoes._read()) || JSON.parse(localStorage.getItem('dmc:liberacoes') || '{}');
+      const todas = Liberacoes.allByEmail();
       const cursos = (Data.get().cursos || []);
       const findCurso = id => cursos.find(c => c.id === id);
       const emails = Object.keys(todas).filter(e => (todas[e] || []).length > 0);
-      counter.textContent = emails.length;
+      if (counter) counter.textContent = emails.length;
 
       if (!emails.length) {
         list.innerHTML = `<div class="lib-empty">Nenhum aluno com acesso liberado ainda.</div>`;
@@ -460,20 +513,22 @@
           </div>`;
       }).join('');
 
-      list.querySelectorAll('[data-revoke]').forEach(b => b.addEventListener('click', (e) => {
+      list.querySelectorAll('[data-revoke]').forEach(b => b.addEventListener('click', async (e) => {
         e.preventDefault();
         const chip = b.closest('.lib-chip');
         if (!chip) return;
-        DMC_Liberacoes.revoke(chip.dataset.email, chip.dataset.curso);
+        try { await Liberacoes.revokeByEmail(chip.dataset.email, chip.dataset.curso); }
+        catch (err) { toastErr(err); return; }
+        await Liberacoes.loadAll();
         renderLibList();
         toast('Acesso revogado');
       }));
-      list.querySelectorAll('[data-revoke-all]').forEach(b => b.addEventListener('click', () => {
+      list.querySelectorAll('[data-revoke-all]').forEach(b => b.addEventListener('click', async () => {
         const email = b.dataset.revokeAll;
         if (!confirm(`Revogar TODOS os acessos de ${email}?`)) return;
-        const all = JSON.parse(localStorage.getItem('dmc:liberacoes') || '{}');
-        delete all[email];
-        localStorage.setItem('dmc:liberacoes', JSON.stringify(all));
+        try { await Liberacoes.revokeAllByEmail(email); }
+        catch (err) { toastErr(err); return; }
+        await Liberacoes.loadAll();
         renderLibList();
         toast('Acessos revogados');
       }));
@@ -481,17 +536,19 @@
 
     const libForm = document.querySelector('#lib-form');
     if (libForm) {
-      libForm.addEventListener('submit', (e) => {
+      libForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const email = (document.querySelector('#lib-email').value || '').trim();
         if (!email) return;
         const ids = Array.from(document.querySelectorAll('#lib-cursos input:checked')).map(i => i.value);
         if (!ids.length) { toast('Selecione ao menos um curso'); return; }
-        DMC_Liberacoes.grant(email, ids);
-        // limpa form
+        try { await Liberacoes.grantByEmail(email, ids); }
+        catch (err) { alert(err.message); return; }
         document.querySelector('#lib-email').value = '';
-        document.querySelector('#lib-nome').value = '';
+        const libNome = document.querySelector('#lib-nome');
+        if (libNome) libNome.value = '';
         document.querySelectorAll('#lib-cursos input:checked').forEach(i => i.checked = false);
+        await Liberacoes.loadAll();
         renderLibList();
         toast(`${ids.length} curso${ids.length > 1 ? 's' : ''} liberado${ids.length > 1 ? 's' : ''} para ${email}`);
       });
@@ -499,13 +556,10 @@
     const libClear = document.querySelector('#lib-clear');
     if (libClear) libClear.addEventListener('click', () => {
       document.querySelector('#lib-email').value = '';
-      document.querySelector('#lib-nome').value = '';
+      const libNome = document.querySelector('#lib-nome');
+      if (libNome) libNome.value = '';
       document.querySelectorAll('#lib-cursos input:checked').forEach(i => i.checked = false);
     });
-
-    // Re-renderiza checkboxes de liberação quando os cursos mudam (override de render)
-    const _origRender = render;
-    render = function () { _origRender(); renderLiberacoesUI(); };
 
     render();
   }

@@ -1,114 +1,173 @@
 // =============================================================
 // COMPLEXO DMC · PLATAFORMA — núcleo do front
-// Persistência em localStorage (mock — sem backend)
+// Persistência em Supabase. Cache em memória + localStorage só
+// pra escolha de curso ativo e carrinho.
 // =============================================================
 (function () {
   'use strict';
 
-  const STORAGE_AUTH = 'dmc:auth';
-  const STORAGE_PROGRESS = 'dmc:progress';
-  const STORAGE_DATA = 'dmc:data';
   const STORAGE_CURSO_ESCOLHIDO = 'dmc:cursoEscolhido';
-  const STORAGE_LIBERACOES = 'dmc:liberacoes';   // { "<email>": ["<cursoId>", ...] }
-  const STORAGE_CARRINHO = 'dmc:carrinho';        // ["<cursoId>", ...]
+  const STORAGE_CARRINHO = 'dmc:carrinho';
+
+  const supa = () => window.DMC_supa;
 
   // =============================================================
-  // DATA — multi-curso, com migração automática do seed antigo
+  // AUTH — wrapper síncrono em volta do Supabase Auth
+  // Após DMC_init(), Auth.user() retorna { id, email, nome, iniciais, isAdmin } ou null.
   // =============================================================
-  const Data = {
-    _migrate(raw) {
-      if (raw && raw.modulos && raw.curso && !raw.cursos) {
-        const cursoId = 'curso-' + Date.now().toString(36);
-        return {
-          cursos: [{
-            id: cursoId,
-            titulo: raw.curso.titulo || 'Programa',
-            subtitulo: raw.curso.subtitulo || '',
-            descricao: raw.curso.descricao || raw.curso.subtitulo || '',
-            cargaHoraria: raw.curso.cargaHoraria || '',
-            modalidade: 'Online',
-            iconeKey: 'graduation',
-            preco: 0,
-            linkCheckout: '',
-            beneficios: [],
-            modulos: raw.modulos || []
-          }],
-          cursoAtivoId: cursoId
-        };
-      }
-      if (raw && raw.cursos) {
-        raw.cursos.forEach(c => {
-          if (!c.modalidade) c.modalidade = 'Online';
-          if (!c.iconeKey) c.iconeKey = 'graduation';
-          if (c.descricao == null) c.descricao = c.subtitulo || '';
-          if (c.preco == null) c.preco = 0;
-          if (c.linkCheckout == null) c.linkCheckout = '';
-          if (!Array.isArray(c.beneficios)) c.beneficios = [];
-        });
-      }
-      return raw;
-    },
-    _seedClone() {
-      const seed = window.PLATAFORMA_DATA;
-      if (!seed) return { cursos: [], cursoAtivoId: null };
-      if (seed.cursos) return JSON.parse(JSON.stringify(seed));
-      const cursoId = 'curso-01';
-      return {
-        cursos: [{
-          id: cursoId,
-          titulo: seed.curso.titulo || 'Programa',
-          subtitulo: seed.curso.subtitulo || '',
-          descricao: seed.curso.descricao || seed.curso.subtitulo || '',
-          cargaHoraria: seed.curso.cargaHoraria || '',
-          modalidade: 'Online',
-          iconeKey: 'graduation',
-          preco: 0,
-          linkCheckout: '',
-          beneficios: [],
-          modulos: JSON.parse(JSON.stringify(seed.modulos || []))
-        }],
-        cursoAtivoId: cursoId
+  let _user = null;
+
+  const Auth = {
+    async init() {
+      const { data: { session } } = await supa().auth.getSession();
+      if (!session) { _user = null; return null; }
+      const u = session.user;
+      // Busca profile pra pegar is_admin e nome
+      const { data: profile, error } = await supa()
+        .from('profiles')
+        .select('email, nome, is_admin')
+        .eq('id', u.id)
+        .maybeSingle();
+      if (error) console.warn('[DMC] erro ao carregar profile:', error.message);
+      const nome = (profile && profile.nome) || u.email.split('@')[0];
+      _user = {
+        id: u.id,
+        email: (profile && profile.email) || u.email,
+        nome,
+        iniciais: nome.split(/[\s.@]/).filter(Boolean).slice(0, 2).map(s => s[0].toUpperCase()).join(''),
+        isAdmin: !!(profile && profile.is_admin)
       };
+      return _user;
     },
-    get() {
-      try {
-        const stored = localStorage.getItem(STORAGE_DATA);
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          const migrated = this._migrate(parsed);
-          if (migrated !== parsed) this.save(migrated);
-          return migrated;
-        }
-      } catch (_) {}
-      return this._seedClone();
+    isLogged() { return !!_user; },
+    user() { return _user; },
+    async signIn(email, senha) {
+      const { data, error } = await supa().auth.signInWithPassword({ email: email.trim(), password: senha });
+      if (error) throw error;
+      await this.init();
+      return data;
     },
-    save(data) { localStorage.setItem(STORAGE_DATA, JSON.stringify(data)); },
-    reset() { localStorage.removeItem(STORAGE_DATA); },
+    async signUp(email, senha, nome) {
+      const { data, error } = await supa().auth.signUp({
+        email: email.trim(),
+        password: senha,
+        options: { data: { nome: (nome || '').trim() } }
+      });
+      if (error) throw error;
+      // Se "Confirm email" estiver desligado no Supabase, já vem com session.
+      // Se estiver ligado, data.session é null e o user precisa confirmar pelo email.
+      if (data && data.session) await this.init();
+      return data;
+    },
+    async signOut() {
+      await supa().auth.signOut();
+      _user = null;
+    },
+    requireOrRedirect(to = 'login.html') {
+      if (!this.isLogged()) { window.location.href = to; return false; }
+      return true;
+    },
+    requireAdminOrRedirect(to = 'dashboard.html') {
+      if (!this.requireOrRedirect()) return false;
+      if (!_user.isAdmin) { window.location.href = to; return false; }
+      return true;
+    }
+  };
+  window.DMC_Auth = Auth;
+
+  // =============================================================
+  // DATA — multi-curso (cache em memória, fonte: Supabase)
+  // Estrutura: { cursos: [{ id, titulo, ..., modulos: [{ ..., aulas: [...] }] }] }
+  // Mantém field names em camelCase pra não quebrar a UI.
+  // =============================================================
+  let _data = { cursos: [] };
+
+  function mapCursoFromDb(row, modulos) {
+    return {
+      id: row.id,
+      titulo: row.titulo,
+      subtitulo: row.subtitulo || '',
+      descricao: row.descricao || '',
+      cargaHoraria: row.carga_horaria || '',
+      modalidade: row.modalidade || 'Online',
+      iconeKey: row.icone_key || 'graduation',
+      preco: Number(row.preco) || 0,
+      linkCheckout: row.link_checkout || '',
+      beneficios: Array.isArray(row.beneficios) ? row.beneficios : [],
+      ordem: row.ordem || 0,
+      isAtivo: row.is_ativo !== false,
+      modulos: modulos || []
+    };
+  }
+  function mapModuloFromDb(row, aulas) {
+    return {
+      id: row.id,
+      cursoId: row.curso_id,
+      numero: row.numero || '',
+      titulo: row.titulo,
+      resumo: row.resumo || '',
+      duracao: row.duracao || '',
+      ordem: row.ordem || 0,
+      aulas: aulas || []
+    };
+  }
+  function mapAulaFromDb(row) {
+    return {
+      id: row.id,
+      moduloId: row.modulo_id,
+      titulo: row.titulo,
+      duracao: row.duracao || '',
+      videoUrl: row.video_url || '',
+      ordem: row.ordem || 0
+    };
+  }
+
+  const Data = {
+    async init() {
+      const [cursosRes, modulosRes, aulasRes] = await Promise.all([
+        supa().from('cursos').select('*').order('ordem', { ascending: true }),
+        supa().from('modulos').select('*').order('ordem', { ascending: true }),
+        supa().from('aulas').select('*').order('ordem', { ascending: true })
+      ]);
+      if (cursosRes.error) throw cursosRes.error;
+      if (modulosRes.error) throw modulosRes.error;
+      if (aulasRes.error) throw aulasRes.error;
+
+      const aulasByModulo = new Map();
+      (aulasRes.data || []).forEach(a => {
+        if (!aulasByModulo.has(a.modulo_id)) aulasByModulo.set(a.modulo_id, []);
+        aulasByModulo.get(a.modulo_id).push(mapAulaFromDb(a));
+      });
+      const modulosByCurso = new Map();
+      (modulosRes.data || []).forEach(m => {
+        if (!modulosByCurso.has(m.curso_id)) modulosByCurso.set(m.curso_id, []);
+        modulosByCurso.get(m.curso_id).push(mapModuloFromDb(m, aulasByModulo.get(m.id) || []));
+      });
+      _data = {
+        cursos: (cursosRes.data || []).map(c => mapCursoFromDb(c, modulosByCurso.get(c.id) || []))
+      };
+      return _data;
+    },
+    async refresh() { return this.init(); },
+    get() { return _data; },
     getCursoEscolhidoId() {
       const id = localStorage.getItem(STORAGE_CURSO_ESCOLHIDO);
-      if (id) {
-        const all = this.get();
-        if (all.cursos.find(c => c.id === id)) return id;
-      }
-      const d = this.get();
-      return d.cursoAtivoId || (d.cursos[0] && d.cursos[0].id) || null;
+      if (id && _data.cursos.find(c => c.id === id)) return id;
+      return _data.cursos[0] ? _data.cursos[0].id : null;
     },
     setCursoEscolhido(id) {
       if (id) localStorage.setItem(STORAGE_CURSO_ESCOLHIDO, id);
       else localStorage.removeItem(STORAGE_CURSO_ESCOLHIDO);
     },
     getActiveCurso() {
-      const d = this.get();
       const id = this.getCursoEscolhidoId();
-      return d.cursos.find(c => c.id === id) || d.cursos[0] || null;
+      return _data.cursos.find(c => c.id === id) || _data.cursos[0] || null;
     },
     getCursoById(id) {
-      const d = this.get();
-      return d.cursos.find(c => c.id === id) || null;
+      return _data.cursos.find(c => c.id === id) || null;
     },
     findCursoByAulaId(aulaId) {
-      const d = this.get();
-      for (const c of d.cursos) {
+      for (const c of _data.cursos) {
         for (const m of c.modulos || []) {
           if ((m.aulas || []).some(a => a.id === aulaId)) return c;
         }
@@ -117,93 +176,230 @@
     },
     uid(prefix) {
       return prefix + '-' + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-3);
+    },
+    // ============ MUTATIONS (admin) ============
+    async upsertCurso(curso) {
+      const row = {
+        id: curso.id,
+        titulo: curso.titulo || '',
+        subtitulo: curso.subtitulo || null,
+        descricao: curso.descricao || null,
+        carga_horaria: curso.cargaHoraria || null,
+        modalidade: curso.modalidade || 'Online',
+        icone_key: curso.iconeKey || 'graduation',
+        preco: Number(curso.preco) || 0,
+        link_checkout: curso.linkCheckout || null,
+        beneficios: Array.isArray(curso.beneficios) ? curso.beneficios : [],
+        ordem: curso.ordem || 0,
+        is_ativo: curso.isAtivo !== false
+      };
+      const { error } = await supa().from('cursos').upsert(row);
+      if (error) throw error;
+    },
+    async deleteCurso(cursoId) {
+      const { error } = await supa().from('cursos').delete().eq('id', cursoId);
+      if (error) throw error;
+    },
+    async upsertModulo(modulo, cursoId) {
+      const row = {
+        id: modulo.id,
+        curso_id: cursoId,
+        numero: modulo.numero || '',
+        titulo: modulo.titulo || '',
+        resumo: modulo.resumo || null,
+        duracao: modulo.duracao || null,
+        ordem: modulo.ordem || 0
+      };
+      const { error } = await supa().from('modulos').upsert(row);
+      if (error) throw error;
+    },
+    async deleteModulo(moduloId) {
+      const { error } = await supa().from('modulos').delete().eq('id', moduloId);
+      if (error) throw error;
+    },
+    async upsertAula(aula, moduloId) {
+      const row = {
+        id: aula.id,
+        modulo_id: moduloId,
+        titulo: aula.titulo || '',
+        duracao: aula.duracao || null,
+        video_url: aula.videoUrl || null,
+        ordem: aula.ordem || 0
+      };
+      const { error } = await supa().from('aulas').upsert(row);
+      if (error) throw error;
+    },
+    async deleteAula(aulaId) {
+      const { error } = await supa().from('aulas').delete().eq('id', aulaId);
+      if (error) throw error;
     }
   };
   window.DMC_Data = Data;
 
   // =============================================================
-  // AUTH
+  // LIBERAÇÕES (acesso por user a cursos)
+  // Cache: Set<cursoId> do usuário logado.
   // =============================================================
-  const ADMIN_EMAILS = [
-    'danielc@complexodmc.com.br',
-    'admin@complexodmc.com.br',
-    'administrativo@complexodmc.com.br'
-  ];
+  let _libsUser = new Set();   // liberações do usuário logado
+  let _libsAll = null;          // { email -> [cursoId] } — só admin carrega isso
 
-  const Auth = {
-    isLogged() { return !!localStorage.getItem(STORAGE_AUTH); },
-    login(email, nome) {
-      const data = {
-        email,
-        nome: nome || email.split('@')[0],
-        iniciais: (nome || email).split(/[\s.@]/).filter(Boolean).slice(0, 2).map(s => s[0].toUpperCase()).join(''),
-        isAdmin: ADMIN_EMAILS.includes(email.toLowerCase().trim()) || /admin/i.test(email),
-        loggedAt: new Date().toISOString()
-      };
-      localStorage.setItem(STORAGE_AUTH, JSON.stringify(data));
-      return data;
-    },
-    logout() { localStorage.removeItem(STORAGE_AUTH); },
-    user() {
-      const raw = localStorage.getItem(STORAGE_AUTH);
-      return raw ? JSON.parse(raw) : null;
-    },
-    requireOrRedirect(to = 'login.html') {
-      if (!this.isLogged()) { window.location.href = to; return false; }
-      return true;
-    },
-    requireAdminOrRedirect(to = 'dashboard.html') {
-      if (!this.requireOrRedirect()) return false;
-      const u = this.user();
-      if (!u.isAdmin) { window.location.href = to; return false; }
-      return true;
-    }
-  };
-  window.DMC_Auth = Auth;
-
-  // =============================================================
-  // LIBERAÇÕES (acesso por email a cursos comprados)
-  // =============================================================
   const Liberacoes = {
-    _read() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_LIBERACOES) || '{}'); }
-      catch { return {}; }
+    async init() {
+      _libsUser = new Set();
+      if (!_user) return;
+      const { data, error } = await supa()
+        .from('liberacoes')
+        .select('curso_id')
+        .eq('user_id', _user.id);
+      if (error) { console.warn('[DMC] erro liberacoes:', error.message); return; }
+      (data || []).forEach(r => _libsUser.add(r.curso_id));
     },
-    _write(d) { localStorage.setItem(STORAGE_LIBERACOES, JSON.stringify(d)); },
-    has(email, cursoId) {
-      if (!email || !cursoId) return false;
-      const u = Auth.user();
-      if (u && u.isAdmin) return true; // admin vê tudo
-      const d = this._read();
-      const list = d[email.toLowerCase().trim()] || [];
-      return list.includes(cursoId);
+    has(_email, cursoId) {
+      // assinatura mantém compat: 1º arg ignorado (era email), checa pelo user logado
+      if (!cursoId) { cursoId = _email; }
+      if (!_user) return false;
+      if (_user.isAdmin) return true;
+      return _libsUser.has(cursoId);
     },
-    grant(email, cursoIds) {
-      if (!email) return;
-      const key = email.toLowerCase().trim();
-      const d = this._read();
-      const set = new Set(d[key] || []);
-      (Array.isArray(cursoIds) ? cursoIds : [cursoIds]).forEach(id => id && set.add(id));
-      d[key] = [...set];
-      this._write(d);
+    listForCurrentUser() { return [..._libsUser]; },
+    // ============ ADMIN ============
+    async loadAll() {
+      // Não há FK direta liberacoes → profiles (ambos apontam pra auth.users),
+      // então o PostgREST não infere o join. Faz em 2 queries.
+      const { data: libs, error: lErr } = await supa()
+        .from('liberacoes')
+        .select('curso_id, user_id');
+      if (lErr) throw lErr;
+      const userIds = [...new Set((libs || []).map(r => r.user_id))];
+      let emailById = {};
+      if (userIds.length) {
+        const { data: profs, error: pErr } = await supa()
+          .from('profiles')
+          .select('id, email')
+          .in('id', userIds);
+        if (pErr) throw pErr;
+        (profs || []).forEach(p => { emailById[p.id] = p.email; });
+      }
+      const byEmail = {};
+      (libs || []).forEach(r => {
+        const email = emailById[r.user_id];
+        if (!email) return;
+        if (!byEmail[email]) byEmail[email] = [];
+        byEmail[email].push(r.curso_id);
+      });
+      _libsAll = byEmail;
+      return byEmail;
     },
-    revoke(email, cursoId) {
-      if (!email) return;
-      const key = email.toLowerCase().trim();
-      const d = this._read();
-      d[key] = (d[key] || []).filter(id => id !== cursoId);
-      this._write(d);
+    allByEmail() { return _libsAll || {}; },
+    async grantByEmail(email, cursoIds) {
+      const { data: profile, error: pErr } = await supa()
+        .from('profiles')
+        .select('id')
+        .eq('email', email.toLowerCase().trim())
+        .maybeSingle();
+      if (pErr) throw pErr;
+      if (!profile) throw new Error(`Aluno ${email} não tem conta na plataforma. Crie a conta no Supabase Auth primeiro.`);
+      const ids = Array.isArray(cursoIds) ? cursoIds : [cursoIds];
+      const rows = ids.filter(Boolean).map(cid => ({
+        user_id: profile.id,
+        curso_id: cid,
+        granted_by: _user ? _user.id : null
+      }));
+      if (!rows.length) return;
+      const { error } = await supa().from('liberacoes').upsert(rows);
+      if (error) throw error;
     },
-    listFor(email) {
-      if (!email) return [];
-      const d = this._read();
-      return d[email.toLowerCase().trim()] || [];
+    async revokeByEmail(email, cursoId) {
+      const { data: profile, error: pErr } = await supa()
+        .from('profiles')
+        .select('id')
+        .eq('email', email.toLowerCase().trim())
+        .maybeSingle();
+      if (pErr) throw pErr;
+      if (!profile) return;
+      const { error } = await supa()
+        .from('liberacoes')
+        .delete()
+        .eq('user_id', profile.id)
+        .eq('curso_id', cursoId);
+      if (error) throw error;
+    },
+    async revokeAllByEmail(email) {
+      const { data: profile, error: pErr } = await supa()
+        .from('profiles')
+        .select('id')
+        .eq('email', email.toLowerCase().trim())
+        .maybeSingle();
+      if (pErr) throw pErr;
+      if (!profile) return;
+      const { error } = await supa()
+        .from('liberacoes')
+        .delete()
+        .eq('user_id', profile.id);
+      if (error) throw error;
     }
   };
   window.DMC_Liberacoes = Liberacoes;
 
   // =============================================================
-  // CARRINHO
+  // PROGRESSO — cache em memória, write-through pro Supabase
+  // =============================================================
+  let _progress = new Map(); // aulaId -> completed_at ISO
+
+  const Progress = {
+    async init() {
+      _progress = new Map();
+      if (!_user) return;
+      const { data, error } = await supa()
+        .from('progresso')
+        .select('aula_id, completed_at')
+        .eq('user_id', _user.id);
+      if (error) { console.warn('[DMC] erro progresso:', error.message); return; }
+      (data || []).forEach(r => _progress.set(r.aula_id, r.completed_at));
+    },
+    isDone(aulaId) { return _progress.has(aulaId); },
+    async toggle(aulaId) {
+      if (!_user) return false;
+      const wasDone = _progress.has(aulaId);
+      if (wasDone) {
+        _progress.delete(aulaId);
+        const { error } = await supa()
+          .from('progresso').delete()
+          .eq('user_id', _user.id).eq('aula_id', aulaId);
+        if (error) { _progress.set(aulaId, new Date().toISOString()); throw error; }
+        return false;
+      } else {
+        const now = new Date().toISOString();
+        _progress.set(aulaId, now);
+        const { error } = await supa()
+          .from('progresso')
+          .upsert({ user_id: _user.id, aula_id: aulaId, completed_at: now });
+        if (error) { _progress.delete(aulaId); throw error; }
+        return true;
+      }
+    },
+    async set(aulaId, done) {
+      const isDone = _progress.has(aulaId);
+      if (isDone === !!done) return;
+      return this.toggle(aulaId);
+    },
+    countModulo(modulo) {
+      const total = (modulo.aulas || []).length;
+      const done = (modulo.aulas || []).filter(a => _progress.has(a.id)).length;
+      return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
+    },
+    countCurso(curso) {
+      let total = 0, done = 0;
+      (curso.modulos || []).forEach(m => {
+        (m.aulas || []).forEach(a => { total++; if (_progress.has(a.id)) done++; });
+      });
+      return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
+    }
+  };
+  window.DMC_Progress = Progress;
+
+  // =============================================================
+  // CARRINHO (continua em localStorage — efêmero)
   // =============================================================
   const Carrinho = {
     _read() {
@@ -216,15 +412,11 @@
     add(cursoId) {
       if (!cursoId) return;
       const arr = this._read();
-      if (!arr.includes(cursoId)) {
-        arr.push(cursoId);
-        this._write(arr);
-      }
+      if (!arr.includes(cursoId)) { arr.push(cursoId); this._write(arr); }
       this._notify();
     },
     remove(cursoId) {
-      const arr = this._read().filter(id => id !== cursoId);
-      this._write(arr);
+      this._write(this._read().filter(id => id !== cursoId));
       this._notify();
     },
     toggle(cursoId) {
@@ -235,58 +427,33 @@
     count() { return this._read().length; },
     total() {
       const ids = this._read();
-      const d = Data.get();
       let sum = 0;
       ids.forEach(id => {
-        const c = d.cursos.find(x => x.id === id);
+        const c = Data.getCursoById(id);
         if (c && Number(c.preco)) sum += Number(c.preco);
       });
       return sum;
     },
-    _notify() {
-      window.dispatchEvent(new CustomEvent('dmc:carrinho:change'));
-    }
+    _notify() { window.dispatchEvent(new CustomEvent('dmc:carrinho:change')); }
   };
   window.DMC_Carrinho = Carrinho;
 
   // =============================================================
-  // PROGRESSO
+  // BOOTSTRAP — chamada única no início de cada página
   // =============================================================
-  const Progress = {
-    _read() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_PROGRESS) || '{}'); }
-      catch { return {}; }
-    },
-    _write(d) { localStorage.setItem(STORAGE_PROGRESS, JSON.stringify(d)); },
-    isDone(aulaId) { return !!this._read()[aulaId]; },
-    toggle(aulaId) {
-      const d = this._read();
-      if (d[aulaId]) delete d[aulaId];
-      else d[aulaId] = new Date().toISOString();
-      this._write(d);
-      return !!d[aulaId];
-    },
-    set(aulaId, done) {
-      const d = this._read();
-      if (done) d[aulaId] = new Date().toISOString();
-      else delete d[aulaId];
-      this._write(d);
-    },
-    clear() { localStorage.removeItem(STORAGE_PROGRESS); },
-    countModulo(modulo) {
-      const d = this._read();
-      const total = modulo.aulas.length;
-      const done = modulo.aulas.filter(a => d[a.id]).length;
-      return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
-    },
-    countCurso(curso) {
-      const d = this._read();
-      let total = 0, done = 0;
-      curso.modulos.forEach(m => { total += m.aulas.length; m.aulas.forEach(a => { if (d[a.id]) done++; }); });
-      return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
-    }
-  };
-  window.DMC_Progress = Progress;
+  let _initPromise = null;
+  async function DMC_init() {
+    if (_initPromise) return _initPromise;
+    _initPromise = (async () => {
+      await Auth.init();
+      // Data é leitura pública (autenticada) — só carrega se logado
+      if (_user) {
+        await Promise.all([Data.init(), Liberacoes.init(), Progress.init()]);
+      }
+    })();
+    return _initPromise;
+  }
+  window.DMC_init = DMC_init;
 
   // =============================================================
   // HELPERS
@@ -360,39 +527,95 @@
   window.DMC_CourseIcons = COURSE_ICONS;
 
   // =============================================================
-  // LOGIN
+  // LOGIN / SIGNUP — toggle entre modos via [data-auth-mode] no form
+  // Modos: 'signin' (default) e 'signup'
   // =============================================================
-  function bootLogin() {
+  async function bootLogin() {
+    await DMC_init();
     if (Auth.isLogged()) { window.location.href = 'dashboard.html'; return; }
     const form = document.querySelector('#login-form');
     if (!form) return;
     const errorEl = document.querySelector('#login-error');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const noticeEl = document.querySelector('#login-notice');
+
     function showError(msg) {
       if (errorEl) { errorEl.textContent = msg; errorEl.hidden = false; }
     }
     function clearError() {
       if (errorEl) { errorEl.textContent = ''; errorEl.hidden = true; }
     }
+    function showNotice(msg) {
+      if (noticeEl) { noticeEl.textContent = msg; noticeEl.hidden = false; }
+    }
+    function clearNotice() {
+      if (noticeEl) { noticeEl.textContent = ''; noticeEl.hidden = true; }
+    }
+    function getMode() { return form.getAttribute('data-auth-mode') === 'signup' ? 'signup' : 'signin'; }
+
+    // Tabs
+    const tabs = document.querySelectorAll('[data-auth-tab]');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const mode = tab.dataset.authTab;
+        form.setAttribute('data-auth-mode', mode);
+        tabs.forEach(t => t.classList.toggle('is-active', t === tab));
+        document.querySelectorAll('[data-auth-only]').forEach(el => {
+          const visibleIn = el.dataset.authOnly.split(',').map(s => s.trim());
+          el.style.display = visibleIn.includes(mode) ? '' : 'none';
+        });
+        submitBtn.textContent = mode === 'signup' ? 'Criar conta' : 'Acessar plataforma';
+        clearError(); clearNotice();
+      });
+    });
+    // Inicializa visibilidade
+    const initialMode = getMode();
+    document.querySelectorAll('[data-auth-only]').forEach(el => {
+      const visibleIn = el.dataset.authOnly.split(',').map(s => s.trim());
+      el.style.display = visibleIn.includes(initialMode) ? '' : 'none';
+    });
+
     form.addEventListener('input', clearError);
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      clearError();
+      clearError(); clearNotice();
+      const mode = getMode();
       const email = (form.email.value || '').trim();
       const senha = form.senha ? (form.senha.value || '') : '';
-      const nome = form.nome ? form.nome.value.trim() : '';
+      const nome = form.nome ? (form.nome.value || '').trim() : '';
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        showError('Informe um e-mail válido.');
-        return;
+        showError('Informe um e-mail válido.'); return;
       }
-      if (!senha) {
-        showError('Informe sua senha.');
-        return;
+      if (!senha || senha.length < 6) {
+        showError('A senha precisa ter pelo menos 6 caracteres.'); return;
       }
-      Auth.login(email, nome);
-      const params = new URLSearchParams(window.location.search);
-      const next = params.get('next');
-      const safeNext = next && /^[a-z0-9_-]+\.html(\?.*)?$/i.test(next) ? next : 'dashboard.html';
-      window.location.href = safeNext;
+      if (mode === 'signup' && !nome) {
+        showError('Informe seu nome.'); return;
+      }
+      const originalLabel = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = mode === 'signup' ? 'Criando conta…' : 'Entrando…';
+      try {
+        if (mode === 'signup') {
+          const { session } = await Auth.signUp(email, senha, nome);
+          if (!session) {
+            showNotice('Conta criada. Confirme seu e-mail para acessar a plataforma.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
+            return;
+          }
+        } else {
+          await Auth.signIn(email, senha);
+        }
+        const params = new URLSearchParams(window.location.search);
+        const next = params.get('next');
+        const safeNext = next && /^[a-z0-9_-]+\.html(\?.*)?$/i.test(next) ? next : 'dashboard.html';
+        window.location.href = safeNext;
+      } catch (err) {
+        showError(err && err.message ? err.message : (mode === 'signup' ? 'Falha no cadastro.' : 'Falha no login.'));
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalLabel;
+      }
     });
   }
   window.DMC_bootLogin = bootLogin;
@@ -400,7 +623,8 @@
   // =============================================================
   // DASHBOARD
   // =============================================================
-  function bootDashboard() {
+  async function bootDashboard() {
+    await DMC_init();
     if (!Auth.requireOrRedirect()) return;
     bindHeader();
 
@@ -417,11 +641,9 @@
       const track = document.querySelector('#catalog-track');
       if (!track) return;
       const escolhidoId = Data.getCursoEscolhidoId();
-      const user = Auth.user();
-      const userEmail = user && user.email;
       track.innerHTML = allCursos.map(c => {
         const isSelected = c.id === escolhidoId;
-        const liberado = Liberacoes.has(userEmail, c.id);
+        const liberado = Liberacoes.has(c.id);
         const totalAulas = (c.modulos || []).reduce((s, m) => s + (m.aulas || []).length, 0);
         const progress = Progress.countCurso(c);
         let ctaLabel, ctaAction;
@@ -463,8 +685,7 @@
             document.querySelector('.modules-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             return;
           }
-          // Clique no card: se liberado, seleciona; se não, manda pra loja
-          if (Liberacoes.has(userEmail, id)) {
+          if (Liberacoes.has(id)) {
             Data.setCursoEscolhido(id);
             renderCatalog();
             renderActiveCurso();
@@ -488,8 +709,7 @@
     function renderActiveCurso() {
       const curso = Data.getActiveCurso();
       if (!curso) return;
-      const user = Auth.user();
-      const liberado = Liberacoes.has(user && user.email, curso.id);
+      const liberado = Liberacoes.has(curso.id);
 
       const c = Progress.countCurso(curso);
       const setText = (sel, v) => document.querySelectorAll(sel).forEach(el => el.textContent = v);
@@ -547,13 +767,14 @@
           </article>`;
       }).join('');
 
-      list.onclick = (e) => {
+      list.onclick = async (e) => {
         const head = e.target.closest('[data-toggle-modulo]');
         if (head) { head.closest('.module').classList.toggle('is-open'); return; }
         const checkBtn = e.target.closest('[data-toggle-aula]');
         if (checkBtn) {
           e.stopPropagation();
-          Progress.toggle(checkBtn.dataset.toggleAula);
+          try { await Progress.toggle(checkBtn.dataset.toggleAula); }
+          catch (err) { alert('Falha ao salvar progresso: ' + err.message); return; }
           renderActiveCurso();
           renderCatalog();
           return;
@@ -568,7 +789,8 @@
   // =============================================================
   // PLAYER
   // =============================================================
-  function bootPlayer() {
+  async function bootPlayer() {
+    await DMC_init();
     if (!Auth.requireOrRedirect()) return;
     bindHeader();
 
@@ -582,9 +804,7 @@
       return;
     }
 
-    // Bloqueia se não liberado
-    const user = Auth.user();
-    if (!Liberacoes.has(user && user.email, curso.id)) {
+    if (!Liberacoes.has(curso.id)) {
       document.querySelector('#player-root').innerHTML = `
         <div class="locked-curso" style="margin:4rem auto;max-width:560px">
           <span class="locked-curso__icon">${I.lock}</span>
@@ -629,11 +849,14 @@
       doneBtn.innerHTML = isDone ? `${I.check} Aula concluída` : `${I.check} Marcar como concluída`;
       doneBtn.classList.toggle('is-done', isDone);
     }
-    doneBtn.addEventListener('click', () => {
-      Progress.toggle(aula.id);
+    doneBtn.addEventListener('click', async () => {
+      doneBtn.disabled = true;
+      try { await Progress.toggle(aula.id); }
+      catch (err) { alert('Falha ao salvar: ' + err.message); doneBtn.disabled = false; return; }
       refreshDoneBtn();
       const t = document.querySelector(`[data-aside-aula="${aula.id}"]`);
       if (t) t.classList.toggle('is-done', Progress.isDone(aula.id));
+      doneBtn.disabled = false;
     });
     refreshDoneBtn();
 
@@ -668,7 +891,8 @@
   // =============================================================
   // LOJA
   // =============================================================
-  function bootLoja() {
+  async function bootLoja() {
+    await DMC_init();
     if (!Auth.requireOrRedirect()) return;
     bindHeader();
 
@@ -679,10 +903,8 @@
     const destacarId = params.get('destacar');
 
     function renderGrid() {
-      const user = Auth.user();
-      const userEmail = user && user.email;
       grid.innerHTML = allCursos.map(c => {
-        const liberado = Liberacoes.has(userEmail, c.id);
+        const liberado = Liberacoes.has(c.id);
         const noCart = Carrinho.has(c.id);
         const beneficios = (c.beneficios || []).map(b => `<li>${I.check}<span>${escapeHtml(b)}</span></li>`).join('');
         const totalAulas = (c.modulos || []).reduce((s, m) => s + (m.aulas || []).length, 0);
@@ -834,36 +1056,12 @@
       const ids = Carrinho.items();
       if (!ids.length) return;
       const user = Auth.user() || {};
-      const itensTxt = ids.map(id => {
-        const c = Data.getCursoById(id);
-        return c ? `• ${c.titulo} — ${formatPreco(c.preco)} (${c.modalidade}, ${c.cargaHoraria})` : '';
-      }).filter(Boolean).join('\n');
-      const total = formatPreco(Carrinho.total());
-      const subject = `Pedido Loja Complexo DMC — ${ids.length} programa(s)`;
-      const corpo = [
-        'Olá, time administrativo do Complexo DMC.',
-        '',
-        'Gostaria de adquirir os seguintes programas:',
-        '',
-        itensTxt,
-        '',
-        `Total: ${total}`,
-        '',
-        `Aluno: ${user.nome || ''}`,
-        `E-mail: ${user.email || ''}`,
-        '',
-        'Aguardo o link de pagamento Mercado Pago e a liberação na plataforma.',
-        '',
-        'Obrigado.'
-      ].join('\n');
-      const mailto = `mailto:administrativo@complexodmc.com.br?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(corpo)}`;
-      window.open(mailto, '_blank');
-      const params = new URLSearchParams({
+      const queryParams = new URLSearchParams({
         cursos: ids.join(','),
         email: user.email || '',
         total: Carrinho.total().toFixed(2)
       });
-      window.location.href = `obrigado.html?${params.toString()}`;
+      window.location.href = `obrigado.html?${queryParams.toString()}`;
     });
 
     function showToast(msg) {
@@ -887,10 +1085,13 @@
   window.DMC_bootLoja = bootLoja;
 
   // =============================================================
-  // OBRIGADO (checkout simulado: libera cursos pro email)
+  // OBRIGADO — exibe pedido e limpa carrinho.
+  // Não libera mais cursos automaticamente: a liberação é manual
+  // pelo admin via Supabase, após confirmação de pagamento.
   // =============================================================
-  function bootObrigado() {
-    bindHeader(); // não exige login pra ver, mas se logado mostra nav
+  async function bootObrigado() {
+    await DMC_init();
+    bindHeader();
     const params = new URLSearchParams(window.location.search);
     const cursoIds = (params.get('cursos') || '').split(',').filter(Boolean);
     const email = (params.get('email') || '').trim();
@@ -902,9 +1103,6 @@
       return;
     }
 
-    // Libera os cursos pro email
-    if (email) Liberacoes.grant(email, cursoIds);
-    // Limpa carrinho
     Carrinho.clear();
 
     list.innerHTML = cursoIds.map(id => {
@@ -926,9 +1124,37 @@
     const emailEl = document.querySelector('[data-obrigado-email]');
     if (emailEl) emailEl.textContent = email || '—';
 
-    // Se o aluno estiver logado e for o mesmo email, define o primeiro curso como ativo
-    const user = Auth.user();
-    if (user && cursoIds[0]) Data.setCursoEscolhido(cursoIds[0]);
+    if (Auth.user() && cursoIds[0]) Data.setCursoEscolhido(cursoIds[0]);
+
+    // ⚠️ DEV-ONLY: botão de simular pagamento aprovado.
+    // Visível só em localhost/127.0.0.1 — em produção fica escondido.
+    const devBox = document.querySelector('#dev-pay-box');
+    const devBtn = document.querySelector('#btn-dev-pay');
+    const devStatus = document.querySelector('#dev-pay-status');
+    const isLocalDev = ['localhost', '127.0.0.1', '0.0.0.0'].includes(window.location.hostname);
+    if (devBox && Auth.user() && cursoIds.length && isLocalDev) {
+      devBox.style.display = '';
+      devBtn.addEventListener('click', async () => {
+        devBtn.disabled = true;
+        devBtn.textContent = 'Liberando…';
+        try {
+          const { error } = await supa().rpc('dev_simular_pagamento', { curso_ids: cursoIds });
+          if (error) throw error;
+          await Liberacoes.init();
+          devStatus.style.display = '';
+          devStatus.textContent = `${cursoIds.length} curso${cursoIds.length > 1 ? 's' : ''} liberado${cursoIds.length > 1 ? 's' : ''} com sucesso. Redirecionando para o painel…`;
+          setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
+        } catch (err) {
+          devBtn.disabled = false;
+          devBtn.textContent = 'Simular pagamento aprovado';
+          devStatus.style.display = '';
+          devStatus.textContent = 'Erro: ' + (err && err.message ? err.message : 'falha desconhecida');
+          devStatus.style.background = 'rgba(248,113,113,0.10)';
+          devStatus.style.borderColor = 'rgba(248,113,113,0.35)';
+          devStatus.style.color = '#fca5a5';
+        }
+      });
+    }
   }
   window.DMC_bootObrigado = bootObrigado;
 
@@ -941,14 +1167,13 @@
       document.querySelectorAll('[data-user-iniciais]').forEach(el => el.textContent = user.iniciais);
       document.querySelectorAll('[data-user-nome]').forEach(el => el.textContent = user.nome);
     }
-    document.querySelectorAll('[data-logout]').forEach(btn => btn.addEventListener('click', () => {
-      Auth.logout(); window.location.href = 'login.html';
+    document.querySelectorAll('[data-logout]').forEach(btn => btn.addEventListener('click', async () => {
+      await Auth.signOut();
+      window.location.href = 'login.html';
     }));
-    // Esconde Admin pra não-admin
     if (user && !user.isAdmin) {
       document.querySelectorAll('[data-admin-only]').forEach(el => { el.style.display = 'none'; });
     }
-    // Atualiza badge do carrinho
     refreshCartBadge();
     window.addEventListener('dmc:carrinho:change', refreshCartBadge);
   }
