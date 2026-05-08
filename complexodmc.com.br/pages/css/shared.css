@@ -1730,21 +1730,80 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 40px;
+  gap: 0.55rem;
+  height: 44px;
   flex-shrink: 0;
   min-width: 120px;
   z-index: 10;
+  text-decoration: none;
 }
 
 .navbar .logo img {
   height: 100%;
   width: auto;
   object-fit: contain;
-  max-height: 40px;
+  max-height: 44px;
   display: block;
   max-width: 200px;
   opacity: 1;
   visibility: visible;
+}
+
+.navbar .logo-brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.navbar .logo-brand-name {
+  font-family: "Poppins", "Inter", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  text-transform: uppercase;
+  padding-bottom: 0.15rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.navbar .logo-brand-accent {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-weight: 800;
+}
+
+.navbar .logo-brand-tagline {
+  font-family: "Allura", "Great Vibes", cursive;
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  word-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.92);
+  text-transform: none;
+  margin-top: 0.05rem;
+  line-height: 1.1;
+  text-align: center;
+  align-self: stretch;
+}
+
+@media (max-width: 1024px) {
+  .navbar .logo-brand-name {
+    font-size: 0.92rem;
+  }
+  .navbar .logo-brand-tagline {
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar .logo-brand {
+    display: none;
+  }
 }
 
 .navbar .menu-toggle {

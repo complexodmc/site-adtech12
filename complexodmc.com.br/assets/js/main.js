@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-link');
     const body = document.body;
 
-    // Toggle menu
-    if (menuToggle && navMenu) {
+    // Toggle menu — pulado se <dmc-navbar> já vinculou os listeners
+    if (menuToggle && navMenu && !window.__dmcNavbarInteractionsBound) {
         menuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             navMenu.classList.toggle('active');
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // NAVBAR SCROLL EFFECT
     // ============================================
     const navbar = document.getElementById('navbar');
-    if (navbar) {
+    if (navbar && !window.__dmcNavbarInteractionsBound) {
         let ticking = false;
 
         function updateNavbar() {
