@@ -5647,3 +5647,133 @@ body {
   .servicos-carousel-btn-next { right: -4px; }
 }
 
+
+/* ============================================================
+   NOSSOS PRODUTOS — redesign (grid 3x2, cards clicáveis)
+   ============================================================ */
+.np-head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 3.5rem;
+  padding-top: 1rem;
+}
+.np-eyebrow {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--primary-cyan);
+  padding: 0.4rem 1rem;
+  border: 1px solid rgba(94, 214, 230, 0.25);
+  border-radius: 999px;
+  margin-bottom: 1.2rem;
+}
+.np-title {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2rem, 4vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+.np-title .gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.np-sub {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+}
+.np-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.np-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 1.6rem;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.35s ease, box-shadow 0.35s ease;
+}
+/* borda em gradiente só no hover */
+.np-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  padding: 1px;
+  background: var(--gradient-primary);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.np-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45),
+    0 0 30px rgba(94, 214, 230, 0.15);
+}
+.np-card:hover::before { opacity: 1; }
+.np-card:focus-visible {
+  outline: 2px solid var(--primary-cyan);
+  outline-offset: 3px;
+}
+.np-ico {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(94, 214, 230, 0.14), rgba(110, 230, 140, 0.14));
+  border: 1px solid rgba(94, 214, 230, 0.2);
+  color: var(--primary-cyan);
+  transition: transform 0.35s ease;
+}
+.np-card:hover .np-ico { transform: scale(1.08); }
+.np-ico svg { width: 26px; height: 26px; }
+.np-ct {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: #fff;
+}
+.np-cd {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  flex: 1;
+}
+.np-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--primary-cyan);
+  margin-top: 0.2rem;
+}
+.np-link svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
+.np-card:hover .np-link svg { transform: translateX(4px); }
+
+@media (max-width: 900px) {
+  .np-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .np-grid { grid-template-columns: 1fr; }
+  .np-head { margin-bottom: 2.5rem; }
+}
