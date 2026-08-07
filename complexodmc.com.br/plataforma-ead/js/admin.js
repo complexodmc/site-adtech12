@@ -1,6 +1,6 @@
 // =============================================================
 // COMPLEXO DMC · PAINEL ADMINISTRATIVO
-// CRUD de cursos, módulos e aulas — write-through pro Supabase.
+// CRUD de cursos, módulos e aulas — write-through pra API MongoDB.
 // =============================================================
 (function () {
   'use strict';
