@@ -1,7 +1,7 @@
 // =============================================================
 // COMPLEXO DMC · PLATAFORMA — núcleo do front
-// Persistência em Supabase. Cache em memória + localStorage só
-// pra escolha de curso ativo e carrinho.
+// Persistência na API MongoDB (/api). Cache em memória +
+// localStorage só pra escolha de curso ativo e carrinho.
 // =============================================================
 (function () {
   'use strict';
@@ -9,58 +9,48 @@
   const STORAGE_CURSO_ESCOLHIDO = 'dmc:cursoEscolhido';
   const STORAGE_CARRINHO = 'dmc:carrinho';
 
-  const supa = () => window.DMC_supa;
+  const api = () => window.DMC_Api;
 
   // =============================================================
-  // AUTH — wrapper síncrono em volta do Supabase Auth
+  // AUTH — wrapper síncrono em volta da API + token JWT
   // Após DMC_init(), Auth.user() retorna { id, email, nome, iniciais, isAdmin } ou null.
   // =============================================================
   let _user = null;
 
   const Auth = {
     async init() {
-      const { data: { session } } = await supa().auth.getSession();
-      if (!session) { _user = null; return null; }
-      const u = session.user;
-      // Busca profile pra pegar is_admin e nome
-      const { data: profile, error } = await supa()
-        .from('profiles')
-        .select('email, nome, is_admin')
-        .eq('id', u.id)
-        .maybeSingle();
-      if (error) console.warn('[DMC] erro ao carregar profile:', error.message);
-      const nome = (profile && profile.nome) || u.email.split('@')[0];
-      _user = {
-        id: u.id,
-        email: (profile && profile.email) || u.email,
-        nome,
-        iniciais: nome.split(/[\s.@]/).filter(Boolean).slice(0, 2).map(s => s[0].toUpperCase()).join(''),
-        isAdmin: !!(profile && profile.is_admin)
-      };
+      _user = null;
+      if (!api().token()) return null;
+      try {
+        const { user } = await api().get('/auth/me');
+        _user = user || null;
+      } catch {
+        // token expirado/inválido — o cliente já limpou o storage no 401
+        _user = null;
+      }
       return _user;
     },
     isLogged() { return !!_user; },
     user() { return _user; },
     async signIn(email, senha) {
-      const { data, error } = await supa().auth.signInWithPassword({ email: email.trim(), password: senha });
-      if (error) throw error;
-      await this.init();
-      return data;
+      const dados = await api().post('/auth/signin', { email: email.trim(), senha });
+      api().setToken(dados.token);
+      _user = dados.user;
+      return dados;
     },
     async signUp(email, senha, nome) {
-      const { data, error } = await supa().auth.signUp({
+      const dados = await api().post('/auth/signup', {
         email: email.trim(),
-        password: senha,
-        options: { data: { nome: (nome || '').trim() } }
+        senha,
+        nome: (nome || '').trim()
       });
-      if (error) throw error;
-      // Se "Confirm email" estiver desligado no Supabase, já vem com session.
-      // Se estiver ligado, data.session é null e o user precisa confirmar pelo email.
-      if (data && data.session) await this.init();
-      return data;
+      // A API já devolve a sessão pronta — sem etapa de confirmação por e-mail.
+      api().setToken(dados.token);
+      _user = dados.user;
+      return { ...dados, session: dados.token ? { token: dados.token } : null };
     },
     async signOut() {
-      await supa().auth.signOut();
+      api().setToken(null);
       _user = null;
     },
     requireOrRedirect(to = 'login.html') {
@@ -76,76 +66,16 @@
   window.DMC_Auth = Auth;
 
   // =============================================================
-  // DATA — multi-curso (cache em memória, fonte: Supabase)
+  // DATA — multi-curso (cache em memória, fonte: API /api/catalogo)
   // Estrutura: { cursos: [{ id, titulo, ..., modulos: [{ ..., aulas: [...] }] }] }
-  // Mantém field names em camelCase pra não quebrar a UI.
+  // A API já devolve tudo em camelCase e ordenado.
   // =============================================================
   let _data = { cursos: [] };
 
-  function mapCursoFromDb(row, modulos) {
-    return {
-      id: row.id,
-      titulo: row.titulo,
-      subtitulo: row.subtitulo || '',
-      descricao: row.descricao || '',
-      cargaHoraria: row.carga_horaria || '',
-      modalidade: row.modalidade || 'Online',
-      iconeKey: row.icone_key || 'graduation',
-      preco: Number(row.preco) || 0,
-      linkCheckout: row.link_checkout || '',
-      beneficios: Array.isArray(row.beneficios) ? row.beneficios : [],
-      ordem: row.ordem || 0,
-      isAtivo: row.is_ativo !== false,
-      modulos: modulos || []
-    };
-  }
-  function mapModuloFromDb(row, aulas) {
-    return {
-      id: row.id,
-      cursoId: row.curso_id,
-      numero: row.numero || '',
-      titulo: row.titulo,
-      resumo: row.resumo || '',
-      duracao: row.duracao || '',
-      ordem: row.ordem || 0,
-      aulas: aulas || []
-    };
-  }
-  function mapAulaFromDb(row) {
-    return {
-      id: row.id,
-      moduloId: row.modulo_id,
-      titulo: row.titulo,
-      duracao: row.duracao || '',
-      videoUrl: row.video_url || '',
-      ordem: row.ordem || 0
-    };
-  }
-
   const Data = {
     async init() {
-      const [cursosRes, modulosRes, aulasRes] = await Promise.all([
-        supa().from('cursos').select('*').order('ordem', { ascending: true }),
-        supa().from('modulos').select('*').order('ordem', { ascending: true }),
-        supa().from('aulas').select('*').order('ordem', { ascending: true })
-      ]);
-      if (cursosRes.error) throw cursosRes.error;
-      if (modulosRes.error) throw modulosRes.error;
-      if (aulasRes.error) throw aulasRes.error;
-
-      const aulasByModulo = new Map();
-      (aulasRes.data || []).forEach(a => {
-        if (!aulasByModulo.has(a.modulo_id)) aulasByModulo.set(a.modulo_id, []);
-        aulasByModulo.get(a.modulo_id).push(mapAulaFromDb(a));
-      });
-      const modulosByCurso = new Map();
-      (modulosRes.data || []).forEach(m => {
-        if (!modulosByCurso.has(m.curso_id)) modulosByCurso.set(m.curso_id, []);
-        modulosByCurso.get(m.curso_id).push(mapModuloFromDb(m, aulasByModulo.get(m.id) || []));
-      });
-      _data = {
-        cursos: (cursosRes.data || []).map(c => mapCursoFromDb(c, modulosByCurso.get(c.id) || []))
-      };
+      const { cursos } = await api().get('/catalogo');
+      _data = { cursos: cursos || [] };
       return _data;
     },
     async refresh() { return this.init(); },
@@ -179,59 +109,47 @@
     },
     // ============ MUTATIONS (admin) ============
     async upsertCurso(curso) {
-      const row = {
-        id: curso.id,
+      await api().put(`/cursos/${encodeURIComponent(curso.id)}`, {
         titulo: curso.titulo || '',
-        subtitulo: curso.subtitulo || null,
-        descricao: curso.descricao || null,
-        carga_horaria: curso.cargaHoraria || null,
+        subtitulo: curso.subtitulo || '',
+        descricao: curso.descricao || '',
+        cargaHoraria: curso.cargaHoraria || '',
         modalidade: curso.modalidade || 'Online',
-        icone_key: curso.iconeKey || 'graduation',
+        iconeKey: curso.iconeKey || 'graduation',
         preco: Number(curso.preco) || 0,
-        link_checkout: curso.linkCheckout || null,
+        linkCheckout: curso.linkCheckout || '',
         beneficios: Array.isArray(curso.beneficios) ? curso.beneficios : [],
         ordem: curso.ordem || 0,
-        is_ativo: curso.isAtivo !== false
-      };
-      const { error } = await supa().from('cursos').upsert(row);
-      if (error) throw error;
+        isAtivo: curso.isAtivo !== false
+      });
     },
     async deleteCurso(cursoId) {
-      const { error } = await supa().from('cursos').delete().eq('id', cursoId);
-      if (error) throw error;
+      await api().del(`/cursos/${encodeURIComponent(cursoId)}`);
     },
     async upsertModulo(modulo, cursoId) {
-      const row = {
-        id: modulo.id,
-        curso_id: cursoId,
+      await api().put(`/modulos/${encodeURIComponent(modulo.id)}`, {
+        cursoId,
         numero: modulo.numero || '',
         titulo: modulo.titulo || '',
-        resumo: modulo.resumo || null,
-        duracao: modulo.duracao || null,
+        resumo: modulo.resumo || '',
+        duracao: modulo.duracao || '',
         ordem: modulo.ordem || 0
-      };
-      const { error } = await supa().from('modulos').upsert(row);
-      if (error) throw error;
+      });
     },
     async deleteModulo(moduloId) {
-      const { error } = await supa().from('modulos').delete().eq('id', moduloId);
-      if (error) throw error;
+      await api().del(`/modulos/${encodeURIComponent(moduloId)}`);
     },
     async upsertAula(aula, moduloId) {
-      const row = {
-        id: aula.id,
-        modulo_id: moduloId,
+      await api().put(`/aulas/${encodeURIComponent(aula.id)}`, {
+        moduloId,
         titulo: aula.titulo || '',
-        duracao: aula.duracao || null,
-        video_url: aula.videoUrl || null,
+        duracao: aula.duracao || '',
+        videoUrl: aula.videoUrl || '',
         ordem: aula.ordem || 0
-      };
-      const { error } = await supa().from('aulas').upsert(row);
-      if (error) throw error;
+      });
     },
     async deleteAula(aulaId) {
-      const { error } = await supa().from('aulas').delete().eq('id', aulaId);
-      if (error) throw error;
+      await api().del(`/aulas/${encodeURIComponent(aulaId)}`);
     }
   };
   window.DMC_Data = Data;
@@ -247,12 +165,12 @@
     async init() {
       _libsUser = new Set();
       if (!_user) return;
-      const { data, error } = await supa()
-        .from('liberacoes')
-        .select('curso_id')
-        .eq('user_id', _user.id);
-      if (error) { console.warn('[DMC] erro liberacoes:', error.message); return; }
-      (data || []).forEach(r => _libsUser.add(r.curso_id));
+      try {
+        const { cursoIds } = await api().get('/liberacoes/me');
+        (cursoIds || []).forEach(id => _libsUser.add(id));
+      } catch (err) {
+        console.warn('[DMC] erro liberacoes:', err.message);
+      }
     },
     has(_email, cursoId) {
       // assinatura mantém compat: 1º arg ignorado (era email), checa pelo user logado
@@ -264,117 +182,60 @@
     listForCurrentUser() { return [..._libsUser]; },
     // ============ ADMIN ============
     async loadAll() {
-      // Não há FK direta liberacoes → profiles (ambos apontam pra auth.users),
-      // então o PostgREST não infere o join. Faz em 2 queries.
-      const { data: libs, error: lErr } = await supa()
-        .from('liberacoes')
-        .select('curso_id, user_id');
-      if (lErr) throw lErr;
-      const userIds = [...new Set((libs || []).map(r => r.user_id))];
-      let emailById = {};
-      if (userIds.length) {
-        const { data: profs, error: pErr } = await supa()
-          .from('profiles')
-          .select('id, email')
-          .in('id', userIds);
-        if (pErr) throw pErr;
-        (profs || []).forEach(p => { emailById[p.id] = p.email; });
-      }
-      const byEmail = {};
-      (libs || []).forEach(r => {
-        const email = emailById[r.user_id];
-        if (!email) return;
-        if (!byEmail[email]) byEmail[email] = [];
-        byEmail[email].push(r.curso_id);
-      });
-      _libsAll = byEmail;
-      return byEmail;
+      const { byEmail } = await api().get('/liberacoes');
+      _libsAll = byEmail || {};
+      return _libsAll;
     },
     allByEmail() { return _libsAll || {}; },
     async grantByEmail(email, cursoIds) {
-      const { data: profile, error: pErr } = await supa()
-        .from('profiles')
-        .select('id')
-        .eq('email', email.toLowerCase().trim())
-        .maybeSingle();
-      if (pErr) throw pErr;
-      if (!profile) throw new Error(`Aluno ${email} não tem conta na plataforma. Crie a conta no Supabase Auth primeiro.`);
-      const ids = Array.isArray(cursoIds) ? cursoIds : [cursoIds];
-      const rows = ids.filter(Boolean).map(cid => ({
-        user_id: profile.id,
-        curso_id: cid,
-        granted_by: _user ? _user.id : null
-      }));
-      if (!rows.length) return;
-      const { error } = await supa().from('liberacoes').upsert(rows);
-      if (error) throw error;
+      const ids = (Array.isArray(cursoIds) ? cursoIds : [cursoIds]).filter(Boolean);
+      if (!ids.length) return;
+      await api().post('/liberacoes', { email: email.toLowerCase().trim(), cursoIds: ids });
     },
     async revokeByEmail(email, cursoId) {
-      const { data: profile, error: pErr } = await supa()
-        .from('profiles')
-        .select('id')
-        .eq('email', email.toLowerCase().trim())
-        .maybeSingle();
-      if (pErr) throw pErr;
-      if (!profile) return;
-      const { error } = await supa()
-        .from('liberacoes')
-        .delete()
-        .eq('user_id', profile.id)
-        .eq('curso_id', cursoId);
-      if (error) throw error;
+      const qs = new URLSearchParams({ email: email.toLowerCase().trim(), cursoId });
+      await api().del(`/liberacoes?${qs}`);
     },
     async revokeAllByEmail(email) {
-      const { data: profile, error: pErr } = await supa()
-        .from('profiles')
-        .select('id')
-        .eq('email', email.toLowerCase().trim())
-        .maybeSingle();
-      if (pErr) throw pErr;
-      if (!profile) return;
-      const { error } = await supa()
-        .from('liberacoes')
-        .delete()
-        .eq('user_id', profile.id);
-      if (error) throw error;
+      const qs = new URLSearchParams({ email: email.toLowerCase().trim() });
+      await api().del(`/liberacoes?${qs}`);
     }
   };
   window.DMC_Liberacoes = Liberacoes;
 
   // =============================================================
-  // PROGRESSO — cache em memória, write-through pro Supabase
+  // PROGRESSO — cache em memória, write-through pra API
   // =============================================================
-  let _progress = new Map(); // aulaId -> completed_at ISO
+  let _progress = new Map(); // aulaId -> completedAt ISO
 
   const Progress = {
     async init() {
       _progress = new Map();
       if (!_user) return;
-      const { data, error } = await supa()
-        .from('progresso')
-        .select('aula_id, completed_at')
-        .eq('user_id', _user.id);
-      if (error) { console.warn('[DMC] erro progresso:', error.message); return; }
-      (data || []).forEach(r => _progress.set(r.aula_id, r.completed_at));
+      try {
+        const { itens } = await api().get('/progresso');
+        (itens || []).forEach(r => _progress.set(r.aulaId, r.completedAt));
+      } catch (err) {
+        console.warn('[DMC] erro progresso:', err.message);
+      }
     },
     isDone(aulaId) { return _progress.has(aulaId); },
     async toggle(aulaId) {
       if (!_user) return false;
       const wasDone = _progress.has(aulaId);
+      const anterior = _progress.get(aulaId);
+      // Atualiza otimista e desfaz se a API recusar.
       if (wasDone) {
         _progress.delete(aulaId);
-        const { error } = await supa()
-          .from('progresso').delete()
-          .eq('user_id', _user.id).eq('aula_id', aulaId);
-        if (error) { _progress.set(aulaId, new Date().toISOString()); throw error; }
+        try { await api().del(`/progresso/${encodeURIComponent(aulaId)}`); }
+        catch (err) { _progress.set(aulaId, anterior); throw err; }
         return false;
       } else {
-        const now = new Date().toISOString();
-        _progress.set(aulaId, now);
-        const { error } = await supa()
-          .from('progresso')
-          .upsert({ user_id: _user.id, aula_id: aulaId, completed_at: now });
-        if (error) { _progress.delete(aulaId); throw error; }
+        _progress.set(aulaId, new Date().toISOString());
+        try {
+          const { completedAt } = await api().put(`/progresso/${encodeURIComponent(aulaId)}`);
+          if (completedAt) _progress.set(aulaId, completedAt);
+        } catch (err) { _progress.delete(aulaId); throw err; }
         return true;
       }
     },
@@ -545,9 +406,6 @@
     function clearError() {
       if (errorEl) { errorEl.textContent = ''; errorEl.hidden = true; }
     }
-    function showNotice(msg) {
-      if (noticeEl) { noticeEl.textContent = msg; noticeEl.hidden = false; }
-    }
     function clearNotice() {
       if (noticeEl) { noticeEl.textContent = ''; noticeEl.hidden = true; }
     }
@@ -597,13 +455,7 @@
       submitBtn.textContent = mode === 'signup' ? 'Criando conta…' : 'Entrando…';
       try {
         if (mode === 'signup') {
-          const { session } = await Auth.signUp(email, senha, nome);
-          if (!session) {
-            showNotice('Conta criada. Confirme seu e-mail para acessar a plataforma.');
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalLabel;
-            return;
-          }
+          await Auth.signUp(email, senha, nome);
         } else {
           await Auth.signIn(email, senha);
         }
@@ -1087,7 +939,7 @@
   // =============================================================
   // OBRIGADO — exibe pedido e limpa carrinho.
   // Não libera mais cursos automaticamente: a liberação é manual
-  // pelo admin via Supabase, após confirmação de pagamento.
+  // pelo admin no painel, após confirmação de pagamento.
   // =============================================================
   async function bootObrigado() {
     await DMC_init();
@@ -1138,8 +990,7 @@
         devBtn.disabled = true;
         devBtn.textContent = 'Liberando…';
         try {
-          const { error } = await supa().rpc('dev_simular_pagamento', { curso_ids: cursoIds });
-          if (error) throw error;
+          await api().post('/liberacoes/dev/simular-pagamento', { cursoIds });
           await Liberacoes.init();
           devStatus.style.display = '';
           devStatus.textContent = `${cursoIds.length} curso${cursoIds.length > 1 ? 's' : ''} liberado${cursoIds.length > 1 ? 's' : ''} com sucesso. Redirecionando para o painel…`;

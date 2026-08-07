@@ -9,13 +9,13 @@
   <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/supabase-client.js"></script>
+  <script src="js/api-client.js"></script>
   <script>
     (async function () {
       try {
-        const { data: { session } } = await window.DMC_supa.auth.getSession();
-        window.location.replace(session ? 'dashboard.html' : 'login.html');
+        if (!window.DMC_Api.token()) { window.location.replace('login.html'); return; }
+        await window.DMC_Api.get('/auth/me');
+        window.location.replace('dashboard.html');
       } catch (e) {
         window.location.replace('login.html');
       }

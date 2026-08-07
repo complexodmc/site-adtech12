@@ -30,6 +30,8 @@ build/
 # Variáveis de ambiente / segredos
 .env
 .env.*
+# ...menos o modelo sem segredos, que precisa ser versionado.
+!.env.example
 *.pem
 *.key
 credentials*
