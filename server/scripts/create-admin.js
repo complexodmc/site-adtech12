@@ -10,10 +10,18 @@
 import { connect, close, col } from '../src/db.js';
 import { hashSenha } from '../src/auth.js';
 
+// `npm run create-admin -- --nome="Seu Nome"` chega aqui já quebrado em dois
+// argumentos: o npm remonta a linha e o shell reparte no espaço. Por isso o
+// valor é o token do `--chave=` mais tudo que vier depois até a próxima flag.
 function arg(nome) {
   const prefixo = `--${nome}=`;
-  const achado = process.argv.find(a => a.startsWith(prefixo));
-  return achado ? achado.slice(prefixo.length).trim() : '';
+  const i = process.argv.findIndex(a => a.startsWith(prefixo));
+  if (i === -1) return '';
+  const partes = [process.argv[i].slice(prefixo.length)];
+  for (let j = i + 1; j < process.argv.length && !process.argv[j].startsWith('--'); j++) {
+    partes.push(process.argv[j]);
+  }
+  return partes.join(' ').trim();
 }
 
 const email = arg('email').toLowerCase();
