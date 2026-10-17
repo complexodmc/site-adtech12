@@ -105,12 +105,12 @@
     <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
     <link rel="stylesheet" href="assets/css/tokens.css?v=1" />
     <link rel="stylesheet" href="assets/css/components.css?v=2" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=c3" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=c4" />
 
-    <script src="assets/js/navbar.js?v=c2" defer></script>
+    <script src="assets/js/navbar.js?v=c3" defer></script>
     <script src="assets/js/main.js?v=c3" defer></script>
     <script src="assets/js/video.js?v=1" defer></script>
-    <script type="module" src="assets/js/rede-neural.js?v=1"></script>
+    <script type="module" src="assets/js/rede-neural.js?v=2"></script>
   </head>
   <body>
 
@@ -176,29 +176,87 @@
         </div>
       </section>
 
-      <!-- ============================== A CASA ==============================
-           A rede (assets/js/rede-neural.js, canvas 2D) liga os seis eixos ao
-           centro. Ela é decorativa: quem carrega o sentido é a lista ao lado.
-           Sem JS ou com movimento reduzido fica o SVG estático. -->
+      <!-- ============================== SOBRE ==============================
+           Esquerda: tese da casa, os seis eixos (tablist) e o foco do eixo
+           selecionado; direita: a rede (assets/js/rede-neural.js, canvas 2D)
+           que liga os seis eixos ao centro. Passar o cursor num eixo realça o
+           nó; escolher um eixo (clique, teclado ou nó) troca o foco. Sem JS a
+           rede é o SVG estático e os seis focos ficam empilhados. O id
+           #conheca é mantido: âncoras antigas e testes apontam para ele. -->
       <section class="dmc-section casa" id="conheca" aria-labelledby="casa-title">
         <div class="dmc-wrap casa__grid">
           <div class="casa__text">
-            <p class="dmc-overline">A casa</p>
-            <h2 class="dmc-h1" id="casa-title">Conheça o Complexo DMC</h2>
+            <p class="dmc-overline">Sobre</p>
+            <h2 class="dmc-h1" id="casa-title">Decisões complexas pedem <em>visão integrada</em>.</h2>
             <p class="dmc-lead">
-              Uma consultoria em negócios que organiza decisões sobre empresa, patrimônio e pessoas em seis eixos de especialidade — com método próprio em cada um e parceiros habilitados para os atos privativos.
+              O Complexo DMC integra seis eixos de especialidade para decisões empresariais, patrimoniais e operacionais de alta complexidade.
             </p>
-            <ol class="casa__eixos" aria-label="Os seis eixos">
-              <li class="np-pillar-patrimonial" data-hub="1"><a href="pages/planejamento-sucessorio.html"><span class="casa__num">E1</span><span class="casa__nome">Planejamento Patrimonial e Sucessório</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-              <li class="np-pillar-fiscal" data-hub="2"><a href="pages/planejamento-tributario.html"><span class="casa__num">E2</span><span class="casa__nome">Tributário, Fiscal e Corporativo</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-              <li class="np-pillar-imobiliario" data-hub="3"><a href="pages/consultoria-imobiliaria.html"><span class="casa__num">E3</span><span class="casa__nome">Direito Notarial e Imobiliário</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-              <li class="np-pillar-auditoria" data-hub="4"><a href="pages/contabilidade.html"><span class="casa__num">E4</span><span class="casa__nome">Auditoria Empresarial e Contábil</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-              <li class="np-pillar-ativos" data-hub="5"><a href="pages/recuperacao-ativos.html"><span class="casa__num">E5</span><span class="casa__nome">Recuperação de Ativos</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-              <li class="np-pillar-trabalhista" data-hub="6"><a href="solucoes/consultoria-trabalhista/ciclo-fechado.html"><span class="casa__num">E6</span><span class="casa__nome">Consultoria Trabalhista</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></li>
-            </ol>
           </div>
+
           <div class="casa__rede" data-rede="casa" aria-hidden="true">
-            <svg class="casa__fallback" viewBox="0 0 600 600" aria-hidden="true" focusable="false" font-family="Hanken Grotesk, system-ui, sans-serif"><g fill="none" stroke="#d6b069" stroke-opacity=".32" stroke-width="1"><path d="M300 300L300 96"/><path d="M300 300L477 198"/><path d="M300 300L477 402"/><path d="M300 300L300 504"/><path d="M300 300L123 402"/><path d="M300 300L123 198"/></g><g fill="none" stroke="#ffffff" stroke-opacity=".1" stroke-width="1"><path d="M300 96L477 198"/><path d="M477 198L477 402"/><path d="M477 402L300 504"/><path d="M300 504L123 402"/><path d="M123 402L123 198"/><path d="M123 198L300 96"/></g><g class="np-pillar-patrimonial" style="color:rgb(var(--np-accent))"><g fill="none" stroke="currentColor" stroke-opacity=".3"><path d="M300 96L379 96"/><path d="M300 96L291 133"/><path d="M300 96L293 40"/><path d="M300 96L267 157"/><path d="M300 96L302 39"/><path d="M300 96L275 38"/><path d="M300 96L316 59"/></g><g fill="currentColor" fill-opacity=".6"><circle cx="379" cy="96" r="1.5"/><circle cx="291" cy="133" r="1.5"/><circle cx="293" cy="40" r="1.5"/><circle cx="267" cy="157" r="1.5"/><circle cx="302" cy="39" r="1.5"/><circle cx="275" cy="38" r="1.5"/><circle cx="316" cy="59" r="1.5"/></g><circle cx="300" cy="96" r="4" fill="currentColor"/><circle cx="300" cy="96" r="10" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="300" y="55" fill="#9a9893" font-size="12" text-anchor="middle" dominant-baseline="middle">E1</text></g><g class="np-pillar-fiscal" style="color:rgb(var(--np-accent))"><g fill="none" stroke="currentColor" stroke-opacity=".3"><path d="M477 198L429 246"/><path d="M477 198L467 170"/><path d="M477 198L455 149"/><path d="M477 198L541 164"/><path d="M477 198L517 237"/><path d="M477 198L535 167"/><path d="M477 198L440 151"/></g><g fill="currentColor" fill-opacity=".6"><circle cx="429" cy="246" r="1.5"/><circle cx="467" cy="170" r="1.5"/><circle cx="455" cy="149" r="1.5"/><circle cx="541" cy="164" r="1.5"/><circle cx="517" cy="237" r="1.5"/><circle cx="535" cy="167" r="1.5"/><circle cx="440" cy="151" r="1.5"/></g><circle cx="477" cy="198" r="4" fill="currentColor"/><circle cx="477" cy="198" r="10" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="512" y="178" fill="#9a9893" font-size="12" text-anchor="middle" dominant-baseline="middle">E2</text></g><g class="np-pillar-imobiliario" style="color:rgb(var(--np-accent))"><g fill="none" stroke="currentColor" stroke-opacity=".3"><path d="M477 402L544 361"/><path d="M477 402L445 435"/><path d="M477 402L500 363"/><path d="M477 402L502 437"/><path d="M477 402L438 421"/><path d="M477 402L531 380"/><path d="M477 402L467 326"/></g><g fill="currentColor" fill-opacity=".6"><circle cx="544" cy="361" r="1.5"/><circle cx="445" cy="435" r="1.5"/><circle cx="500" cy="363" r="1.5"/><circle cx="502" cy="437" r="1.5"/><circle cx="438" cy="421" r="1.5"/><circle cx="531" cy="380" r="1.5"/><circle cx="467" cy="326" r="1.5"/></g><circle cx="477" cy="402" r="4" fill="currentColor"/><circle cx="477" cy="402" r="10" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="512" y="422" fill="#9a9893" font-size="12" text-anchor="middle" dominant-baseline="middle">E3</text></g><g class="np-pillar-auditoria" style="color:rgb(var(--np-accent))"><g fill="none" stroke="currentColor" stroke-opacity=".3"><path d="M300 504L339 519"/><path d="M300 504L248 483"/><path d="M300 504L267 522"/><path d="M300 504L325 488"/><path d="M300 504L270 538"/><path d="M300 504L259 436"/><path d="M300 504L265 501"/></g><g fill="currentColor" fill-opacity=".6"><circle cx="339" cy="519" r="1.5"/><circle cx="248" cy="483" r="1.5"/><circle cx="267" cy="522" r="1.5"/><circle cx="325" cy="488" r="1.5"/><circle cx="270" cy="538" r="1.5"/><circle cx="259" cy="436" r="1.5"/><circle cx="265" cy="501" r="1.5"/></g><circle cx="300" cy="504" r="4" fill="currentColor"/><circle cx="300" cy="504" r="10" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="300" y="545" fill="#9a9893" font-size="12" text-anchor="middle" dominant-baseline="middle">E4</text></g><g class="np-pillar-ativos" style="color:rgb(var(--np-accent))"><g fill="none" stroke="currentColor" stroke-opacity=".3"><path d="M123 402L88 426"/><path d="M123 402L90 440"/><path d="M123 402L95 451"/><path d="M123 402L94 376"/><path d="M123 402L167 373"/><path d="M123 402L164 354"/><path d="M123 402L86 360"/></g><g fill="currentColor" fill-opacity=".6"><circle cx="88" cy="426" r="1.5"/><circle cx="90" cy="440" r="1.5"/><circle cx="95" cy="451" r="1.5"/><circle cx="94" cy="376" r="1.5"/><circle cx="167" cy="373" r="1.5"/><circle cx="164" cy="354" r="1.5"/><circle cx="86" cy="360" r="1.5"/></g><circle cx="123" cy="402" r="4" fill="currentColor"/><circle cx="123" cy="402" r="10" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="88" y="422" fill="#9a9893" font-size="12" text-anchor="middle" dominant-baseline="middle">E5</text></g><g class="np-pillar-trabalhista" style="color:rgb(var(--np-accent))"><g fill="none" stroke="currentColor" stroke-opacity=".3"><path d="M123 198L57 196"/><path d="M123 198L169 180"/><path d="M123 198L113 159"/><path d="M123 198L84 174"/><path d="M123 198L100 241"/><path d="M123 198L145 124"/><path d="M123 198L180 245"/></g><g fill="currentColor" fill-opacity=".6"><circle cx="57" cy="196" r="1.5"/><circle cx="169" cy="180" r="1.5"/><circle cx="113" cy="159" r="1.5"/><circle cx="84" cy="174" r="1.5"/><circle cx="100" cy="241" r="1.5"/><circle cx="145" cy="124" r="1.5"/><circle cx="180" cy="245" r="1.5"/></g><circle cx="123" cy="198" r="4" fill="currentColor"/><circle cx="123" cy="198" r="10" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="88" y="178" fill="#9a9893" font-size="12" text-anchor="middle" dominant-baseline="middle">E6</text></g><circle cx="300" cy="300" r="6" fill="#d6b069"/><circle cx="300" cy="300" r="16" fill="none" stroke="#d6b069" stroke-opacity=".35"/></svg>
+            <svg class="casa__fallback" viewBox="0 0 600 600" aria-hidden="true" focusable="false" font-family="Hanken Grotesk, system-ui, sans-serif">
+              <circle cx="300" cy="300" r="204" fill="none" stroke="#ffffff" stroke-opacity=".08"/>
+              <g fill="none" stroke="#d6b069" stroke-opacity=".28"><path d="M300 300L300 96"/><path d="M300 300L477 198"/><path d="M300 300L477 402"/><path d="M300 300L300 504"/><path d="M300 300L123 402"/><path d="M300 300L123 198"/></g>
+              <g class="np-pillar-patrimonial" style="color:rgb(var(--np-accent))"><circle cx="300" cy="96" r="4" fill="currentColor"/><circle cx="300" cy="96" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="300" y="64" fill="#bfbdb9" font-size="12" text-anchor="middle">E1</text></g>
+              <g class="np-pillar-fiscal" style="color:rgb(var(--np-accent))"><circle cx="477" cy="198" r="4" fill="currentColor"/><circle cx="477" cy="198" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="505" y="186" fill="#bfbdb9" font-size="12">E2</text></g>
+              <g class="np-pillar-imobiliario" style="color:rgb(var(--np-accent))"><circle cx="477" cy="402" r="4" fill="currentColor"/><circle cx="477" cy="402" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="505" y="418" fill="#bfbdb9" font-size="12">E3</text></g>
+              <g class="np-pillar-auditoria" style="color:rgb(var(--np-accent))"><circle cx="300" cy="504" r="4" fill="currentColor"/><circle cx="300" cy="504" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="300" y="544" fill="#bfbdb9" font-size="12" text-anchor="middle">E4</text></g>
+              <g class="np-pillar-ativos" style="color:rgb(var(--np-accent))"><circle cx="123" cy="402" r="4" fill="currentColor"/><circle cx="123" cy="402" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="95" y="418" fill="#bfbdb9" font-size="12" text-anchor="end">E5</text></g>
+              <g class="np-pillar-trabalhista" style="color:rgb(var(--np-accent))"><circle cx="123" cy="198" r="4" fill="currentColor"/><circle cx="123" cy="198" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="95" y="186" fill="#bfbdb9" font-size="12" text-anchor="end">E6</text></g>
+              <circle cx="300" cy="300" r="5" fill="#d6b069"/><circle cx="300" cy="300" r="16" fill="none" stroke="#d6b069" stroke-opacity=".35"/>
+              <text x="300" y="336" fill="#d6b069" font-size="11" font-weight="600" letter-spacing="2" text-anchor="middle">DMC</text>
+            </svg>
+          </div>
+
+          <div class="casa__nav">
+            <ol class="casa__eixos" role="tablist" aria-label="Os seis eixos">
+              <li class="np-pillar-patrimonial" data-hub="1" data-curto="Patrimonial e Sucessório" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-1" aria-selected="true" aria-controls="casa-foco-1"><span class="casa__num">E1</span><span class="casa__nome">Planejamento Patrimonial e Sucessório</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+              <li class="np-pillar-fiscal" data-hub="2" data-curto="Tributário e Corporativo" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-2" aria-selected="false" aria-controls="casa-foco-2" tabindex="-1"><span class="casa__num">E2</span><span class="casa__nome">Tributário, Fiscal e Corporativo</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+              <li class="np-pillar-imobiliario" data-hub="3" data-curto="Notarial e Imobiliário" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-3" aria-selected="false" aria-controls="casa-foco-3" tabindex="-1"><span class="casa__num">E3</span><span class="casa__nome">Direito Notarial e Imobiliário</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+              <li class="np-pillar-auditoria" data-hub="4" data-curto="Auditoria e Contábil" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-4" aria-selected="false" aria-controls="casa-foco-4" tabindex="-1"><span class="casa__num">E4</span><span class="casa__nome">Auditoria Empresarial e Contábil</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+              <li class="np-pillar-ativos" data-hub="5" data-curto="Recuperação de Ativos" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-5" aria-selected="false" aria-controls="casa-foco-5" tabindex="-1"><span class="casa__num">E5</span><span class="casa__nome">Recuperação de Ativos</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+              <li class="np-pillar-trabalhista" data-hub="6" data-curto="Consultoria Trabalhista" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-6" aria-selected="false" aria-controls="casa-foco-6" tabindex="-1"><span class="casa__num">E6</span><span class="casa__nome">Consultoria Trabalhista</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+            </ol>
+
+            <!-- Foco do eixo selecionado: os seis empilhados na mesma célula, só o ativo visível
+                 (opacidade + 8px). Sem JS ficam todos abertos, um abaixo do outro. -->
+            <div class="casa__foco" aria-live="polite">
+              <article class="casa__foco-item np-pillar-patrimonial is-active" id="casa-foco-1" role="tabpanel" aria-labelledby="casa-tab-1" tabindex="0">
+                <p class="casa__foco-tag">Especialidade</p>
+                <p class="casa__foco-txt">Transmissão e proteção do patrimônio familiar: quem recebe, quando, sob quais regras e com qual custo tributário.</p>
+                <a class="dmc-btn dmc-btn--link" href="pages/planejamento-sucessorio.html">Conhecer o eixo E1</a>
+              </article>
+              <article class="casa__foco-item np-pillar-fiscal" id="casa-foco-2" role="tabpanel" aria-labelledby="casa-tab-2" tabindex="0">
+                <p class="casa__foco-tag">Especialidade</p>
+                <p class="casa__foco-txt">Carga tributária e arquitetura societária da empresa em operação, com governança e integridade.</p>
+                <a class="dmc-btn dmc-btn--link" href="pages/planejamento-tributario.html">Conhecer o eixo E2</a>
+              </article>
+              <article class="casa__foco-item np-pillar-imobiliario" id="casa-foco-3" role="tabpanel" aria-labelledby="casa-tab-3" tabindex="0">
+                <p class="casa__foco-tag">Especialidade</p>
+                <p class="casa__foco-txt">O imóvel como ativo jurídico-registral: do terreno à matrícula de cada unidade, para quem incorpora, constrói e vende.</p>
+                <a class="dmc-btn dmc-btn--link" href="pages/consultoria-imobiliaria.html">Conhecer o eixo E3</a>
+              </article>
+              <article class="casa__foco-item np-pillar-auditoria" id="casa-foco-4" role="tabpanel" aria-labelledby="casa-tab-4" tabindex="0">
+                <p class="casa__foco-tag">Especialidade</p>
+                <p class="casa__foco-txt">Leitura independente dos números: demonstrações revisadas e controles internos testados para quem decide.</p>
+                <a class="dmc-btn dmc-btn--link" href="pages/contabilidade.html">Conhecer o eixo E4</a>
+              </article>
+              <article class="casa__foco-item np-pillar-ativos" id="casa-foco-5" role="tabpanel" aria-labelledby="casa-tab-5" tabindex="0">
+                <p class="casa__foco-tag">Especialidade</p>
+                <p class="casa__foco-txt">Levar um crédito reconhecido até o patrimônio do devedor, pelas vias de execução previstas em lei.</p>
+                <a class="dmc-btn dmc-btn--link" href="pages/recuperacao-ativos.html">Conhecer o eixo E5</a>
+              </article>
+              <article class="casa__foco-item np-pillar-trabalhista" id="casa-foco-6" role="tabpanel" aria-labelledby="casa-tab-6" tabindex="0">
+                <p class="casa__foco-tag">Especialidade</p>
+                <p class="casa__foco-txt">O passivo trabalhista gerido como um ciclo: prevenir na admissão, decidir com registro, resolver fora do processo e fechar o exercício.</p>
+                <a class="dmc-btn dmc-btn--link" href="solucoes/consultoria-trabalhista/ciclo-fechado.html">Conhecer o eixo E6</a>
+              </article>
+            </div>
+
+            <div class="casa__acoes">
+              <a class="dmc-btn dmc-btn--primary" href="#contact">Converse com nossos especialistas <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+              <a class="dmc-btn dmc-btn--secondary" href="pages/sobre.html">Sobre o Complexo DMC <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </div>
           </div>
         </div>
       </section>
@@ -305,7 +363,7 @@
 
         <div class="dmc-wrap np-eixos">
           <!-- ---------- A arquitetura: os seis eixos (abas) ---------- -->
-          <h3 class="dmc-overline np-axes-head">A casa em seis eixos</h3>
+          <h3 class="dmc-overline np-axes-head">Os seis eixos</h3>
           <ul class="np-axes" aria-label="Os seis eixos do Complexo DMC">
             <li class="np-pillar-patrimonial">
               <a href="#eixo-1" data-eixo="1">
@@ -1061,9 +1119,9 @@
           </nav>
 
           <nav aria-labelledby="rodape-casa">
-            <p class="dmc-footer__title" id="rodape-casa">A casa</p>
+            <p class="dmc-footer__title" id="rodape-casa">Sobre</p>
             <ul class="dmc-footer__list">
-              <li><a href="#conheca">Conheça o Complexo DMC</a></li>
+              <li><a href="pages/sobre.html">Sobre o Complexo DMC</a></li>
               <li><a href="#features">Soluções</a></li>
               <li><a href="#treinamentos">Treinamentos</a></li>
               <li><a href="pages/tecnologia.html">Tecnologia</a></li>

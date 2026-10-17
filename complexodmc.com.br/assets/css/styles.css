@@ -51,7 +51,7 @@ strong, b { font-weight: var(--fw-semibold); }
 .dmc-on-paper ::selection { background: rgba(var(--color-gold-rgb), 0.45); color: var(--text-ink-1); }
 
 /* Fio de acento que cresce da esquerda (abas, listas editoriais) */
-.casa__eixos a::before,
+.casa__tab::before,
 .np-axes a::before,
 .np-card::before {
   content: "";
@@ -197,32 +197,50 @@ strong, b { font-weight: var(--fw-semibold); }
 }
 
 /* ============================================================
-   A CASA — texto + lista dos eixos + rede neural (canvas)
+   SOBRE (#conheca) — tese + seis eixos (tablist) + foco + rede neural
+   Fundo liso (surface-0): nenhum degradê, aura ou mancha de cor.
+   Movimento só em transform/opacity; o foco troca por fade + 8px.
    ============================================================ */
-.casa { padding-bottom: var(--space-block); }
-.casa__grid { display: grid; gap: var(--space-block); align-items: center; }
+.casa { position: relative; background: var(--surface-0); padding-bottom: var(--space-block); }
+.casa__grid { display: grid; gap: var(--space-8); align-items: start; }
 .casa__text { display: grid; gap: var(--space-5); }
-.casa__eixos { margin-top: var(--space-3); border-bottom: var(--border-hair) solid var(--color-line); }
-.casa__eixos a {
+.casa__text .dmc-h1 { max-width: 14ch; }
+.casa__nav { display: grid; gap: var(--space-6); }
+
+/* Lista dos eixos: fio de 1px, número no acento, fio de acento que cresce no ativo */
+.casa__eixos { border-bottom: var(--border-hair) solid var(--color-line); }
+.casa__tab {
   position: relative;
   display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr) 1rem;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 1rem;
   align-items: center;
   gap: var(--space-3);
-  min-height: 3.25rem;
-  padding-block: var(--space-3);
+  width: 100%;
+  min-height: var(--hit);
+  margin: 0;
+  padding: var(--space-3) 0;
+  border: 0;
   border-top: var(--border-hair) solid var(--color-line);
-  color: var(--text-1);
-  text-decoration: none;
+  background: none;
+  color: var(--text-2);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--dur-fast) linear;
 }
+.casa__tab:hover,
+.casa__tab:focus-visible,
+.casa__tab[aria-selected="true"],
+.is-hover > .casa__tab { color: var(--text-1); }
+.casa__tab:focus-visible { outline-offset: -2px; }
 .casa__num {
   font-size: var(--fs-small);
   font-weight: var(--fw-medium);
   font-feature-settings: var(--font-numeric);
   color: rgb(var(--np-accent));
 }
-.casa__nome { font-weight: var(--fw-medium); line-height: 1.35; }
-.casa__eixos svg {
+.casa__nome { font-weight: var(--fw-medium); line-height: var(--lh-snug); }
+.casa__tab svg {
   width: 1rem;
   height: 1rem;
   color: rgb(var(--np-accent));
@@ -230,17 +248,53 @@ strong, b { font-weight: var(--fw-semibold); }
   transform: translateX(-6px);
   transition: opacity var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
 }
-.casa__eixos a:hover::before,
-.casa__eixos a:focus-visible::before,
-.casa__eixos .is-active a::before { transform: scaleX(1); }
-.casa__eixos a:hover svg,
-.casa__eixos a:focus-visible svg,
-.casa__eixos .is-active svg { opacity: 1; transform: none; }
+.casa__tab:hover svg,
+.casa__tab:focus-visible svg,
+.casa__tab[aria-selected="true"] svg,
+.is-hover > .casa__tab svg { opacity: 1; transform: none; }
+.casa__tab[aria-selected="true"]::before,
+.is-hover > .casa__tab::before { transform: scaleX(1); }
 
+/* Foco do eixo: os seis na mesma célula; só o ativo é visível e focável */
+.casa__foco { display: grid; }
+.casa__foco-item {
+  grid-area: 1 / 1;
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  padding-left: var(--space-5);
+  border-left: var(--border-accent) solid rgb(var(--np-accent));
+  max-width: var(--measure);
+}
+.dmc-js .casa__foco-item {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out), visibility 0s linear var(--dur-slow);
+}
+.dmc-js .casa__foco-item.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s, 0s, 0s;
+}
+html:not(.dmc-js) .casa__foco { gap: var(--space-5); }
+html:not(.dmc-js) .casa__foco-item { grid-area: auto; }
+.casa__foco-tag {
+  font-size: var(--fs-overline);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: rgb(var(--np-accent));
+}
+.casa__foco-txt { color: var(--text-2); line-height: var(--lh-body); }
+.casa__acoes { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-4); }
+
+/* Rede: quadrado, sem fundo; canvas por cima do SVG estático */
 .casa__rede {
   position: relative;
   width: 100%;
-  max-width: 40rem;
+  max-width: 26rem;
   aspect-ratio: 1;
   margin-inline: auto;
 }
@@ -256,10 +310,27 @@ strong, b { font-weight: var(--fw-semibold); }
 .casa__rede canvas { opacity: 0; transition: opacity var(--dur-reveal) var(--ease-out); }
 .casa__rede.is-live canvas { opacity: 1; }
 .casa__rede.is-live.is-pointer canvas { cursor: pointer; }
+
+@media (min-width: 768px) {
+  .casa__rede { max-width: 34rem; }
+}
 @media (min-width: 1024px) {
-  .casa__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--grid-gap); }
-  .casa__text { grid-column: 1 / span 5; }
-  .casa__rede { grid-column: 7 / span 6; }
+  .casa__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto 1fr;
+    column-gap: var(--grid-gap);
+    row-gap: var(--space-7);
+  }
+  .casa__text { grid-column: 1 / span 5; grid-row: 1; }
+  .casa__nav { grid-column: 1 / span 5; grid-row: 2; }
+  .casa__rede {
+    grid-column: 7 / span 6;
+    grid-row: 1 / span 2;
+    align-self: center;
+    max-width: 40rem;
+    position: sticky;
+    top: calc(var(--header-h-lg) + var(--space-6));
+  }
 }
 
 /* ============================================================
