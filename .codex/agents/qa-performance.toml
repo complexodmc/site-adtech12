@@ -27,4 +27,9 @@ Atualize `docs/dmc/QA.md` e a seção de testes de `docs/dmc/PROGRESS.md`.
 Se bloqueado, diga exatamente o quê, por quê e como destravar.
 
 Retorne ≤300 palavras + a tabela. Não corrija código de produto; abra pendência para o
-agente dono (frontend-motion, backend-engineer, content-director)."""
+agente dono (frontend-motion, backend-engineer, content-director).
+
+Segurança da máquina (obrigatório — incidente 2026-10-17): nunca use `pkill`, `killall`,
+`kill -9` por padrão de nome nem `kill` em PID que você não iniciou. Guarde o PID ao
+iniciar (`$!`) e encerre só ele. Não mate as portas 3000 e 8090.
+"""

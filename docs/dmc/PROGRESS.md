@@ -8,15 +8,22 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 | 2 Auditoria DMC × Planning | ✅ consolidada 2026-10-17 (12 relatórios: 8 iniciais + extras raiz do repositório, deploy Vercel/D5, schema/atos privativos, chromakey/regrade) | docs/dmc/AUDIT.md (inventário, matriz, baseline, violações, backlog, riscos, bloqueios); evidências em docs/dmc/audit/2026-10-17/{site-producao,…,raiz-repositorio,backend-vercel,conformidade-schema,hero}/ |
 | 3 Estratégia / direção | ✅ aprovada (opção C) | DECISIONS.md D2 |
 | 4 Engenharia paralela | ✅ 1ª rodada | b3e03b4 (contato+headers), 8e7f2f7 (conformidade), 0e20496 (tokens) |
-| 5 Implementação criativa | 🔄 home + painel dos eixos; EIXOS-COPY; privacidade; FAQ trabalhista | |
-| 6 Mídias e 3D | 🔄 filme do hero (procedural) + rede neural da home | |
-| 7 QA | ⏳ | docs/dmc/QA.md (a gerar) |
+| 5 Implementação criativa | 🔄 home ✅ (aba355e, cae0db2, 8018600); conformidade aberta fechada (8018600); páginas internas: onda 1 = camada C (`eixos.css`, `solucao.js`) + pilotos `planejamento-sucessorio` e `ciclo-fechado`; onda 2 = 24 páginas restantes pela receita (DESIGN-SYSTEM §6) | 8018600 |
+| 6 Mídias e 3D | 🔄 filme do hero + rede neural da home ✅; rino dourado alpha nativo (VP9/HEVC) commitado (e0b7744), troca do chromakey nas 6 páginas em andamento; og-image 1200×630, favicon-dmc 64 px e apple-touch-icon (8018600) | e0b7744, 8018600 |
+| 7 QA | 🔄 suíte pronta (sem commit): `npm run test:e2e` (454 testes) + `npm run test:lh`; linha de base 2026-10-17 = 384 aprovados / 70 falharam / 0 bloqueados | docs/dmc/QA.md; `docs/dmc/qa/2026-10-17/{e2e,lighthouse}/resumo.json` |
 | 8 Entrega / publicação | 🔄 T5 preparada (vercel.json `outputDirectory`, raiz do git limpa, sitemap/robots, engines 24.x, DEPLOY.md); publicar só após rotação T3 + D3 | docs/dmc/DEPLOY.md; DECISIONS.md T5 |
 
 ## Testes (aprovado / falhou / bloqueado)
 
 | Teste | Resultado | Observação |
 |---|---|---|
+| Suíte D3 — rotas/redirects/segredos/sub-recursos/crawl (QA 2026-10-17) | falhou (24/109) | 13 redirects, 18 arquivos internos ≠ 200, 0 segredos, 0 sub-recursos 4xx/5xx, crawl 41 páginas sem link quebrado; 24 páginas linkam `/index.html` (301) via `navbar.js` (`home: root + 'index.html'`); `planejamento-sucessorio` linka `planejamento-sucessorio-empresarial.html` (301 para si) — `qa/2026-10-17/e2e/resumo.json` |
+| Suíte D3 — viewports 320–1920 × 25 páginas | aprovado (175/175) | 0 overflow horizontal |
+| Suíte D3 — console (desktop + 390) | falhou (4/50) | `juridico-imobiliario.html:1069` e `juridico-vendas.html:1070`: `.page-nav` nulo no listener de scroll (TypeError) |
+| Suíte D3 — acessibilidade (axe + estrutura) | falhou (24/50) | 15 páginas `pages/*` sem `<main>`; color-contrast `.benefit-card__text` (5 páginas); embed direto do YouTube (4 páginas, violações dentro do iframe); label-content-name-mismatch (4) |
+| Suíte D3 — navegação, home, formulário, movimento | falhou (4/42) | mega-menu: Enter abre e Tab vai para "A casa" (painel só por ↓), 3 páginas; erro de campo do form sem `aria-describedby`. Tablist, #eixo-N, gaveta (foco preso/devolvido), Acessar (2 destinos), reduced-motion, API real com Mongo descartável (201/400/isca/429/413): aprovados |
+| Suíte D3 — SEO on-page | falhou (14/27) | 14 `pages/*` sem canonical; title/description únicos e JSON-LD sem LegalService/ProfessionalService nas 25 |
+| Lighthouse mobile D3 (5 páginas, mediana de 3) | falhou (2/5) | home 99/100/100/100; planejamento-sucessorio 96 (CLS 0,123); recuperacao-ativos 74 (CLS 1,008); consultoria-imobiliaria 71/96/96 (CLS 1,301, `.page-hero__inner`); ciclo-fechado 100 — `qa/2026-10-17/lighthouse/resumo.json` |
 | Lighthouse mobile (baseline, 4 páginas) | aprovado (medido) | home 75/95/96/100, LCP 4,58 s; consultoria-imobiliaria Perf 59; ciclo-fechado 91 — `metricas-baseline/lighthouse-summary.json` |
 | Playwright viewports 320–1920 (overflow) | aprovado | 0/28 combinações com overflow horizontal — `metricas-baseline/viewports.json` |
 | Playwright crawl prod × local | aprovado (executado) | inventário e diffs em `site-producao/inventario.json` |
@@ -55,6 +62,17 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 - `server/uploads/` (PDFs/capas da EAD) é gitignored: deploy via Git publica a função sem esses arquivos (`/api/materiais/*` 404) — precisa de armazenamento persistente (backend-engineer, D5). Via CLI sobem empacotados, somente leitura.
 - Aprovações do CEO pendentes: headline final (proposta em uso); regrade do rino dourado (gold-mono) × prata/grafite (lut3d) — tiras em `audit/2026-10-17/hero/*-comparacao.png`; nome "Defesa Empresarial" (alternativa "Gestão do Contencioso Trabalhista"); conteúdo da futura `pages/sobre.html` (substitui `Sobre.html` da raiz). Login → D6; números → D7; tecnologia.html → D1 (transversal).
 - iPhone real para validar HEVC alpha antes de trocar o chromakey.
+
+## Rodada 2026-10-17 tarde (sessão de retomada)
+- Gate D3 de conteúdo: frases de ato privativo sem atribuição 40 → 15 (8 = nome "Defesa Empresarial", aguarda CEO;
+  3 = simulador explicativo de E5; 4 = home/pilotos, corrigidas na home em 8018600). Schema reservado: 0.
+- Home: Ad-tech sem "integração com tribunais e cartórios", "API" e "PCDs" (aguardam confirmação do CEO), 3 cartões;
+  E4 "Auditoria e Inteligência Contábil"; `?assunto=EN#contact` pré-seleciona o eixo vindo das páginas internas.
+- Divergência a confirmar (CEO): o content-director trocou "ato/pacote/mensalidade com SLA" por "escopo apresentado
+  em proposta" em `consultoria-imobiliaria`, `juridico-imobiliario` e `juridico-vendas` (forma de pagamento em
+  publicidade — Provimento 205/2021). Manter é a recomendação.
+- `juridico-vendas` já estava diferenciado de `juridico-imobiliario` (title, H1, produtos): não fundir.
+- CNPJ/razão social/encarregado: sem fonte no repositório — `[CONFIRMAR]` da privacidade seguem abertos.
 
 ## Pendências de conteúdo para o CEO (conformidade, commit 8e7f2f7)
 1. Nome do parceiro contábil e do auditor habilitado (CRC) — citar a Bear Finance como em `quitacao-anual`?

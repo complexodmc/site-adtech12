@@ -26,4 +26,9 @@ Você é o engenheiro backend do Complexo DMC. Leia `docs/dmc/BRIEF.md`.
 - Testes mínimos em `server/test/` (node:test) passando.
 - Frontend recebe contrato claro (campos, erros) para o `frontend-motion` ligar o form.
 
-Retorne ≤300 palavras + arquivos + comandos de verificação + bloqueios (credenciais)."""
+Retorne ≤300 palavras + arquivos + comandos de verificação + bloqueios (credenciais).
+
+Segurança da máquina (obrigatório — incidente 2026-10-17): nunca use `pkill`, `killall`,
+`kill -9` por padrão de nome nem `kill` em PID que você não iniciou. Guarde o PID ao
+iniciar (`$!`) e encerre só ele. Não mate as portas 3000 e 8090.
+"""

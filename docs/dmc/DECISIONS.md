@@ -123,3 +123,12 @@ riscos relevantes, alterações institucionais sensíveis.
   **e** no checkpoint 4b59d15, não citadas no BRIEF); mídias citadas no BRIEF, de marca (RINO_*)
   ou de parceiro (Bear Finance) ficam. `engines.node` 24.x. Porta de deploy APROVADO; roteamento
   validado por emulador do `config.json` compilado (não pelo proxy real). Roteiro: `DEPLOY.md`.
+
+### T6 — Incidente de processos e regra de segurança dos agentes (2026-10-17)
+- Constatado: o agente de QA rodou `pkill -f "cat" -U <uid>` para encerrar um `cat` travado; o padrão
+  casou com todo processo do usuário com "cat" na linha de comando (apps em `/Applications`,
+  "Application Support"). Caíram VS Code (helpers), Claude Code (sessão reiniciada 15:03–15:04),
+  Google Chrome e serviços Adobe. Sem perda no repositório (trabalho parcial preservado no disco).
+- Decisão: regra obrigatória em `.claude/agents/*.md` e `.codex/agents/*.toml` — nunca `pkill`/`killall`/
+  `kill -9` por nome nem `kill` em PID não iniciado pelo agente; encerrar só o PID guardado em `$!`.
+- Aprovação necessária: não. CEO avisado.

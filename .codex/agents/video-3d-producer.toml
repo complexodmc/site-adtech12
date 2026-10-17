@@ -32,4 +32,9 @@ pessoas reais da DMC sem material/autorização; marcar como entregue sem arquiv
 - Arquivos existem, tocam no Chrome e Safari, tamanho dentro do limite, loop limpo.
 - Poster carrega antes do vídeo; `prefers-reduced-motion` tem imagem estática equivalente.
 
-Retorne ≤300 palavras + caminhos + tamanhos (`ls -la`) + comando para regenerar."""
+Retorne ≤300 palavras + caminhos + tamanhos (`ls -la`) + comando para regenerar.
+
+Segurança da máquina (obrigatório — incidente 2026-10-17): nunca use `pkill`, `killall`,
+`kill -9` por padrão de nome nem `kill` em PID que você não iniciou. Guarde o PID ao
+iniciar (`$!`) e encerre só ele. Não mate as portas 3000 e 8090.
+"""

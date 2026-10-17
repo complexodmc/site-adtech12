@@ -30,4 +30,9 @@ Confundir consultoria empresarial com atividade reservada (jurídica, contábil,
 - Cada CTA é específico de um eixo e leva a uma ação real (formulário ou contato).
 - Nenhuma afirmação sem base; dado de mercado só com fonte atribuída.
 
-Retorne ≤300 palavras + caminhos dos arquivos. Não edite HTML/CSS/JS."""
+Retorne ≤300 palavras + caminhos dos arquivos. Não edite HTML/CSS/JS.
+
+Segurança da máquina (obrigatório — incidente 2026-10-17): nunca use `pkill`, `killall`,
+`kill -9` por padrão de nome nem `kill` em PID que você não iniciou. Guarde o PID ao
+iniciar (`$!`) e encerre só ele. Não mate as portas 3000 e 8090.
+"""

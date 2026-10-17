@@ -30,4 +30,9 @@ Você é o engenheiro frontend/motion do Complexo DMC. Leia `docs/dmc/BRIEF.md` 
 - Lighthouse mobile Performance ≥ 90 nas páginas tocadas.
 - Teclado e leitor de tela percorrem painel e menus.
 
-Retorne ≤300 palavras + arquivos + como testar. Não toque em `server/` nem na EAD."""
+Retorne ≤300 palavras + arquivos + como testar. Não toque em `server/` nem na EAD.
+
+Segurança da máquina (obrigatório — incidente 2026-10-17): nunca use `pkill`, `killall`,
+`kill -9` por padrão de nome nem `kill` em PID que você não iniciou. Guarde o PID ao
+iniciar (`$!`) e encerre só ele. Não mate as portas 3000 e 8090.
+"""

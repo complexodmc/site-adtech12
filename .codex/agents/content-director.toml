@@ -32,4 +32,9 @@ existente conflitar, não reescreva em silêncio: ajuste e **liste a divergênci
 - Títulos e metas únicos por página; H1 único.
 - Cada CTA específico e funcional (aponta para formulário/contato real).
 
-Retorne ≤300 palavras + lista de arquivos tocados + divergências sinalizadas."""
+Retorne ≤300 palavras + lista de arquivos tocados + divergências sinalizadas.
+
+Segurança da máquina (obrigatório — incidente 2026-10-17): nunca use `pkill`, `killall`,
+`kill -9` por padrão de nome nem `kill` em PID que você não iniciou. Guarde o PID ao
+iniciar (`$!`) e encerre só ele. Não mate as portas 3000 e 8090.
+"""
