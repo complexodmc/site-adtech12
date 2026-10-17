@@ -48,7 +48,7 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 ## Bloqueios
 - Geração de vídeo por IA / Blender: indisponíveis → cenas procedurais + ffmpeg.
 - E-mail de aviso de lead: precisa de `RESEND_API_KEY`, `LEADS_EMAIL_TO`, `LEADS_EMAIL_FROM` (domínio verificado) — CEO. Sem isso o lead é gravado no banco, sem aviso.
-- Página de política de privacidade inexistente (link do consentimento LGPD) — content-director.
+- Política de privacidade: rascunho em `pages/politica-de-privacidade.html` (sitemap + rodapés de `pages/` e das 7 trabalhistas); **não publicar** com os `[CONFIRMAR]` (itens 6–9 abaixo). O rótulo de consentimento da home (`index.html`, `#cf-consentimento`) ainda não linka a página — home/frontend (o de `treinamento-interesse` já linka).
 - Variáveis de ambiente da Vercel, allowlist do Atlas e `DEV_SIMULAR_PAGAMENTO` em prod: não verificáveis daqui.
 - Hotfix T3 bloqueado até: `package.json` `engines.node` → `24.x`; `vercel.json` com `outputDirectory` (não usar `.vercelignore` com `server/`); `tools/vercel-build-check.sh` imprimir APROVADO; rotação incluir a credencial Atlas de `server/.env.bak-atlas`.
 - Aprovações do CEO pendentes: headline final (proposta em uso); regrade do rino dourado (gold-mono) × prata/grafite (lut3d) — tiras em `audit/2026-10-17/hero/*-comparacao.png`; nome "Defesa Empresarial" (alternativa "Gestão do Contencioso Trabalhista"); conteúdo da futura `pages/sobre.html` (substitui `Sobre.html` da raiz). Login → D6; números → D7; tecnologia.html → D1 (transversal).
@@ -60,3 +60,35 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 3. Elaboração de contratos e pareceres é atividade privativa da advocacia: definir como o site apresenta a execução (sociedade de advogados parceira/conveniada).
 4. Fatos jurídicos a revisar por profissional habilitado: prazo de registro (FAQ de registro-imobiliario; "30 dias" removido) e inventário extrajudicial frente à Res. CNJ 571/2024.
 5. Gráfico 100/110/120% de recuperacao-ativos: é ilustração do art. 523 do CPC (não é resultado) — recomendação: manter.
+
+## Pendências de conteúdo — rodada 2026-10-17 (content-director)
+Feito: `docs/dmc/EIXOS-COPY.md` (conteúdo-mestre E1–E6 para painel, mega-menu e páginas
+internas); `pages/politica-de-privacidade.html` (LGPD, padrão das páginas de serviço, sem
+herói de malha) + `sitemap.xml`; FAQ (5–6 perguntas, componente `.faq-item` + acordeão inline
++ JSON-LD `FAQPage`, padrão de `recuperacao-ativos`) nas 7 páginas trabalhistas, antes do
+bloco de vídeo; link "Política de Privacidade" nos rodapés (17 de `pages/` deixam de apontar
+para `#`; 7 trabalhistas ganham o link). `ciclo-fechado`: "Cuidamos de todo o jurídico
+trabalhista" → "Coordenamos toda a frente trabalhista". QA local (Playwright 320/390/1440): 0
+overflow, acordeão abre, nenhuma resposta cortada, 0 erro de console.
+**Exceção ao bloco de vídeo:** `pages/politica-de-privacidade.html` (página legal), além de
+`mouse.html` e `treinamento-interesse.html`.
+
+6. Privacidade — razão social, CNPJ e nome/canal do encarregado (art. 41).
+7. Privacidade — prazo de retenção dos leads (sugestão: 24 meses do último contato) e data de
+   vigência.
+8. Privacidade — região do cluster Atlas e da função Vercel (transferência internacional,
+   art. 33); política própria da Área do aluno (EAD).
+9. Script GoDaddy (`img1.wsimg.com/tccl.min.js`) em `consultoria-imobiliaria`,
+   `juridico-imobiliario` e `juridico-vendas`: remover (frontend) e apagar o parágrafo de
+   exceção da política. Único rastreador do site; sem analytics/pixel.
+10. **Incidente T3 × LGPD:** credenciais do Atlas expostas em prod (leads e alunos) podem
+    exigir comunicação à ANPD e aos titulares (art. 48; Res. CD/ANPD 15/2024, 3 dias úteis) —
+    avaliar com o jurídico.
+11. EIXOS-COPY — `[CONFIRMAR]` por eixo (holding rural; IBS/CBS; IA de minutas; cartórios
+    conveniados; ARTHEU; página de Auditoria Empresarial) e divergências listadas no fim do
+    arquivo: "mensalidade dedicada" em `consultoria-imobiliaria`; nome "Blindagem"; slugs
+    `por-que-urgente` e `contabilidade`; Lei 13.140/2015 × art. 42, par. único (mediação
+    trabalhista) em `camara-de-acordos`; backup `recuperacao-ativos.backup-2026-08-26.html`
+    na pasta pública.
+12. Trabalhista — "Parecer jurídico em 24–48 h" (`decisao-assistida`) sem atribuição a advogado
+    (ver item 3).
