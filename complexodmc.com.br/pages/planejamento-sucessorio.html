@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Planejamento Sucessório Empresarial e Familiar - Proteja seu patrimônio e garanta a continuidade dos seus negócios com a Complexo DMC.">
-  <meta name="keywords" content="planejamento sucessório, sucessão empresarial, proteção patrimonial, holding familiar, consultoria empresarial">
+  <meta name="description" content="Planejamento sucessório para famílias e empresas: holding, doação com reserva de usufruto, testamento e cláusulas de proteção. A transmissão do patrimônio organizada em vida, com carga tributária calculada.">
+  <meta name="keywords" content="planejamento sucessório, sucessão familiar, sucessão empresarial, holding familiar, doação com usufruto, testamento, ITCMD, inventário extrajudicial, cláusulas de proteção">
   <title>Planejamento Sucessório Empresarial e Familiar | Complexo DMC</title>
 
   <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
@@ -15,10 +15,12 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <link rel="stylesheet" href="css/shared.css?v=2">
+  <link rel="stylesheet" href="css/shared.css?v=3">
+  <link rel="stylesheet" href="css/eixos.css?v=3">
   <script src="../assets/js/navbar.js" defer></script>
+  <script src="../assets/js/video.js" defer></script>
 </head>
-<body>
+<body class="np-eixo np-pillar-patrimonial">
 
   <!-- ========== NAVBAR ========== -->
   <dmc-navbar></dmc-navbar>
@@ -30,13 +32,16 @@
       <div class="page-hero__content">
         <div class="page-hero__badge">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          CONSULTORIA ESTRATÉGICA
+          E1 · PATRIMONIAL E SUCESSÓRIO
         </div>
-        <h1 class="page-hero__title">Doação com cláusulas de<br><span class="gradient-text">proteção</span></h1>
-        <p class="page-hero__subtitle">A doação com cláusulas de proteção permite a transferência antecipada de bens (imóveis, quotas, ativos) aos herdeiros ainda em vida, com cláusulas que preservam o controle e protegem o patrimônio contra riscos futuros, como inalienabilidade, impenhorabilidade e incomunicabilidade.</p>
+        <h1 class="page-hero__title">Planejamento<br><span class="gradient-text">Sucessório</span></h1>
+        <p class="page-hero__subtitle">Decidir em vida quem recebe o quê, quando e sob quais regras. O planejamento sucessório organiza a passagem do patrimônio entre gerações com os instrumentos previstos em lei — holding, doação com reserva de usufruto, testamento e cláusulas de proteção — para que a sua família não descubra essas respostas dentro de um inventário.</p>
         <div class="page-hero__actions">
           <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--primary" aria-label="Agendar consulta via WhatsApp">
             <span>Agendar Consulta</span>
+          </a>
+          <a href="#processo" class="btn btn--secondary" aria-label="Ver como funciona o processo de implementação">
+            <span>Como funciona</span>
           </a>
         </div>
       </div>
@@ -48,14 +53,14 @@
       transform:translate(-50%,-50%);
       font-family:'Raleway','DM Sans',sans-serif;
       font-size:56px;font-weight:700;letter-spacing:10px;
-      background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);
+      background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
       background-clip:text;
       pointer-events:none;
       user-select:none;
       z-index:2;
-    ">DCP</div>
+    ">PS</div>
   </div>
 </div>
     </div>
@@ -65,54 +70,54 @@
   <section class="page-section" id="beneficios" aria-label="Benefícios do Planejamento Sucessório">
     <div class="page-section__container reveal">
       <div class="page-section__header">
-        <p class="page-section__overline">Nossas Especialidades</p>
-        <h2 class="page-section__title">Por que o planejamento sucessório é <span class="gradient-text">urgente</span>?</h2>
-        <p class="page-section__description">Estratégias jurídicas e empresariais para proteger o que você construiu e garantir uma transição tranquila.</p>
+        <p class="page-section__overline">Por que planejar</p>
+        <h2 class="page-section__title">Sem plano, quem decide é o <span class="gradient-text">inventário</span></h2>
+        <p class="page-section__description">Todo patrimônio será transmitido um dia. A única variável é se a transmissão vai seguir uma decisão da família ou o rito de um processo — com o prazo, o custo e o desgaste que vêm junto.</p>
         <h3 class="page-section__title" style="font-size:1.4rem;margin-top:1.5rem;">O que é</h3>
-        <p class="page-section__description">O titular doa bens (imóveis, quotas, ativos) aos herdeiros ainda em vida — mas com cláusulas que preservam o controle e protegem o bem.</p>
+        <p class="page-section__description">O conjunto de atos jurídicos que organiza, ainda em vida, a passagem do patrimônio para a geração seguinte: quem recebe, em que proporção, sob quais regras de uso e venda, e com qual carga tributária.</p>
       </div>
 
       <div class="benefit-grid">
         <div class="benefit-card">
           <div class="benefit-card__icon"></div>
           <span class="benefit-card__tag">Proteção</span>
-          <h3 class="benefit-card__title">Proteção Patrimonial Completa</h3>
-          <p class="benefit-card__text">Blindagem jurídica do patrimônio familiar e empresarial contra riscos e litígios futuros.</p>
+          <h3 class="benefit-card__title">Patrimônio separado do risco</h3>
+          <p class="benefit-card__text">Instrumentos que apartam os bens da família da exposição da atividade empresarial.</p>
         </div>
 
         <div class="benefit-card">
           <div class="benefit-card__icon"></div>
           <span class="benefit-card__tag">Continuidade</span>
-          <h3 class="benefit-card__title">Continuidade Empresarial</h3>
-          <p class="benefit-card__text">Planejamento estratégico para garantir que o negócio prospere através das gerações.</p>
+          <h3 class="benefit-card__title">A empresa não para</h3>
+          <p class="benefit-card__text">Regras de entrada, saída e gestão definidas antes da transição, para que a operação siga durante a sucessão.</p>
         </div>
 
         <div class="benefit-card">
           <div class="benefit-card__icon"></div>
           <span class="benefit-card__tag">Tributário</span>
-          <h3 class="benefit-card__title">Economia Tributária</h3>
-          <p class="benefit-card__text">Redução legal da carga tributária na transferência de bens e direitos entre gerações.</p>
+          <h3 class="benefit-card__title">Carga tributária dimensionada</h3>
+          <p class="benefit-card__text">ITCMD, ganho de capital e custos de transmissão calculados antes do ato — e não descobertos depois dele.</p>
         </div>
 
         <div class="benefit-card">
           <div class="benefit-card__icon"></div>
           <span class="benefit-card__tag">Harmonia</span>
-          <h3 class="benefit-card__title">Harmonia Familiar</h3>
-          <p class="benefit-card__text">Prevenção de conflitos entre herdeiros com acordos claros e bem estruturados.</p>
+          <h3 class="benefit-card__title">Menos margem para disputa</h3>
+          <p class="benefit-card__text">A vontade declarada em instrumento próprio reduz o espaço de divergência entre os herdeiros.</p>
         </div>
 
         <div class="benefit-card">
           <div class="benefit-card__icon"></div>
           <span class="benefit-card__tag">Governança</span>
-          <h3 class="benefit-card__title">Governança Corporativa</h3>
-          <p class="benefit-card__text">Implementação de regras claras de governança para a gestão do patrimônio familiar.</p>
+          <h3 class="benefit-card__title">Regras de gestão definidas</h3>
+          <p class="benefit-card__text">Acordo de sócios, protocolo familiar e conselho estabelecem quem decide o quê depois da transição.</p>
         </div>
 
         <div class="benefit-card">
           <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">Agilidade</span>
-          <h3 class="benefit-card__title">Evitar Inventário Judicial</h3>
-          <p class="benefit-card__text">Transferência de patrimônio de forma planejada, evitando processos longos e custosos.</p>
+          <span class="benefit-card__tag">Transmissão</span>
+          <h3 class="benefit-card__title">Fora do inventário judicial</h3>
+          <p class="benefit-card__text">Com a estrutura montada em vida, a transmissão pode correr pela via extrajudicial, quando cabível.</p>
         </div>
       </div>
     </div>
@@ -121,176 +126,105 @@
   <!-- ========== STATS MARQUEE ========== -->
   <section class="stats-marquee" aria-label="Números e resultados">
     <div class="stats-marquee__track">
-      <div class="stats-marquee__slide">
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">+205M</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Ativos Reais</span>
+        <div class="stats-marquee__slide">
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">+205M</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Ativos Reais</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">+86</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Holdings Efetivadas</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">98%</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Satisfação dos Clientes</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">+1200</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Famílias Atendidas</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">15+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Anos de Experiência</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
         </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">+86</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Holdings Efetivadas</span>
+      <!-- Duplicado duas vezes para o loop infinito -->
+        <div class="stats-marquee__slide" aria-hidden="true">
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">+205M</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Ativos Reais</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">+86</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Holdings Efetivadas</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">98%</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Satisfação dos Clientes</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">+1200</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Famílias Atendidas</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">15+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Anos de Experiência</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
         </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">98%</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Satisfação dos Clientes</span>
+        <div class="stats-marquee__slide" aria-hidden="true">
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">+205M</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Ativos Reais</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">+86</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Holdings Efetivadas</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">98%</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Satisfação dos Clientes</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">+1200</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Famílias Atendidas</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">15+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Anos de Experiência</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
         </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">+1200</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Famílias Atendidas</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">15+</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Anos de Experiência</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-      </div>
-      <!-- Duplicado para loop infinito -->
-      <div class="stats-marquee__slide" aria-hidden="true">
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">+205M</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Ativos Reais</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">+86</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Holdings Efetivadas</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">98%</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Satisfação dos Clientes</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">+1200</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Famílias Atendidas</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">15+</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Anos de Experiência</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-      </div>
     </div>
   </section>
-
-  <style>
-    /* ===== STATS MARQUEE (infinite carousel) ===== */
-    .stats-marquee {
-      width: 100%;
-      overflow: hidden;
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
-      padding: 1.8rem 0;
-      position: relative;
-    }
-
-    /* Fade edges */
-    .stats-marquee::before,
-    .stats-marquee::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .stats-marquee::before {
-      left: 0;
-      background: linear-gradient(90deg, var(--bg-secondary), transparent);
-    }
-    .stats-marquee::after {
-      right: 0;
-      background: linear-gradient(-90deg, var(--bg-secondary), transparent);
-    }
-
-    .stats-marquee__track {
-      display: flex;
-      width: max-content;
-      animation: statsScroll 25s linear infinite;
-    }
-
-    .stats-marquee:hover .stats-marquee__track {
-      animation-play-state: paused;
-    }
-
-    .stats-marquee__slide {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      flex-shrink: 0;
-    }
-
-    .stats-marquee__item {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      padding: 0 2rem;
-      white-space: nowrap;
-    }
-
-    .stats-marquee__number {
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 700;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-    }
-
-    .stats-marquee__sep {
-      color: var(--text-tertiary);
-      font-size: 1.2rem;
-      opacity: 0.4;
-    }
-
-    .stats-marquee__label {
-      font-family: var(--font-primary);
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      letter-spacing: 0.5px;
-    }
-
-    .stats-marquee__dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--primary-cyan);
-      opacity: 0.3;
-      flex-shrink: 0;
-    }
-
-    @keyframes statsScroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    @media (max-width: 768px) {
-      .stats-marquee { padding: 1.2rem 0; }
-      .stats-marquee__item { padding: 0 1.2rem; }
-      .stats-marquee::before,
-      .stats-marquee::after { width: 50px; }
-    }
-  </style>
 
   <!-- ========== RINO HUB SECTION ========== -->
   <section class="page-section" aria-label="Mapa de serviços de planejamento sucessório">
@@ -298,7 +232,7 @@
       <div class="page-section__header">
         <p class="page-section__overline">Ecossistema</p>
         <h2 class="page-section__title">Nossas <span class="gradient-text">Soluções</span></h2>
-        <p class="page-section__description">Um ecossistema completo de instrumentos jurídicos para proteger e transferir seu patrimônio.</p>
+        <p class="page-section__description">Não existe um instrumento único de sucessão. Existe a combinação certa entre eles para o seu patrimônio, a sua família e a sua empresa.</p>
       </div>
 
       <div class="ps-orbit-scene">
@@ -318,7 +252,7 @@
         <div id="psOrbitAnchor" class="ps-orbit-anchor">
           <div class="ps-orbit-item" style="animation-delay: -0s;">
             <div class="ps-orbit-card">
-              <span class="ps-orbit-front">INV. EXTRAJ.</span>
+              <span class="ps-orbit-front">HOLDING</span>
             </div>
           </div>
           <div class="ps-orbit-item" style="animation-delay: -4.8s;">
@@ -328,17 +262,17 @@
           </div>
           <div class="ps-orbit-item" style="animation-delay: -9.6s;">
             <div class="ps-orbit-card">
-              <span class="ps-orbit-front">TESTAMENTO</span>
+              <span class="ps-orbit-front">USUFRUTO</span>
             </div>
           </div>
           <div class="ps-orbit-item" style="animation-delay: -14.4s;">
             <div class="ps-orbit-card">
-              <span class="ps-orbit-front">INV. JUDICIAL</span>
+              <span class="ps-orbit-front">TESTAMENTO</span>
             </div>
           </div>
           <div class="ps-orbit-item" style="animation-delay: -19.2s;">
             <div class="ps-orbit-card">
-              <span class="ps-orbit-front">HOLDING</span>
+              <span class="ps-orbit-front">INV. EXTRAJ.</span>
             </div>
           </div>
         </div>
@@ -375,7 +309,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0, 231, 252, 0.06) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(var(--np-accent), 0.06) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -394,7 +328,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      border: 1px solid rgba(0, 231, 252, 0.12);
+      border: 1px solid rgba(var(--np-accent), 0.12);
       border-radius: 50%;
       pointer-events: none;
     }
@@ -430,7 +364,7 @@
       margin-left: calc(var(--ps-orbit-cw) / -2);
       margin-top: calc(var(--ps-orbit-ch) / -2);
       background: rgba(10, 10, 10, 0.85);
-      border: 1px solid rgba(0, 255, 77, 0.3);
+      border: 1px solid rgba(var(--np-accent-soft), 0.3);
       border-radius: 14px;
       cursor: pointer;
       transition: background 0.3s, border 0.3s, transform 0.3s;
@@ -439,8 +373,8 @@
     }
 
     .ps-orbit-card:hover {
-      background: rgba(0, 231, 252, 0.15);
-      border-color: #00e7fc;
+      background: rgba(var(--np-accent), 0.15);
+      border-color: rgb(var(--np-accent));
       transform: scale(1.08);
       z-index: 20;
     }
@@ -504,14 +438,16 @@
       <div class="split-panel__bg"></div>
       <div class="split-panel__content">
         <div class="split-panel__icon"><i class="fas fa-handshake"></i></div>
-        <span class="split-panel__badge">PLANEJAMENTO EM VIDA</span>
+        <span class="split-panel__badge">EM VIDA · INTER VIVOS</span>
         <h3 class="split-panel__title">Ato inter vivos</h3>
-        <p class="split-panel__subtitle">Doação com proteção</p>
+        <p class="split-panel__subtitle">Holding, doação e usufruto</p>
 
         <div class="split-panel__details">
-          <p class="split-panel__desc">Transmissão em vida com cláusulas de segurança patrimonial</p>
+          <p class="split-panel__desc">A transferência acontece agora, com o titular ainda no comando do que transmitiu.</p>
           <ul class="split-panel__list">
-            <li><i class="fas fa-chevron-right"></i><div><strong>Inalienabilidade</strong><span>Impede a venda do bem pelo herdeiro sem autorização.</span></div></li>
+            <li><i class="fas fa-chevron-right"></i><div><strong>Reserva de usufruto</strong><span>A renda e a administração do bem permanecem com quem doou.</span></div></li>
+            <li><i class="fas fa-chevron-right"></i><div><strong>Cláusulas de proteção</strong><span>Inalienabilidade, impenhorabilidade e incomunicabilidade, na forma do art. 1.911 do Código Civil.</span></div></li>
+            <li><i class="fas fa-chevron-right"></i><div><strong>Adiantamento da legítima</strong><span>A doação a herdeiro é imputada na herança futura (art. 544 do Código Civil).</span></div></li>
           </ul>
           <a href="holding-patrimonial.html" class="split-panel__cta">
             <span>Saiba Mais</span>
@@ -531,15 +467,16 @@
       <div class="split-panel__bg"></div>
       <div class="split-panel__content">
         <div class="split-panel__icon"><i class="fas fa-scroll"></i></div>
-        <span class="split-panel__badge">PLANEJAMENTO SUCESSÓRIO</span>
-        <h3 class="split-panel__title">Cláusulas de proteção</h3>
-        <p class="split-panel__subtitle">Segurança patrimonial</p>
+        <span class="split-panel__badge">APÓS A MORTE · CAUSA MORTIS</span>
+        <h3 class="split-panel__title">Ato causa mortis</h3>
+        <p class="split-panel__subtitle">Testamento e partilha</p>
 
         <div class="split-panel__details">
-          <p class="split-panel__desc">Proteção jurídica dos bens doados</p>
+          <p class="split-panel__desc">A destinação é escrita hoje, mas só produz efeito depois — e alcança a parte disponível.</p>
           <ul class="split-panel__list">
-            <li><i class="fas fa-chevron-right"></i><div><strong>Incomunicabilidade</strong><span>O bem não entra na partilha em caso de divórcio do herdeiro.</span></div></li>
-            <li><i class="fas fa-chevron-right"></i><div><strong>Impenhorabilidade</strong><span>Protege o bem de dívidas futuras do herdeiro.</span></div></li>
+            <li><i class="fas fa-chevron-right"></i><div><strong>Parte disponível</strong><span>Metade do patrimônio é legítima dos herdeiros necessários; a outra metade pode ser destinada por testamento (art. 1.846 do Código Civil).</span></div></li>
+            <li><i class="fas fa-chevron-right"></i><div><strong>Testamento público</strong><span>Lavrado em cartório, com a formalidade que reduz a discussão sobre validade.</span></div></li>
+            <li><i class="fas fa-chevron-right"></i><div><strong>Inventário extrajudicial</strong><span>Cabível quando os herdeiros são capazes e concordes, na forma do art. 610 do Código de Processo Civil.</span></div></li>
           </ul>
           <a href="sucessao-testamentaria.html" class="split-panel__cta">
             <span>Saiba Mais</span>
@@ -584,11 +521,11 @@
     }
 
     .split-panel--vivos .split-panel__bg {
-      background: radial-gradient(ellipse at 30% 50%, rgba(0, 231, 252, 0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse at 30% 50%, rgba(var(--np-accent), 0.08) 0%, transparent 70%);
     }
 
     .split-panel--mortos .split-panel__bg {
-      background: radial-gradient(ellipse at 70% 50%, rgba(0, 255, 77, 0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse at 70% 50%, rgba(var(--np-accent-soft), 0.08) 0%, transparent 70%);
     }
 
     /* --- Content --- */
@@ -608,7 +545,7 @@
       justify-content: center;
       width: 72px;
       height: 72px;
-      border: 2px solid rgba(0, 255, 77, 0.3);
+      border: 2px solid rgba(var(--np-accent-soft), 0.3);
       border-radius: 50%;
       margin-bottom: 1.2rem;
       transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
@@ -616,7 +553,7 @@
 
     .split-panel__icon i {
       font-size: 2rem;
-      color: #00ff4d;
+      color: rgb(var(--np-accent-soft));
       transition: all 0.5s ease;
     }
 
@@ -668,7 +605,7 @@
       line-height: 1.7;
       margin-top: 1.2rem;
       padding-top: 1rem;
-      border-top: 1px solid rgba(0, 231, 252, 0.15);
+      border-top: 1px solid rgba(var(--np-accent), 0.15);
     }
 
     .split-panel__list {
@@ -692,14 +629,14 @@
     .split-panel__list li:last-child { border-bottom: none; }
 
     .split-panel__list li > i {
-      color: #00e7fc;
+      color: rgb(var(--np-accent));
       font-size: 0.6rem;
       margin-top: 0.4rem;
       flex-shrink: 0;
     }
 
     .split-panel__list li strong {
-      color: #00ff4d;
+      color: rgb(var(--np-accent-soft));
       font-size: 0.9rem;
       display: block;
       margin-bottom: 0.1rem;
@@ -730,7 +667,7 @@
     }
 
     .split-panel__cta:hover {
-      box-shadow: 0 0 20px rgba(0, 231, 252, 0.3), 0 0 40px rgba(0, 255, 77, 0.15);
+      box-shadow: 0 0 20px rgba(var(--np-accent), 0.3), 0 0 40px rgba(var(--np-accent-soft), 0.15);
     }
 
     /* --- Divider --- */
@@ -819,25 +756,25 @@
 
     /* Icon glow on hover */
     .split-section:hover .split-panel:hover .split-panel__icon {
-      border-color: #00e7fc;
-      box-shadow: 0 0 25px rgba(0, 231, 252, 0.25), inset 0 0 15px rgba(0, 231, 252, 0.08);
+      border-color: rgb(var(--np-accent));
+      box-shadow: 0 0 25px rgba(var(--np-accent), 0.25), inset 0 0 15px rgba(var(--np-accent), 0.08);
     }
 
     .split-section:hover .split-panel:hover .split-panel__icon i {
-      color: #00e7fc;
-      text-shadow: 0 0 15px rgba(0, 231, 252, 0.5);
+      color: rgb(var(--np-accent));
+      text-shadow: 0 0 15px rgba(var(--np-accent), 0.5);
     }
 
     .split-section:hover .split-panel:hover .split-panel__subtitle {
-      color: rgba(0, 231, 252, 0.7);
+      color: rgba(var(--np-accent), 0.7);
     }
 
     /* Glow border on active panel */
     .split-section:hover .split-panel--vivos:hover::after {
-      border-color: rgba(0, 231, 252, 0.15);
+      border-color: rgba(var(--np-accent), 0.15);
     }
     .split-section:hover .split-panel--mortos:hover::after {
-      border-color: rgba(0, 255, 77, 0.15);
+      border-color: rgba(var(--np-accent-soft), 0.15);
     }
 
     /* Hide divider on hover */
@@ -900,114 +837,59 @@
   <div class="section-divider"></div>
 
   <!-- ========== PROCESS SECTION (7 steps) ========== -->
-  <section class="page-section" aria-label="Processo de implementação">
+  <section class="page-section" id="processo" aria-label="Processo de implementação">
     <div class="page-section__container reveal">
       <div class="page-section__header">
         <p class="page-section__overline">Como Funciona</p>
         <h2 class="page-section__title">Processo de <span class="gradient-text">Implementação</span></h2>
-        <p class="page-section__description">Uma metodologia estruturada em 7 etapas para garantir a melhor estratégia sucessória.</p>
+        <p class="page-section__description">Sete etapas entre a primeira conversa e o patrimônio transmitido — cada uma com entrega própria, para que você saiba sempre em que ponto o plano está.</p>
       </div>
 
       <div class="process-grid process-grid--7">
         <div class="process-step">
           <div class="process-step__number">1</div>
           <h3 class="process-step__title">Diagnóstico</h3>
-          <p class="process-step__text">Levantamento completo do patrimônio familiar e empresarial.</p>
+          <p class="process-step__text">Levantamento do patrimônio, do perfil da família e da estrutura societária.</p>
         </div>
 
         <div class="process-step">
           <div class="process-step__number">2</div>
           <h3 class="process-step__title">Análise Jurídica</h3>
-          <p class="process-step__text">Estudo das implicações legais e tributárias de cada cenário.</p>
+          <p class="process-step__text">Implicações civis, societárias e tributárias de cada cenário de transmissão.</p>
         </div>
 
         <div class="process-step">
           <div class="process-step__number">3</div>
           <h3 class="process-step__title">Estratégia</h3>
-          <p class="process-step__text">Definição do plano personalizado com os melhores instrumentos.</p>
+          <p class="process-step__text">Escolha dos instrumentos: holding, doação, usufruto, testamento ou a combinação deles.</p>
         </div>
 
         <div class="process-step">
           <div class="process-step__number">4</div>
           <h3 class="process-step__title">Estruturação</h3>
-          <p class="process-step__text">Montagem da holding, contratos e documentos necessários.</p>
+          <p class="process-step__text">Redação do contrato social, do acordo de sócios, das escrituras e das cláusulas de proteção.</p>
         </div>
 
         <div class="process-step">
           <div class="process-step__number">5</div>
           <h3 class="process-step__title">Implementação</h3>
-          <p class="process-step__text">Execução do planejamento com acompanhamento jurídico.</p>
+          <p class="process-step__text">Assinatura e registro dos atos em cartório e na junta comercial, com acompanhamento jurídico.</p>
         </div>
 
         <div class="process-step">
           <div class="process-step__number">6</div>
           <h3 class="process-step__title">Validação</h3>
-          <p class="process-step__text">Revisão e validação de todos os atos e registros realizados.</p>
+          <p class="process-step__text">Conferência de matrículas, livros societários e registros depois de executados.</p>
         </div>
 
         <div class="process-step">
           <div class="process-step__number">7</div>
           <h3 class="process-step__title">Monitoramento</h3>
-          <p class="process-step__text">Acompanhamento contínuo e ajustes conforme mudanças.</p>
+          <p class="process-step__text">Revisão periódica a cada bem novo, herdeiro novo ou mudança de legislação.</p>
         </div>
       </div>
     </div>
   </section>
-
-  <style>
-    .process-grid--7 {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 1rem;
-    }
-
-    .process-grid--7 .process-step {
-      text-align: center;
-      padding: 1.5rem 0.8rem;
-    }
-
-    .process-step__number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      border: 1.5px solid rgba(0, 255, 77, 0.3);
-      background: rgba(0, 231, 252, 0.06);
-      color: #00e7fc;
-      font-family: 'Raleway', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      transition: all 0.4s ease;
-    }
-
-    .process-grid--7 .process-step:hover .process-step__number {
-      border-color: #00e7fc;
-      background: rgba(0, 231, 252, 0.12);
-      box-shadow: 0 0 20px rgba(0, 231, 252, 0.2);
-      transform: scale(1.1);
-    }
-
-    @media (max-width: 1024px) {
-      .process-grid--7 {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .process-grid--7 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .process-grid--7 {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
 
   <div class="section-divider"></div>
 
@@ -1018,7 +900,8 @@
         <div class="about-sucess__text">
           <p class="page-section__overline">Sobre</p>
           <h2 class="page-section__title" style="text-align:left;">Sobre o Planejamento <span class="gradient-text">Sucessório</span></h2>
-          <p class="about-sucess__desc">O planejamento sucessório é a ferramenta mais poderosa para garantir a preservação e continuidade do patrimônio construído ao longo de gerações. Com uma estratégia bem definida, é possível reduzir custos tributários, evitar conflitos familiares e assegurar uma transição harmoniosa.</p>
+          <p class="about-sucess__desc">Quem constrói um patrimônio costuma decidir tudo sobre ele: o que comprar, quando vender, como administrar. A última decisão — para quem ele vai — é a única que muitos deixam para depois. O planejamento sucessório traz essa decisão de volta para o presente, enquanto ela ainda pode ser tomada com calma, dentro de casa e com o custo tributário na mesa.</p>
+          <p class="about-sucess__desc" style="margin-top:1rem;">Vale registrar um dado normativo recente: a Emenda Constitucional 132/2023 tornou obrigatória a progressividade do ITCMD em razão do valor transmitido. O imposto continua sendo estadual, com alíquota máxima de 8% fixada pelo Senado Federal (Resolução 9/1992) — e a conta muda conforme o estado e a composição do patrimônio.</p>
           <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--primary" style="margin-top:1.5rem;">
             <span>Fale com Especialista</span>
           </a>
@@ -1026,7 +909,7 @@
         <div class="about-sucess__video">
           <iframe
             width="100%"
-            style="aspect-ratio:16/9; border-radius:16px; border:1px solid rgba(0,255,77,0.2);"
+            style="aspect-ratio:16/9; border-radius:16px; border:1px solid rgba(var(--np-accent-soft), 0.2);"
             src="https://www.youtube.com/embed/13w3h_VjvGs?si=R_sfa_LmJYUAU3Jw"
             title="Planejamento Sucessório"
             frameborder="0"
@@ -1039,26 +922,13 @@
   </section>
 
   <style>
-    .about-sucess {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-      padding: 2rem 0;
-    }
-
-    .about-sucess__desc {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 1.05rem;
-      line-height: 1.8;
-      margin-top: 1.2rem;
-    }
-
+    /* O cartaz que ocupa o lugar do vídeo enquanto ele não é
+       publicado. O resto do bloco "Sobre" mora em eixos.css. */
     .about-sucess__video-placeholder {
       width: 100%;
       aspect-ratio: 16/9;
       background: rgba(8, 8, 20, 0.92);
-      border: 1px solid rgba(0, 255, 77, 0.2);
+      border: 1px solid rgba(var(--np-accent-soft), 0.2);
       border-radius: 16px;
       display: flex;
       flex-direction: column;
@@ -1069,27 +939,20 @@
     }
 
     .about-sucess__video-placeholder:hover {
-      border-color: rgba(0, 231, 252, 0.5);
-      box-shadow: 0 0 40px rgba(0, 231, 252, 0.08);
+      border-color: rgba(var(--np-accent), 0.5);
+      box-shadow: 0 0 40px rgba(var(--np-accent), 0.08);
     }
 
     .about-sucess__video-placeholder i {
       font-size: 3rem;
-      color: rgba(0, 231, 252, 0.5);
+      color: rgba(var(--np-accent), 0.5);
     }
 
     .about-sucess__video-placeholder span {
-      color: rgba(255, 255, 255, 0.4);
+      color: var(--text-tertiary);
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 1px;
-    }
-
-    @media (max-width: 768px) {
-      .about-sucess {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
     }
   </style>
 
@@ -1140,8 +1003,62 @@
             <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
           <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Não necessariamente. A holding familiar é uma das ferramentas disponíveis, mas cada caso requer uma análise personalizada para determinar a melhor estratégia.</div>
+            <div class="faq-item__answer-inner">Não necessariamente. A holding é um dos instrumentos disponíveis, e faz sentido quando há imóveis, participações societárias ou renda a administrar de forma centralizada. Patrimônios menores podem ser resolvidos por doação com reserva de usufruto e testamento, sem constituir sociedade.</div>
           </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__question" aria-expanded="false">
+            Quanto se paga de imposto na transmissão?
+            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-item__answer">
+            <div class="faq-item__answer-inner">A transmissão por herança ou doação é tributada pelo ITCMD, imposto estadual cuja alíquota máxima é de 8%, teto fixado pelo Senado Federal na Resolução 9/1992. A Emenda Constitucional 132/2023 tornou obrigatória a progressividade da alíquota conforme o valor transmitido. O cálculo aplicável depende do estado, da natureza dos bens e da forma escolhida para transmitir — e é levantado no diagnóstico, antes de qualquer ato.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__question" aria-expanded="false">
+            Tenho um patrimônio pequeno. Ainda faz sentido planejar?
+            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-item__answer">
+            <div class="faq-item__answer-inner">O tamanho do patrimônio muda os instrumentos, não a necessidade da decisão. Um único imóvel com dois herdeiros já cria condomínio, custo de inventário e dependência de consenso para vender ou alugar. Quanto menor o patrimônio, maior costuma ser o peso relativo do custo de um inventário mal preparado.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-item__question" aria-expanded="false">
+            Doar em vida faz eu perder o controle dos bens?
+            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-item__answer">
+            <div class="faq-item__answer-inner">Não, quando a doação é estruturada. Com reserva de usufruto, o doador mantém o uso, a renda e a administração do bem enquanto viver. As cláusulas de inalienabilidade, impenhorabilidade e incomunicabilidade (art. 1.911 do Código Civil) e, na holding, o acordo de sócios, definem o que o herdeiro pode ou não fazer com o que recebeu.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ============================== VÍDEO DO TEMA ============================== -->
+  <section class="page-section" id="video" aria-labelledby="video-titulo">
+    <div class="page-section__container reveal">
+      <div class="page-section__header">
+        <p class="page-section__overline">Em vídeo</p>
+        <h2 class="page-section__title" id="video-titulo">Planejamento Sucessório <span class="gradient-text">em vídeo</span></h2>
+        <p class="page-section__description">Como a decisão sobre o destino do patrimônio volta para o presente, com o custo tributário na mesa.</p>
+      </div>
+
+      <!-- Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
+           (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
+           reservado. Quem monta o player é assets/js/video.js. -->
+      <div class="page-video__frame" data-video="" data-video-title="Planejamento Sucessório">
+        <div class="page-video__empty">
+          <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
+          <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
+          <p class="page-video__empty-text">Vídeo sobre planejamento sucessório — em breve neste espaço.</p>
         </div>
       </div>
     </div>
@@ -1150,8 +1067,8 @@
   <!-- ========== CTA SECTION ========== -->
   <section class="cta-section" aria-label="Chamada para ação">
     <div class="cta-section__container reveal">
-      <h2 class="cta-section__title">Proteja o Futuro da Sua <span class="gradient-text">Família e Empresa</span></h2>
-      <p class="cta-section__text">Agende uma consulta gratuita e descubra como podemos ajudar a garantir a continuidade do seu patrimônio.</p>
+      <h2 class="cta-section__title">Comece pelo diagnóstico do seu <span class="gradient-text">patrimônio</span></h2>
+      <p class="cta-section__text">Em uma conversa inicial, mapeamos o patrimônio, os herdeiros e a estrutura societária — e apresentamos os instrumentos aplicáveis ao seu caso, com o desenho da transmissão e os custos envolvidos.</p>
       <div class="cta-section__actions">
         <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -1253,7 +1170,7 @@
   window.addEventListener('resize', resize);
 
   var mouse = { x: -999, y: -999 };
-  var COLORS = ['#00e7fc','#00ff4d','#00cfb6','#00f5b4','#00f683','#00d4aa','#00bcd4'];
+  var COLORS = ['#5ED6E6','#A8EEF6','#209EC8','#7FE3EE','#3FC4DC','#8BE7F2','#25B4D4'];
 
   function hexToRgb(hex) {
     return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)].join(',');

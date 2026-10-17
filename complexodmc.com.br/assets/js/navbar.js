@@ -2,12 +2,18 @@ class DMCNavbar extends HTMLElement {
   connectedCallback() {
     const path = window.location.pathname;
     const inPages = path.includes('/pages/');
-    const isHome = !inPages;
+    // /solucoes/<vertical>/<solucao> fica dois níveis abaixo da raiz;
+    // /pages/<pagina> fica um. A home fica na própria raiz.
+    const inSolucoes = path.includes('/solucoes/');
+    const isHome = !inPages && !inSolucoes;
+    const raiz = inSolucoes ? '../../' : inPages ? '../' : '';
 
-    const homeHashPrefix = inPages ? '../index.html' : '';
-    const logoHref = inPages ? '../index.html' : '#';
-    const consultoriaHref = inPages ? 'consultoria-imobiliaria.html' : 'pages/consultoria-imobiliaria.html';
-    const cursosHref = inPages ? '../plataforma-ead/login.html' : 'plataforma-ead/login.html';
+    const homeHashPrefix = isHome ? '' : raiz + 'index.html';
+    const logoHref = isHome ? '#' : raiz + 'index.html';
+    const consultoriaHref = inPages
+      ? 'consultoria-imobiliaria.html'
+      : raiz + 'pages/consultoria-imobiliaria.html';
+    const cursosHref = raiz + 'plataforma-ead/login.html';
     const navClass = isHome ? 'navbar navbar-index' : 'navbar';
 
     this.innerHTML = `
@@ -16,7 +22,6 @@ class DMCNavbar extends HTMLElement {
           <a href="${logoHref}" class="logo" aria-label="Complexo DMC - Página Inicial">
             <div class="logo-brand">
               <span class="logo-brand-name">COMPLEXO <span class="logo-brand-accent">DMC</span></span>
-              <span class="logo-brand-tagline">Business Consulting</span>
             </div>
           </a>
           <ul class="nav-menu" id="navMenu">

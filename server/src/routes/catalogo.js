@@ -6,14 +6,22 @@
 import { Router } from 'express';
 import { col } from '../db.js';
 import { requireAuth, requireAdmin } from '../auth.js';
+import { materiaisPublicos, apagarArquivosDeAulas } from './materiais.js';
+import { capaUrl, apagarCapasDeCursos } from './capas.js';
 
 const router = Router();
 
 const str = v => (v == null ? '' : String(v));
 const idOf = v => str(v).trim();
 
+/** Teto do roteiro de gravação — ~20 mil caracteres cobre roteiro longo. */
+const ROTEIRO_MAX = 20000;
+
 // ============ LEITURA ============
-router.get('/catalogo', requireAuth, async (_req, res) => {
+router.get('/catalogo', requireAuth, async (req, res) => {
+  // Roteiro de gravação é anotação interna: só viaja pro painel admin.
+  const isAdmin = !!req.user.isAdmin;
+
   const [cursos, modulos, aulas] = await Promise.all([
     col.cursos().find({}).sort({ ordem: 1 }).toArray(),
     col.modulos().find({}).sort({ ordem: 1 }).toArray(),
@@ -23,13 +31,21 @@ router.get('/catalogo', requireAuth, async (_req, res) => {
   const aulasByModulo = new Map();
   for (const a of aulas) {
     if (!aulasByModulo.has(a.moduloId)) aulasByModulo.set(a.moduloId, []);
+    // Aula marcada como indisponível aparece na lista do aluno (como "Em
+    // breve"), mas sem vídeo nem material: esconder só na tela deixaria o
+    // link do vídeo à mão de quem abrisse o DevTools.
+    const disponivel = a.disponivel !== false;
+    const entregaConteudo = isAdmin || disponivel;
     aulasByModulo.get(a.moduloId).push({
       id: a._id,
       moduloId: a.moduloId,
       titulo: a.titulo || '',
       duracao: a.duracao || '',
-      videoUrl: a.videoUrl || '',
-      ordem: a.ordem || 0
+      videoUrl: entregaConteudo ? (a.videoUrl || '') : '',
+      ordem: a.ordem || 0,
+      disponivel,
+      materiais: entregaConteudo ? materiaisPublicos(a) : [],
+      ...(isAdmin ? { roteiro: a.roteiro || '' } : {})
     });
   }
 
@@ -62,6 +78,7 @@ router.get('/catalogo', requireAuth, async (_req, res) => {
       beneficios: Array.isArray(c.beneficios) ? c.beneficios : [],
       ordem: c.ordem || 0,
       isAtivo: c.isAtivo !== false,
+      capaUrl: capaUrl(c),
       modulos: modulosByCurso.get(c._id) || []
     }))
   });
@@ -100,17 +117,24 @@ router.put('/cursos/:id', requireAdmin, async (req, res) => {
 
 router.delete('/cursos/:id', requireAdmin, async (req, res) => {
   const id = idOf(req.params.id);
+  const curso = await col.cursos().findOne({ _id: id }, { projection: { _id: 1, capa: 1 } });
+  if (curso) await apagarCapasDeCursos([curso]);
+
   const modulos = await col.modulos().find({ cursoId: id }, { projection: { _id: 1 } }).toArray();
   const moduloIds = modulos.map(m => m._id);
   const aulas = moduloIds.length
-    ? await col.aulas().find({ moduloId: { $in: moduloIds } }, { projection: { _id: 1 } }).toArray()
+    ? await col.aulas().find({ moduloId: { $in: moduloIds } }, { projection: { _id: 1, materiais: 1 } }).toArray()
     : [];
   const aulaIds = aulas.map(a => a._id);
+  await apagarArquivosDeAulas(aulas);
 
   await Promise.all([
     aulaIds.length ? col.progresso().deleteMany({ aulaId: { $in: aulaIds } }) : null,
     aulaIds.length ? col.aulas().deleteMany({ _id: { $in: aulaIds } }) : null,
     moduloIds.length ? col.modulos().deleteMany({ _id: { $in: moduloIds } }) : null,
+    col.duvidas().deleteMany({ cursoId: id }),
+    col.lives().deleteMany({ cursoId: id }),
+    col.certificados().deleteMany({ cursoId: id }),
     col.liberacoes().deleteMany({ cursoId: id }),
     col.cursos().deleteOne({ _id: id })
   ].filter(Boolean));
@@ -119,6 +143,40 @@ router.delete('/cursos/:id', requireAdmin, async (req, res) => {
 });
 
 // ============ MÓDULOS (admin) ============
+
+/**
+ * Grava a ordem de TODOS os módulos de um curso numa chamada só.
+ *
+ * A tela de administração reordenava trocando dois módulos de lugar e
+ * mandando dois PUT completos por passo — arrastar o módulo 10 até o
+ * topo custava 18 requisições e 9 recargas do catálogo. Aqui a lista
+ * inteira chega pronta e vira um único `bulkWrite`.
+ *
+ * Precisa vir antes de `/modulos/:id`, senão o Express casa "ordem"
+ * como se fosse um id de módulo.
+ */
+router.put('/modulos/ordem', requireAdmin, async (req, res) => {
+  const cursoId = idOf(req.body.cursoId);
+  const ids = (Array.isArray(req.body.ids) ? req.body.ids : []).map(idOf).filter(Boolean);
+  if (!cursoId) return res.status(400).json({ error: 'cursoId é obrigatório.' });
+  if (!ids.length) return res.status(400).json({ error: 'Envie a lista de módulos em ids.' });
+
+  // Só reordena o que é do curso informado: um id de outro curso no
+  // corpo da requisição não pode mexer em módulo alheio.
+  const doCurso = await col.modulos()
+    .find({ cursoId, _id: { $in: ids } }, { projection: { _id: 1 } })
+    .toArray();
+  const validos = new Set(doCurso.map(m => m._id));
+  const ordenados = ids.filter(id => validos.has(id));
+  if (!ordenados.length) return res.status(404).json({ error: 'Nenhum módulo do curso na lista.' });
+
+  const now = new Date();
+  await col.modulos().bulkWrite(ordenados.map((id, i) => ({
+    updateOne: { filter: { _id: id }, update: { $set: { ordem: i + 1, updatedAt: now } } }
+  })));
+  res.json({ ok: true, total: ordenados.length });
+});
+
 router.put('/modulos/:id', requireAdmin, async (req, res) => {
   const id = idOf(req.params.id);
   const cursoId = idOf(req.body.cursoId);
@@ -151,12 +209,14 @@ router.put('/modulos/:id', requireAdmin, async (req, res) => {
 
 router.delete('/modulos/:id', requireAdmin, async (req, res) => {
   const id = idOf(req.params.id);
-  const aulas = await col.aulas().find({ moduloId: id }, { projection: { _id: 1 } }).toArray();
+  const aulas = await col.aulas().find({ moduloId: id }, { projection: { _id: 1, materiais: 1 } }).toArray();
   const aulaIds = aulas.map(a => a._id);
+  await apagarArquivosDeAulas(aulas);
 
   await Promise.all([
     aulaIds.length ? col.progresso().deleteMany({ aulaId: { $in: aulaIds } }) : null,
     aulaIds.length ? col.aulas().deleteMany({ _id: { $in: aulaIds } }) : null,
+    col.duvidas().deleteMany({ moduloId: id }),
     col.modulos().deleteOne({ _id: id })
   ].filter(Boolean));
 
@@ -175,18 +235,26 @@ router.put('/aulas/:id', requireAdmin, async (req, res) => {
 
   const b = req.body || {};
   const now = new Date();
+  const campos = {
+    moduloId,
+    titulo: str(b.titulo),
+    duracao: str(b.duracao),
+    videoUrl: str(b.videoUrl),
+    ordem: Number(b.ordem) || 0,
+    // Aula nasce disponível; só fica "em breve" quando o admin desmarca.
+    disponivel: b.disponivel !== false,
+    updatedAt: now
+  };
+  // Roteiro só é gravado quando vem no corpo — assim uma chamada que não
+  // conhece o campo (reordenação antiga, script) não apaga o texto escrito.
+  if (b.roteiro !== undefined) campos.roteiro = str(b.roteiro).slice(0, ROTEIRO_MAX);
+
   await col.aulas().updateOne(
     { _id: id },
     {
-      $set: {
-        moduloId,
-        titulo: str(b.titulo),
-        duracao: str(b.duracao),
-        videoUrl: str(b.videoUrl),
-        ordem: Number(b.ordem) || 0,
-        updatedAt: now
-      },
-      $setOnInsert: { createdAt: now }
+      $set: campos,
+      // materiais são gerenciados pelas rotas de /materiais — nunca sobrescritos aqui.
+      $setOnInsert: { createdAt: now, materiais: [] }
     },
     { upsert: true }
   );
@@ -195,8 +263,11 @@ router.put('/aulas/:id', requireAdmin, async (req, res) => {
 
 router.delete('/aulas/:id', requireAdmin, async (req, res) => {
   const id = idOf(req.params.id);
+  const aula = await col.aulas().findOne({ _id: id }, { projection: { _id: 1, materiais: 1 } });
+  if (aula) await apagarArquivosDeAulas([aula]);
   await Promise.all([
     col.progresso().deleteMany({ aulaId: id }),
+    col.duvidas().deleteMany({ aulaId: id }),
     col.aulas().deleteOne({ _id: id })
   ]);
   res.json({ ok: true });

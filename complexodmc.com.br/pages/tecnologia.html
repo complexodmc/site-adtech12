@@ -10,8 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Allura&family=DM+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/LOGO_RINOCERONTE.png">
-    <link rel="stylesheet" href="css/shared.css?v=2">
+    <link rel="stylesheet" href="css/shared.css?v=3">
   <script src="../assets/js/navbar.js" defer></script>
+  <script src="../assets/js/video.js" defer></script>
 </head>
 <body>
 
@@ -209,6 +210,28 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- ============================== VÍDEO DO TEMA ============================== -->
+    <section class="page-section" id="video" aria-labelledby="video-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Em vídeo</p>
+          <h2 class="page-section__title" id="video-titulo">Tecnologia &amp; Inovação <span class="gradient-text">em vídeo</span></h2>
+          <p class="page-section__description">As ferramentas que sustentam a operação do Complexo DMC e o que elas mudam no dia a dia do cliente.</p>
+        </div>
+
+        <!-- Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
+             (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
+             reservado. Quem monta o player é assets/js/video.js. -->
+        <div class="page-video__frame" data-video="" data-video-title="Tecnologia e Inovação">
+          <div class="page-video__empty">
+            <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
+            <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
+            <p class="page-video__empty-text">Vídeo sobre tecnologia e inovação — em breve neste espaço.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- CTA Section -->

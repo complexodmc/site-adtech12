@@ -1,0 +1,308 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css"></head><body>
+   <!-- ============================================ NOSSOS PRODUTOS ========================================= -->
+    <section class="section np-section" id="features">
+      <div class="np-aura" aria-hidden="true"></div>
+
+      <div class="section-container">
+        <div class="np-head">
+          <span class="np-eyebrow">Áreas de Atuação</span>
+          <h2 class="np-title">Nossos <span class="gradient-text">Produtos</span></h2>
+          <p class="np-sub">
+            Quatro frentes integradas para proteger, estruturar e otimizar o
+            patrimônio da sua família e da sua empresa.
+          </p>
+        </div>
+
+        <!-- ---------- Card âncora: produto principal ---------- -->
+        <article class="np-flag np-pillar-patrimonial">
+          <div class="np-flag-body">
+            <span class="np-tag">Patrimonial &amp; Sucessório</span>
+            <h3 class="np-flag-title">Planejamento Sucessório</h3>
+            <p class="np-flag-desc">
+              O ponto de partida de toda estrutura patrimonial. Organizamos a
+              transferência do seu patrimônio entre gerações antes que o
+              inventário decida por você — com economia tributária, previsibilidade
+              e paz familiar.
+            </p>
+            <ul class="np-flag-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                Até <strong>70% menos custo</strong> que um inventário judicial
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                Sem <strong>disputa entre herdeiros</strong> nem bens travados
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                Estrutura desenhada <strong>sob medida</strong> para o seu caso
+              </li>
+            </ul>
+            <div class="np-flag-cta">
+              <a class="np-btn np-btn-primary" href="pages/planejamento-sucessorio.html">
+                Conhecer o planejamento
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+              <a class="np-btn np-btn-ghost" href="pages/por-que-urgente.html">
+                Por que é urgente?
+              </a>
+            </div>
+          </div>
+
+          <aside class="np-flag-side" aria-label="Resultados Complexo DMC">
+            <div class="np-flag-side-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <dl class="np-metrics">
+              <div class="np-metric">
+                <dt>Ativos transacionados</dt>
+                <dd>R$ 205M+</dd>
+              </div>
+              <div class="np-metric">
+                <dt>Holdings efetivadas</dt>
+                <dd>36+</dd>
+              </div>
+              <div class="np-metric">
+                <dt>Anos de experiência</dt>
+                <dd>15+</dd>
+              </div>
+            </dl>
+          </aside>
+        </article>
+
+        <!-- ---------- Filtros por pilar ---------- -->
+        <div class="np-filterbar">
+          <div class="np-filters" role="group" aria-label="Filtrar produtos por área de atuação">
+            <button type="button" class="np-chip is-active" data-np-filter="all" aria-pressed="true">
+              Todos <span class="np-chip-n" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="np-chip np-pillar-patrimonial" data-np-filter="patrimonial" aria-pressed="false">
+              Patrimonial &amp; Sucessório <span class="np-chip-n" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="np-chip np-pillar-fiscal" data-np-filter="fiscal" aria-pressed="false">
+              Fiscal &amp; Corporativo <span class="np-chip-n" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="np-chip np-pillar-imobiliario" data-np-filter="imobiliario" aria-pressed="false">
+              Imobiliário &amp; Notarial <span class="np-chip-n" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="np-chip np-pillar-tecnologia" data-np-filter="tecnologia" aria-pressed="false">
+              Tecnologia &amp; Educação <span class="np-chip-n" aria-hidden="true"></span>
+            </button>
+          </div>
+          <p class="np-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <!-- ---------- Grid de produtos ---------- -->
+        <div class="np-grid" id="npGrid">
+
+          <!-- Patrimonial & Sucessório -->
+          <a class="np-card np-pillar-patrimonial" data-np-pillar="patrimonial" href="pages/holding-patrimonial.html">
+            <span class="np-tag">Patrimonial &amp; Sucessório</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/></svg></div>
+            <h3 class="np-ct">Holding Patrimonial</h3>
+            <p class="np-cd">Centralize imóveis e participações em uma estrutura societária com governança definida e eficiência fiscal.</p>
+            <ul class="np-tags">
+              <li>Integralização de bens</li>
+              <li>Acordo de sócios</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="np-card np-pillar-patrimonial" data-np-pillar="patrimonial" href="pages/blindagem-patrimonial.html">
+            <span class="np-tag">Patrimonial &amp; Sucessório</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <h3 class="np-ct">Blindagem Patrimonial</h3>
+            <p class="np-cd">Separe a pessoa física do risco empresarial e proteja seus ativos de credores, litígios e terceiros.</p>
+            <ul class="np-tags">
+              <li>Análise de exposição</li>
+              <li>Reorganização societária</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="np-card np-pillar-patrimonial" data-np-pillar="patrimonial" href="pages/pronto-patrimonio.html">
+            <span class="np-tag">Patrimonial &amp; Sucessório</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z"/><line x1="12" y1="1.5" x2="12" y2="4"/><path d="M12 13v5.5a2.75 2.75 0 0 0 5.5 0"/></svg></div>
+            <h3 class="np-ct">Proteção Patrimonial</h3>
+            <p class="np-cd">Programa completo de proteção patrimonial para famílias e empresários — do diagnóstico à execução.</p>
+            <ul class="np-tags">
+              <li>Diagnóstico completo</li>
+              <li>Execução assistida</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="np-card np-pillar-patrimonial" data-np-pillar="patrimonial" href="pages/sucessao-testamentaria.html">
+            <span class="np-tag">Patrimonial &amp; Sucessório</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3H16a2 2 0 0 1 2 2v12.5a3.5 3.5 0 0 0 3.5 3.5H8.5a2 2 0 0 1-2-2z"/><line x1="9.5" y1="8" x2="14.5" y2="8"/><line x1="9.5" y1="12" x2="14.5" y2="12"/></svg></div>
+            <h3 class="np-ct">Sucessão Testamentária</h3>
+            <p class="np-cd">Testamento, doação com reserva de usufruto e cláusulas de proteção para dirigir a destinação da herança.</p>
+            <ul class="np-tags">
+              <li>Testamento público</li>
+              <li>Cláusulas restritivas</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <!-- Fiscal & Corporativo -->
+          <a class="np-card np-pillar-fiscal" data-np-pillar="fiscal" href="pages/planejamento-tributario.html">
+            <span class="np-tag">Fiscal &amp; Corporativo</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <h3 class="np-ct">Planejamento Tributário</h3>
+            <p class="np-cd">Revisão de regime, aproveitamento de créditos e desenho de operações para reduzir a carga fiscal com segurança.</p>
+            <ul class="np-tags">
+              <li>Revisão de regime</li>
+              <li>Recuperação de créditos</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="np-card np-pillar-fiscal" data-np-pillar="fiscal" href="pages/contabilidade.html">
+            <span class="np-tag">Fiscal &amp; Corporativo</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="10" y2="16"/><line x1="14" y1="16" x2="16" y2="16"/></svg></div>
+            <h3 class="np-ct">Contabilidade</h3>
+            <p class="np-cd">Escrituração, obrigações acessórias e demonstrações contábeis para empresas, holdings e famílias.</p>
+            <ul class="np-tags">
+              <li>BPO contábil</li>
+              <li>Balanços e SPED</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="np-card np-pillar-fiscal" data-np-pillar="fiscal" href="pages/compliance-governanca.html">
+            <span class="np-tag">Fiscal &amp; Corporativo</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+            <h3 class="np-ct">Compliance &amp; Governança</h3>
+            <p class="np-cd">Políticas, controles internos e conselho estruturado para reduzir risco regulatório e conflito societário.</p>
+            <ul class="np-tags">
+              <li>Políticas internas</li>
+              <li>Governança familiar</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <!-- Imobiliário & Notarial -->
+          <a class="np-card np-pillar-imobiliario" data-np-pillar="imobiliario" href="pages/consultoria-imobiliaria.html">
+            <span class="np-tag">Imobiliário &amp; Notarial</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V8l6-4 6 4v13"/><path d="M15 21V11l6 4v6"/><path d="M3 21h18"/><path d="M7 12h.01M7 16h.01M11 12h.01M11 16h.01"/></svg></div>
+            <h3 class="np-ct">Consultoria Imobiliária</h3>
+            <p class="np-cd">Do terreno à chave do cliente: blindagem jurídica de cada etapa do empreendimento imobiliário.</p>
+            <ul class="np-tags">
+              <li>Due diligence de terreno</li>
+              <li>Viabilidade</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="np-card np-pillar-imobiliario" data-np-pillar="imobiliario" href="pages/juridico-imobiliario.html">
+            <span class="np-tag">Imobiliário &amp; Notarial</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="7.5" x2="16" y2="7.5"/><line x1="8" y1="11.5" x2="13.5" y2="11.5"/><path d="M8 16.5c1.4-1.6 2.8 1.6 4.2 0s2.4-1.2 3.8 0"/></svg></div>
+            <h3 class="np-ct">Jurídico Imobiliário</h3>
+            <p class="np-cd">Contratos, incorporação e regularização conduzidos por especialistas em direito imobiliário.</p>
+            <ul class="np-tags">
+              <li>Incorporação</li>
+              <li>Regularização</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="np-card np-pillar-imobiliario" data-np-pillar="imobiliario" href="pages/juridico-vendas.html">
+            <span class="np-tag">Imobiliário &amp; Notarial</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="8 17 10.5 14.2 12.5 16.2 16 12.2"/><polyline points="16 15 16 12 13 12"/></svg></div>
+            <h3 class="np-ct">Jurídico Vendas</h3>
+            <p class="np-cd">Minutas automatizadas, validação especialista e jurimetria para acelerar a comercialização de unidades.</p>
+            <ul class="np-tags">
+              <li>Minutas em minutos</li>
+              <li>Análise de risco</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="np-card np-pillar-imobiliario" data-np-pillar="imobiliario" href="pages/registro-imobiliario.html">
+            <span class="np-tag">Imobiliário &amp; Notarial</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><circle cx="11.5" cy="14" r="2.4"/><path d="M9.8 15.9L9 19.5l2.5-1.3 2.5 1.3-.8-3.6"/></svg></div>
+            <h3 class="np-ct">Registro Imobiliário</h3>
+            <p class="np-cd">Matrículas, averbações e individualização acompanhadas até o registro efetivo em cartório.</p>
+            <ul class="np-tags">
+              <li>Averbações</li>
+              <li>Individualização</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="np-card np-pillar-imobiliario" data-np-pillar="imobiliario" href="pages/atos-notariais.html">
+            <span class="np-tag">Imobiliário &amp; Notarial</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 3.5l5 5L9 20H4v-5z"/><line x1="13" y1="6" x2="18" y2="11"/></svg></div>
+            <h3 class="np-ct">Atos Notariais</h3>
+            <p class="np-cd">Escrituras, procurações e atas notariais preparadas, revisadas e acompanhadas em tabelionato.</p>
+            <ul class="np-tags">
+              <li>Escrituras</li>
+              <li>Procurações</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <!-- Tecnologia & Educação -->
+          <a class="np-card np-pillar-tecnologia" data-np-pillar="tecnologia" href="pages/tecnologia.html">
+            <span class="np-tag">Tecnologia &amp; Educação</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg></div>
+            <h3 class="np-ct">Tecnologia &amp; Ad-Tech</h3>
+            <p class="np-cd">Automação de documentos, dashboards e GED para operações jurídicas de alto volume.</p>
+            <ul class="np-tags">
+              <li>Automação de minutas</li>
+              <li>BI jurídico</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a class="np-card np-pillar-tecnologia" data-np-pillar="tecnologia" href="#treinamentos">
+            <span class="np-tag">Tecnologia &amp; Educação</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+            <h3 class="np-ct">Treinamentos &amp; EAD</h3>
+            <p class="np-cd">Capacitação em sucessão, tributário e compliance na nossa plataforma de ensino a distância.</p>
+            <ul class="np-tags">
+              <li>Trilhas online</li>
+              <li>Certificado</li>
+            </ul>
+            <span class="np-link">Ver treinamentos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+        </div>
+
+        <!-- ---------- Faixa de conversão ---------- -->
+        <div class="np-closer">
+          <div class="np-closer-text">
+            <h3>Não sabe por onde começar?</h3>
+            <p>
+              Em uma conversa de 30 minutos mapeamos a sua exposição patrimonial
+              e indicamos qual estrutura faz sentido para o seu caso — sem custo
+              e sem compromisso.
+            </p>
+          </div>
+          <a
+            class="np-btn np-btn-primary np-closer-btn"
+            href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20um%20diagn%C3%B3stico%20patrimonial%20com%20a%20Complexo%20DMC."
+            target="_blank"
+            rel="noopener">
+            Falar com um especialista
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+<script src="assets/js/main.js"></script><script>
+window.addEventListener('load',()=>{setTimeout(()=>{
+ const out=[];
+ out.push('VIEWPORT='+document.documentElement.clientWidth);
+ out.push('DOC_SCROLLW='+document.documentElement.scrollWidth);
+ out.push('BODY_SCROLLW='+document.body.scrollWidth);
+ const vw=document.documentElement.clientWidth;
+ document.querySelectorAll('body *').forEach(el=>{
+   const r=el.getBoundingClientRect();
+   if(r.right>vw+1||r.left<-1){out.push('OVERFLOW|'+el.tagName+'.'+(el.className&&el.className.toString().slice(0,42))+'|left='+Math.round(r.left)+'|right='+Math.round(r.right)+'|w='+Math.round(r.width));}
+ });
+ const d=document.createElement('pre');d.id='diag';d.textContent=out.join('\n');document.body.appendChild(d);
+},600)});
+</script></body></html>

@@ -1,0 +1,541 @@
+/* ============================================================
+   COMPLEXO DMC — Cor por eixo (E1…E6)
+   Camada de tema, carregada DEPOIS de shared.css.
+
+   shared.css desenha o site inteiro a partir de um punhado de
+   tokens de cor (ciano/verde da casa). Este arquivo redefine
+   esses tokens a partir do acento do eixo — o mesmo --np-accent
+   da barra de eixos do index — para que qualquer página de
+   vertical nasça na cor dela sem que nenhum componente precise
+   ser reescrito.
+
+   Uso: <body class="np-eixo np-pillar-patrimonial">
+        (a primeira classe liga o tema; a segunda diz a cor)
+   ============================================================ */
+
+/* ============================================================
+   PALETA POR EIXO
+   Três paradas: a base (--np-accent, idêntica à declarada em
+   assets/css/styles.css), uma mais profunda e uma mais clara.
+   É com as três que o degradê da casa é reconstruído na cor
+   certa. Repetidas aqui porque as páginas internas não
+   carregam styles.css.
+   ============================================================ */
+.np-pillar-patrimonial {              /* E1 · ciano   */
+  --np-accent: 94, 214, 230;
+  --np-accent-deep: 32, 158, 200;
+  --np-accent-soft: 168, 238, 246;
+}
+.np-pillar-fiscal {                   /* E2 · verde   */
+  --np-accent: 110, 230, 140;
+  --np-accent-deep: 34, 178, 120;
+  --np-accent-soft: 180, 245, 195;
+}
+.np-pillar-imobiliario {              /* E3 · azul    */
+  --np-accent: 127, 180, 255;
+  --np-accent-deep: 74, 124, 245;
+  --np-accent-soft: 186, 214, 255;
+}
+.np-pillar-auditoria {                /* E4 · âmbar   */
+  --np-accent: 233, 184, 108;
+  --np-accent-deep: 206, 138, 52;
+  --np-accent-soft: 247, 217, 168;
+}
+.np-pillar-ativos {                   /* E5 · rosa    */
+  --np-accent: 244, 140, 178;
+  --np-accent-deep: 214, 82, 138;
+  --np-accent-soft: 250, 190, 214;
+}
+.np-pillar-tecnologia,
+.np-pillar-trabalhista {              /* E6 · violeta */
+  --np-accent: 185, 140, 245;
+  --np-accent-deep: 124, 92, 255;
+  --np-accent-soft: 226, 178, 255;
+}
+
+/* Fallback: sem classe de eixo no <body>, o acento cai no ciano
+   da casa em vez de quebrar as cores. */
+body {
+  --np-accent: 0, 231, 252;
+  --np-accent-deep: 0, 168, 220;
+  --np-accent-soft: 150, 245, 255;
+}
+
+/* ============================================================
+   TEMA — o degradê da casa, na cor do eixo
+   ============================================================ */
+.np-eixo {
+  --np-gradient: linear-gradient(
+    90deg,
+    rgb(var(--np-accent-deep)) 0%,
+    rgb(var(--np-accent)) 52%,
+    rgb(var(--np-accent-soft)) 100%
+  );
+
+  --gradient-primary: var(--np-gradient);
+  --gradient-badge: linear-gradient(
+    90deg,
+    rgba(var(--np-accent-deep), 0.25) 0%,
+    rgb(var(--np-accent-deep)) 24%,
+    rgb(var(--np-accent)) 58%,
+    rgb(var(--np-accent-soft)) 100%
+  );
+  --gradient-glow: radial-gradient(
+    circle,
+    rgba(var(--np-accent-deep), 0.16) 0%,
+    rgba(var(--np-accent), 0.08) 40%,
+    transparent 70%
+  );
+  --gradient-card-hover: linear-gradient(
+    135deg,
+    rgba(var(--np-accent), 0.05) 0%,
+    rgba(var(--np-accent-deep), 0.03) 100%
+  );
+  --gradient-flare: radial-gradient(
+    circle,
+    rgba(var(--np-accent-deep), 0.4) 0%,
+    rgba(var(--np-accent), 0.3) 30%,
+    rgba(var(--np-accent-soft), 0.18) 60%,
+    transparent 100%
+  );
+
+  /* Os dois tokens que shared.css usa como "cor de destaque"
+     em overlines, marcadores, tags e ícones. */
+  --primary-green: rgb(var(--np-accent));
+  --primary-cyan: rgb(var(--np-accent-soft));
+  --card-accent: rgb(var(--np-accent));
+  --card-accent-light: rgb(var(--np-accent-soft));
+}
+
+/* ============================================================
+   Os pontos de shared.css onde a cor está literal e não em
+   token — todos aqui, para não ficarem espalhados.
+   ============================================================ */
+.np-eixo .page-hero::before {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--np-accent-deep), 0.05) 0%,
+    transparent 42%,
+    rgba(var(--np-accent), 0.03) 100%
+  );
+}
+
+.np-eixo .cta-section::before {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(var(--np-accent), 0.04),
+    transparent
+  );
+}
+
+.np-eixo .btn--secondary:hover {
+  background: rgba(var(--np-accent), 0.06);
+}
+
+/* O botão preenchido pede texto escuro; no herói ele é vazado
+   (fundo escuro + borda em degradê) e o texto segue claro. */
+.np-eixo main .btn--primary,
+.np-eixo .cta-section .btn--primary,
+.np-eixo .page-section .btn--primary { color: #08181c; }
+
+.np-eixo main .btn--primary:hover,
+.np-eixo .cta-section .btn--primary:hover,
+.np-eixo .page-section .btn--primary:hover {
+  box-shadow: 0 8px 30px rgba(var(--np-accent-deep), 0.4);
+}
+
+/* O botão preenchido fora do herói — a regra genérica de
+   shared.css ainda traz o brilho ciano da casa. */
+.np-eixo .btn--primary:hover {
+  box-shadow: 0 8px 30px rgba(var(--np-accent-deep), 0.35);
+}
+
+.np-eixo .nav__cta:hover {
+  box-shadow: 0 4px 20px rgba(var(--np-accent), 0.3);
+}
+
+/* Navbar: o link ativo e o halo do "DMC" do logotipo. O texto do
+   logotipo já vem do --gradient-primary; o que sobrava literal
+   era só o brilho em volta dele. */
+.np-eixo .navbar .nav-link.active {
+  color: rgb(var(--np-accent)) !important;
+}
+
+.np-eixo .navbar .logo-brand-accent {
+  filter: drop-shadow(0 0 10px rgba(var(--np-accent), 0.45));
+}
+
+/* O fio que separa as seções ganha o acento no centro. */
+.np-eixo .section-divider {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--np-accent), 0.35),
+    transparent
+  );
+}
+
+/* ---------- Selo e botões neon do herói ---------- */
+.np-eixo .page-hero__badge {
+  animation: fadeInUp 0.8s ease-out 0.1s both,
+    eixoNeonGlow 3s ease-in-out infinite;
+  box-shadow:
+    0 0 10px rgba(var(--np-accent-deep), 0.32),
+    0 0 22px rgba(var(--np-accent), 0.2),
+    0 0 34px rgba(var(--np-accent-soft), 0.14),
+    inset 0 0 10px rgba(var(--np-accent), 0.1);
+}
+
+@keyframes eixoNeonGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(var(--np-accent-deep), 0.32),
+      0 0 22px rgba(var(--np-accent), 0.2),
+      0 0 34px rgba(var(--np-accent-soft), 0.14),
+      inset 0 0 10px rgba(var(--np-accent), 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 16px rgba(var(--np-accent-deep), 0.5),
+      0 0 28px rgba(var(--np-accent), 0.3),
+      0 0 44px rgba(var(--np-accent-soft), 0.24),
+      inset 0 0 15px rgba(var(--np-accent), 0.16);
+  }
+}
+
+.np-eixo .page-hero__actions .btn--primary {
+  animation: eixoNeonButton 3s ease-in-out infinite;
+  box-shadow:
+    0 0 10px rgba(var(--np-accent-deep), 0.3),
+    0 0 20px rgba(var(--np-accent), 0.2),
+    0 0 30px rgba(var(--np-accent-soft), 0.15),
+    inset 0 0 10px rgba(var(--np-accent), 0.1);
+}
+
+.np-eixo .page-hero__actions .btn--secondary {
+  box-shadow:
+    0 0 10px rgba(var(--np-accent-deep), 0.18),
+    0 0 15px rgba(var(--np-accent), 0.1);
+}
+
+.np-eixo .page-hero__actions .btn:hover {
+  box-shadow:
+    0 0 20px rgba(var(--np-accent-deep), 0.4),
+    0 0 40px rgba(var(--np-accent), 0.22),
+    0 0 60px rgba(var(--np-accent-soft), 0.15);
+}
+
+@keyframes eixoNeonButton {
+  0%, 100% {
+    box-shadow:
+      0 0 10px rgba(var(--np-accent-deep), 0.3),
+      0 0 20px rgba(var(--np-accent), 0.2),
+      0 0 30px rgba(var(--np-accent-soft), 0.15),
+      inset 0 0 10px rgba(var(--np-accent), 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 15px rgba(var(--np-accent-deep), 0.45),
+      0 0 30px rgba(var(--np-accent), 0.28),
+      0 0 45px rgba(var(--np-accent-soft), 0.2),
+      inset 0 0 15px rgba(var(--np-accent), 0.14);
+  }
+}
+
+/* Pílula de login da navbar: mesma pulsação, no acento do eixo. */
+.np-eixo .navbar .nav-cta,
+.np-eixo .navbar .nav-cta:hover {
+  animation: eixoNeonGlow 3s ease-in-out infinite;
+  box-shadow:
+    0 0 10px rgba(var(--np-accent-deep), 0.32),
+    0 0 22px rgba(var(--np-accent), 0.2),
+    0 0 34px rgba(var(--np-accent-soft), 0.14),
+    inset 0 0 10px rgba(var(--np-accent), 0.1);
+}
+
+/* ---------- Grade numerada ---------- */
+.np-eixo .benefit-grid {
+  background: rgba(var(--np-accent), 0.14);
+  border-color: rgba(var(--np-accent), 0.14);
+}
+
+.np-eixo .benefit-card { background: #15191c; }
+
+.np-eixo .benefit-card::before {
+  color: rgba(var(--np-accent), 0.42);
+  -webkit-text-fill-color: rgba(var(--np-accent), 0.42);
+}
+
+.np-eixo .benefit-card:hover { background: rgba(var(--np-accent), 0.07); }
+
+/* A grade é de três colunas. Quando o conteúdo não fecha a
+   última linha, o último cartão ocupa o vão em vez de deixar um
+   buraco com a cor do fio aparecendo. */
+.np-eixo .benefit-grid > :last-child:nth-child(3n + 2) {
+  grid-column: span 2;
+}
+
+.np-eixo .benefit-grid > :last-child:nth-child(3n + 1) {
+  grid-column: span 3;
+}
+
+/* ---------- Tags e passos ---------- */
+.np-eixo .tag {
+  background: rgba(var(--np-accent), 0.08);
+  color: rgb(var(--np-accent));
+  border-color: rgba(var(--np-accent), 0.22);
+}
+
+.np-eixo .faq-item__icon { color: rgb(var(--np-accent)); }
+
+@media (max-width: 768px) {
+  /* Em coluna única o vão da última linha não existe mais. */
+  .np-eixo .benefit-grid > :last-child:nth-child(3n + 1),
+  .np-eixo .benefit-grid > :last-child:nth-child(3n + 2) {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np-eixo .page-hero__badge,
+  .np-eixo .page-hero__actions .btn--primary,
+  .np-eixo .navbar .nav-cta { animation: none; }
+}
+
+/* ============================================================
+   COMPONENTES DAS PÁGINAS DO EIXO
+   Estavam declarados inline dentro de uma página só. Subiram
+   para cá para que todas as páginas do eixo nasçam com o mesmo
+   layout — e para que o acerto de uma valha para as outras.
+   Nenhum deles decide cor: todos leem os tokens acima.
+   ============================================================ */
+
+/* ---------- Faixa de números em carrossel infinito ----------
+   Substitui a antiga .stats-row estática. A trilha traz TRÊS
+   cópias do mesmo conteúdo e desliza -33,333%: no fim do ciclo
+   a segunda cópia está exatamente onde a primeira começou, e o
+   corte não aparece. São três e não duas porque com duas, em
+   telas largas, a trilha acaba antes da borda direita e abre um
+   vão no fim de cada volta — com três, sobra sempre uma cópia
+   inteira de folga. */
+.np-eixo .stats-marquee {
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1.8rem 0;
+  position: relative;
+}
+
+/* As bordas somem em degradê para o fundo, para que os itens
+   entrem e saiam sem bater na quina da seção. */
+.np-eixo .stats-marquee::before,
+.np-eixo .stats-marquee::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.np-eixo .stats-marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg-secondary), transparent);
+}
+
+.np-eixo .stats-marquee::after {
+  right: 0;
+  background: linear-gradient(-90deg, var(--bg-secondary), transparent);
+}
+
+.np-eixo .stats-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: statsScroll 25s linear infinite;
+}
+
+.np-eixo .stats-marquee:hover .stats-marquee__track {
+  animation-play-state: paused;
+}
+
+.np-eixo .stats-marquee__slide {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.np-eixo .stats-marquee__item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0 2rem;
+  white-space: nowrap;
+}
+
+.np-eixo .stats-marquee__number {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.np-eixo .stats-marquee__sep {
+  color: var(--text-tertiary);
+  font-size: 1.2rem;
+  opacity: 0.4;
+}
+
+.np-eixo .stats-marquee__label {
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.np-eixo .stats-marquee__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--primary-cyan);
+  opacity: 0.3;
+  flex-shrink: 0;
+}
+
+/* Variante: a faixa encaixa na base do herói, sobre a mesma
+   "tela". Quem usa precisa declarar .page-hero--marquee no
+   herói, que abre o espaço embaixo para ela não cobrir o texto. */
+.np-eixo .page-hero--marquee { padding-bottom: 7rem; }
+
+.np-eixo .stats-marquee--in-hero {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background: rgba(11, 14, 20, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: none;
+  padding: 1.2rem 0;
+}
+
+.np-eixo .stats-marquee--in-hero::before {
+  background: linear-gradient(90deg, rgba(11, 14, 20, 0.95), transparent);
+}
+
+.np-eixo .stats-marquee--in-hero::after {
+  background: linear-gradient(-90deg, rgba(11, 14, 20, 0.95), transparent);
+}
+
+@keyframes statsScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.3333%); }
+}
+
+/* ---------- Trilha de etapas numeradas ----------
+   Duas variantes da mesma peça: --7 para o processo longo do
+   planejamento sucessório, --steps para as trilhas de quatro
+   etapas das demais páginas. O tratamento visual é o mesmo. */
+.np-eixo .process-grid--7,
+.np-eixo .process-grid--steps {
+  display: grid;
+  gap: 1rem;
+}
+
+.np-eixo .process-grid--7 { grid-template-columns: repeat(7, 1fr); }
+.np-eixo .process-grid--steps { grid-template-columns: repeat(4, 1fr); }
+
+.np-eixo .process-grid--7 .process-step,
+.np-eixo .process-grid--steps .process-step {
+  text-align: center;
+  padding: 1.5rem 0.8rem;
+}
+
+/* O número já vem no .process-step__number; o contador de
+   shared.css duplicaria a numeração atrás do selo. */
+.np-eixo .process-grid--7 .process-step::before,
+.np-eixo .process-grid--steps .process-step::before { content: none; }
+
+/* Só as duas variantes acima. As páginas que desenham o próprio
+   selo de etapa (a pílula do .process-grid--3, por exemplo) não
+   podem ser atropeladas por esta regra. */
+.np-eixo .process-grid--7 .process-step__number,
+.np-eixo .process-grid--steps .process-step__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(var(--np-accent-soft), 0.3);
+  background: rgba(var(--np-accent), 0.06);
+  color: rgb(var(--np-accent));
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  transition: all 0.4s ease;
+}
+
+.np-eixo .process-grid--7 .process-step:hover .process-step__number,
+.np-eixo .process-grid--steps .process-step:hover .process-step__number {
+  border-color: rgb(var(--np-accent));
+  background: rgba(var(--np-accent), 0.12);
+  box-shadow: 0 0 20px rgba(var(--np-accent), 0.2);
+  transform: scale(1.1);
+}
+
+/* ---------- Bloco "Sobre": texto à esquerda, vídeo à direita ---------- */
+.np-eixo .about-sucess {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.np-eixo .about-sucess__desc {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-top: 1.2rem;
+}
+
+@media (max-width: 1024px) {
+  .np-eixo .process-grid--7 { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .np-eixo .page-hero--marquee { padding-bottom: 5.5rem; }
+
+  .np-eixo .stats-marquee { padding: 1.2rem 0; }
+  .np-eixo .stats-marquee__item { padding: 0 1.2rem; }
+  .np-eixo .stats-marquee::before,
+  .np-eixo .stats-marquee::after { width: 50px; }
+
+  .np-eixo .process-grid--7,
+  .np-eixo .process-grid--steps { grid-template-columns: repeat(2, 1fr); }
+
+  .np-eixo .about-sucess {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .np-eixo .process-grid--7,
+  .np-eixo .process-grid--steps { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np-eixo .stats-marquee__track { animation: none; }
+}

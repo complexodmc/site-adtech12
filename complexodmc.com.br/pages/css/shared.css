@@ -1751,21 +1751,20 @@ body::before {
 
 .navbar .logo-brand {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
   line-height: 1;
   white-space: nowrap;
 }
 
 .navbar .logo-brand-name {
   font-family: "Poppins", "Inter", sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.015em;
   color: #ffffff;
   text-transform: uppercase;
-  padding-bottom: 0.15rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  line-height: 1;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
 }
 
 .navbar .logo-brand-accent {
@@ -1775,34 +1774,19 @@ body::before {
   -webkit-text-fill-color: transparent;
   color: transparent;
   font-weight: 800;
-}
-
-.navbar .logo-brand-tagline {
-  font-family: "Allura", "Great Vibes", cursive;
-  font-size: 1.05rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  word-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.92);
-  text-transform: none;
-  margin-top: 0.05rem;
-  line-height: 1.1;
-  text-align: center;
-  align-self: stretch;
+  filter: drop-shadow(0 0 10px rgba(0, 231, 252, 0.45));
 }
 
 @media (max-width: 1024px) {
   .navbar .logo-brand-name {
-    font-size: 0.92rem;
-  }
-  .navbar .logo-brand-tagline {
-    font-size: 0.92rem;
+    font-size: 1.3rem;
   }
 }
 
 @media (max-width: 480px) {
-  .navbar .logo-brand {
-    display: none;
+  .navbar .logo-brand-name {
+    font-size: 1.1rem;
+    letter-spacing: 0;
   }
 }
 
@@ -1862,4 +1846,172 @@ body::before {
     pointer-events: auto;
   }
   .navbar .menu-toggle { display: flex; }
+}
+
+/* ============================================================
+   VÍDEO DA PÁGINA — o espaço do vídeo próprio de cada tema
+
+   Um bloco por página, sempre no fim do conteúdo. Enquanto o
+   vídeo não existe, o quadro fica reservado (nada quebra, nada
+   some). Para publicar, basta escrever o ID ou a URL do YouTube
+   no atributo data-video do .page-video__frame — quem monta o
+   player é assets/js/video.js, que só carrega o iframe depois
+   do clique (a capa é uma imagem, não um embed).
+
+   Os tokens têm alternativa embutida porque este bloco é usado
+   também em páginas que não carregam shared.css.
+   ============================================================ */
+.page-video__frame {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid rgba(var(--np-accent, 0, 231, 252), 0.18);
+  border-radius: 16px;
+  background: rgba(8, 8, 20, 0.92);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.page-video__frame:hover {
+  border-color: rgba(var(--np-accent, 0, 231, 252), 0.45);
+  box-shadow: 0 0 44px rgba(var(--np-accent, 0, 231, 252), 0.08);
+}
+
+.page-video__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --- Estado 1: sem vídeo publicado --- */
+.page-video__empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.page-video__empty-title {
+  font-family: var(--font-display, 'Raleway', 'DM Sans', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(var(--np-accent, 0, 231, 252), 0.85);
+}
+
+.page-video__empty-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-tertiary, #808080);
+  max-width: 34ch;
+}
+
+/* --- Estado 2: capa clicável (montada pelo JS) --- */
+.page-video__cover {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.page-video__cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, opacity 0.4s ease;
+  opacity: 0.78;
+}
+
+.page-video__cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 8, 20, 0.15), rgba(8, 8, 20, 0.72));
+  pointer-events: none;
+}
+
+.page-video__cover:hover img,
+.page-video__cover:focus-visible img {
+  transform: scale(1.04);
+  opacity: 1;
+}
+
+/* --- O botão de play, comum aos dois estados --- */
+.page-video__play {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 66px;
+  height: 66px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--np-accent, 0, 231, 252), 0.35);
+  background: rgba(var(--np-accent, 0, 231, 252), 0.1);
+  color: rgb(var(--np-accent, 0, 231, 252));
+  transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.page-video__cover .page-video__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px;
+  height: 76px;
+  background: rgba(8, 8, 20, 0.72);
+}
+
+.page-video__cover:hover .page-video__play,
+.page-video__cover:focus-visible .page-video__play {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: rgba(var(--np-accent, 0, 231, 252), 0.22);
+  box-shadow: 0 0 36px rgba(var(--np-accent, 0, 231, 252), 0.28);
+}
+
+.page-video__play svg {
+  width: 24px;
+  height: 24px;
+  margin-left: 3px;
+  fill: currentColor;
+}
+
+/* Legenda opcional abaixo do quadro. */
+.page-video__caption {
+  max-width: 900px;
+  margin: 1.1rem auto 0;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-tertiary, #808080);
+}
+
+@media (max-width: 600px) {
+  .page-video__play { width: 56px; height: 56px; }
+  .page-video__cover .page-video__play { width: 62px; height: 62px; }
+  .page-video__play svg { width: 20px; height: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-video__frame,
+  .page-video__cover img,
+  .page-video__play { transition: none; }
+  .page-video__cover:hover img { transform: none; }
 }

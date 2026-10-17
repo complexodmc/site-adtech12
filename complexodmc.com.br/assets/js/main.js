@@ -132,13 +132,19 @@ document.addEventListener('DOMContentLoaded', function() {
     smoothScrollLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            
+
             // Ignorar links vazios ou apenas "#"
             if (href === '#' || href === '') return;
-            
+
+            // As abas dos eixos (E1…E6) têm navegação própria: trocam
+            // o banner e o catálogo sem sair do lugar.
+            if (this.closest('.np-axes')) return;
+
             const target = document.querySelector(href);
-            
-            if (target) {
+
+            // Alvo escondido (display:none) tem offsetTop 0 — rolar
+            // para ele jogaria a página inteira para o topo.
+            if (target && target.getClientRects().length) {
                 e.preventDefault();
                 
                 // Offset para compensar o navbar fixo
@@ -593,7 +599,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('load', () => {
         document.body.classList.add('loaded');
     });
-    
+
     console.log('🚀 Complexo DMC - JavaScript inicializado com sucesso!');
 });
 
@@ -687,5 +693,279 @@ function throttle(func, limit) {
     document.addEventListener('DOMContentLoaded', initServicosCarousel);
   } else {
     initServicosCarousel();
+  }
+})();
+
+// ============================================================
+// SOLUÇÕES — GRID POR EIXO
+// Progressive enhancement: os cards são links e funcionam sem
+// JS. Aqui só se acrescenta o reveal por card e o glow que
+// segue o cursor.
+// ============================================================
+(function () {
+  'use strict';
+
+  // ============================================================
+  // Abas por eixo (E1…E6)
+  // Cada aba comanda um banner e o recorte do catálogo. O eixo de
+  // abertura é sorteado a cada visita — a menos que a URL traga
+  // #eixo-N, que sempre vence, para o link continuar compartilhável.
+  // ============================================================
+  const initEixos = (cards) => {
+    const sec = document.getElementById('features');
+    if (!sec) return;
+
+    const abas = Array.from(sec.querySelectorAll('.np-axes a[data-eixo]'));
+    const paineis = Array.from(sec.querySelectorAll('.np-flag[data-eixo]'));
+    if (!abas.length || !paineis.length) return;
+
+    const lista = document.querySelector('.np-axes');
+    lista.setAttribute('role', 'tablist');
+    abas.forEach((aba) => {
+      const n = aba.dataset.eixo;
+      aba.setAttribute('role', 'tab');
+      aba.id = 'aba-eixo-' + n;
+      aba.setAttribute('aria-controls', 'eixo-' + n);
+      aba.parentElement.setAttribute('role', 'presentation');
+    });
+    paineis.forEach((p) => {
+      p.setAttribute('role', 'tabpanel');
+      p.setAttribute('aria-labelledby', 'aba-eixo-' + p.dataset.eixo);
+    });
+
+    // Sorteia qual solução do eixo aparece no box "Em destaque".
+    // O HTML já vem com uma delas preenchida, então quem não roda
+    // JS continua vendo um destaque válido.
+    const sortearDestaque = (painel) => {
+      // Um eixo pode fixar o seu destaque no HTML com data-np-spot="fixo".
+      // É o caso de um programa que não é um dos cards do catálogo — o
+      // sorteio o apagaria a cada visita.
+      if (painel.dataset.npSpot === 'fixo') return;
+      const doEixo = cards.filter((c) => c.dataset.eixo === painel.dataset.eixo);
+      const spot = painel.querySelector('.np-spot');
+      if (!spot || !doEixo.length) return;
+      const card = doEixo[Math.floor(Math.random() * doEixo.length)];
+      spot.querySelector('.np-spot-ico').innerHTML = card.querySelector('.np-ico').innerHTML;
+      spot.querySelector('.np-spot-name').textContent = card.querySelector('.np-ct').textContent;
+      spot.querySelector('.np-spot-desc').textContent = card.querySelector('.np-cd').textContent;
+      spot.querySelector('.np-spot-link').setAttribute('href', card.getAttribute('href'));
+    };
+
+    let atual = null;
+    const api = { aoTrocarAba: null, atual: () => atual };
+
+    const ativar = (n, foco) => {
+      atual = n;
+      abas.forEach((aba) => {
+        const ligada = aba.dataset.eixo === n;
+        aba.setAttribute('aria-selected', ligada ? 'true' : 'false');
+        aba.tabIndex = ligada ? 0 : -1;
+      });
+      paineis.forEach((p) => {
+        p.hidden = p.dataset.eixo !== n;
+        if (!p.hidden) sortearDestaque(p);
+      });
+      cards.forEach((c) => {
+        c.hidden = c.dataset.eixo !== n;
+      });
+      if (foco) {
+        history.replaceState(null, '', '#eixo-' + n);
+        document.getElementById('aba-eixo-' + n).focus();
+      }
+    };
+
+    abas.forEach((aba, i) => {
+      aba.addEventListener('click', (e) => {
+        e.preventDefault();
+        // trocar de eixo encerra a busca em andamento
+        if (api.aoTrocarAba) api.aoTrocarAba();
+        ativar(aba.dataset.eixo, true);
+      });
+      // ← → percorrem as abas, como manda o padrão de tablist
+      aba.addEventListener('keydown', (e) => {
+        const passo = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!passo) return;
+        e.preventDefault();
+        ativar(abas[(i + passo + abas.length) % abas.length].dataset.eixo, true);
+      });
+    });
+
+    sec.classList.add('np-js');
+    const naUrl = (location.hash.match(/^#eixo-([1-6])$/) || [])[1];
+    ativar(naUrl || String(1 + Math.floor(Math.random() * abas.length)), false);
+    api.ativar = ativar;
+    return api;
+  };
+
+  // ============================================================
+  // O campo "qual é a sua situação"
+  // Enquanto a pessoa digita, filtra situações e soluções pelo
+  // texto visível + o dicionário de sinônimos em data-busca —
+  // tudo no navegador, nada trafega. Se não casar nada, o campo
+  // troca de função e vira canal direto de WhatsApp.
+  // ============================================================
+  const initBusca = (cards, eixos) => {
+    const form = document.getElementById('npAskForm');
+    const input = document.getElementById('npAsk');
+    const status = document.getElementById('npAskStatus');
+    const vazio = document.querySelector('.np-ask-empty');
+    const limpar = form && form.querySelector('.np-ask-clear');
+    const paineis = Array.from(document.querySelectorAll('.np-flag[data-eixo]'));
+    const situacoes = Array.from(document.querySelectorAll('.np-cases li'));
+    if (!form || !input || !eixos) return;
+
+    const sem = (s) =>
+      s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    // palavras que aparecem em qualquer frase e não distinguem nada
+    const vazias = new Set(['que','com','uma','para','meu','minha','nao','dos','das','mas','por','sem','tem','the','and','como','sobre','quero','preciso','estou','tenho','fazer','ser','ter']);
+
+    const indexar = (el) =>
+      sem(el.textContent + ' ' + (el.dataset.busca || '')).replace(/\s+/g, ' ');
+
+    const itens = [...cards, ...situacoes.map((li) => li.querySelector('.np-case'))]
+      .filter(Boolean)
+      .map((el) => ({ el, alvo: el.closest('li') || el, texto: indexar(el) }));
+
+    const texto = (n, sing, plur) => n + ' ' + (n === 1 ? sing : plur);
+
+    const buscar = () => {
+      const q = input.value.trim();
+      const termos = sem(q)
+        .split(/[^a-z0-9]+/)
+        .filter((t) => t.length >= 3 && !vazias.has(t));
+
+      limpar.hidden = !q;
+
+      // campo vazio: volta para o modo abas
+      if (!termos.length) {
+        itens.forEach((i) => {
+          i.alvo.hidden = false;
+          i.alvo.style.order = '';
+        });
+        status.textContent = '';
+        vazio.hidden = true;
+        eixos.ativar(eixos.atual(), false);
+        return;
+      }
+
+      let solucoes = 0;
+      let casos = 0;
+      itens.forEach((i) => {
+        const acertos = termos.filter((t) => i.texto.includes(t)).length;
+        i.alvo.hidden = !acertos;
+        // quem casa mais termos sobe na grade (order aceita negativo)
+        i.alvo.style.order = acertos ? String(-acertos) : '';
+        if (acertos) i.el.classList.contains('np-card') ? solucoes++ : casos++;
+      });
+
+      // na busca, os banners de eixo saem de cena
+      paineis.forEach((p) => (p.hidden = true));
+
+      if (solucoes + casos === 0) {
+        status.innerHTML = 'Nada encontrado para <b>' + q.replace(/[<>&]/g, '') + '</b>.';
+        vazio.hidden = false;
+        vazio.querySelector('.np-ask-wa').href =
+          'https://wa.me/5511915267749?text=' +
+          encodeURIComponent('Olá! Minha situação: ' + q);
+      } else {
+        status.innerHTML =
+          '<b>' + texto(solucoes, 'solução', 'soluções') + '</b>' +
+          (casos ? ' e ' + texto(casos, 'situação', 'situações') : '') +
+          ' para “' + q.replace(/[<>&]/g, '') + '”.';
+        vazio.hidden = true;
+      }
+    };
+
+    let tempo;
+    input.addEventListener('input', () => {
+      clearTimeout(tempo);
+      tempo = setTimeout(buscar, 120);
+    });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      clearTimeout(tempo);
+      buscar();
+      // Enter sem resultado abre o WhatsApp: é gesto do usuário,
+      // então nenhum bloqueador de pop-up atrapalha.
+      if (!vazio.hidden) vazio.querySelector('.np-ask-wa').click();
+    });
+    limpar.addEventListener('click', () => {
+      input.value = '';
+      buscar();
+      input.focus();
+    });
+    // trocar de eixo pela faixa encerra a busca
+    eixos.aoTrocarAba = () => {
+      if (!input.value) return;
+      input.value = '';
+      itens.forEach((i) => (i.alvo.hidden = false));
+      status.textContent = '';
+      vazio.hidden = true;
+      limpar.hidden = true;
+    };
+  };
+
+  const initSolucoes = () => {
+    const grid = document.getElementById('npGrid');
+    if (!grid) return;
+
+    const cards = Array.from(grid.querySelectorAll('.np-card'));
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // ---------- Reveal por card ----------
+    if ('IntersectionObserver' in window) {
+      grid.classList.add('np-anim');
+      const revealObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('np-in');
+            obs.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      );
+      cards.forEach((card) => revealObserver.observe(card));
+
+      // Rede de segurança: o estado inicial dos cards é opacity 0.
+      // Se o observer não rodar (aba em background, motor sem rAF,
+      // erro de terceiros), a seção mais importante do site ficaria
+      // invisível. Depois de 2s todo card pendente é revelado.
+      setTimeout(() => {
+        cards.forEach((card) => card.classList.add('np-in'));
+        revealObserver.disconnect();
+      }, 2000);
+    }
+
+    // ---------- Abas por eixo ----------
+    // Sem JS o HTML entrega os seis banners e os 18 cards
+    // empilhados. Daqui pra frente a faixa E1…E6 vira aba: um
+    // eixo por vez, sorteado a cada visita e endereçável por
+    // #eixo-N.
+    const eixos = initEixos(cards);
+
+    // ---------- Campo de situação: busca e, sem resultado, canal ----------
+    initBusca(cards, eixos);
+
+    // ---------- Glow acompanhando o cursor ----------
+    if (!reduced && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      grid.addEventListener(
+        'pointermove',
+        (e) => {
+          const card = e.target.closest('.np-card');
+          if (!card) return;
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--np-mx', ((e.clientX - rect.left) / rect.width) * 100 + '%');
+          card.style.setProperty('--np-my', ((e.clientY - rect.top) / rect.height) * 100 + '%');
+        },
+        { passive: true }
+      );
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSolucoes);
+  } else {
+    initSolucoes();
   }
 })();

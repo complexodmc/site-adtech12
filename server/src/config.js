@@ -16,6 +16,9 @@ function required(name) {
   return v.trim();
 }
 
+// Teto do upload de material de apoio (PDF das aulas).
+const maxUploadMb = Number(process.env.MAX_UPLOAD_MB) || 25;
+
 export const config = {
   mongoUri: required('MONGODB_URI'),
   mongoDb: (process.env.MONGODB_DB || 'complexodmc').trim(),
@@ -28,5 +31,12 @@ export const config = {
     .filter(Boolean),
   devSimularPagamento: String(process.env.DEV_SIMULAR_PAGAMENTO || '').toLowerCase() === 'true',
   // Raiz do site estático (complexodmc.com.br/), servido pelo mesmo processo.
-  staticRoot: path.resolve(__dirname, '..', '..', 'complexodmc.com.br')
+  staticRoot: path.resolve(__dirname, '..', '..', 'complexodmc.com.br'),
+  // Materiais de apoio (PDF) ficam FORA do staticRoot — só saem pela API,
+  // depois de checar a liberação do curso.
+  uploadsRoot: process.env.UPLOADS_DIR
+    ? path.resolve(process.env.UPLOADS_DIR)
+    : path.resolve(__dirname, '..', 'uploads'),
+  maxUploadMb,
+  maxUploadBytes: maxUploadMb * 1024 * 1024
 };

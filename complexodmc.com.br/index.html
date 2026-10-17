@@ -47,8 +47,9 @@
       sizes="64x64"
       href="assets/images/favicon.png"
       id="favicon" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-    <script src="assets/js/navbar.js" defer></script>
+    <link rel="stylesheet" href="assets/css/styles.css?v=traco4" />
+    <script src="assets/js/navbar.js?v=traco3" defer></script>
+    <script src="assets/js/video.js?v=1" defer></script>
   </head>
   <body>
     
@@ -379,8 +380,8 @@
               </div>
               <div class="orbit-item" style="animation-delay: -24s;">
                 <a href="pages/pronto-patrimonio.html" class="orbit-card orbit-link">
-                  <span class="orbit-front">PRONT. PATRI.</span>
-                  <span class="orbit-back">Pronto Patrimônio</span>
+                  <span class="orbit-front">PROT. PATRI.</span>
+                  <span class="orbit-back">Proteção Patrimonial</span>
                 </a>
               </div>
             </div>
@@ -390,50 +391,664 @@
       </div>
     </section>
 
-   <!-- ============================================ COMPLEXO DMC SECTION ========================================= -->
-    <section class="section" id="features">
+   <!-- ============================================ SOLUÇÕES · OS SEIS EIXOS ===================================
+        O id="features" é mantido: a navbar e os links do rodapé apontam para ele.
+        Cada card declara o seu eixo em np-pillar-<slug> + data-np-pillar; ícone,
+        selo, borda de hover e o "Saiba mais" derivam do único token --np-accent.
+        E1 patrimonial · E2 fiscal · E3 imobiliario · E4 auditoria · E5 ativos · E6 trabalhista
+        Os cards #eixo-1…#eixo-6 são as âncoras da barra de eixos — funcionam sem JS.
+        ========================================================================================================= -->
+    <section class="section np-section" id="features">
+      <div class="np-aura" aria-hidden="true"></div>
+
       <div class="section-container">
         <div class="np-head">
-          <span class="np-eyebrow">Áreas de Atuação</span>
-          <h2 class="np-title">Nossos <span class="gradient-text">Produtos</span></h2>
-          <p class="np-sub">Soluções completas para proteger, estruturar e otimizar o seu patrimônio.</p>
+          <span class="np-eyebrow">Soluções</span>
+          <h2 class="np-title">Seis eixos, <span class="gradient-text">uma só governança</span></h2>
+          <p class="np-sub">
+            Direito, contabilidade, tributário, auditoria e consultoria trabalhista sob o mesmo teto.
+            Cada eixo tem time, método e responsável próprios — e conversa com os outros
+            cinco quando o seu caso exige. Comece pela sua situação, não pelo catálogo.
+          </p>
         </div>
-        <div class="np-grid">
-          <a class="np-card" href="pages/planejamento-sucessorio.html" aria-label="Planejamento Sucessório">
-            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+
+        <!-- ---------- Entrada por problema: a fala do cliente ---------- -->
+        <div class="np-cases">
+          <h3 class="np-cases-title">Qual é a sua situação?</h3>
+          <p class="np-cases-sub">
+            Ninguém procura o nome do produto — procura a saída de um problema.
+            Encontre o seu abaixo, ou escreva com as suas palavras.
+          </p>
+
+          <form class="np-ask" role="search" id="npAskForm">
+            <svg class="np-ask-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+            <input class="np-ask-input" id="npAsk" type="search" autocomplete="off"
+                   placeholder="Escreva a sua situação: inventário, holding, autuação da Receita…"
+                   aria-label="Escreva a sua situação para encontrar a solução"
+                   aria-describedby="npAskStatus" />
+            <button class="np-ask-clear" type="button" hidden aria-label="Limpar a busca">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+            </button>
+          </form>
+          <p class="np-ask-status" id="npAskStatus" role="status"></p>
+
+          <div class="np-ask-empty" hidden>
+            <p class="np-ask-empty-txt">
+              Não encontramos solução com essas palavras — o que não significa
+              que a casa não resolva. Mande a sua situação para o time.
+            </p>
+            <a class="np-btn np-btn-primary np-ask-wa" href="https://wa.me/5511915267749" target="_blank" rel="noopener">
+              Enviar no WhatsApp
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+
+          <ul>
+            <li>
+              <a data-busca="holding empresa familiar imovel quota participacao integralizacao itbi gestao patrimonio aluguel pessoa juridica" class="np-case np-pillar-patrimonial" href="pages/holding-patrimonial.html">
+                <span class="np-case-q">“Tenho imóveis no meu nome, filhos, e nada organizado para o dia em que eu faltar.”</span>
+                <span class="np-case-a">Holding Patrimonial <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                <span class="np-case-e">E1</span>
+              </a>
+            </li>
+            <li>
+              <a data-busca="imposto tributo carga fiscal regime simples lucro presumido real credito autuacao malha receita economia icms iss pis cofins" class="np-case np-pillar-fiscal" href="pages/planejamento-tributario.html">
+                <span class="np-case-q">“Recebi uma autuação da Receita e pago imposto demais todo mês.”</span>
+                <span class="np-case-a">Planejamento Tributário <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                <span class="np-case-e">E2</span>
+              </a>
+            </li>
+            <li>
+              <a data-busca="terreno incorporacao viabilidade diligence loteamento empreendimento construtora permuta comprar lote matricula" class="np-case np-pillar-imobiliario" href="pages/consultoria-imobiliaria.html">
+                <span class="np-case-q">“Vou comprar um terreno e não sei se a matrícula está limpa.”</span>
+                <span class="np-case-a">Due diligence imobiliária <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                <span class="np-case-e">E3</span>
+              </a>
+            </li>
+            <li>
+              <a data-busca="escritura procuracao ata notarial inventario extrajudicial divorcio tabelionato firma reconhecimento partilha espolio falecimento" class="np-case np-pillar-imobiliario" href="pages/atos-notariais.html">
+                <span class="np-case-q">“Alguém da família faleceu e o inventário não sai do lugar.”</span>
+                <span class="np-case-a">Inventário em cartório <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                <span class="np-case-e">E3</span>
+              </a>
+            </li>
+            <li>
+              <a data-busca="contabilidade balanco sped escrituracao obrigacao acessoria bpo folha imposto renda dre contador auditado banco" class="np-case np-pillar-auditoria" href="pages/contabilidade.html">
+                <span class="np-case-q">“O banco pediu balanço auditado e a minha contabilidade não acompanha.”</span>
+                <span class="np-case-a">Contabilidade e auditoria <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                <span class="np-case-e">E4</span>
+              </a>
+            </li>
+            <li>
+              <a data-busca="recuperacao ativo devedor execucao penhora bloqueio rastreio credito calote inadimplencia cobranca ganhei acao receber sumiu dinheiro" class="np-case np-pillar-ativos" href="#contact">
+                <span class="np-case-q">“Ganhei a ação, mas o devedor sumiu com o dinheiro e a execução não anda.”</span>
+                <span class="np-case-a">Recuperação de Ativos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                <span class="np-case-e">E5</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- ---------- A arquitetura: os seis eixos (abas) ---------- -->
+        <h3 class="np-cases-title np-axes-head">A casa em seis eixos</h3>
+        <ul class="np-axes" aria-label="Os seis eixos do Complexo DMC">
+          <li class="np-pillar-patrimonial">
+            <a href="#eixo-1" data-eixo="1">
+              <span class="np-axis-code">E1</span>
+              <span class="np-axis-name">Patrimonial e Sucessório</span>
+              <span class="np-axis-n">5 soluções</span>
+            </a>
+          </li>
+          <li class="np-pillar-fiscal">
+            <a href="#eixo-2" data-eixo="2">
+              <span class="np-axis-code">E2</span>
+              <span class="np-axis-name">Tributário, Fiscal e Corporativo</span>
+              <span class="np-axis-n">2 soluções</span>
+            </a>
+          </li>
+          <li class="np-pillar-imobiliario">
+            <a href="#eixo-3" data-eixo="3">
+              <span class="np-axis-code">E3</span>
+              <span class="np-axis-name">Direito Notarial e Imobiliário</span>
+              <span class="np-axis-n">5 soluções</span>
+            </a>
+          </li>
+          <li class="np-pillar-auditoria">
+            <a href="#eixo-4" data-eixo="4">
+              <span class="np-axis-code">E4</span>
+              <span class="np-axis-name">Auditoria Empresarial e Contábil</span>
+              <span class="np-axis-n">2 soluções</span>
+            </a>
+          </li>
+          <li class="np-pillar-ativos">
+            <a href="#eixo-5" data-eixo="5">
+              <span class="np-axis-code">E5</span>
+              <span class="np-axis-name">Recuperação de Ativos</span>
+              <span class="np-axis-n">1 solução</span>
+            </a>
+          </li>
+          <li class="np-pillar-trabalhista">
+            <a href="#eixo-6" data-eixo="6">
+              <span class="np-axis-code">E6</span>
+              <span class="np-axis-name">Consultoria Trabalhista</span>
+              <span class="np-axis-n">6 soluções</span>
+            </a>
+          </li>
+        </ul>
+
+        <!-- ---------- Banner do eixo ativo (JS troca; sem JS, todos aparecem) ---------- -->
+        <article class="np-flag np-pillar-patrimonial" id="eixo-1" data-eixo="1">
+          <div class="np-flag-body">
+            <span class="np-tag">E1 · Patrimonial e Sucessório</span>
+            <h3 class="np-flag-title">Quem decide o destino do seu patrimônio</h3>
+            <p class="np-flag-desc">Estruturamos a passagem do patrimônio entre gerações — holding, doação com cláusulas e testamento — para que a decisão seja da família, e não do inventário.</p>
+            <ul class="np-flag-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Transmissão organizada <strong>sem inventário judicial</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Patrimônio da família <strong>separado do risco</strong> da operação</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Regras de gestão e sucessão <strong>definidas em vida</strong></span>
+              </li>
+            </ul>
+            <div class="np-flag-cta">
+              <a class="np-btn np-btn-primary" href="#contact">
+                Fale agora mesmo com nossos especialistas
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <aside class="np-flag-side np-spot" aria-label="Solução em destaque">
+            <span class="np-spot-label">Em destaque</span>
+            <div class="np-spot-stage" aria-hidden="true">
+              <div class="np-spot-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 10.6 12 3l9.2 7.6"/><path d="M5.4 9.1V20.6h13.2V9.1"/><path d="M9.8 20.6v-5.6h4.4v5.6"/><path d="M8.2 12.2h1.6M14.2 12.2h1.6"/></svg></div>
+            </div>
+            <h4 class="np-spot-name">Planejamento Sucessório</h4>
+            <p class="np-spot-desc">Transferência do patrimônio entre gerações antes que o inventário decida por você — com eficiência tributária e previsibilidade.</p>
+            <a class="np-spot-link" href="pages/planejamento-sucessorio.html">Conhecer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </aside>
+        </article>
+
+        <article class="np-flag np-pillar-fiscal" id="eixo-2" data-eixo="2">
+          <div class="np-flag-body">
+            <span class="np-tag">E2 · Tributário, Fiscal e Corporativo</span>
+            <h3 class="np-flag-title">Menos imposto, dentro da lei</h3>
+            <p class="np-flag-desc">Revisão de regime, aproveitamento de créditos e desenho de operações — sustentados pela governança que segura a economia no dia da fiscalização.</p>
+            <ul class="np-flag-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Carga fiscal revisada <strong>com fundamento</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Créditos apurados e <strong>recuperados</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Controles internos e <strong>conselho estruturado</strong></span>
+              </li>
+            </ul>
+            <div class="np-flag-cta">
+              <a class="np-btn np-btn-primary" href="#contact">
+                Fale agora mesmo com nossos especialistas
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <aside class="np-flag-side np-spot" aria-label="Solução em destaque">
+            <span class="np-spot-label">Em destaque</span>
+            <div class="np-spot-stage" aria-hidden="true">
+              <div class="np-spot-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 3.4v17h17"/><path d="M7.4 17.6V8.4M11.2 17.6v-5.4M15 17.6v-2.8M18.8 17.6v-1.2"/><path d="M6.4 6.6 11 10.4l3.6-2 4.8 4.6"/><path d="M19.4 9.6v3.4H16"/></svg></div>
+            </div>
+            <h4 class="np-spot-name">Planejamento Tributário</h4>
+            <p class="np-spot-desc">Revisão de regime, aproveitamento de créditos e desenho de operações para reduzir a carga fiscal com segurança.</p>
+            <a class="np-spot-link" href="pages/planejamento-tributario.html">Conhecer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </aside>
+        </article>
+
+        <article class="np-flag np-pillar-imobiliario" id="eixo-3" data-eixo="3">
+          <div class="np-flag-body">
+            <span class="np-tag">E3 · Direito Notarial e Imobiliário</span>
+            <h3 class="np-flag-title">Nada existe até o cartório registrar</h3>
+            <p class="np-flag-desc">Do estudo da matrícula à escritura lavrada: conduzimos o ato imobiliário até o registro efetivo, com a documentação que sustenta o negócio.</p>
+            <ul class="np-flag-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Matrícula e ônus <strong>analisados antes da compra</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Escrituras, procurações e atas <strong>lavradas em cartório</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Regularização e <strong>usucapião extrajudicial</strong></span>
+              </li>
+            </ul>
+            <div class="np-flag-cta">
+              <a class="np-btn np-btn-primary" href="#contact">
+                Fale agora mesmo com nossos especialistas
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <aside class="np-flag-side np-spot" aria-label="Solução em destaque">
+            <span class="np-spot-label">Em destaque</span>
+            <div class="np-spot-stage" aria-hidden="true">
+              <div class="np-spot-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 17.4 12 20.8l9.4-3.4"/><path d="M2.6 17.4 12 14l9.4 3.4"/><path d="M12 14V3.4"/><path d="M12 3.8h7.4v4.6H12"/></svg></div>
+            </div>
+            <h4 class="np-spot-name">Consultoria Imobiliária</h4>
+            <p class="np-spot-desc">Do terreno à chave do cliente: blindagem jurídica de cada etapa do empreendimento imobiliário.</p>
+            <a class="np-spot-link" href="pages/consultoria-imobiliaria.html">Conhecer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </aside>
+        </article>
+
+        <article class="np-flag np-pillar-auditoria" id="eixo-4" data-eixo="4">
+          <div class="np-flag-body">
+            <span class="np-tag">E4 · Auditoria Empresarial e Contábil</span>
+            <h3 class="np-flag-title">O que os números dizem da sua operação</h3>
+            <p class="np-flag-desc">Escrituração, obrigações acessórias e exame independente de contas e controles — a informação contábil que banco, sócio e fisco aceitam sem discussão.</p>
+            <ul class="np-flag-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Balanços e <strong>SPED em dia</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Controles internos <strong>testados por auditoria</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Demonstrações que <strong>sustentam crédito</strong></span>
+              </li>
+            </ul>
+            <div class="np-flag-cta">
+              <a class="np-btn np-btn-primary" href="#contact">
+                Fale agora mesmo com nossos especialistas
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <aside class="np-flag-side np-spot" aria-label="Solução em destaque">
+            <span class="np-spot-label">Em destaque</span>
+            <div class="np-spot-stage" aria-hidden="true">
+              <div class="np-spot-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.6" y="2.8" width="14.8" height="18.4" rx="1.8"/><path d="M7.8 6h8.4v3.2H7.8z"/><path d="M8.2 13h.02M12 13h.02M15.8 13h.02M8.2 17h.02M12 17h.02M15.8 17h.02"/></svg></div>
+            </div>
+            <h4 class="np-spot-name">Contabilidade</h4>
+            <p class="np-spot-desc">Escrituração, obrigações acessórias e demonstrações contábeis para empresas, holdings e famílias.</p>
+            <a class="np-spot-link" href="pages/contabilidade.html">Conhecer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </aside>
+        </article>
+
+        <article class="np-flag np-pillar-ativos" id="eixo-5" data-eixo="5">
+          <div class="np-flag-body">
+            <span class="np-tag">E5 · Recuperação de Ativos</span>
+            <h3 class="np-flag-title">Ganhar a ação é metade do caminho</h3>
+            <p class="np-flag-desc">Localização, bloqueio e retomada de bens e créditos — do rastreio patrimonial do devedor até a execução efetiva do que é seu.</p>
+            <ul class="np-flag-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Rastreio patrimonial <strong>do devedor</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Bloqueio e penhora <strong>conduzidos até o fim</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Créditos parados <strong>convertidos em caixa</strong></span>
+              </li>
+            </ul>
+            <div class="np-flag-cta">
+              <a class="np-btn np-btn-primary" href="#contact">
+                Fale agora mesmo com nossos especialistas
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <aside class="np-flag-side np-spot" aria-label="Solução em destaque">
+            <span class="np-spot-label">Em destaque</span>
+            <div class="np-spot-stage" aria-hidden="true">
+              <div class="np-spot-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.6" width="18" height="15.2" rx="1.8"/><path d="M5.8 6.4h12.4v9.6H5.8z"/><circle cx="12" cy="11.2" r="2.8"/><path d="M12 8.4v5.6M9.2 11.2h5.6"/><path d="M6.4 18.8v1.8M17.6 18.8v1.8"/></svg></div>
+            </div>
+            <h4 class="np-spot-name">Recuperação de Ativos</h4>
+            <p class="np-spot-desc">Localização, bloqueio e retomada de bens e créditos — do rastreio patrimonial à execução do que é seu.</p>
+            <a class="np-spot-link" href="pages/recuperacao-ativos.html">Conhecer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </aside>
+        </article>
+
+        <article class="np-flag np-pillar-trabalhista" id="eixo-6" data-eixo="6" data-np-spot="fixo">
+          <div class="np-flag-body">
+            <span class="np-tag">E6 · Consultoria Trabalhista</span>
+            <h3 class="np-flag-title">Quem decide o valor do seu passivo trabalhista</h3>
+            <p class="np-flag-desc">Cuidamos de todo o jurídico trabalhista da empresa — do contrato à quitação anual, do conflito ao acordo — para que o custo seja definido pela gestão, e não pela sentença.</p>
+            <ul class="np-flag-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Passivo apurado e <strong>quitado ano a ano</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Decisões de risco <strong>documentadas antes de virar prova</strong></span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Conflito tratado <strong>fora do processo, sempre que possível</strong></span>
+              </li>
+            </ul>
+            <div class="np-flag-cta">
+              <a class="np-btn np-btn-primary" href="#contact">
+                Fale agora mesmo com nossos especialistas
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <aside class="np-flag-side np-spot" aria-label="Solução em destaque">
+            <span class="np-spot-label">Em destaque</span>
+            <div class="np-spot-stage" aria-hidden="true">
+              <div class="np-spot-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 12a8.4 8.4 0 1 1-2.5-6"/><polyline points="18.6 3 18.6 6.6 15 6.6"/><path d="m8.6 12 2.4 2.4 4.4-4.6"/></svg></div>
+            </div>
+            <h4 class="np-spot-name">Ciclo Fechado</h4>
+            <p class="np-spot-desc">Programa completo de proteção trabalhista para empresas — do diagnóstico à quitação do exercício.</p>
+            <a class="np-spot-link" href="solucoes/consultoria-trabalhista/ciclo-fechado.html">Conhecer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </aside>
+        </article>
+
+        <!-- ---------- Catálogo do eixo ativo ---------- -->
+        <div class="np-grid" id="npGrid">
+
+          <!-- ===== E1 · Patrimonial e Sucessório ===== -->
+          <a data-icone="planejamento-sucessorio" data-busca="sucessao heranca herdeiro filho partilha morte falecimento falecer espolio doacao legitima adiantamento familia inventario" class="np-card np-pillar-patrimonial" data-eixo="1" data-np-pillar="patrimonial" href="pages/planejamento-sucessorio.html">
+            <span class="np-tag">E1 · Patrimonial e Sucessório</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 10.6 12 3l9.2 7.6"/><path d="M5.4 9.1V20.6h13.2V9.1"/><path d="M9.8 20.6v-5.6h4.4v5.6"/><path d="M8.2 12.2h1.6M14.2 12.2h1.6"/></svg></div>
             <h3 class="np-ct">Planejamento Sucessório</h3>
-            <p class="np-cd">Garanta uma sucessão organizada, sem conflitos familiares nem inventários custosos.</p>
-            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <p class="np-cd">Transferência do patrimônio entre gerações antes que o inventário decida por você — com eficiência tributária e previsibilidade.</p>
+            <ul class="np-tags">
+              <li>Sem inventário judicial</li>
+              <li>Estrutura sob medida</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </a>
-          <a class="np-card" href="pages/holding-patrimonial.html" aria-label="Holding Patrimonial">
-            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01"/></svg></div>
+
+          <a data-icone="holding-patrimonial" data-busca="holding empresa familiar imovel quota participacao integralizacao itbi gestao patrimonio aluguel pessoa juridica" class="np-card np-pillar-patrimonial" data-eixo="1" data-np-pillar="patrimonial" href="pages/holding-patrimonial.html">
+            <span class="np-tag">E1 · Patrimonial e Sucessório</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.2 21.2V4.4a1.4 1.4 0 0 1 1.4-1.4h12.8a1.4 1.4 0 0 1 1.4 1.4v16.8"/><path d="M2.6 21.2h18.8"/><path d="M7.6 6.6h2.2M14.2 6.6h2.2M7.6 10.2h2.2M14.2 10.2h2.2"/><path d="M12 12.4v7"/><path d="M13.9 14.3a1.9 1.9 0 0 0-3.8.3c0 1.9 3.8 1.1 3.8 3a1.9 1.9 0 0 1-3.8.3"/></svg></div>
             <h3 class="np-ct">Holding Patrimonial</h3>
-            <p class="np-cd">Estruture seus bens em uma holding com eficiência tributária e segurança jurídica.</p>
-            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <p class="np-cd">Centraliza imóveis e participações em uma estrutura societária com governança definida e eficiência fiscal.</p>
+            <ul class="np-tags">
+              <li>Integralização de bens</li>
+              <li>Acordo de sócios</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </a>
-          <a class="np-card" href="pages/blindagem-patrimonial.html" aria-label="Blindagem Patrimonial">
-            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+
+          <a data-icone="blindagem-patrimonial" data-busca="blindagem protecao credor penhora divida risco execucao separar bem socio responsabilidade processo" class="np-card np-pillar-patrimonial" data-eixo="1" data-np-pillar="patrimonial" href="pages/blindagem-patrimonial.html">
+            <span class="np-tag">E1 · Patrimonial e Sucessório</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.9 4.6 5.8v6.1c0 4.7 7.4 9.2 7.4 9.2s7.4-4.5 7.4-9.2V5.8z"/><path d="m8.9 11.8 2.2 2.3 4-4.4"/></svg></div>
             <h3 class="np-ct">Blindagem Patrimonial</h3>
-            <p class="np-cd">Proteja seus ativos contra riscos jurídicos, financeiros e de terceiros.</p>
-            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <p class="np-cd">Separa a pessoa física do risco empresarial e protege seus ativos de credores, litígios e terceiros.</p>
+            <ul class="np-tags">
+              <li>Análise de exposição</li>
+              <li>Reorganização societária</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </a>
-          <a class="np-card" href="pages/planejamento-tributario.html" aria-label="Planejamento Tributário">
-            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+
+          <a data-icone="pronto-patrimonio" data-busca="diagnostico programa completo protecao familia empresario execucao assistida pacote comecar" class="np-card np-pillar-patrimonial" data-eixo="1" data-np-pillar="patrimonial" href="pages/pronto-patrimonio.html">
+            <span class="np-tag">E1 · Patrimonial e Sucessório</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.8 10.2 11 3.4l5.6 4.6"/><path d="M5.2 8.6v12h5.6"/><path d="M13.2 20.6h7a.9.9 0 0 0 .9-.9v-4.4a.9.9 0 0 0-.9-.9h-7a.9.9 0 0 0-.9.9v4.4a.9.9 0 0 0 .9.9z"/><path d="M14.4 14.4v-1.7a2.3 2.3 0 0 1 4.6 0v1.7"/><path d="M16.7 16.8v1.4"/></svg></div>
+            <h3 class="np-ct">Proteção Patrimonial</h3>
+            <p class="np-cd">Programa completo de proteção patrimonial para famílias e empresários — do diagnóstico à execução.</p>
+            <ul class="np-tags">
+              <li>Diagnóstico completo</li>
+              <li>Execução assistida</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="sucessao-testamentaria" data-busca="testamento publico cerrado legado clausula restritiva deixar bem cartorio vontade herdeiro heranca" class="np-card np-pillar-patrimonial" data-eixo="1" data-np-pillar="patrimonial" href="pages/sucessao-testamentaria.html">
+            <span class="np-tag">E1 · Patrimonial e Sucessório</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6.4 6.2A2.6 2.6 0 0 1 9 3.6h9.6v11.6"/><path d="M6.4 6.2v12.2a2.6 2.6 0 0 0 2.6 2.6h6"/><path d="M3.8 6.2h5.2"/><path d="M9.8 8.4h5.6M9.8 11.6h5.6"/><circle cx="18.2" cy="18.4" r="2.6"/><path d="M18.2 21v1.2"/></svg></div>
+            <h3 class="np-ct">Sucessão Testamentária</h3>
+            <p class="np-cd">Testamento, doação com reserva de usufruto e cláusulas de proteção para dirigir a destinação da herança.</p>
+            <ul class="np-tags">
+              <li>Testamento público</li>
+              <li>Cláusulas restritivas</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+
+          <!-- ===== E2 · Tributário, Fiscal e Corporativo ===== -->
+          <a data-icone="planejamento-tributario" data-busca="imposto tributo carga fiscal regime simples lucro presumido real credito autuacao malha receita economia icms iss pis cofins" class="np-card np-pillar-fiscal" data-eixo="2" data-np-pillar="fiscal" href="pages/planejamento-tributario.html">
+            <span class="np-tag">E2 · Tributário, Fiscal e Corporativo</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 3.4v17h17"/><path d="M7.4 17.6V8.4M11.2 17.6v-5.4M15 17.6v-2.8M18.8 17.6v-1.2"/><path d="M6.4 6.6 11 10.4l3.6-2 4.8 4.6"/><path d="M19.4 9.6v3.4H16"/></svg></div>
             <h3 class="np-ct">Planejamento Tributário</h3>
-            <p class="np-cd">Reduza a carga fiscal da sua empresa de forma legal, estratégica e recorrente.</p>
-            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <p class="np-cd">Revisão de regime, aproveitamento de créditos e desenho de operações para reduzir a carga fiscal com segurança.</p>
+            <ul class="np-tags">
+              <li>Revisão de regime</li>
+              <li>Recuperação de créditos</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </a>
-          <a class="np-card" href="pages/compliance-governanca.html" aria-label="Compliance e Governança">
-            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+
+          <a data-icone="compliance-governanca" data-busca="compliance governanca conselho acordo socio politica controle interno risco regulatorio societario conflito saida sair" class="np-card np-pillar-fiscal" data-eixo="2" data-np-pillar="fiscal" href="pages/compliance-governanca.html">
+            <span class="np-tag">E2 · Tributário, Fiscal e Corporativo</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2v17.6"/><path d="M7 20.8h10"/><path d="M3.4 7.2h17.2"/><path d="M6.8 7.2 3.4 14h6.8z"/><path d="M17.2 7.2 13.8 14h6.8z"/></svg></div>
             <h3 class="np-ct">Compliance &amp; Governança</h3>
-            <p class="np-cd">Implemente boas práticas de conformidade e governança corporativa.</p>
-            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <p class="np-cd">Políticas, controles internos e conselho estruturado para reduzir risco regulatório e conflito societário.</p>
+            <ul class="np-tags">
+              <li>Políticas internas</li>
+              <li>Governança familiar</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
           </a>
-          <a class="np-card" href="pages/contabilidade.html" aria-label="Contabilidade">
-            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+
+
+          <!-- ===== E3 · Direito Notarial e Imobiliário ===== -->
+          <a data-icone="consultoria-imobiliaria" data-busca="terreno incorporacao viabilidade diligence loteamento empreendimento construtora permuta comprar lote matricula" class="np-card np-pillar-imobiliario" data-eixo="3" data-np-pillar="imobiliario" href="pages/consultoria-imobiliaria.html">
+            <span class="np-tag">E3 · Direito Notarial e Imobiliário</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.6 17.4 12 20.8l9.4-3.4"/><path d="M2.6 17.4 12 14l9.4 3.4"/><path d="M12 14V3.4"/><path d="M12 3.8h7.4v4.6H12"/></svg></div>
+            <h3 class="np-ct">Consultoria Imobiliária</h3>
+            <p class="np-cd">Do terreno à chave do cliente: blindagem jurídica de cada etapa do empreendimento imobiliário.</p>
+            <ul class="np-tags">
+              <li>Due diligence de terreno</li>
+              <li>Viabilidade</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="juridico-imobiliario" data-busca="contrato compra venda incorporacao regularizacao imovel obra memorial condominio distrato" class="np-card np-pillar-imobiliario" data-eixo="3" data-np-pillar="imobiliario" href="pages/juridico-imobiliario.html">
+            <span class="np-tag">E3 · Direito Notarial e Imobiliário</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 20.8V10.4h8.2v10.4"/><path d="M5.6 13.2h1.6M8.4 13.2h1.6M5.6 16.4h1.6M8.4 16.4h1.6"/><path d="M2.4 20.8h19.2"/><path d="M16.6 20.8V4.2h4.8"/><path d="M16.6 4.2h-3"/><path d="M14.2 4.2v3.4"/></svg></div>
+            <h3 class="np-ct">Jurídico Imobiliário</h3>
+            <p class="np-cd">Contratos, incorporação e regularização conduzidos por especialistas em direito imobiliário.</p>
+            <ul class="np-tags">
+              <li>Incorporação</li>
+              <li>Regularização</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="juridico-vendas" data-busca="minuta contrato venda unidade jurimetria analise risco distrato corretor imobiliaria" class="np-card np-pillar-imobiliario" data-eixo="3" data-np-pillar="imobiliario" href="pages/juridico-vendas.html">
+            <span class="np-tag">E3 · Direito Notarial e Imobiliário</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.6" cy="8" r="4.2"/><circle cx="7.6" cy="8" r="1.2"/><path d="m10.6 11 9.4 9.4"/><path d="m16.4 16.8-2 2M18.6 19l-2 2"/></svg></div>
+            <h3 class="np-ct">Jurídico Vendas</h3>
+            <p class="np-cd">Minutas automatizadas, validação especialista e jurimetria para acelerar a comercialização de unidades.</p>
+            <ul class="np-tags">
+              <li>Minutas em minutos</li>
+              <li>Análise de risco</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="registro-imobiliario" data-busca="matricula averbacao retificacao usucapiao cartorio registro certidao regularizacao fundiaria escritura area terreno" class="np-card np-pillar-imobiliario" data-eixo="3" data-np-pillar="imobiliario" href="pages/registro-imobiliario.html">
+            <span class="np-tag">E3 · Direito Notarial e Imobiliário</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.8 3.4h4.4v4.2h-4.4z"/><path d="M8.6 7.6h6.8l1.4 6.4H7.2z"/><path d="M5.4 14.6h13.2v3H5.4z"/><path d="M3.6 20.6h16.8"/></svg></div>
+            <h3 class="np-ct">Registro Imobiliário</h3>
+            <p class="np-cd">Matrículas, averbações e regularização fundiária acompanhadas até o registro efetivo em cartório.</p>
+            <ul class="np-tags">
+              <li>Averbações</li>
+              <li>Regularização fundiária</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="atos-notariais" data-busca="escritura procuracao ata notarial inventario extrajudicial divorcio tabelionato firma reconhecimento partilha espolio falecimento" class="np-card np-pillar-imobiliario" data-eixo="3" data-np-pillar="imobiliario" href="pages/atos-notariais.html">
+            <span class="np-tag">E3 · Direito Notarial e Imobiliário</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.4S9.6 4.2 3.8 4.2v13.2c5.8 0 8.2 2.2 8.2 2.2s2.4-2.2 8.2-2.2V4.2c-5.8 0-8.2 2.2-8.2 2.2z"/><path d="M12 6.4v13.2"/><path d="M6.6 8.4h2.6M6.6 11.6h2.6M14.8 8.4h2.6M14.8 11.6h2.6"/></svg></div>
+            <h3 class="np-ct">Atos Notariais</h3>
+            <p class="np-cd">Escrituras, procurações e atas notariais preparadas, revisadas e acompanhadas em tabelionato.</p>
+            <ul class="np-tags">
+              <li>Escrituras</li>
+              <li>Procurações</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+
+          <!-- ===== E4 · Auditoria Empresarial e Contábil ===== -->
+          <a data-icone="contabilidade" data-busca="contabilidade balanco sped escrituracao obrigacao acessoria bpo folha imposto renda dre contador auditado banco" class="np-card np-pillar-auditoria" data-eixo="4" data-np-pillar="auditoria" href="pages/contabilidade.html">
+            <span class="np-tag">E4 · Auditoria Empresarial e Contábil</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.6" y="2.8" width="14.8" height="18.4" rx="1.8"/><path d="M7.8 6h8.4v3.2H7.8z"/><path d="M8.2 13h.02M12 13h.02M15.8 13h.02M8.2 17h.02M12 17h.02M15.8 17h.02"/></svg></div>
             <h3 class="np-ct">Contabilidade</h3>
-            <p class="np-cd">Gestão contábil completa e sob medida para empresas e holdings.</p>
-            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <p class="np-cd">Escrituração, obrigações acessórias e demonstrações contábeis para empresas, holdings e famílias.</p>
+            <ul class="np-tags">
+              <li>BPO contábil</li>
+              <li>Balanços e SPED</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="auditoria-empresarial" data-busca="auditoria balanco auditado controle interno banco credito socio diligence contabil fraude desvio" class="np-card np-pillar-auditoria" data-eixo="4" data-np-pillar="auditoria" href="#contact">
+            <span class="np-tag">E4 · Auditoria Empresarial e Contábil</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 10.4V8.2L14.4 3.4H6.2a1.6 1.6 0 0 0-1.6 1.6v14a1.6 1.6 0 0 0 1.6 1.6h3"/><path d="M14 3.6v4.8h4.8"/><path d="M7.6 8.4h3.4M7.6 11.6h4.4"/><circle cx="15" cy="15.4" r="3.8"/><path d="m17.8 18.2 3 3"/></svg></div>
+            <h3 class="np-ct">Auditoria Empresarial</h3>
+            <p class="np-cd">Exame independente de contas, controles e processos: o que os números realmente dizem sobre a sua operação.</p>
+            <ul class="np-tags">
+              <li>Auditoria de balanço</li>
+              <li>Controles internos</li>
+            </ul>
+            <span class="np-link">Falar com a auditoria <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+
+          <!-- ===== E5 · Recuperação de Ativos ===== -->
+          <a data-icone="recuperacao-ativos" data-busca="recuperacao ativo devedor execucao penhora bloqueio rastreio credito calote inadimplencia cobranca ganhei acao receber sumiu dinheiro" class="np-card np-pillar-ativos" data-eixo="5" data-np-pillar="ativos" href="pages/recuperacao-ativos.html">
+            <span class="np-tag">E5 · Recuperação de Ativos</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3.6" width="18" height="15.2" rx="1.8"/><path d="M5.8 6.4h12.4v9.6H5.8z"/><circle cx="12" cy="11.2" r="2.8"/><path d="M12 8.4v5.6M9.2 11.2h5.6"/><path d="M6.4 18.8v1.8M17.6 18.8v1.8"/></svg></div>
+            <h3 class="np-ct">Recuperação de Ativos</h3>
+            <p class="np-cd">Localização, bloqueio e retomada de bens e créditos — do rastreio patrimonial à execução do que é seu.</p>
+            <ul class="np-tags">
+              <li>Rastreio patrimonial</li>
+              <li>Execução de créditos</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+
+          <!-- ===== E6 · Consultoria Trabalhista ===== -->
+          <a data-icone="quitacao-anual" data-busca="quitacao anual passivo trabalhista prescricao quinquenal exercicio balanco folha esocial sindicato homologacao 507b eficacia liberatoria auditoria" class="np-card np-pillar-trabalhista" data-eixo="6" data-np-pillar="trabalhista" href="solucoes/consultoria-trabalhista/quitacao-anual.html">
+            <span class="np-tag">E6 · Consultoria Trabalhista</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="5.2" width="17.2" height="15.4" rx="1.8"/><path d="M3.4 10h17.2"/><path d="M8 3.4v3.2M16 3.4v3.2"/><path d="m8.8 14.8 2.2 2.2 4.2-4.4"/></svg></div>
+            <h3 class="np-ct">Quitação Anual</h3>
+            <p class="np-cd">Audita, corrige e quita o exercício trabalhista todo ano — como se fecha um balanço.</p>
+            <ul class="np-tags">
+              <li>Art. 507-B</li>
+              <li>Eficácia liberatória</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="blindagem-contratual" data-busca="contrato trabalho admissao enquadramento clt pejotizacao autonomo terceirizado subordinacao clausula arbitragem aditivo politica ordem de servico" class="np-card np-pillar-trabalhista" data-eixo="6" data-np-pillar="trabalhista" href="solucoes/consultoria-trabalhista/blindagem-contratual.html">
+            <span class="np-tag">E6 · Consultoria Trabalhista</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.9 4.6 5.8v6.1c0 4.7 7.4 9.2 7.4 9.2s7.4-4.5 7.4-9.2V5.8z"/><path d="M9.2 10.4h5.6M9.2 13.6h3.6"/></svg></div>
+            <h3 class="np-ct">Blindagem Contratual</h3>
+            <p class="np-cd">Estrutura o vínculo desde a admissão para que o contrato produza prova, e não passivo.</p>
+            <ul class="np-tags">
+              <li>Enquadramento</li>
+              <li>Cláusula arbitral</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="conformidade-psicossocial" data-busca="nr1 nr-1 risco psicossocial saude mental assedio burnout pgr iso 45003 fiscalizacao autuacao afastamento estabilidade acidentaria denuncia" class="np-card np-pillar-trabalhista" data-eixo="6" data-np-pillar="trabalhista" href="solucoes/consultoria-trabalhista/conformidade-psicossocial.html">
+            <span class="np-tag">E6 · Consultoria Trabalhista</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 3.4h5.6a1.2 1.2 0 0 1 1.2 1.2v.9a1.2 1.2 0 0 1-1.2 1.2H9.2A1.2 1.2 0 0 1 8 5.5v-.9a1.2 1.2 0 0 1 1.2-1.2z"/><path d="M16 5.4h1.6a1.8 1.8 0 0 1 1.8 1.8v12.4a1.8 1.8 0 0 1-1.8 1.8H6.4a1.8 1.8 0 0 1-1.8-1.8V7.2a1.8 1.8 0 0 1 1.8-1.8H8"/><path d="M7.8 14.6h2.3l1.2-2.4 1.6 4.4 1.1-2h2"/></svg></div>
+            <h3 class="np-ct">Conformidade Psicossocial</h3>
+            <p class="np-cd">Transforma a gestão de riscos psicossociais em dossiê de defesa contra autuação e adoecimento.</p>
+            <ul class="np-tags">
+              <li>NR-1</li>
+              <li>ISO 45003</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="decisao-assistida" data-busca="demissao desligamento advertencia justa causa jornada estabilidade gestor rh parecer risco antes trilha auditoria prova comite" class="np-card np-pillar-trabalhista" data-eixo="6" data-np-pillar="trabalhista" href="solucoes/consultoria-trabalhista/decisao-assistida.html">
+            <span class="np-tag">E6 · Consultoria Trabalhista</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.4" cy="5.6" r="2.2"/><circle cx="17.6" cy="12" r="2.2"/><circle cx="6.4" cy="18.4" r="2.2"/><path d="M6.4 7.8v8.4"/><path d="M8.6 5.6h4.6a2.2 2.2 0 0 1 2.2 2.2v2"/><path d="M8.6 18.4h4.6a2.2 2.2 0 0 0 2.2-2.2v-2"/></svg></div>
+            <h3 class="np-ct">Decisão Assistida</h3>
+            <p class="np-cd">Nenhum desligamento, advertência ou mudança de jornada sai sem análise prévia de risco.</p>
+            <ul class="np-tags">
+              <li>Análise pré-decisão</li>
+              <li>Trilha probatória</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="camara-de-acordos" data-busca="acordo mediacao conciliacao conflito reclamatoria audiencia homologacao coisa julgada pdv plano demissao voluntaria desjudicializacao sindicato" class="np-card np-pillar-trabalhista" data-eixo="6" data-np-pillar="trabalhista" href="solucoes/consultoria-trabalhista/camara-de-acordos.html">
+            <span class="np-tag">E6 · Consultoria Trabalhista</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 12h6.2"/><polyline points="7.2 9.6 9.6 12 7.2 14.4"/><path d="M20.8 12h-6.2"/><polyline points="16.8 9.6 14.4 12 16.8 14.4"/><circle cx="12" cy="12" r="1.6"/><path d="M12 3.4v3.6M12 17v3.6"/></svg></div>
+            <h3 class="np-ct">Câmara de Acordos</h3>
+            <p class="np-cd">Resolve o conflito antes do processo, com acordo homologado e força de coisa julgada.</p>
+            <ul class="np-tags">
+              <li>Mediação privada</li>
+              <li>PDV assistido</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+
+          <a data-icone="defesa-empresarial" data-busca="defesa empresarial contencioso trabalhista litigio processo reclamatoria acao coletiva sindicato dissidio mpt inquerito civil acp tac fiscalizacao auto de infracao defesa administrativa recurso ordinario revista audiencia preposto prova calculo liquidacao execucao embargos penhora provisao deposito recursal seguro garantia fianca bancaria socio holding grupo economico desconsideracao" class="np-card np-pillar-trabalhista" data-eixo="6" data-np-pillar="trabalhista" href="solucoes/consultoria-trabalhista/defesa-empresarial.html">
+            <span class="np-tag">E6 · Consultoria Trabalhista</span>
+            <div class="np-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.4v17.2"/><path d="M6.4 6.6h11.2"/><path d="M8.4 6.2 5.4 13h6z"/><path d="M15.6 6.2 12.6 13h6z"/><path d="M8.4 20.6h7.2"/></svg></div>
+            <h3 class="np-ct">Defesa Empresarial</h3>
+            <p class="np-cd">Defende a empresa no litígio trabalhista — da reclamatória à execução, do MPT à fiscalização.</p>
+            <ul class="np-tags">
+              <li>Contencioso</li>
+              <li>Execução</li>
+            </ul>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </a>
+        </div>
+
+        <!-- ---------- Faixa de conversão ---------- -->
+        <div class="np-closer">
+          <div class="np-closer-text">
+            <h3>Não sabe por qual eixo começar?</h3>
+            <p>
+              Em uma conversa de 30 minutos mapeamos a sua exposição patrimonial e
+              indicamos quais soluções fazem sentido para o seu caso — sem custo e
+              sem compromisso.
+            </p>
+          </div>
+          <a
+            class="np-btn np-btn-primary np-closer-btn"
+            href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20um%20diagn%C3%B3stico%20patrimonial%20com%20a%20Complexo%20DMC."
+            target="_blank"
+            rel="noopener">
+            Falar com um especialista
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
         </div>
       </div>
@@ -944,6 +1559,33 @@
       </div>
     </section>
 
+      <!-- ============================================ VÍDEO ============================================ -->
+      <section class="section" id="video" aria-labelledby="video-titulo">
+        <div class="section-container">
+          <div class="section-header">
+            <p class="section-subtitle">Em vídeo</p>
+            <h2 class="section-title" id="video-titulo">
+              O Complexo DMC <span class="gradient-text">em vídeo</span>
+            </h2>
+            <p class="section-description">
+              Quem somos, como os seis eixos trabalham juntos e o que muda quando
+              jurídico, contábil, tributário e trabalhista respondem sob a mesma governança.
+            </p>
+          </div>
+
+          <!-- Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
+               (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
+               reservado. Quem monta o player é assets/js/video.js. -->
+          <div class="page-video__frame" data-video="" data-video-title="Complexo DMC">
+            <div class="page-video__empty">
+              <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
+              <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
+              <p class="page-video__empty-text">Vídeo institucional do Complexo DMC — em breve neste espaço.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ============================================ CONTATO ============================================ -->
       <section class="section contact-section-new" id="contact">
         <!-- Background Elements -->
@@ -1016,12 +1658,12 @@
                 <div class="rodape-section">
                     <h3>Áreas de Atuação</h3>
                     <ul>
-                    <li><a href="index.html#features">Planejamento Sucessório</a></li>
-                    <li><a href="pages/planejamento-sucessorio.html#beneficios">Por que o planejamento sucessório é urgente?</a></li>
-                    <li><a href="index.html#features">Holding Patrimonial</a></li>
-                    <li><a href="index.html#features">Compliance & Governança</a></li>
-                    <li><a href="index.html#features">Planejamento Tributário</a></li>
-                    <li><a href="index.html#features">Blindagem Patrimonial</a></li>
+                    <li><a href="pages/planejamento-sucessorio.html">Planejamento Sucessório</a></li>
+                    <li><a href="pages/por-que-urgente.html">Por que o planejamento sucessório é urgente?</a></li>
+                    <li><a href="pages/holding-patrimonial.html">Holding Patrimonial</a></li>
+                    <li><a href="pages/compliance-governanca.html">Compliance &amp; Governança</a></li>
+                    <li><a href="pages/planejamento-tributario.html">Planejamento Tributário</a></li>
+                    <li><a href="pages/blindagem-patrimonial.html">Blindagem Patrimonial</a></li>
                     </ul>
                 </div>
                 <div class="rodape-section">
@@ -1055,7 +1697,7 @@
       <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=traco3"></script>
 
     <!-- Orbital Interactivity -->
     <script>

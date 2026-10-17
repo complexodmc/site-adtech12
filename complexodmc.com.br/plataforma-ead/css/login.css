@@ -1,0 +1,1021 @@
+/* =============================================================
+   COMPLEXO DMC · TELA DE ACESSO
+   Escopo total em .login-page — nenhum token global é alterado,
+   as outras páginas da plataforma seguem intactas.
+
+   Divisão do trabalho visual:
+     WebGL  → estrutura (linhas, nós, partículas, rinoceronte)
+     CSS    → atmosfera (grid, halos, vinheta) e toda a interface
+   O canvas é fullscreen e a atmosfera também: é isso que faz os
+   dois lados da tela parecerem uma coisa só, sem divisória.
+   ============================================================= */
+
+.login-page {
+  /* fundo */
+  --ka-bg-0: #030708;
+  --ka-bg-1: #050a0d;
+  --ka-bg-2: #071014;
+  /* luz */
+  --ka-cyan: #00dff5;
+  --ka-teal: #00e6c7;
+  --ka-emerald: #00f57a;
+  /* tinta */
+  --ka-white: #f4f7f8;
+  --ka-ink-2: rgba(255, 255, 255, 0.72);
+  --ka-ink-3: rgba(255, 255, 255, 0.60);
+  --ka-ink-4: rgba(255, 255, 255, 0.44);
+  /* superfícies */
+  --ka-borda: rgba(0, 223, 245, 0.18);
+  --ka-borda-fraca: rgba(0, 223, 245, 0.10);
+  --ka-glow-cyan: rgba(0, 223, 245, 0.20);
+  --ka-glow-green: rgba(0, 245, 122, 0.18);
+  --ka-card: rgba(6, 14, 18, 0.75);
+  --ka-raio: 22px;
+
+  min-height: 100vh;
+  background: var(--ka-bg-0);
+  color: var(--ka-white);
+  overflow-x: hidden;
+}
+
+.login-page *,
+.login-page *::before,
+.login-page *::after { box-sizing: border-box; }
+
+/* Foco visível e consistente em tudo que é operável. */
+.login-page :focus-visible {
+  outline: 2px solid var(--ka-cyan);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* =============================================================
+   ATMOSFERA — camadas fixas, sem custo de renderização por frame
+   ============================================================= */
+.atmos {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 38% 38%, var(--ka-bg-2) 0%, var(--ka-bg-1) 38%, var(--ka-bg-0) 78%);
+}
+
+/* Grid técnico: ambiente computacional, não papel milimetrado.
+   A máscara elíptica impede que ele vire textura de template. */
+.atmos__grid {
+  position: absolute;
+  inset: -2px;
+  background-image:
+    linear-gradient(rgba(0, 223, 245, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 223, 245, 0.045) 1px, transparent 1px);
+  background-size: 96px 96px;
+  -webkit-mask-image: radial-gradient(ellipse 74% 68% at 40% 44%, #000 4%, transparent 76%);
+  mask-image: radial-gradient(ellipse 74% 68% at 40% 44%, #000 4%, transparent 76%);
+  opacity: 0.9;
+}
+
+.atmos__lume { position: absolute; border-radius: 50%; }
+
+/* halo da torre */
+.atmos__lume--torre {
+  left: 40%;
+  top: 42%;
+  width: 74vh;
+  height: 74vh;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,
+    rgba(0, 223, 245, 0.11) 0%,
+    rgba(0, 230, 199, 0.05) 34%,
+    transparent 68%);
+  filter: blur(12px);
+}
+/* pé de luz no chão da base */
+.atmos__lume--chao {
+  left: 40%;
+  top: 66%;
+  width: 46vh;
+  height: 15vh;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(0, 245, 122, 0.10) 0%, transparent 68%);
+  filter: blur(16px);
+}
+/* leve presença de luz atrás do card, para ele não flutuar no vazio */
+.atmos__lume--acesso {
+  right: -14vw;
+  top: 8%;
+  width: 62vw;
+  height: 70vh;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 223, 245, 0.055) 0%, transparent 62%);
+  filter: blur(18px);
+}
+.atmos__vinheta {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(130% 110% at 40% 40%, transparent 42%, rgba(0, 0, 0, 0.62) 100%);
+}
+
+/* Canvas da arquitetura: decorativo, fixo, sem captura de eventos. */
+.arquitetura {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.1s ease;
+}
+.login-page.is-gl-ready .arquitetura { opacity: 1; }
+
+/* Sem WebGL: a atmosfera assume sozinha e nada parece quebrado. */
+.login-page.is-gl-off .atmos__lume--torre { opacity: 0.85; }
+.login-page.is-gl-off .atmos__grid { opacity: 0.55; }
+
+/* =============================================================
+   LAYOUT
+   ============================================================= */
+.acesso-layout {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: minmax(0, 61fr) minmax(400px, 39fr);
+  align-items: stretch;
+}
+
+.palco {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(2rem, 4vh, 3.5rem) clamp(1.5rem, 3vw, 3rem) clamp(1.75rem, 3.5vh, 2.75rem) clamp(2.5rem, 5vw, 5rem);
+  min-width: 0;
+}
+
+/* =============================================================
+   RÓTULOS DAS CAMADAS
+   As posições verticais espelham a altura projetada de cada nível
+   na cena 3D — o rótulo aponta para a camada, não flutua solto.
+   ============================================================= */
+.camadas {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: clamp(2.5rem, 5vw, 5rem);
+  width: min(360px, 31vw);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+.camadas__item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 34px max-content minmax(24px, 1fr);
+  align-items: center;
+  gap: 0.75rem;
+  transform: translateY(-50%);
+  pointer-events: auto;
+  cursor: default;
+  opacity: 0;
+}
+/* Plano B. Com WebGL no ar, login-experience.js sobrescreve `top` e
+   `right` de cada item pela projeção real da laje correspondente — é
+   a única forma de o conector encostar na geometria em qualquer
+   proporção de tela. Os valores abaixo são a mesma projeção calculada
+   para 16:9 e valem enquanto a cena não está disponível. */
+.camadas__item:nth-child(1) { top: 13.9%; }   /* Aplicação  · Y 3.12 */
+.camadas__item:nth-child(2) { top: 22.5%; }   /* Estratégia · Y 2.50 */
+.camadas__item:nth-child(3) { top: 39.5%; }   /* Método     · Y 1.26 */
+.camadas__item:nth-child(4) { top: 48.2%; }   /* Fundação   · Y 0.62 */
+
+/* Selo hexagonal: a mesma forma da referência. O contorno vem de dois
+   hexágonos sobrepostos (::before pinta a borda, ::after recorta o miolo),
+   porque clip-path descarta qualquer `border`. */
+.camadas__icone {
+  position: relative;
+  width: 42px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  color: rgba(0, 223, 245, 0.62);
+  transition: color .35s ease, filter .35s ease;
+  --hex: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+.camadas__icone::before,
+.camadas__icone::after {
+  content: '';
+  position: absolute;
+  clip-path: var(--hex);
+  transition: background .35s ease;
+}
+.camadas__icone::before {
+  inset: 0;
+  background: rgba(0, 223, 245, 0.34);
+}
+.camadas__icone::after {
+  inset: 1.4px;
+  background: #04090c;
+}
+.camadas__icone svg {
+  position: relative;
+  z-index: 1;
+  width: 17px;
+  height: 17px;
+}
+
+.camadas__texto { display: flex; flex-direction: column; gap: 0.18rem; min-width: 0; }
+.camadas__nome {
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(0, 223, 245, 0.92);
+  transition: color .35s ease, text-shadow .35s ease;
+}
+.camadas__desc {
+  font-size: 0.72rem;
+  line-height: 1.32;
+  color: rgba(255, 255, 255, 0.52);
+  transition: color .35s ease;
+}
+
+/* Conector: sai do rótulo e aponta para a camada correspondente. */
+.camadas__conector {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 223, 245, 0.50), rgba(0, 223, 245, 0.12));
+  transition: background .35s ease;
+}
+.camadas__no {
+  position: absolute;
+  right: -3px;
+  top: -2.5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 223, 245, 0.75);
+  background: rgba(0, 223, 245, 0.18);
+  transition: background .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+
+/* Camada em foco: o selo acende junto com o rótulo e a camada 3D. */
+.camadas__item:hover .camadas__icone,
+.camadas__item.is-ativa .camadas__icone {
+  color: var(--ka-white);
+  filter: drop-shadow(0 0 12px var(--ka-glow-cyan));
+}
+.camadas__item:hover .camadas__icone::before,
+.camadas__item.is-ativa .camadas__icone::before {
+  background: var(--ka-cyan);
+}
+
+.camadas__item:hover .camadas__nome,
+.camadas__item.is-ativa .camadas__nome {
+  color: var(--ka-white);
+  text-shadow: 0 0 18px var(--ka-glow-cyan);
+}
+.camadas__item:hover .camadas__desc,
+.camadas__item.is-ativa .camadas__desc { color: rgba(255, 255, 255, 0.78); }
+.camadas__item:hover .camadas__conector,
+.camadas__item.is-ativa .camadas__conector {
+  background: linear-gradient(90deg, var(--ka-cyan), rgba(0, 223, 245, 0.35));
+}
+.camadas__item:hover .camadas__no,
+.camadas__item.is-ativa .camadas__no {
+  background: var(--ka-cyan);
+  border-color: var(--ka-cyan);
+  box-shadow: 0 0 14px var(--ka-cyan);
+}
+/* A camada Aplicação é a que conclui: recebe o verde.
+   O brilho vem de drop-shadow (segue o recorte hexagonal); box-shadow
+   desenharia um halo retangular atrás de uma forma de seis lados. */
+.camadas__item:nth-child(1) .camadas__nome { color: rgba(0, 245, 122, 0.88); }
+.camadas__item:nth-child(1):hover .camadas__icone,
+.camadas__item:nth-child(1).is-ativa .camadas__icone {
+  filter: drop-shadow(0 0 12px var(--ka-glow-green));
+}
+.camadas__item:nth-child(1):hover .camadas__icone::before,
+.camadas__item:nth-child(1).is-ativa .camadas__icone::before {
+  background: var(--ka-emerald);
+}
+
+/* =============================================================
+   HEADLINE
+   ============================================================= */
+/* Largura calibrada para "Conhecimento que se constrói" caber em uma
+   linha: a headline é de duas linhas, e quebrar em três desmancha o
+   paralelo entre a frase e as camadas empilhadas ao lado. */
+.palco__copy { max-width: 46rem; }
+
+.palco__titulo {
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3.15vw, 3rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  color: var(--ka-white);
+  margin: 0;
+  opacity: 0;
+}
+/* "camada sobre" fica cyan e a última palavra vira verde, como na
+   referência — por isso o verde só entra depois de 70% da linha. */
+.palco__titulo-acento {
+  display: block;
+  /* fit-content: sem isso o gradiente se estica pela largura do bloco e o
+     verde cai depois do fim da frase, deixando a linha inteira ciano. */
+  width: fit-content;
+  background: linear-gradient(90deg, #00dff5 0%, #00dff5 40%, #00e6c7 60%, #00f57a 82%, #00f57a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.palco__lede {
+  margin: 1.35rem 0 0;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  line-height: 1.62;
+  font-weight: 400;
+  color: var(--ka-ink-2);
+  opacity: 0;
+}
+
+.palco__pilares {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2.4rem;
+  list-style: none;
+  margin: 1.9rem 0 0;
+  padding: 0;
+  opacity: 0;
+}
+.palco__pilares li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-left: 1rem;
+}
+.palco__pilares b {
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+.palco__pilares span {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.56);
+}
+.palco__pilares li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.42rem;
+  width: 4px;
+  height: 4px;
+  background: var(--ka-cyan);
+  box-shadow: 0 0 10px var(--ka-glow-cyan);
+}
+.palco__pilares li:last-child::before {
+  background: var(--ka-emerald);
+  box-shadow: 0 0 10px var(--ka-glow-green);
+}
+
+/* =============================================================
+   PROGRESSÃO — elemento arquitetônico da interface, não menu
+   ============================================================= */
+.progressao {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: start;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+  margin: clamp(2rem, 4vh, 3.25rem) 0 0;
+  padding: 0;
+  counter-reset: etapa;
+  opacity: 0;
+}
+.progressao__etapa {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-right: clamp(1rem, 2.4vw, 2.4rem);
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.54);
+  white-space: nowrap;
+}
+.progressao__etapa + .progressao__etapa { padding-left: clamp(1rem, 2.4vw, 2.4rem); }
+.progressao__etapa + .progressao__etapa::before {
+  content: '';
+  position: absolute;
+  margin-left: calc(-1 * clamp(1rem, 2.4vw, 2.4rem) * 2 - 0.6rem);
+  width: calc(clamp(1rem, 2.4vw, 2.4rem) * 2);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 223, 245, 0.06), rgba(0, 223, 245, 0.30), rgba(0, 223, 245, 0.06));
+}
+.progressao__no {
+  width: 5px;
+  height: 5px;
+  border: 1px solid rgba(0, 223, 245, 0.55);
+  transform: rotate(45deg);
+  flex: none;
+}
+.progressao__etapa:last-child { color: rgba(0, 245, 122, 0.72); }
+.progressao__etapa:last-child .progressao__no {
+  border-color: rgba(0, 245, 122, 0.6);
+  background: rgba(0, 245, 122, 0.18);
+}
+
+/* =============================================================
+   ACESSO — o card
+   ============================================================= */
+.acesso {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2rem, 5vh, 4rem) clamp(1.5rem, 3.2vw, 3.5rem);
+  min-width: 0;
+}
+
+.acesso__card {
+  position: relative;
+  width: 100%;
+  max-width: 408px;
+  padding: 2.6rem 2.4rem 2.2rem;
+  border-radius: var(--ka-raio);
+  background:
+    radial-gradient(120% 80% at var(--mx, 50%) var(--my, 0%), rgba(0, 223, 245, 0.055) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(9, 20, 25, 0.82) 0%, var(--ka-card) 46%, rgba(4, 10, 13, 0.86) 100%);
+  border: 1px solid var(--ka-borda-fraca);
+  backdrop-filter: blur(22px) saturate(115%);
+  -webkit-backdrop-filter: blur(22px) saturate(115%);
+  box-shadow:
+    0 40px 90px -30px rgba(0, 0, 0, 0.85),
+    0 12px 34px -18px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  opacity: 0;
+}
+
+/* Iluminação de borda: ciano entrando pela esquerda alta, esmeralda
+   pela direita alta. Máscara em xor para acender só a moldura — sem
+   contorno neon fechando o card. */
+.acesso__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background:
+    linear-gradient(138deg, rgba(0, 223, 245, 0.85) 0%, rgba(0, 223, 245, 0) 30%),
+    linear-gradient(222deg, rgba(0, 245, 122, 0.55) 0%, rgba(0, 245, 122, 0) 26%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+/* Luz física derramando das duas quinas superiores. */
+.acesso__card::after {
+  content: '';
+  position: absolute;
+  inset: -1px -1px auto;
+  height: 130px;
+  border-radius: var(--ka-raio) var(--ka-raio) 0 0;
+  background:
+    radial-gradient(60% 100% at 6% 0%, rgba(0, 223, 245, 0.16) 0%, transparent 70%),
+    radial-gradient(52% 100% at 96% 0%, rgba(0, 245, 122, 0.10) 0%, transparent 72%);
+  pointer-events: none;
+}
+
+/* A marca é o caminho de volta ao site — a tela de acesso não tem
+   nenhum outro. */
+.acesso__marca {
+  display: inline-block;
+  margin: 0 0 1.5rem;
+  line-height: 0;
+  border-radius: 8px;
+  transition: filter .28s ease, transform .28s cubic-bezier(.16, 1, .3, 1);
+}
+.acesso__marca:hover { transform: translateY(-1px); filter: brightness(1.12); }
+
+.acesso__logo {
+  height: 46px;
+  width: auto;
+  display: block;
+  filter: drop-shadow(0 0 26px rgba(0, 223, 245, 0.35));
+  opacity: 0;
+}
+
+.acesso__overline {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  color: var(--ka-cyan);
+}
+
+.acesso__titulo {
+  margin: 0 0 1.9rem;
+  font-family: var(--font-display);
+  font-size: 1.42rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.018em;
+  color: var(--ka-white);
+}
+.acesso__titulo-acento {
+  display: block;
+  background: linear-gradient(90deg, #00dff5 0%, #00e6c7 45%, #00f57a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ---------- abas ---------- */
+.abas {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  padding: 3px;
+  margin-bottom: 1.6rem;
+  background: rgba(0, 0, 0, 0.30);
+  border: 1px solid rgba(255, 255, 255, 0.045);
+  border-radius: 10px;
+}
+.abas__indicador {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 4px);
+  border-radius: 7px;
+  background: rgba(0, 223, 245, 0.055);
+  box-shadow: inset 0 -1px 0 rgba(0, 223, 245, 0.55), 0 0 20px rgba(0, 223, 245, 0.10);
+  transition: transform .38s cubic-bezier(.16, 1, .3, 1);
+  pointer-events: none;
+}
+.abas.is-signup .abas__indicador { transform: translateX(calc(100% + 2px)); }
+
+.abas__botao {
+  position: relative;
+  z-index: 1;
+  padding: 0.62rem 0.5rem;
+  background: none;
+  border: 0;
+  border-radius: 7px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ka-ink-3);
+  cursor: pointer;
+  transition: color .28s ease;
+}
+.abas__botao:hover { color: var(--ka-ink-2); }
+.abas__botao.is-active { color: var(--ka-white); }
+
+/* ---------- campos ---------- */
+.campo { margin-bottom: 1.05rem; }
+.campo label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(0, 223, 245, 0.78);
+}
+.campo__caixa {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(0, 223, 245, 0.15);
+  border-radius: 11px;
+  transition: border-color .28s ease, background .28s ease, box-shadow .28s ease;
+}
+.campo__caixa:focus-within {
+  border-color: rgba(0, 223, 245, 0.60);
+  background: rgba(0, 223, 245, 0.035);
+  box-shadow: 0 0 0 3px rgba(0, 223, 245, 0.09);
+}
+.campo__icone {
+  display: grid;
+  place-items: center;
+  color: rgba(0, 223, 245, 0.42);
+  transition: color .28s ease;
+}
+.campo__icone svg { width: 16px; height: 16px; }
+.campo__caixa:focus-within .campo__icone { color: var(--ka-cyan); }
+
+.campo input {
+  width: 100%;
+  padding: 0.82rem 0.9rem 0.82rem 0;
+  background: none;
+  border: 0;
+  color: var(--ka-white);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  letter-spacing: 0.01em;
+}
+.campo input:focus { outline: none; }
+.campo input::placeholder { color: var(--ka-ink-4); }
+/* Autofill do Chrome não pode devolver o fundo branco. */
+.campo input:-webkit-autofill,
+.campo input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--ka-white);
+  -webkit-box-shadow: 0 0 0 1000px rgba(6, 14, 18, 0.98) inset;
+  caret-color: var(--ka-white);
+  transition: background-color 9999s ease;
+}
+
+.campo__olho {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-right: 2px;
+  background: none;
+  border: 0;
+  border-radius: 8px;
+  color: var(--ka-ink-4);
+  cursor: pointer;
+  transition: color .25s ease, background .25s ease;
+}
+.campo__olho:hover { color: var(--ka-cyan); background: rgba(0, 223, 245, 0.06); }
+.campo__olho svg { width: 17px; height: 17px; }
+.campo__olho .campo__olho-ocultar { display: none; }
+.campo__olho[aria-pressed="true"] .campo__olho-ver { display: none; }
+.campo__olho[aria-pressed="true"] .campo__olho-ocultar { display: block; }
+
+/* Aviso preso ao campo (Caps Lock): âmbar, para não se confundir nem
+   com o erro em vermelho nem com o aviso em verde do formulário. */
+.campo__aviso {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0.45rem 0 0;
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: #ffcf8a;
+  animation: msg-entra .24s cubic-bezier(.16, 1, .3, 1);
+}
+.campo__aviso[hidden] { display: none; }
+.campo__aviso svg { width: 14px; height: 14px; flex: none; }
+
+/* ---------- mensagens ---------- */
+.acesso__erro,
+.acesso__aviso {
+  margin: 0.9rem 0 0;
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  animation: msg-entra .34s cubic-bezier(.16, 1, .3, 1);
+}
+.acesso__erro {
+  background: rgba(255, 86, 112, 0.07);
+  border: 1px solid rgba(255, 86, 112, 0.32);
+  color: #ffb0bd;
+}
+.acesso__aviso {
+  background: rgba(0, 245, 122, 0.07);
+  border: 1px solid rgba(0, 245, 122, 0.30);
+  color: #8ff2bd;
+}
+.acesso__erro[hidden],
+.acesso__aviso[hidden] { display: none; }
+@keyframes msg-entra {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- CTA ---------- */
+.acesso__cta {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.95rem 1.25rem;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(96deg, #00dff5 0%, #00e6c7 48%, #00f57a 100%);
+  background-size: 150% 100%;
+  color: #02171b;
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    transform .22s cubic-bezier(.16, 1, .3, 1),
+    box-shadow .28s ease,
+    background-position .5s ease,
+    filter .2s ease;
+  box-shadow: 0 10px 26px -12px rgba(0, 223, 245, 0.55);
+}
+.acesso__cta:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background-position: 100% 0;
+  box-shadow: 0 16px 34px -14px rgba(0, 223, 245, 0.7), 0 0 0 1px rgba(0, 245, 122, 0.25);
+}
+.acesso__cta:active:not(:disabled) { transform: translateY(0); }
+.acesso__cta:disabled { cursor: progress; filter: saturate(0.85) brightness(0.94); }
+
+/* Varredura luminosa enquanto autentica — sem spinner genérico. */
+.acesso__cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.55) 50%, transparent 80%);
+  transform: translateX(-100%);
+  opacity: 0;
+}
+.acesso__cta.is-carregando::after {
+  opacity: 1;
+  animation: cta-varre 1.15s linear infinite;
+}
+@keyframes cta-varre {
+  to { transform: translateX(100%); }
+}
+
+/* Compressão + pulso no instante em que o acesso é validado. */
+.acesso__cta.is-liberado {
+  animation: cta-comprime .58s cubic-bezier(.16, 1, .3, 1);
+}
+@keyframes cta-comprime {
+  0%   { transform: scaleX(1) translateY(0); }
+  18%  { transform: scaleX(0.965) translateY(1px); box-shadow: 0 0 0 0 rgba(0, 245, 122, 0.55); }
+  55%  { transform: scaleX(1.008) translateY(-2px); box-shadow: 0 0 42px 6px rgba(0, 245, 122, 0.35); }
+  100% { transform: scaleX(1) translateY(0); box-shadow: 0 10px 26px -12px rgba(0, 223, 245, 0.55); }
+}
+
+.acesso__rodape {
+  margin: 1.7rem 0 0;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--ka-ink-3);
+  overflow-wrap: anywhere;
+}
+.acesso__rodape a {
+  color: rgba(0, 223, 245, 0.85);
+  border-bottom: 1px solid rgba(0, 223, 245, 0.28);
+  padding-bottom: 1px;
+  transition: color .2s ease, border-color .2s ease;
+}
+.acesso__rodape a:hover { color: var(--ka-cyan); border-color: var(--ka-cyan); }
+
+/* =============================================================
+   TRANSIÇÃO DE ACESSO
+   O feixe nasce no botão e atravessa a tela até a arquitetura;
+   a cortina só entra no fim, quando a navegação vai acontecer.
+   ============================================================= */
+.feixe {
+  position: fixed;
+  z-index: 4;
+  height: 2px;
+  left: 0;
+  top: 50%;
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--ka-cyan) 42%, #fff 62%, var(--ka-emerald) 82%, transparent);
+  filter: drop-shadow(0 0 12px rgba(0, 223, 245, 0.75));
+}
+/* Gira em torno da ponta que nasce no botão (--feixe-ang vem do JS). */
+.feixe { transform-origin: 100% 50%; }
+.feixe.is-ativo { animation: feixe-atravessa .62s cubic-bezier(.3, 0, .2, 1) forwards; }
+@keyframes feixe-atravessa {
+  0%   { opacity: 0; transform: rotate(var(--feixe-ang, 0rad)) scaleX(0.02); }
+  12%  { opacity: 1; }
+  70%  { opacity: 1; transform: rotate(var(--feixe-ang, 0rad)) scaleX(1); }
+  100% { opacity: 0; transform: rotate(var(--feixe-ang, 0rad)) scaleX(1); }
+}
+
+.cortina {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  background: radial-gradient(120% 100% at 31% 44%, rgba(0, 223, 245, 0.07), var(--ka-bg-0) 62%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .42s ease;
+}
+.cortina.is-ativa { opacity: 1; }
+
+/* =============================================================
+   ENTRADA ENCENADA
+   Os atrasos abaixo acompanham a construção da cena 3D: cada
+   rótulo entra logo depois que a camada correspondente se forma.
+   ============================================================= */
+@keyframes sobe {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes surge {
+  from { opacity: 0; transform: translateY(6px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes entraLateral {
+  from { opacity: 0; transform: translateY(-50%) translateX(-18px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+@keyframes cardEntra {
+  from { opacity: 0; transform: translateY(22px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.login-page .acesso__card { animation: cardEntra 1.05s cubic-bezier(.16, 1, .3, 1) .35s forwards; }
+.login-page .acesso__logo { animation: surge .9s ease-out .55s forwards; }
+
+.login-page .camadas__item { animation: entraLateral .8s cubic-bezier(.16, 1, .3, 1) forwards; }
+.login-page .camadas__item:nth-child(4) { animation-delay: 0.95s; }  /* Fundação  */
+.login-page .camadas__item:nth-child(3) { animation-delay: 1.35s; }  /* Método    */
+.login-page .camadas__item:nth-child(2) { animation-delay: 1.75s; }  /* Estratégia*/
+.login-page .camadas__item:nth-child(1) { animation-delay: 2.15s; }  /* Aplicação */
+
+.login-page .palco__titulo   { animation: sobe .95s cubic-bezier(.16, 1, .3, 1) 1.90s forwards; }
+.login-page .palco__lede     { animation: sobe .9s cubic-bezier(.16, 1, .3, 1) 2.15s forwards; }
+.login-page .palco__pilares  { animation: sobe .9s cubic-bezier(.16, 1, .3, 1) 2.38s forwards; }
+.login-page .progressao      { animation: sobe .9s cubic-bezier(.16, 1, .3, 1) 2.62s forwards; }
+
+/* =============================================================
+   RESPONSIVO
+   ============================================================= */
+
+/* Notebooks de altura baixa: comprime sem quebrar a composição. */
+@media (min-width: 1024px) and (max-height: 820px) {
+  .acesso__card { padding: 2.1rem 2rem 1.8rem; max-width: 386px; }
+  .acesso__marca { margin-bottom: 1.15rem; }
+  .acesso__logo { height: 38px; }
+  .acesso__titulo { font-size: 1.28rem; margin-bottom: 1.5rem; }
+  .abas { margin-bottom: 1.25rem; }
+  .campo { margin-bottom: 0.85rem; }
+  .acesso__rodape { margin-top: 1.25rem; }
+}
+
+/* Tablet paisagem / laptop pequeno. O corte em 760px espelha o
+   breakpoint do palco em knowledge-architecture.js: abaixo disso a
+   cena encolhe para 0.53 e a projeção dos níveis muda junto. */
+@media (min-width: 900px) and (max-height: 759px) {
+  .camadas__item:nth-child(1) { top: 15.5%; }
+  .camadas__item:nth-child(2) { top: 22.8%; }
+  .camadas__item:nth-child(3) { top: 37.4%; }
+  .camadas__item:nth-child(4) { top: 44.9%; }
+
+  /* Em tela baixa as duas lajes do topo ficam a ~54 px uma da outra.
+     O rótulo precisa caber nesse intervalo sem encostar no vizinho:
+     encolhe a descrição e o selo, nunca o nome do nível. */
+  .camadas__icone { width: 34px; height: 38px; }
+  .camadas__icone svg { width: 14px; height: 14px; }
+  .camadas__item { grid-template-columns: 28px max-content minmax(20px, 1fr); gap: 0.6rem; }
+  .camadas__nome { font-size: 0.6rem; letter-spacing: 0.22em; }
+  .camadas__desc { font-size: 0.66rem; line-height: 1.2; }
+}
+
+@media (max-width: 1180px) and (min-width: 900px) {
+  .acesso-layout { grid-template-columns: minmax(0, 55fr) minmax(370px, 45fr); }
+  .camadas { width: min(190px, 22vw); }
+  .camadas__nome { font-size: 0.6rem; letter-spacing: 0.24em; }
+  .palco { padding-left: clamp(1.5rem, 3.5vw, 2.5rem); }
+  .camadas__item:nth-child(1) { top: 14.2%; }
+  .camadas__item:nth-child(2) { top: 22.9%; }
+  .camadas__item:nth-child(3) { top: 40.0%; }
+  .camadas__item:nth-child(4) { top: 48.8%; }
+}
+
+/* Tablet retrato e abaixo: a arquitetura passa a ser cabeçalho
+   visual e o acesso assume a prioridade da página. */
+@media (max-width: 899px) {
+  .acesso-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+    padding: 0 clamp(1.15rem, 5vw, 2.5rem) clamp(2rem, 6vh, 3rem);
+  }
+  .palco { display: contents; }
+  .camadas { display: none; }
+
+  .palco__copy {
+    order: 1;
+    max-width: 34rem;
+    /* Cabeceira menor que a original: o canvas é fixo e cobre a tela
+       inteira, então a torre continua visível ATRÁS do card. O que este
+       espaço reserva é só o topo da composição — não a cena toda. */
+    padding: clamp(7.5rem, 19vh, 10rem) 1rem 1.5rem;
+    text-align: center;
+    margin-inline: auto;
+    /* No mobile a cena passa por trás do texto. Sem este véu a headline
+       cai em cima da cidade e a subheadline fica ilegível. */
+    position: relative;
+  }
+  .palco__copy::before {
+    content: '';
+    position: absolute;
+    inset: auto -2rem -1rem;
+    top: clamp(5.5rem, 15vh, 8rem);
+    z-index: -1;
+    background: radial-gradient(120% 100% at 50% 60%,
+      rgba(2, 5, 9, 0.92) 0%, rgba(2, 5, 9, 0.80) 45%, rgba(2, 5, 9, 0) 100%);
+    pointer-events: none;
+  }
+  .palco__titulo { font-size: clamp(1.55rem, 6.2vw, 2.2rem); }
+  .palco__lede { margin-top: 1rem; font-size: 0.9rem; }
+  .palco__lede br { display: none; }
+  .palco__pilares { display: none; }
+
+  .acesso { order: 2; padding: clamp(1.1rem, 2.6vh, 1.75rem) 0 0; }
+  .acesso__card { max-width: 440px; margin-inline: auto; }
+
+  .progressao {
+    order: 3;
+    justify-content: center;
+    margin: clamp(1.75rem, 4vh, 2.5rem) auto 0;
+  }
+
+  .atmos__grid {
+    -webkit-mask-image: radial-gradient(ellipse 96% 40% at 50% 18%, #000 2%, transparent 74%);
+    mask-image: radial-gradient(ellipse 96% 40% at 50% 18%, #000 2%, transparent 74%);
+  }
+  .atmos__lume--torre { left: 50%; top: 20%; width: 96vw; height: 46vh; }
+  .atmos__lume--chao { left: 50%; top: 33%; width: 70vw; height: 10vh; }
+  .atmos__lume--acesso { display: none; }
+  .arquitetura { opacity: 0; }
+  .login-page.is-gl-ready .arquitetura { opacity: 0.78; }
+
+  /* Sem a cena 3D (celular, economia de dados, aparelho fraco ou WebGL
+     indisponível) não há o que reservar no topo: o espaço vazio só
+     empurrava o formulário para fora da primeira tela. */
+  .login-page.is-gl-off .palco__copy { padding-top: clamp(2.75rem, 8vh, 4.5rem); }
+  .login-page.is-gl-off .palco__copy::before { display: none; }
+}
+
+@media (max-width: 560px) {
+  /* O cartão de acesso precisa caber na primeira tela: o cabeçalho
+     visual encolhe antes de qualquer coisa do formulário. */
+  .palco__copy { padding-top: clamp(5.5rem, 15vh, 7.5rem); }
+  .palco__titulo { font-size: clamp(1.42rem, 5.8vw, 1.9rem); }
+  .palco__lede { margin-top: 0.75rem; font-size: 0.85rem; }
+  .acesso__card { padding: 1.75rem 1.35rem 1.5rem; border-radius: 18px; }
+  .acesso__marca { margin-bottom: 1.1rem; }
+  .acesso__logo { height: 36px; }
+  .acesso__titulo { font-size: 1.22rem; margin-bottom: 1.4rem; }
+  .abas { margin-bottom: 1.2rem; }
+  .campo { margin-bottom: 0.85rem; }
+  .acesso__cta { margin-top: 1.2rem; }
+  .acesso__rodape { margin-top: 1.2rem; font-size: 0.72rem; }
+  .progressao { grid-template-columns: repeat(2, auto); row-gap: 0.85rem; }
+  .progressao__etapa + .progressao__etapa::before { display: none; }
+  .progressao__etapa,
+  .progressao__etapa + .progressao__etapa { padding-inline: 0.7rem; }
+}
+
+/* =============================================================
+   MOVIMENTO REDUZIDO
+   Sem construção encenada, sem câmera, sem varredura. A tela
+   nasce pronta — só opacidade continua sendo usada.
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .login-page .acesso__card,
+  .login-page .acesso__logo,
+  .login-page .camadas__item,
+  .login-page .palco__titulo,
+  .login-page .palco__lede,
+  .login-page .palco__pilares,
+  .login-page .progressao {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  .login-page .camadas__item { transform: translateY(-50%); }
+  .arquitetura { transition: opacity .2s linear; }
+  .acesso__cta.is-carregando::after,
+  .acesso__cta.is-liberado { animation: none; }
+  .feixe.is-ativo { animation: none; opacity: 0; }
+  .abas__indicador { transition: none; }
+  .acesso__erro, .acesso__aviso { animation: none; }
+}

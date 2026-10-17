@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Área logada da plataforma de ensino e arquivos de diagnóstico
+Disallow: /plataforma-ead/
+Disallow: /_np_
+
+Sitemap: https://www.complexodmc.com.br/sitemap.xml

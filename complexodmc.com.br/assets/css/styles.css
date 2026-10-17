@@ -329,21 +329,20 @@ body {
 
 .logo-brand {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
   line-height: 1;
   white-space: nowrap;
 }
 
 .logo-brand-name {
   font-family: "Poppins", "Inter", sans-serif;
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.015em;
   color: #ffffff;
   text-transform: uppercase;
-  padding-bottom: 0.15rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  line-height: 1;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.6);
 }
 
 .logo-brand-accent {
@@ -353,40 +352,19 @@ body {
   -webkit-text-fill-color: transparent;
   color: transparent;
   font-weight: 800;
-}
-
-.logo-brand-tagline {
-  font-family: "Allura", "Great Vibes", cursive;
-  font-size: 1.05rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  word-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.92);
-  text-transform: none;
-  margin-top: 0.05rem;
-  line-height: 1.1;
-  text-align: center;
-  align-self: stretch;
+  filter: drop-shadow(0 0 10px rgba(94, 214, 230, 0.45));
 }
 
 @media (max-width: 1024px) {
   .logo-brand-name {
-    font-size: 0.92rem;
-  }
-  .logo-brand-tagline {
-    font-size: 0.92rem;
+    font-size: 1.3rem;
   }
 }
 
 @media (max-width: 480px) {
-  .logo-brand {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .logo-brand {
-    display: none;
+  .logo-brand-name {
+    font-size: 1.1rem;
+    letter-spacing: 0;
   }
 }
 
@@ -5649,29 +5627,81 @@ body {
 
 
 /* ============================================================
-   NOSSOS PRODUTOS — redesign (grid 3x2, cards clicáveis)
+   SOLUÇÕES — A TRILHA
+   Espinha vertical de 7 etapas com uma porta de entrada.
+   Cada etapa declara um pilar; tudo (nó, filete, kicker, ícone,
+   borda de hover) deriva do único token --np-accent.
    ============================================================ */
+.np-section {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Brilho ambiente. Largura limitada a 100% para não gerar
+   overflow horizontal — por isso a seção não precisa de
+   overflow:hidden, que quebraria position:sticky no futuro. */
+.np-aura {
+  position: absolute;
+  top: 3rem;
+  left: 50%;
+  width: min(1100px, 100%);
+  height: 480px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(94, 214, 230, 0.1) 0%,
+    rgba(110, 230, 140, 0.06) 40%,
+    transparent 72%
+  );
+  filter: blur(30px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* O padding lateral de .section-container é zerado por
+   #features .section-container mais acima no arquivo, então
+   a seção garante o seu próprio recuo. */
+/* Precisa do #features junto: a regra `#features .section-container`
+   (linha ~2990) tem id e venceria por especificidade, mantendo o
+   container em 1300px sem recuo — o que jogava a seção inteira
+   120px para a esquerda do centro. */
+#features.np-section .section-container {
+  max-width: 1244px;
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+/* ---------- Paleta por eixo (E1…E6) ---------- */
+.np-pillar-patrimonial { --np-accent: 94, 214, 230; }  /* E1 · ciano   */
+.np-pillar-fiscal      { --np-accent: 110, 230, 140; } /* E2 · verde   */
+.np-pillar-imobiliario { --np-accent: 127, 180, 255; } /* E3 · azul    */
+.np-pillar-auditoria   { --np-accent: 233, 184, 108; } /* E4 · âmbar   */
+.np-pillar-ativos      { --np-accent: 244, 140, 178; } /* E5 · rosa    */
+.np-pillar-tecnologia,
+.np-pillar-trabalhista { --np-accent: 185, 140, 245; } /* E6 · violeta */
+
+/* ---------- Cabeçalho: centralizado, como todas as outras seções ---------- */
 .np-head {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 3.5rem;
+  max-width: 820px;
+  margin: 0 auto 2.75rem;
   padding-top: 1rem;
+  text-align: center;
 }
 .np-eyebrow {
   display: inline-block;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--primary-cyan);
   padding: 0.4rem 1rem;
-  border: 1px solid rgba(94, 214, 230, 0.25);
+  border: 1px solid rgba(94, 214, 230, 0.28);
   border-radius: 999px;
   margin-bottom: 1.2rem;
 }
 .np-title {
   font-family: "Poppins", sans-serif;
-  font-size: clamp(2rem, 4vw, 2.9rem);
+  font-size: clamp(1.9rem, 4.2vw, 2.9rem);
   font-weight: 700;
   line-height: 1.15;
   margin-bottom: 1rem;
@@ -5685,95 +5715,1398 @@ body {
 }
 .np-sub {
   color: var(--text-secondary);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  max-width: 66ch;
+  margin-inline: auto;
 }
-.np-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+
+/* linha de recorte de público */
+.np-scope {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 1.35rem;
+  padding: 0.85rem 1.1rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border-color);
+  border-left: 2px solid rgba(94, 214, 230, 0.5);
+  border-radius: 0 10px 10px 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 68ch;
+}
+.np-scope svg {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  margin-top: 3px;
+  color: var(--primary-cyan);
+}
+.np-scope strong { color: var(--text-primary); font-weight: 600; }
+.np-scope a { color: var(--primary-cyan); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============================================================
+   ÍNDICE DA TRILHA
+   ============================================================ */
+.np-trailnav { margin-bottom: 2.5rem; }
+.np-trailnav ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+.np-trailnav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.03);
+  /* borda em 3:1 para atender WCAG 1.4.11 em controle interativo */
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  transition: color 0.25s ease, border-color 0.25s ease,
+    background 0.25s ease, transform 0.25s ease;
+}
+.np-trailnav a b {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--primary-cyan);
+  font-variant-numeric: tabular-nums;
+}
+.np-trailnav a:hover {
+  color: var(--text-primary);
+  border-color: rgba(94, 214, 230, 0.55);
+  background: rgba(94, 214, 230, 0.08);
+  transform: translateY(-1px);
+}
+.np-trailnav a.is-current {
+  color: var(--text-primary);
+  border-color: rgba(94, 214, 230, 0.6);
+  background: rgba(94, 214, 230, 0.12);
+}
+.np-trailnav a:focus-visible,
+.np-trailnav a:focus {
+  outline: 2px solid var(--primary-cyan);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   A ESPINHA
+   ============================================================ */
+.np-trail {
+  --np-rail: 4.5rem;
+  --np-node: 3rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
   max-width: 1180px;
-  margin: 0 auto;
 }
+
+.np-stage {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--np-rail) minmax(0, 1fr);
+  padding-bottom: 2.75rem;
+  /* a navbar é fixa: o título não pode ficar embaixo dela */
+  scroll-margin-top: 7rem;
+}
+/* o traço que liga um nó ao próximo */
+.np-stage::before {
+  content: "";
+  position: absolute;
+  top: var(--np-node);
+  bottom: 0;
+  left: calc(var(--np-node) / 2);
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--np-accent), 0.45) 0%,
+    rgba(255, 255, 255, 0.07) 100%
+  );
+}
+.np-stage:last-child { padding-bottom: 0; }
+.np-stage:last-child::before { display: none; }
+
+.np-num {
+  position: relative;
+  z-index: 1;
+  width: var(--np-node);
+  height: var(--np-node);
+  display: grid;
+  place-items: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: rgb(var(--np-accent));
+  background: var(--bg-primary);
+  border: 1px solid rgba(var(--np-accent), 0.45);
+  border-radius: 50%;
+  box-shadow: 0 0 0 6px var(--bg-primary), 0 0 18px rgba(var(--np-accent), 0.16);
+}
+
+.np-stage-main {
+  min-width: 0;
+  padding-top: 0.25rem;
+  padding-left: 0.35rem;
+}
+
+.np-stage-kicker {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgb(var(--np-accent));
+  margin-bottom: 0.5rem;
+}
+.np-stage-title {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+  margin-bottom: 0.7rem;
+}
+.np-stage-q {
+  color: var(--text-secondary);
+  font-size: 0.96rem;
+  line-height: 1.7;
+  max-width: 72ch;
+}
+.np-stage-q strong { color: var(--text-primary); font-weight: 600; }
+.np-stage-q em { color: var(--text-primary); font-style: italic; }
+
+/* "Você sai com": o artefato de saída da etapa */
+.np-out {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.7rem 1rem;
+  border: 1px dashed rgba(var(--np-accent), 0.35);
+  border-radius: 10px;
+  background: rgba(var(--np-accent), 0.04);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 72ch;
+}
+.np-out b {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgb(var(--np-accent));
+  white-space: nowrap;
+}
+
+/* nota de contratação isolada */
+.np-note {
+  margin-top: 0.9rem;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text-tertiary);
+  max-width: 72ch;
+}
+.np-note strong { color: var(--text-secondary); font-weight: 600; }
+
+.np-stage-cards {
+  display: grid;
+  /* Três colunas fixas em vez de auto-fit: as trilhas continuam existindo
+     quando a etapa tem um ou dois cards, então o card mantém a mesma
+     largura nas sete etapas em vez de esticar na linha inteira. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.35rem;
+}
+
+/* ---------- Etapa 01: o único objeto grande da seção ---------- */
+.np-stage--gate .np-stage-main {
+  padding: clamp(1.4rem, 3vw, 2.25rem);
+  background: linear-gradient(
+      135deg,
+      rgba(94, 214, 230, 0.07) 0%,
+      rgba(110, 230, 140, 0.03) 45%,
+      transparent 100%
+    ),
+    var(--bg-secondary);
+  border: 1px solid rgba(var(--np-accent), 0.28);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+.np-stage--gate .np-stage-main::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--gradient-primary);
+}
+.np-stage--gate .np-stage-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+}
+.np-gate-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3.5vw, 2.75rem);
+  align-items: start;
+}
+.np-gate-body { min-width: 0; }
+.np-gate-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.1rem;
+  margin-top: 1.5rem;
+}
+
+.np-gate-side {
+  padding: 1.25rem;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+}
+.np-side-label {
+  display: block;
+  font-size: 0.7rem
+  ;font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.7rem;
+}
+.np-side-lead {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+.np-side-lead strong { color: #fff; font-weight: 600; }
+.np-side-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+.np-side-list li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.np-side-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(var(--np-accent), 0.7);
+}
+
+/* estado :target — quem chega por #etapa-04 vê onde caiu */
+.np-stage:target .np-num {
+  box-shadow: 0 0 0 6px var(--bg-primary),
+    0 0 0 9px rgba(var(--np-accent), 0.28),
+    0 0 24px rgba(var(--np-accent), 0.3);
+}
+.np-stage:target .np-stage-title { color: rgb(var(--np-accent)); }
+
+/* ============================================================
+   BOTÕES
+   ============================================================ */
+.np-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.3s ease, background 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.np-btn svg { width: 17px; height: 17px; transition: transform 0.3s ease; }
+.np-btn:hover svg { transform: translateX(3px); }
+.np-btn-primary {
+  background: var(--gradient-primary);
+  color: #08131a;
+  box-shadow: 0 8px 24px rgba(94, 214, 230, 0.18);
+}
+.np-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(94, 214, 230, 0.28);
+}
+/* CTA secundário como link discreto: dois botões lado a lado
+   leriam-se como duas ofertas concorrentes. */
+.np-quiet {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(255, 255, 255, 0.28);
+  transition: color 0.25s ease, text-decoration-color 0.25s ease;
+}
+.np-quiet:hover {
+  color: var(--primary-cyan);
+  text-decoration-color: var(--primary-cyan);
+}
+/* Safari 15.0–15.3 não conhece :focus-visible e descartaria a
+   regra inteira: o fallback :focus vem antes, em bloco próprio. */
+.np-btn:focus,
+.np-quiet:focus {
+  outline: 2px solid var(--primary-cyan);
+  outline-offset: 3px;
+}
+.np-btn:focus-visible,
+.np-quiet:focus-visible {
+  outline: 2px solid var(--primary-cyan);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   CARDS DE PRODUTO
+   ============================================================ */
 .np-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  align-items: flex-start;
+  gap: 0.65rem;
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
-  border-radius: 18px;
-  padding: 1.6rem;
+  border-radius: 16px;
+  padding: 1.35rem 1.3rem 1.15rem;
   text-decoration: none;
   color: inherit;
   overflow: hidden;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.35s ease, box-shadow 0.35s ease;
 }
-/* borda em gradiente só no hover */
 .np-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 18px;
-  padding: 1px;
-  background: var(--gradient-primary);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  background: radial-gradient(
+    380px circle at var(--np-mx, 50%) var(--np-my, 0%),
+    rgba(var(--np-accent), 0.1),
+    transparent 62%
+  );
   opacity: 0;
   transition: opacity 0.35s ease;
   pointer-events: none;
 }
 .np-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45),
-    0 0 30px rgba(94, 214, 230, 0.15);
+  transform: translateY(-5px);
+  border-color: rgba(var(--np-accent), 0.42);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 26px rgba(var(--np-accent), 0.1);
 }
 .np-card:hover::before { opacity: 1; }
-.np-card:focus-visible {
-  outline: 2px solid var(--primary-cyan);
+.np-card:focus,
+.np-fork:focus {
+  outline: 2px solid rgb(var(--np-accent));
   outline-offset: 3px;
 }
+.np-card:focus-visible,
+.np-fork:focus-visible {
+  outline: 2px solid rgb(var(--np-accent));
+  outline-offset: 3px;
+}
+
 .np-ico {
-  width: 54px;
-  height: 54px;
-  border-radius: 14px;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, rgba(94, 214, 230, 0.14), rgba(110, 230, 140, 0.14));
-  border: 1px solid rgba(94, 214, 230, 0.2);
-  color: var(--primary-cyan);
+  background: linear-gradient(
+    135deg,
+    rgba(var(--np-accent), 0.15),
+    rgba(var(--np-accent), 0.04)
+  );
+  border: 1px solid rgba(var(--np-accent), 0.22);
+  color: rgb(var(--np-accent));
   transition: transform 0.35s ease;
 }
-.np-card:hover .np-ico { transform: scale(1.08); }
-.np-ico svg { width: 26px; height: 26px; }
+.np-card:hover .np-ico { transform: scale(1.07) rotate(-3deg); }
+.np-ico svg { width: 23px; height: 23px; }
+
 .np-ct {
   font-family: "Poppins", sans-serif;
-  font-size: 1.12rem;
+  font-size: 1.02rem;
   font-weight: 600;
+  line-height: 1.32;
   color: #fff;
 }
 .np-cd {
   color: var(--text-secondary);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
+  line-height: 1.6;
   flex: 1;
 }
+.np-cd strong { color: var(--text-primary); font-weight: 600; }
+
+/* entregáveis, no vocabulário das próprias páginas de destino */
+.np-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.2rem 0;
+  padding: 0;
+}
+.np-tags li {
+  font-size: 0.73rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0.22rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  transition: color 0.35s ease, border-color 0.35s ease;
+}
+.np-card:hover .np-tags li { border-color: rgba(var(--np-accent), 0.28); }
+
 .np-link {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.88rem;
+  margin-top: 0.45rem;
+  padding-top: 0.8rem;
+  width: 100%;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.83rem;
   font-weight: 600;
-  color: var(--primary-cyan);
-  margin-top: 0.2rem;
+  color: rgb(var(--np-accent));
 }
-.np-link svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
-.np-card:hover .np-link svg { transform: translateX(4px); }
+.np-link svg { width: 15px; height: 15px; transition: transform 0.3s ease; }
+.np-card:hover .np-link svg,
+.np-fork:hover .np-link svg { transform: translateX(4px); }
 
-@media (max-width: 900px) {
-  .np-grid { grid-template-columns: repeat(2, 1fr); }
+/* entrada suave: o estado inicial só existe quando o JS marca
+   .np-anim, então sem JS nada fica invisível. */
+.np-trail.np-anim .np-card,
+.np-trail.np-anim .np-stage-main > :not(.np-stage-cards) {
+  opacity: 0;
+  transform: translateY(14px);
 }
-@media (max-width: 560px) {
+.np-trail.np-anim .np-stage.np-in .np-card,
+.np-trail.np-anim .np-stage.np-in .np-stage-main > :not(.np-stage-cards) {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.np-trail.np-anim .np-stage.np-in .np-card:hover { transform: translateY(-5px); }
+
+/* ============================================================
+   TRILHAS PARALELAS
+   ============================================================ */
+.np-forks {
+  max-width: 1180px;
+  margin: 3.5rem 0 0;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border-color);
+  scroll-margin-top: 7rem;
+}
+.np-forks-head { max-width: 68ch; margin-bottom: 1.75rem; }
+.np-forks-head h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+.np-forks-head p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.np-forks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.15rem;
+}
+
+.np-fork {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 1.5rem 1.4rem 1.25rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 2px solid rgba(var(--np-accent), 0.55);
+  border-radius: 0 16px 16px 0;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.np-fork:hover {
+  transform: translateY(-5px);
+  border-color: rgba(var(--np-accent), 0.42);
+  border-left-color: rgb(var(--np-accent));
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 26px rgba(var(--np-accent), 0.1);
+}
+.np-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: rgb(var(--np-accent));
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: rgba(var(--np-accent), 0.1);
+}
+.np-fork-path {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.45rem;
+  list-style: none;
+  margin: 0.3rem 0;
+  padding: 0;
+  counter-reset: fork;
+}
+.np-fork-path li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  counter-increment: fork;
+}
+.np-fork-path li::before {
+  content: counter(fork, decimal-leading-zero);
+  font-size: 0.68rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: rgb(var(--np-accent));
+}
+.np-fork-path li:not(:last-child)::after {
+  content: "";
+  width: 12px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ============================================================
+   FAIXA DE CONVERSÃO
+   ============================================================ */
+.np-closer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.75rem;
+  max-width: 1180px;
+  margin: 3rem 0 0;
+  padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.5rem);
+  background: linear-gradient(
+      120deg,
+      rgba(94, 214, 230, 0.08) 0%,
+      rgba(110, 230, 140, 0.05) 55%,
+      transparent 100%
+    ),
+    var(--bg-secondary);
+  border: 1px solid rgba(94, 214, 230, 0.18);
+  border-radius: 20px;
+}
+.np-closer-text { flex: 1 1 340px; min-width: 0; }
+.np-closer-text h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.np-closer-text p {
+  color: var(--text-secondary);
+  font-size: 0.94rem;
+  line-height: 1.6;
+  max-width: 62ch;
+}
+.np-closer-btn { flex: 0 0 auto; }
+
+/* ============================================================
+   GRID DE SOLUÇÕES
+   Uma malha só. O eixo de cada solução é dito pelo selo e pela
+   cor — não pela posição —, então a leitura continua em Z e
+   nenhum eixo fica soterrado no fim da seção.
+   ============================================================ */
+.np-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  max-width: 1180px;
+  margin: 0;
+}
+/* a âncora do eixo para embaixo da navbar fixa */
+.np-card[id] { scroll-margin-top: 7rem; }
+
+/* ============================================================
+   ENTRADA POR PROBLEMA
+   Quem chega não sabe o nome do produto — sabe a dor. Cada linha
+   é a frase do cliente e a solução que responde a ela. É a porta
+   de entrada da seção; o catálogo por eixo vem depois.
+   ============================================================ */
+.np-cases {
+  max-width: 1180px;
+  margin: 0 auto 3rem;
+}
+.np-cases-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+.np-cases-sub {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  margin-bottom: 1.5rem;
+}
+/* mesmo título, usado para abrir a faixa dos eixos */
+.np-axes-head { margin-bottom: 1.1rem; }
+/* ---------- O campo: primeiro buscador, depois captura ---------- */
+.np-ask {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 640px;
+  margin: 0 auto 0.9rem;
+}
+.np-ask-ico {
+  position: absolute;
+  left: 1.1rem;
+  width: 19px;
+  height: 19px;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+.np-ask-input {
+  width: 100%;
+  padding: 0.95rem 3rem;
+  font-family: inherit;
+  font-size: 0.97rem;
+  color: var(--text-primary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.np-ask-input::placeholder { color: var(--text-tertiary); }
+.np-ask-input::-webkit-search-cancel-button { display: none; }
+.np-ask-input:focus {
+  outline: none;
+  border-color: rgba(94, 214, 230, 0.55);
+  box-shadow: 0 0 0 4px rgba(94, 214, 230, 0.12);
+}
+.np-ask-clear {
+  position: absolute;
+  right: 0.85rem;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.np-ask-clear:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.12); }
+.np-ask-clear svg { width: 14px; height: 14px; }
+.np-ask-status {
+  min-height: 1.3rem;
+  margin-bottom: 1.2rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+.np-ask-status b { color: var(--text-primary); font-weight: 600; }
+
+/* Sem resultado o campo troca de função: vira canal direto. */
+.np-ask-empty {
+  max-width: 640px;
+  margin: 0 auto 1.5rem;
+  padding: 1.5rem;
+  text-align: center;
+  background: var(--bg-secondary);
+  border: 1px dashed var(--border-color);
+  border-radius: 16px;
+}
+.np-ask-empty-txt {
+  color: var(--text-secondary);
+  font-size: 0.93rem;
+  line-height: 1.65;
+  margin-bottom: 1.1rem;
+}
+/* o que a busca deixou de fora */
+.np-cases li[hidden],
+.np-ask-empty[hidden] { display: none !important; }
+
+.np-cases ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.np-case {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  height: 100%;
+  padding: 1rem 1.15rem 1rem 1.35rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid rgb(var(--np-accent));
+  border-radius: 4px 12px 12px 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s ease, background 0.3s ease;
+}
+.np-case:hover {
+  transform: translateX(3px);
+  border-color: rgba(var(--np-accent), 0.4);
+  border-left-color: rgb(var(--np-accent));
+  background: linear-gradient(
+      90deg,
+      rgba(var(--np-accent), 0.08),
+      transparent 55%
+    ),
+    var(--bg-secondary);
+}
+.np-case:focus,
+.np-case:focus-visible {
+  outline: 2px solid rgb(var(--np-accent));
+  outline-offset: 3px;
+}
+/* a fala do cliente, no vocabulário dele */
+.np-case-q {
+  grid-column: 1 / -1;
+  font-size: 0.97rem;
+  line-height: 1.5;
+  color: var(--text-primary);
+  font-style: italic;
+}
+/* a resposta da casa */
+.np-case-a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: rgb(var(--np-accent));
+}
+.np-case-a svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.3s ease;
+}
+.np-case:hover .np-case-a svg { transform: translateX(3px); }
+.np-case-e {
+  justify-self: end;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: rgb(var(--np-accent));
+  background: rgba(var(--np-accent), 0.12);
+  border: 1px solid rgba(var(--np-accent), 0.25);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+/* ============================================================
+   OS SEIS EIXOS
+   Mostra a arquitetura da casa antes das soluções: o cliente vê
+   por qual eixo o seu problema entra e salta para ele. São
+   âncoras reais — funcionam sem JS.
+   ============================================================ */
+.np-axes {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.85rem;
+  list-style: none;
+  max-width: 1180px;
+  margin: 0 0 2.5rem;
+  padding: 0;
+}
+.np-axes a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  height: 100%;
+  padding: 0.95rem 1rem 1rem;
+  text-decoration: none;
+  color: inherit;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-top: 2px solid rgb(var(--np-accent));
+  border-radius: 4px 4px 12px 12px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s ease, background 0.3s ease;
+}
+.np-axes a:hover {
+  transform: translateY(-3px);
+  border-color: rgba(var(--np-accent), 0.45);
+  border-top-color: rgb(var(--np-accent));
+  background: linear-gradient(
+      180deg,
+      rgba(var(--np-accent), 0.07),
+      transparent 70%
+    ),
+    var(--bg-secondary);
+}
+.np-axes a:focus,
+.np-axes a:focus-visible {
+  outline: 2px solid rgb(var(--np-accent));
+  outline-offset: 3px;
+}
+.np-axis-code {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: rgb(var(--np-accent));
+}
+.np-axis-name {
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+.np-axis-n {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: 0.75rem;
+  /* --text-tertiary não alcança 4.5:1 em texto pequeno */
+  color: var(--text-secondary);
+}
+
+/* ============================================================
+   DESTAQUE — a solução por onde a casa começa
+   ============================================================ */
+.np-flag {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: center;
+  max-width: 1180px;
+  margin: 0 0 1.75rem;
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  background: linear-gradient(
+      120deg,
+      rgba(var(--np-accent), 0.08) 0%,
+      transparent 62%
+    ),
+    var(--bg-secondary);
+  border: 1px solid rgba(var(--np-accent), 0.22);
+  border-radius: 20px;
+}
+.np-flag-body { min-width: 0; }
+.np-flag-title {
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.35rem, 2.8vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+  margin: 0.85rem 0 0.7rem;
+}
+.np-flag-desc {
+  color: var(--text-secondary);
+  font-size: 0.97rem;
+  line-height: 1.7;
+  max-width: 60ch;
+}
+.np-flag-list {
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+  margin: 1.15rem 0 1.5rem;
+  padding: 0;
+}
+.np-flag-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.np-flag-list svg {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  color: rgb(var(--np-accent));
+}
+.np-flag-list strong { color: var(--text-primary); font-weight: 600; }
+.np-flag-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+}
+
+/* ============================================================
+   ABAS POR EIXO
+   A faixa E1…E6 comanda o banner e o catálogo. Sem JS, os seis
+   banners e os 18 cards aparecem empilhados — nada some de quem
+   não roda script (nem do buscador). Com JS, .np-js liga o
+   modo aba e o eixo ativo é sorteado a cada visita.
+   ============================================================ */
+#features .np-flag[hidden],
+#features .np-card[hidden] { display: none !important; }
+
+.np-axes a[aria-selected="true"] {
+  background: linear-gradient(
+      180deg,
+      rgba(var(--np-accent), 0.14),
+      transparent 75%
+    ),
+    var(--bg-secondary);
+  border-color: rgba(var(--np-accent), 0.5);
+  border-top-width: 3px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(var(--np-accent), 0.18);
+}
+.np-axes a[aria-selected="true"] .np-axis-name { color: #fff; }
+/* seta apontando do eixo ativo para o banner logo abaixo */
+.np-axes a[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 12px;
+  height: 12px;
+  transform: translateX(-50%) rotate(45deg);
+  background: var(--bg-secondary);
+  border-right: 1px solid rgba(var(--np-accent), 0.5);
+  border-bottom: 1px solid rgba(var(--np-accent), 0.5);
+}
+.np-axes li { position: relative; }
+.np-flag[id] { scroll-margin-top: 7rem; }
+
+/* Coluna da direita: a solução em destaque, sorteada a cada visita. */
+.np-spot { display: flex; flex-direction: column; }
+.np-spot-label {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: rgb(var(--np-accent));
+  margin-bottom: 1rem;
+}
+/* O ícone do produto em destaque, no tamanho grande. Mesmo
+   desenho do card, mesma gramática de traço — só que com espaço
+   para respirar e um halo suave na cor do eixo. */
+.np-spot-stage {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 132px;
+  margin: 0 0 1.1rem;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(var(--np-accent), 0.09),
+    transparent 68%
+  );
+}
+.np-spot-stage .np-spot-ico {
+  width: 84px;
+  height: 84px;
+  margin: 0;
+  border: none;
+  background: none;
+  border-radius: 0;
+}
+.np-spot-stage .np-spot-ico svg { width: 100%; height: 100%; }
+
+.np-spot-ico {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  margin: 0;
+}
+.np-spot-head .np-spot-ico svg { width: 19px; height: 19px; }
+.np-spot-head .np-spot-name { margin: 0; }
+
+.np-spot-ico {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 0.9rem;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--np-accent), 0.15),
+    rgba(var(--np-accent), 0.04)
+  );
+  border: 1px solid rgba(var(--np-accent), 0.22);
+  color: rgb(var(--np-accent));
+}
+.np-spot-ico svg { width: 23px; height: 23px; }
+.np-spot-name {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+.np-spot-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1.15rem;
+}
+.np-spot-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgb(var(--np-accent));
+  text-decoration: none;
+}
+.np-spot-link svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
+.np-spot-link:hover svg { transform: translateX(4px); }
+
+/* Coluna da direita: prova numérica, não enfeite. */
+.np-flag-side {
+  min-width: 0;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+}
+.np-flag-side-ico {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--np-accent), 0.15),
+    rgba(var(--np-accent), 0.04)
+  );
+  border: 1px solid rgba(var(--np-accent), 0.22);
+  color: rgb(var(--np-accent));
+}
+.np-flag-side-ico svg { width: 22px; height: 22px; }
+.np-metrics { display: grid; gap: 1rem; margin: 0; }
+/* column-reverse: o número entra antes do rótulo na leitura
+   visual, mas o <dt> continua antes do <dd> no DOM. */
+.np-metric { display: flex; flex-direction: column-reverse; gap: 0.15rem; }
+.np-metric dt { font-size: 0.8rem; color: var(--text-tertiary); }
+.np-metric dd {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(1.25rem, 2.4vw, 1.55rem);
+  font-weight: 700;
+  color: rgb(var(--np-accent));
+  font-variant-numeric: tabular-nums;
+}
+
+/* Segundo CTA do destaque: contorno, para não competir com o primário. */
+.np-btn-ghost {
+  color: var(--text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+}
+.np-btn-ghost:hover {
+  transform: translateY(-2px);
+  border-color: rgba(var(--np-accent), 0.6);
+  background: rgba(var(--np-accent), 0.08);
+}
+
+/* Entrada suave do grid: mesma regra da trilha — o estado
+   inicial só existe quando o JS marca .np-anim. */
+.np-grid.np-anim .np-card {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.np-grid.np-anim .np-card.np-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.np-grid.np-anim .np-card.np-in:hover { transform: translateY(-5px); }
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width: 900px) {
+  .np-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .np-axes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .np-cases ul { grid-template-columns: 1fr; }
+  .np-flag { grid-template-columns: 1fr; }
+  .np-gate-grid { grid-template-columns: 1fr; }
+  /* o produto é nomeado antes de ser provado */
+  .np-gate-side { order: 2; }
+  .np-stage-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  #features.np-section .section-container { padding-inline: 1.25rem; }
   .np-grid { grid-template-columns: 1fr; }
-  .np-head { margin-bottom: 2.5rem; }
+  .np-axes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
+  .np-flag-cta { align-items: flex-start; gap: 0.9rem; }
+  .np-flag-cta .np-btn { width: 100%; justify-content: center; }
+  .np-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .np-trail { --np-rail: 2.75rem; --np-node: 2.25rem; }
+  .np-num { font-size: 0.78rem; box-shadow: 0 0 0 5px var(--bg-primary); }
+  .np-stage { padding-bottom: 2.25rem; }
+  .np-stage-main { padding-left: 0; }
+  .np-stage-cards { grid-template-columns: 1fr; }
+  .np-head { margin-bottom: 2rem; }
+  .np-stage--gate .np-stage-main { border-radius: 16px; }
+  .np-gate-cta { align-items: flex-start; gap: 0.9rem; }
+  .np-gate-cta .np-btn { width: 100%; justify-content: center; }
+  /* o índice rola dentro de si: a página nunca rola na horizontal */
+  .np-trailnav ol {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    padding-bottom: 0.35rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .np-trailnav ol::-webkit-scrollbar { display: none; }
+  .np-trailnav li { flex: 0 0 auto; scroll-snap-align: start; }
+  .np-out { flex-direction: column; gap: 0.3rem; }
+  .np-closer { flex-direction: column; align-items: flex-start; }
+  .np-closer-btn { width: 100%; justify-content: center; }
+  .np-forks { margin-top: 2.5rem; padding-top: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np-grid.np-anim .np-card { opacity: 1; transform: none; }
+  .np-grid.np-anim .np-card.np-in { transition: none; }
+  .np-grid.np-anim .np-card.np-in:hover { transform: none; }
+  .np-btn-ghost:hover { transform: none; }
+  .np-trail.np-anim .np-card,
+  .np-trail.np-anim .np-stage-main > :not(.np-stage-cards) {
+    opacity: 1;
+    transform: none;
+  }
+  .np-trail.np-anim .np-stage.np-in .np-card,
+  .np-trail.np-anim .np-stage.np-in .np-stage-main > :not(.np-stage-cards) {
+    transition: none;
+  }
+  .np-card:hover,
+  .np-fork:hover,
+  .np-trail.np-anim .np-stage.np-in .np-card:hover { transform: none; }
+  .np-card:hover .np-ico { transform: none; }
+  .np-btn:hover { transform: none; }
+  .np-btn:hover svg,
+  .np-card:hover .np-link svg,
+  .np-fork:hover .np-link svg { transform: none; }
+  .np-trailnav a:hover { transform: none; }
+}
+
+
+/* ============================================================
+   VÍDEO DA PÁGINA — o espaço do vídeo próprio de cada tema
+
+   Um bloco por página, sempre no fim do conteúdo. Enquanto o
+   vídeo não existe, o quadro fica reservado (nada quebra, nada
+   some). Para publicar, basta escrever o ID ou a URL do YouTube
+   no atributo data-video do .page-video__frame — quem monta o
+   player é assets/js/video.js, que só carrega o iframe depois
+   do clique (a capa é uma imagem, não um embed).
+
+   Os tokens têm alternativa embutida porque este bloco é usado
+   também em páginas que não carregam shared.css.
+   ============================================================ */
+.page-video__frame {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid rgba(var(--np-accent, 0, 231, 252), 0.18);
+  border-radius: 16px;
+  background: rgba(8, 8, 20, 0.92);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.page-video__frame:hover {
+  border-color: rgba(var(--np-accent, 0, 231, 252), 0.45);
+  box-shadow: 0 0 44px rgba(var(--np-accent, 0, 231, 252), 0.08);
+}
+
+.page-video__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --- Estado 1: sem vídeo publicado --- */
+.page-video__empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.page-video__empty-title {
+  font-family: var(--font-display, 'Raleway', 'DM Sans', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(var(--np-accent, 0, 231, 252), 0.85);
+}
+
+.page-video__empty-text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-tertiary, #808080);
+  max-width: 34ch;
+}
+
+/* --- Estado 2: capa clicável (montada pelo JS) --- */
+.page-video__cover {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.page-video__cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, opacity 0.4s ease;
+  opacity: 0.78;
+}
+
+.page-video__cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 8, 20, 0.15), rgba(8, 8, 20, 0.72));
+  pointer-events: none;
+}
+
+.page-video__cover:hover img,
+.page-video__cover:focus-visible img {
+  transform: scale(1.04);
+  opacity: 1;
+}
+
+/* --- O botão de play, comum aos dois estados --- */
+.page-video__play {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 66px;
+  height: 66px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--np-accent, 0, 231, 252), 0.35);
+  background: rgba(var(--np-accent, 0, 231, 252), 0.1);
+  color: rgb(var(--np-accent, 0, 231, 252));
+  transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.page-video__cover .page-video__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px;
+  height: 76px;
+  background: rgba(8, 8, 20, 0.72);
+}
+
+.page-video__cover:hover .page-video__play,
+.page-video__cover:focus-visible .page-video__play {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: rgba(var(--np-accent, 0, 231, 252), 0.22);
+  box-shadow: 0 0 36px rgba(var(--np-accent, 0, 231, 252), 0.28);
+}
+
+.page-video__play svg {
+  width: 24px;
+  height: 24px;
+  margin-left: 3px;
+  fill: currentColor;
+}
+
+/* Legenda opcional abaixo do quadro. */
+.page-video__caption {
+  max-width: 900px;
+  margin: 1.1rem auto 0;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-tertiary, #808080);
+}
+
+@media (max-width: 600px) {
+  .page-video__play { width: 56px; height: 56px; }
+  .page-video__cover .page-video__play { width: 62px; height: 62px; }
+  .page-video__play svg { width: 20px; height: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-video__frame,
+  .page-video__cover img,
+  .page-video__play { transition: none; }
+  .page-video__cover:hover img { transform: none; }
 }

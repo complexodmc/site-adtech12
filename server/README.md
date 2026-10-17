@@ -43,7 +43,8 @@ cursos não fica duplicado no repositório.
 | `users` | `{ _id, email, senhaHash, nome, isAdmin, createdAt }` |
 | `cursos` | `{ _id, titulo, subtitulo, descricao, cargaHoraria, modalidade, iconeKey, preco, linkCheckout, beneficios[], ordem, isAtivo }` |
 | `modulos` | `{ _id, cursoId, numero, titulo, resumo, duracao, ordem }` |
-| `aulas` | `{ _id, moduloId, titulo, duracao, videoUrl, ordem }` |
+| `aulas` | `{ _id, moduloId, titulo, duracao, videoUrl, ordem, materiais[] }` |
+| ↳ `materiais[]` | `{ id, tipo: 'arquivo'\|'link', nome, arquivo, url, tamanho, createdAt }` |
 | `liberacoes` | `{ userId, cursoId, grantedAt, grantedBy }` |
 | `progresso` | `{ userId, aulaId, completedAt }` |
 
@@ -71,6 +72,9 @@ Autenticação por JWT no header `Authorization: Bearer <token>`.
 - `GET /api/progresso` — `{ itens: [{ aulaId, completedAt }] }`
 - `PUT /api/progresso/:aulaId` — marca concluída (idempotente: preserva a data original)
 - `DELETE /api/progresso/:aulaId` — desmarca
+- `GET /api/materiais/:aulaId/:matId` — baixa o PDF de apoio. Só entrega se o
+  aluno tiver o curso liberado (admin passa direto); material do tipo `link`
+  responde com redirect 302.
 
 ### Admin (`isAdmin: true`)
 - `GET /api/liberacoes` — `{ byEmail: { email: [cursoId] } }`
@@ -79,6 +83,17 @@ Autenticação por JWT no header `Authorization: Bearer <token>`.
 - `PUT|DELETE /api/cursos/:id`
 - `PUT|DELETE /api/modulos/:id`
 - `PUT|DELETE /api/aulas/:id`
+- `POST /api/aulas/:id/materiais?nome=…` — upload de PDF. O corpo é o arquivo
+  cru com `Content-Type: application/pdf` (sem multipart). Teto de
+  `MAX_UPLOAD_MB` (padrão 25 MB); rejeita o que não começa com `%PDF-`.
+- `POST /api/aulas/:id/materiais/link` — `{ nome, url }` para material hospedado
+  fora (Drive, Dropbox…)
+- `PUT /api/aulas/:id/materiais/:matId` — `{ nome }`, renomeia
+- `DELETE /api/aulas/:id/materiais/:matId` — remove o registro e o arquivo
+
+Os PDFs ficam em `UPLOADS_DIR` (padrão `server/uploads/materiais`), **fora** do
+site estático — a única saída é a rota `GET /api/materiais/…`, que confere a
+liberação. Apagar curso, módulo ou aula também apaga os arquivos.
 
 ### Só em desenvolvimento
 - `POST /api/liberacoes/dev/simular-pagamento` — `{ cursoIds[] }`, o próprio

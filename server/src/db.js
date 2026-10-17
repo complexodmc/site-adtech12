@@ -4,9 +4,14 @@
 //   users      { _id:ObjectId, email, senhaHash, nome, isAdmin, createdAt }
 //   cursos     { _id:string,   titulo, ..., beneficios[], ordem, isAtivo }
 //   modulos    { _id:string,   cursoId, numero, titulo, resumo, duracao, ordem }
-//   aulas      { _id:string,   moduloId, titulo, duracao, videoUrl, ordem }
+//   aulas      { _id:string,   moduloId, titulo, duracao, videoUrl, ordem,
+//                materiais: [{ id, tipo:'arquivo'|'link', nome, arquivo, url, tamanho }] }
 //   liberacoes { userId, cursoId, grantedAt, grantedBy }
 //   progresso  { userId, aulaId, completedAt }
+//   duvidas    { aulaId, moduloId, cursoId, userId, autorNome, texto,
+//                createdAt, resolvida, respostas:[{ id, userId, autorNome, texto, createdAt }] }
+//   lives      { _id:string, cursoId, titulo, descricao, inicioEm, duracaoMin, url, plataforma }
+//   certificados { codigo, userId, cursoId, nomeAluno, tituloCurso, cargaHoraria, emitidoEm }
 // =============================================================
 import { MongoClient } from 'mongodb';
 import { config } from './config.js';
@@ -44,7 +49,10 @@ export const col = {
   modulos: () => getDb().collection('modulos'),
   aulas: () => getDb().collection('aulas'),
   liberacoes: () => getDb().collection('liberacoes'),
-  progresso: () => getDb().collection('progresso')
+  progresso: () => getDb().collection('progresso'),
+  duvidas: () => getDb().collection('duvidas'),
+  lives: () => getDb().collection('lives'),
+  certificados: () => getDb().collection('certificados')
 };
 
 async function ensureIndexes() {
@@ -55,6 +63,20 @@ async function ensureIndexes() {
     col.aulas().createIndex({ moduloId: 1, ordem: 1 }, { name: 'ix_aulas_modulo_ordem' }),
     col.liberacoes().createIndex({ userId: 1, cursoId: 1 }, { unique: true, name: 'uq_liberacoes' }),
     col.liberacoes().createIndex({ cursoId: 1 }, { name: 'ix_liberacoes_curso' }),
-    col.progresso().createIndex({ userId: 1, aulaId: 1 }, { unique: true, name: 'uq_progresso' })
+    col.progresso().createIndex({ userId: 1, aulaId: 1 }, { unique: true, name: 'uq_progresso' }),
+    // Listagem da aula: mais recentes primeiro.
+    col.duvidas().createIndex({ aulaId: 1, createdAt: -1 }, { name: 'ix_duvidas_aula' }),
+    // Fila do painel administrativo (dúvidas em aberto, mais antigas primeiro).
+    col.duvidas().createIndex({ resolvida: 1, createdAt: 1 }, { name: 'ix_duvidas_fila' }),
+    // Cascata na exclusão de curso/módulo.
+    col.duvidas().createIndex({ cursoId: 1 }, { name: 'ix_duvidas_curso' }),
+    col.duvidas().createIndex({ moduloId: 1 }, { name: 'ix_duvidas_modulo' }),
+    // Agenda de aulas ao vivo, em ordem cronológica.
+    col.lives().createIndex({ inicioEm: 1 }, { name: 'ix_lives_inicio' }),
+    col.lives().createIndex({ cursoId: 1, inicioEm: 1 }, { name: 'ix_lives_curso' }),
+    // Um certificado por aluno/curso — o índice é o que garante a emissão única.
+    col.certificados().createIndex({ userId: 1, cursoId: 1 }, { unique: true, name: 'uq_certificados' }),
+    col.certificados().createIndex({ codigo: 1 }, { unique: true, name: 'uq_certificados_codigo' }),
+    col.certificados().createIndex({ cursoId: 1 }, { name: 'ix_certificados_curso' })
   ]);
 }

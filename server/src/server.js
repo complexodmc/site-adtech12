@@ -12,6 +12,11 @@ import authRoutes from './routes/auth.js';
 import catalogoRoutes from './routes/catalogo.js';
 import liberacoesRoutes from './routes/liberacoes.js';
 import progressoRoutes from './routes/progresso.js';
+import materiaisRoutes from './routes/materiais.js';
+import capasRoutes from './routes/capas.js';
+import duvidasRoutes from './routes/duvidas.js';
+import livesRoutes from './routes/lives.js';
+import certificadosRoutes from './routes/certificados.js';
 
 const app = express();
 
@@ -53,13 +58,38 @@ setInterval(() => {
 
 // ============ API ============
 app.get('/api/health', (_req, res) => res.json({ ok: true, db: config.mongoDb }));
+app.get('/api/health/db', async (_req, res, next) => {
+  try {
+    await ensureConnected();
+    res.json({ ok: true, db: config.mongoDb });
+  } catch (err) {
+    next(err);
+  }
+});
 
+app.use('/api', async (_req, _res, next) => {
+  try {
+    await ensureConnected();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 app.use('/api', loadUser);
 app.post('/api/auth/signin', throttleAuth);
 app.post('/api/auth/signup', throttleAuth);
 app.use('/api/auth', authRoutes);
 app.use('/api/liberacoes', liberacoesRoutes);
 app.use('/api/progresso', progressoRoutes);
+app.use('/api/lives', livesRoutes);
+// Antes do catálogo: /cursos/:id/certificado é mais específico que /cursos/:id.
+app.use('/api', certificadosRoutes);
+// Antes do catálogo: /aulas/:id/materiais é mais específico que /aulas/:id.
+app.use('/api', materiaisRoutes);
+// Idem: /aulas/:id/duvidas antes de /aulas/:id.
+app.use('/api', duvidasRoutes);
+// Idem: /cursos/:id/capa antes de /cursos/:id.
+app.use('/api', capasRoutes);
 app.use('/api', catalogoRoutes);
 
 app.use('/api', (_req, res) => res.status(404).json({ error: 'Rota não encontrada.' }));
@@ -69,16 +99,44 @@ app.use(express.static(config.staticRoot, { extensions: ['html'] }));
 
 // ============ Erros ============
 app.use((err, _req, res, _next) => {
-  console.error('[DMC] erro não tratado:', err);
   if (res.headersSent) return;
+  // Upload maior que o teto do express.raw/json.
+  if (err && err.type === 'entity.too.large') {
+    // err.limit vem do body-parser: a capa tem teto próprio, menor que o do PDF.
+    const mb = Math.round((err.limit || config.maxUploadBytes) / (1024 * 1024));
+    return res.status(413).json({ error: `Arquivo maior que o limite de ${mb} MB.` });
+  }
+  console.error('[DMC] erro não tratado:', err);
   res.status(500).json({ error: 'Erro interno no servidor.' });
 });
 
+let connectPromise = null;
+
+async function ensureConnected() {
+  if (!connectPromise) {
+    connectPromise = connect()
+      .then(() => {
+        console.log(`[DMC] MongoDB conectado — banco "${config.mongoDb}"`);
+      })
+      .catch((err) => {
+        connectPromise = null;
+        throw err;
+      });
+  }
+  return connectPromise;
+}
+
+export async function handler(req, res) {
+  return app(req, res);
+}
+
+export { app, ensureConnected };
+export default handler;
+
 // ============ Boot ============
-const server = await (async () => {
+async function start() {
   try {
-    await connect();
-    console.log(`[DMC] MongoDB conectado — banco "${config.mongoDb}"`);
+    await ensureConnected();
   } catch (err) {
     console.error('[DMC] falha ao conectar no MongoDB:', err.message);
     console.error('[DMC] confira MONGODB_URI no .env e se o seu IP está liberado em Network Access no Atlas.');
@@ -93,13 +151,19 @@ const server = await (async () => {
     }
   });
   return s;
-})();
+}
+
+const shouldListen = process.env.VERCEL !== '1' && process.env.NODE_ENV !== 'test';
+const server = shouldListen ? await start() : null;
 
 async function shutdown(sinal) {
+  if (!server) return;
   console.log(`\n[DMC] ${sinal} recebido, encerrando…`);
   server.close();
   await close();
   process.exit(0);
 }
-process.on('SIGINT', () => shutdown('SIGINT'));
-process.on('SIGTERM', () => shutdown('SIGTERM'));
+if (server) {
+  process.on('SIGINT', () => shutdown('SIGINT'));
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
+}

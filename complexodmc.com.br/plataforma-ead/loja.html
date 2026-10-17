@@ -13,30 +13,9 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/plataforma.css">
 </head>
-<body class="bg-grid">
+<body class="bg-grid" data-shell="loja">
   <div class="glow-corner"></div>
 
-  <header class="app-nav">
-    <div class="app-nav__inner">
-      <a class="app-brand" href="dashboard.html">
-        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
-        <span class="app-brand__label">Complexo DMC</span>
-        <span class="app-brand__sub">Loja</span>
-      </a>
-      <div class="app-user">
-        <a class="btn-ghost" href="dashboard.html">Meu painel</a>
-        <a class="btn-ghost" href="admin.html" data-admin-only>Admin</a>
-        <button class="btn-ghost cart-trigger" data-cart-open type="button">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          Carrinho
-          <span class="cart-badge is-empty" data-cart-count>0</span>
-        </button>
-        <span data-user-nome></span>
-        <span class="user-avatar" data-user-iniciais></span>
-        <button class="btn-ghost" data-logout>Sair</button>
-      </div>
-    </div>
-  </header>
 
   <main class="loja-shell">
     <div class="dash-inner">
@@ -89,6 +68,7 @@
 
   <script src="js/api-client.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/shell.js"></script>
   <script>DMC_bootLoja();</script>
 </body>
 </html>

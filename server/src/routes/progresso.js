@@ -26,8 +26,11 @@ router.put('/:aulaId', async (req, res) => {
   const aulaId = String(req.params.aulaId || '').trim();
   if (!aulaId) return res.status(400).json({ error: 'ID da aula ausente.' });
 
-  const aula = await col.aulas().findOne({ _id: aulaId }, { projection: { _id: 1 } });
+  const aula = await col.aulas().findOne({ _id: aulaId }, { projection: { _id: 1, disponivel: 1 } });
   if (!aula) return res.status(404).json({ error: 'Aula não encontrada.' });
+  if (aula.disponivel === false && !req.user.isAdmin) {
+    return res.status(403).json({ error: 'Esta aula ainda não está disponível.' });
+  }
 
   // Devolve o valor realmente gravado: num PUT repetido o $setOnInsert
   // não roda, então a data original é preservada.

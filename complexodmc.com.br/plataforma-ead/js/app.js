@@ -126,6 +126,18 @@
     async deleteCurso(cursoId) {
       await api().del(`/cursos/${encodeURIComponent(cursoId)}`);
     },
+    // ============ CAPA DO CURSO (imagem) ============
+    async uploadCapa(cursoId, arquivo) {
+      const { capaUrl } = await api().upload(
+        `/cursos/${encodeURIComponent(cursoId)}/capa`,
+        arquivo,
+        arquivo.type || 'application/octet-stream'
+      );
+      return capaUrl;
+    },
+    async removerCapa(cursoId) {
+      await api().del(`/cursos/${encodeURIComponent(cursoId)}/capa`);
+    },
     async upsertModulo(modulo, cursoId) {
       await api().put(`/modulos/${encodeURIComponent(modulo.id)}`, {
         cursoId,
@@ -139,20 +151,209 @@
     async deleteModulo(moduloId) {
       await api().del(`/modulos/${encodeURIComponent(moduloId)}`);
     },
+    /** Grava a ordem de todos os módulos do curso numa requisição só. */
+    async reordenarModulos(cursoId, ids) {
+      await api().put('/modulos/ordem', { cursoId, ids });
+    },
     async upsertAula(aula, moduloId) {
       await api().put(`/aulas/${encodeURIComponent(aula.id)}`, {
         moduloId,
         titulo: aula.titulo || '',
         duracao: aula.duracao || '',
         videoUrl: aula.videoUrl || '',
-        ordem: aula.ordem || 0
+        ordem: aula.ordem || 0,
+        disponivel: aula.disponivel !== false,
+        // Roteiro de gravação: campo interno do admin. A API só devolve
+        // esse texto pra admin, então o `?? undefined` evita que uma tela
+        // sem o campo carregado mande string vazia e apague o roteiro.
+        roteiro: typeof aula.roteiro === 'string' ? aula.roteiro : undefined
       });
     },
     async deleteAula(aulaId) {
       await api().del(`/aulas/${encodeURIComponent(aulaId)}`);
+    },
+    // ============ MATERIAIS DE APOIO (PDF) ============
+    async uploadMaterial(aulaId, arquivo) {
+      const qs = new URLSearchParams({ nome: arquivo.name || 'Material.pdf' });
+      const { material } = await api().upload(
+        `/aulas/${encodeURIComponent(aulaId)}/materiais?${qs}`,
+        arquivo,
+        'application/pdf'
+      );
+      return material;
+    },
+    async addMaterialLink(aulaId, nome, url) {
+      const { material } = await api().post(
+        `/aulas/${encodeURIComponent(aulaId)}/materiais/link`,
+        { nome, url }
+      );
+      return material;
+    },
+    async renameMaterial(aulaId, materialId, nome) {
+      await api().put(
+        `/aulas/${encodeURIComponent(aulaId)}/materiais/${encodeURIComponent(materialId)}`,
+        { nome }
+      );
+    },
+    async deleteMaterial(aulaId, materialId) {
+      await api().del(
+        `/aulas/${encodeURIComponent(aulaId)}/materiais/${encodeURIComponent(materialId)}`
+      );
     }
   };
   window.DMC_Data = Data;
+
+  /**
+   * Abre um material de apoio.
+   * Link externo vai direto; PDF do servidor exige o token JWT no header,
+   * então baixa como blob e dispara o download por um <a> temporário.
+   */
+  async function abrirMaterial(material) {
+    if (!material) return;
+    if (material.tipo === 'link') {
+      window.open(material.url, '_blank', 'noopener');
+      return;
+    }
+    const dados = await api().blob(material.url);
+    const objUrl = URL.createObjectURL(dados);
+    const a = document.createElement('a');
+    a.href = objUrl;
+    a.download = /\.pdf$/i.test(material.nome) ? material.nome : `${material.nome}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(objUrl), 10000);
+  }
+  window.DMC_abrirMaterial = abrirMaterial;
+
+  function formatBytes(bytes) {
+    const n = Number(bytes) || 0;
+    if (n < 1024) return `${n} B`;
+    if (n < 1024 * 1024) return `${(n / 1024).toFixed(0)} KB`;
+    return `${(n / 1024 / 1024).toFixed(1)} MB`;
+  }
+  window.DMC_formatBytes = formatBytes;
+
+  // =============================================================
+  // DÚVIDAS (Q&A por aula — aluno pergunta, instrutor responde)
+  // Sem cache: a lista é lida na abertura da aula e atualizada
+  // pontualmente a cada envio, então não há estado pra ficar velho.
+  // =============================================================
+  const Duvidas = {
+    async listar(aulaId) {
+      const { itens } = await api().get(`/aulas/${encodeURIComponent(aulaId)}/duvidas`);
+      return itens || [];
+    },
+    async perguntar(aulaId, texto) {
+      const { duvida } = await api().post(`/aulas/${encodeURIComponent(aulaId)}/duvidas`, { texto });
+      return duvida;
+    },
+    async responder(duvidaId, texto) {
+      const { resposta } = await api().post(`/duvidas/${encodeURIComponent(duvidaId)}/respostas`, { texto });
+      return resposta;
+    },
+    async apagar(duvidaId) {
+      await api().del(`/duvidas/${encodeURIComponent(duvidaId)}`);
+    },
+    async apagarResposta(duvidaId, respostaId) {
+      await api().del(`/duvidas/${encodeURIComponent(duvidaId)}/respostas/${encodeURIComponent(respostaId)}`);
+    },
+    async marcarResolvida(duvidaId, resolvida) {
+      await api().put(`/duvidas/${encodeURIComponent(duvidaId)}/resolvida`, { resolvida: !!resolvida });
+    },
+    /** Fila do painel administrativo — só admin. */
+    async pendentes() {
+      return api().get('/duvidas/pendentes');
+    }
+  };
+  window.DMC_Duvidas = Duvidas;
+
+  /** Data relativa curta; acima de uma semana vira data absoluta. */
+  function formatarQuando(iso) {
+    if (!iso) return '';
+    const t = new Date(iso).getTime();
+    if (!Number.isFinite(t)) return '';
+    const seg = Math.max(0, Math.round((Date.now() - t) / 1000));
+    if (seg < 60) return 'agora há pouco';
+    const min = Math.round(seg / 60);
+    if (min < 60) return `há ${min} min`;
+    const hr = Math.round(min / 60);
+    if (hr < 24) return `há ${hr}h`;
+    const dia = Math.round(hr / 24);
+    if (dia < 7) return dia === 1 ? 'ontem' : `há ${dia} dias`;
+    return new Date(t).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+  window.DMC_formatarQuando = formatarQuando;
+
+  // =============================================================
+  // AULAS AO VIVO
+  // O servidor calcula o status ('agendada' | 'ao-vivo' | 'encerrada')
+  // e só manda a URL quando a sala está aberta — o front não recalcula
+  // nada disso, senão o relógio do aluno viraria regra de acesso.
+  // =============================================================
+  const Lives = {
+    async listar() {
+      const { itens } = await api().get('/lives');
+      return itens || [];
+    },
+    async salvar(live) {
+      await api().put(`/lives/${encodeURIComponent(live.id)}`, {
+        cursoId: live.cursoId,
+        titulo: live.titulo,
+        descricao: live.descricao,
+        inicioEm: live.inicioEm,
+        duracaoMin: live.duracaoMin,
+        url: live.url,
+        plataforma: live.plataforma
+      });
+    },
+    async apagar(id) {
+      await api().del(`/lives/${encodeURIComponent(id)}`);
+    }
+  };
+  window.DMC_Lives = Lives;
+
+  // =============================================================
+  // CERTIFICADOS
+  // Emissão exige 100% das aulas disponíveis concluídas; a checagem
+  // é do servidor. Aqui só perguntamos e mostramos o que falta.
+  // =============================================================
+  const Certificados = {
+    async meus() {
+      const { itens } = await api().get('/certificados');
+      return itens || [];
+    },
+    async status(cursoId) {
+      return api().get(`/cursos/${encodeURIComponent(cursoId)}/certificado`);
+    },
+    async emitir(cursoId) {
+      const { certificado } = await api().post(`/cursos/${encodeURIComponent(cursoId)}/certificado`);
+      return certificado;
+    },
+    async validar(codigo) {
+      return api().get(`/certificados/validar/${encodeURIComponent(codigo)}`);
+    }
+  };
+  window.DMC_Certificados = Certificados;
+
+  /** Data/hora por extenso, curta — usada na agenda das aulas ao vivo. */
+  function formatarDataHora(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (!Number.isFinite(d.getTime())) return '';
+    return d.toLocaleString('pt-BR', {
+      day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+    }).replace(',', ' ·');
+  }
+  window.DMC_formatarDataHora = formatarDataHora;
+
+  function formatarData(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (!Number.isFinite(d.getTime())) return '';
+    return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+  }
+  window.DMC_formatarData = formatarData;
 
   // =============================================================
   // LIBERAÇÕES (acesso por user a cursos)
@@ -244,15 +445,18 @@
       if (isDone === !!done) return;
       return this.toggle(aulaId);
     },
+    // Aula "em breve" fica fora da conta: senão o aluno via 8/12 com
+    // quatro aulas que ele nem pode abrir, e o percentual nunca fechava.
     countModulo(modulo) {
-      const total = (modulo.aulas || []).length;
-      const done = (modulo.aulas || []).filter(a => _progress.has(a.id)).length;
+      const aulas = (modulo.aulas || []).filter(aulaDisponivel);
+      const total = aulas.length;
+      const done = aulas.filter(a => _progress.has(a.id)).length;
       return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
     },
     countCurso(curso) {
       let total = 0, done = 0;
       (curso.modulos || []).forEach(m => {
-        (m.aulas || []).forEach(a => { total++; if (_progress.has(a.id)) done++; });
+        (m.aulas || []).filter(aulaDisponivel).forEach(a => { total++; if (_progress.has(a.id)) done++; });
       });
       return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
     }
@@ -327,22 +531,43 @@
     }
     return null;
   }
+  /** Aula sem o campo (base antiga) conta como disponível. */
+  function aulaDisponivel(aula) { return !aula || aula.disponivel !== false; }
+  window.DMC_aulaDisponivel = aulaDisponivel;
+
   function flatAulas(curso) {
     const flat = [];
     curso.modulos.forEach(m => m.aulas.forEach(a => flat.push({ moduloId: m.id, aula: a })));
     return flat;
   }
+  // Avançar/voltar salta o que ainda está "em breve": o botão nunca leva
+  // o aluno para uma tela bloqueada.
   function nextAula(curso, aulaId) {
     const flat = flatAulas(curso);
     const idx = flat.findIndex(x => x.aula.id === aulaId);
-    return (idx >= 0 && idx < flat.length - 1) ? flat[idx + 1] : null;
+    if (idx < 0) return null;
+    for (let i = idx + 1; i < flat.length; i++) if (aulaDisponivel(flat[i].aula)) return flat[i];
+    return null;
   }
   function prevAula(curso, aulaId) {
     const flat = flatAulas(curso);
     const idx = flat.findIndex(x => x.aula.id === aulaId);
-    return (idx > 0) ? flat[idx - 1] : null;
+    if (idx < 0) return null;
+    for (let i = idx - 1; i >= 0; i--) if (aulaDisponivel(flat[i].aula)) return flat[i];
+    return null;
   }
   window.DMC_Helpers = { findAula, nextAula, prevAula };
+
+  // A API devolve a capa como caminho ("/api/capas/x.jpg"). Em página
+  // servida por outra origem (DMC_API_BASE), o <img> precisa da URL cheia.
+  function capaSrc(curso) {
+    const u = curso && curso.capaUrl;
+    if (!u) return '';
+    if (/^https?:\/\//i.test(u)) return u;
+    const base = (window.DMC_API_BASE || '').replace(/\/$/, '');
+    return base ? base + u.replace(/^\/api/, '') : u;
+  }
+  window.DMC_capaSrc = capaSrc;
 
   function formatPreco(v) {
     const n = Number(v) || 0;
@@ -373,7 +598,26 @@
     unlock: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>',
     sparkle: '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.5 6.5L20 10l-6.5 1.5L12 18l-1.5-6.5L4 10l6.5-1.5L12 2z"/></svg>',
     close: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
-    playLarge: '<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>'
+    search: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>',
+    grip: '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>',
+    playLarge: '<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>',
+    file: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>',
+    imagem: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 15l-5-5L5 20"/></svg>',
+    roteiro: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4l-2 5M14 4l-2 5"/><line x1="7" y1="13" x2="17" y2="13"/><line x1="7" y1="16.5" x2="13" y2="16.5"/></svg>',
+    externalLink: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
+    chat: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.2A8.5 8.5 0 0 1 4 11.5a8.38 8.38 0 0 1 8.5-8.4 8.38 8.38 0 0 1 8.5 8.4z"/></svg>',
+    send: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>',
+    reply: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg>',
+    menu: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>',
+    navConteudos: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polygon points="10 9 15 12 10 15 10 9" fill="currentColor" stroke="none"/></svg>',
+    navMeusCursos: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9.5 2v9l2.5-1.8L14.5 11V2"/></svg>',
+    navAoVivo: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/><path d="M7.5 7.5a6.4 6.4 0 0 0 0 9M16.5 16.5a6.4 6.4 0 0 0 0-9"/><path d="M4.5 4.5a10.6 10.6 0 0 0 0 15M19.5 19.5a10.6 10.6 0 0 0 0-15"/></svg>',
+    navCertificados: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><polyline points="9 8.8 11.2 11 15 7.2"/><path d="M8.4 14.2L7 22l5-2.4L17 22l-1.4-7.8"/></svg>',
+    navLoja: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9h16v11a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M9 13h6"/></svg>',
+    navAdmin: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.5v6c0 4.6-3.2 8.4-8 9.5-4.8-1.1-8-4.9-8-9.5v-6z"/><circle cx="12" cy="10.5" r="2"/><path d="M8.5 16.5a4 4 0 0 1 7 0"/></svg>',
+    calendar: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>',
+    print: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>',
+    award: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="6"/><polyline points="9 8.8 11.2 11 15 7.2"/><path d="M8.4 14.2L7 22l5-2.4L17 22l-1.4-7.8"/></svg>'
   };
   window.DMC_Icons = I;
 
@@ -411,22 +655,13 @@
     }
     function getMode() { return form.getAttribute('data-auth-mode') === 'signup' ? 'signup' : 'signin'; }
 
-    // Tabs
-    const tabs = document.querySelectorAll('[data-auth-tab]');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const mode = tab.dataset.authTab;
-        form.setAttribute('data-auth-mode', mode);
-        tabs.forEach(t => t.classList.toggle('is-active', t === tab));
-        document.querySelectorAll('[data-auth-only]').forEach(el => {
-          const visibleIn = el.dataset.authOnly.split(',').map(s => s.trim());
-          el.style.display = visibleIn.includes(mode) ? '' : 'none';
-        });
-        submitBtn.textContent = mode === 'signup' ? 'Criar conta' : 'Acessar plataforma';
-        clearError(); clearNotice();
-      });
-    });
-    // Inicializa visibilidade
+    // Tabs — quem troca o modo é a camada de interface (login-experience.js),
+    // que é síncrona e já está no ar quando o usuário clica; aqui só reagimos
+    // ao evento limpando as mensagens do modo anterior.
+    form.addEventListener('dmc:auth-mode', () => { clearError(); clearNotice(); });
+
+    // Fallback: sem a camada de interface, o formulário ainda precisa nascer
+    // coerente com o modo declarado no HTML.
     const initialMode = getMode();
     document.querySelectorAll('[data-auth-only]').forEach(el => {
       const visibleIn = el.dataset.authOnly.split(',').map(s => s.trim());
@@ -452,7 +687,7 @@
       }
       const originalLabel = submitBtn.textContent;
       submitBtn.disabled = true;
-      submitBtn.textContent = mode === 'signup' ? 'Criando conta…' : 'Entrando…';
+      submitBtn.textContent = mode === 'signup' ? 'Criando conta…' : 'Acessando…';
       try {
         if (mode === 'signup') {
           await Auth.signUp(email, senha, nome);
@@ -462,6 +697,12 @@
         const params = new URLSearchParams(window.location.search);
         const next = params.get('next');
         const safeNext = next && /^[a-z0-9_-]+\.html(\?.*)?$/i.test(next) ? next : 'dashboard.html';
+        // Gancho de transição visual da tela de acesso. Só roda com
+        // autenticação já aceita e nunca pode impedir a navegação.
+        if (typeof window.DMC_onLoginSuccess === 'function') {
+          try { await window.DMC_onLoginSuccess(); }
+          catch (errTransicao) { console.warn('[DMC] transição de acesso:', errTransicao); }
+        }
         window.location.href = safeNext;
       } catch (err) {
         showError(err && err.message ? err.message : (mode === 'signup' ? 'Falha no cadastro.' : 'Falha no login.'));
@@ -507,11 +748,14 @@
           ctaAction = `data-cta-comprar="${c.id}"`;
         }
         const iconSvg = COURSE_ICONS[c.iconeKey] || COURSE_ICONS.graduation;
+        const capa = capaSrc(c);
         const modalidade = c.modalidade || 'Online';
         return `
           <article class="course-card ${isSelected ? 'is-selected' : ''} ${liberado ? '' : 'is-locked'}" data-curso-id="${c.id}">
             ${liberado ? '' : `<span class="course-card__lock" title="Curso bloqueado">${I.lock}</span>`}
-            <div class="course-card__icon">${iconSvg}</div>
+            ${capa
+              ? `<div class="course-card__capa"><img src="${escapeHtml(capa)}" alt="" loading="lazy"></div>`
+              : `<div class="course-card__icon">${iconSvg}</div>`}
             <h3 class="course-card__title">${escapeHtml(c.titulo)}</h3>
             <p class="course-card__desc">${escapeHtml(c.descricao || c.subtitulo || '')}</p>
             <div class="course-card__meta">
@@ -592,11 +836,24 @@
         const p = Progress.countModulo(m);
         const aulasHtml = m.aulas.map((a, i) => {
           const done = Progress.isDone(a.id);
+          const numero = `${escapeHtml(m.numero)}.${String(i + 1).padStart(2, '0')}`;
+          if (!aulaDisponivel(a)) {
+            return `
+            <div class="aula is-embreve" data-aula-id="${a.id}" data-modulo-id="${m.id}" title="Aula ainda não liberada">
+              <span class="aula__check aula__check--lock">${I.lock}</span>
+              <div>
+                <div class="aula__title">${escapeHtml(a.titulo)}</div>
+                <span class="aula__tag">Em breve</span>
+              </div>
+              <div class="aula__num">${numero}</div>
+              <div class="aula__duracao">${escapeHtml(a.duracao || '')}</div>
+            </div>`;
+          }
           return `
             <div class="aula ${done ? 'is-done' : ''}" data-aula-id="${a.id}" data-modulo-id="${m.id}">
               <button class="aula__check" data-toggle-aula="${a.id}" aria-label="Marcar concluída">${I.check}</button>
               <div><div class="aula__title">${escapeHtml(a.titulo)}</div></div>
-              <div class="aula__num">${escapeHtml(m.numero)}.${String(i + 1).padStart(2, '0')}</div>
+              <div class="aula__num">${numero}</div>
               <div class="aula__duracao">${escapeHtml(a.duracao || '')}</div>
             </div>`;
         }).join('');
@@ -632,7 +889,9 @@
           return;
         }
         const aula = e.target.closest('.aula');
-        if (aula) window.location.href = `aula.html?id=${aula.dataset.aulaId}`;
+        if (aula && !aula.classList.contains('is-embreve')) {
+          window.location.href = `aula.html?id=${aula.dataset.aulaId}`;
+        }
       };
     }
   }
@@ -675,6 +934,23 @@
     }
     const { modulo, aula, index } = found;
 
+    // Entrou pelo link direto numa aula ainda não liberada: mostra o aviso
+    // e para por aqui — o servidor já não mandou vídeo nem material.
+    if (!aulaDisponivel(aula)) {
+      const proxima = nextAula(curso, aula.id);
+      document.querySelector('#player-root').innerHTML = `
+        <div class="locked-curso" style="margin:4rem auto;max-width:560px">
+          <span class="locked-curso__icon">${I.lock}</span>
+          <h3>Aula em breve</h3>
+          <p><strong>${escapeHtml(aula.titulo)}</strong> ainda não foi liberada pelo instrutor. Assim que sair, ela aparece no seu painel.</p>
+          <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+            <a class="btn-primary" href="dashboard.html" style="display:inline-flex;width:auto">${I.book} Voltar ao painel</a>
+            ${proxima ? `<a class="btn-ghost" href="aula.html?id=${proxima.aula.id}">Ir para a próxima aula liberada</a>` : ''}
+          </div>
+        </div>`;
+      return;
+    }
+
     const stage = document.querySelector('#player-stage');
     if (aula.videoUrl && aula.videoUrl.trim()) {
       const url = aula.videoUrl.trim();
@@ -694,6 +970,9 @@
     document.querySelector('[data-aula-titulo]').textContent = aula.titulo;
     document.querySelector('[data-aula-num]').innerHTML = `${I.book}<span>Aula ${modulo.numero}.${String(index + 1).padStart(2, '0')} · ${modulo.aulas.length} no módulo</span>`;
     document.querySelector('[data-aula-dur]').innerHTML = `${I.clock}<span>${aula.duracao || '—'}</span>`;
+
+    renderMateriaisDaAula(aula);
+    renderDuvidasDaAula(aula);
 
     const doneBtn = document.querySelector('#btn-done');
     function refreshDoneBtn() {
@@ -726,11 +1005,20 @@
       const ativos = m.aulas.map((a, i) => {
         const done = Progress.isDone(a.id);
         const active = a.id === aula.id;
+        const rotulo = `${escapeHtml(m.numero)}.${String(i + 1).padStart(2, '0')} · ${escapeHtml(a.titulo)}`;
+        if (!aulaDisponivel(a)) {
+          return `
+          <div class="aside-aula is-embreve" data-aside-aula="${a.id}" title="Aula ainda não liberada">
+            <span class="aside-aula__check">${I.lock}</span>
+            <span class="aside-aula__title">${rotulo}</span>
+            <span class="aside-aula__dur">Em breve</span>
+          </div>`;
+        }
         return `
           <div class="aside-aula ${done ? 'is-done' : ''} ${active ? 'is-active' : ''}"
                data-aside-aula="${a.id}" onclick="window.location.href='aula.html?id=${a.id}'">
             <span class="aside-aula__check">${I.check}</span>
-            <span class="aside-aula__title">${escapeHtml(m.numero)}.${String(i + 1).padStart(2, '0')} · ${escapeHtml(a.titulo)}</span>
+            <span class="aside-aula__title">${rotulo}</span>
             <span class="aside-aula__dur">${escapeHtml(a.duracao || '')}</span>
           </div>`;
       }).join('');
@@ -739,6 +1027,547 @@
     document.querySelector('[data-curso-titulo]').textContent = curso.titulo;
   }
   window.DMC_bootPlayer = bootPlayer;
+
+  /** Materiais de apoio da aula (PDFs anexados no painel administrativo). */
+  function renderMateriaisDaAula(aula) {
+    const wrap = document.querySelector('#player-materiais');
+    if (!wrap) return;
+    const mats = aula.materiais || [];
+    if (!mats.length) {
+      wrap.innerHTML = '';
+      wrap.hidden = true;
+      return;
+    }
+    wrap.hidden = false;
+    wrap.innerHTML = `
+      <div class="mats-head">
+        <span class="overline">Material de apoio</span>
+        <span class="mats-count">${mats.length}</span>
+      </div>
+      <div class="mats-grid">
+        ${mats.map(m => `
+          <button class="mat-card" type="button" data-material-id="${escapeHtml(m.id)}">
+            <span class="mat-card__icon">${I.file}</span>
+            <span class="mat-card__body">
+              <span class="mat-card__nome">${escapeHtml(m.nome)}</span>
+              <span class="mat-card__meta">${m.tipo === 'link' ? 'Link externo' : `PDF · ${formatBytes(m.tamanho)}`}</span>
+            </span>
+            <span class="mat-card__go">${m.tipo === 'link' ? I.externalLink : I.download}</span>
+          </button>`).join('')}
+      </div>`;
+
+    wrap.querySelectorAll('[data-material-id]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const material = mats.find(m => m.id === btn.dataset.materialId);
+        btn.classList.add('is-loading');
+        btn.disabled = true;
+        try { await abrirMaterial(material); }
+        catch (err) { alert('Não foi possível abrir o material: ' + err.message); }
+        btn.classList.remove('is-loading');
+        btn.disabled = false;
+      });
+    });
+  }
+
+  /**
+   * Q&A da aula. O aluno pergunta; só admin/instrutor responde — por isso
+   * o formulário de resposta e os botões de moderação só são montados
+   * quando quem está logado é admin. A lista é redesenhada inteira a cada
+   * mudança: são poucas dúvidas por aula e isso evita estado duplicado.
+   */
+  async function renderDuvidasDaAula(aula) {
+    const wrap = document.querySelector('#player-duvidas');
+    if (!wrap) return;
+
+    const PERGUNTA_MAX = 2000;
+    const RESPOSTA_MAX = 8000;
+    const ehAdmin = !!(Auth.user() && Auth.user().isAdmin);
+    let itens = [];
+
+    wrap.innerHTML = `
+      <div class="duvidas__head">
+        <span class="duvidas__head-icon">${I.chat}</span>
+        <span class="overline">Dúvidas desta aula</span>
+        <span class="mats-count" data-duvidas-total>—</span>
+      </div>
+      <p class="duvidas__nota">${ehAdmin
+        ? 'Você responde como <strong>instrutor</strong>. Suas respostas ficam visíveis para todos os alunos com acesso a este curso.'
+        : 'Escreva sua dúvida sobre esta aula. O instrutor responde por aqui, e a resposta fica visível para toda a turma.'}</p>
+
+      <form class="duvida-form" data-duvida-form>
+        <textarea class="input" data-duvida-texto rows="3" maxlength="${PERGUNTA_MAX}"
+          placeholder="${ehAdmin ? 'Publicar uma pergunta frequente desta aula…' : 'Qual é a sua dúvida sobre esta aula?'}"></textarea>
+        <div class="duvida-form__foot">
+          <span class="duvida-form__count" data-duvida-chars>0 / ${PERGUNTA_MAX}</span>
+          <button class="btn-primary" type="submit" style="width:auto;margin-top:0;gap:0.5rem">${I.send} Enviar dúvida</button>
+        </div>
+      </form>
+
+      <div class="duvidas__list" data-duvidas-list>
+        <p class="duvidas__vazio">Carregando dúvidas…</p>
+      </div>`;
+
+    const form = wrap.querySelector('[data-duvida-form]');
+    const campo = wrap.querySelector('[data-duvida-texto]');
+    const chars = wrap.querySelector('[data-duvida-chars]');
+    const lista = wrap.querySelector('[data-duvidas-list]');
+    const total = wrap.querySelector('[data-duvidas-total]');
+
+    campo.addEventListener('input', () => {
+      chars.textContent = `${campo.value.length} / ${PERGUNTA_MAX}`;
+    });
+    // Ctrl/Cmd+Enter envia sem tirar a mão do teclado.
+    campo.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) form.requestSubmit();
+    });
+
+    function htmlResposta(duvidaId, r) {
+      return `
+        <div class="resposta" data-resposta="${escapeHtml(r.id)}">
+          <span class="resposta__avatar">${escapeHtml(r.autorIniciais)}</span>
+          <div class="resposta__body">
+            <div class="resposta__ident">
+              <span class="resposta__autor">${escapeHtml(r.autorNome)}</span>
+              <span class="tag-instrutor">Instrutor</span>
+              <span class="duvida__quando">${escapeHtml(formatarQuando(r.createdAt))}</span>
+            </div>
+            <p class="resposta__texto">${escapeHtml(r.texto)}</p>
+          </div>
+          ${ehAdmin ? `<button class="duvida__acao danger" type="button" title="Apagar resposta"
+                        data-apagar-resposta="${escapeHtml(r.id)}" data-duvida-id="${escapeHtml(duvidaId)}">${I.trash}</button>` : ''}
+        </div>`;
+    }
+
+    function htmlDuvida(d) {
+      const respondida = d.respostas.length > 0;
+      const podeApagar = ehAdmin || d.minha;
+      return `
+        <article class="duvida ${respondida ? 'is-respondida' : ''}" data-duvida="${escapeHtml(d.id)}">
+          <div class="duvida__head">
+            <span class="duvida__avatar">${escapeHtml(d.autorIniciais)}</span>
+            <div class="duvida__ident">
+              <span class="duvida__autor">${escapeHtml(d.autorNome)}${d.minha ? ' <span class="tag-voce">você</span>' : ''}</span>
+              <span class="duvida__quando">${escapeHtml(formatarQuando(d.createdAt))}</span>
+            </div>
+            <span class="duvida__badge ${respondida ? 'is-ok' : 'is-open'}">
+              ${respondida ? `${I.check} Respondida` : 'Aguardando resposta'}
+            </span>
+            ${podeApagar ? `<button class="duvida__acao danger" type="button" title="Apagar dúvida"
+                             data-apagar="${escapeHtml(d.id)}">${I.trash}</button>` : ''}
+          </div>
+
+          <p class="duvida__texto">${escapeHtml(d.texto)}</p>
+
+          ${d.respostas.length ? `<div class="duvida__respostas">${d.respostas.map(r => htmlResposta(d.id, r)).join('')}</div>` : ''}
+
+          ${ehAdmin ? `
+            <form class="resposta-form" data-responder="${escapeHtml(d.id)}">
+              <textarea class="input" rows="2" maxlength="${RESPOSTA_MAX}" placeholder="Responder como instrutor…"></textarea>
+              <button class="btn-ghost" type="submit" style="gap:0.5rem">${I.reply} Responder</button>
+            </form>` : ''}
+        </article>`;
+    }
+
+    function pintar() {
+      total.textContent = itens.length;
+      if (!itens.length) {
+        lista.innerHTML = `<p class="duvidas__vazio">Nenhuma dúvida por aqui ainda. Seja o primeiro a perguntar.</p>`;
+        return;
+      }
+      lista.innerHTML = itens.map(htmlDuvida).join('');
+    }
+
+    // ---- carga inicial
+    try {
+      itens = await Duvidas.listar(aula.id);
+      pintar();
+    } catch (err) {
+      lista.innerHTML = `<p class="duvidas__vazio">Não foi possível carregar as dúvidas: ${escapeHtml(err.message)}</p>`;
+    }
+
+    // ---- nova pergunta
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const texto = campo.value.trim();
+      if (texto.length < 3) { campo.focus(); return; }
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      try {
+        const nova = await Duvidas.perguntar(aula.id, texto);
+        itens.unshift(nova);
+        campo.value = '';
+        chars.textContent = `0 / ${PERGUNTA_MAX}`;
+        pintar();
+      } catch (err) {
+        alert('Não foi possível enviar: ' + err.message);
+      }
+      btn.disabled = false;
+    });
+
+    // ---- resposta do instrutor (delegação: a lista é redesenhada inteira)
+    lista.addEventListener('submit', async e => {
+      const alvo = e.target.closest('[data-responder]');
+      if (!alvo) return;
+      e.preventDefault();
+      const duvidaId = alvo.dataset.responder;
+      const area = alvo.querySelector('textarea');
+      const texto = area.value.trim();
+      if (texto.length < 2) { area.focus(); return; }
+      const btn = alvo.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      try {
+        const resposta = await Duvidas.responder(duvidaId, texto);
+        const d = itens.find(x => x.id === duvidaId);
+        if (d) { d.respostas.push(resposta); d.resolvida = true; }
+        pintar();
+      } catch (err) {
+        alert('Não foi possível responder: ' + err.message);
+        btn.disabled = false;
+      }
+    });
+
+    // ---- exclusões
+    lista.addEventListener('click', async e => {
+      const btnDuvida = e.target.closest('[data-apagar]');
+      if (btnDuvida) {
+        if (!confirm('Apagar esta dúvida? As respostas também serão removidas.')) return;
+        btnDuvida.disabled = true;
+        try {
+          await Duvidas.apagar(btnDuvida.dataset.apagar);
+          itens = itens.filter(x => x.id !== btnDuvida.dataset.apagar);
+          pintar();
+        } catch (err) {
+          alert('Não foi possível apagar: ' + err.message);
+          btnDuvida.disabled = false;
+        }
+        return;
+      }
+
+      const btnResposta = e.target.closest('[data-apagar-resposta]');
+      if (btnResposta) {
+        if (!confirm('Apagar esta resposta?')) return;
+        const { apagarResposta, duvidaId } = btnResposta.dataset;
+        btnResposta.disabled = true;
+        try {
+          await Duvidas.apagarResposta(duvidaId, apagarResposta);
+          const d = itens.find(x => x.id === duvidaId);
+          if (d) {
+            d.respostas = d.respostas.filter(r => r.id !== apagarResposta);
+            d.resolvida = d.respostas.length > 0;
+          }
+          pintar();
+        } catch (err) {
+          alert('Não foi possível apagar: ' + err.message);
+          btnResposta.disabled = false;
+        }
+      }
+    });
+  }
+
+  // =============================================================
+  // MEUS CURSOS (só os liberados, com progresso)
+  // =============================================================
+  async function bootMeusCursos() {
+    await DMC_init();
+    if (!Auth.requireOrRedirect()) return;
+    bindHeader();
+
+    const lista = document.querySelector('#meus-cursos-lista');
+    if (!lista) return;
+
+    const meus = (Data.get().cursos || []).filter(c => Liberacoes.has(c.id));
+
+    if (!meus.length) {
+      lista.innerHTML = `
+        <div class="estado-vazio">
+          <span class="estado-vazio__icon">${I.navMeusCursos}</span>
+          <h3>Você ainda não tem cursos liberados</h3>
+          <p>Assim que adquirir um programa, ele aparece aqui com a trilha completa e o seu progresso.</p>
+          <a class="btn-primary" href="loja.html" style="display:inline-flex;width:auto">${I.cart} Conhecer os programas</a>
+        </div>`;
+      return;
+    }
+
+    lista.innerHTML = meus.map(c => {
+      const p = Progress.countCurso(c);
+      const totalAulas = (c.modulos || []).reduce((s, m) => s + (m.aulas || []).length, 0);
+      const capa = capaSrc(c);
+      const concluido = p.total > 0 && p.done >= p.total;
+      const rotulo = concluido ? 'Revisar curso' : (p.done > 0 ? 'Continuar de onde parei' : 'Começar o curso');
+      return `
+        <article class="meu-curso" data-curso="${escapeHtml(c.id)}">
+          <div class="meu-curso__capa">
+            ${capa
+              ? `<img src="${escapeHtml(capa)}" alt="" loading="lazy">`
+              : `<span class="meu-curso__icone">${COURSE_ICONS[c.iconeKey] || COURSE_ICONS.graduation}</span>`}
+            ${concluido ? `<span class="meu-curso__selo">${I.check} Concluído</span>` : ''}
+          </div>
+          <div class="meu-curso__corpo">
+            <h3>${escapeHtml(c.titulo)}</h3>
+            <p>${escapeHtml(c.subtitulo || c.descricao || '')}</p>
+            <div class="meu-curso__meta">
+              <span>${I.clock} ${escapeHtml(c.cargaHoraria || '—')}</span>
+              <span>${(c.modulos || []).length} módulos · ${totalAulas} aulas</span>
+            </div>
+            <div class="meu-curso__progresso">
+              <div class="progress-bar"><div class="progress-bar__fill" style="width:${p.pct}%"></div></div>
+              <span class="meu-curso__pct">${p.done}/${p.total} aulas · ${p.pct}%</span>
+            </div>
+            <div class="meu-curso__acoes">
+              <button class="btn-primary" type="button" data-continuar="${escapeHtml(c.id)}" style="width:auto;margin-top:0">${rotulo}</button>
+              ${concluido ? `<a class="btn-ghost" href="certificados.html">${I.navCertificados} Certificado</a>` : ''}
+            </div>
+          </div>
+        </article>`;
+    }).join('');
+
+    lista.addEventListener('click', e => {
+      const btn = e.target.closest('[data-continuar]');
+      if (!btn) return;
+      const curso = meus.find(c => c.id === btn.dataset.continuar);
+      Data.setCursoEscolhido(curso.id);
+      // Retoma na primeira aula disponível ainda não concluída.
+      const pendente = flatAulas(curso).filter(aulaDisponivel).find(a => !Progress.isDone(a.id));
+      window.location.href = pendente ? `aula.html?id=${encodeURIComponent(pendente.id)}` : 'dashboard.html';
+    });
+  }
+  window.DMC_bootMeusCursos = bootMeusCursos;
+
+  // =============================================================
+  // AULAS AO VIVO
+  // =============================================================
+  async function bootAoVivo() {
+    await DMC_init();
+    if (!Auth.requireOrRedirect()) return;
+    bindHeader();
+
+    const lista = document.querySelector('#lives-lista');
+    if (!lista) return;
+    lista.innerHTML = '<p class="lista-carregando">Carregando agenda…</p>';
+
+    let itens;
+    try {
+      itens = await Lives.listar();
+    } catch (err) {
+      lista.innerHTML = `<div class="estado-vazio"><h3>Não foi possível carregar a agenda</h3><p>${escapeHtml(err.message)}</p></div>`;
+      return;
+    }
+
+    if (!itens.length) {
+      lista.innerHTML = `
+        <div class="estado-vazio">
+          <span class="estado-vazio__icon">${I.navAoVivo}</span>
+          <h3>Nenhum encontro ao vivo agendado</h3>
+          <p>Quando um encontro for marcado para algum curso seu, ele aparece aqui com data, horário e o link da sala.</p>
+        </div>`;
+      return;
+    }
+
+    const grupos = [
+      { chave: 'ao-vivo',   titulo: 'Acontecendo agora',   itens: itens.filter(l => l.status === 'ao-vivo') },
+      { chave: 'agendada',  titulo: 'Próximos encontros',  itens: itens.filter(l => l.status === 'agendada') },
+      // Encerradas em ordem inversa: a última que aconteceu vem primeiro.
+      { chave: 'encerrada', titulo: 'Encontros anteriores', itens: itens.filter(l => l.status === 'encerrada').reverse() }
+    ].filter(g => g.itens.length);
+
+    lista.innerHTML = grupos.map(g => `
+      <section class="lives-grupo">
+        <div class="lives-grupo__head">
+          <span class="overline">${escapeHtml(g.titulo)}</span>
+          <span class="mats-count">${g.itens.length}</span>
+        </div>
+        ${g.itens.map(l => cardLive(l)).join('')}
+      </section>`).join('');
+
+    function cardLive(l) {
+      const aoVivo = l.status === 'ao-vivo';
+      const encerrada = l.status === 'encerrada';
+      return `
+        <article class="live-card is-${escapeHtml(l.status)}">
+          <div class="live-card__quando">
+            <span class="live-card__data">${escapeHtml(formatarDataHora(l.inicioEm))}</span>
+            <span class="live-card__dur">${I.clock} ${l.duracaoMin} min</span>
+          </div>
+          <div class="live-card__corpo">
+            <span class="live-card__curso">${escapeHtml(l.cursoTitulo)}</span>
+            <h3>${escapeHtml(l.titulo)}</h3>
+            ${l.descricao ? `<p>${escapeHtml(l.descricao)}</p>` : ''}
+            <span class="live-card__plataforma">${escapeHtml(l.plataforma)}</span>
+          </div>
+          <div class="live-card__acao">
+            ${aoVivo ? '<span class="live-badge is-live"><i></i> Ao vivo</span>' : ''}
+            ${encerrada ? '<span class="live-badge is-off">Encerrada</span>' : ''}
+            ${l.url && !encerrada
+              ? `<a class="btn-primary" href="${escapeHtml(l.url)}" target="_blank" rel="noopener" style="width:auto;margin-top:0">${I.externalLink} Entrar na sala</a>`
+              : (encerrada ? '' : `<span class="live-card__espera">Sala abre 15 min antes</span>`)}
+          </div>
+        </article>`;
+    }
+  }
+  window.DMC_bootAoVivo = bootAoVivo;
+
+  // =============================================================
+  // CERTIFICADOS (área do aluno)
+  // =============================================================
+  async function bootCertificados() {
+    await DMC_init();
+    if (!Auth.requireOrRedirect()) return;
+    bindHeader();
+
+    const lista = document.querySelector('#certificados-lista');
+    if (!lista) return;
+    lista.innerHTML = '<p class="lista-carregando">Carregando certificados…</p>';
+
+    const meus = (Data.get().cursos || []).filter(c => Liberacoes.has(c.id));
+    if (!meus.length) {
+      lista.innerHTML = `
+        <div class="estado-vazio">
+          <span class="estado-vazio__icon">${I.navCertificados}</span>
+          <h3>Nenhum curso para certificar ainda</h3>
+          <p>Os certificados aparecem aqui conforme você conclui os cursos que adquirir.</p>
+          <a class="btn-primary" href="loja.html" style="display:inline-flex;width:auto">${I.cart} Conhecer os programas</a>
+        </div>`;
+      return;
+    }
+
+    let emitidos = [];
+    try { emitidos = await Certificados.meus(); }
+    catch (err) { console.warn('[DMC] erro certificados:', err.message); }
+    const porCurso = new Map(emitidos.map(c => [c.cursoId, c]));
+
+    function pintar() {
+      lista.innerHTML = meus.map(c => {
+        const cert = porCurso.get(c.id);
+        const p = Progress.countCurso(c);
+        if (cert) {
+          return `
+            <article class="cert-card is-emitido">
+              <span class="cert-card__medalha">${I.award}</span>
+              <div class="cert-card__corpo">
+                <span class="overline">Certificado emitido</span>
+                <h3>${escapeHtml(cert.tituloCurso || c.titulo)}</h3>
+                <p class="cert-card__linha">Concluído em ${escapeHtml(formatarData(cert.emitidoEm))}${cert.cargaHoraria ? ` · ${escapeHtml(cert.cargaHoraria)}` : ''}</p>
+                <p class="cert-card__codigo">Código de validação <code>${escapeHtml(cert.codigo)}</code></p>
+              </div>
+              <div class="cert-card__acoes">
+                <a class="btn-primary" href="certificado.html?codigo=${encodeURIComponent(cert.codigo)}" target="_blank" rel="noopener" style="width:auto;margin-top:0">${I.print} Ver e imprimir</a>
+              </div>
+            </article>`;
+        }
+        const completo = p.total > 0 && p.done >= p.total;
+        return `
+          <article class="cert-card ${completo ? 'is-pronto' : ''}">
+            <span class="cert-card__medalha">${I.award}</span>
+            <div class="cert-card__corpo">
+              <span class="overline">${completo ? 'Pronto para emitir' : 'Em andamento'}</span>
+              <h3>${escapeHtml(c.titulo)}</h3>
+              <div class="cert-card__progresso">
+                <div class="progress-bar"><div class="progress-bar__fill" style="width:${p.pct}%"></div></div>
+                <span>${p.done}/${p.total} aulas · ${p.pct}%</span>
+              </div>
+              ${completo
+                ? '<p class="cert-card__linha">Você concluiu todas as aulas disponíveis deste curso.</p>'
+                : `<p class="cert-card__linha">Faltam ${p.total - p.done} aula${p.total - p.done === 1 ? '' : 's'} para liberar a emissão.</p>`}
+            </div>
+            <div class="cert-card__acoes">
+              <button class="btn-primary" type="button" data-emitir="${escapeHtml(c.id)}"
+                      ${completo ? '' : 'disabled'} style="width:auto;margin-top:0">${I.navCertificados} Emitir certificado</button>
+              ${completo ? '' : `<a class="btn-ghost" href="meus-cursos.html">Continuar curso</a>`}
+            </div>
+          </article>`;
+      }).join('');
+    }
+    pintar();
+
+    lista.addEventListener('click', async e => {
+      const btn = e.target.closest('[data-emitir]');
+      if (!btn) return;
+      btn.disabled = true;
+      try {
+        const cert = await Certificados.emitir(btn.dataset.emitir);
+        porCurso.set(cert.cursoId, cert);
+        pintar();
+      } catch (err) {
+        alert('Não foi possível emitir: ' + err.message);
+        btn.disabled = false;
+      }
+    });
+  }
+  window.DMC_bootCertificados = bootCertificados;
+
+  // =============================================================
+  // CERTIFICADO — página pública de validação e impressão
+  // Não exige sessão: é o link que o aluno manda pra terceiros.
+  // =============================================================
+  async function bootCertificadoPublico() {
+    const raiz = document.querySelector('#cert-root');
+    if (!raiz) return;
+
+    const codigo = (new URLSearchParams(window.location.search).get('codigo') || '').trim();
+    if (!codigo) {
+      raiz.innerHTML = renderInvalido('Informe o código do certificado no endereço, no formato <code>?codigo=DMC-XXXX-XXXX</code>.');
+      return;
+    }
+
+    let dados;
+    try {
+      dados = await Certificados.validar(codigo);
+    } catch (err) {
+      raiz.innerHTML = renderInvalido(`Nenhum certificado corresponde ao código <strong>${escapeHtml(codigo)}</strong>. Confira se ele foi digitado corretamente.`);
+      return;
+    }
+
+    const c = dados.certificado;
+    raiz.innerHTML = `
+      <div class="cert-toolbar">
+        <span class="cert-toolbar__ok">${I.check} Certificado autêntico</span>
+        <button class="btn-primary" type="button" id="btn-imprimir" style="width:auto;margin-top:0">${I.print} Imprimir / salvar PDF</button>
+      </div>
+
+      <article class="cert-doc">
+        <header class="cert-doc__head">
+          <img class="cert-doc__logo" src="../assets/images/RINO_logo.png" alt="Complexo DMC">
+          <span class="cert-doc__marca">Complexo DMC</span>
+        </header>
+
+        <span class="cert-doc__overline">Certificado de conclusão</span>
+        <p class="cert-doc__intro">Certificamos que</p>
+        <h1 class="cert-doc__nome">${escapeHtml(c.nomeAluno)}</h1>
+        <p class="cert-doc__texto">
+          concluiu integralmente o programa de formação
+          <strong>${escapeHtml(c.tituloCurso)}</strong>${c.cargaHoraria ? `, com carga horária de ${escapeHtml(c.cargaHoraria)}` : ''},
+          cumprindo todas as aulas e atividades previstas na trilha.
+        </p>
+
+        <footer class="cert-doc__foot">
+          <div class="cert-doc__campo">
+            <span class="cert-doc__valor">${escapeHtml(formatarData(c.emitidoEm))}</span>
+            <span class="cert-doc__rotulo">Data de emissão</span>
+          </div>
+          <div class="cert-doc__campo">
+            <span class="cert-doc__valor cert-doc__codigo">${escapeHtml(c.codigo)}</span>
+            <span class="cert-doc__rotulo">Código de validação</span>
+          </div>
+        </footer>
+
+        <p class="cert-doc__nota">
+          A autenticidade deste certificado pode ser verificada em
+          <strong>complexodmc.com.br/plataforma-ead/certificado.html?codigo=${escapeHtml(c.codigo)}</strong>
+        </p>
+      </article>`;
+
+    document.querySelector('#btn-imprimir').addEventListener('click', () => window.print());
+
+    function renderInvalido(msg) {
+      return `
+        <div class="estado-vazio cert-invalido">
+          <span class="estado-vazio__icon">${I.close}</span>
+          <h3>Certificado não localizado</h3>
+          <p>${msg}</p>
+        </div>`;
+    }
+  }
+  window.DMC_bootCertificadoPublico = bootCertificadoPublico;
 
   // =============================================================
   // LOJA
@@ -761,6 +1590,7 @@
         const beneficios = (c.beneficios || []).map(b => `<li>${I.check}<span>${escapeHtml(b)}</span></li>`).join('');
         const totalAulas = (c.modulos || []).reduce((s, m) => s + (m.aulas || []).length, 0);
         const iconSvg = COURSE_ICONS[c.iconeKey] || COURSE_ICONS.graduation;
+        const capa = capaSrc(c);
         const modalidade = c.modalidade || 'Online';
         const isDestacado = c.id === destacarId;
         let cta;
@@ -776,7 +1606,9 @@
             <div class="loja-card__inner">
               ${liberado ? `<span class="loja-card__badge loja-card__badge--owned">${I.unlock} Liberado</span>` : ''}
               ${isDestacado && !liberado ? `<span class="loja-card__badge loja-card__badge--featured">${I.sparkle} Selecionado</span>` : ''}
-              <div class="loja-card__icon">${iconSvg}</div>
+              ${capa
+                ? `<div class="loja-card__capa"><img src="${escapeHtml(capa)}" alt="" loading="lazy"></div>`
+                : `<div class="loja-card__icon">${iconSvg}</div>`}
               <span class="loja-card__pill loja-card__pill--${modalidade.toLowerCase()}">${escapeHtml(modalidade)}</span>
               <h3 class="loja-card__title">${escapeHtml(c.titulo)}</h3>
               <p class="loja-card__desc">${escapeHtml(c.descricao || c.subtitulo || '')}</p>
@@ -1013,6 +1845,11 @@
   // HEADER (nav comum)
   // =============================================================
   function bindHeader() {
+    // Páginas do aluno declaram <body data-shell="chave">; o shell monta a
+    // barra e o menu antes daqui, então os [data-user-*] abaixo já existem.
+    if (document.body.dataset.shell && window.DMC_Shell) {
+      window.DMC_Shell.montar(document.body.dataset.shell);
+    }
     const user = Auth.user();
     if (user) {
       document.querySelectorAll('[data-user-iniciais]').forEach(el => el.textContent = user.iniciais);

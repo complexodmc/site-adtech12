@@ -62,6 +62,87 @@
         <section class="admin-main" id="curso-editor"></section>
       </div>
 
+      <!-- ============ AULAS AO VIVO — agenda de encontros ============ -->
+      <section class="duvidas-pane" id="lives-pane">
+        <div class="editor-section__head">
+          <div>
+            <span class="overline">Encontros</span>
+            <h2 style="margin-top:0.4rem">Aulas ao vivo</h2>
+            <p class="duvidas-pane__help">Encontros agendados por curso. O aluno só vê os encontros dos cursos que ele tem liberados, e o botão de entrar na sala aparece 15 minutos antes do horário marcado — até lá o link não é entregue ao navegador dele.</p>
+          </div>
+          <button class="btn-ghost" id="btn-lives-refresh"></button>
+        </div>
+
+        <div class="lib-grid">
+          <form class="lib-form" id="live-form" autocomplete="off">
+            <input type="hidden" id="live-id">
+            <div class="field-row">
+              <div>
+                <label class="field-label">Curso</label>
+                <select class="input" id="live-curso" required></select>
+              </div>
+            </div>
+            <div class="field-row">
+              <div>
+                <label class="field-label">Título do encontro</label>
+                <input class="input" id="live-titulo" required maxlength="180" placeholder="Ex.: Plantão de dúvidas — Módulo 02">
+              </div>
+            </div>
+            <div class="field-row cols-3">
+              <div>
+                <label class="field-label">Data e hora</label>
+                <input class="input" id="live-inicio" type="datetime-local" required>
+              </div>
+              <div>
+                <label class="field-label">Plataforma</label>
+                <input class="input" id="live-plataforma" placeholder="Zoom, Meet, YouTube…">
+              </div>
+              <div>
+                <label class="field-label">Duração (min)</label>
+                <input class="input" id="live-duracao" type="number" min="10" max="600" step="5" value="90">
+              </div>
+            </div>
+            <div class="field-row">
+              <div>
+                <label class="field-label">Link da sala</label>
+                <input class="input" id="live-url" type="url" placeholder="https://…">
+              </div>
+            </div>
+            <div class="field-row">
+              <div>
+                <label class="field-label">Descrição (opcional)</label>
+                <textarea class="input" id="live-descricao" rows="2" maxlength="2000" placeholder="O que será tratado neste encontro"></textarea>
+              </div>
+            </div>
+            <div class="lib-form__actions">
+              <button class="btn-primary" type="submit" style="width:auto;margin-top:0">Salvar encontro</button>
+              <button class="btn-ghost" type="button" id="live-clear">Limpar</button>
+            </div>
+          </form>
+
+          <aside class="lib-list-wrap">
+            <div class="lib-list-head">
+              <span class="overline">Agenda</span>
+              <span class="lib-list-count" id="lives-count">0</span>
+            </div>
+            <div class="lib-list" id="lives-list"></div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============ DÚVIDAS — fila de perguntas feitas nas aulas ============ -->
+      <section class="duvidas-pane" id="duvidas-pane">
+        <div class="editor-section__head">
+          <div>
+            <span class="overline">Suporte ao aluno</span>
+            <h2 style="margin-top:0.4rem">Dúvidas das aulas</h2>
+            <p class="duvidas-pane__help">Perguntas enviadas pelos alunos na página de cada aula. Só o instrutor responde, e a resposta aparece na aula para todos os alunos com acesso ao curso. Responder marca a dúvida como resolvida e a tira desta fila.</p>
+          </div>
+          <button class="btn-ghost" id="btn-duvidas-refresh"></button>
+        </div>
+        <div class="duvidas-admin" id="duvidas-admin"></div>
+      </section>
+
       <!-- ============ LIBERAÇÕES — gerenciamento de acesso por aluno ============ -->
       <section class="lib-section" id="liberacoes-pane">
         <div class="editor-section__head">

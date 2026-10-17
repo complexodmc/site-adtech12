@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#030708">
   <title>Acesso · Plataforma Complexo DMC</title>
 
   <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
@@ -12,58 +13,213 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/plataforma.css">
-  <style>
-    .auth-tabs { display:flex; gap:0; margin:1.4rem 0 1.2rem; border-radius:0.6rem; background:rgba(255,255,255,0.04); padding:0.25rem; }
-    .auth-tab { flex:1; background:transparent; border:none; padding:0.6rem 0.75rem; color:var(--ink-2,#9aa3b2); font-family:inherit; font-size:0.85rem; font-weight:600; letter-spacing:0.04em; cursor:pointer; border-radius:0.45rem; transition:all 0.18s ease; }
-    .auth-tab.is-active { background:rgba(255,255,255,0.08); color:var(--ink-0,#fff); box-shadow:0 1px 0 rgba(255,255,255,0.04) inset; }
-    .auth-tab:hover:not(.is-active) { color:var(--ink-1,#cdd5e1); }
-    .login-notice { margin:0.6rem 0 0; padding:0.7rem 0.85rem; background:rgba(34,197,94,0.10); border:1px solid rgba(34,197,94,0.35); color:#86efac; border-radius:0.5rem; font-size:0.85rem; }
-  </style>
+  <link rel="stylesheet" href="css/login.css">
 </head>
-<body class="bg-grid">
-  <div class="glow-corner"></div>
+<body class="login-page">
 
-  <main class="login-shell">
-    <section class="login-card">
-      <img src="../assets/images/RINO_logo.png" alt="Complexo DMC" class="login-logo">
-      <span class="overline login-overline">Plataforma Institucional</span>
-      <h1 class="login-title">Arquitetura Patrimonial <span class="gradient-text">Estratégica</span></h1>
-      <p class="login-sub">Acesso reservado aos alunos e clientes institucionais do Complexo DMC.</p>
+  <!-- Atmosfera compartilhada: grid técnico + iluminação. Atravessa os
+       dois lados da tela para que não exista divisão visual rígida. -->
+  <div class="atmos" aria-hidden="true">
+    <div class="atmos__grid"></div>
+    <div class="atmos__lume atmos__lume--torre"></div>
+    <div class="atmos__lume atmos__lume--chao"></div>
+    <div class="atmos__lume atmos__lume--acesso"></div>
+    <div class="atmos__vinheta"></div>
+  </div>
 
-      <div class="auth-tabs" role="tablist">
-        <button type="button" class="auth-tab is-active" data-auth-tab="signin" role="tab">Entrar</button>
-        <button type="button" class="auth-tab" data-auth-tab="signup" role="tab">Criar conta</button>
+  <!-- Arquitetura do conhecimento (WebGL). Puramente decorativa: o
+       conteúdo equivalente está nos rótulos e na progressão abaixo. -->
+  <canvas class="arquitetura" id="arquitetura" aria-hidden="true"></canvas>
+
+  <main class="acesso-layout">
+
+    <!-- ══════════ ESQUERDA · A ARQUITETURA ══════════ -->
+    <section class="palco" aria-labelledby="palco-titulo">
+
+      <!-- Os quatro níveis, de cima para baixo. `data-camada` casa com
+           o índice que a cena 3D usa para destacar a laje correspondente,
+           e é por ele que login-experience.js ancora cada rótulo na
+           projeção real da câmera. -->
+      <ul class="camadas" id="camadas" role="list">
+        <li class="camadas__item" data-camada="4">
+          <span class="camadas__icone" aria-hidden="true">
+            <!-- cubo: o conhecimento que virou objeto no mundo -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/><path d="M12 12 20 7.5M12 12v9M12 12 4 7.5"/></svg>
+          </span>
+          <span class="camadas__texto">
+            <span class="camadas__nome">Aplicação</span>
+            <span class="camadas__desc">Transforma conhecimento em ação no mundo real.</span>
+          </span>
+          <span class="camadas__conector" aria-hidden="true"><i class="camadas__no"></i></span>
+        </li>
+        <li class="camadas__item" data-camada="3">
+          <span class="camadas__icone" aria-hidden="true">
+            <!-- torre de xadrez: escolher a posição antes de mover -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v3l-2 2v4l2 3v5H7v-5l2-3V9L7 7V4Z"/><path d="M9.5 4v2M14.5 4v2M9 20h6"/></svg>
+          </span>
+          <span class="camadas__texto">
+            <span class="camadas__nome">Estratégia</span>
+            <span class="camadas__desc">Define o caminho, prioriza o que importa.</span>
+          </span>
+          <span class="camadas__conector" aria-hidden="true"><i class="camadas__no"></i></span>
+        </li>
+        <li class="camadas__item" data-camada="2">
+          <span class="camadas__icone" aria-hidden="true">
+            <!-- rede de nós: o saber organizado em relações -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="17" r="2"/><path d="M12 7v5M12 12 6.6 15.8M12 12l5.4 3.8M7 17h10"/></svg>
+          </span>
+          <span class="camadas__texto">
+            <span class="camadas__nome">Método</span>
+            <span class="camadas__desc">Organiza o processo, sistematiza o saber.</span>
+          </span>
+          <span class="camadas__conector" aria-hidden="true"><i class="camadas__no"></i></span>
+        </li>
+        <li class="camadas__item" data-camada="1">
+          <span class="camadas__icone" aria-hidden="true">
+            <!-- coluna clássica: o princípio que sustenta -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M6 21V8M10 21V8M14 21V8M18 21V8"/><path d="M3 8h18l-9-5-9 5Z"/></svg>
+          </span>
+          <span class="camadas__texto">
+            <span class="camadas__nome">Fundação</span>
+            <span class="camadas__desc">Sólida, confiável e baseada em princípios.</span>
+          </span>
+          <span class="camadas__conector" aria-hidden="true"><i class="camadas__no"></i></span>
+        </li>
+      </ul>
+
+      <div class="palco__copy">
+        <h1 class="palco__titulo" id="palco-titulo">
+          Conhecimento que se constrói
+          <span class="palco__titulo-acento">camada sobre camada</span>
+        </h1>
+        <p class="palco__lede">
+          Formação estratégica, modular e aplicada<br>
+          para transformar conhecimento em resultado.
+        </p>
+        <ul class="palco__pilares" role="list">
+          <li><b>Trilhas modulares</b><span>Aprendizado estruturado</span></li>
+          <li><b>Aulas sob demanda</b><span>Estude no seu ritmo</span></li>
+          <li><b>Progresso acompanhado</b><span>Acompanhamento de performance</span></li>
+        </ul>
       </div>
 
-      <form id="login-form" autocomplete="off" novalidate data-auth-mode="signin">
-        <div class="field" data-auth-only="signup">
-          <label for="nome">Nome completo</label>
-          <input type="text" id="nome" name="nome" placeholder="Como gostaria de ser chamado" autocomplete="name">
-        </div>
-        <div class="field">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" name="email" required placeholder="seuemail@dominio.com" autocomplete="email">
-        </div>
-        <div class="field">
-          <label for="senha">Senha</label>
-          <input type="password" id="senha" name="senha" required placeholder="••••••••" autocomplete="current-password">
-        </div>
-        <p id="login-error" class="login-error" role="alert" hidden></p>
-        <p id="login-notice" class="login-notice" role="status" hidden></p>
-        <button type="submit" class="btn-primary">Acessar plataforma</button>
-      </form>
+      <ol class="progressao" aria-label="Progressão do método">
+        <li class="progressao__etapa"><span class="progressao__no" aria-hidden="true"></span>Fundação</li>
+        <li class="progressao__etapa"><span class="progressao__no" aria-hidden="true"></span>Método</li>
+        <li class="progressao__etapa"><span class="progressao__no" aria-hidden="true"></span>Estratégia</li>
+        <li class="progressao__etapa"><span class="progressao__no" aria-hidden="true"></span>Aplicação</li>
+      </ol>
+    </section>
 
-      <p class="login-foot" data-auth-only="signin">
-        Problemas de acesso? Entre em contato com <a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a>
-      </p>
-      <p class="login-foot" data-auth-only="signup">
-        Após criar a conta, você verá os cursos disponíveis. Para liberar o acesso a um curso, finalize a compra na loja — o administrativo confirma o pagamento e libera.
-      </p>
+    <!-- ══════════ DIREITA · O ACESSO ══════════ -->
+    <section class="acesso">
+      <div class="acesso__card" id="acesso-card">
+
+        <a class="acesso__marca" href="../index.html" aria-label="Voltar ao site do Complexo DMC">
+          <img src="../assets/images/RINO_logo.png" alt="Complexo DMC" class="acesso__logo" width="52" height="52">
+        </a>
+
+        <p class="acesso__overline">Plataforma institucional</p>
+        <h2 class="acesso__titulo">
+          Arquitetura Patrimonial
+          <span class="acesso__titulo-acento">Estratégica</span>
+        </h2>
+
+        <div class="abas" role="tablist" aria-label="Modo de acesso">
+          <span class="abas__indicador" aria-hidden="true"></span>
+          <button type="button" class="abas__botao is-active" data-auth-tab="signin"
+                  role="tab" id="aba-entrar" aria-selected="true" aria-controls="login-form">Entrar</button>
+          <button type="button" class="abas__botao" data-auth-tab="signup"
+                  role="tab" id="aba-criar" aria-selected="false" aria-controls="login-form">Criar conta</button>
+        </div>
+
+        <!-- Sem autocomplete="off": o formulário precisa aceitar o
+             preenchimento do gerenciador de senhas. Cada campo declara
+             o próprio autocomplete. -->
+        <form id="login-form" novalidate data-auth-mode="signin" aria-labelledby="aba-entrar">
+
+          <div class="campo" data-auth-only="signup">
+            <label for="nome">Nome completo</label>
+            <div class="campo__caixa">
+              <span class="campo__icone" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </span>
+              <input type="text" id="nome" name="nome" placeholder="Como gostaria de ser chamado" autocomplete="name">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="email">E-mail</label>
+            <div class="campo__caixa">
+              <span class="campo__icone" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg>
+              </span>
+              <input type="email" id="email" name="email" required placeholder="seuemail@dominio.com" autocomplete="email" inputmode="email">
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="senha">Senha</label>
+            <div class="campo__caixa">
+              <span class="campo__icone" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              </span>
+              <input type="password" id="senha" name="senha" required placeholder="••••••••" autocomplete="current-password">
+              <button type="button" class="campo__olho" id="ver-senha" aria-label="Mostrar senha" aria-pressed="false">
+                <svg class="campo__olho-ver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="2.6"/></svg>
+                <svg class="campo__olho-ocultar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16"/><path d="M9.9 5.2A9.7 9.7 0 0 1 12 5c6.4 0 10 6 10 6a17 17 0 0 1-3.3 3.9M6.3 7.4A17 17 0 0 0 2 11s3.6 6 10 6a9.9 9.9 0 0 0 3.6-.65"/></svg>
+              </button>
+            </div>
+            <p class="campo__aviso" id="caps-aviso" role="status" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 4.5 11.5h4v3.5h7v-3.5h4z"/><path d="M8.5 19h7"/></svg>
+              Caps Lock está ativado
+            </p>
+          </div>
+
+          <p id="login-error" class="acesso__erro" role="alert" hidden></p>
+          <p id="login-notice" class="acesso__aviso" role="status" hidden></p>
+
+          <button type="submit" class="acesso__cta" id="acesso-cta">Acessar plataforma</button>
+        </form>
+
+        <p class="acesso__rodape" data-auth-only="signin">
+          Problemas de acesso? Entre em contato com
+          <a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a>
+        </p>
+        <p class="acesso__rodape" data-auth-only="signup">
+          Após criar a conta você verá os cursos disponíveis. A liberação acontece
+          quando a compra é concluída na loja.
+        </p>
+      </div>
     </section>
   </main>
 
+  <!-- Feixe da transição: nasce no botão e atravessa até a arquitetura. -->
+  <div class="feixe" id="feixe" aria-hidden="true"></div>
+  <div class="cortina" id="cortina" aria-hidden="true"></div>
+
   <script src="js/api-client.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/login/login-experience.js"></script>
+
+  <!-- Autenticação primeiro e em script clássico: o formulário
+       precisa funcionar mesmo que o motor 3D não carregue. -->
   <script>DMC_bootLogin();</script>
+
+  <!-- Arquitetura do conhecimento (Three.js + bloom, servido local:
+       nenhuma dependência de CDN numa tela de autenticação).
+       Ordem obrigatória: three → shaders → passes → cena. Se qualquer
+       um falhar, a página cai no fallback em CSS (.is-gl-off) sem
+       perder conteúdo — o formulário nunca depende da cena. -->
+  <script src="js/vendor/three/three.min.js"></script>
+  <script src="js/vendor/three/CopyShader.js"></script>
+  <script src="js/vendor/three/LuminosityHighPassShader.js"></script>
+  <script src="js/vendor/three/EffectComposer.js"></script>
+  <script src="js/vendor/three/RenderPass.js"></script>
+  <script src="js/vendor/three/MaskPass.js"></script>
+  <script src="js/vendor/three/ShaderPass.js"></script>
+  <script src="js/vendor/three/UnrealBloomPass.js"></script>
+  <script src="js/login/cena-three.js"></script>
+  <script>DMC_bootLoginExperience();</script>
 </body>
 </html>

@@ -22,6 +22,9 @@ Icon
 *.bak
 *.orig
 
+# Materiais de apoio enviados pelo admin (PDFs das aulas)
+server/uploads/
+
 # Dependências (caso entrem no futuro)
 node_modules/
 dist/
@@ -36,3 +39,5 @@ build/
 *.key
 credentials*
 secret*
+.vercel
+.env*

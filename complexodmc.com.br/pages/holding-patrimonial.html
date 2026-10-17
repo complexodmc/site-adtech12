@@ -10,22 +10,24 @@
   <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&family=Raleway:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=DM+Sans:wght@300;400;600;700&family=Poppins:wght@400;500;600;700;800&family=Raleway:wght@600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="css/shared.css?v=2">
+  <link rel="stylesheet" href="css/shared.css?v=3">
+  <link rel="stylesheet" href="css/eixos.css?v=3">
   <script src="../assets/js/navbar.js" defer></script>
+  <script src="../assets/js/video.js" defer></script>
 </head>
-<body>
+<body class="np-eixo np-pillar-patrimonial">
   <dmc-navbar></dmc-navbar>
 
-<section class="page-hero">
+<section class="page-hero" aria-label="Apresentação do serviço de Holding Patrimonial">
     <div class="page-hero__glow" aria-hidden="true"></div>
     <div class="page-hero__inner">
       <div class="page-hero__content">
-        <div class="page-hero__badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> ESTRUTURAÇÃO PATRIMONIAL</div>
+        <div class="page-hero__badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> E1 · PATRIMONIAL E SUCESSÓRIO</div>
         <h1 class="page-hero__title">Holding<br><span class="gradient-text">Patrimonial</span></h1>
         <p class="page-hero__subtitle">Trata-se de uma solução estratégica voltada à proteção e organização patrimonial, com foco na mitigação de riscos, na eficiência da gestão de bens e na facilitação do processo sucessório com segurança empresarial e sustentabilidade financeira.</p>
-        <div class="page-hero__actions"><a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--primary"><span>Agendar Consulta</span></a><a href="#beneficios" class="btn btn--secondary"><span>Nossas Áreas</span></a></div>
+        <div class="page-hero__actions"><a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--primary"><span>Agendar Consulta</span></a><a href="#processo" class="btn btn--secondary"><span>Como funciona</span></a></div>
       </div>
       <div class="page-hero__visual" aria-hidden="true">
   <div id="tech-net-wrap" style="position:relative;width:100%;max-width:520px;aspect-ratio:1;margin:0 auto;overflow:hidden;background:transparent;">
@@ -35,7 +37,7 @@
       transform:translate(-50%,-50%);
       font-family:'Raleway','DM Sans',sans-serif;
       font-size:56px;font-weight:700;letter-spacing:10px;
-      background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);
+      background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
       background-clip:text;
@@ -48,7 +50,7 @@
     </div>
   </section>
 
-  <section class="page-section" id="beneficios"><div class="page-section__container reveal"><div class="page-section__header"><p class="page-section__overline">Nossas Especialidades</p><h2 class="page-section__title">Por que investir em <span class="gradient-text">Holding Patrimonial</span>?</h2><p class="page-section__description">Estratégias para proteger, organizar e otimizar a gestão do seu patrimônio.</p></div>
+  <section class="page-section" id="beneficios" aria-label="Benefícios da Holding Patrimonial"><div class="page-section__container reveal"><div class="page-section__header"><p class="page-section__overline">Nossas Especialidades</p><h2 class="page-section__title">Por que investir em <span class="gradient-text">Holding Patrimonial</span>?</h2><p class="page-section__description">Estratégias para proteger, organizar e otimizar a gestão do seu patrimônio.</p></div>
     <div class="benefit-grid">
       <div class="benefit-card"><div class="benefit-card__icon"></div><span class="benefit-card__tag">Proteção</span><h3 class="benefit-card__title">Blindagem Patrimonial</h3><p class="benefit-card__text">Proteção dos bens pessoais e empresariais contra riscos jurídicos e financeiros.</p></div>
       <div class="benefit-card"><div class="benefit-card__icon"></div><span class="benefit-card__tag">Tributário</span><h3 class="benefit-card__title">Eficiência Tributária</h3><p class="benefit-card__text">Redução legal da carga tributária sobre rendimentos, aluguéis e transferências patrimoniais.</p></div>
@@ -59,26 +61,103 @@
     </div>
   </div></section>
 
+  <!-- ========== STATS MARQUEE ========== -->
+  <section class="stats-marquee" aria-label="Números e resultados">
+    <div class="stats-marquee__track">
+        <div class="stats-marquee__slide">
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">200+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Holdings Constituídas</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">R$1.5B+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Patrimônio Estruturado</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">40%</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Economia Tributária Média</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">10+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Anos no Mercado</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+        </div>
+      <!-- Duplicado duas vezes para o loop infinito -->
+        <div class="stats-marquee__slide" aria-hidden="true">
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">200+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Holdings Constituídas</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">R$1.5B+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Patrimônio Estruturado</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">40%</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Economia Tributária Média</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">10+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Anos no Mercado</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+        </div>
+        <div class="stats-marquee__slide" aria-hidden="true">
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">200+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Holdings Constituídas</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">R$1.5B+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Patrimônio Estruturado</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">40%</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Economia Tributária Média</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+          <div class="stats-marquee__item">
+            <span class="stats-marquee__number">10+</span>
+            <span class="stats-marquee__sep">/</span>
+            <span class="stats-marquee__label">Anos no Mercado</span>
+          </div>
+          <div class="stats-marquee__dot" aria-hidden="true"></div>
+        </div>
+    </div>
+  </section>
+
   <div class="section-divider"></div>
-  <section class="page-section"><div class="page-section__container reveal"><div class="page-section__header"><p class="page-section__overline">Metodologia</p><h2 class="page-section__title">Como <span class="gradient-text">Funciona</span></h2></div>
-    <div class="process-grid">
-      <div class="process-step"><h3 class="process-step__title">Análise Patrimonial</h3><p class="process-step__text">Mapeamento completo dos bens, direitos e obrigações para definir a melhor estrutura.</p></div>
-      <div class="process-step"><h3 class="process-step__title">Estruturação Societária</h3><p class="process-step__text">Definição do tipo societário ideal e elaboração do contrato social e documentos necessários.</p></div>
-      <div class="process-step"><h3 class="process-step__title">Transferência de Bens</h3><p class="process-step__text">Integralização dos bens na holding com planejamento tributário otimizado.</p></div>
-      <div class="process-step"><h3 class="process-step__title">Gestão Contínua</h3><p class="process-step__text">Acompanhamento permanente da estrutura com ajustes conforme necessidade.</p></div>
+  <section class="page-section" id="processo" aria-label="Como funciona o processo"><div class="page-section__container reveal"><div class="page-section__header"><p class="page-section__overline">Metodologia</p><h2 class="page-section__title">Como <span class="gradient-text">Funciona</span></h2><p class="page-section__description">Quatro etapas entre o primeiro levantamento e a holding em operação — cada uma com entrega própria.</p></div>
+    <div class="process-grid process-grid--steps">
+      <div class="process-step"><div class="process-step__number">1</div><h3 class="process-step__title">Análise Patrimonial</h3><p class="process-step__text">Mapeamento completo dos bens, direitos e obrigações para definir a melhor estrutura.</p></div>
+      <div class="process-step"><div class="process-step__number">2</div><h3 class="process-step__title">Estruturação Societária</h3><p class="process-step__text">Definição do tipo societário ideal e elaboração do contrato social e documentos necessários.</p></div>
+      <div class="process-step"><div class="process-step__number">3</div><h3 class="process-step__title">Transferência de Bens</h3><p class="process-step__text">Integralização dos bens na holding com planejamento tributário otimizado.</p></div>
+      <div class="process-step"><div class="process-step__number">4</div><h3 class="process-step__title">Gestão Contínua</h3><p class="process-step__text">Acompanhamento permanente da estrutura com ajustes conforme necessidade.</p></div>
     </div>
   </div></section>
 
   <div class="section-divider"></div>
-  <section class="page-section"><div class="page-section__container reveal"><div class="stats-row">
-    <div class="stat-item"><div class="stat-item__number">200+</div><div class="stat-item__label">Holdings Constituídas</div></div>
-    <div class="stat-item"><div class="stat-item__number">R$1.5B+</div><div class="stat-item__label">Patrimônio Estruturado</div></div>
-    <div class="stat-item"><div class="stat-item__number">40%</div><div class="stat-item__label">Economia Tributária Média</div></div>
-    <div class="stat-item"><div class="stat-item__number">10+</div><div class="stat-item__label">Anos no Mercado</div></div>
-  </div></div></section>
-
-  <div class="section-divider"></div>
-  <section class="page-section"><div class="page-section__container reveal"><div class="page-section__header"><p class="page-section__overline">Dúvidas</p><h2 class="page-section__title">Perguntas <span class="gradient-text">Frequentes</span></h2></div>
+  <section class="page-section" aria-label="Perguntas frequentes"><div class="page-section__container reveal"><div class="page-section__header"><p class="page-section__overline">Dúvidas</p><h2 class="page-section__title">Perguntas <span class="gradient-text">Frequentes</span></h2></div>
     <div class="faq-list">
       <div class="faq-item"><button class="faq-item__question" aria-expanded="false">O que é uma holding patrimonial?<svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-item__answer"><div class="faq-item__answer-inner">É uma empresa criada com o objetivo principal de administrar bens e participações societárias, centralizando a gestão patrimonial em uma estrutura jurídica organizada.</div></div></div>
       <div class="faq-item"><button class="faq-item__question" aria-expanded="false">Quanto custa constituir uma holding?<svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-item__answer"><div class="faq-item__answer-inner">O custo varia conforme a complexidade do patrimônio. Em geral, o investimento se paga rapidamente com a economia tributária gerada.</div></div></div>
@@ -87,7 +166,31 @@
     </div>
   </div></section>
 
-  <section class="cta-section"><div class="cta-section__container reveal"><h2 class="cta-section__title">Estruture Seu Patrimônio com <span class="gradient-text">Segurança</span></h2><p class="cta-section__text">Agende uma consulta e descubra como uma holding pode proteger e otimizar seu patrimônio.</p><div class="cta-section__actions"><a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Falar com Especialista</a><a href="../index.html#contact" class="btn btn--secondary"><span>Solicitar Proposta</span></a></div></div></section>
+  <div class="section-divider"></div>
+
+  <!-- ============================== VÍDEO DO TEMA ============================== -->
+  <section class="page-section" id="video" aria-labelledby="video-titulo">
+    <div class="page-section__container reveal">
+      <div class="page-section__header">
+        <p class="page-section__overline">Em vídeo</p>
+        <h2 class="page-section__title" id="video-titulo">Holding Patrimonial <span class="gradient-text">em vídeo</span></h2>
+        <p class="page-section__description">O que a holding resolve, o que ela não resolve e quando ela realmente faz sentido para o patrimônio da família.</p>
+      </div>
+
+      <!-- Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
+           (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
+           reservado. Quem monta o player é assets/js/video.js. -->
+      <div class="page-video__frame" data-video="" data-video-title="Holding Patrimonial">
+        <div class="page-video__empty">
+          <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
+          <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
+          <p class="page-video__empty-text">Vídeo sobre holding patrimonial — em breve neste espaço.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" aria-label="Chamada para ação"><div class="cta-section__container reveal"><h2 class="cta-section__title">Estruture Seu Patrimônio com <span class="gradient-text">Segurança</span></h2><p class="cta-section__text">Agende uma consulta e descubra como uma holding pode proteger e otimizar seu patrimônio.</p><div class="cta-section__actions"><a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Falar com Especialista</a><a href="../index.html#contact" class="btn btn--secondary"><span>Solicitar Proposta</span></a></div></div></section>
 
   <footer class="page-footer"><div class="page-footer__container"><a href="../index.html" class="page-footer__logo"><img src="../assets/images/RINO_logo.png" alt="Complexo DMC"></a><ul class="page-footer__links"><li><a href="../index.html" class="page-footer__link">Início</a></li><li><a href="../index.html#features" class="page-footer__link">Serviços</a></li><li><a href="../index.html#contact" class="page-footer__link">Contato</a></li><li><a href="#" class="page-footer__link">Política de Privacidade</a></li></ul><p class="page-footer__copy">&copy; 2025 Complexo DMC. Todos os direitos reservados.</p></div></footer>
 
@@ -115,7 +218,7 @@
   window.addEventListener('resize', resize);
 
   var mouse = { x: -999, y: -999 };
-  var COLORS = ['#00e7fc','#00ff4d','#00cfb6','#00f5b4','#00f683','#00d4aa','#00bcd4'];
+  var COLORS = ['#5ED6E6','#A8EEF6','#209EC8','#7FE3EE','#3FC4DC','#8BE7F2','#25B4D4'];
 
   function hexToRgb(hex) {
     return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)].join(',');

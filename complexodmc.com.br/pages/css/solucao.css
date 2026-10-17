@@ -1,0 +1,570 @@
+/* ============================================================
+   COMPLEXO DMC — Página de Solução
+   Camada aditiva sobre shared.css. Carregada apenas pelas
+   páginas de /solucoes/**; não afeta nenhuma página existente.
+
+   Regra da casa: nada aqui inventa forma, raio, fonte ou espaço.
+   Tudo deriva das variáveis de shared.css. A cor também não é
+   decidida aqui: quem troca o ciano/verde da casa pelo acento
+   do eixo é pages/css/eixos.css, carregado antes deste arquivo.
+   O que mora aqui são os componentes que só existem nas páginas
+   de solução.
+   ============================================================ */
+
+/* ============================================================
+   1 · CABEÇALHO
+   Mesma estrutura de duas colunas das páginas de serviço: texto
+   à esquerda, arte à direita. O que muda é a cor e o conteúdo
+   da arte — aqui, a malha de nós do eixo.
+   ============================================================ */
+.page-hero--eixo {
+  min-height: 92vh;
+  padding: 8rem 0 5rem;
+}
+
+/* Trilha de navegação. O JSON-LD BreadcrumbList do <head>
+   descreve exatamente estes mesmos níveis. */
+.sol-crumbs {
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.sol-crumbs ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+
+.sol-crumbs li + li::before {
+  content: '/';
+  margin-right: 0.5rem;
+  color: var(--border-hover);
+}
+
+.sol-crumbs a {
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+}
+
+.sol-crumbs a:hover { color: rgb(var(--np-accent-soft)); }
+
+.sol-crumbs [aria-current='page'] { color: var(--text-primary); }
+
+.sol-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 2rem;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+/* ---------- Arte do herói: malha de nós ----------
+   Mesma peça das páginas de serviço (canvas + sigla ao centro),
+   aqui pintada no acento do eixo. Desenhada por
+   assets/js/solucao.js; sem o script, o herói continua legível
+   — some apenas a animação. */
+.sol-net {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.sol-net::before {
+  content: '';
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(var(--np-accent-deep), 0.14) 0%,
+    rgba(var(--np-accent), 0.06) 45%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+
+.sol-net__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sol-net__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  filter: drop-shadow(0 0 30px rgba(var(--np-accent-deep), 0.6));
+  text-indent: 0.2em;
+  background: linear-gradient(
+    135deg,
+    rgb(var(--np-accent-soft)) 0%,
+    rgb(var(--np-accent)) 45%,
+    rgb(var(--np-accent-soft)) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+}
+
+/* ============================================================
+   2 · TEXTO CORRIDO (o problema, camadas, notas)
+   Cabeçalho de seção centralizado, como em todas as outras
+   seções do site; o texto longo continua alinhado à esquerda,
+   dentro de uma coluna de leitura centrada.
+   ============================================================ */
+.sol-section__head {
+  max-width: 820px;
+  margin-inline: auto;
+  margin-bottom: 2.75rem;
+}
+
+.sol-prose {
+  max-width: 820px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.sol-prose p {
+  font-size: 1.02rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+}
+
+.sol-prose strong { color: var(--text-primary); font-weight: 600; }
+
+/* Nota lateral: o parágrafo que muda a leitura da seção
+   ("Desvio previsto", "O ativo invisível"…). */
+.sol-note {
+  max-width: 820px;
+  margin: 2rem auto 0;
+  padding: 1.35rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid rgb(var(--np-accent));
+  border-radius: var(--radius-md);
+}
+
+.sol-note--wide { max-width: 980px; }
+
+.sol-note h3 {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgb(var(--np-accent));
+  margin-bottom: 0.6rem;
+}
+
+.sol-note p {
+  font-size: 0.97rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   3 · ENTREGÁVEIS — a grade numerada do padrão
+   A grade é o .benefit-grid de shared.css, já recolorido por
+   eixos.css. Aqui só o que é próprio destas páginas.
+   ============================================================ */
+
+/* Quando a grade vem logo depois do texto corrido, o respiro
+   entre os dois é o mesmo que separa o cabeçalho da seção. */
+.sol-prose + .benefit-grid { margin-top: 2.75rem; }
+
+/* Variante de texto longo: mesmos cartões, corpo em tamanho de
+   leitura, para escopos que são parágrafo e não frase. */
+.sol-page .benefit-grid--prosa .benefit-card { padding: 30px 28px 32px; }
+
+.sol-page .benefit-grid--prosa .benefit-card__title {
+  font-size: 1.05rem;
+  margin-bottom: 12px;
+}
+
+.sol-page .benefit-grid--prosa .benefit-card__text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* Links dentro do texto corrido e das notas. */
+.sol-prose a,
+.sol-note a {
+  color: rgb(var(--np-accent));
+  border-bottom: 1px solid rgba(var(--np-accent), 0.35);
+}
+
+.sol-prose a:hover,
+.sol-note a:hover { color: rgb(var(--np-accent-soft)); }
+
+/* ============================================================
+   5 · FUNDAMENTO JURÍDICO
+   Componente novo: o repositório não tinha nada equivalente e
+   este bloco é o diferencial técnico da casa. Construído só
+   com tokens de shared.css + o acento do eixo.
+   ============================================================ */
+.sol-law {
+  max-width: 980px;
+  margin: 0 auto;
+  position: relative;
+  padding: 2.25rem 2.25rem 2.25rem 2.75rem;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--np-accent), 0.06) 0%,
+    var(--bg-card) 55%
+  );
+  border: 1px solid rgba(var(--np-accent), 0.22);
+  border-radius: var(--radius-xl);
+}
+
+.sol-law::before {
+  content: '';
+  position: absolute;
+  top: var(--spacing-lg);
+  bottom: var(--spacing-lg);
+  left: 0;
+  width: 3px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--np-gradient);
+}
+
+.sol-law__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgb(var(--np-accent));
+  margin-bottom: 1rem;
+}
+
+.sol-law__label svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+.sol-law__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.sol-law p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.sol-law p + p { margin-top: 1rem; }
+
+.sol-law strong { color: var(--text-primary); font-weight: 600; }
+
+/* Dispositivos citados, em fila. */
+.sol-law__refs {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.sol-law__refs li {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 0.3rem 0.7rem;
+  border: 1px solid rgba(var(--np-accent), 0.25);
+  border-radius: var(--radius-sm);
+  background: rgba(var(--np-accent), 0.05);
+}
+
+/* ============================================================
+   6 · O QUE MEDIMOS · 7 · COMO É CONTRATADO
+   ============================================================ */
+.sol-facts {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.sol-fact {
+  padding: 1.75rem 1.6rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-top: 2px solid rgba(var(--np-accent), 0.4);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+}
+
+.sol-fact:hover {
+  border-color: var(--border-hover);
+  border-top-color: rgb(var(--np-accent));
+}
+
+.sol-fact__label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgb(var(--np-accent));
+  margin-bottom: 0.85rem;
+}
+
+.sol-fact__label svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+.sol-fact p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   8 · SOLUÇÕES RELACIONADAS
+   Porte do .np-card do index (assets/css/styles.css), trazido
+   para cá porque /solucoes/** não carrega styles.css. Única
+   adaptação: a família tipográfica do título passa a ser a
+   --font-display das páginas internas, já que Poppins não é
+   carregada fora do index.
+   ============================================================ */
+.sol-related {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.np-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.35rem 1.3rem 1.15rem;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.np-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    380px circle at 50% 0%,
+    rgba(var(--np-accent), 0.1),
+    transparent 62%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.np-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(var(--np-accent), 0.42);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 26px rgba(var(--np-accent), 0.1);
+}
+
+.np-card:hover::before { opacity: 1; }
+
+.np-card:focus-visible {
+  outline: 2px solid rgb(var(--np-accent));
+  outline-offset: 3px;
+}
+
+.np-ico {
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(
+    135deg,
+    rgba(var(--np-accent), 0.15),
+    rgba(var(--np-accent), 0.04)
+  );
+  border: 1px solid rgba(var(--np-accent), 0.22);
+  color: rgb(var(--np-accent));
+  transition: transform 0.35s ease;
+}
+
+.np-card:hover .np-ico { transform: scale(1.07) rotate(-3deg); }
+.np-ico svg { width: 23px; height: 23px; }
+
+.np-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+  color: rgb(var(--np-accent));
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: rgba(var(--np-accent), 0.1);
+}
+
+.np-ct {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.32;
+  color: var(--text-primary);
+}
+
+.np-cd {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.np-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.2rem 0;
+  padding: 0;
+}
+
+.np-tags li {
+  font-size: 0.73rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0.22rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  transition: color 0.35s ease, border-color 0.35s ease;
+}
+
+.np-card:hover .np-tags li { border-color: rgba(var(--np-accent), 0.28); }
+
+.np-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.45rem;
+  padding-top: 0.8rem;
+  width: 100%;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: rgb(var(--np-accent));
+}
+
+.np-link svg { width: 15px; height: 15px; transition: transform 0.3s ease; }
+.np-card:hover .np-link svg { transform: translateX(4px); }
+
+/* ============================================================
+   ENTRADA POR ROLAGEM
+   .reveal existe em shared.css mas depende de um observador que
+   só o main.js da home carrega; aqui quem liga é solucao.js.
+   Sem JS, o conteúdo precisa continuar visível — daí o
+   .no-js-safe abaixo, aplicado pelo próprio script.
+   ============================================================ */
+.sol-page .reveal { opacity: 1; transform: none; }
+
+.sol-page.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.sol-page.js-reveal .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   FOCO VISÍVEL
+   shared.css não define um anel de foco global; sem ele a
+   navegação por teclado nestas páginas ficaria invisível.
+   ============================================================ */
+.sol-page a:focus-visible,
+.sol-page button:focus-visible {
+  outline: 2px solid rgb(var(--np-accent));
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   RESPONSIVO — mesmos cortes de shared.css
+   ============================================================ */
+@media (max-width: 1024px) {
+  .page-hero--eixo {
+    min-height: auto;
+    padding: 7rem 0 3.5rem;
+  }
+
+  .sol-crumbs ol { justify-content: center; }
+
+  .sol-tags { justify-content: center; }
+
+  .sol-net { max-width: 380px; }
+}
+
+@media (max-width: 768px) {
+  .sol-law { padding: 1.75rem 1.5rem 1.75rem 1.75rem; }
+
+  .page-hero--eixo { padding: 6.5rem 0 3rem; }
+
+  .sol-net { max-width: 300px; }
+}
+
+@media (max-width: 480px) {
+  .sol-crumbs ol { font-size: 0.72rem; }
+
+  .page-hero__actions .btn { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sol-page .sol-crumbs,
+  .sol-page .page-hero__badge,
+  .sol-page .page-hero__title,
+  .sol-page .page-hero__subtitle,
+  .sol-page .page-hero__actions,
+  .sol-page .page-hero__visual,
+  .sol-page .sol-tags { animation: none; }
+
+  .sol-page.js-reveal .reveal { opacity: 1; transform: none; transition: none; }
+
+  .np-card,
+  .sol-fact { transition: none; }
+
+  .np-card:hover { transform: none; }
+}
