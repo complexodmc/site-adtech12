@@ -59,7 +59,10 @@ riscos relevantes, alterações institucionais sensíveis.
 - Corrigido no repositório (branch `feat/dmc-prime`, ainda NÃO publicado): `.vercelignore`
   exclui `.env*`, docs, testes e resíduos; `vercel.json` redireciona `/server/*` → `/`.
   As variáveis já existem no painel da Vercel, então a API não depende do arquivo.
-- Pendente do CEO (fora do nosso alcance): trocar a senha do usuário MongoDB no Atlas e o
+- Atualização: `server/.env.bak-atlas` (628 B, com outra `MONGODB_URI`/`JWT_SECRET`) também
+  está público em prod (200). Coberto pelo mesmo `.vercelignore` (`**/.env.*`) e redirect.
+- Pendente do CEO (fora do nosso alcance): trocar a senha de TODOS os usuários MongoDB citados
+  em `server/.env` e `server/.env.bak-atlas` no Atlas e o
   `JWT_SECRET` (atualizar nas variáveis da Vercel) e autorizar o hotfix em produção.
 - Rodada extra (2026-10-17 14:24 UTC): `server/.env.bak-atlas` também público (200, 628 B) e
   ausente do probe anterior; localmente contém `MONGODB_URI` do Atlas com usuário:senha
@@ -87,3 +90,25 @@ riscos relevantes, alterações institucionais sensíveis.
   verificáveis (seis eixos, sede em São Paulo, metodologia). Número novo só com
   comprovação documental e aprovação do CEO.
 - Aprovação: CEO ✔
+
+### T4 — Evidências fora do git; merge por squash (2026-10-17)
+- Decisão: `docs/dmc/audit/20*/` e `docs/dmc/qa/` ficam só locais (`.gitignore`). Como os
+  commits 811ba98–0e20496 da branch já carregam ~137 MB dessas evidências e a reescrita de
+  histórico foi bloqueada, a `feat/dmc-prime` entra na `main` por **squash merge**, para
+  que esses arquivos não cheguem à `main` nem ao GitHub.
+- Aprovação necessária: não.
+
+### D8 — Identidade visual da direção C (2026-10-17)
+- Decisão: ouro latão `#d6b069` como cor de destaque; Newsreader (títulos) + Hanken Grotesk
+  (texto); no site institucional, marca monocromática branca/ouro do rinoceronte — a versão
+  turquesa/limão permanece na plataforma EAD; E4 Auditoria em cobre (evita colisão com o ouro).
+- Aprovação: CEO ✔
+
+### T5 — Configuração de deploy (2026-10-17, executar na etapa 8)
+- Decisão: publicar com `outputDirectory: "complexodmc.com.br"` no `vercel.json` (cenário
+  validado com `vercel build` na auditoria) em vez de servir a raiz do repositório: a raiz hoje
+  publica cópias antigas (`/pages/*.html`, `/assets/*`, stub `/index.html`) com texto não
+  aprovado. `api/` continua como função. Nunca excluir `server/` no `.vercelignore` (derruba a
+  API da EAD — D5). Alinhar `engines.node` (20.x) com o projeto Vercel (24.x). Ajustar rewrites
+  e redirects ao novo diretório de saída e validar com `vercel build` em checkout limpo.
+- Aprovação necessária: não (dentro de D3).

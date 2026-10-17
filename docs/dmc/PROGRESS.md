@@ -5,11 +5,11 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 | Etapa | Status | Evidência |
 |---|---|---|
 | 1 Descoberta | ✅ concluída 2026-10-17 | BRIEF.md |
-| 2 Auditoria DMC × Planning | ✅ concluída 2026-10-17 | docs/dmc/AUDIT.md; evidências em docs/dmc/audit/2026-10-17/ |
+| 2 Auditoria DMC × Planning | ✅ consolidada 2026-10-17 (12 relatórios: 8 iniciais + extras raiz do repositório, deploy Vercel/D5, schema/atos privativos, chromakey/regrade) | docs/dmc/AUDIT.md (inventário, matriz, baseline, violações, backlog, riscos, bloqueios); evidências em docs/dmc/audit/2026-10-17/{site-producao,…,raiz-repositorio,backend-vercel,conformidade-schema,hero}/ |
 | 3 Estratégia / direção | ✅ aprovada (opção C) | DECISIONS.md D2 |
-| 4 Engenharia paralela | 🔄 em andamento | backend (API contato + headers), conteúdo (conformidade), design system |
-| 5 Implementação criativa | ⏳ | |
-| 6 Mídias e 3D | ⏳ | |
+| 4 Engenharia paralela | ✅ 1ª rodada | b3e03b4 (contato+headers), 8e7f2f7 (conformidade), 0e20496 (tokens) |
+| 5 Implementação criativa | 🔄 home + painel dos eixos; EIXOS-COPY; privacidade; FAQ trabalhista | |
+| 6 Mídias e 3D | 🔄 filme do hero (procedural) + rede neural da home | |
 | 7 QA | ⏳ | docs/dmc/QA.md (a gerar) |
 | 8 Entrega / publicação | ⏳ | DECISIONS.md D3 |
 
@@ -29,6 +29,12 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 | Acessibilidade rápida | falhou | home 2 H1 e 4 inputs sem label; 21/28 páginas sem `<main>`; toggle sem aria-expanded |
 | Console sem erros | falhou | logo.png 404 na home (7/7 larguras); embed YouTube abortado em 3 páginas |
 | Conformidade de texto (scan) | aprovado | varredura do texto visível: restam só fundamentos legais (ITCMD 8%, CPC art. 523) e "seguro garantia" — commit 8e7f2f7 |
+| Conformidade — raiz do repo (5 páginas fora de `complexodmc.com.br/`) | falhou | 100 ocorrências ("escritório de Direito", "impérios", "milionários", R$ 200MM, +180 construtoras, placeholder de dev visível, foto do CEO 404), todas 200 em prod — `raiz-repositorio/conformidade-raiz.json`, `prod-raiz-paginas.json` |
+| Scan estendido: JSON-LD e atos privativos (E5/E6) | falhou | 1 `provider.@type = LegalService` (`recuperacao-ativos.html:62`; após 8e7f2f7 virou `ProfessionalService`, depreciado — alvo é `Organization @id`); 149 frases com atos privativos (E5 58, E6 `defesa-empresarial` 42) sem atribuição a advogado; JSON-LD ausente em 31/39 páginas (home incluída); EAD 0 — `conformidade-schema/conformidade.json`, `jsonld-renderizado.json`; gate D3 = 0 hits schema + 0 frases "entrega" sem atribuição |
+| Raiz do repo servida em prod (ETag = md5) | falhou | 10 arquivos da raiz 200 em prod e iguais ao repo; 8 pares DIVERGE/SO-RAIZ (2 index, 5 pages, 1 css); `/pages/Sobre.html` 200 vs cópia aninhada 404 — `raiz-repositorio/etag-prod-antes-deploy.json`; pós-deploy: `tools/raiz-etag-prod.mjs` + `raiz-etag-compare.mjs` (aprovado = 0 pares) |
+| Chromakey — main thread em mobile (Playwright, CPU 4×, 10 s scroll) | falhou (medido) | home 63,6% com laço vs 21,8% sem; `display:none` no canvas não reduz (68,2%); planejamento-sucessorio 67,1% vs 33,9% (+ laço `tech-net-canvas`); 5,0–5,5 ms/frame; FPS 59–60 (risco é bateria/térmica, não jank) — `metricas-baseline/chromakey.json`, `tools/chromakey-cpu.cjs` |
+| Regrade do rino por ffmpeg (gold-mono / lut3d) | aprovado (viável) | vídeo é verde (97,5%), não ciano; gold-mono 99,7% dourado com matte intacto, 720p H.264 3,48 MB; alpha nativo VP9 820 KB + HEVC 1,41 MB gerados; 9:16 <800 KB só com corte a 6 s — `hero/regrade-stats.json`, `hue-distribuicao.json`. Escolha dourado × prata: CEO |
+| HEVC alpha em Safari/iOS | bloqueado | sem aparelho real; WebM alpha + poster PNG como fallback |
 | MongoDB local (ping) | aprovado | 122 ms, 9 coleções |
 | networkidle em consultoria-imobiliaria | bloqueado | tracker GoDaddy mantém long-poll (timeout 45 s) |
 | Envio de e-mail (SMTP) | bloqueado | nenhuma variável SMTP/Resend em `.env`/`.env.example` |
@@ -45,7 +51,8 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 - Página de política de privacidade inexistente (link do consentimento LGPD) — content-director.
 - Variáveis de ambiente da Vercel, allowlist do Atlas e `DEV_SIMULAR_PAGAMENTO` em prod: não verificáveis daqui.
 - Hotfix T3 bloqueado até: `package.json` `engines.node` → `24.x`; `vercel.json` com `outputDirectory` (não usar `.vercelignore` com `server/`); `tools/vercel-build-check.sh` imprimir APROVADO; rotação incluir a credencial Atlas de `server/.env.bak-atlas`.
-- Aprovações do CEO pendentes: headline final (proposta em uso). Login → D6; números → D7; tecnologia.html → D1 (transversal).
+- Aprovações do CEO pendentes: headline final (proposta em uso); regrade do rino dourado (gold-mono) × prata/grafite (lut3d) — tiras em `audit/2026-10-17/hero/*-comparacao.png`; nome "Defesa Empresarial" (alternativa "Gestão do Contencioso Trabalhista"); conteúdo da futura `pages/sobre.html` (substitui `Sobre.html` da raiz). Login → D6; números → D7; tecnologia.html → D1 (transversal).
+- iPhone real para validar HEVC alpha antes de trocar o chromakey.
 
 ## Pendências de conteúdo para o CEO (conformidade, commit 8e7f2f7)
 1. Nome do parceiro contábil e do auditor habilitado (CRC) — citar a Bear Finance como em `quitacao-anual`?
