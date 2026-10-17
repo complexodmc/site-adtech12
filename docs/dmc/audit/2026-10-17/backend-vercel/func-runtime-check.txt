@@ -1,4 +1,0 @@
-b-ignore-server      {"import":"falhou","code":"ERR_MODULE_NOT_FOUND","message":"Cannot find module '/private/tmp/claude-501/-Users-dmchagas-Site-Complexo-DMC/999a1dda-e3ab-44e0-9f66-2dd6cb6ef778/scratchpad/build/b-ignore-server/.vercel/output/functions/api/[...path].func/server/src/server.js' imported from /private/tmp/claude-501/-Users-dmchagas-Site-Complexo-DMC/999a1dda-e3ab-44e0-9f66-2dd6cb6ef778/scratchpad/build/b-ignore-server/.vercel/output/functions/api/[...path].func/api/[...path].js"}
-c-ignore-restrito    {"import":"ok","status":200,"body":"{\"ok\":true,\"db\":\"complexodmc\"}"}
-d-outputdir          {"import":"ok","status":200,"body":"{\"ok\":true,\"db\":\"complexodmc\"}"}
-base                 {"import":"ok","status":200,"body":"{\"ok\":true,\"db\":\"complexodmc\"}"}

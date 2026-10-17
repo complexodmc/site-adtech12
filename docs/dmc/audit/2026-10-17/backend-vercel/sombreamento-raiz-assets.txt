@@ -1,6 +1,0 @@
-igual  ./images/LOGO_RINOCERONTE.png
-igual  ./images/RINO_logo.png
-igual  ./videos/rino-video-transparent.mp4
-images/LOGO_RINOCERONTE.png raiz= 2042458 publico= 2042458 prod=200 2042458
-images/RINO_logo.png raiz=   47156 publico=   47156 prod=200 47156
-videos/rino-video-transparent.mp4 raiz=  992664 publico=  992664 prod=200 992664

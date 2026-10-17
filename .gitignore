@@ -41,3 +41,7 @@ credentials*
 secret*
 .vercel
 .env*
+
+# Evidências de auditoria/QA (screenshots, vídeos de teste): ficam só locais
+docs/dmc/audit/20*/
+docs/dmc/qa/

@@ -1,24 +1,0 @@
-# Exposição de arquivos do repositório em produção (HEAD, status + bytes) — 2026-10-17T13:49:48Z
-server/.env                                             -> 200 len=808 
-server/.env.example                                     -> 200 len=1276 
-server/src/server.js                                    -> 200 len=5734 
-server/src/config.js                                    -> 200 len=1677 
-server/src/db.js                                        -> 200 len=4045 
-server/scripts/create-admin.js                          -> 200 len=2453 
-server/package.json                                     -> 200 len=586 
-server/uploads/capas/capa-7cd3d13b1658.png              -> 200 len=3960806 
-server/uploads/materiais/mat-377044cb3279.pdf           -> 200 len=312229 
-server/uploads/materiais/mat-c74b4f09b8d7.pdf           -> 404 len=79 
-.env.local                                              -> 404 len=79 
-.vercel/project.json                                    -> 404 len=79 
-vercel.json                                             -> 404 len=79 
-package.json                                            -> 404 len=79 
-docs/dmc/BRIEF.md                                       -> 404 len=79 
-solucoes/consultoria-trabalhista/ciclo-fechado          -> 404 len=79 
-solucoes/consultoria-trabalhista                        -> 404 len=79 
-api/contato                                             -> 404 len=33 
-
-# bytes locais: server/.env=     808 server/.env.example=    1276
-# .vercelignore: ausente
-# POST /api/contato:
-{"error":"Rota não encontrada."} HTTP 404
