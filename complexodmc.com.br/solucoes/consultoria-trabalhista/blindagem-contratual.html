@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-root="../../">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Estruturação de contratos, enquadramento e cláusula de arbitragem para reduzir a exposição trabalhista desde a admissão.">
   <meta name="keywords" content="blindagem contratual, enquadramento trabalhista, cláusula compromissória, arbitragem trabalhista, terceirização, art. 507-A CLT">
   <title>Blindagem Contratual — Consultoria Trabalhista | Complexo DMC</title>
@@ -20,16 +20,27 @@
   <meta property="twitter:title" content="Blindagem Contratual — Consultoria Trabalhista | Complexo DMC">
   <meta property="twitter:description" content="Estruturação de contratos, enquadramento e cláusula de arbitragem para reduzir a exposição trabalhista desde a admissão.">
 
-  <link rel="icon" type="image/png" sizes="64x64" href="../../assets/images/favicon.png">
+  <meta name="theme-color" content="#0b0c0e">
+
+  <!-- Página interna na direção C — ordem do <head> documentada em pages/css/eixos.css
+       e em docs/dmc/DESIGN-SYSTEM.md §6 "Receita de migração de página interna". -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
+
+  <link rel="icon" type="image/png" sizes="64x64" href="../../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=1">
   <link rel="stylesheet" href="../../pages/css/shared.css?v=3">
-  <link rel="stylesheet" href="../../pages/css/eixos.css?v=3">
   <link rel="stylesheet" href="../../pages/css/solucao.css?v=3">
-  <script src="../../assets/js/navbar.js" defer></script>
-  <script src="../../assets/js/video.js" defer></script>
-  <script src="../../assets/js/solucao.js" defer></script>
+  <link rel="stylesheet" href="../../pages/css/eixos.css?v=4">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=2">
+
+  <script src="../../assets/js/navbar.js?v=c2" defer></script>
+  <script src="../../assets/js/solucao.js?v=3" defer></script>
+  <script src="../../assets/js/video.js?v=1" defer></script>
 
   <script type="application/ld+json">
   {
@@ -105,62 +116,64 @@
 </head>
 <body class="sol-page np-eixo np-pillar-trabalhista">
 
-  <dmc-navbar></dmc-navbar>
+  <!-- navbar.js troca este conteúdo pelo menu completo (com o próprio "pular para o
+       conteúdo"). Sem JS ficam o atalho, a marca e o caminho para o rodapé. -->
+  <dmc-navbar data-over>
+    <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+    <header class="dmc-nav dmc-nav--over">
+      <div class="dmc-wrap dmc-nav__bar">
+        <a class="dmc-brand" href="../../" aria-label="Complexo DMC, página inicial">
+          <img src="../../assets/images/rino-marca.webp" alt="" width="50" height="22">
+          <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+        </a>
+        <a class="dmc-nav__toggle" href="#rodape">Menu <i aria-hidden="true"></i></a>
+      </div>
+    </header>
+  </dmc-navbar>
 
-  <!-- ============================== 1 · CABEÇALHO ============================== -->
-  <header class="page-hero page-hero--eixo">
-    <div class="page-hero__glow" aria-hidden="true"></div>
+  <main id="conteudo">
+
+    <!-- ============================== 1 · HERÓI ============================== -->
+    <section class="page-hero page-hero--eixo" aria-labelledby="hero-titulo">
     <div class="page-hero__inner">
       <div class="page-hero__content">
 
         <nav class="sol-crumbs" aria-label="Trilha de navegação">
           <ol>
-            <li><a href="../../index.html">Início</a></li>
+            <li><a href="../../">Início</a></li>
             <li><a href="ciclo-fechado.html">Consultoria Trabalhista</a></li>
             <li><span aria-current="page">Blindagem Contratual</span></li>
           </ol>
         </nav>
 
-        <p class="page-hero__badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.4v17.2"/><path d="M6.4 6.6h11.2"/><path d="M8.4 6.2 5.4 13h6z"/><path d="M15.6 6.2 12.6 13h6z"/><path d="M8.4 20.6h7.2"/></svg>
-          E6 · Consultoria Trabalhista
-        </p>
+        <p class="page-hero__badge">E6 · Consultoria Trabalhista</p>
 
-        <h1 class="page-hero__title">Blindagem <span class="gradient-text">Contratual</span></h1>
+        <h1 class="page-hero__title" id="hero-titulo">Blindagem <em>Contratual</em></h1>
 
         <p class="page-hero__subtitle">O contrato de trabalho como instrumento de risco calibrado — não como formulário.</p>
 
-        <ul class="sol-tags">
-          <li class="tag">Enquadramento</li>
-          <li class="tag">Cláusula arbitral</li>
-        </ul>
-
         <div class="page-hero__actions">
-          <a class="btn btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20Blindagem%20Contratual." target="_blank" rel="noopener noreferrer">
-            <span>Falar com o time trabalhista</span>
-          </a>
-          <a class="btn btn--secondary" href="#fundamento"><span>Ver o fundamento jurídico</span></a>
+          <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20Blindagem%20Contratual." target="_blank" rel="noopener noreferrer">Falar com o time trabalhista <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="dmc-btn dmc-btn--link" href="#fundamento">Ver o fundamento jurídico</a>
         </div>
 
       </div>
 
+      <!-- Malha de nós no acento do eixo (assets/js/solucao.js). Sem JS: grade de pontos. -->
       <div class="page-hero__visual" aria-hidden="true">
         <div class="sol-net">
           <canvas class="sol-net__canvas"></canvas>
-          <span class="sol-net__label">BC</span>
         </div>
       </div>
     </div>
-  </header>
-
-  <main>
+    </section>
 
     <!-- ============================== 2 · O PROBLEMA ============================== -->
     <section class="page-section" id="problema" aria-labelledby="problema-titulo">
       <div class="page-section__container reveal">
         <div class="page-section__header sol-section__head">
           <p class="page-section__overline">O problema</p>
-          <h2 class="page-section__title" id="problema-titulo">O passivo já estava escrito <span class="gradient-text">na admissão</span></h2>
+          <h2 class="page-section__title" id="problema-titulo">O passivo já estava escrito <em>na admissão</em></h2>
         </div>
         <div class="sol-prose">
           <p>A maior parte do passivo trabalhista já estava escrita no momento da admissão. Um enquadramento equivocado, uma cláusula genérica, um contrato de prestação de serviços que a realidade desmente — e a empresa passa os cinco anos seguintes carregando uma exposição que nunca mediu.</p>
@@ -176,32 +189,27 @@
       <div class="page-section__container reveal">
         <div class="page-section__header sol-section__head">
           <p class="page-section__overline">Escopo</p>
-          <h2 class="page-section__title" id="entregaveis-titulo">O que <span class="gradient-text">entregamos</span></h2>
+          <h2 class="page-section__title" id="entregaveis-titulo">O que <em>entregamos</em></h2>
         </div>
 
         <div class="benefit-grid">
           <article class="benefit-card">
-            <span class="benefit-card__tag">Vínculo</span>
             <h3 class="benefit-card__title">Arquitetura por perfil</h3>
             <p class="benefit-card__text">Um instrumento contratual para cada perfil de vínculo, no lugar do modelo único aplicado a todo o quadro.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Enquadramento</span>
             <h3 class="benefit-card__title">Enquadramento defensável</h3>
             <p class="benefit-card__text">CLT, pessoa jurídica, autônomo e terceirizado com a distinção sustentada por matriz de subordinação documentada.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Arbitragem</span>
             <h3 class="benefit-card__title">Cláusula compromissória</h3>
             <p class="benefit-card__text">Para o empregado de alta remuneração: câmara indicada, forma de nomeação dos árbitros, custeio pela empresa e assinatura em destaque.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Terceirização</span>
             <h3 class="benefit-card__title">Matriz de responsabilidade</h3>
             <p class="benefit-card__text">Estruturação da terceirização com responsabilidades delimitadas e rotina de fiscalização documental.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Documentos</span>
             <h3 class="benefit-card__title">Biblioteca contratual</h3>
             <p class="benefit-card__text">Aditivos, políticas e ordens de serviço com controle de versão e registro de ciência.</p>
           </article>
@@ -212,7 +220,7 @@
     <div class="section-divider"></div>
 
     <!-- ============================== 5 · FUNDAMENTO JURÍDICO ============================== -->
-    <section class="page-section" id="fundamento" aria-labelledby="fundamento-titulo">
+    <section class="page-section dmc-on-paper" id="fundamento" aria-labelledby="fundamento-titulo">
       <div class="page-section__container reveal">
         <div class="sol-law">
           <p class="sol-law__label">
@@ -239,7 +247,7 @@
       <div class="page-section__container reveal">
         <div class="page-section__header sol-section__head">
           <p class="page-section__overline">Acompanhamento</p>
-          <h2 class="page-section__title" id="indicadores-titulo">O que medimos e <span class="gradient-text">como o trabalho é organizado</span></h2>
+          <h2 class="page-section__title" id="indicadores-titulo">O que medimos e <em>como o trabalho é organizado</em></h2>
         </div>
 
         <div class="sol-facts">
@@ -268,44 +276,41 @@
       <div class="page-section__container reveal">
         <div class="page-section__header sol-section__head">
           <p class="page-section__overline">Na mesma vertical</p>
-          <h2 class="page-section__title" id="relacionadas-titulo">Soluções <span class="gradient-text">relacionadas</span></h2>
+          <h2 class="page-section__title" id="relacionadas-titulo">Soluções <em>relacionadas</em></h2>
         </div>
 
         <div class="sol-related">
           <a class="np-card" href="quitacao-anual.html">
-            <span class="np-tag">E6 · Consultoria Trabalhista</span>
-            <span class="np-ico" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.4" y="5.2" width="17.2" height="15.4" rx="1.8"/><path d="M3.4 10h17.2"/><path d="M8 3.4v3.2M16 3.4v3.2"/><path d="m8.8 14.8 2.2 2.2 4.2-4.4"/></svg></span>
+            <span class="np-tag">Fechamento</span>
             <span class="np-ct">Quitação Anual</span>
             <span class="np-cd">Audita, corrige e quita o exercício trabalhista todo ano — como se fecha um balanço.</span>
             <ul class="np-tags">
               <li>Art. 507-B</li>
               <li>Eficácia liberatória</li>
             </ul>
-            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
           </a>
 
           <a class="np-card" href="camara-de-acordos.html">
-            <span class="np-tag">E6 · Consultoria Trabalhista</span>
-            <span class="np-ico" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.2 12h6.2"/><polyline points="7.2 9.6 9.6 12 7.2 14.4"/><path d="M20.8 12h-6.2"/><polyline points="16.8 9.6 14.4 12 16.8 14.4"/><circle cx="12" cy="12" r="1.6"/><path d="M12 3.4v3.6M12 17v3.6"/></svg></span>
+            <span class="np-tag">Conflito</span>
             <span class="np-ct">Câmara de Acordos</span>
             <span class="np-cd">Resolve o conflito antes do processo, com acordo homologado e força de coisa julgada.</span>
             <ul class="np-tags">
               <li>Mediação privada</li>
               <li>PDV assistido</li>
             </ul>
-            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
           </a>
 
           <a class="np-card" href="conformidade-psicossocial.html">
-            <span class="np-tag">E6 · Consultoria Trabalhista</span>
-            <span class="np-ico" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9.2 3.4h5.6a1.2 1.2 0 0 1 1.2 1.2v.9a1.2 1.2 0 0 1-1.2 1.2H9.2A1.2 1.2 0 0 1 8 5.5v-.9a1.2 1.2 0 0 1 1.2-1.2z"/><path d="M16 5.4h1.6a1.8 1.8 0 0 1 1.8 1.8v12.4a1.8 1.8 0 0 1-1.8 1.8H6.4a1.8 1.8 0 0 1-1.8-1.8V7.2a1.8 1.8 0 0 1 1.8-1.8H8"/><path d="M7.8 14.6h2.3l1.2-2.4 1.6 4.4 1.1-2h2"/></svg></span>
+            <span class="np-tag">Operação</span>
             <span class="np-ct">Conformidade Psicossocial</span>
             <span class="np-cd">Transforma a gestão de riscos psicossociais em dossiê de defesa contra autuação e adoecimento.</span>
             <ul class="np-tags">
               <li>NR-1</li>
               <li>ISO 45003</li>
             </ul>
-            <span class="np-link">Saiba mais <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
           </a>
         </div>
       </div>
@@ -318,55 +323,30 @@
       <div class="page-section__container reveal">
         <div class="page-section__header sol-section__head">
           <p class="page-section__overline">Dúvidas</p>
-          <h2 class="page-section__title" id="perguntas-titulo">Perguntas <span class="gradient-text">frequentes</span></h2>
+          <h2 class="page-section__title" id="perguntas-titulo">Perguntas <em>frequentes</em></h2>
         </div>
 
         <div class="faq-list">
-          <div class="faq-item">
-            <button class="faq-item__question" type="button" aria-expanded="false" aria-controls="faq-1">
-              O que torna um enquadramento defensável?
-              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </button>
-            <div class="faq-item__answer" id="faq-1">
-              <div class="faq-item__answer-inner">A coerência entre o contrato e a realidade do trabalho. A matriz de subordinação documenta quem dá ordens, quem define horário e quem assume o risco da atividade — o que a Justiça do Trabalho examina quando o vínculo de um PJ, autônomo ou terceirizado é questionado.</div>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-item__question" type="button" aria-expanded="false" aria-controls="faq-2">
-              Qualquer empregado pode ter cláusula de arbitragem?
-              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </button>
-            <div class="faq-item__answer" id="faq-2">
-              <div class="faq-item__answer-inner">Não. O art. 507-A da CLT admite a cláusula compromissória apenas quando a remuneração supera duas vezes o teto dos benefícios do Regime Geral de Previdência Social, e desde que por iniciativa do empregado ou com sua concordância expressa.</div>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-item__question" type="button" aria-expanded="false" aria-controls="faq-3">
-              O que o art. 444, parágrafo único, permite negociar?
-              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </button>
-            <div class="faq-item__answer" id="faq-3">
-              <div class="faq-item__answer-inner">Para o empregado com diploma de nível superior e salário igual ou superior a duas vezes o teto do RGPS, a negociação individual das matérias do art. 611-A da CLT tem a mesma eficácia dos instrumentos coletivos. Fora desse perfil, valem os limites do caput do art. 444.</div>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-item__question" type="button" aria-expanded="false" aria-controls="faq-4">
-              A empresa responde pelos empregados da terceirizada?
-              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </button>
-            <div class="faq-item__answer" id="faq-4">
-              <div class="faq-item__answer-inner">Pode responder. Pela Súmula 331 do TST, a tomadora responde de forma subsidiária pelas obrigações trabalhistas não cumpridas pela prestadora. A matriz de responsabilidade define o que se exige da contratada, e a rotina de fiscalização documental registra o que foi conferido.</div>
-            </div>
-          </div>
-          <div class="faq-item">
-            <button class="faq-item__question" type="button" aria-expanded="false" aria-controls="faq-5">
-              Os contratos em vigor podem ser revistos?
-              <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </button>
-            <div class="faq-item__answer" id="faq-5">
-              <div class="faq-item__answer-inner">Com limite: o art. 468 da CLT só admite alteração por mútuo consentimento e sem prejuízo ao empregado. Por isso a revisão do quadro atual usa aditivos, políticas e ordens de serviço com registro de ciência, e a nova arquitetura vale por inteiro para as próximas admissões.</div>
-            </div>
-          </div>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">O que torna um enquadramento defensável? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">A coerência entre o contrato e a realidade do trabalho. A matriz de subordinação documenta quem dá ordens, quem define horário e quem assume o risco da atividade — o que a Justiça do Trabalho examina quando o vínculo de um PJ, autônomo ou terceirizado é questionado.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Qualquer empregado pode ter cláusula de arbitragem? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Não. O art. 507-A da CLT admite a cláusula compromissória apenas quando a remuneração supera duas vezes o teto dos benefícios do Regime Geral de Previdência Social, e desde que por iniciativa do empregado ou com sua concordância expressa.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">O que o art. 444, parágrafo único, permite negociar? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Para o empregado com diploma de nível superior e salário igual ou superior a duas vezes o teto do RGPS, a negociação individual das matérias do art. 611-A da CLT tem a mesma eficácia dos instrumentos coletivos. Fora desse perfil, valem os limites do caput do art. 444.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">A empresa responde pelos empregados da terceirizada? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Pode responder. Pela Súmula 331 do TST, a tomadora responde de forma subsidiária pelas obrigações trabalhistas não cumpridas pela prestadora. A matriz de responsabilidade define o que se exige da contratada, e a rotina de fiscalização documental registra o que foi conferido.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Os contratos em vigor podem ser revistos? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Com limite: o art. 468 da CLT só admite alteração por mútuo consentimento e sem prejuízo ao empregado. Por isso a revisão do quadro atual usa aditivos, políticas e ordens de serviço com registro de ciência, e a nova arquitetura vale por inteiro para as próximas admissões.</div></div>
+          </details>
         </div>
       </div>
     </section>
@@ -378,7 +358,7 @@
       <div class="page-section__container reveal">
         <div class="page-section__header">
           <p class="page-section__overline">Em vídeo</p>
-          <h2 class="page-section__title" id="video-titulo">Blindagem Contratual <span class="gradient-text">em vídeo</span></h2>
+          <h2 class="page-section__title" id="video-titulo">Blindagem Contratual <em>em vídeo</em></h2>
           <p class="page-section__description">Como o contrato de trabalho é estruturado desde a admissão para produzir prova, e não passivo.</p>
         </div>
 
@@ -395,56 +375,81 @@
       </div>
     </section>
 
+    <!-- ============================== CONVERSA (papel) ============================== -->
+    <section class="cta-section dmc-on-paper" id="conversa" aria-labelledby="cta-titulo">
+      <div class="cta-section__container">
+        <p class="page-section__overline">Conversa</p>
+        <h2 class="cta-section__title" id="cta-titulo">Converse com o <em>time trabalhista</em></h2>
+        <p class="cta-section__text">Apresentamos a arquitetura contratual, o fundamento normativo e o escopo de implantação aplicados ao seu quadro de pessoal.</p>
+        <div class="cta-section__actions">
+          <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20Blindagem%20Contratual." target="_blank" rel="noopener noreferrer">Falar no WhatsApp <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="dmc-btn dmc-btn--secondary" href="../../?assunto=E6#contact">Enviar uma mensagem <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- ============================== 9 · CTA FINAL ============================== -->
-  <section class="cta-section" aria-labelledby="cta-titulo">
-    <div class="cta-section__container">
-      <h2 class="cta-section__title" id="cta-titulo">Converse com o <span class="gradient-text">time trabalhista</span></h2>
-      <p class="cta-section__text">Apresentamos a arquitetura contratual, o fundamento normativo e o escopo de implantação aplicados ao seu quadro de pessoal.</p>
-      <div class="cta-section__actions">
-        <a href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20Blindagem%20Contratual." target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Falar no WhatsApp
-        </a>
-        <a href="../../index.html#contact" class="btn btn--secondary"><span>Enviar uma mensagem</span></a>
-      </div>
-    </div>
-  </section>
+  <!-- ============================== RODAPÉ (o mesmo da home) ============================== -->
+  <footer class="dmc-footer" id="rodape">
+    <div class="dmc-wrap">
+      <div class="dmc-footer__grid">
+        <div class="dmc-footer__brand">
+          <a class="dmc-brand" href="../../" aria-label="Complexo DMC, página inicial">
+            <img src="../../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">
+            <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+          </a>
+          <p>Consultoria em negócios para decisões que envolvem empresa, patrimônio e família.</p>
+          <p>Sede em São Paulo. Atendimento a empresas, famílias empresárias, incorporadoras e investidores.</p>
+        </div>
 
-  <footer class="page-footer">
-    <div class="page-footer__container">
-      <a href="../../index.html" class="page-footer__logo"><img src="../../assets/images/RINO_logo.png" alt="Complexo DMC"></a>
-      <ul class="page-footer__links">
-        <li><a href="../../index.html" class="page-footer__link">Início</a></li>
-        <li><a href="../../index.html#features" class="page-footer__link">Soluções</a></li>
-        <li><a href="ciclo-fechado.html" class="page-footer__link">Consultoria Trabalhista</a></li>
-        <li><a href="../../index.html#contact" class="page-footer__link">Contato</a></li>
-        <li><a href="../../pages/politica-de-privacidade.html" class="page-footer__link">Política de Privacidade</a></li>
-      </ul>
-      <p class="page-footer__copy">&copy; 2025 Complexo DMC. Todos os direitos reservados.</p>
+        <nav aria-labelledby="rodape-eixos">
+          <p class="dmc-footer__title" id="rodape-eixos">Eixos</p>
+          <ul class="dmc-footer__list">
+            <li class="np-pillar-patrimonial"><a href="../../pages/planejamento-sucessorio.html"><span class="dmc-footer__num">E1</span>Patrimonial e Sucessório</a></li>
+            <li class="np-pillar-fiscal"><a href="../../pages/planejamento-tributario.html"><span class="dmc-footer__num">E2</span>Tributário, Fiscal e Corporativo</a></li>
+            <li class="np-pillar-imobiliario"><a href="../../pages/consultoria-imobiliaria.html"><span class="dmc-footer__num">E3</span>Notarial e Imobiliário</a></li>
+            <li class="np-pillar-auditoria"><a href="../../pages/contabilidade.html"><span class="dmc-footer__num">E4</span>Auditoria Empresarial e Contábil</a></li>
+            <li class="np-pillar-ativos"><a href="../../pages/recuperacao-ativos.html"><span class="dmc-footer__num">E5</span>Recuperação de Ativos</a></li>
+            <li class="np-pillar-trabalhista"><a href="ciclo-fechado.html" aria-current="page"><span class="dmc-footer__num">E6</span>Consultoria Trabalhista</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="rodape-casa">
+          <p class="dmc-footer__title" id="rodape-casa">A casa</p>
+          <ul class="dmc-footer__list">
+            <li><a href="../../#conheca">Conheça o Complexo DMC</a></li>
+            <li><a href="../../#features">Soluções</a></li>
+            <li><a href="../../#treinamentos">Treinamentos</a></li>
+            <li><a href="../../pages/tecnologia.html">Tecnologia</a></li>
+            <li><a href="../../pages/por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
+            <li><a href="../../plataforma-ead/login.html">Área do aluno</a></li>
+            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">Ad-tech</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <p class="dmc-footer__title">Contato</p>
+          <ul class="dmc-footer__list">
+            <li><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></li>
+            <li><a href="tel:+5511915267749">+55 (11) 91526-7749</a></li>
+            <li><a href="../../?assunto=E6#contact">Formulário de contato</a></li>
+            <li><span>Rua Riachuelo, 231<br>São Paulo, SP — Brasil</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dmc-footer__legal">
+        <p>&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+        <p>Conteúdo informativo. A atuação em atos privativos da advocacia, da contabilidade e da auditoria é realizada por profissionais e sociedades parceiras habilitadas; os atos notariais e registrais, por cartórios conveniados.</p>
+        <p><a href="../../pages/politica-de-privacidade.html">Política de Privacidade</a></p>
+      </div>
     </div>
   </footer>
 
   <a href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20consultoria%20trabalhista." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Falar com o Complexo DMC no WhatsApp">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
-
-  <script>
-    // Perguntas frequentes: o mesmo acordeão de pages/*.html — abre uma resposta por vez.
-    document.querySelectorAll('.faq-item__question').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var item = btn.closest('.faq-item');
-        var aberto = item.classList.contains('active');
-        document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('active'); });
-        document.querySelectorAll('.faq-item__question').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
-        if (!aberto) {
-          item.classList.add('active');
-          btn.setAttribute('aria-expanded', 'true');
-        }
-      });
-    });
-  </script>
 
 </body>
 </html>

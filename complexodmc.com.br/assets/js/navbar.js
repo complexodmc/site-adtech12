@@ -9,6 +9,16 @@
    Assim uma pasta nova não quebra o menu, e páginas que ainda não
    declaram data-root continuam funcionando.
 
+   A home é linkada como a raiz ("../", "../#contact"), nunca como
+   "index.html": em produção /index.html é 301 → / (vercel.json). Só em
+   file:// (sem servidor) o link leva a index.html, senão abriria a pasta.
+
+   Mega-menu "Eixos": o painel fica no DOM logo depois do botão, dentro
+   do mesmo <li>, para que Tab entre nele após Enter/Espaço e Shift+Tab
+   volte ao botão. ↓/↑ abrem focando o primeiro/último eixo; dentro do
+   painel ↓/↑/Home/End percorrem os itens; Esc fecha e devolve o foco;
+   clique fora e perda de foco fecham.
+
    Estilo: assets/css/components.css (+ tokens.css). Página que ainda
    não os declara recebe os dois injetados aqui — tokens ANTES do CSS
    legado (o legado vence nos nomes repetidos), components depois.
@@ -120,12 +130,22 @@
       '<li><a href="' + r + 'plataforma-ead/login.html"><b>Área do aluno</b><small>Plataforma de cursos</small></a></li>' +
       '<li><a href="' + ADTECH + '" rel="noopener"><b>Ad-tech</b><small>Documentos e prazos do caso</small></a></li>';
     var skip = o.skipTarget ? '<a class="dmc-skip" href="#' + o.skipTarget + '">Pular para o conteúdo</a>' : '';
+    // Painel dos eixos: vai dentro do <li> do botão (ordem do DOM = ordem do Tab).
+    // position:absolute em relação ao header fixo, como antes.
+    var mega =
+      '<div class="dmc-mega" id="dmc-mega" hidden>' +
+        '<div class="dmc-wrap">' +
+          '<ul class="dmc-mega__grid" aria-label="Os seis eixos">' + EIXOS.map(function (e) { return eixoItem(e, r, 'span'); }).join('') + '</ul>' +
+          '<div class="dmc-mega__foot"><p>Seis eixos sob uma governança, com parceiros habilitados para atos privativos.</p>' +
+            '<a class="dmc-btn dmc-btn--link" href="' + h('#features') + '">Ver os seis eixos na página inicial</a></div>' +
+        '</div>' +
+      '</div>';
 
     return skip +
       '<header class="dmc-nav' + (o.over ? ' dmc-nav--over' : '') + '" id="navbar">' +
         '<div class="dmc-wrap dmc-nav__bar">' + brand +
           '<nav class="dmc-nav__menu" aria-label="Principal"><ul class="dmc-nav__links">' +
-            '<li><button class="dmc-nav__trigger" type="button" aria-expanded="false" aria-controls="dmc-mega" data-dmc="mega">Eixos ' + ICON.chevron + '</button></li>' +
+            '<li><button class="dmc-nav__trigger" type="button" aria-expanded="false" aria-controls="dmc-mega" data-dmc="mega">Eixos ' + ICON.chevron + '</button>' + mega + '</li>' +
             '<li><a class="dmc-nav__link" href="' + h('#conheca') + '">A casa</a></li>' +
             '<li><a class="dmc-nav__link" href="' + h('#treinamentos') + '">Treinamentos</a></li>' +
           '</ul></nav>' +
@@ -137,13 +157,6 @@
             '<a class="dmc-btn dmc-btn--secondary" href="' + h('#contact') + '">Converse com nossos especialistas</a>' +
           '</div>' +
           '<button class="dmc-nav__toggle" type="button" aria-expanded="false" aria-controls="dmc-drawer" aria-haspopup="dialog">Menu <i aria-hidden="true"></i></button>' +
-        '</div>' +
-        '<div class="dmc-mega" id="dmc-mega" hidden>' +
-          '<div class="dmc-wrap">' +
-            '<ul class="dmc-mega__grid" aria-label="Os seis eixos">' + EIXOS.map(function (e) { return eixoItem(e, r, 'span'); }).join('') + '</ul>' +
-            '<div class="dmc-mega__foot"><p>Seis eixos sob uma governança, com parceiros habilitados para atos privativos.</p>' +
-              '<a class="dmc-btn dmc-btn--link" href="' + h('#features') + '">Ver os seis eixos na página inicial</a></div>' +
-          '</div>' +
         '</div>' +
       '</header>' +
       '<div class="dmc-drawer" id="dmc-drawer" role="dialog" aria-modal="true" aria-label="Menu" hidden>' +
@@ -207,7 +220,11 @@
           btn.setAttribute('aria-expanded', 'true');
           if (isMega) header.classList.add('is-open');
           enter(panel);
-          if (focusFirst) { var f = focusables(panel)[0]; if (f) f.focus(); }
+          if (focusFirst) {
+            var list = focusables(panel);
+            var f = focusFirst === 'last' ? list[list.length - 1] : list[0];
+            if (f) f.focus();
+          }
         },
         close: function (returnFocus) {
           if (panel.hidden) return;
@@ -222,6 +239,18 @@
       btn.addEventListener('click', function () { api.isOpen() ? api.close(false) : api.open(false); });
       btn.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowDown') { e.preventDefault(); api.open(true); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); api.open('last'); }
+      });
+      panel.addEventListener('keydown', function (e) {
+        var k = e.key;
+        if (k !== 'ArrowDown' && k !== 'ArrowUp' && k !== 'Home' && k !== 'End') return;
+        var list = focusables(panel);
+        if (!list.length) return;
+        var i = list.indexOf(document.activeElement);
+        var n = list.length;
+        var next = k === 'Home' ? 0 : k === 'End' ? n - 1 : k === 'ArrowDown' ? (i + 1) % n : (i - 1 + n) % n;
+        e.preventDefault();
+        list[next].focus();
       });
       function onFocusOut(e) {
         // Só fecha quando o foco vai para fora (teclado). Clique fora é
@@ -320,7 +349,9 @@
     ensureStyles(root, this);
     this.innerHTML = template({
       root: root,
-      home: root + (isHome ? '' : 'index.html'),
+      // Home = raiz (em produção /index.html é 301 → /). Em file:// a raiz
+      // abriria a pasta, então só aí o link aponta para index.html.
+      home: root + (isHome || location.protocol !== 'file:' ? '' : 'index.html'),
       isHome: isHome,
       over: this.hasAttribute('data-over'),
       skipTarget: skipTarget

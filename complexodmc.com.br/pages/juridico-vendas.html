@@ -1,1259 +1,367 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-root="../">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jurídico Vendas: Minutas, Risco e Distrato na Venda de Unidades | Complexo DMC</title>
   <meta name="description" content="Jurídico Vendas para incorporadoras: minutas de venda, análise de risco com jurimetria, distrato e procurações para corretores. Consultoria imobiliária com execução por parceiros habilitados.">
   <meta name="keywords" content="jurídico vendas, promessa de compra e venda, distrato imobiliário, jurimetria, análise de risco do comprador, procurações para corretores">
-  <title>Jurídico Vendas: Minutas, Risco e Distrato na Venda de Unidades | Complexo DMC</title>
+  <link rel="canonical" href="https://www.complexodmc.com.br/pages/juridico-vendas.html">
+  <meta name="theme-color" content="#0b0c0e">
 
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
-
+  <!-- Página interna na direção C — ordem do <head> documentada em pages/css/eixos.css
+       e em docs/dmc/DESIGN-SYSTEM.md §6 "Receita de migração de página interna". -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=DM+Sans:wght@300;400;600;700&family=Poppins:wght@400;500;600;700;800&family=Raleway:wght@600&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
   <link rel="stylesheet" href="css/shared.css?v=3">
-  <link rel="stylesheet" href="css/eixos.css?v=3">
-  <script src="../assets/js/navbar.js" defer></script>
-  <script src="../assets/js/video.js" defer></script>
+  <link rel="stylesheet" href="css/eixos.css?v=4">
+  <link rel="stylesheet" href="../assets/css/components.css?v=2">
+
+  <script src="../assets/js/navbar.js?v=c2" defer></script>
+  <script src="../assets/js/solucao.js?v=3" defer></script>
+  <script src="../assets/js/video.js?v=1" defer></script>
 </head>
 <body class="np-eixo np-pillar-imobiliario">
 
-  <!-- ========== NAVBAR ========== -->
-  <dmc-navbar></dmc-navbar>
-
-<!-- ========== HERO SECTION ========== -->
-  <section class="page-hero page-hero--marquee" aria-label="Apresentação do serviço Jurídico Vendas">
-    <div class="page-hero__glow" aria-hidden="true"></div>
-    <div class="page-hero__inner">
-      <div class="page-hero__content">
-        <div class="page-hero__badge">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          E3 · DIREITO NOTARIAL E IMOBILIÁRIO
-        </div>
-        <h1 class="page-hero__title">Minutas, risco e distrato
-         <span class="gradient-text">na venda de unidades</span></h1>
-        <p class="page-hero__subtitle">
-            Nossa IA prepara a promessa de compra e venda e os aditivos no padrão da incorporadora, mede o risco da carteira com jurimetria e organiza distratos e procurações de corretores. A revisão jurídica fica com parceiros habilitados; as escrituras são lavradas por cartórios conveniados.
-        </p>
-        <div class="page-hero__actions">
-          <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20Complexo%20DMC%2C%20quero%20organizar%20o%20jur%C3%ADdico%20de%20vendas%20da%20minha%20incorporadora" target="_blank" rel="noopener noreferrer" class="btn btn--primary" aria-label="Falar sobre contratos de venda via WhatsApp">
-            <span>Revisar meus contratos de venda</span>
-          </a>
-        </div>
+  <!-- navbar.js troca este conteúdo pelo menu completo (com o próprio "pular para o
+       conteúdo"). Sem JS ficam o atalho, a marca e o caminho para o rodapé. -->
+  <dmc-navbar data-over>
+    <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+    <header class="dmc-nav dmc-nav--over">
+      <div class="dmc-wrap dmc-nav__bar">
+        <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+          <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22">
+          <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+        </a>
+        <a class="dmc-nav__toggle" href="#rodape">Menu <i aria-hidden="true"></i></a>
       </div>
-      <div class="page-hero__visual" aria-hidden="true">
-  <div id="tech-net-wrap" style="position:relative;width:100%;max-width:520px;aspect-ratio:1;margin:0 auto;overflow:hidden;background:transparent;">
-    <canvas id="tech-net-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;"></canvas>
-    <div id="tech-net-label" style="
-      position:absolute;top:50%;left:50%;
-      transform:translate(-50%,-50%);
-      font-family:'Raleway','DM Sans',sans-serif;
-      font-size:56px;font-weight:700;letter-spacing:10px;
-      background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-      pointer-events:none;
-      user-select:none;
-      z-index:2;
-    ">JUR</div>
-  </div>
-</div>
-    </div>
-    <!-- ========== STATS MARQUEE (encaixada na base do herói) ========== -->
-    <section class="stats-marquee stats-marquee--in-hero" aria-label="Frentes do Jurídico Vendas">
-      <div class="stats-marquee__track">
-          <div class="stats-marquee__slide">
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Minutas</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Promessa de compra e venda e aditivos</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Jurimetria</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Análise de risco da carteira</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Distrato</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Conforme a Lei 13.786/18</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Corretores</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Procurações e matriz de poderes</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Escritura</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Lavrada por cartórios parceiros</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
+    </header>
+  </dmc-navbar>
+
+  <main id="conteudo">
+
+    <!-- ============================== HERÓI ============================== -->
+    <section class="page-hero" aria-labelledby="hero-titulo">
+      <div class="page-hero__inner">
+        <div class="page-hero__content">
+          <p class="page-hero__badge">E3 · Notarial e Imobiliário</p>
+          <h1 class="page-hero__title" id="hero-titulo">Minutas, risco e distrato <em>na venda de unidades</em></h1>
+          <p class="page-hero__subtitle">Nossa IA prepara a promessa de compra e venda e os aditivos no padrão da incorporadora, mede o risco da carteira com jurimetria e organiza distratos e procurações de corretores. A revisão jurídica fica com parceiros habilitados; as escrituras são lavradas por cartórios conveniados.</p>
+          <div class="page-hero__actions">
+            <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%20Complexo%20DMC%2C%20quero%20organizar%20o%20jur%C3%ADdico%20de%20vendas%20da%20minha%20incorporadora" target="_blank" rel="noopener noreferrer">Revisar meus contratos de venda <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--link" href="#processo">Como funciona</a>
           </div>
-        <!-- Duplicado duas vezes para o loop infinito -->
-          <div class="stats-marquee__slide" aria-hidden="true">
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Minutas</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Promessa de compra e venda e aditivos</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Jurimetria</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Análise de risco da carteira</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Distrato</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Conforme a Lei 13.786/18</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Corretores</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Procurações e matriz de poderes</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Escritura</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Lavrada por cartórios parceiros</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-          </div>
-          <div class="stats-marquee__slide" aria-hidden="true">
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Minutas</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Promessa de compra e venda e aditivos</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Jurimetria</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Análise de risco da carteira</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Distrato</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Conforme a Lei 13.786/18</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Corretores</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Procurações e matriz de poderes</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">Escritura</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Lavrada por cartórios parceiros</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-          </div>
+        </div>
+        <!-- Malha de nós no acento do eixo (assets/js/solucao.js). Sem JS: grade de pontos. -->
+        <div class="page-hero__visual" aria-hidden="true">
+          <div class="sol-net"><canvas class="sol-net__canvas"></canvas></div>
+        </div>
       </div>
     </section>
-  </section>
-  <div class="section-divider"></div>
 
-  <!-- ========== 3 CAMADAS SECTION ========== -->
-  <section class="page-section page-section--layers" aria-label="Três camadas da consultoria">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Nossa Atuação</p>
-        <h2 class="page-section__title">Três camadas integradas <span class="gradient-text">para a venda</span></h2>
-        <p class="page-section__description">Somos uma consultoria de negócios: tecnologia, revisão por parceiros habilitados e cartórios conveniados atuam juntos na comercialização das unidades, da proposta ao repasse.</p>
-      </div>
-
-      <div class="layers-grid">
-        <div class="layer-card">
-          <div class="layer-card__head">
-            <div class="layer-card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
-            </div>
-            <span class="layer-card__number">01</span>
-          </div>
-          <span class="layer-card__tag">Tecnologia</span>
-          <h3 class="layer-card__title">Inteligência Artificial</h3>
-          <p class="layer-card__text">Algoritmos analisam a carteira de vendas com jurimetria e preparam as minutas comerciais no modelo da incorporadora.</p>
-          <ul class="layer-card__list">
-            <li>Minutas de promessa e aditivos</li>
-            <li>Análise de risco com jurimetria</li>
-            <li>Conferência documental do comprador</li>
-          </ul>
+    <!-- ============================== TRÊS CAMADAS ============================== -->
+    <section class="page-section" id="camadas" aria-labelledby="camadas-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Nossa atuação</p>
+          <h2 class="page-section__title" id="camadas-titulo">Três camadas integradas <em>para a venda</em></h2>
+          <p class="page-section__description">Somos uma consultoria de negócios: tecnologia, revisão por parceiros habilitados e cartórios conveniados atuam juntos na comercialização das unidades, da proposta ao repasse.</p>
         </div>
 
-        <div class="layer-card">
-          <div class="layer-card__head">
-            <div class="layer-card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a4 4 0 0 0 8 0L7 7"/><path d="M19 7l-3 7a4 4 0 0 0 8 0l-3-7"/><path d="M7 21h10"/></svg>
-            </div>
-            <span class="layer-card__number">02</span>
-          </div>
-          <span class="layer-card__tag">Parceiros habilitados</span>
-          <h3 class="layer-card__title">Revisão dos Contratos de Venda</h3>
-          <p class="layer-card__text">Parceiros habilitados revisam contratos, aditivos e notificações antes da assinatura com o adquirente.</p>
-          <ul class="layer-card__list">
-            <li>Revisão por parceiro habilitado</li>
-            <li>Cláusulas alinhadas à Lei 13.786/18</li>
-            <li>Validação de notificações e aditivos</li>
-          </ul>
-        </div>
-
-        <div class="layer-card">
-          <div class="layer-card__head">
-            <div class="layer-card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-4 7 4v13"/><path d="M9 21v-7h6v7"/><circle cx="12" cy="11" r="1.5"/></svg>
-            </div>
-            <span class="layer-card__number">03</span>
-          </div>
-          <span class="layer-card__tag">Cartório</span>
-          <h3 class="layer-card__title">Cartórios Parceiros</h3>
-          <p class="layer-card__text">Escrituras, atas e procurações dos compradores são lavradas por cartórios conveniados, com assinatura eletrônica quando cabível.</p>
-          <ul class="layer-card__list">
-            <li>Escrituras lavradas pelo cartório parceiro</li>
-            <li>Assinatura por videoconferência quando cabível</li>
-            <li>Acompanhamento até o registro</li>
-          </ul>
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Inteligência Artificial</h3>
+            <p class="benefit-card__text">Algoritmos analisam a carteira de vendas com jurimetria e preparam as minutas comerciais no modelo da incorporadora.</p>
+            <ul class="np-tags"><li>Minutas de promessa e aditivos</li><li>Análise de risco com jurimetria</li><li>Conferência documental do comprador</li></ul>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Revisão dos Contratos de Venda</h3>
+            <p class="benefit-card__text">Parceiros habilitados revisam contratos, aditivos e notificações antes da assinatura com o adquirente.</p>
+            <ul class="np-tags"><li>Revisão por parceiro habilitado</li><li>Cláusulas alinhadas à Lei 13.786/18</li><li>Validação de notificações e aditivos</li></ul>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Cartórios Parceiros</h3>
+            <p class="benefit-card__text">Escrituras, atas e procurações dos compradores são lavradas por cartórios conveniados, com assinatura eletrônica quando cabível.</p>
+            <ul class="np-tags"><li>Escrituras lavradas pelo cartório parceiro</li><li>Assinatura por videoconferência quando cabível</li><li>Acompanhamento até o registro</li></ul>
+          </article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <style>
-    /* Aperta cabeçalho e padding só desta seção */
-    .page-section--layers { padding-top: 3rem; padding-bottom: 3rem; }
-    .page-section--layers .page-section__header { margin-bottom: 1.75rem; }
-    .page-section--layers .page-section__title { font-size: clamp(1.7rem, 3.6vw, 2.6rem); margin-bottom: .75rem; }
-    .page-section--layers .page-section__description { font-size: clamp(.95rem, 1vw, 1.05rem); }
+    <div class="section-divider"></div>
 
-    .layers-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-top: 1.5rem;
-      align-items: stretch;
-    }
-    .layer-card {
-      position: relative;
-      padding: 1.75rem 1.6rem 1.6rem;
-      background: linear-gradient(180deg, rgba(var(--np-accent), 0.04), rgba(10, 10, 10, 0.55) 60%);
-      border: 1px solid rgba(var(--np-accent-soft), 0.18);
-      border-radius: 18px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease, background .3s ease;
-    }
-    /* Faixa luminosa no topo */
-    .layer-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-green));
-      opacity: .55;
-      transition: opacity .3s ease;
-    }
-    .layer-card:hover {
-      border-color: rgba(var(--np-accent), 0.55);
-      transform: translateY(-6px);
-      box-shadow: 0 18px 45px rgba(var(--np-accent), 0.12);
-      background: linear-gradient(180deg, rgba(var(--np-accent), 0.08), rgba(10, 10, 10, 0.55) 60%);
-    }
-    .layer-card:hover::before { opacity: 1; }
-
-    .layer-card__head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.1rem;
-    }
-    .layer-card__icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(var(--np-accent), 0.08);
-      border: 1px solid rgba(var(--np-accent), 0.25);
-      color: var(--primary-cyan);
-      transition: all .3s ease;
-    }
-    .layer-card:hover .layer-card__icon {
-      background: rgba(var(--np-accent), 0.16);
-      border-color: rgba(var(--np-accent), 0.55);
-      transform: scale(1.05);
-    }
-    .layer-card__number {
-      font-family: 'Raleway', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-      opacity: .9;
-    }
-
-    .layer-card__tag {
-      display: inline-block;
-      font-family: var(--font-primary);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--primary-green);
-      margin-bottom: 10px;
-    }
-    .layer-card__title {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: .8rem;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-    }
-    .layer-card__text {
-      color: rgba(255,255,255,0.68);
-      font-size: 0.98rem;
-      line-height: 1.7;
-    }
-    @media (max-width: 900px) {
-      .layers-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-
-  <div class="section-divider"></div>
-
-  <!-- ========== BENEFITS SECTION (6 produtos) ========== -->
-  <section class="page-section" id="beneficios" aria-label="Os 6 produtos do Jurídico Vendas">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Os 6 Produtos</p>
-        <h2 class="page-section__title">Como apoiamos sua <span class="gradient-text">operação de vendas</span>?</h2>
-        <p class="page-section__description">Da promessa de compra e venda à recuperação de unidades inadimplentes — cada produto combina IA, revisão por parceiros habilitados e cartórios conveniados para organizar a carteira de vendas e o fluxo de recebíveis.</p>
-      </div>
-
-      <div class="benefit-grid">
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">01 · Contratos</span>
-          <h3 class="benefit-card__title">
-            Contrato Padronizado com Assinatura Eletrônica
-          </h3>
-          <p class="benefit-card__text">
-            Nossa IA prepara minutas de promessa de compra e venda, aditivos e cessões no modelo da incorporadora, com quadro-resumo conforme a Lei 13.786/18. Parceiros habilitados revisam o texto, a assinatura é eletrônica e, quando o ato exige, o documento segue ao cartório parceiro.
-          </p>
+    <!-- ============================== OS 6 PRODUTOS ============================== -->
+    <section class="page-section" id="beneficios" aria-labelledby="beneficios-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Os 6 produtos</p>
+          <h2 class="page-section__title" id="beneficios-titulo">Como apoiamos sua <em>operação de vendas</em>?</h2>
+          <p class="page-section__description">Da promessa de compra e venda à recuperação de unidades inadimplentes — cada produto combina IA, revisão por parceiros habilitados e cartórios conveniados para organizar a carteira de vendas e o fluxo de recebíveis.</p>
         </div>
 
-       
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">02 · Risco</span>
-          <h3 class="benefit-card__title">
-            Análise de Risco do Comprador com Jurimetria
-          </h3>
-          <p class="benefit-card__text">
-            Nossos algoritmos cruzam as certidões cíveis, fiscais e trabalhistas do comprador com dados públicos de decisões judiciais para indicar pontos de atenção em cada venda. Parceiros habilitados validam a análise, e o relatório chega ao time comercial antes da assinatura.
-          </p>
-        </div>
-
-         <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">03 · Escrituração</span>
-          <h3 class="benefit-card__title">Escritura Digital Acompanhada</h3>
-          <p class="benefit-card__text">
-            Nossa IA confere restrições e ITBI da unidade vendida. A escritura pública é lavrada pelo cartório parceiro, com assinatura por videoconferência quando cabível, e segue ao Registro de Imóveis; acompanhamos as exigências até o registro.
-          </p>
-        </div>
-
-
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">04 · Distrato</span>
-          <h3 class="benefit-card__title">Recuperação Extrajudicial de Unidades</h3>
-          <p class="benefit-card__text">
-            Nosso sistema analisa os documentos e estima o risco de inadimplência. Parceiros habilitados validam a minuta da notificação que constitui o adquirente em mora, etapa da execução extrajudicial da alienação fiduciária prevista na Lei 9.514/97. Quando o caminho é o distrato, o termo segue a Lei 13.786/18.
-           </p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">05 · Apoio Administrativo</span>
-          <h3 class="benefit-card__title">Renegociação e Repactuação de Contratos</h3>
-          <p class="benefit-card__text">
-            Estruturamos propostas de repactuação — alongamento de prazo, revisão de índice, reescalonamento de parcelas em atraso ou inclusão de fiador — formalizadas por aditivo revisado por parceiros habilitados. A renegociação é uma alternativa à rescisão para preservar o fluxo de recebíveis.
-          </p>
-        </div>
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">06 · Procuração</span>
-          <h3 class="benefit-card__title">Governança Comercial com Procurações Digitais</h3>
-          <p class="benefit-card__text">
-            Desenhamos a matriz de poderes por cargo — diretoria, gerência comercial e corretores. Nosso sistema prepara a minuta da procuração no modelo do cliente, o cartório parceiro lavra o ato e o painel controla prazo, revogação e substabelecimento.
-          </p>
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Contrato Padronizado com Assinatura Eletrônica</h3>
+            <p class="benefit-card__text">Nossa IA prepara minutas de promessa de compra e venda, aditivos e cessões no modelo da incorporadora, com quadro-resumo conforme a Lei 13.786/18. Parceiros habilitados revisam o texto, a assinatura é eletrônica e, quando o ato exige, o documento segue ao cartório parceiro.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Análise de Risco do Comprador com Jurimetria</h3>
+            <p class="benefit-card__text">Nossos algoritmos cruzam as certidões cíveis, fiscais e trabalhistas do comprador com dados públicos de decisões judiciais para indicar pontos de atenção em cada venda. Parceiros habilitados validam a análise, e o relatório chega ao time comercial antes da assinatura.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Escritura Digital Acompanhada</h3>
+            <p class="benefit-card__text">Nossa IA confere restrições e ITBI da unidade vendida. A escritura pública é lavrada pelo cartório parceiro, com assinatura por videoconferência quando cabível, e segue ao Registro de Imóveis; acompanhamos as exigências até o registro.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Recuperação Extrajudicial de Unidades</h3>
+            <p class="benefit-card__text">Nosso sistema analisa os documentos e estima o risco de inadimplência. Parceiros habilitados validam a minuta da notificação que constitui o adquirente em mora, etapa da execução extrajudicial da alienação fiduciária prevista na Lei 9.514/97. Quando o caminho é o distrato, o termo segue a Lei 13.786/18.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Renegociação e Repactuação de Contratos</h3>
+            <p class="benefit-card__text">Estruturamos propostas de repactuação — alongamento de prazo, revisão de índice, reescalonamento de parcelas em atraso ou inclusão de fiador — formalizadas por aditivo revisado por parceiros habilitados. A renegociação é uma alternativa à rescisão para preservar o fluxo de recebíveis.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Governança Comercial com Procurações Digitais</h3>
+            <p class="benefit-card__text">Desenhamos a matriz de poderes por cargo — diretoria, gerência comercial e corretores. Nosso sistema prepara a minuta da procuração no modelo do cliente, o cartório parceiro lavra o ato e o painel controla prazo, revogação e substabelecimento.</p>
+          </article>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="section-divider"></div>
+    <div class="section-divider"></div>
 
-  <!-- ========== RINO HUB SECTION ========== -->
-  <section class="page-section" aria-label="Mapa de soluções">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Ecossistema Imobiliário — Jurídico Vendas</p>
-        <h2 class="page-section__title">Um <span class="gradient-text">parceiro de negócio</span> para todo o ciclo de vendas</h2>
-        <p class="page-section__description">Da proposta ao repasse — coordenamos contratos, escrituras, procurações e distratos de cada unidade vendida, com atos lavrados por cartórios conveniados.</p>
-      </div>
+    <!-- ============================== SOLUÇÕES DO EIXO ==============================
+         Rinoceronte com alfa nativo (sem canvas/chromakey). Sem autoplay no HTML:
+         solucao.js dá play a 200px da tela e pausa ao sair; sem JS ou com movimento
+         reduzido fica o poster. -->
+    <section class="page-section" id="solucoes" aria-labelledby="solucoes-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Ecossistema imobiliário — Jurídico Vendas</p>
+          <h2 class="page-section__title" id="solucoes-titulo">Um <em>parceiro de negócio</em> para todo o ciclo de vendas</h2>
+          <p class="page-section__description">Da proposta ao repasse — coordenamos contratos, escrituras, procurações e distratos de cada unidade vendida, com atos lavrados por cartórios conveniados.</p>
+        </div>
 
-      <div class="ps-orbit-scene">
-        <!-- Brilho radial -->
-        <div class="ps-orbit-glow"></div>
-
-        <!-- Vídeo central do rinoceronte (canvas sem fundo preto) -->
-        <video id="rinoSrcPS" autoplay muted loop playsinline style="display:none;">
-          <source src="../assets/videos/rino-video-transparent.mp4" type="video/mp4">
-        </video>
-        <canvas id="rinoCanvasPS" class="ps-orbit-center-video"></canvas>
-
-        <!-- Anel decorativo -->
-        <div class="ps-orbit-ring"></div>
-
-        <!-- Âncora da órbita -->
-        <div id="psOrbitAnchor" class="ps-orbit-anchor">
-          <div class="ps-orbit-item" style="animation-delay: -0s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">CONTRATOS</span>
-            </div>
+        <div class="np-mapa">
+          <div class="np-mapa__media" aria-hidden="true">
+            <video class="np-rino" muted loop playsinline preload="none" poster="../assets/images/rino-alpha-poster.webp" width="480" height="480" disablepictureinpicture disableremoteplayback tabindex="-1">
+              <source src="../assets/videos/rino-alpha-gold.mov" type='video/mp4; codecs="hvc1"' media="(prefers-reduced-motion: no-preference)">
+              <source src="../assets/videos/rino-alpha-gold.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
+            </video>
           </div>
-          <div class="ps-orbit-item" style="animation-delay: -4.8s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">ESCRITURAÇÃO</span>
-            </div>
-          </div>
-          <div class="ps-orbit-item" style="animation-delay: -4.8s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">REGISTRO</span>
-            </div>
-          </div>
-          <div class="ps-orbit-item" style="animation-delay: -9.6s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">RECUPERAÇÃO DE ATIVOS</span>
-            </div>
-          </div>
-          <div class="ps-orbit-item" style="animation-delay: -14.4s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">PROCURAÇÕES</span>
-            </div>
-          </div>
-          <div class="ps-orbit-item" style="animation-delay: -19.2s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">ATA NOTARIAL</span>
-            </div>
-          </div>
-          <div class="ps-orbit-item" style="animation-delay: -4.8s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">DISTRATO</span>
-            </div>
+          <div class="sol-related">
+            <a class="np-card" href="consultoria-imobiliaria.html">
+              <h3 class="np-ct">Consultoria Imobiliária</h3>
+              <p class="np-cd">Estudo de viabilidade, due diligence de terreno e acompanhamento do ciclo do empreendimento para construtoras e incorporadoras.</p>
+              <ul class="np-tags"><li>Viabilidade</li><li>Due diligence</li></ul>
+              <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            </a>
+            <a class="np-card" href="juridico-imobiliario.html">
+              <h3 class="np-ct">Jurídico Imobiliário</h3>
+              <p class="np-cd">Contratos, incorporação e regularização de imóveis para construtoras, com execução por parceiros habilitados e atos lavrados por cartórios conveniados.</p>
+              <ul class="np-tags"><li>Incorporação</li><li>Matrículas</li></ul>
+              <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            </a>
+            <a class="np-card" href="registro-imobiliario.html">
+              <h3 class="np-ct">Registro Imobiliário</h3>
+              <p class="np-cd">Matrícula, averbações, retificações, usucapião extrajudicial e regularização fundiária acompanhadas até o registro em cartório.</p>
+              <ul class="np-tags"><li>Averbações</li><li>Usucapião</li></ul>
+              <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            </a>
+            <a class="np-card" href="atos-notariais.html">
+              <h3 class="np-ct">Atos Notariais</h3>
+              <p class="np-cd">Preparação de escrituras, procurações, atas notariais e inventário extrajudicial, com lavratura por cartórios conveniados.</p>
+              <ul class="np-tags"><li>Escrituras</li><li>Procurações</li></ul>
+              <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            </a>
           </div>
         </div>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <div class="section-divider"></div>
 
-  <style>
-    /* ===== PS ORBIT (estilo index) ===== */
-    :root {
-      --ps-orbit-r: 260px;
-      --ps-orbit-cw: 130px;
-      --ps-orbit-ch: 58px;
-      --ps-orbit-fs: 14px;
-    }
+    <!-- ============================== COMO CONDUZIMOS ============================== -->
+    <section class="page-section" id="processo" aria-labelledby="processo-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Como funciona</p>
+          <h2 class="page-section__title" id="processo-titulo">Processo de <em>atendimento</em></h2>
+          <p class="page-section__description">Três etapas por unidade vendida — do cadastro da venda à escritura registrada.</p>
+        </div>
 
-    .ps-orbit-scene {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      max-width: 600px;
-      height: 580px;
-      overflow: visible;
-      margin: 3rem auto 0;
-    }
-
-    .ps-orbit-glow {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(var(--np-accent), 0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .ps-orbit-center-video {
-      position: relative;
-      z-index: 10;
-      width: 220px;
-      height: 220px;
-      object-fit: contain;
-    }
-
-    .ps-orbit-ring {
-      position: absolute;
-      width: 520px;
-      height: 520px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: 1px solid rgba(var(--np-accent), 0.12);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .ps-orbit-anchor {
-      position: absolute;
-      width: 0;
-      height: 0;
-      top: 50%;
-      left: 50%;
-    }
-
-    .ps-orbit-item {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform-origin: 0 0;
-      animation: psOrbitSpin 24s linear infinite;
-    }
-
-    @keyframes psOrbitSpin {
-      0%   { transform: rotate(0deg)   translateX(var(--ps-orbit-r)) rotate(0deg); }
-      100% { transform: rotate(360deg) translateX(var(--ps-orbit-r)) rotate(-360deg); }
-    }
-
-    .ps-orbit-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      width: var(--ps-orbit-cw);
-      height: var(--ps-orbit-ch);
-      margin-left: calc(var(--ps-orbit-cw) / -2);
-      margin-top: calc(var(--ps-orbit-ch) / -2);
-      background: rgba(10, 10, 10, 0.85);
-      border: 1px solid rgba(var(--np-accent-soft), 0.3);
-      border-radius: 14px;
-      cursor: pointer;
-      transition: background 0.3s, border 0.3s, transform 0.3s;
-      user-select: none;
-      overflow: hidden;
-    }
-
-    .ps-orbit-card:hover {
-      background: rgba(var(--np-accent), 0.15);
-      border-color: rgb(var(--np-accent));
-      transform: scale(1.08);
-      z-index: 20;
-    }
-
-    .ps-orbit-front {
-      font-weight: 700;
-      font-size: var(--ps-orbit-fs);
-      letter-spacing: 0.06em;
-      color: #ffffff;
-      pointer-events: none;
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      :root {
-        --ps-orbit-r: 220px;
-        --ps-orbit-cw: 120px;
-        --ps-orbit-ch: 52px;
-        --ps-orbit-fs: 13px;
-      }
-      .ps-orbit-scene { height: 500px; }
-      .ps-orbit-ring { width: 440px; height: 440px; }
-      .ps-orbit-center-video { width: 190px; }
-      .ps-orbit-glow { width: 500px; height: 500px; }
-    }
-
-    @media (max-width: 768px) {
-      :root {
-        --ps-orbit-r: 160px;
-        --ps-orbit-cw: 100px;
-        --ps-orbit-ch: 44px;
-        --ps-orbit-fs: 11px;
-      }
-      .ps-orbit-scene { height: 400px; }
-      .ps-orbit-ring { width: 320px; height: 320px; }
-      .ps-orbit-center-video { width: 150px; }
-      .ps-orbit-glow { width: 380px; height: 380px; }
-    }
-
-    @media (max-width: 480px) {
-      :root {
-        --ps-orbit-r: 120px;
-        --ps-orbit-cw: 80px;
-        --ps-orbit-ch: 36px;
-        --ps-orbit-fs: 9px;
-      }
-      .ps-orbit-scene { height: 320px; }
-      .ps-orbit-ring { width: 240px; height: 240px; }
-      .ps-orbit-center-video { width: 110px; }
-      .ps-orbit-glow { width: 280px; height: 280px; }
-    }
-  </style>
-
-  <div class="section-divider"></div>
-
-  
-  <!-- ========== PROCESS SECTION (3 steps) ========== -->
-  <section class="page-section" aria-label="Processo de atendimento jurídico">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Como Funciona</p>
-        <h2 class="page-section__title">Processo de <span class="gradient-text">Atendimento</span></h2>
-        <p class="page-section__description">Três etapas por unidade vendida — do cadastro da venda à escritura registrada.</p>
+        <ol class="process-grid process-grid--steps">
+          <li class="process-step">
+            <h3 class="process-step__title">Cadastro da Venda</h3>
+            <p class="process-step__text">Recebemos os dados da unidade, do comprador e das condições comerciais negociadas pelo corretor.</p>
+            <ul class="np-tags"><li>Ficha da unidade e quadro-resumo</li><li>Documentos do comprador</li><li>Condições comerciais aprovadas</li></ul>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Risco &amp; Minuta</h3>
+            <p class="process-step__text">Análise de risco do comprador com jurimetria e minuta da promessa gerada por IA, revisada por parceiro habilitado.</p>
+            <ul class="np-tags"><li>Certidões e restrições do comprador</li><li>Minuta da promessa por IA</li><li>Revisão por parceiro habilitado</li></ul>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Assinatura &amp; Escritura</h3>
+            <p class="process-step__text">Assinatura eletrônica do contrato e, na quitação ou no repasse, escritura lavrada pelo cartório parceiro.</p>
+            <ul class="np-tags"><li>Assinatura eletrônica do contrato</li><li>Escritura no Cartório de Notas parceiro</li><li>Protocolo no Registro de Imóveis</li></ul>
+          </li>
+        </ol>
       </div>
+    </section>
 
-      <div class="process-grid process-grid--3">
-        <div class="process-step">
-          <div class="process-step__head">
-            <div class="process-step__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M8 13h8M8 17h5"/></svg>
-            </div>
-            <div class="process-step__number">1</div>
-          </div>
-          <span class="process-step__tag">Etapa 01 · cadastro</span>
-          <h3 class="process-step__title">Cadastro da Venda</h3>
-          <p class="process-step__text">Recebemos os dados da unidade, do comprador e das condições comerciais negociadas pelo corretor.</p>
-          <ul class="process-step__list">
-            <li>Ficha da unidade e quadro-resumo</li>
-            <li>Documentos do comprador</li>
-            <li>Condições comerciais aprovadas</li>
-          </ul>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step__head">
-            <div class="process-step__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M8 11h6M11 8v6"/></svg>
-            </div>
-            <div class="process-step__number">2</div>
-          </div>
-          <span class="process-step__tag">Etapa 02 · minuta</span>
-          <h3 class="process-step__title">Risco &amp; Minuta</h3>
-          <p class="process-step__text">Análise de risco do comprador com jurimetria e minuta da promessa gerada por IA, revisada por parceiro habilitado.</p>
-          <ul class="process-step__list">
-            <li>Certidões e restrições do comprador</li>
-            <li>Minuta da promessa por IA</li>
-            <li>Revisão por parceiro habilitado</li>
-          </ul>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step__head">
-            <div class="process-step__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
-            </div>
-            <div class="process-step__number">3</div>
-          </div>
-          <span class="process-step__tag">Etapa 03 · escritura</span>
-          <h3 class="process-step__title">Assinatura &amp; Escritura</h3>
-          <p class="process-step__text">Assinatura eletrônica do contrato e, na quitação ou no repasse, escritura lavrada pelo cartório parceiro.</p>
-          <ul class="process-step__list">
-            <li>Assinatura eletrônica do contrato</li>
-            <li>Escritura no Cartório de Notas parceiro</li>
-            <li>Protocolo no Registro de Imóveis</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    .process-grid--3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      align-items: stretch;
-      position: relative;
-    }
-
-    .process-grid--3 .process-step {
-      position: relative;
-      text-align: left;
-      padding: 1.75rem 1.6rem 1.6rem;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      background: linear-gradient(180deg, rgba(var(--np-accent), 0.04), rgba(10,10,10,0.55) 60%);
-    }
-
-    /* Faixa luminosa no topo do card */
-    .process-grid--3 .process-step::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary-cyan), var(--primary-green));
-      opacity: .55;
-      transition: opacity .3s ease;
-    }
-    .process-grid--3 .process-step:hover::before { opacity: 1; }
-
-    /* Seta conectora entre os cards (desktop) */
-    .process-grid--3 .process-step + .process-step::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: -1.05rem;
-      width: 0; height: 0;
-      border-top: 7px solid transparent;
-      border-bottom: 7px solid transparent;
-      border-left: 9px solid var(--primary-green);
-      opacity: .55;
-      transform: translateY(-50%);
-      pointer-events: none;
-    }
-
-    .process-step__head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-    .process-step__icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(var(--np-accent), 0.08);
-      border: 1px solid rgba(var(--np-accent), 0.25);
-      color: var(--primary-cyan);
-      transition: all .3s ease;
-    }
-    .process-grid--3 .process-step:hover .process-step__icon {
-      background: rgba(var(--np-accent), 0.16);
-      border-color: rgba(var(--np-accent), 0.55);
-      transform: scale(1.05);
-    }
-    .process-step__number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 40px;
-      height: 40px;
-      padding: 0 12px;
-      border-radius: 999px;
-      border: 1.5px solid rgba(var(--np-accent-soft), 0.3);
-      background: rgba(var(--np-accent), 0.06);
-      color: rgb(var(--np-accent));
-      font-family: 'Raleway', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      margin: 0;
-      transition: all 0.4s ease;
-    }
-    .process-step__tag {
-      display: inline-block;
-      font-family: var(--font-primary);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--primary-green);
-      margin-bottom: 8px;
-    }
-
-    .process-grid--3 .process-step__title {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.6rem;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-    }
-
-    .process-grid--3 .process-step__text {
-      font-size: 0.93rem;
-      color: rgba(255,255,255,0.68);
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-
-    /* Lista de entregáveis colada na base */
-    .process-step__list {
-      list-style: none;
-      padding: 1rem 0 0;
-      margin: auto 0 0;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      flex-direction: column;
-      gap: .55rem;
-    }
-    .process-step__list li {
-      position: relative;
-      padding-left: 1.4rem;
-      font-size: .87rem;
-      color: rgba(255,255,255,0.78);
-      line-height: 1.4;
-    }
-    .process-step__list li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: .45em;
-      width: 14px;
-      height: 8px;
-      border-left: 2px solid var(--primary-green);
-      border-bottom: 2px solid var(--primary-green);
-      transform: rotate(-45deg);
-      opacity: .9;
-    }
-
-    .process-grid--3 .process-step:hover .process-step__number {
-      border-color: rgb(var(--np-accent));
-      background: rgba(var(--np-accent), 0.12);
-      box-shadow: 0 0 20px rgba(var(--np-accent), 0.2);
-    }
-
-    @media (max-width: 900px) {
-      .process-grid--3 { grid-template-columns: 1fr; gap: 1rem; }
-      /* Setas viram chevron pra baixo no mobile */
-      .process-grid--3 .process-step + .process-step::after {
-        top: -0.7rem;
-        left: 50%;
-        transform: translateX(-50%) rotate(90deg);
-      }
-    }
-  </style>
-
-  <div class="section-divider"></div>
-
-  <!-- ========== ABOUT / VIDEO SECTION ========== -->
-  <section class="page-section" aria-label="Sobre o Jurídico Vendas do Complexo DMC">
-    <div class="page-section__container reveal">
-      <div class="about-sucess">
-        <div class="about-sucess__text">
+    <!-- ============================== SOBRE (papel) ============================== -->
+    <section class="page-section dmc-on-paper" id="fundamento" aria-labelledby="fundamento-titulo">
+      <div class="page-section__container np-fundamento reveal">
+        <div class="page-section__header">
           <p class="page-section__overline">Sobre</p>
-          <h2 class="page-section__title" style="text-align:left;">Consultoria para o time que <span class="gradient-text">vende na planta</span></h2>
-          <p class="about-sucess__desc">O Complexo DMC é uma consultoria em negócios com sede em São Paulo. No Jurídico Vendas, apoiamos o time comercial de construtoras e incorporadoras com minutas padronizadas, análise de risco do comprador e controle de distratos e procurações, com revisão por parceiros habilitados e escrituras lavradas por cartórios conveniados.</p>
-          <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20Complexo%20DMC%2C%20quero%20conhecer%20os%20atos%20notariais%20para%20construtoras" target="_blank" rel="noopener noreferrer" class="btn btn--primary" style="margin-top:1.5rem;">
-            <span>Falar sobre minhas vendas</span>
+          <h2 class="page-section__title" id="fundamento-titulo">Consultoria para o time que <em>vende na planta</em></h2>
+        </div>
+        <div class="np-fundamento__body">
+          <p>O Complexo DMC é uma consultoria em negócios com sede em São Paulo. No Jurídico Vendas, apoiamos o time comercial de construtoras e incorporadoras com minutas padronizadas, análise de risco do comprador e controle de distratos e procurações, com revisão por parceiros habilitados e escrituras lavradas por cartórios conveniados.</p>
+          <p><a class="dmc-btn dmc-btn--secondary" href="https://wa.me/5511915267749?text=Ol%C3%A1%20Complexo%20DMC%2C%20quero%20conhecer%20os%20atos%20notariais%20para%20construtoras" target="_blank" rel="noopener noreferrer">Falar sobre minhas vendas <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PERGUNTAS FREQUENTES ============================== -->
+    <section class="page-section" id="perguntas" aria-labelledby="perguntas-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Dúvidas</p>
+          <h2 class="page-section__title" id="perguntas-titulo">Perguntas <em>frequentes</em></h2>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Quem lavra a escritura da unidade vendida? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">O cartório conveniado. O Complexo DMC é uma consultoria em negócios: prepara a minuta, confere a documentação do comprador e acompanha a assinatura. A escritura é lavrada pelo tabelião, e a revisão jurídica fica a cargo de parceiros habilitados.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Quais documentos de venda vocês preparam? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Promessa de compra e venda com quadro-resumo, aditivos de repactuação, cessões de direitos, termos de distrato conforme a Lei 13.786/18 e procurações para a equipe comercial e os corretores. As minutas são geradas por IA e revisadas por parceiros habilitados.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Como funciona a análise de risco com jurimetria? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Cruzamos as certidões do comprador e o histórico de contratos da carteira com dados públicos de decisões judiciais para indicar pontos de atenção em cada venda. É uma ferramenta de apoio à decisão comercial, não uma previsão de resultado.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Como o distrato é conduzido? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Conferimos o contrato, calculamos as retenções previstas na Lei 13.786/18 e preparamos o termo de distrato, revisado por parceiros habilitados. Quando há alienação fiduciária, avaliamos com a incorporadora o procedimento da Lei 9.514/97.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Como o Jurídico Vendas é contratado? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">O escopo é dimensionado por contrato, por lançamento ou por carteira de vendas em fluxo contínuo, e apresentado em proposta. Emolumentos e custas são cobrados pelo próprio cartório.</div></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================== VÍDEO DO TEMA ============================== -->
+    <section class="page-section" id="video" aria-labelledby="video-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Em vídeo</p>
+          <h2 class="page-section__title" id="video-titulo">Jurídico de Vendas <em>em vídeo</em></h2>
+          <p class="page-section__description">Como o contrato de venda é padronizado, aprovado e assinado junto com o time comercial.</p>
+        </div>
+
+        <!-- O vídeo que antes ficava embutido no "Sobre" (iframe carregado com a página)
+             vem para cá: assets/js/video.js monta a capa e só traz o iframe no clique. -->
+        <div class="page-video__frame" data-video="13w3h_VjvGs" data-video-title="Jurídico de Vendas">
+          <div class="page-video__empty">
+            <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
+            <p class="page-video__empty-title">Jurídico de Vendas</p>
+            <p class="page-video__empty-text"><a href="https://www.youtube.com/watch?v=13w3h_VjvGs" target="_blank" rel="noopener noreferrer">Assistir no YouTube</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CONVERSA (papel) ============================== -->
+    <section class="cta-section dmc-on-paper" id="conversa" aria-labelledby="cta-titulo">
+      <div class="cta-section__container">
+        <p class="page-section__overline">Conversa</p>
+        <h2 class="cta-section__title" id="cta-titulo">Da unidade vendida <em>à escritura registrada</em></h2>
+        <p class="cta-section__text">Marque um diagnóstico com nossos especialistas e revise minutas, riscos e distratos da sua operação de vendas.</p>
+        <div class="cta-section__actions">
+          <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%20Complexo%20DMC%2C%20quero%20um%20diagn%C3%B3stico%20not%C3%A1rial%20para%20minha%20construtora" target="_blank" rel="noopener noreferrer">Conversar sobre minhas vendas <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="dmc-btn dmc-btn--secondary" href="../?assunto=E3#contact">Pedir proposta para vendas <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================== RODAPÉ (o mesmo da home) ============================== -->
+  <footer class="dmc-footer" id="rodape">
+    <div class="dmc-wrap">
+      <div class="dmc-footer__grid">
+        <div class="dmc-footer__brand">
+          <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+            <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">
+            <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
           </a>
-        </div>
-        <div class="about-sucess__video">
-          <iframe
-            width="100%"
-            style="aspect-ratio:16/9; border-radius:16px; border:1px solid rgba(var(--np-accent-soft), 0.2);"
-            src="https://www.youtube.com/embed/13w3h_VjvGs?si=R_sfa_LmJYUAU3Jw"
-            title="Complexo DMC - Jurídico Vendas para Incorporadoras"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    /* O cartaz que ocupa o lugar do vídeo enquanto ele não é
-       publicado. O resto do bloco "Sobre" mora em eixos.css. */
-    .about-sucess__video-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: rgba(8, 8, 20, 0.92);
-      border: 1px solid rgba(var(--np-accent-soft), 0.2);
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      transition: all 0.4s ease;
-    }
-
-    .about-sucess__video-placeholder:hover {
-      border-color: rgba(var(--np-accent), 0.5);
-      box-shadow: 0 0 40px rgba(var(--np-accent), 0.08);
-    }
-
-    .about-sucess__video-placeholder i {
-      font-size: 3rem;
-      color: rgba(var(--np-accent), 0.5);
-    }
-
-    .about-sucess__video-placeholder span {
-      color: var(--text-tertiary);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-  </style>
-
-  <div class="section-divider"></div>
-
-  <!-- ========== FAQ SECTION ========== -->
-  <section class="page-section" aria-label="Perguntas frequentes">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Dúvidas</p>
-        <h2 class="page-section__title">Perguntas <span class="gradient-text">Frequentes</span></h2>
-      </div>
-
-      <div class="faq-list">
-        <div class="faq-item">
-          <button class="faq-item__question" aria-expanded="false">
-            Quem lavra a escritura da unidade vendida?
-            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">O cartório conveniado. O Complexo DMC é uma consultoria em negócios: prepara a minuta, confere a documentação do comprador e acompanha a assinatura. A escritura é lavrada pelo tabelião, e a revisão jurídica fica a cargo de parceiros habilitados.</div>
-          </div>
+          <p>Consultoria em negócios para decisões que envolvem empresa, patrimônio e família.</p>
+          <p>Sede em São Paulo. Atendimento a empresas, famílias empresárias, incorporadoras e investidores.</p>
         </div>
 
-        <div class="faq-item">
-          <button class="faq-item__question" aria-expanded="false">
-            Quais documentos de venda vocês preparam?
-            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Promessa de compra e venda com quadro-resumo, aditivos de repactuação, cessões de direitos, termos de distrato conforme a Lei 13.786/18 e procurações para a equipe comercial e os corretores. As minutas são geradas por IA e revisadas por parceiros habilitados.</div>
-          </div>
-        </div>
+        <nav aria-labelledby="rodape-eixos">
+          <p class="dmc-footer__title" id="rodape-eixos">Eixos</p>
+          <ul class="dmc-footer__list">
+            <li class="np-pillar-patrimonial"><a href="planejamento-sucessorio.html"><span class="dmc-footer__num">E1</span>Patrimonial e Sucessório</a></li>
+            <li class="np-pillar-fiscal"><a href="planejamento-tributario.html"><span class="dmc-footer__num">E2</span>Tributário, Fiscal e Corporativo</a></li>
+            <li class="np-pillar-imobiliario"><a href="consultoria-imobiliaria.html"><span class="dmc-footer__num">E3</span>Notarial e Imobiliário</a></li>
+            <li class="np-pillar-auditoria"><a href="contabilidade.html"><span class="dmc-footer__num">E4</span>Auditoria Empresarial e Contábil</a></li>
+            <li class="np-pillar-ativos"><a href="recuperacao-ativos.html"><span class="dmc-footer__num">E5</span>Recuperação de Ativos</a></li>
+            <li class="np-pillar-trabalhista"><a href="../solucoes/consultoria-trabalhista/ciclo-fechado.html"><span class="dmc-footer__num">E6</span>Consultoria Trabalhista</a></li>
+          </ul>
+        </nav>
 
-        <div class="faq-item">
-          <button class="faq-item__question" aria-expanded="false">
-            Como funciona a análise de risco com jurimetria?
-            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Cruzamos as certidões do comprador e o histórico de contratos da carteira com dados públicos de decisões judiciais para indicar pontos de atenção em cada venda. É uma ferramenta de apoio à decisão comercial, não uma previsão de resultado.</div>
-          </div>
-        </div>
+        <nav aria-labelledby="rodape-casa">
+          <p class="dmc-footer__title" id="rodape-casa">A casa</p>
+          <ul class="dmc-footer__list">
+            <li><a href="../#conheca">Conheça o Complexo DMC</a></li>
+            <li><a href="../#features">Soluções</a></li>
+            <li><a href="../#treinamentos">Treinamentos</a></li>
+            <li><a href="tecnologia.html">Tecnologia</a></li>
+            <li><a href="por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
+            <li><a href="../plataforma-ead/login.html">Área do aluno</a></li>
+            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">Ad-tech</a></li>
+          </ul>
+        </nav>
 
-        <div class="faq-item">
-          <button class="faq-item__question" aria-expanded="false">
-            Como o distrato é conduzido?
-            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Conferimos o contrato, calculamos as retenções previstas na Lei 13.786/18 e preparamos o termo de distrato, revisado por parceiros habilitados. Quando há alienação fiduciária, avaliamos com a incorporadora o procedimento da Lei 9.514/97.</div>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-item__question" aria-expanded="false">
-            Como o Jurídico Vendas é contratado?
-            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">O escopo é dimensionado por contrato, por lançamento ou por carteira de vendas em fluxo contínuo, e apresentado em proposta. Emolumentos e custas são cobrados pelo próprio cartório.</div>
-          </div>
+        <div>
+          <p class="dmc-footer__title">Contato</p>
+          <ul class="dmc-footer__list">
+            <li><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></li>
+            <li><a href="tel:+5511915267749">+55 (11) 91526-7749</a></li>
+            <li><a href="../?assunto=E3#contact">Formulário de contato</a></li>
+            <li><span>Rua Riachuelo, 231<br>São Paulo, SP — Brasil</span></li>
+          </ul>
         </div>
       </div>
-    </div>
-  </section>
 
-  <div class="section-divider"></div>
-
-  <!-- ============================== VÍDEO DO TEMA ============================== -->
-  <section class="page-section" id="video" aria-labelledby="video-titulo">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Em vídeo</p>
-        <h2 class="page-section__title" id="video-titulo">Jurídico de Vendas <span class="gradient-text">em vídeo</span></h2>
-        <p class="page-section__description">Como o contrato de venda é padronizado, aprovado e assinado junto com o time comercial.</p>
+      <div class="dmc-footer__legal">
+        <p>&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+        <p>Conteúdo informativo. A atuação em atos privativos da advocacia, da contabilidade e da auditoria é realizada por profissionais e sociedades parceiras habilitadas; os atos notariais e registrais, por cartórios conveniados.</p>
+        <p><a href="politica-de-privacidade.html">Política de Privacidade</a></p>
       </div>
-
-      <!-- Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
-           (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
-           reservado. Quem monta o player é assets/js/video.js. -->
-      <div class="page-video__frame" data-video="" data-video-title="Jurídico de Vendas">
-        <div class="page-video__empty">
-          <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
-          <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
-          <p class="page-video__empty-text">Vídeo sobre jurídico de vendas — em breve neste espaço.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== CTA SECTION ========== -->
-  <section class="cta-section" aria-label="Chamada para ação">
-    <div class="cta-section__container reveal">
-      <h2 class="cta-section__title">Da unidade vendida <span class="gradient-text">à escritura registrada</span></h2>
-      <p class="cta-section__text">Marque um diagnóstico com nossos especialistas e revise minutas, riscos e distratos da sua operação de vendas.</p>
-      <div class="cta-section__actions">
-        <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20Complexo%20DMC%2C%20quero%20um%20diagn%C3%B3stico%20not%C3%A1rial%20para%20minha%20construtora" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Conversar sobre minhas vendas
-        </a>
-        <a href="../index.html#contact" class="btn btn--secondary">
-          <span>Pedir proposta para vendas</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== FOOTER ========== -->
-  <footer class="page-footer">
-    <div class="page-footer__container">
-      <a href="../index.html" class="page-footer__logo">
-        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
-      </a>
-      <ul class="page-footer__links">
-        <li><a href="../index.html" class="page-footer__link">Início</a></li>
-        <li><a href="../index.html#features" class="page-footer__link">Serviços</a></li>
-        <li><a href="../index.html#contact" class="page-footer__link">Contato</a></li>
-        <li><a href="politica-de-privacidade.html" class="page-footer__link">Política de Privacidade</a></li>
-      </ul>
-      <p class="page-footer__copy">&copy; 2025 Complexo DMC. Todos os direitos reservados.</p>
     </div>
   </footer>
 
-  <!-- ========== WHATSAPP FLOAT ========== -->
-  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Contato via WhatsApp">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Conversar pelo WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
-  <!-- ========== SCRIPTS ========== -->
-  <script>
-    // Mobile menu toggle
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.getElementById('navLinks');
-    if (navToggle) {
-      navToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('open');
-        const isOpen = navLinks.classList.contains('open');
-        navToggle.setAttribute('aria-expanded', isOpen);
-      });
-    }
-
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-      const nav = document.querySelector('.page-nav');
-      if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    // Scroll reveal
-    const revealElements = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-
-    // FAQ accordion
-    document.querySelectorAll('.faq-item__question').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-item');
-        const isActive = item.classList.contains('active');
-
-        // Close all
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-        document.querySelectorAll('.faq-item__question').forEach(b => b.setAttribute('aria-expanded', 'false'));
-
-        // Toggle current
-        if (!isActive) {
-          item.classList.add('active');
-          btn.setAttribute('aria-expanded', 'true');
-        }
-      });
-    });
-  </script>
-<script>
-(function() {
-  var wrap = document.getElementById('tech-net-wrap');
-  var canvas = document.getElementById('tech-net-canvas');
-  var ctx = canvas.getContext('2d');
-  
-  function resize() {
-    var rect = wrap.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  var mouse = { x: -999, y: -999 };
-  var COLORS = ['#7FB4FF','#BAD6FF','#4A7CF5','#9CC4FF','#5E96F8','#A8CDFF','#3F6FE0'];
-
-  function hexToRgb(hex) {
-    return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)].join(',');
-  }
-
-  var count = 65;
-  var nodes = [];
-  function initNodes() {
-    nodes = [];
-    for (var i = 0; i < count; i++) {
-      nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        r: Math.random() * 2.5 + 1,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        pulse: Math.random() * Math.PI * 2
-      });
-    }
-  }
-  initNodes();
-
-  var MAX_DIST = 120;
-  var MOUSE_DIST = 150;
-
-  function draw() {
-    var W = canvas.width, H = canvas.height;
-    ctx.clearRect(0, 0, W, H);
-
-    for (var n = 0; n < nodes.length; n++) {
-      nodes[n].x += nodes[n].vx;
-      nodes[n].y += nodes[n].vy;
-      nodes[n].pulse += 0.018;
-      if (nodes[n].x < 0 || nodes[n].x > W) nodes[n].vx *= -1;
-      if (nodes[n].y < 0 || nodes[n].y > H) nodes[n].vy *= -1;
-    }
-
-    for (var i = 0; i < nodes.length; i++) {
-      for (var j = i + 1; j < nodes.length; j++) {
-        var dx = nodes[i].x - nodes[j].x;
-        var dy = nodes[i].y - nodes[j].y;
-        var dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < MAX_DIST) {
-          var alpha = (1 - dist / MAX_DIST) * 0.55;
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = 'rgba(' + hexToRgb(nodes[i].color) + ',' + alpha + ')';
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-      }
-
-      var mdx = nodes[i].x - mouse.x;
-      var mdy = nodes[i].y - mouse.y;
-      var mdist = Math.sqrt(mdx*mdx + mdy*mdy);
-      if (mdist < MOUSE_DIST) {
-        var malpha = (1 - mdist / MOUSE_DIST) * 0.8;
-        ctx.beginPath();
-        ctx.moveTo(nodes[i].x, nodes[i].y);
-        ctx.lineTo(mouse.x, mouse.y);
-        ctx.strokeStyle = 'rgba(' + hexToRgb(nodes[i].color) + ',' + malpha + ')';
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-      }
-    }
-
-    for (var k = 0; k < nodes.length; k++) {
-      var pulse = 0.7 + 0.3 * Math.sin(nodes[k].pulse);
-      ctx.beginPath();
-      ctx.arc(nodes[k].x, nodes[k].y, nodes[k].r * pulse, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + hexToRgb(nodes[k].color) + ',0.95)';
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(nodes[k].x, nodes[k].y, nodes[k].r * 4 * pulse, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + hexToRgb(nodes[k].color) + ',0.08)';
-      ctx.fill();
-    }
-
-    requestAnimationFrame(draw);
-  }
-
-  wrap.addEventListener('mousemove', function(e) {
-    var rect = wrap.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
-  wrap.addEventListener('mouseleave', function() {
-    mouse.x = -999;
-    mouse.y = -999;
-  });
-
-  draw();
-})();
-</script>
-
-<!-- Chromakey: remove fundo preto do rino -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const video = document.getElementById('rinoSrcPS');
-  const canvas = document.getElementById('rinoCanvasPS');
-  if (!video || !canvas) return;
-  const ctx = canvas.getContext('2d', { willReadFrequently: true });
-  const threshold = 50;
-  let started = false;
-
-  function init() {
-    if (started) return;
-    if (video.videoWidth === 0) return;
-    started = true;
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    video.play();
-    draw();
-  }
-
-  function draw() {
-    if (!video.paused && !video.ended) {
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const d = frame.data;
-      for (let i = 0; i < d.length; i += 4) {
-        if (d[i] < threshold && d[i+1] < threshold && d[i+2] < threshold) {
-          d[i+3] = 0;
-        }
-      }
-      ctx.putImageData(frame, 0, 0);
-    }
-    requestAnimationFrame(draw);
-  }
-
-  video.addEventListener('loadeddata', init);
-  video.addEventListener('canplay', init);
-  video.addEventListener('playing', init);
-  if (video.readyState >= 2) init();
-});
-</script>
 </body>
 </html>

@@ -1,231 +1,302 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-root="../">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Planejamento tributário (E2): revisão de regime, créditos e estrutura societária para organizar a carga fiscal dentro da lei, com fundamento documentado.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Planejamento Tributário | Complexo DMC</title>
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <meta name="description" content="Planejamento tributário (E2): revisão de regime, créditos e estrutura societária para organizar a carga fiscal dentro da lei, com fundamento documentado.">
+  <link rel="canonical" href="https://www.complexodmc.com.br/pages/planejamento-tributario.html">
+  <meta name="theme-color" content="#0b0c0e">
+
+  <!-- Página interna na direção C — ordem do <head> documentada em pages/css/eixos.css
+       e em docs/dmc/DESIGN-SYSTEM.md §6 "Receita de migração de página interna". -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=DM+Sans:wght@300;400;600;700&family=Poppins:wght@400;500;600;700;800&family=Raleway:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
+
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
   <link rel="stylesheet" href="css/shared.css?v=3">
-  <script src="../assets/js/navbar.js" defer></script>
-  <script src="../assets/js/video.js" defer></script>
+  <link rel="stylesheet" href="css/eixos.css?v=4">
+  <link rel="stylesheet" href="../assets/css/components.css?v=2">
+
+  <script src="../assets/js/navbar.js?v=c2" defer></script>
+  <script src="../assets/js/solucao.js?v=3" defer></script>
+  <script src="../assets/js/video.js?v=1" defer></script>
 </head>
-<body>
-  <dmc-navbar></dmc-navbar>
+<body class="np-eixo np-pillar-fiscal">
 
-<section class="page-hero">
-    <div class="page-hero__glow" aria-hidden="true"></div>
-    <div class="page-hero__inner">
-      <div class="page-hero__content">
-        <div class="page-hero__badge"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> E2 · TRIBUTÁRIO, FISCAL E CORPORATIVO</div>
-        <h1 class="page-hero__title">Planejamento<br><span class="gradient-text">Tributário</span></h1>
-        <p class="page-hero__subtitle">Regime, créditos e estrutura societária analisados juntos para organizar a carga fiscal dentro da lei — com cada escolha fundamentada e documentada.</p>
-        <div class="page-hero__actions"><a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--primary"><span>Agendar avaliação tributária</span></a><a href="#beneficios" class="btn btn--secondary"><span>Nossas Áreas</span></a></div>
+  <!-- navbar.js troca este conteúdo pelo menu completo (com o próprio "pular para o
+       conteúdo"). Sem JS ficam o atalho, a marca e o caminho para o rodapé. -->
+  <dmc-navbar data-over>
+    <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+    <header class="dmc-nav dmc-nav--over">
+      <div class="dmc-wrap dmc-nav__bar">
+        <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+          <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22">
+          <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+        </a>
+        <a class="dmc-nav__toggle" href="#rodape">Menu <i aria-hidden="true"></i></a>
       </div>
-      <div class="page-hero__visual" aria-hidden="true">
-  <div id="tech-net-wrap" style="position:relative;width:100%;max-width:520px;aspect-ratio:1;margin:0 auto;overflow:hidden;background:transparent;">
-    <canvas id="tech-net-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;"></canvas>
-    <div id="tech-net-label" style="
-      position:absolute;top:50%;left:50%;
-      transform:translate(-50%,-50%);
-      font-family:'Raleway','DM Sans',sans-serif;
-      font-size:56px;font-weight:700;letter-spacing:10px;
-      background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-      pointer-events:none;
-      user-select:none;
-      z-index:2;
-    ">PT</div>
-  </div>
-</div>
-    </div>
-  </section>
+    </header>
+  </dmc-navbar>
 
-  <section class="page-section" id="beneficios"><div class="page-section__container reveal"><div class="page-section__header"><p class="page-section__overline">Nossas Especialidades</p><h2 class="page-section__title">Por que investir em <span class="gradient-text">Planejamento Tributário</span>?</h2><p class="page-section__description">Escolhas fiscais sustentadas em lei, em documentação e na coerência com a operação.</p></div>
-    <div class="benefit-grid">
-      <div class="benefit-card"><div class="benefit-card__icon"></div><span class="benefit-card__tag">Diagnóstico</span><h3 class="benefit-card__title">Diagnóstico Tributário</h3><p class="benefit-card__text">Análise da situação fiscal da empresa para mapear exposição, créditos e alternativas legais.</p></div>
-      <div class="benefit-card"><div class="benefit-card__icon"></div><span class="benefit-card__tag">Regime</span><h3 class="benefit-card__title">Revisão de Regime</h3><p class="benefit-card__text">Comparação fundamentada entre Simples Nacional, Lucro Presumido e Lucro Real para a realidade da empresa.</p></div>
-      <div class="benefit-card"><div class="benefit-card__icon"></div><span class="benefit-card__tag">Créditos</span><h3 class="benefit-card__title">Recuperação de Créditos</h3><p class="benefit-card__text">Identificação e recuperação de créditos tributários pagos indevidamente ou a maior.</p></div>
-      <div class="benefit-card"><div class="benefit-card__icon"></div><span class="benefit-card__tag">Societário</span><h3 class="benefit-card__title">Reestruturação Societária</h3><p class="benefit-card__text">Reorganização da estrutura societária visando otimização tributária e operacional.</p></div>
-      <div class="benefit-card"><div class="benefit-card__icon"></div><span class="benefit-card__tag">Processo fiscal</span><h3 class="benefit-card__title">Suporte à Defesa Administrativa</h3><p class="benefit-card__text">Suporte técnico à defesa em processos administrativos fiscais — levantamento, cálculo e fundamento —, com representação por profissional habilitado.</p></div>
-      <div class="benefit-card"><div class="benefit-card__icon"></div><span class="benefit-card__tag">Prevenção</span><h3 class="benefit-card__title">Consultoria Preventiva</h3><p class="benefit-card__text">Acompanhamento contínuo das mudanças legislativas e seus impactos na empresa.</p></div>
-    </div>
-  </div></section>
+  <main id="conteudo">
 
-  <div class="section-divider"></div>
-  <section class="page-section"><div class="page-section__container reveal"><div class="page-section__header"><p class="page-section__overline">Metodologia</p><h2 class="page-section__title">Como <span class="gradient-text">Funciona</span></h2></div>
-    <div class="process-grid">
-      <div class="process-step"><h3 class="process-step__title">Levantamento Fiscal</h3><p class="process-step__text">Mapeamento completo de todas as obrigações tributárias e regime fiscal vigente.</p></div>
-      <div class="process-step"><h3 class="process-step__title">Análise de Oportunidades</h3><p class="process-step__text">Identificação de alternativas legais de enquadramento e de créditos recuperáveis.</p></div>
-      <div class="process-step"><h3 class="process-step__title">Implementação das Estratégias</h3><p class="process-step__text">Execução das estratégias tributárias com acompanhamento especializado.</p></div>
-      <div class="process-step"><h3 class="process-step__title">Acompanhamento e Ajustes</h3><p class="process-step__text">Monitoramento contínuo e ajustes conforme mudanças legislativas.</p></div>
-    </div>
-  </div></section>
-
-  <div class="section-divider"></div>
-  <section class="page-section"><div class="page-section__container reveal"><div class="stats-row">
-    <div class="stat-item"><div class="stat-item__number">E2</div><div class="stat-item__label">Tributário, fiscal e corporativo</div></div>
-    <div class="stat-item"><div class="stat-item__number">Regime</div><div class="stat-item__label">Revisado com fundamento legal</div></div>
-    <div class="stat-item"><div class="stat-item__number">Créditos</div><div class="stat-item__label">Apurados com memória de cálculo</div></div>
-    <div class="stat-item"><div class="stat-item__number">Integração</div><div class="stat-item__label">Com auditoria (E4) e patrimonial (E1)</div></div>
-  </div></div></section>
-
-  <div class="section-divider"></div>
-  <section class="page-section"><div class="page-section__container reveal"><div class="page-section__header"><p class="page-section__overline">Dúvidas</p><h2 class="page-section__title">Perguntas <span class="gradient-text">Frequentes</span></h2></div>
-    <div class="faq-list">
-      <div class="faq-item"><button class="faq-item__question" aria-expanded="false">Planejamento tributário é legal?<svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-item__answer"><div class="faq-item__answer-inner">Sim. O planejamento tributário usa alternativas previstas em lei para organizar a carga fiscal, ao contrário da sonegação, que é crime.</div></div></div>
-      <div class="faq-item"><button class="faq-item__question" aria-expanded="false">Como se mede o efeito do planejamento?<svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-item__answer"><div class="faq-item__answer-inner">Cada caso parte de um diagnóstico próprio. O efeito depende do porte, do setor e da operação e é acompanhado pelos indicadores que a própria empresa já usa — não existe percentual padrão.</div></div></div>
-      <div class="faq-item"><button class="faq-item__question" aria-expanded="false">Qual a diferença para sonegação?<svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-item__answer"><div class="faq-item__answer-inner">O planejamento tributário é legal e utiliza estratégias permitidas pela legislação. A sonegação envolve fraude e omissão de informações.</div></div></div>
-      <div class="faq-item"><button class="faq-item__question" aria-expanded="false">Com que frequência devo revisar?<svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-item__answer"><div class="faq-item__answer-inner">Recomendamos revisão semestral ou sempre que houver mudanças significativas na legislação ou na operação da empresa.</div></div></div>
-    </div>
-  </div></section>
-
-  <div class="section-divider"></div>
-
-  <!-- ============================== VÍDEO DO TEMA ============================== -->
-  <section class="page-section" id="video" aria-labelledby="video-titulo">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Em vídeo</p>
-        <h2 class="page-section__title" id="video-titulo">Planejamento Tributário <span class="gradient-text">em vídeo</span></h2>
-        <p class="page-section__description">Como a carga tributária é revista dentro da lei: regime, estrutura societária e operação analisados juntos.</p>
-      </div>
-
-      <!-- Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
-           (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
-           reservado. Quem monta o player é assets/js/video.js. -->
-      <div class="page-video__frame" data-video="" data-video-title="Planejamento Tributário">
-        <div class="page-video__empty">
-          <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
-          <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
-          <p class="page-video__empty-text">Vídeo sobre planejamento tributário — em breve neste espaço.</p>
+    <!-- ============================== HERÓI ============================== -->
+    <section class="page-hero" aria-labelledby="hero-titulo">
+      <div class="page-hero__inner">
+        <div class="page-hero__content">
+          <p class="page-hero__badge">E2 · Tributário, Fiscal e Corporativo</p>
+          <h1 class="page-hero__title" id="hero-titulo">Planejamento <em>Tributário</em></h1>
+          <p class="page-hero__subtitle">Regime, créditos e estrutura societária analisados juntos para organizar a carga fiscal dentro da lei — com cada escolha fundamentada e documentada.</p>
+          <div class="page-hero__actions">
+            <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer">Agendar avaliação tributária <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--link" href="#beneficios">Nossas Áreas</a>
+          </div>
+        </div>
+        <!-- Malha de nós no acento do eixo (assets/js/solucao.js). Sem JS: grade de pontos. -->
+        <div class="page-hero__visual" aria-hidden="true">
+          <div class="sol-net"><canvas class="sol-net__canvas"></canvas></div>
         </div>
       </div>
+    </section>
+
+    <!-- ============================== O QUE ENTREGAMOS ============================== -->
+    <section class="page-section" id="beneficios" aria-labelledby="beneficios-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Nossas Especialidades</p>
+          <h2 class="page-section__title" id="beneficios-titulo">Por que investir em <em>Planejamento Tributário</em>?</h2>
+          <p class="page-section__description">Escolhas fiscais sustentadas em lei, em documentação e na coerência com a operação.</p>
+        </div>
+
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Diagnóstico Tributário</h3>
+            <p class="benefit-card__text">Análise da situação fiscal da empresa para mapear exposição, créditos e alternativas legais.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Revisão de Regime</h3>
+            <p class="benefit-card__text">Comparação fundamentada entre Simples Nacional, Lucro Presumido e Lucro Real para a realidade da empresa.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Recuperação de Créditos</h3>
+            <p class="benefit-card__text">Identificação e recuperação de créditos tributários pagos indevidamente ou a maior.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Reestruturação Societária</h3>
+            <p class="benefit-card__text">Reorganização da estrutura societária visando otimização tributária e operacional.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Suporte à Defesa Administrativa</h3>
+            <p class="benefit-card__text">Suporte técnico à defesa em processos administrativos fiscais — levantamento, cálculo e fundamento —, com representação por profissional habilitado.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Consultoria Preventiva</h3>
+            <p class="benefit-card__text">Acompanhamento contínuo das mudanças legislativas e seus impactos na empresa.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================== COMO CONDUZIMOS ============================== -->
+    <section class="page-section" id="processo" aria-labelledby="processo-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Metodologia</p>
+          <h2 class="page-section__title" id="processo-titulo">Como <em>Funciona</em></h2>
+        </div>
+
+        <ol class="process-grid">
+          <li class="process-step">
+            <h3 class="process-step__title">Levantamento Fiscal</h3>
+            <p class="process-step__text">Mapeamento completo de todas as obrigações tributárias e regime fiscal vigente.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Análise de Oportunidades</h3>
+            <p class="process-step__text">Identificação de alternativas legais de enquadramento e de créditos recuperáveis.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Implementação das Estratégias</h3>
+            <p class="process-step__text">Execução das estratégias tributárias com acompanhamento especializado.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Acompanhamento e Ajustes</h3>
+            <p class="process-step__text">Monitoramento contínuo e ajustes conforme mudanças legislativas.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================== O EIXO ==============================
+         Rinoceronte com alfa nativo. Sem autoplay no HTML de propósito: solucao.js dá
+         play a 200px da tela e pausa ao sair; sem JS ou com movimento reduzido fica o poster. -->
+    <section class="page-section" id="eixo" aria-labelledby="eixo-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Eixo E2</p>
+          <h2 class="page-section__title" id="eixo-titulo">Tributário, Fiscal e <em>Corporativo</em></h2>
+        </div>
+
+        <div class="np-mapa">
+          <div class="np-mapa__media" aria-hidden="true">
+            <video class="np-rino" muted loop playsinline preload="none" poster="../assets/images/rino-alpha-poster.webp" width="480" height="480" disablepictureinpicture disableremoteplayback tabindex="-1">
+              <source src="../assets/videos/rino-alpha-gold.mov" type='video/mp4; codecs="hvc1"' media="(prefers-reduced-motion: no-preference)">
+              <source src="../assets/videos/rino-alpha-gold.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
+            </video>
+          </div>
+
+          <div class="sol-related">
+            <a class="np-card" href="compliance-governanca.html">
+              <h3 class="np-ct">Compliance e Governança Corporativa</h3>
+              <p class="np-cd">Programa de integridade, gestão de riscos, código de conduta e canal de denúncias desenhados para a rotina de decisão da empresa.</p>
+              <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================== PERGUNTAS FREQUENTES ==============================
+         <details name="faq">: abre sem JS, uma resposta por vez, teclado e leitor de
+         tela nativos. -->
+    <section class="page-section" id="perguntas" aria-labelledby="perguntas-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Dúvidas</p>
+          <h2 class="page-section__title" id="perguntas-titulo">Perguntas <em>Frequentes</em></h2>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Planejamento tributário é legal? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Sim. O planejamento tributário usa alternativas previstas em lei para organizar a carga fiscal, ao contrário da sonegação, que é crime.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Como se mede o efeito do planejamento? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Cada caso parte de um diagnóstico próprio. O efeito depende do porte, do setor e da operação e é acompanhado pelos indicadores que a própria empresa já usa — não existe percentual padrão.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Qual a diferença para sonegação? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">O planejamento tributário é legal e utiliza estratégias permitidas pela legislação. A sonegação envolve fraude e omissão de informações.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Com que frequência devo revisar? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Recomendamos revisão semestral ou sempre que houver mudanças significativas na legislação ou na operação da empresa.</div></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================== VÍDEO DO TEMA ============================== -->
+    <section class="page-section" id="video" aria-labelledby="video-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Em vídeo</p>
+          <h2 class="page-section__title" id="video-titulo">Planejamento Tributário <em>em vídeo</em></h2>
+          <p class="page-section__description">Como a carga tributária é revista dentro da lei: regime, estrutura societária e operação analisados juntos.</p>
+        </div>
+
+        <!-- Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
+             (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
+             reservado. Quem monta o player é assets/js/video.js. -->
+        <div class="page-video__frame" data-video="" data-video-title="Planejamento Tributário">
+          <div class="page-video__empty">
+            <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
+            <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
+            <p class="page-video__empty-text">Vídeo sobre planejamento tributário — em breve neste espaço.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CONVERSA (papel) ============================== -->
+    <section class="cta-section dmc-on-paper" id="conversa" aria-labelledby="cta-titulo">
+      <div class="cta-section__container">
+        <p class="page-section__overline">Conversa</p>
+        <h2 class="cta-section__title" id="cta-titulo">Carga fiscal com <em>fundamento</em></h2>
+        <p class="cta-section__text">Agende uma avaliação do regime, dos créditos e da estrutura societária da sua empresa.</p>
+        <div class="cta-section__actions">
+          <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer">Falar com Especialista <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="dmc-btn dmc-btn--secondary" href="../?assunto=E2#contact">Solicitar Proposta <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================== RODAPÉ (o mesmo da home) ============================== -->
+  <footer class="dmc-footer" id="rodape">
+    <div class="dmc-wrap">
+      <div class="dmc-footer__grid">
+        <div class="dmc-footer__brand">
+          <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+            <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">
+            <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+          </a>
+          <p>Consultoria em negócios para decisões que envolvem empresa, patrimônio e família.</p>
+          <p>Sede em São Paulo. Atendimento a empresas, famílias empresárias, incorporadoras e investidores.</p>
+        </div>
+
+        <nav aria-labelledby="rodape-eixos">
+          <p class="dmc-footer__title" id="rodape-eixos">Eixos</p>
+          <ul class="dmc-footer__list">
+            <li class="np-pillar-patrimonial"><a href="planejamento-sucessorio.html"><span class="dmc-footer__num">E1</span>Patrimonial e Sucessório</a></li>
+            <li class="np-pillar-fiscal"><a href="planejamento-tributario.html" aria-current="page"><span class="dmc-footer__num">E2</span>Tributário, Fiscal e Corporativo</a></li>
+            <li class="np-pillar-imobiliario"><a href="consultoria-imobiliaria.html"><span class="dmc-footer__num">E3</span>Notarial e Imobiliário</a></li>
+            <li class="np-pillar-auditoria"><a href="contabilidade.html"><span class="dmc-footer__num">E4</span>Auditoria Empresarial e Contábil</a></li>
+            <li class="np-pillar-ativos"><a href="recuperacao-ativos.html"><span class="dmc-footer__num">E5</span>Recuperação de Ativos</a></li>
+            <li class="np-pillar-trabalhista"><a href="../solucoes/consultoria-trabalhista/ciclo-fechado.html"><span class="dmc-footer__num">E6</span>Consultoria Trabalhista</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="rodape-casa">
+          <p class="dmc-footer__title" id="rodape-casa">A casa</p>
+          <ul class="dmc-footer__list">
+            <li><a href="../#conheca">Conheça o Complexo DMC</a></li>
+            <li><a href="../#features">Soluções</a></li>
+            <li><a href="../#treinamentos">Treinamentos</a></li>
+            <li><a href="tecnologia.html">Tecnologia</a></li>
+            <li><a href="por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
+            <li><a href="../plataforma-ead/login.html">Área do aluno</a></li>
+            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">Ad-tech</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <p class="dmc-footer__title">Contato</p>
+          <ul class="dmc-footer__list">
+            <li><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></li>
+            <li><a href="tel:+5511915267749">+55 (11) 91526-7749</a></li>
+            <li><a href="../?assunto=E2#contact">Formulário de contato</a></li>
+            <li><span>Rua Riachuelo, 231<br>São Paulo, SP — Brasil</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dmc-footer__legal">
+        <p>&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+        <p>Conteúdo informativo. A atuação em atos privativos da advocacia, da contabilidade e da auditoria é realizada por profissionais e sociedades parceiras habilitadas; os atos notariais e registrais, por cartórios conveniados.</p>
+        <p><a href="politica-de-privacidade.html">Política de Privacidade</a></p>
+      </div>
     </div>
-  </section>
+  </footer>
 
-  <section class="cta-section"><div class="cta-section__container reveal"><h2 class="cta-section__title">Carga fiscal com <span class="gradient-text">fundamento</span></h2><p class="cta-section__text">Agende uma avaliação do regime, dos créditos e da estrutura societária da sua empresa.</p><div class="cta-section__actions"><a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Falar com Especialista</a><a href="../index.html#contact" class="btn btn--secondary"><span>Solicitar Proposta</span></a></div></div></section>
+  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Conversar pelo WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
 
-  <footer class="page-footer"><div class="page-footer__container"><a href="../index.html" class="page-footer__logo"><img src="../assets/images/RINO_logo.png" alt="Complexo DMC"></a><ul class="page-footer__links"><li><a href="../index.html" class="page-footer__link">Início</a></li><li><a href="../index.html#features" class="page-footer__link">Serviços</a></li><li><a href="../index.html#contact" class="page-footer__link">Contato</a></li><li><a href="politica-de-privacidade.html" class="page-footer__link">Política de Privacidade</a></li></ul><p class="page-footer__copy">&copy; 2025 Complexo DMC. Todos os direitos reservados.</p></div></footer>
-  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="WhatsApp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-  <script>const menuToggle=document.getElementById('menuToggle'),navMenu=document.getElementById('navMenu');menuToggle&&navMenu&&menuToggle.addEventListener('click',()=>{navMenu.classList.toggle('open');menuToggle.classList.toggle('open')});window.addEventListener('scroll',()=>{const n=document.getElementById('navbar');if(!n)return;window.scrollY>50?n.classList.add('scrolled'):n.classList.remove('scrolled')});document.querySelectorAll('.reveal').forEach(el=>new IntersectionObserver(e=>{e.forEach(e=>{e.isIntersecting&&e.target.classList.add('visible')})},{threshold:.1}).observe(el));document.querySelectorAll('.faq-item__question').forEach(btn=>{btn.addEventListener('click',()=>{const item=btn.closest('.faq-item'),a=item.classList.contains('active');document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('active'));document.querySelectorAll('.faq-item__question').forEach(b=>b.setAttribute('aria-expanded','false'));if(!a){item.classList.add('active');btn.setAttribute('aria-expanded','true')}})});</script>
-<script>
-(function() {
-  var wrap = document.getElementById('tech-net-wrap');
-  var canvas = document.getElementById('tech-net-canvas');
-  var ctx = canvas.getContext('2d');
-  
-  function resize() {
-    var rect = wrap.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  var mouse = { x: -999, y: -999 };
-  var COLORS = ['#00e7fc','#00ff4d','#00cfb6','#00f5b4','#00f683','#00d4aa','#00bcd4'];
-
-  function hexToRgb(hex) {
-    return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)].join(',');
-  }
-
-  var count = 65;
-  var nodes = [];
-  function initNodes() {
-    nodes = [];
-    for (var i = 0; i < count; i++) {
-      nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        r: Math.random() * 2.5 + 1,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        pulse: Math.random() * Math.PI * 2
-      });
-    }
-  }
-  initNodes();
-
-  var MAX_DIST = 120;
-  var MOUSE_DIST = 150;
-
-  function draw() {
-    var W = canvas.width, H = canvas.height;
-    ctx.clearRect(0, 0, W, H);
-
-    for (var n = 0; n < nodes.length; n++) {
-      nodes[n].x += nodes[n].vx;
-      nodes[n].y += nodes[n].vy;
-      nodes[n].pulse += 0.018;
-      if (nodes[n].x < 0 || nodes[n].x > W) nodes[n].vx *= -1;
-      if (nodes[n].y < 0 || nodes[n].y > H) nodes[n].vy *= -1;
-    }
-
-    for (var i = 0; i < nodes.length; i++) {
-      for (var j = i + 1; j < nodes.length; j++) {
-        var dx = nodes[i].x - nodes[j].x;
-        var dy = nodes[i].y - nodes[j].y;
-        var dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < MAX_DIST) {
-          var alpha = (1 - dist / MAX_DIST) * 0.55;
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = 'rgba(' + hexToRgb(nodes[i].color) + ',' + alpha + ')';
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-      }
-
-      var mdx = nodes[i].x - mouse.x;
-      var mdy = nodes[i].y - mouse.y;
-      var mdist = Math.sqrt(mdx*mdx + mdy*mdy);
-      if (mdist < MOUSE_DIST) {
-        var malpha = (1 - mdist / MOUSE_DIST) * 0.8;
-        ctx.beginPath();
-        ctx.moveTo(nodes[i].x, nodes[i].y);
-        ctx.lineTo(mouse.x, mouse.y);
-        ctx.strokeStyle = 'rgba(' + hexToRgb(nodes[i].color) + ',' + malpha + ')';
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-      }
-    }
-
-    for (var k = 0; k < nodes.length; k++) {
-      var pulse = 0.7 + 0.3 * Math.sin(nodes[k].pulse);
-      ctx.beginPath();
-      ctx.arc(nodes[k].x, nodes[k].y, nodes[k].r * pulse, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + hexToRgb(nodes[k].color) + ',0.95)';
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(nodes[k].x, nodes[k].y, nodes[k].r * 4 * pulse, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + hexToRgb(nodes[k].color) + ',0.08)';
-      ctx.fill();
-    }
-
-    requestAnimationFrame(draw);
-  }
-
-  wrap.addEventListener('mousemove', function(e) {
-    var rect = wrap.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
-  wrap.addEventListener('mouseleave', function() {
-    mouse.x = -999;
-    mouse.y = -999;
-  });
-
-  draw();
-})();
-</script>
 </body>
 </html>

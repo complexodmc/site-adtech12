@@ -1,0 +1,63 @@
+/* ============================================
+   Interesse em Treinamento — formulário sobre papel (.np-form)
+   Carregado depois de tokens.css, shared.css, eixos.css e components.css.
+   Espelho do .dmc-form da home (assets/css/styles.css), que a camada das páginas
+   internas ainda não tem. Só tokens da direção C; sem cor solta, sem fonte própria.
+   Quando .dmc-form migrar para assets/css/components.css, este arquivo sai.
+   ============================================ */
+
+.np-form { display: grid; gap: var(--space-5); }
+.np-form[hidden] { display: none; }
+.np-form .form-group { display: grid; gap: var(--space-2); min-width: 0; }
+.np-form label { font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--text-ink-1); }
+.np-form input:not([type="checkbox"]):not([type="hidden"]),
+.np-form select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3rem;
+  margin: 0;
+  padding: 0.75rem 0.875rem;
+  border: var(--border-hair) solid var(--color-control-ink);
+  border-radius: var(--radius-1);
+  background: var(--color-white);
+  color: var(--text-ink-1);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color var(--dur-fast) linear;
+}
+.np-form select {
+  padding-right: 2.75rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%234a4d52' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.875rem center;
+  background-size: 12px;
+}
+.np-form ::placeholder { color: var(--text-ink-3); opacity: 1; }
+.np-form input:hover, .np-form select:hover { border-color: var(--text-ink-2); }
+.np-form input:focus-visible, .np-form select:focus-visible {
+  border-color: var(--color-black);
+  outline: var(--focus-width) solid var(--focus-color-ink);
+  outline-offset: 2px;
+}
+.np-form [aria-invalid="true"] { border-color: var(--color-error-ink) !important; }
+.np-form .form-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.np-form .form-consent { display: grid; grid-template-columns: 1.25rem minmax(0, 1fr); align-items: start; gap: var(--space-3); }
+.np-form .form-consent input { width: 1.25rem; height: 1.25rem; margin: 0.125rem 0 0; accent-color: var(--color-black); cursor: pointer; }
+.np-form .form-consent input:focus-visible { outline: var(--focus-width) solid var(--focus-color-ink); outline-offset: 2px; }
+.np-form .form-consent label { font-weight: var(--fw-regular); line-height: 1.55; color: var(--text-ink-2); cursor: pointer; }
+.np-form .form-consent a { color: var(--text-ink-1); text-decoration: underline; text-underline-offset: 0.2em; }
+.np-form .form-message { margin: 0; font-size: var(--fs-small); line-height: 1.55; color: var(--text-ink-2); }
+.np-form .form-message:empty { display: none; }
+.np-form .form-message.is-erro { color: var(--color-error-ink); }
+.np-form .submit-btn { justify-self: start; min-width: 12rem; }
+.np-form[aria-busy="true"] .submit-btn { cursor: progress; }
+@media (max-width: 639px) { .np-form .submit-btn { justify-self: stretch; } }
+.np-form__success { display: grid; gap: var(--space-3); max-width: var(--measure); }
+.np-form__success[hidden] { display: none; }
+.np-form__success svg { width: 2rem; height: 2rem; stroke: rgb(var(--np-accent-deep)); }
+.np-form__success h2 { margin: 0; font: var(--fw-semibold) var(--fs-h3)/var(--lh-snug) var(--font-text); color: var(--text-ink-1); }
+.np-form__success p { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-ink-2); }
+.np-form__success a { color: var(--text-ink-1); }

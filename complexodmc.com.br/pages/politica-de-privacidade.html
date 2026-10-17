@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-root="../">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Como o Complexo DMC trata os dados enviados pelo site: o que coletamos, para quê, com quem compartilhamos, por quanto tempo e como exercer seus direitos na LGPD.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Política de Privacidade | Complexo DMC</title>
-
+  <meta name="description" content="Como o Complexo DMC trata os dados enviados pelo site: o que coletamos, para quê, com quem compartilhamos, por quanto tempo e como exercer seus direitos na LGPD.">
   <link rel="canonical" href="https://www.complexodmc.com.br/pages/politica-de-privacidade.html">
+  <meta name="theme-color" content="#0b0c0e">
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Complexo DMC">
@@ -15,44 +15,61 @@
   <meta property="og:title" content="Política de Privacidade | Complexo DMC">
   <meta property="og:description" content="Como o Complexo DMC trata os dados enviados pelo site: o que coletamos, para quê, com quem compartilhamos, por quanto tempo e como exercer seus direitos na LGPD.">
 
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <!-- Página legal na direção C (docs/dmc/DESIGN-SYSTEM.md §6): cabeçalho e rodapé
+       padrão, sem herói de malha e SEM bloco de vídeo (exceção registrada em
+       docs/dmc/PROGRESS.md). Não publicar enquanto houver marcações [CONFIRMAR] no texto. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
+
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
   <link rel="stylesheet" href="css/shared.css?v=3">
-  <link rel="stylesheet" href="css/eixos.css?v=3">
-  <link rel="stylesheet" href="css/solucao.css?v=3">
-  <script src="../assets/js/navbar.js" defer></script>
+  <link rel="stylesheet" href="css/eixos.css?v=4">
+  <link rel="stylesheet" href="../assets/css/components.css?v=2">
+
+  <script src="../assets/js/navbar.js?v=c2" defer></script>
 </head>
-<!-- Página legal: segue o cabeçalho, as seções e o rodapé das páginas de serviço,
-     sem herói de malha e SEM bloco de vídeo (exceção registrada em docs/dmc/PROGRESS.md).
-     Não publicar enquanto houver marcações [CONFIRMAR] no texto. -->
-<body class="sol-page">
+<body class="np-eixo">
 
-  <dmc-navbar></dmc-navbar>
-
-  <!-- ============================== ABERTURA ============================== -->
-  <header class="page-section" style="padding-top:8rem;padding-bottom:1.5rem;">
-    <div class="page-section__container">
-      <div class="page-section__header sol-section__head">
-        <p class="page-section__overline">LGPD · Lei 13.709/2018</p>
-        <h1 class="page-section__title">Política de <span class="gradient-text">Privacidade</span></h1>
-        <p class="page-section__description">Como o Complexo DMC trata os dados que você envia pelo site: o que coletamos, para quê, com quem compartilhamos, por quanto tempo e como exercer os seus direitos.</p>
+  <!-- navbar.js troca este conteúdo pelo menu completo (com o próprio "pular para o
+       conteúdo"). Sem JS ficam o atalho, a marca e o caminho para o rodapé. -->
+  <dmc-navbar data-over>
+    <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+    <header class="dmc-nav dmc-nav--over">
+      <div class="dmc-wrap dmc-nav__bar">
+        <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+          <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22">
+          <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+        </a>
+        <a class="dmc-nav__toggle" href="#rodape">Menu <i aria-hidden="true"></i></a>
       </div>
-      <div class="sol-prose">
-        <p><strong>Última atualização:</strong> [CONFIRMAR: data de publicação].</p>
-      </div>
-    </div>
-  </header>
+    </header>
+  </dmc-navbar>
 
-  <main>
+  <main id="conteudo">
+
+    <!-- ============================== ABERTURA (sem malha) ============================== -->
+    <section class="page-hero" aria-labelledby="hero-titulo">
+      <div class="page-hero__inner">
+        <div class="page-hero__content">
+          <p class="page-hero__badge">LGPD · Lei 13.709/2018</p>
+          <h1 class="page-hero__title" id="hero-titulo">Política de <em>Privacidade</em></h1>
+          <p class="page-hero__subtitle">Como o Complexo DMC trata os dados que você envia pelo site: o que coletamos, para quê, com quem compartilhamos, por quanto tempo e como exercer os seus direitos.</p>
+          <p class="dmc-small"><strong>Última atualização:</strong> [CONFIRMAR: data de publicação].</p>
+        </div>
+      </div>
+    </section>
 
     <!-- ============================== CONTROLADOR ============================== -->
     <section class="page-section" id="controlador" aria-labelledby="controlador-titulo">
       <div class="page-section__container">
-        <div class="page-section__header sol-section__head">
+        <div class="page-section__header">
           <p class="page-section__overline">Controlador</p>
-          <h2 class="page-section__title" id="controlador-titulo">Quem trata <span class="gradient-text">os seus dados</span></h2>
+          <h2 class="page-section__title" id="controlador-titulo">Quem trata <em>os seus dados</em></h2>
         </div>
         <div class="sol-prose">
           <p>O controlador dos dados pessoais coletados neste site é o <strong>Complexo DMC</strong> [CONFIRMAR: razão social e CNPJ], com endereço na Rua Riachuelo, 231, São Paulo – SP.</p>
@@ -68,39 +85,33 @@
     <!-- ============================== DADOS COLETADOS ============================== -->
     <section class="page-section" id="dados" aria-labelledby="dados-titulo">
       <div class="page-section__container">
-        <div class="page-section__header sol-section__head">
+        <div class="page-section__header">
           <p class="page-section__overline">Dados coletados</p>
-          <h2 class="page-section__title" id="dados-titulo">O que os formulários <span class="gradient-text">recebem</span></h2>
+          <h2 class="page-section__title" id="dados-titulo">O que os formulários <em>recebem</em></h2>
           <p class="page-section__description">Apenas o que você digita e o mínimo técnico para o envio funcionar. Campos marcados como opcionais podem ficar em branco.</p>
         </div>
         <div class="benefit-grid">
           <article class="benefit-card">
-            <span class="benefit-card__tag">Identificação</span>
             <h3 class="benefit-card__title">Nome e e-mail</h3>
             <p class="benefit-card__text">Obrigatórios nos dois formulários. Usados para responder ao seu contato.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Contato</span>
             <h3 class="benefit-card__title">Telefone</h3>
             <p class="benefit-card__text">Opcional no formulário da página inicial; obrigatório no de interesse em treinamento, para o aviso sobre o treinamento escolhido.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Contexto</span>
             <h3 class="benefit-card__title">Empresa, perfil e assunto</h3>
             <p class="benefit-card__text">Empresa é opcional. Perfil e assunto (o eixo de interesse) encaminham a conversa ao time responsável.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Mensagem</span>
             <h3 class="benefit-card__title">O que você escrever</h3>
             <p class="benefit-card__text">O texto livre do formulário. Pedimos que não inclua dados de saúde, outros dados sensíveis ou dados de terceiros.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Registro</span>
             <h3 class="benefit-card__title">Origem e consentimento</h3>
             <p class="benefit-card__text">A página de onde o formulário foi enviado, o treinamento de interesse (quando houver) e a data e a hora da sua autorização.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Segurança</span>
             <h3 class="benefit-card__title">Endereço IP</h3>
             <p class="benefit-card__text">Usado só para limitar envios repetidos: fica na memória do servidor durante uma janela de 15 minutos e não é gravado no banco de dados.</p>
           </article>
@@ -113,9 +124,9 @@
     <!-- ============================== FINALIDADE E BASE LEGAL ============================== -->
     <section class="page-section" id="finalidade" aria-labelledby="finalidade-titulo">
       <div class="page-section__container">
-        <div class="page-section__header sol-section__head">
+        <div class="page-section__header">
           <p class="page-section__overline">Finalidade e base legal</p>
-          <h2 class="page-section__title" id="finalidade-titulo">Para que usamos <span class="gradient-text">e com qual base</span></h2>
+          <h2 class="page-section__title" id="finalidade-titulo">Para que usamos <em>e com qual base</em></h2>
         </div>
         <div class="sol-prose">
           <p><strong>Finalidade.</strong> Responder ao seu contato, encaminhá-lo ao time do eixo escolhido e dar retorno comercial à conversa que você iniciou — ou, no formulário de treinamentos, avisar sobre o treinamento de interesse. Não vendemos dados nem os usamos para publicidade de terceiros.</p>
@@ -131,18 +142,18 @@
     <!-- ============================== COMPARTILHAMENTO E RETENÇÃO ============================== -->
     <section class="page-section" id="compartilhamento" aria-labelledby="compartilhamento-titulo">
       <div class="page-section__container">
-        <div class="page-section__header sol-section__head">
+        <div class="page-section__header">
           <p class="page-section__overline">Compartilhamento e retenção</p>
-          <h2 class="page-section__title" id="compartilhamento-titulo">Com quem e <span class="gradient-text">por quanto tempo</span></h2>
+          <h2 class="page-section__title" id="compartilhamento-titulo">Com quem e <em>por quanto tempo</em></h2>
           <p class="page-section__description">Os dados só passam pelos provedores que fazem o site funcionar, que atuam como operadores.</p>
         </div>
         <div class="sol-prose">
-          <ul class="highlight-list">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Vercel</strong> — hospedagem do site e da função que recebe os formulários.</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span><strong>MongoDB Atlas</strong> — banco de dados em nuvem onde o contato fica gravado.</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Resend</strong> — envio do aviso interno por e-mail com os dados do contato, quando esse aviso estiver ativado.</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Autoridades</strong> — somente por obrigação legal ou ordem judicial.</span></li>
-          </ul>
+          <dl class="np-compare__list">
+            <div><dt>Vercel</dt><dd>hospedagem do site e da função que recebe os formulários.</dd></div>
+            <div><dt>MongoDB Atlas</dt><dd>banco de dados em nuvem onde o contato fica gravado.</dd></div>
+            <div><dt>Resend</dt><dd>envio do aviso interno por e-mail com os dados do contato, quando esse aviso estiver ativado.</dd></div>
+            <div><dt>Autoridades</dt><dd>somente por obrigação legal ou ordem judicial.</dd></div>
+          </dl>
           <p>Esses provedores podem manter servidores fora do Brasil. Nesse caso, a transferência internacional observa o art. 33 da LGPD [CONFIRMAR: região do cluster no MongoDB Atlas e da função na Vercel].</p>
           <p>Se você nos procurar pelo WhatsApp, a conversa também passa pelos servidores do WhatsApp (Meta) e segue a política de privacidade daquele serviço.</p>
           <p><strong>Retenção.</strong> Os dados do formulário ficam guardados enquanto a conversa estiver em andamento e, depois, por [CONFIRMAR: prazo de retenção] contados do último contato. Vencido o prazo, ou atendido um pedido de eliminação, são apagados ou anonimizados, salvo quando a lei exigir a guarda (art. 16 da LGPD).</p>
@@ -156,59 +167,59 @@
     <!-- ============================== DIREITOS DO TITULAR ============================== -->
     <section class="page-section" id="direitos" aria-labelledby="direitos-titulo">
       <div class="page-section__container">
-        <div class="page-section__header sol-section__head">
+        <div class="page-section__header">
           <p class="page-section__overline">Direitos do titular</p>
-          <h2 class="page-section__title" id="direitos-titulo">O que você <span class="gradient-text">pode pedir</span></h2>
+          <h2 class="page-section__title" id="direitos-titulo">O que você <em>pode pedir</em></h2>
           <p class="page-section__description">O art. 18 da LGPD garante ao titular, a qualquer momento e mediante requisição:</p>
         </div>
         <div class="benefit-grid">
           <article class="benefit-card">
-            <span class="benefit-card__tag">Art. 18, I</span>
+            <p class="np-tag">Art. 18, I</p>
             <h3 class="benefit-card__title">Confirmação</h3>
             <p class="benefit-card__text">Saber se tratamos dados seus.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Art. 18, II</span>
+            <p class="np-tag">Art. 18, II</p>
             <h3 class="benefit-card__title">Acesso</h3>
             <p class="benefit-card__text">Receber os dados que guardamos sobre você.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Art. 18, III</span>
+            <p class="np-tag">Art. 18, III</p>
             <h3 class="benefit-card__title">Correção</h3>
             <p class="benefit-card__text">Corrigir dados incompletos, inexatos ou desatualizados.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Art. 18, IV</span>
+            <p class="np-tag">Art. 18, IV</p>
             <h3 class="benefit-card__title">Anonimização, bloqueio ou eliminação</h3>
             <p class="benefit-card__text">De dados desnecessários, excessivos ou tratados em desconformidade com a lei.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Art. 18, V</span>
+            <p class="np-tag">Art. 18, V</p>
             <h3 class="benefit-card__title">Portabilidade</h3>
             <p class="benefit-card__text">Levar os dados a outro fornecedor, na forma da regulamentação da ANPD.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Art. 18, VI</span>
+            <p class="np-tag">Art. 18, VI</p>
             <h3 class="benefit-card__title">Eliminação</h3>
             <p class="benefit-card__text">Apagar os dados tratados com base no consentimento, ressalvadas as hipóteses do art. 16.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Art. 18, VII</span>
+            <p class="np-tag">Art. 18, VII</p>
             <h3 class="benefit-card__title">Compartilhamento</h3>
             <p class="benefit-card__text">Saber com quais entidades públicas e privadas compartilhamos dados.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Art. 18, VIII</span>
+            <p class="np-tag">Art. 18, VIII</p>
             <h3 class="benefit-card__title">Negativa</h3>
             <p class="benefit-card__text">Saber que pode não consentir e o efeito disso: sem a autorização, não conseguimos responder pelo formulário.</p>
           </article>
           <article class="benefit-card">
-            <span class="benefit-card__tag">Art. 18, IX</span>
+            <p class="np-tag">Art. 18, IX</p>
             <h3 class="benefit-card__title">Revogação</h3>
             <p class="benefit-card__text">Retirar o consentimento a qualquer momento.</p>
           </article>
         </div>
-        <div class="sol-prose" style="margin-top:2.5rem;">
+        <div class="sol-note">
           <p>Para exercer qualquer desses direitos, escreva para <a href="mailto:administrativo@complexodmc.com.br?subject=LGPD">administrativo@complexodmc.com.br</a> com o assunto “LGPD”. Podemos pedir informações que confirmem a sua identidade antes de atender. Os prazos de resposta são os do art. 19 da LGPD — a declaração completa sai em até 15 dias.</p>
           <p>Você também pode se opor a tratamento feito sem consentimento quando houver descumprimento da lei (art. 18, § 2º) e apresentar reclamação à Autoridade Nacional de Proteção de Dados — ANPD (art. 18, § 1º).</p>
         </div>
@@ -220,9 +231,9 @@
     <!-- ============================== COOKIES, SEGURANÇA E ATUALIZAÇÕES ============================== -->
     <section class="page-section" id="cookies" aria-labelledby="cookies-titulo">
       <div class="page-section__container">
-        <div class="page-section__header sol-section__head">
+        <div class="page-section__header">
           <p class="page-section__overline">Cookies e segurança</p>
-          <h2 class="page-section__title" id="cookies-titulo">Cookies e <span class="gradient-text">recursos de terceiros</span></h2>
+          <h2 class="page-section__title" id="cookies-titulo">Cookies e <em>recursos de terceiros</em></h2>
         </div>
         <div class="sol-prose">
           <p>O site não usa cookies de publicidade nem ferramentas de análise de audiência ou de rastreamento — não há Google Analytics, pixel de redes sociais ou similar. O código do próprio site não grava cookies no seu navegador.</p>
@@ -235,35 +246,80 @@
       </div>
     </section>
 
+    <!-- ============================== CONVERSA (papel) ============================== -->
+    <section class="cta-section dmc-on-paper" id="conversa" aria-labelledby="cta-titulo">
+      <div class="cta-section__container">
+        <p class="page-section__overline">Conversa</p>
+        <h2 class="cta-section__title" id="cta-titulo">Dúvidas sobre os <em>seus dados</em></h2>
+        <p class="cta-section__text">Escreva para o canal de privacidade com o assunto “LGPD”. Cada pedido é respondido nos prazos da lei.</p>
+        <div class="cta-section__actions">
+          <a class="dmc-btn dmc-btn--primary" href="mailto:administrativo@complexodmc.com.br?subject=LGPD">Escrever sobre os meus dados <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="dmc-btn dmc-btn--secondary" href="../#contact">Voltar ao contato <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- ============================== CONVERSA ============================== -->
-  <section class="cta-section" aria-labelledby="cta-titulo">
-    <div class="cta-section__container">
-      <h2 class="cta-section__title" id="cta-titulo">Dúvidas sobre os <span class="gradient-text">seus dados</span></h2>
-      <p class="cta-section__text">Escreva para o canal de privacidade com o assunto “LGPD”. Cada pedido é respondido nos prazos da lei.</p>
-      <div class="cta-section__actions">
-        <a href="mailto:administrativo@complexodmc.com.br?subject=LGPD" class="btn btn--primary"><span>Escrever sobre os meus dados</span></a>
-        <a href="../index.html#contact" class="btn btn--secondary"><span>Voltar ao contato</span></a>
-      </div>
-    </div>
-  </section>
+  <!-- ============================== RODAPÉ (o mesmo da home) ============================== -->
+  <footer class="dmc-footer" id="rodape">
+    <div class="dmc-wrap">
+      <div class="dmc-footer__grid">
+        <div class="dmc-footer__brand">
+          <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+            <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">
+            <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+          </a>
+          <p>Consultoria em negócios para decisões que envolvem empresa, patrimônio e família.</p>
+          <p>Sede em São Paulo. Atendimento a empresas, famílias empresárias, incorporadoras e investidores.</p>
+        </div>
 
-  <footer class="page-footer">
-    <div class="page-footer__container">
-      <a href="../index.html" class="page-footer__logo"><img src="../assets/images/RINO_logo.png" alt="Complexo DMC"></a>
-      <ul class="page-footer__links">
-        <li><a href="../index.html" class="page-footer__link">Início</a></li>
-        <li><a href="../index.html#features" class="page-footer__link">Soluções</a></li>
-        <li><a href="../index.html#contact" class="page-footer__link">Contato</a></li>
-        <li><a href="politica-de-privacidade.html" class="page-footer__link" aria-current="page">Política de Privacidade</a></li>
-      </ul>
-      <p class="page-footer__copy">&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+        <nav aria-labelledby="rodape-eixos">
+          <p class="dmc-footer__title" id="rodape-eixos">Eixos</p>
+          <ul class="dmc-footer__list">
+            <li class="np-pillar-patrimonial"><a href="planejamento-sucessorio.html"><span class="dmc-footer__num">E1</span>Patrimonial e Sucessório</a></li>
+            <li class="np-pillar-fiscal"><a href="planejamento-tributario.html"><span class="dmc-footer__num">E2</span>Tributário, Fiscal e Corporativo</a></li>
+            <li class="np-pillar-imobiliario"><a href="consultoria-imobiliaria.html"><span class="dmc-footer__num">E3</span>Notarial e Imobiliário</a></li>
+            <li class="np-pillar-auditoria"><a href="contabilidade.html"><span class="dmc-footer__num">E4</span>Auditoria Empresarial e Contábil</a></li>
+            <li class="np-pillar-ativos"><a href="recuperacao-ativos.html"><span class="dmc-footer__num">E5</span>Recuperação de Ativos</a></li>
+            <li class="np-pillar-trabalhista"><a href="../solucoes/consultoria-trabalhista/ciclo-fechado.html"><span class="dmc-footer__num">E6</span>Consultoria Trabalhista</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="rodape-casa">
+          <p class="dmc-footer__title" id="rodape-casa">A casa</p>
+          <ul class="dmc-footer__list">
+            <li><a href="../#conheca">Conheça o Complexo DMC</a></li>
+            <li><a href="../#features">Soluções</a></li>
+            <li><a href="../#treinamentos">Treinamentos</a></li>
+            <li><a href="tecnologia.html">Tecnologia</a></li>
+            <li><a href="por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
+            <li><a href="../plataforma-ead/login.html">Área do aluno</a></li>
+            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">Ad-tech</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <p class="dmc-footer__title">Contato</p>
+          <ul class="dmc-footer__list">
+            <li><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></li>
+            <li><a href="tel:+5511915267749">+55 (11) 91526-7749</a></li>
+            <li><a href="../#contact">Formulário de contato</a></li>
+            <li><span>Rua Riachuelo, 231<br>São Paulo, SP — Brasil</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dmc-footer__legal">
+        <p>&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+        <p>Conteúdo informativo. A atuação em atos privativos da advocacia, da contabilidade e da auditoria é realizada por profissionais e sociedades parceiras habilitadas; os atos notariais e registrais, por cartórios conveniados.</p>
+        <p><a href="politica-de-privacidade.html" aria-current="page">Política de Privacidade</a></p>
+      </div>
     </div>
   </footer>
 
   <a href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20a%20pol%C3%ADtica%20de%20privacidade%20do%20Complexo%20DMC." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Falar com o Complexo DMC no WhatsApp">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
 </body>

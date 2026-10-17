@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-root="../">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperação de Ativos | Complexo DMC</title>
-    <meta name="description" content="Diligência patrimonial do devedor, estratégia de recuperação do crédito e acompanhamento do caso, com bloqueio, penhora e execução por advogados parceiros.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recuperação de Ativos | Complexo DMC</title>
+  <meta name="description" content="Diligência patrimonial do devedor, estratégia de recuperação do crédito e acompanhamento do caso, com bloqueio, penhora e execução por advogados parceiros.">
     <meta name="keywords" content="recuperação de ativos, rastreio patrimonial, execução de títulos, cumprimento de sentença, penhora, SISBAJUD, fraude à execução, desconsideração da personalidade jurídica">
     <link rel="canonical" href="https://www.complexodmc.com.br/pages/recuperacao-ativos.html">
 
@@ -21,15 +21,28 @@
     <meta property="twitter:description" content="Diligência patrimonial do devedor, estratégia de recuperação do crédito e acompanhamento do caso, com bloqueio, penhora e execução por advogados parceiros.">
     <meta property="twitter:image" content="https://www.complexodmc.com.br/assets/images/LOGO_RINOCERONTE.png">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Allura&family=DM+Sans:wght@300;400;600;700&family=Poppins:wght@400;500;600;700;800&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/LOGO_RINOCERONTE.png">
-    <link rel="stylesheet" href="css/shared.css?v=3">
-  <link rel="stylesheet" href="css/eixos.css?v=3">
-  <script src="../assets/js/navbar.js" defer></script>
-  <script src="../assets/js/video.js" defer></script>
+  <meta name="theme-color" content="#0b0c0e">
+
+  <!-- Página interna na direção C — ordem do <head> documentada em pages/css/eixos.css
+       e em docs/dmc/DESIGN-SYSTEM.md §6 "Receita de migração de página interna". -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
+
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="css/shared.css?v=3">
+  <link rel="stylesheet" href="css/eixos.css?v=4">
+  <link rel="stylesheet" href="../assets/css/components.css?v=2">
+  <link rel="stylesheet" href="css/recuperacao-ativos.css?v=1">
+
+  <script src="../assets/js/navbar.js?v=c2" defer></script>
+  <script src="../assets/js/solucao.js?v=3" defer></script>
+  <script src="../assets/js/video.js?v=1" defer></script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -133,1487 +146,230 @@
 </head>
 <body class="np-eixo np-pillar-ativos">
 
-    <!-- Navbar -->
-  <dmc-navbar></dmc-navbar>
+  <!-- navbar.js troca este conteúdo pelo menu completo (com o próprio "pular para o
+       conteúdo"). Sem JS ficam o atalho, a marca e o caminho para o rodapé. -->
+  <dmc-navbar data-over>
+    <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+    <header class="dmc-nav dmc-nav--over">
+      <div class="dmc-wrap dmc-nav__bar">
+        <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+          <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22">
+          <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+        </a>
+        <a class="dmc-nav__toggle" href="#rodape">Menu <i aria-hidden="true"></i></a>
+      </div>
+    </header>
+  </dmc-navbar>
 
-<!-- Hero Section -->
-    <section class="page-hero" aria-label="Apresentação do serviço de Recuperação de Ativos">
-        <div class="page-hero__glow" aria-hidden="true"></div>
-        <div class="page-hero__inner">
-            <div class="page-hero__content">
-                <div class="page-hero__badge">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    E5 · RECUPERAÇÃO DE ATIVOS
-                </div>
-                <h1 class="page-hero__title">Recuperação<br><span class="gradient-text">de Ativos</span></h1>
-                <p class="page-hero__subtitle">Ganhar a ação é metade do caminho. A outra metade é localizar o patrimônio do devedor e alcançá-lo pelas medidas previstas em lei, numa execução conduzida por parceiros habilitados.</p>
-                <div class="page-hero__actions">
-                    <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--primary" aria-label="Agendar consulta via WhatsApp">
-                        <span>Agendar Consulta</span>
-                    </a>
-                    <a href="#jornada" class="btn btn--secondary" aria-label="Ver a jornada do crédito, do título ao recebimento">
-                        <span>Como funciona</span>
-                    </a>
-                </div>
-            </div>
-            <div class="page-hero__visual" aria-hidden="true">
-                <div id="tech-net-wrap" style="position:relative;width:100%;max-width:520px;aspect-ratio:1;margin:0 auto;overflow:hidden;background:transparent;">
-                    <canvas id="tech-net-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;"></canvas>
-                    <div id="tech-net-label" style="
-                      position:absolute;top:50%;left:50%;
-                      transform:translate(-50%,-50%);
-                      font-family:'Raleway','DM Sans',sans-serif;
-                      font-size:56px;font-weight:700;letter-spacing:10px;
-                      background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);
-                      -webkit-background-clip:text;
-                      -webkit-text-fill-color:transparent;
-                      background-clip:text;
-                      pointer-events:none;
-                      user-select:none;
-                      z-index:2;
-                    ">RA</div>
-                </div>
-            </div>
+  <main id="conteudo">
+
+    <!-- ============================== HERÓI ============================== -->
+    <section class="page-hero" aria-labelledby="hero-titulo">
+      <div class="page-hero__inner">
+        <div class="page-hero__content">
+          <p class="page-hero__badge">E5 · Recuperação de Ativos</p>
+          <h1 class="page-hero__title" id="hero-titulo">Recuperação <em>de ativos</em></h1>
+          <p class="page-hero__subtitle">Ganhar a ação é metade do caminho. A outra metade é localizar o patrimônio do devedor e alcançá-lo pelas medidas previstas em lei, numa execução conduzida por parceiros habilitados.</p>
+          <div class="page-hero__actions">
+            <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer">Agendar consulta <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--link" href="#jornada">Como funciona</a>
+          </div>
         </div>
+        <!-- Malha de nós no acento do eixo (assets/js/solucao.js). Sem JS: grade de pontos. -->
+        <div class="page-hero__visual" aria-hidden="true">
+          <div class="sol-net"><canvas class="sol-net__canvas"></canvas></div>
+        </div>
+      </div>
     </section>
 
-    <!-- Benefits Section -->
-    <section class="page-section" id="beneficios" aria-label="Frentes da Recuperação de Ativos">
-        <div class="page-section__container reveal">
-            <div class="page-section__header">
-                <p class="page-section__overline">Nossos Serviços</p>
-                <h2 class="page-section__title">Como Podemos <span class="gradient-text">Ajudar</span></h2>
-                <p class="page-section__description">Um crédito reconhecido não é um crédito recebido. Entre uma coisa e outra existe um trabalho de investigação patrimonial e de execução — e é dele que esta frente trata. Os atos processuais são privativos de advogado (Lei 8.906/1994, art. 1º) e ficam com advogados parceiros; a Complexo DMC conduz a inteligência patrimonial, a estratégia e o acompanhamento.</p>
-            </div>
-            <div class="benefit-grid">
-                <div class="benefit-card">
-                    <div class="benefit-card__icon"></div>
-                    <span class="benefit-card__tag">Rastreio</span>
-                    <h3 class="benefit-card__title">Diligência Patrimonial</h3>
-                    <p class="benefit-card__text">Localização de contas, veículos, imóveis, participações societárias e demais bens do devedor pelos sistemas conveniados ao Judiciário e por fontes públicas.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-card__icon"></div>
-                    <span class="benefit-card__tag">Constrição</span>
-                    <h3 class="benefit-card__title">Estratégia de Constrição</h3>
-                    <p class="benefit-card__text">Pedidos de penhora, bloqueio e indisponibilidade sobre o que a diligência localizou, formulados por advogados parceiros e acompanhados pela DMC até a decisão do juízo.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-card__icon"></div>
-                    <span class="benefit-card__tag">Judicial</span>
-                    <h3 class="benefit-card__title">Cumprimento de Sentença</h3>
-                    <p class="benefit-card__text">Fase de execução do título judicial, conduzida por parceiros habilitados, com a multa e os honorários que a lei prevê quando não há pagamento voluntário (art. 523 do Código de Processo Civil).</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-card__icon"></div>
-                    <span class="benefit-card__tag">Extrajudicial</span>
-                    <h3 class="benefit-card__title">Títulos Extrajudiciais</h3>
-                    <p class="benefit-card__text">Análise de cheque, duplicata, nota promissória, contrato assinado por duas testemunhas e demais títulos executivos extrajudiciais (art. 784 do Código de Processo Civil), com a execução proposta por advogados parceiros.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-card__icon"></div>
-                    <span class="benefit-card__tag">Fraude</span>
-                    <h3 class="benefit-card__title">Blindagem Indevida do Devedor</h3>
-                    <p class="benefit-card__text">Identificação de transferências feitas para esvaziar o patrimônio e, quando presentes os requisitos legais, pedido de desconsideração da personalidade jurídica formulado por advogados parceiros.</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-card__icon"></div>
-                    <span class="benefit-card__tag">Conversão</span>
-                    <h3 class="benefit-card__title">Do Bem Penhorado ao Caixa</h3>
-                    <p class="benefit-card__text">Levantamento de valores, adjudicação, alienação judicial e acordo — as vias pelas quais o bem alcançado se transforma em recurso disponível, requeridas por advogados parceiros.</p>
-                </div>
-            </div>
+    <!-- ============================== FRENTES ============================== -->
+    <section class="page-section" id="beneficios" aria-labelledby="beneficios-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Nossos Serviços</p>
+          <h2 class="page-section__title" id="beneficios-titulo">Como podemos <em>ajudar</em></h2>
+          <p class="page-section__description">Um crédito reconhecido não é um crédito recebido. Entre uma coisa e outra existe um trabalho de investigação patrimonial e de execução — e é dele que esta frente trata. Os atos processuais são privativos de advogado (Lei 8.906/1994, art. 1º) e ficam com advogados parceiros; a Complexo DMC conduz a inteligência patrimonial, a estratégia e o acompanhamento.</p>
         </div>
-    </section>
 
-    <!-- ========== STATS MARQUEE ==========
-         A faixa da casa, aqui com os sistemas de constrição
-         conveniados ao Judiciário em vez de números de resultado:
-         é o que a diligência efetivamente alcança, e não uma
-         promessa de êxito. Para trocar por outros fatos verificáveis
-         do Complexo DMC, basta substituir os pares abaixo nas TRÊS
-         tiras (a primeira é a que o leitor de tela anuncia). -->
-    <section class="stats-marquee" aria-label="Sistemas de constrição patrimonial">
-      <div class="stats-marquee__track">
-          <div class="stats-marquee__slide">
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">SISBAJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Ativos financeiros</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">RENAJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Veículos</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">INFOJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Declarações fiscais</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">CNIB</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Indisponibilidade de bens</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">SERASAJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Restrição de crédito</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-          </div>
-          <!-- Duplicado duas vezes para o loop infinito -->
-          <div class="stats-marquee__slide" aria-hidden="true">
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">SISBAJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Ativos financeiros</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">RENAJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Veículos</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">INFOJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Declarações fiscais</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">CNIB</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Indisponibilidade de bens</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">SERASAJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Restrição de crédito</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-          </div>
-          <div class="stats-marquee__slide" aria-hidden="true">
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">SISBAJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Ativos financeiros</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">RENAJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Veículos</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">INFOJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Declarações fiscais</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">CNIB</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Indisponibilidade de bens</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-            <div class="stats-marquee__item">
-              <span class="stats-marquee__number">SERASAJUD</span>
-              <span class="stats-marquee__sep">/</span>
-              <span class="stats-marquee__label">Restrição de crédito</span>
-            </div>
-            <div class="stats-marquee__dot" aria-hidden="true"></div>
-          </div>
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Diligência Patrimonial</h3>
+            <p class="benefit-card__text">Localização de contas, veículos, imóveis, participações societárias e demais bens do devedor pelos sistemas conveniados ao Judiciário e por fontes públicas.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Estratégia de Constrição</h3>
+            <p class="benefit-card__text">Pedidos de penhora, bloqueio e indisponibilidade sobre o que a diligência localizou, formulados por advogados parceiros e acompanhados pela DMC até a decisão do juízo.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Cumprimento de Sentença</h3>
+            <p class="benefit-card__text">Fase de execução do título judicial, conduzida por parceiros habilitados, com a multa e os honorários que a lei prevê quando não há pagamento voluntário (art. 523 do Código de Processo Civil).</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Títulos Extrajudiciais</h3>
+            <p class="benefit-card__text">Análise de cheque, duplicata, nota promissória, contrato assinado por duas testemunhas e demais títulos executivos extrajudiciais (art. 784 do Código de Processo Civil), com a execução proposta por advogados parceiros.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Blindagem Indevida do Devedor</h3>
+            <p class="benefit-card__text">Identificação de transferências feitas para esvaziar o patrimônio e, quando presentes os requisitos legais, pedido de desconsideração da personalidade jurídica formulado por advogados parceiros.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Do Bem Penhorado ao Caixa</h3>
+            <p class="benefit-card__text">Levantamento de valores, adjudicação, alienação judicial e acordo — as vias pelas quais o bem alcançado se transforma em recurso disponível, requeridas por advogados parceiros.</p>
+          </article>
+        </div>
       </div>
     </section>
 
     <div class="section-divider"></div>
 
     <!-- ============================== JORNADA DO CRÉDITO ==============================
-         Substitui a antiga seção "Como Funciona" (#processo). A página tinha duas
-         numerações concorrentes — os seis cards de serviço em #beneficios e as quatro
-         etapas do processo. Aqui a numeração é uma só: duas portas de entrada (título
-         judicial ou extrajudicial) que desembocam no mesmo tronco de quatro etapas.
-         Todo o CSS desta seção usa o prefixo ra- e vive dentro dela, sem tocar no
-         CSS global. As cores saem dos tokens do pilar (.np-pillar-ativos, eixos.css). -->
-    <section class="page-section" id="jornada" aria-label="A jornada do crédito, do título ao recebimento">
-      <style>
-        /* --- Rótulo de passo: abre cada um dos dois blocos da seção --- */
-        .ra-step-label {
-          display: flex;
-          align-items: center;
-          gap: .8rem;
-          font-family: 'DM Sans', sans-serif;
-          font-size: .74rem;
-          font-weight: 700;
-          letter-spacing: .16em;
-          text-transform: uppercase;
-          color: #8c8c8c;
-          margin: 0 0 1.35rem;
-        }
-        .ra-step-label::after {
-          content: '';
-          flex: 1;
-          height: 1px;
-          background: linear-gradient(90deg, rgba(255, 255, 255, .14), transparent);
-        }
-        .ra-step-label__mark {
-          flex: none;
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: rgb(var(--np-accent));
-          box-shadow: 0 0 0 4px rgba(var(--np-accent), .14);
-        }
-
-        /* --- Portas de entrada --- */
-        .ra-doors {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 1.25rem;
-        }
-        .ra-door {
-          position: relative;
-          overflow: hidden;
-          padding: 1.75rem 1.6rem;
-          border: 1px solid rgba(255, 255, 255, .08);
-          border-radius: 16px;
-          background: rgba(17, 17, 17, .6);
-          transition: border-color .3s ease, transform .3s ease;
-        }
-        .ra-door::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background: linear-gradient(90deg, transparent, rgba(var(--np-accent), .9), transparent);
-          opacity: .55;
-          transition: opacity .3s ease;
-        }
-        .ra-door:hover {
-          border-color: rgba(var(--np-accent), .35);
-          transform: translateY(-4px);
-        }
-        .ra-door:hover::before { opacity: 1; }
-        .ra-door__tag {
-          display: inline-block;
-          font-family: 'DM Sans', sans-serif;
-          font-size: .7rem;
-          font-weight: 700;
-          letter-spacing: .12em;
-          text-transform: uppercase;
-          color: rgb(var(--np-accent-soft));
-          background: rgba(var(--np-accent), .12);
-          border: 1px solid rgba(var(--np-accent), .28);
-          padding: .32rem .75rem;
-          border-radius: 999px;
-          margin-bottom: 1rem;
-        }
-        .ra-door__title {
-          font-family: 'Raleway', sans-serif;
-          font-weight: 700;
-          font-size: 1.25rem;
-          line-height: 1.3;
-          color: #fff;
-          margin: 0 0 .7rem;
-        }
-        .ra-door__text {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .97rem;
-          line-height: 1.75;
-          color: #b3b3b3;
-          margin: 0 0 1rem;
-        }
-        .ra-door__text strong { color: #fff; font-weight: 600; }
-        .ra-door__law {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .8rem;
-          line-height: 1.5;
-          color: #808080;
-          margin: 0;
-          padding-top: .85rem;
-          border-top: 1px solid rgba(255, 255, 255, .06);
-        }
-
-        /* --- O tronco comum ---
-           Antes as etapas eram quatro cartões soltos, do mesmo peso visual das
-           portas: nada dizia que uma coisa vinha depois da outra. Agora existe
-           um trilho contínuo à esquerda — começa no marcador de convergência e
-           desce por trás dos quatro números até se apagar na última etapa.
-           A largura do trilho e o respiro até o cartão saem de duas variáveis,
-           então o alinhamento do fio com o centro dos números se mantém em
-           qualquer breakpoint. */
-        .ra-flow {
-          --ra-rail: 3rem;
-          --ra-gap: 1.5rem;
-          position: relative;
-          margin-top: 2.75rem;
-        }
-        .ra-flow::before {
-          content: '';
-          position: absolute;
-          left: calc(var(--ra-rail) / 2 - 1px);
-          top: calc(var(--ra-rail) / 2);
-          bottom: 0;
-          width: 2px;
-          background: linear-gradient(180deg,
-            rgba(var(--np-accent), .55),
-            rgba(var(--np-accent), .42) 55%,
-            rgba(var(--np-accent), .3) 84%,
-            rgba(var(--np-accent), 0));
-        }
-
-        /* Marcador de convergência: mesma geometria de coluna das etapas, para
-           que o nó caia exatamente sobre o fio que desce até o número 01. */
-        .ra-merge {
-          display: grid;
-          grid-template-columns: var(--ra-rail) 1fr;
-          gap: var(--ra-gap);
-          align-items: start;
-          margin-bottom: 1.75rem;
-        }
-        .ra-merge__node {
-          position: relative;
-          z-index: 1;
-          display: grid;
-          place-items: center;
-          width: var(--ra-rail);
-          height: var(--ra-rail);
-          border-radius: 50%;
-          border: 1px solid rgba(var(--np-accent), .38);
-          background: #0a0a0a;
-          color: rgb(var(--np-accent-soft));
-        }
-        .ra-merge__node svg { width: 18px; height: 18px; }
-        .ra-merge__body { padding-top: .3rem; }
-        .ra-merge__title {
-          font-family: 'Raleway', sans-serif;
-          font-weight: 700;
-          font-size: 1.05rem;
-          line-height: 1.35;
-          color: #fff;
-          margin: 0 0 .3rem;
-        }
-        .ra-merge__text {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .93rem;
-          line-height: 1.65;
-          color: #8c8c8c;
-          margin: 0;
-        }
-
-        /* --- As quatro etapas --- */
-        .ra-track {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          display: grid;
-          gap: 1.1rem;
-        }
-        .ra-stage {
-          display: grid;
-          grid-template-columns: var(--ra-rail) 1fr;
-          gap: var(--ra-gap);
-          align-items: start;
-        }
-        .ra-stage__num {
-          position: relative;
-          z-index: 1;
-          display: grid;
-          place-items: center;
-          width: var(--ra-rail);
-          height: var(--ra-rail);
-          border-radius: 12px;
-          border: 1px solid rgba(var(--np-accent), .3);
-          background: #101010;
-          font-family: 'Raleway', sans-serif;
-          font-weight: 800;
-          font-size: .95rem;
-          line-height: 1;
-          color: rgb(var(--np-accent-soft));
-          font-variant-numeric: tabular-nums;
-          transition: border-color .3s ease, background-color .3s ease;
-        }
-        .ra-stage__card {
-          display: grid;
-          gap: .95rem 2rem;
-          padding: 1.5rem 1.75rem;
-          border: 1px solid rgba(255, 255, 255, .08);
-          border-radius: 16px;
-          background: rgba(17, 17, 17, .6);
-          transition: border-color .3s ease, background-color .3s ease;
-        }
-        .ra-stage:hover .ra-stage__card {
-          border-color: rgba(var(--np-accent), .28);
-          background-color: rgba(22, 22, 22, .7);
-        }
-        .ra-stage:hover .ra-stage__num {
-          border-color: rgba(var(--np-accent), .6);
-          background-color: rgba(var(--np-accent), .12);
-        }
-        .ra-stage__title {
-          font-family: 'Raleway', sans-serif;
-          font-weight: 700;
-          font-size: 1.18rem;
-          line-height: 1.3;
-          color: #fff;
-          margin: 0;
-        }
-        .ra-stage__do {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .97rem;
-          line-height: 1.75;
-          color: #b3b3b3;
-          margin: 0;
-        }
-        /* O entregável sai da coluna paralela e vira uma faixa destacada ao pé
-           do cartão: é a única parte que fala do cliente, e agora se lê como
-           conclusão da etapa, não como texto concorrente. */
-        .ra-stage__out {
-          margin: 0;
-          padding: .9rem 1.15rem;
-          border-left: 2px solid rgba(var(--np-accent), .55);
-          border-radius: 0 10px 10px 0;
-          background: rgba(var(--np-accent), .05);
-          font-family: 'DM Sans', sans-serif;
-          font-size: .93rem;
-          line-height: 1.7;
-          color: #c2c2c2;
-        }
-        .ra-stage__out-tag {
-          display: block;
-          font-family: 'DM Sans', sans-serif;
-          font-size: .68rem;
-          font-weight: 700;
-          letter-spacing: .13em;
-          text-transform: uppercase;
-          color: rgb(var(--np-accent-soft));
-          margin-bottom: .28rem;
-        }
-
-        @media (min-width: 1180px) {
-          .ra-stage__card { grid-template-columns: 1.35fr 1fr; align-items: stretch; }
-          .ra-stage__title { grid-column: 1 / -1; }
-        }
-
-        @media (max-width: 768px) {
-          .ra-doors { grid-template-columns: 1fr; }
-          .ra-door { padding: 1.6rem 1.4rem; }
-          .ra-flow { --ra-rail: 2.6rem; --ra-gap: 1.1rem; margin-top: 2.25rem; }
-          .ra-stage__card { padding: 1.35rem 1.35rem; }
-          .ra-stage__num { font-size: .88rem; border-radius: 10px; }
-          .ra-stage__title { font-size: 1.08rem; }
-          .ra-merge__node svg { width: 16px; height: 16px; }
-        }
-        @media (max-width: 480px) {
-          .ra-flow { --ra-rail: 2.25rem; --ra-gap: .85rem; }
-          .ra-step-label { font-size: .68rem; letter-spacing: .13em; }
-          .ra-stage__card { padding: 1.2rem 1.1rem; }
-          .ra-stage__num { font-size: .8rem; }
-          .ra-stage__do { font-size: .93rem; }
-          .ra-stage__out { padding: .8rem .95rem; font-size: .89rem; }
-          .ra-merge__title { font-size: .98rem; }
-          .ra-merge__text { font-size: .88rem; }
-        }
-      </style>
-
+         Duas portas de entrada (título judicial ou extrajudicial) que desembocam no
+         mesmo tronco de quatro etapas. As portas ficam lado a lado (.np-compare) e as
+         etapas na grade numerada (.process-grid) — numeração única na página. -->
+    <section class="page-section" id="jornada" aria-labelledby="jornada-titulo">
       <div class="page-section__container reveal">
         <div class="page-section__header">
-          <p class="page-section__overline">A Jornada do Crédito</p>
-          <h2 class="page-section__title">Do título na mão ao <span class="gradient-text">dinheiro em conta</span></h2>
+          <p class="page-section__overline">A jornada do crédito</p>
+          <h2 class="page-section__title" id="jornada-titulo">Do título na mão ao <em>dinheiro em conta</em></h2>
           <p class="page-section__description">Ganhar a ação e receber são coisas diferentes. Este é o caminho entre uma e outra — por onde o seu caso entra e o que acontece em cada etapa, da análise do título à satisfação do crédito.</p>
         </div>
 
-        <p class="ra-step-label"><span class="ra-step-label__mark" aria-hidden="true"></span>Por onde o seu caso entra</p>
-
-        <div class="ra-doors">
-          <article class="ra-door">
-            <span class="ra-door__tag">Porta 1</span>
-            <h3 class="ra-door__title">Você já tem uma sentença</h3>
-            <p class="ra-door__text">O direito foi reconhecido em juízo e o devedor não pagou. O caso segue por <strong>cumprimento de sentença</strong>: o devedor é intimado para pagar em 15 dias e, se não pagar, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%.</p>
-            <p class="ra-door__law">art. 523 do Código de Processo Civil</p>
+        <h3 class="page-section__overline">Por onde o seu caso entra</h3>
+        <div class="np-compare">
+          <article class="np-compare__col" aria-labelledby="porta-1-titulo">
+            <p class="np-compare__label">Porta 1</p>
+            <h4 class="np-compare__title" id="porta-1-titulo">Você já tem uma sentença</h4>
+            <p class="np-compare__sub">art. 523 do Código de Processo Civil</p>
+            <p class="np-compare__desc">O direito foi reconhecido em juízo e o devedor não pagou. O caso segue por <strong>cumprimento de sentença</strong>: o devedor é intimado para pagar em 15 dias e, se não pagar, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%.</p>
           </article>
-          <article class="ra-door">
-            <span class="ra-door__tag">Porta 2</span>
-            <h3 class="ra-door__title">Você tem um documento, não uma sentença</h3>
-            <p class="ra-door__text">Não houve ação, mas existe um título que a lei já considera executivo — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas. A <strong>execução</strong> é proposta direto, sem passar por uma ação de conhecimento antes.</p>
-            <p class="ra-door__law">art. 784 do Código de Processo Civil</p>
+          <article class="np-compare__col" aria-labelledby="porta-2-titulo">
+            <p class="np-compare__label">Porta 2</p>
+            <h4 class="np-compare__title" id="porta-2-titulo">Você tem um documento, não uma sentença</h4>
+            <p class="np-compare__sub">art. 784 do Código de Processo Civil</p>
+            <p class="np-compare__desc">Não houve ação, mas existe um título que a lei já considera executivo — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas. A <strong>execução</strong> é proposta direto, sem passar por uma ação de conhecimento antes.</p>
           </article>
         </div>
 
-        <div class="ra-flow">
-          <div class="ra-merge">
-            <span class="ra-merge__node" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
-            </span>
-            <div class="ra-merge__body">
-              <p class="ra-merge__title">As duas portas desembocam no mesmo caminho</p>
-              <p class="ra-merge__text">Quatro etapas, na ordem em que acontecem — e, ao pé de cada uma, o que fica com você quando ela se encerra.</p>
-            </div>
-          </div>
+        <div class="sol-note sol-note--wide">
+          <h3>As duas portas desembocam no mesmo caminho</h3>
+          <p>Quatro etapas, na ordem em que acontecem — e, ao pé de cada uma, o que fica com você quando ela se encerra.</p>
+        </div>
 
-          <ol class="ra-track">
-            <li class="ra-stage">
-              <span class="ra-stage__num" aria-hidden="true">01</span>
-              <div class="ra-stage__card">
-                <h3 class="ra-stage__title">Análise do título</h3>
-                <p class="ra-stage__do">Verificação de certeza, liquidez e exigibilidade do documento, do prazo que ainda resta para executar e da via de cobrança cabível ao caso.</p>
-                <p class="ra-stage__out"><span class="ra-stage__out-tag">O que você recebe</span>Uma leitura técnica indicando se o título executa, por qual via, e o que precisa ser reunido antes do protocolo.</p>
-              </div>
-            </li>
-            <li class="ra-stage">
-              <span class="ra-stage__num" aria-hidden="true">02</span>
-              <div class="ra-stage__card">
-                <h3 class="ra-stage__title">Diligência patrimonial</h3>
-                <p class="ra-stage__do">Rastreio do patrimônio do devedor pelos sistemas conveniados ao Judiciário — SISBAJUD, RENAJUD, INFOJUD, CNIB e SERASAJUD — e por fontes públicas de registro.</p>
-                <p class="ra-stage__out"><span class="ra-stage__out-tag">O que você recebe</span>Relatório do que foi localizado: contas, veículos, imóveis, participações societárias. E também do que não foi encontrado, porque isso muda a estratégia.</p>
-              </div>
-            </li>
-            <li class="ra-stage">
-              <span class="ra-stage__num" aria-hidden="true">03</span>
-              <div class="ra-stage__card">
-                <h3 class="ra-stage__title">Constrição do patrimônio</h3>
-                <p class="ra-stage__do">Pedidos de bloqueio, penhora e indisponibilidade sobre os bens localizados, formulados por parceiros habilitados. Quando há sinal de esvaziamento patrimonial, entram os pedidos de fraude à execução (art. 792 do Código de Processo Civil) ou de desconsideração da personalidade jurídica (art. 50 do Código Civil).</p>
-                <p class="ra-stage__out"><span class="ra-stage__out-tag">O que você recebe</span>Acompanhamento de cada requerimento até a decisão do juízo, com aviso do que foi deferido e do que foi impugnado pela outra parte.</p>
-              </div>
-            </li>
-            <li class="ra-stage">
-              <span class="ra-stage__num" aria-hidden="true">04</span>
-              <div class="ra-stage__card">
-                <h3 class="ra-stage__title">Satisfação do crédito</h3>
-                <p class="ra-stage__do">Conversão do bem alcançado em recurso disponível — levantamento de valores, adjudicação, alienação judicial ou acordo, requeridos por parceiros habilitados conforme o que o caso concreto permitir.</p>
-                <p class="ra-stage__out"><span class="ra-stage__out-tag">O que você recebe</span>Prestação de contas do que foi efetivamente levantado e de como o valor foi apurado.</p>
-              </div>
-            </li>
-          </ol>
+        <ol class="process-grid">
+          <li class="process-step">
+            <h3 class="process-step__title">Análise do título</h3>
+            <p class="process-step__text">Verificação de certeza, liquidez e exigibilidade do documento, do prazo que ainda resta para executar e da via de cobrança cabível ao caso.</p>
+            <p class="process-step__text"><strong>O que você recebe</strong> Uma leitura técnica indicando se o título executa, por qual via, e o que precisa ser reunido antes do protocolo.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Diligência patrimonial</h3>
+            <p class="process-step__text">Rastreio do patrimônio do devedor pelos sistemas conveniados ao Judiciário — SISBAJUD, RENAJUD, INFOJUD, CNIB e SERASAJUD — e por fontes públicas de registro.</p>
+            <p class="process-step__text"><strong>O que você recebe</strong> Relatório do que foi localizado: contas, veículos, imóveis, participações societárias. E também do que não foi encontrado, porque isso muda a estratégia.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Constrição do patrimônio</h3>
+            <p class="process-step__text">Pedidos de bloqueio, penhora e indisponibilidade sobre os bens localizados, formulados por parceiros habilitados. Quando há sinal de esvaziamento patrimonial, entram os pedidos de fraude à execução (art. 792 do Código de Processo Civil) ou de desconsideração da personalidade jurídica (art. 50 do Código Civil).</p>
+            <p class="process-step__text"><strong>O que você recebe</strong> Acompanhamento de cada requerimento até a decisão do juízo, com aviso do que foi deferido e do que foi impugnado pela outra parte.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Satisfação do crédito</h3>
+            <p class="process-step__text">Conversão do bem alcançado em recurso disponível — levantamento de valores, adjudicação, alienação judicial ou acordo, requeridos por parceiros habilitados conforme o que o caso concreto permitir.</p>
+            <p class="process-step__text"><strong>O que você recebe</strong> Prestação de contas do que foi efetivamente levantado e de como o valor foi apurado.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================== INTELIGÊNCIA PATRIMONIAL ==============================
+         O grafo SVG animado que havia aqui era decoração (aria-hidden, escondido abaixo
+         de 768px); o conteúdo — o que cada via devolve, a camada própria e as regras
+         da diligência — vem para a grade numerada e para as duas colunas. -->
+    <section class="page-section" id="mapa-recuperacao" aria-labelledby="mapa-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Inteligência patrimonial</p>
+          <h2 class="page-section__title" id="mapa-titulo">Onde o patrimônio está e <em>como se chega até ele</em></h2>
+          <p class="page-section__description">O patrimônio de um devedor não está num lugar só. Cada classe de bem responde a uma via distinta — das bases conveniadas ao Judiciário às corretoras de criptoativos — e é o cruzamento de todas as respostas, feito pelo ARTHEU, que aponta a diligência seguinte.</p>
+        </div>
+
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">SISBAJUD</h3>
+            <p class="benefit-card__text"><strong>Contas e aplicações.</strong> Bloqueio de ativos financeiros.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">RENAJUD</h3>
+            <p class="benefit-card__text"><strong>Veículos.</strong> Restrição de transferência e penhora.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">CNIB</h3>
+            <p class="benefit-card__text"><strong>Imóveis.</strong> Indisponibilidade de bens.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">INFOJUD</h3>
+            <p class="benefit-card__text"><strong>Renda declarada.</strong> Patrimônio declarado ao Fisco.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">SERASAJUD</h3>
+            <p class="benefit-card__text"><strong>Crédito no mercado.</strong> Anotação da dívida nos cadastros.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">CORRETORAS</h3>
+            <p class="benefit-card__text"><strong>Criptoativos.</strong> Informação de saldo e bloqueio de carteira.</p>
+          </article>
         </div>
       </div>
     </section>
 
     <div class="section-divider"></div>
 
-    <!-- ============================== GRAFO DE PATRIMÔNIO ==============================
-         Substitui a grade de colunas que havia aqui. A topologia é a mensagem:
-         um devedor no centro-esquerda, o patrimônio disperso em nós, cada bem
-         alcançado por uma base oficial, e tudo convergindo num ponto só.
-         Arestas curvas, nós de tamanhos diferentes e um campo de partículas ao
-         fundo — a mesma linguagem da malha que já roda no hero desta página.
-
-         MOVIMENTO: existe um ciclo único de 8s, não animações soltas. Um pulso
-         parte do devedor, alcança o bem, atravessa a camada própria e desce à
-         conversão; a raia seguinte parte 0,5s depois. Dá ~4,5s de atividade e
-         ~3,5s de calma, e o painel abaixo acende a linha correspondente no
-         mesmo instante.
-
-         O SVG é decoração (aria-hidden): todo o conteúdo vive no painel, que
-         também é o que sobra no mobile, onde o grafo não caberia legível. -->
-    <section class="page-section" id="mapa-recuperacao" aria-label="Mapa da recuperação: do patrimônio localizado à conversão em dinheiro">
-      <style>
-        /* ====================== MOLDURA ====================== */
-        .gp {
-          border: 1px solid rgba(255, 255, 255, .08);
-          border-radius: 20px;
-          background:
-            radial-gradient(120% 90% at 30% 20%, rgba(var(--np-accent), .08), transparent 60%),
-            rgba(12, 12, 12, .75);
-          overflow: hidden;
-        }
-        .gp__console {
-          display: flex;
-          align-items: center;
-          gap: .85rem;
-          padding: .85rem 1.25rem;
-          border-bottom: 1px solid rgba(255, 255, 255, .07);
-          background: rgba(0, 0, 0, .4);
-          font-family: 'DM Sans', sans-serif;
-          font-size: .74rem;
-          letter-spacing: .1em;
-          text-transform: uppercase;
-          color: #808080;
-        }
-        .gp__dots { display: flex; gap: .38rem; flex: none; }
-        .gp__dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, .14); }
-        .gp__dots i:first-child { background: rgba(var(--np-accent), .7); }
-        .gp__caret {
-          width: 7px; height: 13px; flex: none;
-          background: rgb(var(--np-accent));
-          animation: gp-caret 1.1s steps(1) infinite;
-        }
-        @keyframes gp-caret { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
-
-        .gp__corpo { padding: 1.5rem; }
-
-        /* ====================== A REDE ======================
-           Quatro camadas: o devedor (entrada), as classes de bem, a camada
-           própria — o ARTHEU — e as vias por onde a ordem chega, tudo
-           convergindo num nó só. As ligações entre camadas são densas de
-           propósito: é assim que uma rede lê, cada sinal pesando em todos os
-           neurônios da camada seguinte, e não em raias paralelas isoladas. */
-        .gp__cena { margin: 0 0 1.5rem; }
-        .gp__svg { display: block; width: 100%; height: auto; }
-
-        /* stop-color é propriedade CSS, então os stops do gradiente também
-           saem dos tokens do pilar em vez de cores fixas. */
-        #gpBrilho .gp-s1 { stop-color: rgb(var(--np-accent-soft)); stop-opacity: .6; }
-        #gpBrilho .gp-s2 { stop-color: rgb(var(--np-accent));      stop-opacity: .2; }
-        #gpBrilho .gp-s3 { stop-color: rgb(var(--np-accent));      stop-opacity: 0; }
-
-        .gp-campo circle { fill: rgba(var(--np-accent), .14); }
-        .gp-campo line   { stroke: rgba(var(--np-accent), .055); stroke-width: 1; }
-
-        /* Sinapses: as ligações densas entre camadas. Ficam fracas de
-           propósito — o que se lê são os nós e o pulso que corre. Uma única
-           respiração no grupo inteiro dá vida à malha sem custar uma animação
-           por aresta. */
-        .gp-rede { animation: gp-respirar 9s ease-in-out infinite; }
-        @keyframes gp-respirar { 0%, 100% { opacity: .8 } 50% { opacity: 1 } }
-        .gp-sinapse {
-          fill: none;
-          stroke: rgba(var(--np-accent), .17);
-          stroke-width: .9;
-        }
-        .gp-aresta {
-          fill: none;
-          stroke: rgba(var(--np-accent), .34);
-          stroke-width: 1.2;
-        }
-        /* Realimentação: o que uma via devolve volta para a camada própria e
-           redireciona a busca. Tracejado que marcha, para a volta se ler como
-           volta. */
-        .gp-feedback {
-          fill: none;
-          stroke: rgba(var(--np-accent), .3);
-          stroke-width: 1.1;
-          stroke-dasharray: 5 7;
-          animation: gp-marchar 2.4s linear infinite;
-        }
-        @keyframes gp-marchar { to { stroke-dashoffset: -24 } }
-
-        /* O pulso é a mesma aresta desenhada de novo com um traço curto que
-           corre. pathLength=100 normaliza a velocidade: arestas de comprimentos
-           diferentes levam o mesmo tempo, então a onda chega alinhada. */
-        .gp-pulso {
-          fill: none;
-          stroke: #fff;
-          stroke-width: 3.2;
-          stroke-linecap: round;
-          stroke-dasharray: 14 100;
-          stroke-dashoffset: 14;
-          opacity: 0;
-          animation: gp-correr 8s linear infinite;
-        }
-        /* Halo: a mesma trajetória num traço largo e translúcido por baixo do
-           núcleo branco. Dá o brilho de um cometa sem custar um filtro SVG,
-           que teria de recompor a região inteira a cada quadro. */
-        .gp-pulso--halo {
-          stroke: rgba(var(--np-accent), .5);
-          stroke-width: 9;
-        }
-        @keyframes gp-correr {
-          0%   { stroke-dashoffset: 14;   opacity: 0 }
-          1%   { opacity: 1 }
-          6%   { opacity: 1 }
-          7.5% { stroke-dashoffset: -100; opacity: 0 }
-          100% { stroke-dashoffset: -100; opacity: 0 }
-        }
-        /* Um ciclo de 8s: quatro saltos por raia (devedor, bem, ARTHEU, via),
-           cada raia partindo meio segundo depois da anterior. */
-        .gp-pulso--a { animation-delay: calc(var(--i) * .5s); }
-        .gp-pulso--b { animation-delay: calc(var(--i) * .5s + .45s); }
-        .gp-pulso--c { animation-delay: calc(var(--i) * .5s + .9s); }
-        .gp-pulso--d { animation-delay: calc(var(--i) * .5s + 1.35s); }
-
-        /* Clarão: um disco com gradiente radial que cresce e some. Sem filtro
-           SVG — o brilho vem do próprio gradiente, que não custa por quadro. */
-        .gp-clarao {
-          fill: url(#gpBrilho);
-          transform-box: fill-box;
-          transform-origin: center;
-          transform: scale(.3);
-          opacity: 0;
-          animation: gp-clarao 8s ease-out infinite;
-        }
-        @keyframes gp-clarao {
-          0%   { transform: scale(.25); opacity: 0 }
-          2.5% { transform: scale(1.05); opacity: 1 }
-          12%  { transform: scale(1.9);  opacity: 0 }
-          100% { transform: scale(.25);  opacity: 0 }
-        }
-        .gp-clarao--bem  { animation-delay: calc(var(--i) * .5s + .45s); }
-        .gp-clarao--ia   { animation-delay: calc(var(--i) * .5s + .9s); }
-        .gp-clarao--base { animation-delay: calc(var(--i) * .5s + 1.35s); }
-        .gp-clarao--fim  { animation-delay: calc(var(--i) * .5s + 1.8s); }
-
-        .gp-no {
-          fill: #0f0f0f;
-          stroke: rgba(var(--np-accent), .5);
-          stroke-width: 1.5;
-        }
-        .gp-no--raiz { fill: rgba(var(--np-accent), .14); stroke: rgba(var(--np-accent), .75); stroke-width: 2; }
-        .gp-no--fim  { fill: rgba(var(--np-accent), .16); stroke: rgb(var(--np-accent));      stroke-width: 2; }
-        .gp-nucleo   { fill: rgb(var(--np-accent-soft)); }
-
-        /* Camada própria: um módulo desenhado como caixa tracejada em volta dos
-           neurônios, para se ler como parte da casa e não como base pública. */
-        .gp-modulo {
-          fill: rgba(var(--np-accent), .05);
-          stroke: rgba(var(--np-accent), .28);
-          stroke-width: 1;
-          stroke-dasharray: 5 6;
-        }
-        .gp-neuronio {
-          fill: rgba(var(--np-accent), .13);
-          stroke: rgba(var(--np-accent), .7);
-          stroke-width: 1.6;
-        }
-
-        .gp-base {
-          fill: rgba(var(--np-accent), .16);
-          stroke: rgba(var(--np-accent), .6);
-          stroke-width: 1.4;
-        }
-        /* Corretora não é base conveniada ao Judiciário: o traço tracejado
-           separa a via privada das cinco públicas, sem precisar de legenda. */
-        .gp-base--cripto { stroke-dasharray: 5 5; }
-        .gp-txt-base {
-          font-family: 'DM Sans', sans-serif;
-          font-size: 12.5px;
-          font-weight: 700;
-          letter-spacing: .7px;
-          fill: #fff;
-        }
-        .gp-txt-bem {
-          font-family: 'DM Sans', sans-serif;
-          font-size: 13px;
-          fill: #c8c8c8;
-        }
-        .gp-txt-col {
-          font-family: 'DM Sans', sans-serif;
-          font-size: 10.5px;
-          font-weight: 700;
-          letter-spacing: 1.6px;
-          text-transform: uppercase;
-          fill: #6f6f6f;
-        }
-        .gp-txt-ia {
-          font-family: 'DM Sans', sans-serif;
-          font-size: 12px;
-          font-weight: 700;
-          letter-spacing: 2.2px;
-          text-transform: uppercase;
-          fill: rgb(var(--np-accent-soft));
-        }
-        .gp-txt-raiz {
-          font-family: 'DM Sans', sans-serif;
-          font-size: 11.5px;
-          font-weight: 700;
-          letter-spacing: 1.4px;
-          text-transform: uppercase;
-          fill: rgb(var(--np-accent-soft));
-        }
-        .gp-txt-sub {
-          font-family: 'DM Sans', sans-serif;
-          font-size: 11px;
-          fill: #808080;
-        }
-        .gp-txt-fim {
-          font-family: 'Raleway', sans-serif;
-          font-size: 13px;
-          font-weight: 700;
-          letter-spacing: .8px;
-          text-transform: uppercase;
-          fill: #fff;
-        }
-
-        /* ====================== PAINEL DE LEITURA ====================== */
-        .gp__painel { min-width: 0; }
-        .gp__painel-tit {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .68rem;
-          font-weight: 700;
-          letter-spacing: .16em;
-          text-transform: uppercase;
-          color: #808080;
-          margin: 0 0 .9rem;
-          padding-bottom: .7rem;
-          border-bottom: 1px solid rgba(255, 255, 255, .08);
-        }
-        .gp__linhas {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: .4rem;
-        }
-        .gp__linha {
-          position: relative;
-          padding: .7rem .8rem .7rem 1rem;
-          border-radius: 10px;
-          border-left: 2px solid rgba(var(--np-accent), .22);
-        }
-        /* O realce corre no mesmo relógio do grafo: a linha acende quando o
-           pulso chega na via correspondente. */
-        .gp__linha::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: 10px;
-          background: linear-gradient(90deg, rgba(var(--np-accent), .16), transparent);
-          opacity: 0;
-          animation: gp-realce 8s ease-out infinite;
-          animation-delay: calc(var(--i) * .5s + 1.35s);
-          pointer-events: none;
-        }
-        @keyframes gp-realce {
-          0%        { opacity: 0 }
-          2%        { opacity: 1 }
-          13%, 100% { opacity: 0 }
-        }
-        .gp__topo {
-          display: flex;
-          align-items: baseline;
-          gap: .55rem;
-          flex-wrap: wrap;
-        }
-        .gp__bem {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .76rem;
-          color: #808080;
-        }
-        .gp__sis {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .82rem;
-          font-weight: 700;
-          letter-spacing: .09em;
-          color: rgb(var(--np-accent-soft));
-        }
-        .gp__res {
-          display: block;
-          font-family: 'DM Sans', sans-serif;
-          font-size: .93rem;
-          line-height: 1.45;
-          color: #e6e6e6;
-          margin-top: .1rem;
-        }
-
-        /* ====================== A CAMADA PRÓPRIA ====================== */
-        .gp__ia {
-          margin-top: 1.5rem;
-          padding: 1.35rem 1.5rem;
-          border: 1px solid rgba(var(--np-accent), .22);
-          border-radius: 14px;
-          background:
-            linear-gradient(90deg, rgba(var(--np-accent), .07), transparent 55%),
-            rgba(0, 0, 0, .28);
-          display: grid;
-          grid-template-columns: 1.1fr 1fr;
-          gap: 1.25rem 2rem;
-          align-items: start;
-        }
-        .gp__ia-tag {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .66rem;
-          font-weight: 700;
-          letter-spacing: .18em;
-          text-transform: uppercase;
-          color: rgb(var(--np-accent-soft));
-          margin: 0 0 .5rem;
-        }
-        .gp__ia-tit {
-          font-family: 'Raleway', sans-serif;
-          font-weight: 700;
-          font-size: 1.18rem;
-          line-height: 1.3;
-          color: #fff;
-          margin: 0 0 .6rem;
-        }
-        .gp__ia-txt {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .95rem;
-          line-height: 1.7;
-          color: #b3b3b3;
-          margin: 0;
-        }
-        .gp__ia-itens {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          display: grid;
-          gap: .8rem;
-        }
-        .gp__ia-itens li {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .9rem;
-          line-height: 1.6;
-          color: #b3b3b3;
-          padding-left: 1.15rem;
-          position: relative;
-        }
-        .gp__ia-itens li::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: .55rem;
-          width: 6px; height: 6px;
-          border-radius: 50%;
-          background: rgba(var(--np-accent), .8);
-        }
-        .gp__ia-itens strong { color: #fff; font-weight: 600; }
-        .gp__ia-nota {
-          grid-column: 1 / -1;
-          font-family: 'DM Sans', sans-serif;
-          font-size: .82rem;
-          line-height: 1.6;
-          color: #808080;
-          margin: 0;
-          padding-top: 1rem;
-          border-top: 1px solid rgba(255, 255, 255, .07);
-        }
-
-        /* ====================== RODAPÉ TÉCNICO ====================== */
-        .gp__meta {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 1px;
-          background: rgba(255, 255, 255, .07);
-          border-top: 1px solid rgba(255, 255, 255, .07);
-        }
-        .gp__meta div { padding: 1.1rem 1.25rem; background: rgba(10, 10, 10, .8); }
-        .gp__meta dt {
-          font-family: 'Raleway', sans-serif;
-          font-weight: 700;
-          font-size: 1.02rem;
-          color: #fff;
-          margin-bottom: .35rem;
-        }
-        .gp__meta dt::before {
-          content: '';
-          display: block;
-          width: 24px; height: 2px;
-          border-radius: 2px;
-          background: rgba(var(--np-accent), .8);
-          margin-bottom: .7rem;
-        }
-        .gp__meta dd {
-          margin: 0;
-          font-family: 'DM Sans', sans-serif;
-          font-size: .82rem;
-          line-height: 1.5;
-          color: #808080;
-        }
-
-        @media (max-width: 1100px) {
-          .gp__linhas { grid-template-columns: repeat(2, 1fr); }
-          .gp__meta { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 900px) {
-          .gp__ia { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 768px) {
-          /* Em tela estreita a rede ficaria com texto de ~5px. O painel já
-             carrega bem, via e resultado — nada se perde ao escondê-la. */
-          .gp__cena { display: none; }
-          .gp__corpo { padding: 1.1rem; }
-          .gp__linhas { grid-template-columns: 1fr; }
-          .gp__meta { grid-template-columns: 1fr; }
-          .gp__console { font-size: .66rem; letter-spacing: .06em; padding: .75rem 1rem; }
-          .gp__res { font-size: .88rem; }
-          .gp__ia { padding: 1.2rem 1.1rem; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .gp__caret,
-          .gp-pulso,
-          .gp-clarao,
-          .gp-rede,
-          .gp-feedback,
-          .gp__linha::before { animation: none; }
-          .gp-pulso { opacity: .5; stroke-dasharray: none; }
-        }
-        /* --- A dívida cresce --- */
-        .ra-growth {
-          display: grid;
-          grid-template-columns: 1.05fr .95fr;
-          gap: 2rem;
-          align-items: center;
-          margin-top: 2rem;
-          padding: 2rem 1.75rem;
-          border: 1px solid rgba(255, 255, 255, .08);
-          border-radius: 18px;
-          background: rgba(17, 17, 17, .6);
-        }
-        .ra-growth__kicker {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .72rem;
-          font-weight: 700;
-          letter-spacing: .14em;
-          text-transform: uppercase;
-          color: rgb(var(--np-accent-soft));
-          margin: 0 0 .45rem;
-        }
-        .ra-growth__title {
-          font-family: 'Raleway', sans-serif;
-          font-weight: 700;
-          font-size: 1.5rem;
-          line-height: 1.3;
-          color: #fff;
-          margin: 0 0 1.6rem;
-        }
-        .ra-growth__bars {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          display: grid;
-          gap: 1.1rem;
-        }
-        .ra-growth__row {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: .5rem;
-        }
-        .ra-growth__label {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .88rem;
-          line-height: 1.5;
-          color: #b3b3b3;
-        }
-        .ra-growth__meter {
-          display: grid;
-          grid-template-columns: 1fr max-content;
-          align-items: center;
-          gap: .9rem;
-        }
-        .ra-growth__track {
-          position: relative;
-          height: 12px;
-          border-radius: 999px;
-          background: rgba(255, 255, 255, .05);
-          overflow: hidden;
-        }
-        .ra-growth__fill {
-          display: block;
-          height: 100%;
-          border-radius: 999px;
-          background: linear-gradient(90deg, rgba(var(--np-accent), .45), rgb(var(--np-accent-deep)));
-        }
-        .ra-growth__row--base .ra-growth__fill {
-          background: rgba(255, 255, 255, .22);
-        }
-        /* Traço no ponto do valor original — bases 2 e 3 o ultrapassam. */
-        .ra-growth__track::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 83.333%;
-          width: 1px;
-          background: rgba(255, 255, 255, .35);
-        }
-        .ra-growth__value {
-          font-family: 'Raleway', sans-serif;
-          font-weight: 800;
-          font-size: 1.05rem;
-          color: #fff;
-          font-variant-numeric: tabular-nums;
-        }
-        .ra-growth__note p {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .97rem;
-          line-height: 1.75;
-          color: #b3b3b3;
-          margin: 0 0 1rem;
-        }
-        .ra-growth__note p:last-child { margin-bottom: 0; }
-        .ra-growth__note strong { color: #fff; font-weight: 600; }
-        .ra-growth__fine {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .82rem !important;
-          line-height: 1.6 !important;
-          color: #808080 !important;
-          padding-top: 1rem;
-          border-top: 1px solid rgba(255, 255, 255, .06);
-        }
-
-        @media (max-width: 768px) {
-          .ra-growth {
-            grid-template-columns: 1fr;
-            gap: 1.75rem;
-            padding: 1.75rem 1.25rem;
-          }
-          .ra-growth__title { font-size: 1.3rem; }
-        }
-      </style>
-
+    <!-- ============================== CAMADA PRÓPRIA ============================== -->
+    <section class="page-section" id="artheu" aria-labelledby="artheu-titulo">
       <div class="page-section__container reveal">
         <div class="page-section__header">
-          <p class="page-section__overline">Inteligência Patrimonial</p>
-          <h2 class="page-section__title">Onde o patrimônio está e <span class="gradient-text">como se chega até ele</span></h2>
-          <p class="page-section__description">O patrimônio de um devedor não está num lugar só. Cada classe de bem responde a uma via distinta — das bases conveniadas ao Judiciário às corretoras de criptoativos — e é o cruzamento de todas as respostas, feito pelo ARTHEU, que aponta a diligência seguinte.</p>
+          <p class="page-section__overline">Camada própria</p>
+          <h2 class="page-section__title" id="artheu-titulo">ARTHEU — a inteligência artificial <em>da casa</em></h2>
+          <p class="page-section__description">Rastrear não é fazer uma consulta: cada base devolve um pedaço, e o que importa está no conjunto. O ARTHEU reúne essas respostas, cruza com registros públicos e com os vínculos societários do devedor e devolve a ordem da diligência seguinte — qual base consultar de novo, qual bem perseguir primeiro, onde há sinal de patrimônio deslocado.</p>
         </div>
 
-        <div class="gp">
-          <div class="gp__console" aria-hidden="true">
-            <span class="gp__dots"><i></i><i></i><i></i></span>
-            <span>rastreio patrimonial · bases oficiais, corretoras de criptoativos e inteligência própria</span>
-            <span class="gp__caret"></span>
-          </div>
-
-          <div class="gp__corpo">
-            <figure class="gp__cena">
-              <svg class="gp__svg" viewBox="0 0 1200 660" aria-hidden="true">
-                <defs>
-                  <radialGradient id="gpBrilho">
-                    <stop class="gp-s1" offset="0%"/>
-                    <stop class="gp-s2" offset="55%"/>
-                    <stop class="gp-s3" offset="100%"/>
-                  </radialGradient>
-                </defs>
-
-                <g class="gp-campo">
-                  <line x1="238" y1="111" x2="31" y2="209"/>
-                  <line x1="31" y1="209" x2="42" y2="154"/>
-                  <line x1="42" y1="154" x2="229" y2="69"/>
-                  <line x1="229" y1="69" x2="40" y2="116"/>
-                  <line x1="40" y1="519" x2="202" y2="456"/>
-                  <line x1="202" y1="456" x2="69" y2="562"/>
-                  <line x1="69" y1="562" x2="228" y2="551"/>
-                  <line x1="971" y1="58" x2="1088" y2="43"/>
-                  <line x1="1088" y1="43" x2="1056" y2="112"/>
-                  <line x1="1056" y1="112" x2="1091" y2="115"/>
-                  <line x1="1091" y1="115" x2="1117" y2="38"/>
-                  <line x1="1107" y1="533" x2="1086" y2="481"/>
-                  <line x1="1086" y1="481" x2="974" y2="505"/>
-                  <line x1="974" y1="505" x2="1116" y2="543"/>
-                  <line x1="1116" y1="543" x2="1032" y2="570"/>
-                  <line x1="1032" y1="570" x2="1064" y2="521"/>
-                  <line x1="506" y1="620" x2="483" y2="631"/>
-                  <line x1="483" y1="631" x2="538" y2="639"/>
-                  <line x1="538" y1="639" x2="432" y2="649"/>
-                  <circle cx="238" cy="111" r="1.6"/>
-                  <circle cx="31" cy="209" r="1.9"/>
-                  <circle cx="42" cy="154" r="2.3"/>
-                  <circle cx="229" cy="69" r="1.7"/>
-                  <circle cx="40" cy="116" r="2.0"/>
-                  <circle cx="40" cy="519" r="1.5"/>
-                  <circle cx="202" cy="456" r="2.2"/>
-                  <circle cx="69" cy="562" r="2.3"/>
-                  <circle cx="228" cy="551" r="2.1"/>
-                  <circle cx="971" cy="58" r="2.4"/>
-                  <circle cx="1088" cy="43" r="1.8"/>
-                  <circle cx="1056" cy="112" r="2.2"/>
-                  <circle cx="1091" cy="115" r="2.1"/>
-                  <circle cx="1117" cy="38" r="2.1"/>
-                  <circle cx="1107" cy="533" r="2.0"/>
-                  <circle cx="1086" cy="481" r="2.3"/>
-                  <circle cx="974" cy="505" r="2.4"/>
-                  <circle cx="1116" cy="543" r="2.0"/>
-                  <circle cx="1032" cy="570" r="2.2"/>
-                  <circle cx="1064" cy="521" r="1.6"/>
-                  <circle cx="506" cy="620" r="2.2"/>
-                  <circle cx="483" cy="631" r="2.1"/>
-                  <circle cx="538" cy="639" r="2.5"/>
-                  <circle cx="432" cy="649" r="2.3"/>
-                </g>
-
-                <!-- sinapses: cada classe de bem pesa em todos os neurônios da camada própria,
-                     e cada neurônio alcança todas as vias. É a ligação densa que faz a leitura
-                     ser de rede e não de raia. -->
-                <g class="gp-rede">
-                  <path class="gp-sinapse" d="M309,90 C400,90 480,140 586,140"/>
-                  <path class="gp-sinapse" d="M309,90 C400,90 480,260 586,260"/>
-                  <path class="gp-sinapse" d="M309,90 C400,90 480,380 586,380"/>
-                  <path class="gp-sinapse" d="M309,90 C400,90 480,500 586,500"/>
-                  <path class="gp-sinapse" d="M309,186 C400,186 480,140 586,140"/>
-                  <path class="gp-sinapse" d="M309,186 C400,186 480,260 586,260"/>
-                  <path class="gp-sinapse" d="M309,186 C400,186 480,380 586,380"/>
-                  <path class="gp-sinapse" d="M309,186 C400,186 480,500 586,500"/>
-                  <path class="gp-sinapse" d="M309,282 C400,282 480,140 586,140"/>
-                  <path class="gp-sinapse" d="M309,282 C400,282 480,260 586,260"/>
-                  <path class="gp-sinapse" d="M309,282 C400,282 480,380 586,380"/>
-                  <path class="gp-sinapse" d="M309,282 C400,282 480,500 586,500"/>
-                  <path class="gp-sinapse" d="M309,378 C400,378 480,140 586,140"/>
-                  <path class="gp-sinapse" d="M309,378 C400,378 480,260 586,260"/>
-                  <path class="gp-sinapse" d="M309,378 C400,378 480,380 586,380"/>
-                  <path class="gp-sinapse" d="M309,378 C400,378 480,500 586,500"/>
-                  <path class="gp-sinapse" d="M309,474 C400,474 480,140 586,140"/>
-                  <path class="gp-sinapse" d="M309,474 C400,474 480,260 586,260"/>
-                  <path class="gp-sinapse" d="M309,474 C400,474 480,380 586,380"/>
-                  <path class="gp-sinapse" d="M309,474 C400,474 480,500 586,500"/>
-                  <path class="gp-sinapse" d="M309,570 C400,570 480,140 586,140"/>
-                  <path class="gp-sinapse" d="M309,570 C400,570 480,260 586,260"/>
-                  <path class="gp-sinapse" d="M309,570 C400,570 480,380 586,380"/>
-                  <path class="gp-sinapse" d="M309,570 C400,570 480,500 586,500"/>
-                  <path class="gp-sinapse" d="M614,140 C700,140 745,90 813,90"/>
-                  <path class="gp-sinapse" d="M614,140 C700,140 745,186 813,186"/>
-                  <path class="gp-sinapse" d="M614,140 C700,140 745,282 813,282"/>
-                  <path class="gp-sinapse" d="M614,140 C700,140 745,378 813,378"/>
-                  <path class="gp-sinapse" d="M614,140 C700,140 745,474 813,474"/>
-                  <path class="gp-sinapse" d="M614,140 C700,140 745,570 813,570"/>
-                  <path class="gp-sinapse" d="M614,260 C700,260 745,90 813,90"/>
-                  <path class="gp-sinapse" d="M614,260 C700,260 745,186 813,186"/>
-                  <path class="gp-sinapse" d="M614,260 C700,260 745,282 813,282"/>
-                  <path class="gp-sinapse" d="M614,260 C700,260 745,378 813,378"/>
-                  <path class="gp-sinapse" d="M614,260 C700,260 745,474 813,474"/>
-                  <path class="gp-sinapse" d="M614,260 C700,260 745,570 813,570"/>
-                  <path class="gp-sinapse" d="M614,380 C700,380 745,90 813,90"/>
-                  <path class="gp-sinapse" d="M614,380 C700,380 745,186 813,186"/>
-                  <path class="gp-sinapse" d="M614,380 C700,380 745,282 813,282"/>
-                  <path class="gp-sinapse" d="M614,380 C700,380 745,378 813,378"/>
-                  <path class="gp-sinapse" d="M614,380 C700,380 745,474 813,474"/>
-                  <path class="gp-sinapse" d="M614,380 C700,380 745,570 813,570"/>
-                  <path class="gp-sinapse" d="M614,500 C700,500 745,90 813,90"/>
-                  <path class="gp-sinapse" d="M614,500 C700,500 745,186 813,186"/>
-                  <path class="gp-sinapse" d="M614,500 C700,500 745,282 813,282"/>
-                  <path class="gp-sinapse" d="M614,500 C700,500 745,378 813,378"/>
-                  <path class="gp-sinapse" d="M614,500 C700,500 745,474 813,474"/>
-                  <path class="gp-sinapse" d="M614,500 C700,500 745,570 813,570"/>
-                </g>
-
-                <!-- arestas de entrada e de saída -->
-                <g>
-                  <path class="gp-aresta" d="M118,330 C215,330 205,90 291,90"/>
-                  <path class="gp-aresta" d="M118,330 C215,330 205,186 291,186"/>
-                  <path class="gp-aresta" d="M118,330 C215,330 205,282 291,282"/>
-                  <path class="gp-aresta" d="M118,330 C215,330 205,378 291,378"/>
-                  <path class="gp-aresta" d="M118,330 C215,330 205,474 291,474"/>
-                  <path class="gp-aresta" d="M118,330 C215,330 205,570 291,570"/>
-                  <path class="gp-aresta" d="M947,90 C1020,90 1030,330 1051,330"/>
-                  <path class="gp-aresta" d="M947,186 C1020,186 1030,330 1051,330"/>
-                  <path class="gp-aresta" d="M947,282 C1020,282 1030,330 1051,330"/>
-                  <path class="gp-aresta" d="M947,378 C1020,378 1030,330 1051,330"/>
-                  <path class="gp-aresta" d="M947,474 C1020,474 1030,330 1051,330"/>
-                  <path class="gp-aresta" d="M947,570 C1020,570 1030,330 1051,330"/>
-                </g>
-
-                <!-- realimentação: o que a via devolve volta para a camada própria -->
-                <path class="gp-feedback" d="M880,595 C790,645 668,632 604,530"/>
-
-                <!-- pulsos: devedor -> bem (a), bem -> ARTHEU (b), ARTHEU -> via (c),
-                     via -> conversão (d). Duas camadas: halo largo e núcleo branco. -->
-                <g>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--a" style="--i:0" pathLength="100" d="M118,330 C215,330 205,90 291,90"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--b" style="--i:0" pathLength="100" d="M309,90 C400,90 480,140 586,140"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--c" style="--i:0" pathLength="100" d="M614,140 C700,140 745,90 813,90"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--d" style="--i:0" pathLength="100" d="M947,90 C1020,90 1030,330 1051,330"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--a" style="--i:1" pathLength="100" d="M118,330 C215,330 205,186 291,186"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--b" style="--i:1" pathLength="100" d="M309,186 C400,186 480,260 586,260"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--c" style="--i:1" pathLength="100" d="M614,260 C700,260 745,186 813,186"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--d" style="--i:1" pathLength="100" d="M947,186 C1020,186 1030,330 1051,330"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--a" style="--i:2" pathLength="100" d="M118,330 C215,330 205,282 291,282"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--b" style="--i:2" pathLength="100" d="M309,282 C400,282 480,260 586,260"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--c" style="--i:2" pathLength="100" d="M614,260 C700,260 745,282 813,282"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--d" style="--i:2" pathLength="100" d="M947,282 C1020,282 1030,330 1051,330"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--a" style="--i:3" pathLength="100" d="M118,330 C215,330 205,378 291,378"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--b" style="--i:3" pathLength="100" d="M309,378 C400,378 480,380 586,380"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--c" style="--i:3" pathLength="100" d="M614,380 C700,380 745,378 813,378"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--d" style="--i:3" pathLength="100" d="M947,378 C1020,378 1030,330 1051,330"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--a" style="--i:4" pathLength="100" d="M118,330 C215,330 205,474 291,474"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--b" style="--i:4" pathLength="100" d="M309,474 C400,474 480,380 586,380"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--c" style="--i:4" pathLength="100" d="M614,380 C700,380 745,474 813,474"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--d" style="--i:4" pathLength="100" d="M947,474 C1020,474 1030,330 1051,330"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--a" style="--i:5" pathLength="100" d="M118,330 C215,330 205,570 291,570"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--b" style="--i:5" pathLength="100" d="M309,570 C400,570 480,500 586,500"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--c" style="--i:5" pathLength="100" d="M614,500 C700,500 745,570 813,570"/>
-                  <path class="gp-pulso gp-pulso--halo gp-pulso--d" style="--i:5" pathLength="100" d="M947,570 C1020,570 1030,330 1051,330"/>
-                </g>
-                <g>
-                  <path class="gp-pulso gp-pulso--a" style="--i:0" pathLength="100" d="M118,330 C215,330 205,90 291,90"/>
-                  <path class="gp-pulso gp-pulso--b" style="--i:0" pathLength="100" d="M309,90 C400,90 480,140 586,140"/>
-                  <path class="gp-pulso gp-pulso--c" style="--i:0" pathLength="100" d="M614,140 C700,140 745,90 813,90"/>
-                  <path class="gp-pulso gp-pulso--d" style="--i:0" pathLength="100" d="M947,90 C1020,90 1030,330 1051,330"/>
-                  <path class="gp-pulso gp-pulso--a" style="--i:1" pathLength="100" d="M118,330 C215,330 205,186 291,186"/>
-                  <path class="gp-pulso gp-pulso--b" style="--i:1" pathLength="100" d="M309,186 C400,186 480,260 586,260"/>
-                  <path class="gp-pulso gp-pulso--c" style="--i:1" pathLength="100" d="M614,260 C700,260 745,186 813,186"/>
-                  <path class="gp-pulso gp-pulso--d" style="--i:1" pathLength="100" d="M947,186 C1020,186 1030,330 1051,330"/>
-                  <path class="gp-pulso gp-pulso--a" style="--i:2" pathLength="100" d="M118,330 C215,330 205,282 291,282"/>
-                  <path class="gp-pulso gp-pulso--b" style="--i:2" pathLength="100" d="M309,282 C400,282 480,260 586,260"/>
-                  <path class="gp-pulso gp-pulso--c" style="--i:2" pathLength="100" d="M614,260 C700,260 745,282 813,282"/>
-                  <path class="gp-pulso gp-pulso--d" style="--i:2" pathLength="100" d="M947,282 C1020,282 1030,330 1051,330"/>
-                  <path class="gp-pulso gp-pulso--a" style="--i:3" pathLength="100" d="M118,330 C215,330 205,378 291,378"/>
-                  <path class="gp-pulso gp-pulso--b" style="--i:3" pathLength="100" d="M309,378 C400,378 480,380 586,380"/>
-                  <path class="gp-pulso gp-pulso--c" style="--i:3" pathLength="100" d="M614,380 C700,380 745,378 813,378"/>
-                  <path class="gp-pulso gp-pulso--d" style="--i:3" pathLength="100" d="M947,378 C1020,378 1030,330 1051,330"/>
-                  <path class="gp-pulso gp-pulso--a" style="--i:4" pathLength="100" d="M118,330 C215,330 205,474 291,474"/>
-                  <path class="gp-pulso gp-pulso--b" style="--i:4" pathLength="100" d="M309,474 C400,474 480,380 586,380"/>
-                  <path class="gp-pulso gp-pulso--c" style="--i:4" pathLength="100" d="M614,380 C700,380 745,474 813,474"/>
-                  <path class="gp-pulso gp-pulso--d" style="--i:4" pathLength="100" d="M947,474 C1020,474 1030,330 1051,330"/>
-                  <path class="gp-pulso gp-pulso--a" style="--i:5" pathLength="100" d="M118,330 C215,330 205,570 291,570"/>
-                  <path class="gp-pulso gp-pulso--b" style="--i:5" pathLength="100" d="M309,570 C400,570 480,500 586,500"/>
-                  <path class="gp-pulso gp-pulso--c" style="--i:5" pathLength="100" d="M614,500 C700,500 745,570 813,570"/>
-                  <path class="gp-pulso gp-pulso--d" style="--i:5" pathLength="100" d="M947,570 C1020,570 1030,330 1051,330"/>
-                </g>
-
-                <!-- clarões: bem, neurônio, via e convergência, em sequência -->
-                <g>
-                  <circle class="gp-clarao gp-clarao--bem" style="--i:0" cx="300" cy="90" r="22"/>
-                  <circle class="gp-clarao gp-clarao--bem" style="--i:1" cx="300" cy="186" r="22"/>
-                  <circle class="gp-clarao gp-clarao--bem" style="--i:2" cx="300" cy="282" r="22"/>
-                  <circle class="gp-clarao gp-clarao--bem" style="--i:3" cx="300" cy="378" r="22"/>
-                  <circle class="gp-clarao gp-clarao--bem" style="--i:4" cx="300" cy="474" r="22"/>
-                  <circle class="gp-clarao gp-clarao--bem" style="--i:5" cx="300" cy="570" r="22"/>
-                  <circle class="gp-clarao gp-clarao--ia" style="--i:0" cx="600" cy="140" r="30"/>
-                  <circle class="gp-clarao gp-clarao--ia" style="--i:1" cx="600" cy="260" r="30"/>
-                  <circle class="gp-clarao gp-clarao--ia" style="--i:2" cx="600" cy="260" r="30"/>
-                  <circle class="gp-clarao gp-clarao--ia" style="--i:3" cx="600" cy="380" r="30"/>
-                  <circle class="gp-clarao gp-clarao--ia" style="--i:4" cx="600" cy="380" r="30"/>
-                  <circle class="gp-clarao gp-clarao--ia" style="--i:5" cx="600" cy="500" r="30"/>
-                  <circle class="gp-clarao gp-clarao--base" style="--i:0" cx="880" cy="90" r="38"/>
-                  <circle class="gp-clarao gp-clarao--base" style="--i:1" cx="880" cy="186" r="38"/>
-                  <circle class="gp-clarao gp-clarao--base" style="--i:2" cx="880" cy="282" r="38"/>
-                  <circle class="gp-clarao gp-clarao--base" style="--i:3" cx="880" cy="378" r="38"/>
-                  <circle class="gp-clarao gp-clarao--base" style="--i:4" cx="880" cy="474" r="38"/>
-                  <circle class="gp-clarao gp-clarao--base" style="--i:5" cx="880" cy="570" r="38"/>
-                  <circle class="gp-clarao gp-clarao--fim" style="--i:0" cx="1105" cy="330" r="50"/>
-                  <circle class="gp-clarao gp-clarao--fim" style="--i:1" cx="1105" cy="330" r="50"/>
-                  <circle class="gp-clarao gp-clarao--fim" style="--i:2" cx="1105" cy="330" r="50"/>
-                  <circle class="gp-clarao gp-clarao--fim" style="--i:3" cx="1105" cy="330" r="50"/>
-                  <circle class="gp-clarao gp-clarao--fim" style="--i:4" cx="1105" cy="330" r="50"/>
-                  <circle class="gp-clarao gp-clarao--fim" style="--i:5" cx="1105" cy="330" r="50"/>
-                </g>
-
-                <!-- rótulos das camadas -->
-                <g>
-                  <text class="gp-txt-col" x="300" y="34" text-anchor="middle">Classes de bem</text>
-                  <text class="gp-txt-ia"  x="600" y="34" text-anchor="middle">ARTHEU · IA própria</text>
-                  <text class="gp-txt-sub" x="600" y="53" text-anchor="middle">cruza os sinais e ordena a diligência</text>
-                  <text class="gp-txt-col" x="880" y="34" text-anchor="middle">Onde a ordem chega</text>
-                </g>
-
-                <!-- camada própria: módulo e neurônios -->
-                <rect class="gp-modulo" x="548" y="118" width="104" height="404" rx="52"/>
-                <g>
-                  <circle class="gp-neuronio" cx="600" cy="140" r="14"/><circle class="gp-nucleo" cx="600" cy="140" r="4.5"/>
-                  <circle class="gp-neuronio" cx="600" cy="260" r="14"/><circle class="gp-nucleo" cx="600" cy="260" r="4.5"/>
-                  <circle class="gp-neuronio" cx="600" cy="380" r="14"/><circle class="gp-nucleo" cx="600" cy="380" r="4.5"/>
-                  <circle class="gp-neuronio" cx="600" cy="500" r="14"/><circle class="gp-nucleo" cx="600" cy="500" r="4.5"/>
-                </g>
-
-                <!-- classes de bem -->
-                <g>
-                  <circle class="gp-no" cx="300" cy="90" r="9"/><circle class="gp-nucleo" cx="300" cy="90" r="3.5"/>
-                  <circle class="gp-no" cx="300" cy="186" r="9"/><circle class="gp-nucleo" cx="300" cy="186" r="3.5"/>
-                  <circle class="gp-no" cx="300" cy="282" r="9"/><circle class="gp-nucleo" cx="300" cy="282" r="3.5"/>
-                  <circle class="gp-no" cx="300" cy="378" r="9"/><circle class="gp-nucleo" cx="300" cy="378" r="3.5"/>
-                  <circle class="gp-no" cx="300" cy="474" r="9"/><circle class="gp-nucleo" cx="300" cy="474" r="3.5"/>
-                  <circle class="gp-no" cx="300" cy="570" r="9"/><circle class="gp-nucleo" cx="300" cy="570" r="3.5"/>
-                  <text class="gp-txt-bem" x="300" y="68" text-anchor="middle">Contas e aplicações</text>
-                  <text class="gp-txt-bem" x="300" y="164" text-anchor="middle">Veículos</text>
-                  <text class="gp-txt-bem" x="300" y="260" text-anchor="middle">Imóveis</text>
-                  <text class="gp-txt-bem" x="300" y="356" text-anchor="middle">Renda declarada</text>
-                  <text class="gp-txt-bem" x="300" y="452" text-anchor="middle">Crédito no mercado</text>
-                  <text class="gp-txt-bem" x="300" y="548" text-anchor="middle">Criptoativos</text>
-                </g>
-
-                <!-- vias: bases oficiais conveniadas e, para os criptoativos, as corretoras -->
-                <g>
-                  <rect class="gp-base" x="814" y="73" width="132" height="34" rx="17"/>
-                  <text class="gp-txt-base" x="880" y="95" text-anchor="middle">SISBAJUD</text>
-                  <rect class="gp-base" x="814" y="169" width="132" height="34" rx="17"/>
-                  <text class="gp-txt-base" x="880" y="191" text-anchor="middle">RENAJUD</text>
-                  <rect class="gp-base" x="814" y="265" width="132" height="34" rx="17"/>
-                  <text class="gp-txt-base" x="880" y="287" text-anchor="middle">CNIB</text>
-                  <rect class="gp-base" x="814" y="361" width="132" height="34" rx="17"/>
-                  <text class="gp-txt-base" x="880" y="383" text-anchor="middle">INFOJUD</text>
-                  <rect class="gp-base" x="814" y="457" width="132" height="34" rx="17"/>
-                  <text class="gp-txt-base" x="880" y="479" text-anchor="middle">SERASAJUD</text>
-                  <rect class="gp-base gp-base--cripto" x="814" y="553" width="132" height="34" rx="17"/>
-                  <text class="gp-txt-base" x="880" y="575" text-anchor="middle">CORRETORAS</text>
-                </g>
-
-                <!-- raiz: o devedor -->
-                <circle class="gp-no gp-no--raiz" cx="86" cy="330" r="30"/>
-                <circle class="gp-nucleo" cx="86" cy="330" r="6"/>
-                <text class="gp-txt-raiz" x="86" y="382" text-anchor="middle">O devedor</text>
-                <text class="gp-txt-sub"  x="86" y="399" text-anchor="middle">patrimônio disperso</text>
-
-                <!-- convergência -->
-                <circle class="gp-no gp-no--fim" cx="1105" cy="330" r="52"/>
-                <text class="gp-txt-fim" x="1105" y="325" text-anchor="middle">Conversão</text>
-                <text class="gp-txt-fim" x="1105" y="344" text-anchor="middle">em dinheiro</text>
-              </svg>
-            </figure>
-
-            <div class="gp__painel">
-              <p class="gp__painel-tit">O que cada via devolve</p>
-              <ul class="gp__linhas">
-                <li class="gp__linha" style="--i: 0">
-                  <span class="gp__topo"><span class="gp__sis">SISBAJUD</span><span class="gp__bem">contas e aplicações</span></span>
-                  <span class="gp__res">Bloqueio de ativos financeiros</span>
-                </li>
-                <li class="gp__linha" style="--i: 1">
-                  <span class="gp__topo"><span class="gp__sis">RENAJUD</span><span class="gp__bem">veículos</span></span>
-                  <span class="gp__res">Restrição de transferência e penhora</span>
-                </li>
-                <li class="gp__linha" style="--i: 2">
-                  <span class="gp__topo"><span class="gp__sis">CNIB</span><span class="gp__bem">imóveis</span></span>
-                  <span class="gp__res">Indisponibilidade de bens</span>
-                </li>
-                <li class="gp__linha" style="--i: 3">
-                  <span class="gp__topo"><span class="gp__sis">INFOJUD</span><span class="gp__bem">renda declarada</span></span>
-                  <span class="gp__res">Patrimônio declarado ao Fisco</span>
-                </li>
-                <li class="gp__linha" style="--i: 4">
-                  <span class="gp__topo"><span class="gp__sis">SERASAJUD</span><span class="gp__bem">crédito no mercado</span></span>
-                  <span class="gp__res">Anotação da dívida nos cadastros</span>
-                </li>
-                <li class="gp__linha" style="--i: 5">
-                  <span class="gp__topo"><span class="gp__sis">CORRETORAS</span><span class="gp__bem">criptoativos</span></span>
-                  <span class="gp__res">Informação de saldo e bloqueio de carteira</span>
-                </li>
-              </ul>
-            </div>
-
-            <aside class="gp__ia">
-              <div>
-                <p class="gp__ia-tag">Camada própria</p>
-                <h3 class="gp__ia-tit">ARTHEU — a inteligência artificial da casa</h3>
-                <p class="gp__ia-txt">Rastrear não é fazer uma consulta: cada base devolve um pedaço, e o que importa está no conjunto. O ARTHEU reúne essas respostas, cruza com registros públicos e com os vínculos societários do devedor e devolve a ordem da diligência seguinte — qual base consultar de novo, qual bem perseguir primeiro, onde há sinal de patrimônio deslocado.</p>
-              </div>
-              <ul class="gp__ia-itens">
-                <li><strong>Cruzamento das respostas</strong> — o que uma via devolve vira consulta nas outras, sem recomeçar a busca do zero.</li>
-                <li><strong>Vínculos e histórico</strong> — participações societárias, endereços comuns e transferências recentes entre pessoas ligadas ao devedor.</li>
-                <li><strong>Busca e rastreamento de criptoativos</strong> — endereços de carteira em blockchain pública e identificação das corretoras que respondem por eles.</li>
-              </ul>
-              <p class="gp__ia-nota">A ferramenta organiza e prioriza o material da diligência. A leitura é da equipe, e nenhuma medida sobre bens acontece sem decisão do juízo.</p>
-            </aside>
-          </div>
-
-          <dl class="gp__meta">
-            <div>
-              <dt>Consulta integrada</dt>
-              <dd>Um mesmo requerimento aciona as vias que respondem por cada tipo de bem, sem depender de uma busca por vez.</dd>
-            </div>
-            <div>
-              <dt>Acesso por ordem judicial</dt>
-              <dd>As bases conveniadas não são consultadas por fora: o acesso passa pelo juízo e fica registrado nos autos.</dd>
-            </div>
-            <div>
-              <dt>Busca em ciclo</dt>
-              <dd>O que uma via devolve redireciona a busca nas outras — a diligência se refaz a cada resposta.</dd>
-            </div>
-            <div>
-              <dt>Criptoativos</dt>
-              <dd>As prestadoras de serviços de ativos virtuais que operam no país seguem a lei brasileira (Lei 14.478/2022) e respondem a ordem judicial de informação e bloqueio.</dd>
-            </div>
-          </dl>
+        <div class="np-compare">
+          <article class="np-compare__col" aria-labelledby="artheu-faz-titulo">
+            <p class="np-compare__label" id="artheu-faz-titulo">Inteligência própria</p>
+            <dl class="np-compare__list">
+              <div><dt>Cruzamento das respostas</dt><dd>o que uma via devolve vira consulta nas outras, sem recomeçar a busca do zero.</dd></div>
+              <div><dt>Vínculos e histórico</dt><dd>participações societárias, endereços comuns e transferências recentes entre pessoas ligadas ao devedor.</dd></div>
+              <div><dt>Busca e rastreamento de criptoativos</dt><dd>endereços de carteira em blockchain pública e identificação das corretoras que respondem por eles.</dd></div>
+            </dl>
+            <p class="np-compare__sub">A ferramenta organiza e prioriza o material da diligência. A leitura é da equipe, e nenhuma medida sobre bens acontece sem decisão do juízo.</p>
+          </article>
+          <article class="np-compare__col" aria-labelledby="artheu-bases-titulo">
+            <p class="np-compare__label" id="artheu-bases-titulo">Bases oficiais e corretoras</p>
+            <dl class="np-compare__list">
+              <div><dt>Consulta integrada</dt><dd>Um mesmo requerimento aciona as vias que respondem por cada tipo de bem, sem depender de uma busca por vez.</dd></div>
+              <div><dt>Acesso por ordem judicial</dt><dd>As bases conveniadas não são consultadas por fora: o acesso passa pelo juízo e fica registrado nos autos.</dd></div>
+              <div><dt>Busca em ciclo</dt><dd>O que uma via devolve redireciona a busca nas outras — a diligência se refaz a cada resposta.</dd></div>
+              <div><dt>Criptoativos</dt><dd>As prestadoras de serviços de ativos virtuais que operam no país seguem a lei brasileira (Lei 14.478/2022) e respondem a ordem judicial de informação e bloqueio.</dd></div>
+            </dl>
+          </article>
         </div>
+      </div>
+    </section>
+
+    <!-- ============================== FUNDAMENTO (papel) ==============================
+         O gráfico é ilustrativo: só o efeito dos dois percentuais do art. 523 do CPC.
+         Rótulo e valor são texto real; a barra é decorativa (aria-hidden). -->
+    <section class="page-section dmc-on-paper" id="fundamento" aria-labelledby="fundamento-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Enquanto o devedor não paga</p>
+          <h2 class="page-section__title" id="fundamento-titulo">A dívida não fica <em>parada</em></h2>
+        </div>
+
         <div class="ra-growth">
           <div>
-            <p class="ra-growth__kicker">Enquanto o devedor não paga</p>
-            <h3 class="ra-growth__title">A dívida não fica parada</h3>
-            <!-- Rótulo e valor são texto real; só a barra em si é decorativa
-                 e fica escondida do leitor de tela para não repetir o número. -->
-            <ul class="ra-growth__bars">
+<ul class="ra-growth__bars">
               <li class="ra-growth__row ra-growth__row--base">
                 <span class="ra-growth__label">Valor reconhecido na sentença</span>
                 <span class="ra-growth__meter">
@@ -1646,276 +402,17 @@
       </div>
     </section>
 
-    <div class="section-divider"></div>
-
-    <!-- ============================== VÍDEO DO TEMA ============================== -->
-    <section class="page-section" id="video" aria-labelledby="video-titulo">
-        <div class="page-section__container reveal">
-            <div class="page-section__header">
-                <p class="page-section__overline">Em vídeo</p>
-                <h2 class="page-section__title" id="video-titulo">Recuperação de Ativos <span class="gradient-text">em vídeo</span></h2>
-                <p class="page-section__description">O caminho entre a sentença favorável e o dinheiro em conta — o que a lei permite fazer para localizar e alcançar o patrimônio do devedor.</p>
-            </div>
-            <!-- Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
-                 (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
-                 reservado. Quem monta o player é assets/js/video.js. -->
-            <div class="page-video__frame" data-video="" data-video-title="Recuperação de Ativos">
-                <div class="page-video__empty">
-                    <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
-                    <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
-                    <p class="page-video__empty-text">Vídeo sobre recuperação de ativos — em breve neste espaço.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-divider"></div>
-
     <!-- ============================== ANÁLISE PRELIMINAR DO TÍTULO ==============================
-         A página inteira repete que a análise do título vem antes de qualquer
-         diligência. Esta seção deixa o visitante fazer essa primeira triagem
-         sozinho: cinco perguntas fechadas e uma leitura que se monta ao vivo no
-         painel ao lado, indicando a via provável, o que ainda precisa ser
-         confirmado e o que levar para a conversa.
-
-         LIMITES: é orientação preliminar, montada só com o que foi marcado.
-         Não afirma direito, não estima valor e não promete resultado — o aviso
-         fecha o painel e acompanha a mensagem enviada. Nada é transmitido: o
-         cálculo roda no navegador e só sai daqui se a pessoa clicar no
-         WhatsApp, e nesse caso levando apenas as opções que ela marcou.
-
-         CSS e JS com prefixo ra-tri, embutidos na própria section. -->
+         Cinco perguntas fechadas e uma leitura que se monta ao vivo no painel ao lado.
+         LIMITES: orientação preliminar, montada só com o que foi marcado. Não afirma
+         direito, não estima valor e não promete resultado — o aviso fecha o painel e
+         acompanha a mensagem. Nada é transmitido: o cálculo roda no navegador e só sai
+         daqui se a pessoa clicar no WhatsApp, levando apenas as opções marcadas. -->
     <section class="page-section" id="analise-titulo" aria-labelledby="analise-titulo-h">
-      <style>
-        .ra-tri {
-          display: grid;
-          grid-template-columns: 1.15fr 1fr;
-          gap: 1.5rem;
-          align-items: start;
-        }
-
-        /* --- coluna das perguntas --- */
-        .ra-tri__form { display: grid; gap: 1rem; margin: 0; }
-        .ra-tri__q {
-          border: 1px solid rgba(255, 255, 255, .08);
-          border-radius: 16px;
-          background: rgba(17, 17, 17, .6);
-          padding: 1.3rem 1.4rem;
-          margin: 0;
-          min-width: 0;
-          transition: border-color .3s ease;
-        }
-        .ra-tri__q--feita { border-color: rgba(var(--np-accent), .3); }
-        /* legend flutuado: sem float o navegador abre um rasgo na borda do
-           fieldset para encaixar o rótulo. Com float ele volta a ser uma linha
-           normal dentro do cartão e a borda fecha. */
-        .ra-tri__q legend {
-          float: left;
-          width: 100%;
-          display: flex;
-          align-items: baseline;
-          gap: .7rem;
-          padding: 0;
-          font-family: 'Raleway', sans-serif;
-          font-weight: 700;
-          font-size: 1.05rem;
-          line-height: 1.35;
-          color: #fff;
-          margin-bottom: .9rem;
-        }
-        .ra-tri__n {
-          font-family: 'Raleway', sans-serif;
-          font-weight: 800;
-          font-size: .78rem;
-          letter-spacing: .1em;
-          color: rgba(var(--np-accent), .8);
-          font-variant-numeric: tabular-nums;
-          flex: none;
-        }
-        .ra-tri__opts { display: grid; gap: .45rem; clear: both; }
-        .ra-tri__opt {
-          position: relative;
-          display: flex;
-          align-items: flex-start;
-          gap: .7rem;
-          padding: .62rem .8rem;
-          border: 1px solid rgba(255, 255, 255, .08);
-          border-radius: 10px;
-          background: rgba(0, 0, 0, .25);
-          font-family: 'DM Sans', sans-serif;
-          font-size: .93rem;
-          line-height: 1.5;
-          color: #b3b3b3;
-          cursor: pointer;
-          transition: border-color .2s ease, background-color .2s ease, color .2s ease;
-        }
-        .ra-tri__opt:hover { border-color: rgba(var(--np-accent), .3); color: #e6e6e6; }
-        /* O input real fica sob o rótulo, sem display:none, para continuar
-           navegável por teclado e visível ao leitor de tela. */
-        .ra-tri__opt input {
-          position: absolute;
-          opacity: 0;
-          width: 1px; height: 1px;
-          margin: 0;
-        }
-        .ra-tri__marca {
-          flex: none;
-          width: 15px; height: 15px;
-          margin-top: .22rem;
-          border-radius: 50%;
-          border: 1.5px solid rgba(255, 255, 255, .25);
-          transition: border-color .2s ease, box-shadow .2s ease;
-        }
-        /* O realce vem por :has() e também por uma classe que o script mantém —
-           assim a marcação continua visível onde :has() não existe. */
-        .ra-tri__opt:has(input:checked),
-        .ra-tri__opt--on {
-          border-color: rgba(var(--np-accent), .55);
-          background: rgba(var(--np-accent), .09);
-          color: #fff;
-        }
-        .ra-tri__opt:has(input:checked) .ra-tri__marca,
-        .ra-tri__opt--on .ra-tri__marca {
-          border-color: rgb(var(--np-accent));
-          box-shadow: inset 0 0 0 3.5px rgb(var(--np-accent-soft));
-        }
-        .ra-tri__opt:has(input:focus-visible) {
-          outline: 2px solid rgb(var(--np-accent));
-          outline-offset: 2px;
-        }
-
-        /* --- painel de leitura --- */
-        .ra-tri__out {
-          position: sticky;
-          top: 96px;
-          padding: 1.5rem;
-          border: 1px solid rgba(var(--np-accent), .22);
-          border-radius: 18px;
-          background:
-            radial-gradient(120% 80% at 20% 0%, rgba(var(--np-accent), .09), transparent 60%),
-            rgba(12, 12, 12, .8);
-          min-width: 0;
-        }
-        .ra-tri__passo {
-          display: flex;
-          align-items: center;
-          gap: .7rem;
-          font-family: 'DM Sans', sans-serif;
-          font-size: .68rem;
-          font-weight: 700;
-          letter-spacing: .16em;
-          text-transform: uppercase;
-          color: #808080;
-          margin: 0 0 1.1rem;
-        }
-        .ra-tri__barra {
-          flex: 1;
-          height: 2px;
-          border-radius: 2px;
-          background: rgba(255, 255, 255, .08);
-          overflow: hidden;
-        }
-        .ra-tri__barra i {
-          display: block;
-          height: 100%;
-          width: 0;
-          border-radius: 2px;
-          background: rgb(var(--np-accent));
-          transition: width .35s ease;
-        }
-        .ra-tri__vazio {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .95rem;
-          line-height: 1.7;
-          color: #808080;
-          margin: 0;
-        }
-        .ra-tri__via {
-          font-family: 'Raleway', sans-serif;
-          font-weight: 700;
-          font-size: 1.35rem;
-          line-height: 1.3;
-          color: #fff;
-          margin: 0 0 .3rem;
-        }
-        .ra-tri__lei {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .8rem;
-          color: rgb(var(--np-accent-soft));
-          margin: 0 0 .8rem;
-        }
-        .ra-tri__txt {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .95rem;
-          line-height: 1.7;
-          color: #b3b3b3;
-          margin: 0;
-        }
-        .ra-tri__bloco {
-          margin-top: 1.25rem;
-          padding-top: 1.1rem;
-          border-top: 1px solid rgba(255, 255, 255, .08);
-        }
-        .ra-tri__rot {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .66rem;
-          font-weight: 700;
-          letter-spacing: .16em;
-          text-transform: uppercase;
-          color: #808080;
-          margin: 0 0 .7rem;
-        }
-        .ra-tri__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: .65rem; }
-        .ra-tri__lista li {
-          position: relative;
-          padding-left: 1.1rem;
-          font-family: 'DM Sans', sans-serif;
-          font-size: .9rem;
-          line-height: 1.6;
-          color: #b3b3b3;
-        }
-        .ra-tri__lista li::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: .5rem;
-          width: 5px; height: 5px;
-          border-radius: 50%;
-          background: rgba(var(--np-accent), .8);
-        }
-        .ra-tri__lista strong { color: #fff; font-weight: 600; }
-        .ra-tri__cta {
-          display: inline-flex;
-          margin-top: 1.35rem;
-          width: 100%;
-          justify-content: center;
-        }
-        .ra-tri__aviso {
-          font-family: 'DM Sans', sans-serif;
-          font-size: .78rem;
-          line-height: 1.6;
-          color: #6f6f6f;
-          margin: 1.1rem 0 0;
-          padding-top: .9rem;
-          border-top: 1px solid rgba(255, 255, 255, .06);
-        }
-
-        @media (max-width: 1024px) {
-          .ra-tri { grid-template-columns: 1fr; }
-          .ra-tri__out { position: static; }
-        }
-        @media (max-width: 480px) {
-          .ra-tri__q { padding: 1.15rem 1.1rem; }
-          .ra-tri__q legend { font-size: .98rem; }
-          .ra-tri__opt { font-size: .89rem; }
-          .ra-tri__out { padding: 1.25rem 1.15rem; }
-        }
-      </style>
-
       <div class="page-section__container reveal">
         <div class="page-section__header">
           <p class="page-section__overline">Análise preliminar</p>
-          <h2 class="page-section__title" id="analise-titulo-h">Descubra qual é a <span class="gradient-text">porta do seu caso</span></h2>
+          <h2 class="page-section__title" id="analise-titulo-h">Descubra qual é a <em>porta do seu caso</em></h2>
           <p class="page-section__description">Cinco perguntas sobre o documento que você tem em mãos. A leitura se monta ao lado enquanto você responde: por qual via a cobrança tende a seguir, o que ainda precisa ser confirmado e o que levar para a conversa.</p>
         </div>
 
@@ -2110,8 +607,8 @@
                       '• Vencimento: ' + ROTULOS.venc[r.venc] + '\n' +
                       '• Tempo parado: ' + ROTULOS.tempo[r.tempo] + '\n' +
                       '• Patrimônio: ' + ROTULOS.bens[r.bens];
-            html += '<a class="btn btn--primary ra-tri__cta" target="_blank" rel="noopener noreferrer" ' +
-                    'href="' + ZAP + encodeURIComponent(msg) + '"><span>Levar esta leitura para a análise</span></a>';
+            html += '<a class="dmc-btn dmc-btn--primary ra-tri__cta" target="_blank" rel="noopener noreferrer" ' +
+                    'href="' + ZAP + encodeURIComponent(msg) + '">Levar esta leitura para a análise <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>';
           }
 
           corpo.innerHTML = html;
@@ -2125,295 +622,142 @@
 
     <div class="section-divider"></div>
 
-    <!-- FAQ Section -->
-    <section class="page-section" aria-label="Perguntas frequentes">
-        <div class="page-section__container reveal">
-            <div class="page-section__header">
-                <p class="page-section__overline">Dúvidas</p>
-                <h2 class="page-section__title">Perguntas <span class="gradient-text">Frequentes</span></h2>
-            </div>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <button class="faq-item__question" aria-expanded="false">
-                        Ganhei a ação e o devedor não paga. O que acontece agora?
-                        <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </button>
-                    <div class="faq-item__answer">
-                        <div class="faq-item__answer-inner">Começa a fase de cumprimento de sentença. O devedor é intimado para pagar em 15 dias e, se não o fizer, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%, na forma do art. 523 do Código de Processo Civil. A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado.</div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-item__question" aria-expanded="false">
-                        Preciso de uma sentença para cobrar?
-                        <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </button>
-                    <div class="faq-item__answer">
-                        <div class="faq-item__answer-inner">Nem sempre. O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros. Com um deles, a execução pode ser proposta diretamente.</div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-item__question" aria-expanded="false">
-                        Por quanto tempo ainda posso executar essa dívida?
-                        <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </button>
-                    <div class="faq-item__answer">
-                        <div class="faq-item__answer-inner">A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal. O prazo concreto depende da natureza do crédito, e é a primeira coisa que se verifica na análise do título — antes de qualquer diligência.</div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-item__question" aria-expanded="false">
-                        O devedor passou os bens para outra pessoa. Dá para reverter?
-                        <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </button>
-                    <div class="faq-item__answer">
-                        <div class="faq-item__answer-inner">Depende de quando a transferência ocorreu e do que o credor consegue demonstrar. Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor. Antes disso, o caminho é a ação pauliana, nos arts. 158 a 165 do Código Civil.</div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-item__question" aria-expanded="false">
-                        É possível alcançar os sócios da empresa devedora?
-                        <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </button>
-                    <div class="faq-item__answer">
-                        <div class="faq-item__answer-inner">Só quando estiverem presentes os requisitos do art. 50 do Código Civil — abuso da personalidade jurídica, caracterizado por desvio de finalidade ou confusão patrimonial. O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio. A mera falta de bens da empresa não basta.</div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-item__question" aria-expanded="false">
-                        Salário e o único imóvel do devedor podem ser penhorados?
-                        <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </button>
-                    <div class="faq-item__answer">
-                        <div class="faq-item__answer-inner">Em regra, não. Salários e verbas de natureza alimentar são impenhoráveis pelo art. 833, IV, do Código de Processo Civil — com a ressalva do §2º, que abre exceção para o pagamento de prestação alimentícia e para os valores que excedam 50 salários mínimos mensais. O imóvel residencial da família é protegido pela Lei 8.009/1990, que traz no art. 3º as hipóteses em que a proteção não se aplica.</div>
-                    </div>
-                </div>
-            </div>
+    <!-- ============================== PERGUNTAS FREQUENTES ==============================
+         <details name="faq">: abre sem JS, uma resposta por vez, teclado e leitor de
+         tela nativos. O JSON-LD FAQPage do <head> repete exatamente estas perguntas. -->
+    <section class="page-section" id="perguntas" aria-labelledby="perguntas-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Dúvidas</p>
+          <h2 class="page-section__title" id="perguntas-titulo">Perguntas <em>frequentes</em></h2>
         </div>
+
+        <div class="faq-list">
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Ganhei a ação e o devedor não paga. O que acontece agora? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Começa a fase de cumprimento de sentença. O devedor é intimado para pagar em 15 dias e, se não o fizer, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%, na forma do art. 523 do Código de Processo Civil. A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Preciso de uma sentença para cobrar? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Nem sempre. O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros. Com um deles, a execução pode ser proposta diretamente.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Por quanto tempo ainda posso executar essa dívida? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal. O prazo concreto depende da natureza do crédito, e é a primeira coisa que se verifica na análise do título — antes de qualquer diligência.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">O devedor passou os bens para outra pessoa. Dá para reverter? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Depende de quando a transferência ocorreu e do que o credor consegue demonstrar. Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor. Antes disso, o caminho é a ação pauliana, nos arts. 158 a 165 do Código Civil.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">É possível alcançar os sócios da empresa devedora? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Só quando estiverem presentes os requisitos do art. 50 do Código Civil — abuso da personalidade jurídica, caracterizado por desvio de finalidade ou confusão patrimonial. O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio. A mera falta de bens da empresa não basta.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Salário e o único imóvel do devedor podem ser penhorados? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Em regra, não. Salários e verbas de natureza alimentar são impenhoráveis pelo art. 833, IV, do Código de Processo Civil — com a ressalva do §2º, que abre exceção para o pagamento de prestação alimentícia e para os valores que excedam 50 salários mínimos mensais. O imóvel residencial da família é protegido pela Lei 8.009/1990, que traz no art. 3º as hipóteses em que a proteção não se aplica.</div></div>
+          </details>
+        </div>
+      </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section" aria-label="Chamada para ação">
-        <div class="cta-section__container reveal">
-            <h2 class="cta-section__title">Comece pela análise do seu <span class="gradient-text">título</span></h2>
-            <p class="cta-section__text">Traga o documento que embasa o crédito e o que já se sabe do devedor. Na conversa inicial verificamos o prazo, a via de cobrança cabível e quais diligências patrimoniais fazem sentido no seu caso.</p>
-            <div class="cta-section__actions">
-                <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Falar com Especialista
-                </a>
-                <a href="../index.html#contact" class="btn btn--secondary">
-                    <span>Solicitar Proposta</span>
-                </a>
-            </div>
+    <div class="section-divider"></div>
+
+    <section class="page-section" id="video" aria-labelledby="video-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Em vídeo</p>
+          <h2 class="page-section__title" id="video-titulo">Recuperação de Ativos <em>em vídeo</em></h2>
+          <p class="page-section__description">O caminho entre a sentença favorável e o dinheiro em conta — o que a lei permite fazer para localizar e alcançar o patrimônio do devedor.</p>
         </div>
+        <!-- Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
+          (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
+          reservado. Quem monta o player é assets/js/video.js. -->
+        <div class="page-video__frame" data-video="" data-video-title="Recuperação de Ativos">
+          <div class="page-video__empty">
+            <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
+            <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
+            <p class="page-video__empty-text">Vídeo sobre recuperação de ativos — em breve neste espaço.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="page-footer">
-        <div class="page-footer__container">
-            <a href="../index.html" class="page-footer__logo">
-                <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
-            </a>
-            <ul class="page-footer__links">
-                <li><a href="../index.html" class="page-footer__link">Início</a></li>
-                <li><a href="../index.html#features" class="page-footer__link">Serviços</a></li>
-                <li><a href="../index.html#contact" class="page-footer__link">Contato</a></li>
-                <li><a href="politica-de-privacidade.html" class="page-footer__link">Política de Privacidade</a></li>
-            </ul>
-            <p class="page-footer__copy">&copy; 2025 Complexo DMC. Todos os direitos reservados.</p>
+    <!-- ============================== CONVERSA (papel) ============================== -->
+    <section class="cta-section dmc-on-paper" id="conversa" aria-labelledby="cta-titulo">
+      <div class="cta-section__container">
+        <p class="page-section__overline">Conversa</p>
+        <h2 class="cta-section__title" id="cta-titulo">Comece pela análise do seu <em>título</em></h2>
+        <p class="cta-section__text">Traga o documento que embasa o crédito e o que já se sabe do devedor. Na conversa inicial verificamos o prazo, a via de cobrança cabível e quais diligências patrimoniais fazem sentido no seu caso.</p>
+        <div class="cta-section__actions">
+          <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer">Falar com especialista <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="dmc-btn dmc-btn--secondary" href="../?assunto=E5#contact">Solicitar proposta <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <!-- WhatsApp Float -->
-    <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" class="whatsapp-float" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-    </a>
+  </main>
 
-    <!-- Scripts -->
-    <script>
-        // Mobile Menu Toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navMenu = document.getElementById('navMenu');
-        if (menuToggle && navMenu) {
-            menuToggle.addEventListener('click', () => {
-                navMenu.classList.toggle('open');
-                menuToggle.classList.toggle('open');
-            });
-        }
+  <!-- ============================== RODAPÉ (o mesmo da home) ============================== -->
+  <footer class="dmc-footer" id="rodape">
+    <div class="dmc-wrap">
+      <div class="dmc-footer__grid">
+        <div class="dmc-footer__brand">
+          <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+            <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">
+            <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+          </a>
+          <p>Consultoria em negócios para decisões que envolvem empresa, patrimônio e família.</p>
+          <p>Sede em São Paulo. Atendimento a empresas, famílias empresárias, incorporadoras e investidores.</p>
+        </div>
 
-        // Navbar Scroll Effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (!navbar) return;
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+        <nav aria-labelledby="rodape-eixos">
+          <p class="dmc-footer__title" id="rodape-eixos">Eixos</p>
+          <ul class="dmc-footer__list">
+            <li class="np-pillar-patrimonial"><a href="planejamento-sucessorio.html"><span class="dmc-footer__num">E1</span>Patrimonial e Sucessório</a></li>
+            <li class="np-pillar-fiscal"><a href="planejamento-tributario.html"><span class="dmc-footer__num">E2</span>Tributário, Fiscal e Corporativo</a></li>
+            <li class="np-pillar-imobiliario"><a href="consultoria-imobiliaria.html"><span class="dmc-footer__num">E3</span>Notarial e Imobiliário</a></li>
+            <li class="np-pillar-auditoria"><a href="contabilidade.html"><span class="dmc-footer__num">E4</span>Auditoria Empresarial e Contábil</a></li>
+            <li class="np-pillar-ativos"><a href="recuperacao-ativos.html" aria-current="page"><span class="dmc-footer__num">E5</span>Recuperação de Ativos</a></li>
+            <li class="np-pillar-trabalhista"><a href="../solucoes/consultoria-trabalhista/ciclo-fechado.html"><span class="dmc-footer__num">E6</span>Consultoria Trabalhista</a></li>
+          </ul>
+        </nav>
 
-        // Scroll Reveal
-        const revealElements = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-        revealElements.forEach(el => revealObserver.observe(el));
+        <nav aria-labelledby="rodape-casa">
+          <p class="dmc-footer__title" id="rodape-casa">A casa</p>
+          <ul class="dmc-footer__list">
+            <li><a href="../#conheca">Conheça o Complexo DMC</a></li>
+            <li><a href="../#features">Soluções</a></li>
+            <li><a href="../#treinamentos">Treinamentos</a></li>
+            <li><a href="tecnologia.html">Tecnologia</a></li>
+            <li><a href="por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
+            <li><a href="../plataforma-ead/login.html">Área do aluno</a></li>
+            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">Ad-tech</a></li>
+          </ul>
+        </nav>
 
-        // FAQ Accordion
-        document.querySelectorAll('.faq-item__question').forEach(button => {
-            button.addEventListener('click', () => {
-                const faqItem = button.closest('.faq-item');
-                const isActive = faqItem.classList.contains('active');
+        <div>
+          <p class="dmc-footer__title">Contato</p>
+          <ul class="dmc-footer__list">
+            <li><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></li>
+            <li><a href="tel:+5511915267749">+55 (11) 91526-7749</a></li>
+            <li><a href="../?assunto=E5#contact">Formulário de contato</a></li>
+            <li><span>Rua Riachuelo, 231<br>São Paulo, SP — Brasil</span></li>
+          </ul>
+        </div>
+      </div>
 
-                document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
-                document.querySelectorAll('.faq-item__question').forEach(b => b.setAttribute('aria-expanded', 'false'));
+      <div class="dmc-footer__legal">
+        <p>&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+        <p>Conteúdo informativo. A atuação em atos privativos da advocacia, da contabilidade e da auditoria é realizada por profissionais e sociedades parceiras habilitadas; os atos notariais e registrais, por cartórios conveniados.</p>
+        <p><a href="politica-de-privacidade.html">Política de Privacidade</a></p>
+      </div>
+    </div>
+  </footer>
 
-                if (!isActive) {
-                    faqItem.classList.add('active');
-                    button.setAttribute('aria-expanded', 'true');
-                }
-            });
-        });
-    </script>
-<script>
-/* Malha do hero. Três coisas que ela precisa respeitar:
-   1. densidade de tela — sem escalar pelo devicePixelRatio o canvas sai
-      borrado em qualquer tela retina;
-   2. o campo de visão — não há motivo para animar 65 nós enquanto o
-      visitante lê o resto da página, então o laço para quando o quadro sai
-      da tela ou a aba vai para segundo plano;
-   3. quem pediu menos movimento — com prefers-reduced-motion desenha-se um
-      quadro só, parado.
-   As cores saem dos tokens do pilar, como o resto da página. */
-(function () {
-  var wrap = document.getElementById('tech-net-wrap');
-  var canvas = document.getElementById('tech-net-canvas');
-  if (!wrap || !canvas) return;
-  var ctx = canvas.getContext('2d');
+  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Conversar pelo WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
 
-  var PADRAO = ['244,140,178', '250,190,214', '214,82,138'];
-  function tokens() {
-    var cs = getComputedStyle(document.body);
-    var t = ['--np-accent', '--np-accent-soft', '--np-accent-deep'].map(function (n) {
-      return cs.getPropertyValue(n).trim();
-    });
-    return t.every(function (v) { return /^\d+\s*,\s*\d+\s*,\s*\d+$/.test(v); }) ? t : PADRAO;
-  }
-  function mistura(a, b, t) {
-    var x = a.split(','), y = b.split(',');
-    return x.map(function (v, i) {
-      return Math.round(+v + (+y[i] - +v) * t);
-    }).join(',');
-  }
-  var base = tokens();
-  var CORES = [base[0], base[1], base[2],
-               mistura(base[0], base[1], .5), mistura(base[0], base[2], .5),
-               mistura(base[1], base[0], .75), mistura(base[2], base[0], .25)];
-
-  var dpr = Math.min(window.devicePixelRatio || 1, 2);
-  var W = 0, H = 0;
-  function medir() {
-    var rect = wrap.getBoundingClientRect();
-    W = rect.width; H = rect.height;
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  medir();
-
-  var mouse = { x: -999, y: -999 };
-  var count = 65, nodes = [];
-  for (var i = 0; i < count; i++) {
-    nodes.push({
-      x: Math.random() * W, y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
-      r: Math.random() * 2.5 + 1,
-      cor: CORES[Math.floor(Math.random() * CORES.length)],
-      pulse: Math.random() * Math.PI * 2
-    });
-  }
-
-  var MAX_DIST = 120, MOUSE_DIST = 150;
-  function quadro(mover) {
-    ctx.clearRect(0, 0, W, H);
-    var n, i, j, k;
-    if (mover) {
-      for (n = 0; n < nodes.length; n++) {
-        nodes[n].x += nodes[n].vx; nodes[n].y += nodes[n].vy; nodes[n].pulse += 0.018;
-        if (nodes[n].x < 0 || nodes[n].x > W) nodes[n].vx *= -1;
-        if (nodes[n].y < 0 || nodes[n].y > H) nodes[n].vy *= -1;
-      }
-    }
-    for (i = 0; i < nodes.length; i++) {
-      for (j = i + 1; j < nodes.length; j++) {
-        var dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < MAX_DIST) {
-          ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = 'rgba(' + nodes[i].cor + ',' + (1 - dist / MAX_DIST) * 0.55 + ')';
-          ctx.lineWidth = 0.8; ctx.stroke();
-        }
-      }
-      var mdx = nodes[i].x - mouse.x, mdy = nodes[i].y - mouse.y;
-      var mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-      if (mdist < MOUSE_DIST) {
-        ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(mouse.x, mouse.y);
-        ctx.strokeStyle = 'rgba(' + nodes[i].cor + ',' + (1 - mdist / MOUSE_DIST) * 0.8 + ')';
-        ctx.lineWidth = 1.2; ctx.stroke();
-      }
-    }
-    for (k = 0; k < nodes.length; k++) {
-      var p = 0.7 + 0.3 * Math.sin(nodes[k].pulse);
-      ctx.beginPath(); ctx.arc(nodes[k].x, nodes[k].y, nodes[k].r * p, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + nodes[k].cor + ',0.95)'; ctx.fill();
-      ctx.beginPath(); ctx.arc(nodes[k].x, nodes[k].y, nodes[k].r * 4 * p, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + nodes[k].cor + ',0.08)'; ctx.fill();
-    }
-  }
-
-  var calmo = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (calmo) {
-    quadro(false);
-    window.addEventListener('resize', function () { medir(); quadro(false); });
-    return;
-  }
-
-  var id = 0, rodando = false, naTela = true;
-  function laco() { quadro(true); id = requestAnimationFrame(laco); }
-  function liga() { if (!rodando) { rodando = true; id = requestAnimationFrame(laco); } }
-  function para() { if (rodando) { rodando = false; cancelAnimationFrame(id); } }
-
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (es) {
-      naTela = es[0].isIntersecting;
-      naTela && !document.hidden ? liga() : para();
-    }, { threshold: 0 }).observe(wrap);
-  } else { liga(); }
-  document.addEventListener('visibilitychange', function () {
-    document.hidden ? para() : (naTela && liga());
-  });
-
-  var t;
-  window.addEventListener('resize', function () {
-    clearTimeout(t);
-    t = setTimeout(function () {
-      medir();
-      for (var n = 0; n < nodes.length; n++) {
-        nodes[n].x = Math.min(nodes[n].x, W); nodes[n].y = Math.min(nodes[n].y, H);
-      }
-    }, 150);
-  });
-  wrap.addEventListener('mousemove', function (e) {
-    var rect = wrap.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left; mouse.y = e.clientY - rect.top;
-  });
-  wrap.addEventListener('mouseleave', function () { mouse.x = -999; mouse.y = -999; });
-  liga();
-})();
-</script>
 </body>
 </html>

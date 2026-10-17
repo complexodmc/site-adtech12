@@ -1,1410 +1,393 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-root="../">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Por que planejar a sucessão em vida | Complexo DMC</title>
   <meta name="description" content="Por que organizar a sucessão em vida: inventário, legítima e ITCMD à luz da lei, e os instrumentos que permitem decidir antes — doação, holding e testamento.">
   <meta name="keywords" content="planejamento sucessório em vida, inventário judicial, inventário extrajudicial, legítima, ITCMD, sucessão familiar">
-  <title>Por que planejar a sucessão em vida | Complexo DMC</title>
+  <link rel="canonical" href="https://www.complexodmc.com.br/pages/por-que-urgente.html">
+  <meta name="theme-color" content="#0b0c0e">
 
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
-
+  <!-- Página interna na direção C — ordem do <head> documentada em pages/css/eixos.css
+       e em docs/dmc/DESIGN-SYSTEM.md §6 "Receita de migração de página interna". -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&family=Raleway:wght@600&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
   <link rel="stylesheet" href="css/shared.css?v=3">
-  <script src="../assets/js/navbar.js" defer></script>
-  <script src="../assets/js/video.js" defer></script>
+  <link rel="stylesheet" href="css/eixos.css?v=4">
+  <link rel="stylesheet" href="../assets/css/components.css?v=2">
+
+  <script src="../assets/js/navbar.js?v=c2" defer></script>
+  <script src="../assets/js/solucao.js?v=3" defer></script>
+  <script src="../assets/js/video.js?v=1" defer></script>
 </head>
-<body>
+<body class="np-eixo np-pillar-patrimonial">
 
-  <!-- ========== NAVBAR ========== -->
-  <dmc-navbar></dmc-navbar>
-
-<!-- ========== HERO SECTION ========== -->
-  <section class="page-hero" aria-label="Apresentação do serviço de Planejamento Sucessório">
-    <div class="page-hero__glow" aria-hidden="true"></div>
-    <div class="page-hero__inner">
-      <div class="page-hero__content">
-        <div class="page-hero__badge">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          E1 · PLANEJAMENTO PATRIMONIAL E SUCESSÓRIO
-        </div>
-        <h1 class="page-hero__title">Por que planejar<br><span class="gradient-text">a sucessão em vida</span></h1>
-        <p class="page-hero__subtitle">Decidir em vida permite escolher como o patrimônio passa adiante. Sem plano, a transmissão segue o rito do inventário (Código de Processo Civil, arts. 610 a 673), com custos apurados depois e decisões que dependem do consenso entre herdeiros. Aqui estão o fundamento e os instrumentos.</p>
-        <div class="page-hero__actions">
-          <a href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conversar%20sobre%20a%20sucess%C3%A3o%20da%20fam%C3%ADlia." target="_blank" rel="noopener noreferrer" class="btn btn--primary" aria-label="Conversar sobre a sucessão da família via WhatsApp">
-            <span>Conversar sobre a sucessão da família</span>
-          </a>
-        </div>
+  <!-- navbar.js troca este conteúdo pelo menu completo (com o próprio "pular para o
+       conteúdo"). Sem JS ficam o atalho, a marca e o caminho para o rodapé. -->
+  <dmc-navbar data-over>
+    <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+    <header class="dmc-nav dmc-nav--over">
+      <div class="dmc-wrap dmc-nav__bar">
+        <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+          <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22">
+          <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+        </a>
+        <a class="dmc-nav__toggle" href="#rodape">Menu <i aria-hidden="true"></i></a>
       </div>
-      <div class="page-hero__visual" aria-hidden="true">
-  <div id="tech-net-wrap" style="position:relative;width:100%;max-width:520px;aspect-ratio:1;margin:0 auto;overflow:hidden;background:transparent;">
-    <canvas id="tech-net-canvas" style="position:absolute;top:0;left:0;width:100%;height:100%;"></canvas>
-    <div id="tech-net-label" style="
-      position:absolute;top:50%;left:50%;
-      transform:translate(-50%,-50%);
-      font-family:'Raleway','DM Sans',sans-serif;
-      font-size:56px;font-weight:700;letter-spacing:10px;
-      background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-      pointer-events:none;
-      user-select:none;
-      z-index:2;
-    ">PSU</div>
-  </div>
-</div>
-    </div>
-  </section>
+    </header>
+  </dmc-navbar>
 
-  <!-- ========== BENEFITS SECTION ========== -->
-  <section class="page-section" id="beneficios" aria-label="Benefícios do Planejamento Sucessório">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">O que está em jogo</p>
-        <h2 class="page-section__title">O que a decisão em vida <span class="gradient-text">organiza</span></h2>
-        <p class="page-section__description">Seis frentes que ficam sem regra quando a sucessão não é organizada em vida — e o que cada instrumento trata.</p>
-        <h3 class="page-section__title" style="font-size:1.4rem;margin-top:1.5rem;">Fundamento</h3>
-        <p class="page-section__description">Havendo herdeiros necessários, metade da herança é reservada a eles (Código Civil, arts. 1.789 e 1.846); a outra metade pode ser destinada por testamento ou doação. Planejar em vida é usar essa margem com regra própria — e calcular o ITCMD antes, pela alíquota do estado.</p>
-      </div>
+  <main id="conteudo">
 
-      <div class="benefit-grid">
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">Proteção</span>
-          <h3 class="benefit-card__title">Separação Patrimonial</h3>
-          <p class="benefit-card__text">Sem separação entre os bens da família e a atividade empresarial, os riscos de uma alcançam a outra.</p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">Continuidade</span>
-          <h3 class="benefit-card__title">Continuidade Empresarial</h3>
-          <p class="benefit-card__text">Sem regras de transição, a gestão da empresa depende do andamento do inventário.</p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">Tributário</span>
-          <h3 class="benefit-card__title">Custo de Transmissão</h3>
-          <p class="benefit-card__text">ITCMD e despesas de transmissão apurados só no inventário, sem escolha da forma de transmitir.</p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">Harmonia</span>
-          <h3 class="benefit-card__title">Harmonia Familiar</h3>
-          <p class="benefit-card__text">Sem vontade declarada em instrumento próprio, cada decisão sobre os bens depende do consenso entre herdeiros.</p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">Governança</span>
-          <h3 class="benefit-card__title">Governança Corporativa</h3>
-          <p class="benefit-card__text">Sem acordo de sócios ou protocolo familiar, não há regra prévia sobre quem decide depois da transição.</p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-card__icon"></div>
-          <span class="benefit-card__tag">Transmissão</span>
-          <h3 class="benefit-card__title">Rito do Inventário</h3>
-          <p class="benefit-card__text">Sem estrutura montada em vida, a transmissão segue o rito que o caso permitir — judicial ou extrajudicial.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== STATS MARQUEE ========== -->
-  <section class="stats-marquee" aria-label="Fatos do eixo Patrimonial e Sucessório">
-    <div class="stats-marquee__track">
-      <div class="stats-marquee__slide">
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">E1</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Patrimonial e Sucessório</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">Inventário</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Judicial ou extrajudicial</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">Cartórios</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Atos lavrados por conveniados</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">Parceiros</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Habilitados nos atos privativos</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">São Paulo</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Sede</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-      </div>
-      <!-- Duplicado para loop infinito -->
-      <div class="stats-marquee__slide" aria-hidden="true">
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">E1</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Patrimonial e Sucessório</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">Inventário</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Judicial ou extrajudicial</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">Cartórios</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Atos lavrados por conveniados</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">Parceiros</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Habilitados nos atos privativos</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-        <div class="stats-marquee__item">
-          <span class="stats-marquee__number">São Paulo</span>
-          <span class="stats-marquee__sep">/</span>
-          <span class="stats-marquee__label">Sede</span>
-        </div>
-        <div class="stats-marquee__dot" aria-hidden="true"></div>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    /* ===== STATS MARQUEE (infinite carousel) ===== */
-    .stats-marquee {
-      width: 100%;
-      overflow: hidden;
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
-      padding: 1.8rem 0;
-      position: relative;
-    }
-
-    /* Fade edges */
-    .stats-marquee::before,
-    .stats-marquee::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .stats-marquee::before {
-      left: 0;
-      background: linear-gradient(90deg, var(--bg-secondary), transparent);
-    }
-    .stats-marquee::after {
-      right: 0;
-      background: linear-gradient(-90deg, var(--bg-secondary), transparent);
-    }
-
-    .stats-marquee__track {
-      display: flex;
-      width: max-content;
-      animation: statsScroll 25s linear infinite;
-    }
-
-    .stats-marquee:hover .stats-marquee__track {
-      animation-play-state: paused;
-    }
-
-    .stats-marquee__slide {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      flex-shrink: 0;
-    }
-
-    .stats-marquee__item {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      padding: 0 2rem;
-      white-space: nowrap;
-    }
-
-    .stats-marquee__number {
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 700;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-    }
-
-    .stats-marquee__sep {
-      color: var(--text-tertiary);
-      font-size: 1.2rem;
-      opacity: 0.4;
-    }
-
-    .stats-marquee__label {
-      font-family: var(--font-primary);
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      letter-spacing: 0.5px;
-    }
-
-    .stats-marquee__dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--primary-cyan);
-      opacity: 0.3;
-      flex-shrink: 0;
-    }
-
-    @keyframes statsScroll {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    @media (max-width: 768px) {
-      .stats-marquee { padding: 1.2rem 0; }
-      .stats-marquee__item { padding: 0 1.2rem; }
-      .stats-marquee::before,
-      .stats-marquee::after { width: 50px; }
-    }
-  </style>
-
-  <!-- ========== RINO HUB SECTION ========== -->
-  <section class="page-section" aria-label="Mapa de serviços de planejamento sucessório">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Ecossistema</p>
-        <h2 class="page-section__title">Nossas <span class="gradient-text">Soluções</span></h2>
-        <p class="page-section__description">Os instrumentos que organizam a sucessão em vida — e o inventário, quando ela não foi organizada.</p>
-      </div>
-
-      <div class="ps-orbit-scene">
-        <!-- Brilho radial -->
-        <div class="ps-orbit-glow"></div>
-
-        <!-- Vídeo central do rinoceronte -->
-        <video autoplay muted loop playsinline class="ps-orbit-center-video">
-          <source src="../assets/videos/rino-video-transparent.mp4" type="video/mp4">
-        </video>
-
-        <!-- Anel decorativo -->
-        <div class="ps-orbit-ring"></div>
-
-        <!-- Âncora da órbita -->
-        <div id="psOrbitAnchor" class="ps-orbit-anchor">
-          <div class="ps-orbit-item" style="animation-delay: -0s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">INV. EXTRAJ.</span>
-            </div>
+    <!-- ============================== HERÓI ============================== -->
+    <section class="page-hero" aria-labelledby="hero-titulo">
+      <div class="page-hero__inner">
+        <div class="page-hero__content">
+          <p class="page-hero__badge">E1 · Planejamento Patrimonial e Sucessório</p>
+          <h1 class="page-hero__title" id="hero-titulo">Por que planejar <em>a sucessão em vida</em></h1>
+          <p class="page-hero__subtitle">Decidir em vida permite escolher como o patrimônio passa adiante. Sem plano, a transmissão segue o rito do inventário (Código de Processo Civil, arts. 610 a 673), com custos apurados depois e decisões que dependem do consenso entre herdeiros. Aqui estão o fundamento e os instrumentos.</p>
+          <div class="page-hero__actions">
+            <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conversar%20sobre%20a%20sucess%C3%A3o%20da%20fam%C3%ADlia." target="_blank" rel="noopener noreferrer">Conversar sobre a sucessão da família <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--link" href="#processo">Como funciona</a>
           </div>
-          <div class="ps-orbit-item" style="animation-delay: -4.8s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">DOAÇÃO</span>
-            </div>
+        </div>
+        <!-- Malha de nós no acento do eixo (assets/js/solucao.js). Sem JS: grade de pontos. -->
+        <div class="page-hero__visual" aria-hidden="true">
+          <div class="sol-net"><canvas class="sol-net__canvas"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== O QUE ESTÁ EM JOGO ============================== -->
+    <section class="page-section" id="beneficios" aria-labelledby="beneficios-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">O que está em jogo</p>
+          <h2 class="page-section__title" id="beneficios-titulo">O que a decisão em vida <em>organiza</em></h2>
+          <p class="page-section__description">Seis frentes que ficam sem regra quando a sucessão não é organizada em vida — e o que cada instrumento trata.</p>
+          <div class="sol-note">
+            <h3>Fundamento</h3>
+            <p>Havendo herdeiros necessários, metade da herança é reservada a eles (Código Civil, arts. 1.789 e 1.846); a outra metade pode ser destinada por testamento ou doação. Planejar em vida é usar essa margem com regra própria — e calcular o ITCMD antes, pela alíquota do estado.</p>
           </div>
-          <div class="ps-orbit-item" style="animation-delay: -9.6s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">TESTAMENTO</span>
-            </div>
+        </div>
+
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Separação Patrimonial</h3>
+            <p class="benefit-card__text">Sem separação entre os bens da família e a atividade empresarial, os riscos de uma alcançam a outra.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Continuidade Empresarial</h3>
+            <p class="benefit-card__text">Sem regras de transição, a gestão da empresa depende do andamento do inventário.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Custo de Transmissão</h3>
+            <p class="benefit-card__text">ITCMD e despesas de transmissão apurados só no inventário, sem escolha da forma de transmitir.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Harmonia Familiar</h3>
+            <p class="benefit-card__text">Sem vontade declarada em instrumento próprio, cada decisão sobre os bens depende do consenso entre herdeiros.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Governança Corporativa</h3>
+            <p class="benefit-card__text">Sem acordo de sócios ou protocolo familiar, não há regra prévia sobre quem decide depois da transição.</p>
+          </article>
+          <article class="benefit-card">
+            <h3 class="benefit-card__title">Rito do Inventário</h3>
+            <p class="benefit-card__text">Sem estrutura montada em vida, a transmissão segue o rito que o caso permitir — judicial ou extrajudicial.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================== SOLUÇÕES DO EIXO ==============================
+         Antes: órbita de rótulos em torno de um mp4 cru com chromakey (canvas +
+         getImageData). Agora: rinoceronte com alfa nativo (HEVC+alfa para Safari,
+         VP9+alfa para Chromium/Firefox) e os mesmos instrumentos como cartões.
+         Sem autoplay no HTML de propósito: solucao.js dá play a 200px da tela e
+         pausa ao sair; sem JS ou com movimento reduzido fica o poster. -->
+    <section class="page-section" id="solucoes" aria-labelledby="solucoes-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Ecossistema</p>
+          <h2 class="page-section__title" id="solucoes-titulo">Nossas <em>soluções</em></h2>
+          <p class="page-section__description">Os instrumentos que organizam a sucessão em vida — e o inventário, quando ela não foi organizada.</p>
+        </div>
+
+        <div class="np-mapa">
+          <div class="np-mapa__media" aria-hidden="true">
+            <video class="np-rino" muted loop playsinline preload="none" poster="../assets/images/rino-alpha-poster.webp" width="480" height="480" disablepictureinpicture disableremoteplayback tabindex="-1">
+              <source src="../assets/videos/rino-alpha-gold.mov" type='video/mp4; codecs="hvc1"' media="(prefers-reduced-motion: no-preference)">
+              <source src="../assets/videos/rino-alpha-gold.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
+            </video>
           </div>
-          <div class="ps-orbit-item" style="animation-delay: -14.4s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">INV. JUDICIAL</span>
-            </div>
-          </div>
-          <div class="ps-orbit-item" style="animation-delay: -19.2s;">
-            <div class="ps-orbit-card">
-              <span class="ps-orbit-front">HOLDING</span>
-            </div>
+
+          <div class="sol-related">
+            <a class="np-card" href="holding-patrimonial.html">
+              <h3 class="np-ct">Holding</h3>
+              <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            </a>
+            <a class="np-card" href="planejamento-sucessorio.html#instrumentos">
+              <h3 class="np-ct">Doação</h3>
+              <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            </a>
+            <a class="np-card" href="sucessao-testamentaria.html">
+              <h3 class="np-ct">Testamento</h3>
+              <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            </a>
+            <a class="np-card" href="#inventario">
+              <h3 class="np-ct">Inventário judicial</h3>
+              <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            </a>
+            <a class="np-card" href="#inventario">
+              <h3 class="np-ct">Inventário extrajudicial</h3>
+              <span class="np-link">Saiba mais <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>
+            </a>
           </div>
         </div>
       </div>
+    </section>
 
-    </div>
-  </section>
+    <div class="section-divider"></div>
 
-  <style>
-    /* ===== PS ORBIT (estilo index) ===== */
-    :root {
-      --ps-orbit-r: 260px;
-      --ps-orbit-cw: 130px;
-      --ps-orbit-ch: 58px;
-      --ps-orbit-fs: 14px;
-    }
+    <!-- ============================== INVENTÁRIO: DUAS VIAS ==============================
+         Antes era um painel dividido que só abria no hover (sem teclado, sem toque).
+         Agora as duas colunas ficam abertas, lado a lado. -->
+    <section class="page-section" id="inventario" aria-labelledby="inventario-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Duas vias</p>
+          <h2 class="page-section__title" id="inventario-titulo">Inventário: <em>judicial e extrajudicial</em></h2>
+          <p class="page-section__description">Quando o planejamento prévio não ocorreu — ou precisa ser complementado — o inventário é o caminho legal para transmitir o patrimônio.</p>
+        </div>
 
-    .ps-orbit-scene {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      max-width: 600px;
-      height: 580px;
-      overflow: visible;
-      margin: 3rem auto 0;
-    }
+        <div class="np-compare">
+          <article class="np-compare__col" aria-labelledby="judicial-titulo">
+            <p class="np-compare__label">Via judicial</p>
+            <h3 class="np-compare__title" id="judicial-titulo">Inventário Judicial</h3>
+            <p class="np-compare__sub">Processo supervisionado pelo juiz</p>
+            <dl class="np-compare__list">
+              <div><dt>Menores de idade</dt><dd>Necessário quando há menores de idade como herdeiros.</dd></div>
+              <div><dt>Conflito entre herdeiros</dt><dd>Obrigatório quando há conflito entre herdeiros.</dd></div>
+              <div><dt>Prazo</dt><dd>Depende da pauta da vara, do número de bens e do grau de acordo entre os herdeiros.</dd></div>
+              <div><dt>Supervisão</dt><dd>Conduzido por parceiros habilitados, sob supervisão do juiz e do MP (quando cabível).</dd></div>
+            </dl>
+          </article>
 
-    .ps-orbit-glow {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(0, 231, 252, 0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .ps-orbit-center-video {
-      position: relative;
-      z-index: 10;
-      width: 220px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .ps-orbit-ring {
-      position: absolute;
-      width: 520px;
-      height: 520px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: 1px solid rgba(0, 231, 252, 0.12);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .ps-orbit-anchor {
-      position: absolute;
-      width: 0;
-      height: 0;
-      top: 50%;
-      left: 50%;
-    }
-
-    .ps-orbit-item {
-      position: absolute;
-      top: 0;
-      left: 0;
-      transform-origin: 0 0;
-      animation: psOrbitSpin 24s linear infinite;
-    }
-
-    @keyframes psOrbitSpin {
-      0%   { transform: rotate(0deg)   translateX(var(--ps-orbit-r)) rotate(0deg); }
-      100% { transform: rotate(360deg) translateX(var(--ps-orbit-r)) rotate(-360deg); }
-    }
-
-    .ps-orbit-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      width: var(--ps-orbit-cw);
-      height: var(--ps-orbit-ch);
-      margin-left: calc(var(--ps-orbit-cw) / -2);
-      margin-top: calc(var(--ps-orbit-ch) / -2);
-      background: rgba(10, 10, 10, 0.85);
-      border: 1px solid rgba(0, 255, 77, 0.3);
-      border-radius: 14px;
-      cursor: pointer;
-      transition: background 0.3s, border 0.3s, transform 0.3s;
-      user-select: none;
-      overflow: hidden;
-    }
-
-    .ps-orbit-card:hover {
-      background: rgba(0, 231, 252, 0.15);
-      border-color: #00e7fc;
-      transform: scale(1.08);
-      z-index: 20;
-    }
-
-    .ps-orbit-front {
-      font-weight: 700;
-      font-size: var(--ps-orbit-fs);
-      letter-spacing: 0.06em;
-      color: #ffffff;
-      pointer-events: none;
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      :root {
-        --ps-orbit-r: 220px;
-        --ps-orbit-cw: 120px;
-        --ps-orbit-ch: 52px;
-        --ps-orbit-fs: 13px;
-      }
-      .ps-orbit-scene { height: 500px; }
-      .ps-orbit-ring { width: 440px; height: 440px; }
-      .ps-orbit-center-video { width: 190px; }
-      .ps-orbit-glow { width: 500px; height: 500px; }
-    }
-
-    @media (max-width: 768px) {
-      :root {
-        --ps-orbit-r: 160px;
-        --ps-orbit-cw: 100px;
-        --ps-orbit-ch: 44px;
-        --ps-orbit-fs: 11px;
-      }
-      .ps-orbit-scene { height: 400px; }
-      .ps-orbit-ring { width: 320px; height: 320px; }
-      .ps-orbit-center-video { width: 150px; }
-      .ps-orbit-glow { width: 380px; height: 380px; }
-    }
-
-    @media (max-width: 480px) {
-      :root {
-        --ps-orbit-r: 120px;
-        --ps-orbit-cw: 80px;
-        --ps-orbit-ch: 36px;
-        --ps-orbit-fs: 9px;
-      }
-      .ps-orbit-scene { height: 320px; }
-      .ps-orbit-ring { width: 240px; height: 240px; }
-      .ps-orbit-center-video { width: 110px; }
-      .ps-orbit-glow { width: 280px; height: 280px; }
-    }
-  </style>
-
-  <div class="section-divider"></div>
-
-  <!-- DESCRIÇÃO INVENTÁRIO -->
-  <div class="split-intro">
-    <h2 class="split-intro__title">Inventário: <span>judicial e extrajudicial</span></h2>
-    <p class="split-intro__text">Quando o planejamento prévio não ocorreu — ou precisa ser complementado — o inventário é o caminho legal para transmitir o patrimônio.</p>
-  </div>
-
-  <!-- ========== SPLIT SECTION: INVENTÁRIO JUDICIAL / EXTRAJUDICIAL ========== -->
-  <section class="split-section" aria-label="Escolha entre Inventário Judicial e Extrajudicial">
-
-    <!-- PAINEL JUDICIAL -->
-    <div class="split-panel split-panel--vivos" id="panel-vivos">
-      <div class="split-panel__bg"></div>
-      <div class="split-panel__content">
-        <div class="split-panel__icon"><i class="fas fa-gavel"></i></div>
-        <span class="split-panel__badge">VIA JUDICIAL</span>
-        <h3 class="split-panel__title">Inventário Judicial</h3>
-        <p class="split-panel__subtitle">Processo supervisionado pelo juiz</p>
-
-        <div class="split-panel__details">
-          <ul class="split-panel__list">
-            <li><i class="fas fa-chevron-right"></i><div><strong>Menores de idade</strong><span>Necessário quando há menores de idade como herdeiros.</span></div></li>
-            <li><i class="fas fa-chevron-right"></i><div><strong>Conflito entre herdeiros</strong><span>Obrigatório quando há conflito entre herdeiros.</span></div></li>
-            <li><i class="fas fa-chevron-right"></i><div><strong>Prazo</strong><span>Depende da pauta da vara, do número de bens e do grau de acordo entre os herdeiros.</span></div></li>
-            <li><i class="fas fa-chevron-right"></i><div><strong>Supervisão</strong><span>Conduzido por parceiros habilitados, sob supervisão do juiz e do MP (quando cabível).</span></div></li>
-          </ul>
+          <article class="np-compare__col" aria-labelledby="extrajudicial-titulo">
+            <p class="np-compare__label">Via cartório</p>
+            <h3 class="np-compare__title" id="extrajudicial-titulo">Inventário Extrajudicial</h3>
+            <p class="np-compare__sub">Escritura pública em cartório</p>
+            <dl class="np-compare__list">
+              <div><dt>Herdeiros maiores</dt><dd>Todos os herdeiros são maiores e capazes.</dd></div>
+              <div><dt>Consenso</dt><dd>Exige consenso total entre as partes.</dd></div>
+              <div><dt>Prazo</dt><dd>Segue o tempo de reunir os documentos e lavrar a escritura, sem pauta judicial.</dd></div>
+              <div><dt>Escritura pública</dt><dd>Lavrada por cartórios conveniados, com assistência de parceiros habilitados.</dd></div>
+            </dl>
+          </article>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- DIVISOR CENTRAL -->
-    <div class="split-divider" aria-hidden="true">
-      <span class="split-divider__text">ou</span>
-    </div>
+    <div class="section-divider"></div>
 
-    <!-- PAINEL EXTRAJUDICIAL -->
-    <div class="split-panel split-panel--mortos" id="panel-mortos">
-      <div class="split-panel__bg"></div>
-      <div class="split-panel__content">
-        <div class="split-panel__icon"><i class="fas fa-file-signature"></i></div>
-        <span class="split-panel__badge">VIA CARTÓRIO</span>
-        <h3 class="split-panel__title">Inventário Extrajudicial</h3>
-        <p class="split-panel__subtitle">Escritura pública em cartório</p>
-
-        <div class="split-panel__details">
-          <ul class="split-panel__list">
-            <li><i class="fas fa-chevron-right"></i><div><strong>Herdeiros maiores</strong><span>Todos os herdeiros são maiores e capazes.</span></div></li>
-            <li><i class="fas fa-chevron-right"></i><div><strong>Consenso</strong><span>Exige consenso total entre as partes.</span></div></li>
-            <li><i class="fas fa-chevron-right"></i><div><strong>Prazo</strong><span>Segue o tempo de reunir os documentos e lavrar a escritura, sem pauta judicial.</span></div></li>
-            <li><i class="fas fa-chevron-right"></i><div><strong>Escritura pública</strong><span>Lavrada por cartórios conveniados, com assistência de parceiros habilitados.</span></div></li>
-          </ul>
+    <!-- ============================== COMO CONDUZIMOS ============================== -->
+    <section class="page-section" id="processo" aria-labelledby="processo-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Como funciona</p>
+          <h2 class="page-section__title" id="processo-titulo">Processo de <em>implementação</em></h2>
+          <p class="page-section__description">Sete etapas para sair do cenário sem plano e chegar a uma sucessão organizada, com entrega definida em cada uma.</p>
         </div>
+
+        <ol class="process-grid process-grid--7">
+          <li class="process-step">
+            <h3 class="process-step__title">Diagnóstico</h3>
+            <p class="process-step__text">Levantamento completo do patrimônio familiar e empresarial.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Análise de Cenários</h3>
+            <p class="process-step__text">Estudo das implicações legais e tributárias de cada cenário.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Estratégia</h3>
+            <p class="process-step__text">Escolha dos instrumentos aplicáveis ao patrimônio e à família.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Estruturação</h3>
+            <p class="process-step__text">Desenho da holding, dos contratos e dos documentos, com a redação dos atos executada por parceiros habilitados.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Implementação</h3>
+            <p class="process-step__text">Escrituras lavradas por cartórios conveniados e registros acompanhados ato a ato.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Validação</h3>
+            <p class="process-step__text">Revisão e validação de todos os atos e registros realizados.</p>
+          </li>
+          <li class="process-step">
+            <h3 class="process-step__title">Monitoramento</h3>
+            <p class="process-step__text">Acompanhamento contínuo e ajustes conforme mudanças.</p>
+          </li>
+        </ol>
       </div>
-    </div>
-
-  </section>
-
-  <style>
-    /* ===== SPLIT INTRO ===== */
-    .split-intro {
-      width: 100%;
-      text-align: center;
-      padding: 3rem 1.5rem 1.5rem;
-      background: var(--bg-primary);
-    }
-
-    .split-intro__title {
-      font-size: clamp(1.5rem, 2.4vw, 2rem);
-      color: #fff;
-      margin: 0 0 0.6rem;
-      font-weight: 700;
-    }
-
-    .split-intro__title span {
-      color: #00ff4d;
-    }
-
-    .split-intro__text {
-      color: rgba(255, 255, 255, 0.7);
-      max-width: 720px;
-      margin: 0 auto;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    /* ===== SPLIT SECTION ===== */
-    .split-section {
-      display: flex;
-      width: 100%;
-      min-height: 520px;
-      overflow: hidden;
-      position: relative;
-      background: var(--bg-primary);
-    }
-
-    /* --- Panels --- */
-    .split-panel {
-      position: relative;
-      flex: 1 1 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      overflow: hidden;
-      transition: flex 0.65s cubic-bezier(0.23, 1, 0.32, 1);
-      min-width: 0;
-    }
-
-    .split-panel__bg {
-      position: absolute;
-      inset: 0;
-      opacity: 0.5;
-      transition: opacity 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-      pointer-events: none;
-    }
-
-    .split-panel--vivos .split-panel__bg {
-      background: radial-gradient(ellipse at 30% 50%, rgba(0, 231, 252, 0.08) 0%, transparent 70%);
-    }
-
-    .split-panel--mortos .split-panel__bg {
-      background: radial-gradient(ellipse at 70% 50%, rgba(0, 255, 77, 0.08) 0%, transparent 70%);
-    }
-
-    /* --- Content --- */
-    .split-panel__content {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 2.5rem 2rem;
-      max-width: 520px;
-      transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-                  transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    .split-panel__icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 72px;
-      height: 72px;
-      border: 2px solid rgba(0, 255, 77, 0.3);
-      border-radius: 50%;
-      margin-bottom: 1.2rem;
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    .split-panel__icon i {
-      font-size: 2rem;
-      color: #00ff4d;
-      transition: all 0.5s ease;
-    }
-
-    .split-panel__badge {
-      display: inline-block;
-      padding: 0.3rem 0.9rem;
-      border-radius: 50px;
-      font-family: var(--font-primary);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      color: #fff;
-      background: var(--gradient-badge);
-      margin-bottom: 0.8rem;
-    }
-
-    .split-panel__title {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3vw, 2.8rem);
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 0.4rem;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .split-panel__subtitle {
-      font-size: 0.85rem;
-      color: var(--text-tertiary);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: color 0.5s ease;
-    }
-
-    /* --- Details (hidden by default, shown on expand) --- */
-    .split-panel__details {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.65s cubic-bezier(0.23, 1, 0.32, 1),
-                  opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
-    }
-
-    .split-panel__desc {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-top: 1.2rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(0, 231, 252, 0.15);
-    }
-
-    .split-panel__list {
-      list-style: none;
-      padding: 0;
-      margin-top: 1rem;
-      text-align: left;
-    }
-
-    .split-panel__list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 0.6rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      opacity: 0;
-      transform: translateX(-10px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .split-panel__list li:last-child { border-bottom: none; }
-
-    .split-panel__list li > i {
-      color: #00e7fc;
-      font-size: 0.6rem;
-      margin-top: 0.4rem;
-      flex-shrink: 0;
-    }
-
-    .split-panel__list li strong {
-      color: #00ff4d;
-      font-size: 0.9rem;
-      display: block;
-      margin-bottom: 0.1rem;
-    }
-
-    .split-panel__list li span {
-      color: rgba(255, 255, 255, 0.55);
-      font-size: 0.82rem;
-      line-height: 1.5;
-    }
-
-    .split-panel__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 1.2rem;
-      padding: 0.65rem 1.5rem;
-      border-radius: 50px;
-      font-family: var(--font-primary);
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #0a0a0a;
-      background: var(--gradient-primary);
-      text-decoration: none;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.4s 0.2s ease, transform 0.4s 0.2s ease, box-shadow 0.3s ease;
-    }
-
-    .split-panel__cta:hover {
-      box-shadow: 0 0 20px rgba(0, 231, 252, 0.3), 0 0 40px rgba(0, 255, 77, 0.15);
-    }
-
-    /* --- Divider --- */
-    .split-divider {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background: var(--border-color);
-      z-index: 5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: translateX(-50%);
-      transition: opacity 0.5s ease;
-    }
-
-    .split-divider__text {
-      background: var(--bg-tertiary);
-      color: var(--text-tertiary);
-      font-family: var(--font-primary);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 0.4rem 0.7rem;
-      border-radius: 50px;
-      border: 1px solid var(--border-color);
-    }
-
-    /* --- Glow border on panels --- */
-    .split-panel::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border: 1px solid transparent;
-      pointer-events: none;
-      transition: border-color 0.5s ease;
-      z-index: 3;
-    }
-
-    /* ===== HOVER / EXPAND STATES ===== */
-
-    /* Hovered panel expands to 100% */
-    .split-section:hover .split-panel:hover {
-      flex: 1 1 100%;
-    }
-
-    /* Sibling panel collapses to 0% */
-    .split-section:hover .split-panel:not(:hover) {
-      flex: 1 1 0%;
-    }
-
-    /* Show details and list items on expanded panel */
-    .split-section:hover .split-panel:hover .split-panel__details {
-      max-height: 600px;
-      opacity: 1;
-    }
-
-    .split-section:hover .split-panel:hover .split-panel__list li {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .split-section:hover .split-panel:hover .split-panel__list li:nth-child(1) { transition-delay: 0.12s; }
-    .split-section:hover .split-panel:hover .split-panel__list li:nth-child(2) { transition-delay: 0.18s; }
-    .split-section:hover .split-panel:hover .split-panel__list li:nth-child(3) { transition-delay: 0.24s; }
-    .split-section:hover .split-panel:hover .split-panel__list li:nth-child(4) { transition-delay: 0.30s; }
-    .split-section:hover .split-panel:hover .split-panel__list li:nth-child(5) { transition-delay: 0.36s; }
-
-    .split-section:hover .split-panel:hover .split-panel__cta {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Fade out collapsed panel content */
-    .split-section:hover .split-panel:not(:hover) .split-panel__content {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-
-    /* Enhance bg on hover */
-    .split-section:hover .split-panel:hover .split-panel__bg {
-      opacity: 1;
-    }
-
-    /* Icon glow on hover */
-    .split-section:hover .split-panel:hover .split-panel__icon {
-      border-color: #00e7fc;
-      box-shadow: 0 0 25px rgba(0, 231, 252, 0.25), inset 0 0 15px rgba(0, 231, 252, 0.08);
-    }
-
-    .split-section:hover .split-panel:hover .split-panel__icon i {
-      color: #00e7fc;
-      text-shadow: 0 0 15px rgba(0, 231, 252, 0.5);
-    }
-
-    .split-section:hover .split-panel:hover .split-panel__subtitle {
-      color: rgba(0, 231, 252, 0.7);
-    }
-
-    /* Glow border on active panel */
-    .split-section:hover .split-panel--vivos:hover::after {
-      border-color: rgba(0, 231, 252, 0.15);
-    }
-    .split-section:hover .split-panel--mortos:hover::after {
-      border-color: rgba(0, 255, 77, 0.15);
-    }
-
-    /* Hide divider on hover */
-    .split-section:hover .split-divider {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .split-section {
-        flex-direction: column;
-        min-height: unset;
-      }
-
-      .split-panel {
-        flex: 1 1 auto;
-        min-height: 280px;
-        padding: 2rem 1rem;
-      }
-
-      .split-panel__details {
-        max-height: none;
-        opacity: 1;
-      }
-
-      .split-panel__list li {
-        opacity: 1;
-        transform: translateX(0);
-      }
-
-      .split-panel__cta {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .split-divider {
-        position: relative;
-        left: auto;
-        top: auto;
-        bottom: auto;
-        width: 100%;
-        height: 1px;
-        transform: none;
-      }
-
-      /* Disable expand/collapse on mobile */
-      .split-section:hover .split-panel:hover,
-      .split-section:hover .split-panel:not(:hover) {
-        flex: 1 1 auto;
-      }
-
-      .split-section:hover .split-panel:not(:hover) .split-panel__content {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  </style>
-
-  <div class="section-divider"></div>
-
-  <!-- ========== PROCESS SECTION (7 steps) ========== -->
-  <section class="page-section" aria-label="Processo de implementação">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Como Funciona</p>
-        <h2 class="page-section__title">Processo de <span class="gradient-text">Implementação</span></h2>
-        <p class="page-section__description">Sete etapas para sair do cenário sem plano e chegar a uma sucessão organizada, com entrega definida em cada uma.</p>
-      </div>
-
-      <div class="process-grid process-grid--7">
-        <div class="process-step">
-          <div class="process-step__number">1</div>
-          <h3 class="process-step__title">Diagnóstico</h3>
-          <p class="process-step__text">Levantamento completo do patrimônio familiar e empresarial.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step__number">2</div>
-          <h3 class="process-step__title">Análise de Cenários</h3>
-          <p class="process-step__text">Estudo das implicações legais e tributárias de cada cenário.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step__number">3</div>
-          <h3 class="process-step__title">Estratégia</h3>
-          <p class="process-step__text">Escolha dos instrumentos aplicáveis ao patrimônio e à família.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step__number">4</div>
-          <h3 class="process-step__title">Estruturação</h3>
-          <p class="process-step__text">Desenho da holding, dos contratos e dos documentos, com a redação dos atos executada por parceiros habilitados.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step__number">5</div>
-          <h3 class="process-step__title">Implementação</h3>
-          <p class="process-step__text">Escrituras lavradas por cartórios conveniados e registros acompanhados ato a ato.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step__number">6</div>
-          <h3 class="process-step__title">Validação</h3>
-          <p class="process-step__text">Revisão e validação de todos os atos e registros realizados.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="process-step__number">7</div>
-          <h3 class="process-step__title">Monitoramento</h3>
-          <p class="process-step__text">Acompanhamento contínuo e ajustes conforme mudanças.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    .process-grid--7 {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 1rem;
-    }
-
-    .process-grid--7 .process-step {
-      text-align: center;
-      padding: 1.5rem 0.8rem;
-    }
-
-    .process-grid--7 .process-step::before {
-      content: none;
-    }
-
-    .process-step__number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      border: 1.5px solid rgba(0, 255, 77, 0.3);
-      background: rgba(0, 231, 252, 0.06);
-      color: #00e7fc;
-      font-family: 'Raleway', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      transition: all 0.4s ease;
-    }
-
-    .process-grid--7 .process-step:hover .process-step__number {
-      border-color: #00e7fc;
-      background: rgba(0, 231, 252, 0.12);
-      box-shadow: 0 0 20px rgba(0, 231, 252, 0.2);
-      transform: scale(1.1);
-    }
-
-    @media (max-width: 1024px) {
-      .process-grid--7 {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .process-grid--7 {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .process-grid--7 {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-
-  <div class="section-divider"></div>
-
-  <!-- ========== ABOUT / VIDEO SECTION ========== -->
-  <section class="page-section" aria-label="Sobre o planejamento sucessório">
-    <div class="page-section__container reveal">
-      <div class="about-sucess">
-        <div class="about-sucess__text">
+    </section>
+
+    <!-- ============================== SOBRE (papel) ==============================
+         O iframe do YouTube que ficava aqui foi para a seção #video (data-video):
+         video.js monta a capa e só traz o player no clique. -->
+    <section class="page-section dmc-on-paper" id="fundamento" aria-labelledby="fundamento-titulo">
+      <div class="page-section__container np-fundamento reveal">
+        <div class="page-section__header">
           <p class="page-section__overline">Sobre</p>
-          <h2 class="page-section__title" style="text-align:left;">Sobre o Planejamento <span class="gradient-text">Sucessório</span></h2>
-          <p class="about-sucess__desc">O planejamento sucessório é o instrumento central para preservar e dar continuidade ao patrimônio construído ao longo de gerações. Com a estratégia definida em vida, a carga tributária é calculada antes de cada ato, as regras entre herdeiros ficam escritas e a transição segue critérios conhecidos.</p>
-          <a href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conversar%20sobre%20a%20sucess%C3%A3o%20da%20fam%C3%ADlia." target="_blank" rel="noopener noreferrer" class="btn btn--primary" style="margin-top:1.5rem;">
-            <span>Fale com Especialista</span>
+          <h2 class="page-section__title" id="fundamento-titulo">Sobre o planejamento <em>sucessório</em></h2>
+        </div>
+        <div class="np-fundamento__body">
+          <p>O planejamento sucessório é o instrumento central para preservar e dar continuidade ao patrimônio construído ao longo de gerações. Com a estratégia definida em vida, a carga tributária é calculada antes de cada ato, as regras entre herdeiros ficam escritas e a transição segue critérios conhecidos.</p>
+          <p><a class="dmc-btn dmc-btn--secondary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conversar%20sobre%20a%20sucess%C3%A3o%20da%20fam%C3%ADlia." target="_blank" rel="noopener noreferrer">Fale com um especialista <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PERGUNTAS FREQUENTES ==============================
+         <details name="faq">: abre sem JS, uma resposta por vez, teclado e leitor de
+         tela nativos (estado expandido/recolhido anunciado pelo próprio <summary>). -->
+    <section class="page-section" id="perguntas" aria-labelledby="perguntas-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Dúvidas</p>
+          <h2 class="page-section__title" id="perguntas-titulo">Perguntas <em>frequentes</em></h2>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">O que é planejamento sucessório? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">É a organização, em vida, da passagem de bens e direitos para os herdeiros — quem recebe, em que proporção e sob quais regras —, com o custo tributário levantado antes de cada ato.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Quando devo começar o planejamento sucessório? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Enquanto o titular pode decidir por si. Doação com reserva de usufruto, holding e testamento dependem de atos em vida; sem eles, a transmissão segue o rito do inventário.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">Qual a diferença entre planejamento sucessório e inventário? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">O planejamento sucessório é feito em vida, de forma preventiva e estratégica. Já o inventário é o procedimento judicial ou extrajudicial realizado após o falecimento, com prazo e custo que dependem do rito cabível e do acordo entre os herdeiros.</div></div>
+          </details>
+          <details class="faq-item" name="faq">
+            <summary class="faq-item__question">A holding familiar é sempre necessária? <svg class="faq-item__icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
+            <div class="faq-item__answer"><div class="faq-item__answer-inner">Não necessariamente. A holding familiar é uma das ferramentas disponíveis, e a escolha entre ela, a doação com usufruto e o testamento depende do patrimônio e da família.</div></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================== VÍDEO DO TEMA ============================== -->
+    <section class="page-section" id="video" aria-labelledby="video-titulo">
+      <div class="page-section__container reveal">
+        <div class="page-section__header">
+          <p class="page-section__overline">Em vídeo</p>
+          <h2 class="page-section__title" id="video-titulo">Planejar em vida, <em>em vídeo</em></h2>
+          <p class="page-section__description">O que muda entre decidir em vida e deixar a decisão para o inventário.</p>
+        </div>
+
+        <!-- O vídeo que antes ficava embutido no "Sobre" (iframe carregado com a página)
+             vem para cá: assets/js/video.js monta a capa e só traz o iframe no clique. -->
+        <div class="page-video__frame" data-video="13w3h_VjvGs" data-video-title="Planejamento Sucessório">
+          <div class="page-video__empty">
+            <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
+            <p class="page-video__empty-title">Planejamento Sucessório</p>
+            <p class="page-video__empty-text"><a href="https://www.youtube.com/watch?v=13w3h_VjvGs" target="_blank" rel="noopener noreferrer">Assistir no YouTube</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CONVERSA (papel) ============================== -->
+    <section class="cta-section dmc-on-paper" id="conversa" aria-labelledby="cta-titulo">
+      <div class="cta-section__container">
+        <p class="page-section__overline">Conversa</p>
+        <h2 class="cta-section__title" id="cta-titulo">Veja como está hoje a sucessão do seu <em>patrimônio</em></h2>
+        <p class="cta-section__text">Em uma conversa inicial, levantamos o que hoje seguiria para inventário e quais instrumentos se aplicam para organizar a sucessão em vida.</p>
+        <div class="cta-section__actions">
+          <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conversar%20sobre%20a%20sucess%C3%A3o%20da%20fam%C3%ADlia." target="_blank" rel="noopener noreferrer">Falar com um especialista <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="dmc-btn dmc-btn--secondary" href="../?assunto=E1#contact">Solicitar proposta <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================== RODAPÉ (o mesmo da home) ============================== -->
+  <footer class="dmc-footer" id="rodape">
+    <div class="dmc-wrap">
+      <div class="dmc-footer__grid">
+        <div class="dmc-footer__brand">
+          <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+            <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">
+            <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
           </a>
-        </div>
-        <div class="about-sucess__video">
-          <iframe
-            width="100%"
-            style="aspect-ratio:16/9; border-radius:16px; border:1px solid rgba(0,255,77,0.2);"
-            src="https://www.youtube.com/embed/13w3h_VjvGs?si=R_sfa_LmJYUAU3Jw"
-            title="Planejamento Sucessório"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    .about-sucess {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-      padding: 2rem 0;
-    }
-
-    .about-sucess__desc {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 1.05rem;
-      line-height: 1.8;
-      margin-top: 1.2rem;
-    }
-
-    .about-sucess__video-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: rgba(8, 8, 20, 0.92);
-      border: 1px solid rgba(0, 255, 77, 0.2);
-      border-radius: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      transition: all 0.4s ease;
-    }
-
-    .about-sucess__video-placeholder:hover {
-      border-color: rgba(0, 231, 252, 0.5);
-      box-shadow: 0 0 40px rgba(0, 231, 252, 0.08);
-    }
-
-    .about-sucess__video-placeholder i {
-      font-size: 3rem;
-      color: rgba(0, 231, 252, 0.5);
-    }
-
-    .about-sucess__video-placeholder span {
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    @media (max-width: 768px) {
-      .about-sucess {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-    }
-  </style>
-
-  <div class="section-divider"></div>
-
-  <!-- ========== FAQ SECTION ========== -->
-  <section class="page-section" aria-label="Perguntas frequentes">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Dúvidas</p>
-        <h2 class="page-section__title">Perguntas <span class="gradient-text">Frequentes</span></h2>
-      </div>
-
-      <div class="faq-list">
-        <div class="faq-item">
-          <button class="faq-item__question" aria-expanded="false">
-            O que é planejamento sucessório?
-            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">É a organização, em vida, da passagem de bens e direitos para os herdeiros — quem recebe, em que proporção e sob quais regras —, com o custo tributário levantado antes de cada ato.</div>
-          </div>
+          <p>Consultoria em negócios para decisões que envolvem empresa, patrimônio e família.</p>
+          <p>Sede em São Paulo. Atendimento a empresas, famílias empresárias, incorporadoras e investidores.</p>
         </div>
 
-        <div class="faq-item">
-          <button class="faq-item__question" aria-expanded="false">
-            Quando devo começar o planejamento sucessório?
-            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Enquanto o titular pode decidir por si. Doação com reserva de usufruto, holding e testamento dependem de atos em vida; sem eles, a transmissão segue o rito do inventário.</div>
-          </div>
-        </div>
+        <nav aria-labelledby="rodape-eixos">
+          <p class="dmc-footer__title" id="rodape-eixos">Eixos</p>
+          <ul class="dmc-footer__list">
+            <li class="np-pillar-patrimonial"><a href="planejamento-sucessorio.html" aria-current="page"><span class="dmc-footer__num">E1</span>Patrimonial e Sucessório</a></li>
+            <li class="np-pillar-fiscal"><a href="planejamento-tributario.html"><span class="dmc-footer__num">E2</span>Tributário, Fiscal e Corporativo</a></li>
+            <li class="np-pillar-imobiliario"><a href="consultoria-imobiliaria.html"><span class="dmc-footer__num">E3</span>Notarial e Imobiliário</a></li>
+            <li class="np-pillar-auditoria"><a href="contabilidade.html"><span class="dmc-footer__num">E4</span>Auditoria Empresarial e Contábil</a></li>
+            <li class="np-pillar-ativos"><a href="recuperacao-ativos.html"><span class="dmc-footer__num">E5</span>Recuperação de Ativos</a></li>
+            <li class="np-pillar-trabalhista"><a href="../solucoes/consultoria-trabalhista/ciclo-fechado.html"><span class="dmc-footer__num">E6</span>Consultoria Trabalhista</a></li>
+          </ul>
+        </nav>
 
-        <div class="faq-item">
-          <button class="faq-item__question" aria-expanded="false">
-            Qual a diferença entre planejamento sucessório e inventário?
-            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">O planejamento sucessório é feito em vida, de forma preventiva e estratégica. Já o inventário é o procedimento judicial ou extrajudicial realizado após o falecimento, com prazo e custo que dependem do rito cabível e do acordo entre os herdeiros.</div>
-          </div>
-        </div>
+        <nav aria-labelledby="rodape-casa">
+          <p class="dmc-footer__title" id="rodape-casa">A casa</p>
+          <ul class="dmc-footer__list">
+            <li><a href="../#conheca">Conheça o Complexo DMC</a></li>
+            <li><a href="../#features">Soluções</a></li>
+            <li><a href="../#treinamentos">Treinamentos</a></li>
+            <li><a href="tecnologia.html">Tecnologia</a></li>
+            <li><a href="por-que-urgente.html" aria-current="page">O que muda sem planejamento sucessório</a></li>
+            <li><a href="../plataforma-ead/login.html">Área do aluno</a></li>
+            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">Ad-tech</a></li>
+          </ul>
+        </nav>
 
-        <div class="faq-item">
-          <button class="faq-item__question" aria-expanded="false">
-            A holding familiar é sempre necessária?
-            <svg class="faq-item__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          </button>
-          <div class="faq-item__answer">
-            <div class="faq-item__answer-inner">Não necessariamente. A holding familiar é uma das ferramentas disponíveis, e a escolha entre ela, a doação com usufruto e o testamento depende do patrimônio e da família.</div>
-          </div>
+        <div>
+          <p class="dmc-footer__title">Contato</p>
+          <ul class="dmc-footer__list">
+            <li><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></li>
+            <li><a href="tel:+5511915267749">+55 (11) 91526-7749</a></li>
+            <li><a href="../?assunto=E1#contact">Formulário de contato</a></li>
+            <li><span>Rua Riachuelo, 231<br>São Paulo, SP — Brasil</span></li>
+          </ul>
         </div>
       </div>
-    </div>
-  </section>
 
-  <div class="section-divider"></div>
-
-  <!-- ============================== VÍDEO DO TEMA ============================== -->
-  <section class="page-section" id="video" aria-labelledby="video-titulo">
-    <div class="page-section__container reveal">
-      <div class="page-section__header">
-        <p class="page-section__overline">Em vídeo</p>
-        <h2 class="page-section__title" id="video-titulo">Planejar em vida, <span class="gradient-text">em vídeo</span></h2>
-        <p class="page-section__description">O que muda entre decidir em vida e deixar a decisão para o inventário.</p>
+      <div class="dmc-footer__legal">
+        <p>&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+        <p>Conteúdo informativo. A atuação em atos privativos da advocacia, da contabilidade e da auditoria é realizada por profissionais e sociedades parceiras habilitadas; os atos notariais e registrais, por cartórios conveniados.</p>
+        <p><a href="politica-de-privacidade.html">Política de Privacidade</a></p>
       </div>
-
-      <!-- Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
-           (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
-           reservado. Quem monta o player é assets/js/video.js. -->
-      <div class="page-video__frame" data-video="" data-video-title="Por que planejar a sucessão em vida">
-        <div class="page-video__empty">
-          <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
-          <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
-          <p class="page-video__empty-text">Vídeo sobre por que planejar a sucessão em vida — em breve neste espaço.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== CTA SECTION ========== -->
-  <section class="cta-section" aria-label="Chamada para ação">
-    <div class="cta-section__container reveal">
-      <h2 class="cta-section__title">Veja como está hoje a sucessão do seu <span class="gradient-text">patrimônio</span></h2>
-      <p class="cta-section__text">Em uma conversa inicial, levantamos o que hoje seguiria para inventário e quais instrumentos se aplicam para organizar a sucessão em vida.</p>
-      <div class="cta-section__actions">
-        <a href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conversar%20sobre%20a%20sucess%C3%A3o%20da%20fam%C3%ADlia." target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Falar com Especialista
-        </a>
-        <a href="../index.html#contact" class="btn btn--secondary">
-          <span>Solicitar Proposta</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========== FOOTER ========== -->
-  <footer class="page-footer">
-    <div class="page-footer__container">
-      <a href="../index.html" class="page-footer__logo">
-        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
-      </a>
-      <ul class="page-footer__links">
-        <li><a href="../index.html" class="page-footer__link">Início</a></li>
-        <li><a href="../index.html#features" class="page-footer__link">Serviços</a></li>
-        <li><a href="../index.html#contact" class="page-footer__link">Contato</a></li>
-        <li><a href="politica-de-privacidade.html" class="page-footer__link">Política de Privacidade</a></li>
-      </ul>
-      <p class="page-footer__copy">&copy; 2025 Complexo DMC. Todos os direitos reservados.</p>
     </div>
   </footer>
 
-  <!-- ========== WHATSAPP FLOAT ========== -->
-  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conversar%20sobre%20a%20sucess%C3%A3o%20da%20fam%C3%ADlia." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Contato via WhatsApp">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conversar%20sobre%20a%20sucess%C3%A3o%20da%20fam%C3%ADlia." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Conversar pelo WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
-  <!-- ========== SCRIPTS ========== -->
-  <script>
-    // Mobile menu toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navMenu = document.getElementById('navMenu');
-    if (menuToggle && navMenu) {
-      menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('open');
-        menuToggle.classList.toggle('open');
-      });
-    }
-
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-      const nav = document.getElementById('navbar');
-      if (!nav) return;
-      if (window.scrollY > 50) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    // Scroll reveal
-    const revealElements = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-
-    // FAQ accordion
-    document.querySelectorAll('.faq-item__question').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-item');
-        const isActive = item.classList.contains('active');
-
-        // Close all
-        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-        document.querySelectorAll('.faq-item__question').forEach(b => b.setAttribute('aria-expanded', 'false'));
-
-        // Toggle current
-        if (!isActive) {
-          item.classList.add('active');
-          btn.setAttribute('aria-expanded', 'true');
-        }
-      });
-    });
-  </script>
-<script>
-(function() {
-  var wrap = document.getElementById('tech-net-wrap');
-  var canvas = document.getElementById('tech-net-canvas');
-  var ctx = canvas.getContext('2d');
-  
-  function resize() {
-    var rect = wrap.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  var mouse = { x: -999, y: -999 };
-  var COLORS = ['#00e7fc','#00ff4d','#00cfb6','#00f5b4','#00f683','#00d4aa','#00bcd4'];
-
-  function hexToRgb(hex) {
-    return [parseInt(hex.slice(1,3),16), parseInt(hex.slice(3,5),16), parseInt(hex.slice(5,7),16)].join(',');
-  }
-
-  var count = 65;
-  var nodes = [];
-  function initNodes() {
-    nodes = [];
-    for (var i = 0; i < count; i++) {
-      nodes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        r: Math.random() * 2.5 + 1,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        pulse: Math.random() * Math.PI * 2
-      });
-    }
-  }
-  initNodes();
-
-  var MAX_DIST = 120;
-  var MOUSE_DIST = 150;
-
-  function draw() {
-    var W = canvas.width, H = canvas.height;
-    ctx.clearRect(0, 0, W, H);
-
-    for (var n = 0; n < nodes.length; n++) {
-      nodes[n].x += nodes[n].vx;
-      nodes[n].y += nodes[n].vy;
-      nodes[n].pulse += 0.018;
-      if (nodes[n].x < 0 || nodes[n].x > W) nodes[n].vx *= -1;
-      if (nodes[n].y < 0 || nodes[n].y > H) nodes[n].vy *= -1;
-    }
-
-    for (var i = 0; i < nodes.length; i++) {
-      for (var j = i + 1; j < nodes.length; j++) {
-        var dx = nodes[i].x - nodes[j].x;
-        var dy = nodes[i].y - nodes[j].y;
-        var dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < MAX_DIST) {
-          var alpha = (1 - dist / MAX_DIST) * 0.55;
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = 'rgba(' + hexToRgb(nodes[i].color) + ',' + alpha + ')';
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
-      }
-
-      var mdx = nodes[i].x - mouse.x;
-      var mdy = nodes[i].y - mouse.y;
-      var mdist = Math.sqrt(mdx*mdx + mdy*mdy);
-      if (mdist < MOUSE_DIST) {
-        var malpha = (1 - mdist / MOUSE_DIST) * 0.8;
-        ctx.beginPath();
-        ctx.moveTo(nodes[i].x, nodes[i].y);
-        ctx.lineTo(mouse.x, mouse.y);
-        ctx.strokeStyle = 'rgba(' + hexToRgb(nodes[i].color) + ',' + malpha + ')';
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-      }
-    }
-
-    for (var k = 0; k < nodes.length; k++) {
-      var pulse = 0.7 + 0.3 * Math.sin(nodes[k].pulse);
-      ctx.beginPath();
-      ctx.arc(nodes[k].x, nodes[k].y, nodes[k].r * pulse, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + hexToRgb(nodes[k].color) + ',0.95)';
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(nodes[k].x, nodes[k].y, nodes[k].r * 4 * pulse, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(' + hexToRgb(nodes[k].color) + ',0.08)';
-      ctx.fill();
-    }
-
-    requestAnimationFrame(draw);
-  }
-
-  wrap.addEventListener('mousemove', function(e) {
-    var rect = wrap.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-  });
-  wrap.addEventListener('mouseleave', function() {
-    mouse.x = -999;
-    mouse.y = -999;
-  });
-
-  draw();
-})();
-</script>
 </body>
 </html>
