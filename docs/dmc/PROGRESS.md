@@ -92,3 +92,25 @@ overflow, acordeão abre, nenhuma resposta cortada, 0 erro de console.
     na pasta pública.
 12. Trabalhista — "Parecer jurídico em 24–48 h" (`decisao-assistida`) sem atribuição a advogado
     (ver item 3).
+
+## Revisão editorial final da home — 2026-10-17 (content-director, sobre aba355e)
+Feito em `complexodmc.com.br/index.html` (só texto, metas e JSON-LD; classes/ids/data-* intactos):
+title 50 car. · meta description 150 car. (igual em OG/Twitter) · `og:image` (`hero-poster.jpg`,
+1280×720) · JSON-LD `Organization @id #organization` + `WebSite` + `WebPage` só com dados do
+rodapé (sem CNPJ) — parseia · H1 único, H2 por seção · hero `aria-hidden` no `.hero__media`
+(vídeo decorativo, mudo, `tabindex=-1`) está correto. Copy: painel dos eixos confere com
+EIXOS-COPY sem os `[CONFIRMAR]` (ARTHEU e IA de minutas fora); 14 cards/destaques reescritos
+(promessa → método: "sem inventário judicial", "eficiência tributária/fiscal", "minutas em
+minutos", "resolve o conflito", "execução do que é seu", "especialistas em direito imobiliário");
+intro de "A casa" × "Soluções" × rodapé sem repetição; treinamentos sem "domine/aprenda
+estratégias avançadas"; "30 minutos" retirado; linha legal do rodapé reescrita (não cita o
+Provimento como se a DMC fosse sociedade de advogados; atribui atos privativos a parceiros e
+cartórios). Mega-menu (`navbar.js`) confere com EIXOS-COPY. Scan do texto visível: 0 promessas;
+restam só "Blindagem" (divergência 2) e "24 horas" (carga horária).
+**Para o CEO:** (a) nomes "Blindagem Patrimonial/Contratual" e "Proteção Patrimonial" (card de
+`pronto-patrimonio`) — manter ou trocar (divergência 2); (b) treinamentos: confirmar cursos
+ativos na EAD e cargas/formatos (20/16/24/18/12/8 h; presencial e híbrido); (c) Ad-tech:
+"Integração com tribunais e cartórios", "Integração via API" e "Acessível para PCDs" — confirmar
+que a plataforma entrega isso hoje; (d) logo do JSON-LD = `RINO_logo.png` (1280×560) — ok?
+**Para frontend/mídia:** gerar `og-image.jpg` 1200×630 a partir do novo poster do hero (hoje
+aponta para o poster antigo); pré-seleção do `select#cf-eixo` pelo `data-assunto` dos CTAs.
