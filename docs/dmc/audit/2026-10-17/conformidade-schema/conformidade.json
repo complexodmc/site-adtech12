@@ -1,0 +1,6067 @@
+{
+  "geradoEm": "2026-10-17T14:22:50.352Z",
+  "totals": {
+    "arquivos": 39,
+    "hitsRegrasOriginais": 366,
+    "hitsAtoPrivativo": 149,
+    "hitsSchema": 2,
+    "paginasSemJsonLd": [
+      "index.html",
+      "pages/atos-notariais.html",
+      "pages/blindagem-patrimonial.html",
+      "pages/compliance-governanca.html",
+      "pages/consultoria-imobiliaria.html",
+      "pages/contabilidade.html",
+      "pages/holding-patrimonial.html",
+      "pages/juridico-imobiliario.html",
+      "pages/juridico-vendas.html",
+      "pages/mouse.html",
+      "pages/planejamento-sucessorio-empresarial.html",
+      "pages/planejamento-sucessorio.html",
+      "pages/planejamento-tributario.html",
+      "pages/por-que-urgente.html",
+      "pages/pronto-patrimonio.html",
+      "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "pages/registro-imobiliario.html",
+      "pages/sucessao-testamentaria.html",
+      "pages/tecnologia.html",
+      "pages/treinamento-interesse.html",
+      "plataforma-ead/admin.html",
+      "plataforma-ead/ao-vivo.html",
+      "plataforma-ead/aula.html",
+      "plataforma-ead/certificado.html",
+      "plataforma-ead/certificados.html",
+      "plataforma-ead/dashboard.html",
+      "plataforma-ead/index.html",
+      "plataforma-ead/login.html",
+      "plataforma-ead/loja.html",
+      "plataforma-ead/meus-cursos.html",
+      "plataforma-ead/obrigado.html"
+    ]
+  },
+  "schemaHits": [
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 53,
+      "rule": "schema/tipo reservado",
+      "path": "ld@53.provider",
+      "type": "LegalService"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 53,
+      "rule": "schema/provider",
+      "path": "ld@53.provider",
+      "type": "LegalService",
+      "name": "Complexo DMC"
+    }
+  ],
+  "resumo": [
+    {
+      "file": "index.html",
+      "linhas": 1757,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 9,
+        "entregaSemAtribuicao": 6,
+        "termos": {
+          "execução": 2,
+          "bloqueio": 4,
+          "execução efetiva": 1,
+          "penhora": 1,
+          "execução assistida": 1,
+          "execução de créditos": 1,
+          "defesa empresarial": 1,
+          "defesa da empresa": 1
+        }
+      },
+      "regrasOriginais": 14
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "linhas": 424,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 20
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "linhas": 310,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 1,
+        "entregaSemAtribuicao": 0,
+        "termos": {
+          "penhoras": 1
+        }
+      },
+      "regrasOriginais": 20
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "linhas": 236,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 10
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "linhas": 1477,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 23
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "linhas": 424,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 1,
+        "entregaSemAtribuicao": 1,
+        "termos": {
+          "execução assistida": 1
+        }
+      },
+      "regrasOriginais": 25
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "linhas": 320,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 22
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "linhas": 1259,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 1,
+        "entregaSemAtribuicao": 0,
+        "termos": {
+          "impugnação": 1
+        }
+      },
+      "regrasOriginais": 29
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "linhas": 1260,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 28
+    },
+    {
+      "file": "pages/mouse.html",
+      "linhas": 121,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 3
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "linhas": 1420,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 18
+    },
+    {
+      "file": "pages/planejamento-sucessorio.html",
+      "linhas": 1314,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 6
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "linhas": 232,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 1,
+        "entregaSemAtribuicao": 1,
+        "termos": {
+          "defesa administrativa": 1
+        }
+      },
+      "regrasOriginais": 16
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "linhas": 1411,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 22
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "linhas": 424,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 23
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "linhas": 466,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 21,
+        "entregaSemAtribuicao": 6,
+        "termos": {
+          "bloqueio": 5,
+          "penhora": 5,
+          "execução de títulos": 2,
+          "execução": 7,
+          "cumprimento de sentença": 2,
+          "fase de execução": 1,
+          "desconsideração da personalidade": 1,
+          "penhorado": 1,
+          "levantamento de valores": 2,
+          "adjudicação": 2,
+          "alienação judicial": 2,
+          "recurso": 1,
+          "título executivo": 1,
+          "executar": 1,
+          "fraude à execução": 1,
+          "incidente de desconsideração": 1,
+          "penhorados": 1
+        }
+      },
+      "regrasOriginais": 5
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "linhas": 2419,
+      "jsonld": {
+        "blocos": 3,
+        "tipos": [
+          "BreadcrumbList",
+          "ListItem",
+          "ListItem",
+          "Service",
+          "LegalService",
+          "Country",
+          "Audience",
+          "FAQPage",
+          "Question",
+          "Answer",
+          "Question",
+          "Answer",
+          "Question",
+          "Answer",
+          "Question",
+          "Answer",
+          "Question",
+          "Answer",
+          "Question",
+          "Answer"
+        ],
+        "providers": [
+          {
+            "path": "ld@53.provider",
+            "type": "LegalService",
+            "name": "Complexo DMC"
+          }
+        ],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 58,
+        "entregaSemAtribuicao": 9,
+        "termos": {
+          "execução de títulos": 6,
+          "execução": 21,
+          "bloqueio": 12,
+          "penhora": 10,
+          "cumprimento de sentença": 5,
+          "título executivo": 7,
+          "executar": 4,
+          "fraude à execução": 5,
+          "incidente de desconsideração": 3,
+          "penhorados": 3,
+          "fase de execução": 1,
+          "desconsideração da personalidade": 3,
+          "penhorado": 1,
+          "levantamento de valores": 2,
+          "adjudicação": 2,
+          "alienação judicial": 2,
+          "recurso": 4,
+          "execução de título": 2
+        }
+      },
+      "regrasOriginais": 17
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "linhas": 424,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 21
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "linhas": 500,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 1,
+        "entregaSemAtribuicao": 1,
+        "termos": {
+          "execução": 1
+        }
+      },
+      "regrasOriginais": 23
+    },
+    {
+      "file": "pages/tecnologia.html",
+      "linhas": 345,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 4
+    },
+    {
+      "file": "pages/treinamento-interesse.html",
+      "linhas": 359,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/blindagem-contratual.html",
+      "linhas": 326,
+      "jsonld": {
+        "blocos": 2,
+        "tipos": [
+          "BreadcrumbList",
+          "ListItem",
+          "ListItem",
+          "ListItem",
+          "Service",
+          "Organization"
+        ],
+        "providers": [
+          {
+            "path": "ld@45.provider",
+            "type": "Organization",
+            "name": "Complexo DMC"
+          }
+        ],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+      "linhas": 329,
+      "jsonld": {
+        "blocos": 2,
+        "tipos": [
+          "BreadcrumbList",
+          "ListItem",
+          "ListItem",
+          "ListItem",
+          "Service",
+          "Organization"
+        ],
+        "providers": [
+          {
+            "path": "ld@45.provider",
+            "type": "Organization",
+            "name": "Complexo DMC"
+          }
+        ],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 6,
+        "entregaSemAtribuicao": 1,
+        "termos": {
+          "audiência": 2,
+          "reclamatória": 2,
+          "ajuizamento": 1,
+          "defesa empresarial": 1,
+          "defende": 1,
+          "execução": 1
+        }
+      },
+      "regrasOriginais": 1
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/ciclo-fechado.html",
+      "linhas": 289,
+      "jsonld": {
+        "blocos": 2,
+        "tipos": [
+          "BreadcrumbList",
+          "ListItem",
+          "ListItem",
+          "ItemList",
+          "ListItem",
+          "ListItem",
+          "ListItem",
+          "ListItem",
+          "ListItem",
+          "ListItem"
+        ],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 4,
+        "entregaSemAtribuicao": 2,
+        "termos": {
+          "defesa empresarial": 2,
+          "defende": 1,
+          "reclamatória": 1,
+          "execução": 2
+        }
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/conformidade-psicossocial.html",
+      "linhas": 330,
+      "jsonld": {
+        "blocos": 2,
+        "tipos": [
+          "BreadcrumbList",
+          "ListItem",
+          "ListItem",
+          "ListItem",
+          "Service",
+          "Organization"
+        ],
+        "providers": [
+          {
+            "path": "ld@45.provider",
+            "type": "Organization",
+            "name": "Complexo DMC"
+          }
+        ],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/decisao-assistida.html",
+      "linhas": 313,
+      "jsonld": {
+        "blocos": 2,
+        "tipos": [
+          "BreadcrumbList",
+          "ListItem",
+          "ListItem",
+          "ListItem",
+          "Service",
+          "Organization"
+        ],
+        "providers": [
+          {
+            "path": "ld@45.provider",
+            "type": "Organization",
+            "name": "Complexo DMC"
+          }
+        ],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 2,
+        "entregaSemAtribuicao": 1,
+        "termos": {
+          "defesa empresarial": 1,
+          "defende": 1,
+          "reclamatória": 1,
+          "execução": 1
+        }
+      },
+      "regrasOriginais": 1
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "linhas": 402,
+      "jsonld": {
+        "blocos": 2,
+        "tipos": [
+          "BreadcrumbList",
+          "ListItem",
+          "ListItem",
+          "ListItem",
+          "Service",
+          "Organization"
+        ],
+        "providers": [
+          {
+            "path": "ld@45.provider",
+            "type": "Organization",
+            "name": "Complexo DMC"
+          }
+        ],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 42,
+        "entregaSemAtribuicao": 22,
+        "termos": {
+          "defesa empresarial": 7,
+          "defesa da empresa": 3,
+          "reclamatórias": 4,
+          "inquérito civil": 5,
+          "ação civil pública": 3,
+          "defesa administrativa": 3,
+          "incidente de desconsideração": 4,
+          "recursos": 4,
+          "execução": 13,
+          "a empresa defendida": 1,
+          "reclamatória": 4,
+          "defende": 1,
+          "audiência": 5,
+          "recurso": 5,
+          "garantia de execução": 2,
+          "a empresa é defendida": 2,
+          "defesa desde a citação": 1,
+          "contestação": 2,
+          "defesa em ação": 1,
+          "recurso administrativo": 1,
+          "recurso ordinário": 1,
+          "recurso de revista": 1,
+          "agravos": 1,
+          "recorrer": 1,
+          "impugnação": 2,
+          "embargos": 1,
+          "execução trabalhista": 1,
+          "defesa técnica no incidente": 1,
+          "desconsideração da personalidade": 1,
+          "defesa em juízo": 1,
+          "garantia da execução": 1
+        }
+      },
+      "regrasOriginais": 9
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+      "linhas": 340,
+      "jsonld": {
+        "blocos": 2,
+        "tipos": [
+          "BreadcrumbList",
+          "ListItem",
+          "ListItem",
+          "ListItem",
+          "Service",
+          "Organization"
+        ],
+        "providers": [
+          {
+            "path": "ld@45.provider",
+            "type": "Organization",
+            "name": "Complexo DMC"
+          }
+        ],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 2,
+        "entregaSemAtribuicao": 1,
+        "termos": {
+          "defesa empresarial": 1,
+          "defende": 1,
+          "reclamatória": 1,
+          "execução": 1
+        }
+      },
+      "regrasOriginais": 4
+    },
+    {
+      "file": "plataforma-ead/admin.html",
+      "linhas": 227,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "plataforma-ead/ao-vivo.html",
+      "linhas": 37,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "plataforma-ead/aula.html",
+      "linhas": 72,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "plataforma-ead/certificado.html",
+      "linhas": 32,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "plataforma-ead/certificados.html",
+      "linhas": 37,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "plataforma-ead/dashboard.html",
+      "linhas": 85,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "plataforma-ead/index.html",
+      "linhas": 32,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "plataforma-ead/login.html",
+      "linhas": 226,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "plataforma-ead/loja.html",
+      "linhas": 75,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 1
+    },
+    {
+      "file": "plataforma-ead/meus-cursos.html",
+      "linhas": 37,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 0
+    },
+    {
+      "file": "plataforma-ead/obrigado.html",
+      "linhas": 75,
+      "jsonld": {
+        "blocos": 0,
+        "tipos": [],
+        "providers": [],
+        "erros": []
+      },
+      "privativo": {
+        "frases": 0,
+        "entregaSemAtribuicao": 0,
+        "termos": {}
+      },
+      "regrasOriginais": 1
+    }
+  ],
+  "hits": [
+    {
+      "file": "index.html",
+      "line": 143,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Empresarial e contábil"
+    },
+    {
+      "file": "index.html",
+      "line": 254,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Empresarial e contábil"
+    },
+    {
+      "file": "index.html",
+      "line": 372,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Auditoria e Inteligência Contábil"
+    },
+    {
+      "file": "index.html",
+      "line": 477,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "“O banco pediu balanço auditado e a minha contabilidade não acompanha."
+    },
+    {
+      "file": "index.html",
+      "line": 478,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Auditoria e inteligência contábil"
+    },
+    {
+      "file": "index.html",
+      "line": 484,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "“Ganhei a ação, mas o devedor sumiu com o dinheiro e a execução não anda.”",
+      "phrase": "“Ganhei a ação, mas o devedor sumiu com o dinheiro e a execução não anda.”"
+    },
+    {
+      "file": "index.html",
+      "line": 519,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Auditoria Empresarial e Contábil"
+    },
+    {
+      "file": "index.html",
+      "line": 656,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "E4 · Auditoria Empresarial e Contábil"
+    },
+    {
+      "file": "index.html",
+      "line": 658,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Exame independente de contas e controles e leitura gerencial das demonstrações — com a escrituração executada por parceiro contábil habilitado."
+    },
+    {
+      "file": "index.html",
+      "line": 686,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Inteligência Contábil"
+    },
+    {
+      "file": "index.html",
+      "line": 696,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "execução efetiva",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Localização, bloqueio e retomada de bens e créditos — do rastreio patrimonial do devedor até a execução efetiva do que é seu.",
+      "phrase": "Localização, bloqueio e retomada de bens e créditos — do rastreio patrimonial do devedor até a execução efetiva do que é seu."
+    },
+    {
+      "file": "index.html",
+      "line": 704,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": true,
+      "frase": "Bloqueio e penhora executados por parceiros habilitados",
+      "phrase": "Bloqueio e penhora executados por parceiros habilitados"
+    },
+    {
+      "file": "index.html",
+      "line": 725,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Localização, bloqueio e retomada de bens e créditos — do rastreio patrimonial à execução do que é seu.",
+      "phrase": "Localização, bloqueio e retomada de bens e créditos — do rastreio patrimonial à execução do que é seu."
+    },
+    {
+      "file": "index.html",
+      "line": 815,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução assistida"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Execução assistida",
+      "phrase": "Execução assistida"
+    },
+    {
+      "file": "index.html",
+      "line": 923,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "E4 · Auditoria Empresarial e Contábil"
+    },
+    {
+      "file": "index.html",
+      "line": 925,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Inteligência Contábil"
+    },
+    {
+      "file": "index.html",
+      "line": 935,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "E4 · Auditoria Empresarial e Contábil"
+    },
+    {
+      "file": "index.html",
+      "line": 952,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Localização, bloqueio e retomada de bens e créditos — do rastreio patrimonial à execução do que é seu.",
+      "phrase": "Localização, bloqueio e retomada de bens e créditos — do rastreio patrimonial à execução do que é seu."
+    },
+    {
+      "file": "index.html",
+      "line": 955,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução de créditos"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Execução de créditos",
+      "phrase": "Execução de créditos"
+    },
+    {
+      "file": "index.html",
+      "line": 1025,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial",
+      "phrase": "Defesa Empresarial"
+    },
+    {
+      "file": "index.html",
+      "line": 1026,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa da empresa"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": true,
+      "frase": "Coordena a defesa da empresa no litígio trabalhista, com atuação processual por parceiros habilitados.",
+      "phrase": "Coordena a defesa da empresa no litígio trabalhista, com atuação processual por parceiros habilitados."
+    },
+    {
+      "file": "index.html",
+      "line": 1046,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "text=Ol%C3%A1%21%20Gostaria%20de%20um%20diagn%C3%B3stico%20patrimonial%20com%20a%20Complexo%20DMC."
+    },
+    {
+      "file": "index.html",
+      "line": 1683,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Complexo%20DMC."
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 47,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 48,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 51,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 70,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Soluções completas em atos notariais com fé pública, garantindo validade e segurança jurídica aos seus documentos."
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 118,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "1000+"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 124,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$500M+"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 130,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "99%"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 136,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "10+"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 138,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 145,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "1000+"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 151,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$500M+"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 157,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "99%"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 163,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "10+"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 165,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 171,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "1000+"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 177,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$500M+"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 183,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "99%"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 189,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "10+"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 191,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/atos-notariais.html",
+      "line": 311,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Garanta segurança jurídica e fé pública para seus documentos mais importantes."
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 27,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "A blindagem patrimonial protege seus bens contra riscos financeiros e judiciais, garantindo segurança e continuidade aos seus negócios com planejamento personalizado."
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 34,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 35,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 38,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 51,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Estratégias jurídicas para proteger seu patrimônio contra riscos e garantir tranquilidade."
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 56,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "penhoras"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Imobiliário Proteção Imobiliária Estratégias específicas para proteção de bens imóveis contra penhoras e execuções.",
+      "phrase": "Imobiliário Proteção Imobiliária Estratégias específicas para proteção de bens imóveis contra penhoras e execuções."
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 67,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "350+"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 73,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$3B+"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 79,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "99%"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 85,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 87,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Atuação"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 94,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "350+"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 100,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$3B+"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 106,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "99%"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 112,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 114,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Atuação"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 120,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "350+"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 126,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$3B+"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 132,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "99%"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 138,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/blindagem-patrimonial.html",
+      "line": 140,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Atuação"
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "line": 33,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "line": 34,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "line": 37,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);"
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "line": 73,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "150+ Empresas Atendidas"
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "line": 74,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "100% Conformidade Regulatória"
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "line": 75,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "60% Redução de Riscos"
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "line": 76,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "8+ Anos de Experiência"
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "line": 82,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Compliance corporativo é o conjunto de práticas e procedimentos adotados por uma empresa para garantir que suas atividades estejam em conformidade com leis, regulamentos e padrões éticos."
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "line": 85,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "Compliance reduz riscos de multas?"
+    },
+    {
+      "file": "pages/compliance-governanca.html",
+      "line": 113,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Garanta a Conformidade da Sua Empresa Agende uma consulta e descubra como implementar um programa de compliance eficiente."
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 6,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Consultoria Imobiliária para construtoras e incorporadoras — Jurídico Imobiliário e Jurídico Vendas com IA, advocacia especializada e cartórios parceiros para acelerar registros, blindar contratos e destravar repasses bancários."
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 38,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Integramos o jurídico imobiliário e o comercial para que construtoras e incorporadoras convertam pendências registrais em liquidez imediata, com menos burocracia, prazos curtos e custo reduzido."
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 50,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 51,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 54,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 88,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "-70%"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 94,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 96,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 121,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "-70%"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 127,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 129,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 153,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "-70%"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 159,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 161,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 597,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Por que regularizar meu empreendimento é urgente ?"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 606,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "Reduzimos em até 70% o tempo entre a venda e o repasse bancário, acelerando a liquidez da incorporadora e antecipando o reconhecimento do VGV."
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 627,
+      "rules": [
+        "promessa/garantia",
+        "percentual/estatística"
+      ],
+      "phrase": "Cartórios de Notas e Registros de Imóveis parceiros em todas as regiões do país, com fluxo 100% digital e fé pública garantida."
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 884,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "IA e advogados imobiliários elaboram minutas e protocolam atos junto aos cartórios parceiros com SLA acordado."
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 887,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Validação por advogado imobiliário"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 1081,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Combinamos IA, advocacia especializada em Direito Imobiliário e uma rede nacional de cartórios parceiros para acelerar registros, blindar operações e destravar caixa em prazo recorde."
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 1088,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "width=\"100%\""
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 1154,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "É uma consultoria de negócios voltada a construtoras e incorporadoras, que opera em duas frentes integradas: Jurídico Imobiliário (registro do empreendimento, regularização fundiária, individualização de matrículas) e Jurídico Vendas (contr"
+    },
+    {
+      "file": "pages/consultoria-imobiliaria.html",
+      "line": 1219,
+      "rules": [
+        "honorários/gratuito",
+        "advocacia/escritório"
+      ],
+      "phrase": "Agende um diagnóstico gratuito com nossos advogados imobiliários e veja como destravar registros, blindar contratos e antecipar repasses bancários."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 6,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Auditoria e Inteligência Contábil | Complexo DMC"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 7,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Auditoria e inteligência contábil (E4): revisão de demonstrações, controles internos e leitura gerencial dos números."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 30,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "E4 · AUDITORIA EMPRESARIAL E CONTÁBIL"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 32,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Auditoria e Inteligência Contábil"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 33,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Escrituração e obrigações acessórias ficam a cargo de parceiro contábil habilitado."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 36,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Agendar diagnóstico contábil"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 47,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 48,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 51,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 70,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Seis frentes para que os números da empresa sustentem decisões — com a execução contábil a cargo de parceiro habilitado."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 77,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Revisão independente de balanço, DRE e fluxo de caixa, com parecer assinado por auditor contábil habilitado."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 89,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Escrituração, SPED, ECD, ECF e DCTF executados por parceiro contábil habilitado, com revisão do Complexo DMC."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 120,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Auditoria empresarial e contábil"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 147,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Auditoria empresarial e contábil"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 173,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Auditoria empresarial e contábil"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 206,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Quatro etapas entre o diagnóstico contábil e o relatório gerencial na mesa — cada uma com entrega própria."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 211,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Diagnóstico Contábil"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 212,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Avaliação completa da situação contábil e fiscal atual da sua empresa."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 221,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução assistida"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Execução Assistida",
+      "phrase": "Execução Assistida"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 222,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Escrituração e obrigações acessórias a cargo do parceiro contábil habilitado, com revisão do Complexo DMC."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 240,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Inteligência contábil em vídeo"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 251,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Vídeo sobre auditoria e inteligência contábil — em breve neste espaço."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 269,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Qual a diferença entre contabilidade fiscal e gerencial?"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 273,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "A contabilidade fiscal foca no cumprimento das obrigações tributárias e legais, enquanto a contabilidade gerencial fornece informações estratégicas para a tomada de decisão, análise de desempenho e planejamento do negócio."
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 296,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Vocês substituem o meu contador?"
+    },
+    {
+      "file": "pages/contabilidade.html",
+      "line": 300,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "A escrituração pode seguir com o contador atual ou passar ao parceiro contábil habilitado, com transição documentada e revisão das pendências."
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 36,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 37,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 40,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 69,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "200+"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 75,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$1."
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 81,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "40%"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 83,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Economia Tributária Média"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 87,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "10+"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 89,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos no Mercado"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 96,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "200+"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 102,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$1."
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 108,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "40%"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 110,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Economia Tributária Média"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 114,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "10+"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 116,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos no Mercado"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 122,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "200+"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 128,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$1."
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 134,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "40%"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 136,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Economia Tributária Média"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 140,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "10+"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 142,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos no Mercado"
+    },
+    {
+      "file": "pages/holding-patrimonial.html",
+      "line": 163,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Em geral, o investimento se paga rapidamente com a economia tributária gerada."
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 6,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Jurídico Imobiliário - Minutas de contratos, due diligence e distratos com IA e validação de advogados especializados em Direito Imobiliário."
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 40,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Através da nossa Inteligência Artificial, geramos minutas de Contratos, due diligence e distratos nos padrões da sua empresa, validados por advogados especializados em Direito Imobiliário e com fé pública conferida pelos nossos Cartórios Pa"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 52,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 53,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 56,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 90,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "-70%"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 96,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 98,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 123,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "-70%"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 129,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 131,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 155,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "-70%"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 161,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 163,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 177,
+      "rules": [
+        "superlativo/ranking"
+      ],
+      "phrase": "Três camadas integradas, únicas no mercado"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 206,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Advocacia"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 208,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Advogados especialistas validam as minutas e complementam o que sua operação exige, blindando cada ato contra riscos jurídicos."
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 210,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Validação por advogado imobiliário"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 227,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Atos com fé pública garantida"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 352,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Da aquisição do terreno à individualização das matrículas — cada serviço une advocacia, cartório e estruturação societária para destravar registros, regularizar ativos e viabilizar lançamentos com previsibilidade."
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 374,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "impugnação"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Com a matrícula saneada, a construtora elimina riscos de impugnação, viabiliza o registro da incorporação e valoriza o ativo antes mesmo do lançamento.",
+      "phrase": "Com a matrícula saneada, a construtora elimina riscos de impugnação, viabiliza o registro da incorporação e valoriza o ativo antes mesmo do lançamento."
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 410,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Conduzimos cada etapa em conjunto nos âmbitos societário, tributário, registral e notarial, garantindo coerência entre os documentos e aderência às Leis nº 4."
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 674,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Revisão por advogado imobiliário"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 867,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Um escritório feito para quem constrói e vende"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 868,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "O Complexo DMC é um escritório de consultoria em negócios, com atuação cirúrgica em atos notariais e registrais para construtoras, incorporadoras e loteadoras."
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 875,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "width=\"100%\""
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 941,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "O Complexo DMC é um escritório de Direito Imobiliário que prepara minutas, qualifica documentos e formaliza os atos junto a Cartórios de Notas e Registros de Imóveis conveniados — a lavratura e o registro continuam sendo feitos pelo cartóri"
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 961,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "Com a documentação completa, minutas padronizadas por IA e qualificação prévia junto ao Registro de Imóveis, a escritura costuma sair em até 5 dias úteis — reduzindo em até 70% o prazo médio do mercado até o registro."
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 971,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "Temos uma rede de Cartórios de Notas e Registros de Imóveis parceiros em todas as regiões do país e operamos de forma 100% digital com assinatura eletrônica qualificada (ICP-Brasil) quando o cartório e as partes permitem."
+    },
+    {
+      "file": "pages/juridico-imobiliario.html",
+      "line": 1016,
+      "rules": [
+        "honorários/gratuito",
+        "advocacia/escritório"
+      ],
+      "phrase": "Agende um diagnóstico gratuito com nossos advogados imobiliários e descubra quanto sua construtora pode acelerar o ciclo de repasse com atos notariais sob medida."
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 6,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Jurídico Vendas - Minutas de contratos, due diligence e distratos com IA e validação de advogados especializados em consultoria Imobiliário."
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 40,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Através da nossa Inteligência Artificial, geramos minutas de Contratos, due diligence e distratos nos padrões da sua empresa, validados por advogados especializados em Direito Imobiliário e com fé pública conferida pelos nossos Cartórios Pa"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 52,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 53,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 56,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 90,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "-70%"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 96,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 98,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 123,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "-70%"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 129,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 131,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 155,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "-70%"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 161,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 163,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 177,
+      "rules": [
+        "superlativo/ranking"
+      ],
+      "phrase": "Três camadas integradas, únicas no mercado"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 206,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Advocacia"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 208,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Advogados especialistas validam as minutas e complementam o que sua operação exige, blindando cada ato contra riscos jurídicos."
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 210,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Validação por advogado imobiliário"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 227,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Atos com fé pública garantida"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 352,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Da promessa de compra e venda à recuperação de unidades inadimplentes — cada produto une IA, advocacia e cartório para acelerar caixa, reduzir judicialização e realizar VGV."
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 675,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Revisão por advogado imobiliário"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 868,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Um escritório feito para quem constrói e vende"
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 869,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "O Complexo DMC é um escritório de consultoria em negócios, com atuação cirúrgica em atos notariais e registrais para construtoras, incorporadoras e loteadoras."
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 876,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "width=\"100%\""
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 942,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "O Complexo DMC é um escritório de Consultoria em negócios atuante no mercado imobiliário que prepara minutas, qualifica documentos e formaliza os atos junto a Cartórios de Notas e Registros de Imóveis conveniados — a lavratura e o registro "
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 962,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "Com a documentação completa, minutas padronizadas por IA e qualificação prévia junto ao Registro de Imóveis, a escritura costuma sair em até 5 dias úteis — reduzindo em até 70% o prazo médio do mercado até o registro."
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 972,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "Temos uma rede de Cartórios de Notas e Registros de Imóveis parceiros em todas as regiões do país e operamos de forma 100% digital com assinatura eletrônica qualificada (ICP-Brasil) quando o cartório e as partes permitem."
+    },
+    {
+      "file": "pages/juridico-vendas.html",
+      "line": 1017,
+      "rules": [
+        "honorários/gratuito",
+        "advocacia/escritório"
+      ],
+      "phrase": "Agende um diagnóstico gratuito com nossos advogados imobiliários e descubra quanto sua construtora pode acelerar o ciclo de repasse com atos notariais sob medida."
+    },
+    {
+      "file": "pages/mouse.html",
+      "line": 5,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/mouse.html",
+      "line": 6,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/mouse.html",
+      "line": 9,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,#e0c98a 0%,#c9a96e 30%,#927245 65%,#6b5230 100%);"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 6,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Planejamento Sucessório Empresarial e Familiar - Proteja seu patrimônio e garanta a continuidade dos seus negócios com a Complexo DMC."
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 49,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 50,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 53,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 71,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Por que o planejamento sucessório é urgente ?"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 72,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Estratégias jurídicas e empresariais para proteger o que você construiu e garantir uma transição tranquila."
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 89,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Planejamento estratégico para garantir que o negócio prospere através das gerações."
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 95,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Economia Tributária"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 140,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "98%"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 152,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 154,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 173,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "98%"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 185,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 187,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 907,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Uma metodologia estruturada em 7 etapas para garantir a melhor estratégia sucessória."
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 1020,
+      "rules": [
+        "promessa/garantia",
+        "economia/redução prometida",
+        "superlativo/ranking"
+      ],
+      "phrase": "O planejamento sucessório é a ferramenta mais poderosa para garantir a preservação e continuidade do patrimônio construído ao longo de gerações."
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 1027,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "width=\"100%\""
+    },
+    {
+      "file": "pages/planejamento-sucessorio-empresarial.html",
+      "line": 1177,
+      "rules": [
+        "promessa/garantia",
+        "honorários/gratuito"
+      ],
+      "phrase": "Agende uma consulta gratuita e descubra como podemos ajudar a garantir a continuidade do seu patrimônio."
+    },
+    {
+      "file": "pages/planejamento-sucessorio.html",
+      "line": 52,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/planejamento-sucessorio.html",
+      "line": 53,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/planejamento-sucessorio.html",
+      "line": 56,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/planejamento-sucessorio.html",
+      "line": 904,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "O imposto continua sendo estadual, com alíquota máxima de 8% fixada pelo Senado Federal (Resolução 9/1992) — e a conta muda conforme o estado e a composição do patrimônio."
+    },
+    {
+      "file": "pages/planejamento-sucessorio.html",
+      "line": 911,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "width=\"100%\""
+    },
+    {
+      "file": "pages/planejamento-sucessorio.html",
+      "line": 1016,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "A transmissão por herança ou doação é tributada pelo ITCMD, imposto estadual cuja alíquota máxima é de 8%, teto fixado pelo Senado Federal na Resolução 9/1992."
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 6,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Planejamento Tributário - Reduza legalmente a carga fiscal e maximize os lucros da sua empresa."
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 26,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "O planejamento tributário estratégico permite ao empresário reduzir legalmente a carga fiscal, maximizar lucros e evitar riscos fiscais com segurança e eficiência."
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 33,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 34,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 37,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);"
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 50,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Estratégias legais para reduzir tributos e maximizar seus resultados."
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 52,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Diagnóstico Diagnóstico Tributário Análise completa da situação fiscal da empresa para identificar oportunidades de economia."
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 53,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Regime Regime Tributário Ideal Avaliação e definição do melhor regime tributário para maximizar a eficiência fiscal."
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 56,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa administrativa"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Defesa Administrativa Representação e defesa em processos administrativos fiscais junto aos órgãos competentes.",
+      "phrase": "Defesa Defesa Administrativa Representação e defesa em processos administrativos fiscais junto aos órgãos competentes."
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 65,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Análise de Oportunidades Identificação de oportunidades legais de economia tributária e créditos recuperáveis."
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 73,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "400+ Empresas Atendidas"
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 74,
+      "rules": [
+        "percentual/estatística",
+        "economia/redução prometida"
+      ],
+      "phrase": "R$500M+ Economia Gerada"
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 75,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "35% Redução Média de Tributos"
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 76,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "20+ Especialistas"
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 82,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "O planejamento tributário utiliza meios legais para reduzir a carga fiscal, diferente da sonegação que é ilegal."
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 83,
+      "rules": [
+        "percentual/estatística",
+        "economia/redução prometida"
+      ],
+      "phrase": "Quanto posso economizar?"
+    },
+    {
+      "file": "pages/planejamento-tributario.html",
+      "line": 113,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Reduza Seus Tributos com Estratégia Agende uma consulta e descubra como otimizar a carga tributária da sua empresa de forma legal."
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 6,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Por que o planejamento sucessório é urgente?"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 8,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Por que o planejamento sucessório é urgente?"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 36,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Por que o planejamento sucessório é urgente?"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 37,
+      "rules": [
+        "promessa/garantia",
+        "economia/redução prometida"
+      ],
+      "phrase": "Agir agora garante proteção patrimonial, economia tributária, continuidade empresarial e harmonia familiar."
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 48,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 49,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 52,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 70,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Por que o planejamento sucessório é urgente ?"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 71,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Estratégias jurídicas e empresariais para proteger o que você construiu e garantir uma transição tranquila."
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 88,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Planejamento estratégico para garantir que o negócio prospere através das gerações."
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 94,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Economia Tributária"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 139,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "98%"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 151,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 153,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 172,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "98%"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 184,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "15+"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 186,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 936,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Uma metodologia estruturada em 7 etapas para garantir a melhor estratégia sucessória."
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 1053,
+      "rules": [
+        "promessa/garantia",
+        "economia/redução prometida",
+        "superlativo/ranking"
+      ],
+      "phrase": "O planejamento sucessório é a ferramenta mais poderosa para garantir a preservação e continuidade do patrimônio construído ao longo de gerações."
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 1060,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "width=\"100%\""
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 1200,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Vídeo sobre a urgência do planejamento sucessório — em breve neste espaço."
+    },
+    {
+      "file": "pages/por-que-urgente.html",
+      "line": 1210,
+      "rules": [
+        "promessa/garantia",
+        "honorários/gratuito"
+      ],
+      "phrase": "Agende uma consulta gratuita e descubra como podemos ajudar a garantir a continuidade do seu patrimônio."
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 47,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 48,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 51,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 70,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Estratégias jurídicas avançadas para proteger seu patrimônio contra riscos e garantir a perpetuidade dos seus bens."
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 83,
+      "rules": [
+        "economia/redução prometida"
+      ],
+      "phrase": "Criação e gestão de holdings familiares para centralizar a administração patrimonial e reduzir impostos."
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 101,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Implementação de regras e estruturas de governança para garantir harmonia e eficiência na gestão familiar."
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 118,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "300+"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 124,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$3B+"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 130,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "97%"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 136,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "10+"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 138,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 145,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "300+"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 151,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$3B+"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 157,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "97%"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 163,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "10+"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 165,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 171,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "300+"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 177,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$3B+"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 183,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "97%"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 189,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "10+"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 191,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 267,
+      "rules": [
+        "promessa/garantia",
+        "percentual/estatística"
+      ],
+      "phrase": "O planejamento sucessório preventivo evita conflitos familiares, reduz custos com inventário (que pode chegar a 20% do patrimônio) e garante que a vontade do titular seja respeitada."
+    },
+    {
+      "file": "pages/pronto-patrimonio.html",
+      "line": 311,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Garanta a segurança e perpetuidade do patrimônio da sua família com estratégias jurídicas especializadas."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 7,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora",
+        "execução de títulos",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais.",
+      "phrase": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 34,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "A outra metade é localizar o patrimônio do devedor, alcançá-lo pelas medidas previstas em lei e conduzir a execução até que o crédito reconhecido no papel volte a existir em caixa.",
+      "phrase": "A outra metade é localizar o patrimônio do devedor, alcançá-lo pelas medidas previstas em lei e conduzir a execução até que o crédito reconhecido no papel volte a existir em caixa."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 48,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 49,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 52,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 83,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Bloqueio e Penhora",
+      "phrase": "Bloqueio e Penhora"
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 84,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "penhora",
+        "bloqueio"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Pedidos de penhora, bloqueio e indisponibilidade sobre o que a diligência localizou, acompanhados desde o requerimento até a decisão do juízo.",
+      "phrase": "Pedidos de penhora, bloqueio e indisponibilidade sobre o que a diligência localizou, acompanhados desde o requerimento até a decisão do juízo."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 89,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "cumprimento de sentença"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Cumprimento de Sentença",
+      "phrase": "Cumprimento de Sentença"
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 90,
+      "rules": [
+        "honorários/gratuito"
+      ],
+      "phrase": "Condução da fase de execução do título judicial, com a multa e os honorários que a lei prevê quando não há pagamento voluntário (art."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 90,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "fase de execução",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Condução da fase de execução do título judicial, com a multa e os honorários que a lei prevê quando não há pagamento voluntário (art. 523 do Código de Processo Civil).",
+      "phrase": "Condução da fase de execução do título judicial, com a multa e os honorários que a lei prevê quando não há pagamento voluntário (art. 523 do Código de Processo Civil)."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 95,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução de títulos",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Execução de Títulos",
+      "phrase": "Execução de Títulos"
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 102,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "desconsideração da personalidade"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Identificação de transferências feitas para esvaziar o patrimônio e, quando presentes os requisitos legais, pedido de desconsideração da personalidade jurídica.",
+      "phrase": "Identificação de transferências feitas para esvaziar o patrimônio e, quando presentes os requisitos legais, pedido de desconsideração da personalidade jurídica."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 107,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "penhorado"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Do Bem Penhorado ao Caixa",
+      "phrase": "Do Bem Penhorado ao Caixa"
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 108,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "levantamento de valores",
+        "adjudicação",
+        "alienação judicial",
+        "recurso"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Levantamento de valores, adjudicação, alienação judicial e acordo — as vias pelas quais o bem alcançado se transforma em recurso disponível.",
+      "phrase": "Levantamento de valores, adjudicação, alienação judicial e acordo — as vias pelas quais o bem alcançado se transforma em recurso disponível."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 231,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Quatro etapas entre o título na mão e o crédito satisfeito — cada uma com entrega própria, para que você saiba sempre em que ponto a execução está.",
+      "phrase": "Quatro etapas entre o título na mão e o crédito satisfeito — cada uma com entrega própria, para que você saiba sempre em que ponto a execução está."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 247,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Pedidos de bloqueio, penhora e indisponibilidade sobre os bens encontrados, acompanhados até a decisão do juízo.",
+      "phrase": "Pedidos de bloqueio, penhora e indisponibilidade sobre os bens encontrados, acompanhados até a decisão do juízo."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 252,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "levantamento de valores",
+        "adjudicação",
+        "alienação judicial"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Levantamento de valores, adjudicação, alienação judicial ou acordo — conforme o que o caso concreto permitir.",
+      "phrase": "Levantamento de valores, adjudicação, alienação judicial ou acordo — conforme o que o caso concreto permitir."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 297,
+      "rules": [
+        "percentual/estatística",
+        "honorários/gratuito"
+      ],
+      "phrase": "O devedor é intimado para pagar em 15 dias e, se não o fizer, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%, na forma do art."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 297,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "cumprimento de sentença"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Começa a fase de cumprimento de sentença.",
+      "phrase": "Começa a fase de cumprimento de sentença."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 297,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado.",
+      "phrase": "A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 306,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "título executivo"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros.",
+      "phrase": "O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 311,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "executar"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Por quanto tempo ainda posso executar essa dívida?",
+      "phrase": "Por quanto tempo ainda posso executar essa dívida?"
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 315,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal.",
+      "phrase": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 324,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "fraude à execução",
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor.",
+      "phrase": "Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 333,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "incidente de desconsideração"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio.",
+      "phrase": "O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio."
+    },
+    {
+      "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+      "line": 338,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "penhorados"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Salário e o único imóvel do devedor podem ser penhorados?",
+      "phrase": "Salário e o único imóvel do devedor podem ser penhorados?"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 53,
+      "where": "ld@53.serviceType",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução de títulos",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Recuperação de ativos e execução de títulos",
+      "phrase": "Recuperação de ativos e execução de títulos"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 53,
+      "where": "ld@53.description",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora",
+        "execução de títulos",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais.",
+      "phrase": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 76,
+      "where": "ld@76.mainEntity[0].acceptedAnswer.text",
+      "rules": [
+        "percentual/estatística",
+        "honorários/gratuito"
+      ],
+      "phrase": "Começa a fase de cumprimento de sentença. O devedor é intimado para pagar em 15 dias e, se não o fizer, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%, na forma do art. 523 do Código de Processo Civil. A partir daí"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 76,
+      "where": "ld@76.mainEntity[0].acceptedAnswer.text",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "cumprimento de sentença"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Começa a fase de cumprimento de sentença.",
+      "phrase": "Começa a fase de cumprimento de sentença."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 76,
+      "where": "ld@76.mainEntity[0].acceptedAnswer.text",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado.",
+      "phrase": "A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 76,
+      "where": "ld@76.mainEntity[1].acceptedAnswer.text",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "título executivo"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros.",
+      "phrase": "O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 76,
+      "where": "ld@76.mainEntity[2].name",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "executar"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Por quanto tempo ainda posso executar essa dívida?",
+      "phrase": "Por quanto tempo ainda posso executar essa dívida?"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 76,
+      "where": "ld@76.mainEntity[2].acceptedAnswer.text",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal.",
+      "phrase": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 76,
+      "where": "ld@76.mainEntity[3].acceptedAnswer.text",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "fraude à execução",
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor.",
+      "phrase": "Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 76,
+      "where": "ld@76.mainEntity[4].acceptedAnswer.text",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "incidente de desconsideração"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio.",
+      "phrase": "O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 76,
+      "where": "ld@76.mainEntity[5].name",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "penhorados"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Salário e o único imóvel do devedor podem ser penhorados?",
+      "phrase": "Salário e o único imóvel do devedor podem ser penhorados?"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 7,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora",
+        "execução de títulos",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais.",
+      "phrase": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 58,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução de títulos",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Recuperação de ativos e execução de títulos",
+      "phrase": "Recuperação de ativos e execução de títulos"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 59,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora",
+        "execução de títulos",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais.",
+      "phrase": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 86,
+      "rules": [
+        "percentual/estatística",
+        "honorários/gratuito"
+      ],
+      "phrase": "O devedor é intimado para pagar em 15 dias e, se não o fizer, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%, na forma do art."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 86,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "cumprimento de sentença"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Começa a fase de cumprimento de sentença.",
+      "phrase": "Começa a fase de cumprimento de sentença."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 86,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado.",
+      "phrase": "A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 94,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "título executivo"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros.",
+      "phrase": "O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 99,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "executar"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Por quanto tempo ainda posso executar essa dívida?",
+      "phrase": "Por quanto tempo ainda posso executar essa dívida?"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 102,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal.",
+      "phrase": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 110,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "fraude à execução",
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor.",
+      "phrase": "Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 118,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "incidente de desconsideração"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio.",
+      "phrase": "O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 123,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "penhorados"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Salário e o único imóvel do devedor podem ser penhorados?",
+      "phrase": "Salário e o único imóvel do devedor podem ser penhorados?"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 148,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "A outra metade é localizar o patrimônio do devedor, alcançá-lo pelas medidas previstas em lei e conduzir a execução até que o crédito reconhecido no papel volte a existir em caixa.",
+      "phrase": "A outra metade é localizar o patrimônio do devedor, alcançá-lo pelas medidas previstas em lei e conduzir a execução até que o crédito reconhecido no papel volte a existir em caixa."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 162,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 163,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 166,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 197,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Bloqueio e Penhora",
+      "phrase": "Bloqueio e Penhora"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 198,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "penhora",
+        "bloqueio"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Pedidos de penhora, bloqueio e indisponibilidade sobre o que a diligência localizou, acompanhados desde o requerimento até a decisão do juízo.",
+      "phrase": "Pedidos de penhora, bloqueio e indisponibilidade sobre o que a diligência localizou, acompanhados desde o requerimento até a decisão do juízo."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 203,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "cumprimento de sentença"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Cumprimento de Sentença",
+      "phrase": "Cumprimento de Sentença"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 204,
+      "rules": [
+        "honorários/gratuito"
+      ],
+      "phrase": "Condução da fase de execução do título judicial, com a multa e os honorários que a lei prevê quando não há pagamento voluntário (art."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 204,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "fase de execução",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Condução da fase de execução do título judicial, com a multa e os honorários que a lei prevê quando não há pagamento voluntário (art. 523 do Código de Processo Civil).",
+      "phrase": "Condução da fase de execução do título judicial, com a multa e os honorários que a lei prevê quando não há pagamento voluntário (art. 523 do Código de Processo Civil)."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 209,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução de títulos",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Execução de Títulos",
+      "phrase": "Execução de Títulos"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 216,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "desconsideração da personalidade"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Identificação de transferências feitas para esvaziar o patrimônio e, quando presentes os requisitos legais, pedido de desconsideração da personalidade jurídica.",
+      "phrase": "Identificação de transferências feitas para esvaziar o patrimônio e, quando presentes os requisitos legais, pedido de desconsideração da personalidade jurídica."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 221,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "penhorado"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Do Bem Penhorado ao Caixa",
+      "phrase": "Do Bem Penhorado ao Caixa"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 222,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "levantamento de valores",
+        "adjudicação",
+        "alienação judicial",
+        "recurso"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Levantamento de valores, adjudicação, alienação judicial e acordo — as vias pelas quais o bem alcançado se transforma em recurso disponível.",
+      "phrase": "Levantamento de valores, adjudicação, alienação judicial e acordo — as vias pelas quais o bem alcançado se transforma em recurso disponível."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 642,
+      "rules": [
+        "percentual/estatística",
+        "honorários/gratuito"
+      ],
+      "phrase": "O caso segue por cumprimento de sentença : o devedor é intimado para pagar em 15 dias e, se não pagar, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 642,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "cumprimento de sentença"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "O caso segue por cumprimento de sentença : o devedor é intimado para pagar em 15 dias e, se não pagar, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%.",
+      "phrase": "O caso segue por cumprimento de sentença : o devedor é intimado para pagar em 15 dias e, se não pagar, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 685,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Pedidos de bloqueio, penhora e indisponibilidade sobre os bens localizados.",
+      "phrase": "Pedidos de bloqueio, penhora e indisponibilidade sobre os bens localizados."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 685,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "fraude à execução",
+        "desconsideração da personalidade",
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "Quando há sinal de esvaziamento patrimonial, entram os pedidos de fraude à execução (art. 792 do Código de Processo Civil) ou de desconsideração da personalidade jurídica (art. 50 do Código Civil).",
+      "phrase": "Quando há sinal de esvaziamento patrimonial, entram os pedidos de fraude à execução (art. 792 do Código de Processo Civil) ou de desconsideração da personalidade jurídica (art. 50 do Código Civil)."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 693,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "levantamento de valores",
+        "adjudicação",
+        "alienação judicial",
+        "recurso"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Conversão do bem alcançado em recurso disponível: levantamento de valores, adjudicação, alienação judicial ou acordo — conforme o que o caso concreto permitir.",
+      "phrase": "Conversão do bem alcançado em recurso disponível: levantamento de valores, adjudicação, alienação judicial ou acordo — conforme o que o caso concreto permitir."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1550,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Bloqueio de ativos financeiros",
+      "phrase": "Bloqueio de ativos financeiros"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1554,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "penhora"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Restrição de transferência e penhora",
+      "phrase": "Restrição de transferência e penhora"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1570,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Informação de saldo e bloqueio de carteira",
+      "phrase": "Informação de saldo e bloqueio de carteira"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1605,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "As prestadoras de serviços de ativos virtuais que operam no país seguem a lei brasileira (Lei 14.478/2022) e respondem a ordem judicial de informação e bloqueio.",
+      "phrase": "As prestadoras de serviços de ativos virtuais que operam no país seguem a lei brasileira (Lei 14.478/2022) e respondem a ordem judicial de informação e bloqueio."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1620,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "100%"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1624,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "Sem pagamento voluntário em 15 dias, incide multa de 10%"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1627,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "110%"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1631,
+      "rules": [
+        "percentual/estatística",
+        "honorários/gratuito"
+      ],
+      "phrase": "Somam-se os honorários advocatícios da execução, de mais 10%"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1634,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "120%"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1640,
+      "rules": [
+        "percentual/estatística",
+        "honorários/gratuito"
+      ],
+      "phrase": "523 do Código de Processo Civil acrescenta ao valor a multa de 10% e os honorários advocatícios de 10%."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1641,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal — e é por isso que a análise do título vem antes de qualquer diligência.",
+      "phrase": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal — e é por isso que a análise do título vem antes de qualquer diligência."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 1998,
+      "rules": [
+        "percentual/estatística",
+        "honorários/gratuito"
+      ],
+      "phrase": "O devedor é intimado para pagar em 15 dias e, se não pagar, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2000,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "recurso",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Enquanto o recurso não é julgado, a execução pode seguir provisoriamente — depende do efeito atribuído ao recurso e corre por conta e risco do credor.",
+      "phrase": "Enquanto o recurso não é julgado, a execução pode seguir provisoriamente — depende do efeito atribuído ao recurso e corre por conta e risco do credor."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2002,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "título executivo"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Acordo homologado em juízo é título executivo judicial.",
+      "phrase": "Acordo homologado em juízo é título executivo judicial."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2003,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução de título",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Execução de título extrajudicial art. 784, I, do Código de Processo Civil",
+      "phrase": "Execução de título extrajudicial art. 784, I, do Código de Processo Civil"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2004,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "título executivo"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "O documento já vale como título executivo.",
+      "phrase": "O documento já vale como título executivo."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2005,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução de título",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Execução de título extrajudicial art. 784, III, do Código de Processo Civil",
+      "phrase": "Execução de título extrajudicial art. 784, III, do Código de Processo Civil"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2006,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "título executivo"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Contrato assinado pelo devedor e por duas testemunhas é título executivo.",
+      "phrase": "Contrato assinado pelo devedor e por duas testemunhas é título executivo."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2007,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "título executivo"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "Ainda não há título executivo art. 700 do Código de Processo Civil",
+      "phrase": "Ainda não há título executivo art. 700 do Código de Processo Civil"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2020,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "executar"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "Em título judicial, liquida-se antes de executar (art. 509);",
+      "phrase": "Em título judicial, liquida-se antes de executar (art. 509);"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2028,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Nessa faixa a verificação do prazo é urgente: vários créditos prescrevem em três ou cinco anos, e os títulos de crédito, antes disso."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2029,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Tempo decorrido exige checagem imediata de prescrição — a execução prescreve no mesmo prazo da ação (Súmula 150 do Supremo Tribunal Federal)."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2029,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "Tempo decorrido exige checagem imediata de prescrição — a execução prescreve no mesmo prazo da ação (Súmula 150 do Supremo Tribunal Federal).",
+      "phrase": "Tempo decorrido exige checagem imediata de prescrição — a execução prescreve no mesmo prazo da ação (Súmula 150 do Supremo Tribunal Federal)."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2035,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "fraude à execução",
+        "desconsideração da personalidade",
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "Indício de esvaziamento patrimonial abre duas frentes: fraude à execução (art. 792 do Código de Processo Civil) e desconsideração da personalidade jurídica (art. 50 do Código Civil), conforme o que se demonstrar.",
+      "phrase": "Indício de esvaziamento patrimonial abre duas frentes: fraude à execução (art. 792 do Código de Processo Civil) e desconsideração da personalidade jurídica (art. 50 do Código Civil), conforme o que se demonstrar."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2042,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "recurso"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "O número do processo, a decisão e o andamento do recurso",
+      "phrase": "O número do processo, a decisão e o andamento do recurso"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2141,
+      "rules": [
+        "percentual/estatística",
+        "honorários/gratuito"
+      ],
+      "phrase": "O devedor é intimado para pagar em 15 dias e, se não o fizer, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%, na forma do art."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2141,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "cumprimento de sentença"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Começa a fase de cumprimento de sentença.",
+      "phrase": "Começa a fase de cumprimento de sentença."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2141,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "bloqueio",
+        "penhora"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado.",
+      "phrase": "A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2150,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "título executivo"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros.",
+      "phrase": "O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2155,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "executar"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Por quanto tempo ainda posso executar essa dívida?",
+      "phrase": "Por quanto tempo ainda posso executar essa dívida?"
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2159,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal.",
+      "phrase": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2168,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "fraude à execução",
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor.",
+      "phrase": "Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2177,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "incidente de desconsideração"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio.",
+      "phrase": "O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio."
+    },
+    {
+      "file": "pages/recuperacao-ativos.html",
+      "line": 2182,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "penhorados"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Salário e o único imóvel do devedor podem ser penhorados?",
+      "phrase": "Salário e o único imóvel do devedor podem ser penhorados?"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 47,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 48,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 51,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 70,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Soluções completas em registro imobiliário para garantir a regularidade e segurança do seu patrimônio."
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 118,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "800+"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 124,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$1B+"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 130,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "98%"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 136,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "12+"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 138,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 145,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "800+"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 151,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$1B+"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 157,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "98%"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 163,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "12+"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 165,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 171,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "800+"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 177,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$1B+"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 183,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "98%"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 189,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "12+"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 191,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 249,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "O registro de imóveis é o que garante a propriedade efetiva do bem."
+    },
+    {
+      "file": "pages/registro-imobiliario.html",
+      "line": 311,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Garanta a segurança jurídica do seu patrimônio imobiliário com nosso suporte especializado."
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 6,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Sucessão Testamentária - Garanta que sua vontade seja respeitada com testamentos seguros e válidos."
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 38,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Garanta que sua vontade seja respeitada."
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 52,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 53,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 56,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 75,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Soluções completas em sucessão testamentária para garantir que sua vontade seja cumprida com segurança jurídica."
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 89,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Redação e orientação para testamentos cerrados, garantindo sigilo e validade legal."
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 113,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Acompanhamento completo da execução do testamento e cumprimento das disposições.",
+      "phrase": "Acompanhamento completo da execução do testamento e cumprimento das disposições."
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 124,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "300+"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 130,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "100%"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 136,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "95%"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 142,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "12+"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 144,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 151,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "300+"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 157,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "100%"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 163,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "95%"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 169,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "12+"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 171,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 177,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "300+"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 183,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "100%"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 189,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "95%"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 195,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "12+"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 197,
+      "rules": [
+        "anos de experiência"
+      ],
+      "phrase": "Anos de Experiência"
+    },
+    {
+      "file": "pages/sucessao-testamentaria.html",
+      "line": 318,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Garanta que Sua Vontade Seja Respeitada"
+    },
+    {
+      "file": "pages/tecnologia.html",
+      "line": 43,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "position:absolute;top:50%;left:50%;"
+    },
+    {
+      "file": "pages/tecnologia.html",
+      "line": 44,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "transform:translate(-50%,-50%);"
+    },
+    {
+      "file": "pages/tecnologia.html",
+      "line": 47,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);"
+    },
+    {
+      "file": "pages/tecnologia.html",
+      "line": 149,
+      "rules": [
+        "superlativo/ranking"
+      ],
+      "phrase": "Referência no desenho das soluções"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+      "line": 115,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "audiência"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Desenhado pela empresa ou improvisado na audiência",
+      "phrase": "Desenhado pela empresa ou improvisado na audiência"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+      "line": 118,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "audiência"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "A consequência prática é conhecida: o acordo tende a acontecer de qualquer maneira — a variável é se ele foi desenhado pela empresa, com cálculo próprio e alçada definida, ou improvisado na sala de audiência, sob pressão de pauta.",
+      "phrase": "A consequência prática é conhecida: o acordo tende a acontecer de qualquer maneira — a variável é se ele foi desenhado pela empresa, com cálculo próprio e alçada definida, ou improvisado na sala de audiência, sob pressão de pauta."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+      "line": 136,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "reclamatória"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Canal antes da reclamatória",
+      "phrase": "Canal antes da reclamatória"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+      "line": 179,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "855-B a 855-E da CLT, que exigem advogado próprio e independente para o trabalhador; art."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+      "line": 206,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "ajuizamento"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Taxa de resolução antes do ajuizamento, taxa de homologação dos acordos e prazo médio de solução.",
+      "phrase": "Taxa de resolução antes do ajuizamento, taxa de homologação dos acordos e prazo médio de solução."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+      "line": 245,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial",
+      "phrase": "Defesa Empresarial"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+      "line": 246,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defende",
+        "reclamatória",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Defende a empresa no litígio trabalhista — da reclamatória à execução, do MPT à fiscalização.",
+      "phrase": "Defende a empresa no litígio trabalhista — da reclamatória à execução, do MPT à fiscalização."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/ciclo-fechado.html",
+      "line": 44,
+      "where": "ld@44.itemListElement[5].name",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial",
+      "phrase": "Defesa Empresarial"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/ciclo-fechado.html",
+      "line": 217,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial",
+      "phrase": "Defesa Empresarial"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/ciclo-fechado.html",
+      "line": 218,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defende",
+        "reclamatória",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Defende a empresa no litígio trabalhista — da reclamatória à execução, do MPT à fiscalização.",
+      "phrase": "Defende a empresa no litígio trabalhista — da reclamatória à execução, do MPT à fiscalização."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/ciclo-fechado.html",
+      "line": 237,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Como as seis soluções da consultoria trabalhista se encadeiam, da admissão à execução.",
+      "phrase": "Como as seis soluções da consultoria trabalhista se encadeiam, da admissão à execução."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/decisao-assistida.html",
+      "line": 148,
+      "rules": [
+        "urgência"
+      ],
+      "phrase": "Nos casos de baixo risco, liberação imediata acompanhada de checklist de execução."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/decisao-assistida.html",
+      "line": 241,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial",
+      "phrase": "Defesa Empresarial"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/decisao-assistida.html",
+      "line": 242,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defende",
+        "reclamatória",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Defende a empresa no litígio trabalhista — da reclamatória à execução, do MPT à fiscalização.",
+      "phrase": "Defende a empresa no litígio trabalhista — da reclamatória à execução, do MPT à fiscalização."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 34,
+      "where": "ld@34.itemListElement[2].name",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial",
+      "phrase": "Defesa Empresarial"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 45,
+      "where": "ld@45.name",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial",
+      "phrase": "Defesa Empresarial"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 45,
+      "where": "ld@45.description",
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa da empresa",
+        "reclamatórias",
+        "inquérito civil",
+        "ação civil pública",
+        "defesa administrativa",
+        "incidente de desconsideração",
+        "recursos",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa da empresa no litígio trabalhista — reclamatórias individuais, ações coletivas e sindicais, inquérito civil e ação civil pública do MPT, defesa administrativa em fiscalização, recursos, execução e incidente de desconsideração da pers",
+      "phrase": "Defesa da empresa no litígio trabalhista — reclamatórias individuais, ações coletivas e sindicais, inquérito civil e ação civil pública do MPT, defesa administrativa em fiscalização, recursos, execução e incidente de desconsideração da pers"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 6,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa da empresa",
+        "reclamatórias",
+        "recursos",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa da empresa no litígio trabalhista: reclamatórias, ações coletivas, inquérito do MPT, fiscalização, recursos e execução, com tese, prova e cálculo sob um mesmo comando.",
+      "phrase": "Defesa da empresa no litígio trabalhista: reclamatórias, ações coletivas, inquérito do MPT, fiscalização, recursos e execução, com tese, prova e cálculo sob um mesmo comando."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 8,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial — Contencioso e Litígios Trabalhistas | Complexo DMC",
+      "phrase": "Defesa Empresarial — Contencioso e Litígios Trabalhistas | Complexo DMC"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 51,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa da empresa",
+        "reclamatórias",
+        "inquérito civil",
+        "ação civil pública",
+        "defesa administrativa",
+        "incidente de desconsideração",
+        "recursos",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa da empresa no litígio trabalhista — reclamatórias individuais, ações coletivas e sindicais, inquérito civil e ação civil pública do MPT, defesa administrativa em fiscalização, recursos, execução e incidente de desconsideração da pers",
+      "phrase": "Defesa da empresa no litígio trabalhista — reclamatórias individuais, ações coletivas e sindicais, inquérito civil e ação civil pública do MPT, defesa administrativa em fiscalização, recursos, execução e incidente de desconsideração da pers"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 72,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial",
+      "phrase": "Defesa Empresarial"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 81,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial",
+      "phrase": "Defesa Empresarial"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 83,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "a empresa defendida",
+        "reclamatória",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "A empresa defendida em todo litígio trabalhista — da reclamatória individual à execução, do inquérito do MPT à fiscalização — com tese, prova e cálculo sob um mesmo comando.",
+      "phrase": "A empresa defendida em todo litígio trabalhista — da reclamatória individual à execução, do inquérito do MPT à fiscalização — com tese, prova e cálculo sob um mesmo comando."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 115,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defende"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "A empresa é acionada em várias frentes — e se defende em pedaços",
+      "phrase": "A empresa é acionada em várias frentes — e se defende em pedaços"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 118,
+      "rules": [
+        "advocacia/escritório"
+      ],
+      "phrase": "Quando a empresa vira ré, a defesa costuma chegar fragmentada: um escritório para a audiência, outro para o recurso, a planilha do cálculo em um terceiro lugar e o RH descobrindo o processo quando a intimação já venceu."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 118,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "audiência",
+        "recurso"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Quando a empresa vira ré, a defesa costuma chegar fragmentada: um escritório para a audiência, outro para o recurso, a planilha do cálculo em um terceiro lugar e o RH descobrindo o processo quando a intimação já venceu.",
+      "phrase": "Quando a empresa vira ré, a defesa costuma chegar fragmentada: um escritório para a audiência, outro para o recurso, a planilha do cálculo em um terceiro lugar e o RH descobrindo o processo quando a intimação já venceu."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 118,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "reclamatória"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Cada reclamatória é tratada como caso isolado, sem que ninguém leia a carteira inteira — e a mesma tese perde em uma vara e ganha em outra sem que a diferença seja investigada.",
+      "phrase": "Cada reclamatória é tratada como caso isolado, sem que ninguém leia a carteira inteira — e a mesma tese perde em uma vara e ganha em outra sem que a diferença seja investigada."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 119,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "reclamatória"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "O litígio trabalhista também não se resume à reclamatória individual.",
+      "phrase": "O litígio trabalhista também não se resume à reclamatória individual."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 119,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "inquérito civil",
+        "ação civil pública"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Ele chega como ação coletiva do sindicato, como inquérito civil e ação civil pública do Ministério Público do Trabalho, como auto de infração da fiscalização — e termina na execução, quando a discussão deixa de ser sobre o direito e passa a",
+      "phrase": "Ele chega como ação coletiva do sindicato, como inquérito civil e ação civil pública do Ministério Público do Trabalho, como auto de infração da fiscalização — e termina na execução, quando a discussão deixa de ser sobre o direito e passa a"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 120,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Ele ocupa o balanço pela provisão, imobiliza caixa em depósito recursal e garantia de execução e, quando não encontra a empresa, procura quem está atrás dela: sócios, holding e as demais empresas do grupo."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 120,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "garantia de execução",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Ele ocupa o balanço pela provisão, imobiliza caixa em depósito recursal e garantia de execução e, quando não encontra a empresa, procura quem está atrás dela: sócios, holding e as demais empresas do grupo.",
+      "phrase": "Ele ocupa o balanço pela provisão, imobiliza caixa em depósito recursal e garantia de execução e, quando não encontra a empresa, procura quem está atrás dela: sócios, holding e as demais empresas do grupo."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 132,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "a empresa é defendida"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Onde a empresa é defendida",
+      "phrase": "Onde a empresa é defendida"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 138,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "reclamatórias"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Reclamatórias trabalhistas",
+      "phrase": "Reclamatórias trabalhistas"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 139,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa desde a citação",
+        "contestação",
+        "audiência"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa desde a citação: contestação construída sobre a documentação real da relação de trabalho, preposto e testemunhas preparados, audiência acompanhada e trilha probatória montada antes — não improvisada na mesa.",
+      "phrase": "Defesa desde a citação: contestação construída sobre a documentação real da relação de trabalho, preposto e testemunhas preparados, audiência acompanhada e trilha probatória montada antes — não improvisada na mesa."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 148,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "inquérito civil"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Inquérito civil e ACP",
+      "phrase": "Inquérito civil e ACP"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 149,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "inquérito civil",
+        "defesa em ação"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Resposta ao inquérito civil, condução técnica da negociação de termo de ajustamento de conduta e defesa em ação civil pública.",
+      "phrase": "Resposta ao inquérito civil, condução técnica da negociação de termo de ajustamento de conduta e defesa em ação civil pública."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 153,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa administrativa"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Fiscalização e defesa administrativa",
+      "phrase": "Fiscalização e defesa administrativa"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 154,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "recurso administrativo",
+        "recurso"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Acompanhamento da fiscalização do trabalho, defesa e recurso administrativo contra autos de infração — e a costura entre o que a empresa respondeu no processo administrativo e o que sustenta no judicial.",
+      "phrase": "Acompanhamento da fiscalização do trabalho, defesa e recurso administrativo contra autos de infração — e a costura entre o que a empresa respondeu no processo administrativo e o que sustenta no judicial."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 159,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Cada recurso tem prazo, custo de garantia e efeito sobre a provisão — recorrer de tudo não é estratégia."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 159,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "recurso ordinário",
+        "recurso de revista",
+        "agravos",
+        "recurso"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Recurso ordinário, recurso de revista e agravos, com critério para decidir o que sobe e o que se encerra.",
+      "phrase": "Recurso ordinário, recurso de revista e agravos, com critério para decidir o que sobe e o que se encerra."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 159,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "recorrer",
+        "recurso"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Cada recurso tem prazo, custo de garantia e efeito sobre a provisão — recorrer de tudo não é estratégia.",
+      "phrase": "Cada recurso tem prazo, custo de garantia e efeito sobre a provisão — recorrer de tudo não é estratégia."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 164,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "impugnação",
+        "embargos",
+        "incidente de desconsideração",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Impugnação de cálculo, embargos à execução e atuação no incidente de desconsideração da personalidade jurídica.",
+      "phrase": "Impugnação de cálculo, embargos à execução e atuação no incidente de desconsideração da personalidade jurídica."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 164,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução trabalhista",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "A execução trabalhista é o principal caminho pelo qual a condenação sai da empresa e alcança sócios, holding e empresas do mesmo grupo.",
+      "phrase": "A execução trabalhista é o principal caminho pelo qual a condenação sai da empresa e alcança sócios, holding e empresas do mesmo grupo."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 188,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "audiência"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Prova montada antes da audiência",
+      "phrase": "Prova montada antes da audiência"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 189,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "contestação"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Contestação, documentos, preposto e testemunhas preparados com antecedência.",
+      "phrase": "Contestação, documentos, preposto e testemunhas preparados com antecedência."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 189,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "audiência"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Preposto que conhece a rotina que vai descrever, ponto e folha conferidos, e prova documental organizada no formato em que será usada na audiência.",
+      "phrase": "Preposto que conhece a rotina que vai descrever, ponto e folha conferidos, e prova documental organizada no formato em que será usada na audiência."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 194,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Cálculo, conferência e impugnação de liquidação executados pela Bear Finance Serviços Financeiros e Contábil, com a provisão conciliada ao balanço no formato aceito pela auditoria independente."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 194,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "impugnação"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": true,
+      "frase": "Cálculo, conferência e impugnação de liquidação executados pela Bear Finance Serviços Financeiros e Contábil, com a provisão conciliada ao balanço no formato aceito pela auditoria independente.",
+      "phrase": "Cálculo, conferência e impugnação de liquidação executados pela Bear Finance Serviços Financeiros e Contábil, com a provisão conciliada ao balanço no formato aceito pela auditoria independente."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 199,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "audiência"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Decisão documentada, não intuição de audiência.",
+      "phrase": "Decisão documentada, não intuição de audiência."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 223,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Capital imobilizado em garantia"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 224,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Depósito recursal e garantia de execução param dinheiro da empresa até o fim do processo."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 224,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "garantia de execução",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Depósito recursal e garantia de execução param dinheiro da empresa até o fim do processo.",
+      "phrase": "Depósito recursal e garantia de execução param dinheiro da empresa até o fim do processo."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 224,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "recurso"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "A CLT admite substituir esses valores por seguro garantia judicial ou fiança bancária, devolvendo o recurso ao caixa sem tirar a garantia do juízo.",
+      "phrase": "A CLT admite substituir esses valores por seguro garantia judicial ou fiança bancária, devolvendo o recurso ao caixa sem tirar a garantia do juízo."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 229,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa técnica no incidente",
+        "desconsideração da personalidade"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Revisão da arquitetura societária sob a ótica do risco trabalhista e defesa técnica no incidente de desconsideração da personalidade jurídica: quem responde, com que patrimônio e sob qual fundamento.",
+      "phrase": "Revisão da arquitetura societária sob a ótica do risco trabalhista e defesa técnica no incidente de desconsideração da personalidade jurídica: quem responde, com que patrimônio e sob qual fundamento."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 246,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa em juízo"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "O contraditório e a ampla defesa, no processo judicial e no administrativo, estão no art. 5º, LV, da Constituição — e é dele que decorre tanto a defesa em juízo quanto a defesa contra o auto de infração.",
+      "phrase": "O contraditório e a ampla defesa, no processo judicial e no administrativo, estão no art. 5º, LV, da Constituição — e é dele que decorre tanto a defesa em juízo quanto a defesa contra o auto de infração."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 247,
+      "rules": [
+        "promessa/garantia",
+        "superlativo/ranking"
+      ],
+      "phrase": "A substituição do depósito recursal e da garantia da execução por seguro garantia judicial ou fiança bancária vem do art."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 247,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "incidente de desconsideração",
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "Na execução, o incidente de desconsideração da personalidade jurídica foi trazido para o processo do trabalho pelo art. 855-A da CLT, que remete aos arts. 133 a 137 do CPC;",
+      "phrase": "Na execução, o incidente de desconsideração da personalidade jurídica foi trazido para o processo do trabalho pelo art. 855-A da CLT, que remete aos arts. 133 a 137 do CPC;"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 247,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "garantia da execução",
+        "execução"
+      ],
+      "enquadramento": "explicativo",
+      "atribuicao": false,
+      "frase": "A substituição do depósito recursal e da garantia da execução por seguro garantia judicial ou fiança bancária vem do art. 899, § 11, e do art. 882 da CLT, com a redação da Lei 13.467/2017, regulamentada pelo Ato Conjunto TST.CSJT.CGJT nº 1/",
+      "phrase": "A substituição do depósito recursal e da garantia da execução por seguro garantia judicial ou fiança bancária vem do art. 899, § 11, e do art. 882 da CLT, com a redação da Lei 13.467/2017, regulamentada pelo Ato Conjunto TST.CSJT.CGJT nº 1/"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 257,
+      "rules": [
+        "superlativo/ranking"
+      ],
+      "phrase": "Ato Conjunto TST.CSJT.CGJT nº 1/2019"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 279,
+      "rules": [
+        "promessa/garantia"
+      ],
+      "phrase": "Diferença entre o valor pedido e o valor apurado ao fim de cada fase, tempo de tramitação por instância, provisão comparada ao desembolso efetivo e volume de capital mantido em garantia."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 286,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "recursos",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": true,
+      "frase": "Carteira sob um responsável técnico único, escopo definido por fase — conhecimento, recursos e execução —, relatório periódico por processo e painel executivo com a posição consolidada.",
+      "phrase": "Carteira sob um responsável técnico único, escopo definido por fase — conhecimento, recursos e execução —, relatório periódico por processo e painel executivo com a posição consolidada."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 349,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial em vídeo",
+      "phrase": "Defesa Empresarial em vídeo"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 350,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "a empresa é defendida",
+        "reclamatória",
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Como a empresa é defendida em cada frente do litígio trabalhista — da reclamatória individual à execução.",
+      "phrase": "Como a empresa é defendida em cada frente do litígio trabalhista — da reclamatória individual à execução."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 360,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Vídeo sobre defesa empresarial — em breve neste espaço.",
+      "phrase": "Vídeo sobre defesa empresarial — em breve neste espaço."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "line": 372,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "execução"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Apresentamos como a carteira de processos é lida, a condução da defesa em cada frente — judicial, coletiva, administrativa e de execução — e os indicadores acompanhados ao longo do caso.",
+      "phrase": "Apresentamos como a carteira de processos é lida, a condução da defesa em cada frente — judicial, coletiva, administrativa e de execução — e os indicadores acompanhados ao longo do caso."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+      "line": 118,
+      "rules": [
+        "honorários/gratuito"
+      ],
+      "phrase": "É exatamente isso que toda empresa faz com o passivo trabalhista: a prescrição é quinquenal, e as obrigações permanecem em aberto até que alguém as liquide — normalmente um juiz, anos depois, com juros, correção e honorários."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+      "line": 119,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "O instrumento é pouco utilizado, e não por vedação legal: executá-lo exige auditoria contábil mês a mês, engenharia jurídica na discriminação das parcelas, negociação sindical e tecnologia para repetir o processo em escala."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+      "line": 143,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Conferência das obrigações de dar e de fazer, executada pela Bear Finance Serviços Financeiros e Contábil."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+      "line": 163,
+      "rules": [
+        "contabilidade"
+      ],
+      "phrase": "Cofre probatório versionado e reflexo na provisão contábil."
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+      "line": 268,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defesa empresarial"
+      ],
+      "enquadramento": "entrega",
+      "atribuicao": false,
+      "frase": "Defesa Empresarial",
+      "phrase": "Defesa Empresarial"
+    },
+    {
+      "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+      "line": 269,
+      "rules": [
+        "ato privativo"
+      ],
+      "termos": [
+        "defende",
+        "reclamatória",
+        "execução"
+      ],
+      "enquadramento": "neutro",
+      "atribuicao": false,
+      "frase": "Defende a empresa no litígio trabalhista — da reclamatória à execução, do MPT à fiscalização.",
+      "phrase": "Defende a empresa no litígio trabalhista — da reclamatória à execução, do MPT à fiscalização."
+    },
+    {
+      "file": "plataforma-ead/loja.html",
+      "line": 60,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$ 0,00"
+    },
+    {
+      "file": "plataforma-ead/obrigado.html",
+      "line": 34,
+      "rules": [
+        "percentual/estatística"
+      ],
+      "phrase": "R$ 0,00"
+    }
+  ]
+}

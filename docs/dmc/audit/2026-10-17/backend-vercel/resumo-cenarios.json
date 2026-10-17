@@ -1,0 +1,14 @@
+{
+  "data": "2026-10-17",
+  "ferramenta": "npx vercel@64.5.0 build --yes (cópia hardlink do repo no scratchpad; engines.node ajustado para 24.x só na cópia)",
+  "criterios": ["funcao api/[...path].func contém server/src/server.js", "handler empacotado responde GET /api/health 200", "static sem server/ e sem .env*"],
+  "cenarios": {
+    "A_head_811ba98": {"vercelignore": "HEAD", "vercel.json": "HEAD", "build": "ok", "func_tem_server_src": true, "api_health": 200, "static_server_arquivos": 21, "static_env": 0, "obs": "server/src, scripts, uploads, README, package*.json vão à CDN; só o redirect 307 /server/* esconde; função 126 MB no build real (118 MB = complexodmc.com.br traçada por config.staticRoot)"},
+    "B_vercelignore_server": {"vercelignore": "HEAD + server/", "build": "ok (silencioso)", "func_tem_server_src": false, "api_health": "ERR_MODULE_NOT_FOUND", "static_server_arquivos": 0, "veredito": "falhou — viola D5", "obs": "build local com server/ ainda no disco passa (falso positivo); emulando o upload sem server/ a função fica com 3 arquivos"},
+    "C_vercelignore_restrito": {"vercelignore": "restrito (mantém server/src e node_modules)", "build": "ok", "func_tem_server_src": true, "api_health": 200, "static_server_arquivos": 14, "veredito": "falhou — server/src/** continua na CDN"},
+    "D_outputDirectory": {"vercel.json": "outputDirectory=complexodmc.com.br; rewrites /api e /solucoes; redirects /server/*→/, /complexodmc.com.br/*→/* (308)", "build": "ok", "func_tem_server_src": true, "api_health": 200, "static_server_arquivos": 0, "static_env": 0, "static_arquivos": 113, "static_igual_pasta_publica": true, "veredito": "aprovado"},
+    "D2_outputDirectory_excludeFiles": {"vercel.json": "D + functions['api/[...path].js'].excludeFiles='{complexodmc.com.br,server/uploads}/**'", "build": "ok", "func_tem_server_src": true, "api_health": 200, "func_tamanho": "4.1 MB (vs 126 MB no build real de 18/08)", "veredito": "aprovado"}
+  },
+  "bloqueio_deploy": "package.json engines.node=20.x → CLI recusa (BUILD_UTILS_NODE_VERSION_DISCONTINUED); .vercel/project.json nodeVersion=24.x",
+  "prod_2026-10-17T14:24Z": {"server/.env.bak-atlas": "200 628 B", "server/.env": "200 808 B", "falhas_probe": 18, "ead_api_health": 200}
+}

@@ -1,0 +1,529 @@
+{
+  "geradoEm": "2026-10-17T14:19:08.791Z",
+  "rotulo": "antes-deploy",
+  "base": "https://www.complexodmc.com.br",
+  "resultados": [
+    {
+      "grupo": "index",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/index.html",
+        "status": 200,
+        "etag": "\"3342fd1ab158b81308048e490c7c6b48\"",
+        "content-length": "839",
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 13:49:48 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::686jb-1792246746312-190ae24b0bb1",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/index.html",
+        "status": 200,
+        "etag": "W/\"0e65545a4be37478ac258c8e70a83937\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Thu, 15 Oct 2026 03:45:03 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::cwbxn-1792246746372-af47bfb14431",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": false,
+      "mesmoTamanho": false
+    },
+    {
+      "grupo": "index",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/",
+        "status": 200,
+        "etag": "\"3342fd1ab158b81308048e490c7c6b48\"",
+        "content-length": "839",
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Thu, 15 Oct 2026 03:43:35 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::7w6kj-1792246746406-a9480f5600b0",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/index.html",
+        "status": 200,
+        "etag": "W/\"0e65545a4be37478ac258c8e70a83937\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Thu, 15 Oct 2026 03:45:03 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::ncpql-1792246746445-ad008dcfdd27",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": false,
+      "mesmoTamanho": false
+    },
+    {
+      "grupo": "pages-raiz",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/pages/Sobre.html",
+        "status": 200,
+        "etag": "W/\"374b214754bbcd05b424b7de016738b6\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 14:13:06 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::npxvk-1792246746492-a586ea3c22ba",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/pages/Sobre.html",
+        "status": 404,
+        "etag": null,
+        "content-length": "79",
+        "content-type": "text/plain; charset=utf-8",
+        "last-modified": null,
+        "x-vercel-cache": null,
+        "x-vercel-id": "gru1::lrntn-1792246746539-b0d44ab1e604",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": null,
+      "mesmoTamanho": false
+    },
+    {
+      "grupo": "pages-raiz",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/pages/Apresenta%C3%A7%C3%A3o.html",
+        "status": 200,
+        "etag": "W/\"7b987ad450f88cc6d9b0000d75b0a9d1\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 14:13:06 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::wglzv-1792246746601-6913ac9f00dc",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/pages/Apresenta%C3%A7%C3%A3o.html",
+        "status": 404,
+        "etag": null,
+        "content-length": "79",
+        "content-type": "text/plain; charset=utf-8",
+        "last-modified": null,
+        "x-vercel-cache": null,
+        "x-vercel-id": "gru1::frcnt-1792246746643-d5434c347e3e",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": null,
+      "mesmoTamanho": false
+    },
+    {
+      "grupo": "pages-raiz",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/pages/Jur%C3%ADdico%20Vendas.html",
+        "status": 200,
+        "etag": "W/\"89421fb80bd7134b5e7bfa922012c8db\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 14:13:06 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::c4vpr-1792246746684-ca3c31da713e",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/pages/Jur%C3%ADdico%20Vendas.html",
+        "status": 404,
+        "etag": null,
+        "content-length": "79",
+        "content-type": "text/plain; charset=utf-8",
+        "last-modified": null,
+        "x-vercel-cache": null,
+        "x-vercel-id": "gru1::pdc4d-1792246746726-bd97a27b548e",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": null,
+      "mesmoTamanho": false
+    },
+    {
+      "grupo": "pages-raiz",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/pages/Jur%C3%ADdico%20Imobili%C3%A1rio.html",
+        "status": 200,
+        "etag": "W/\"9594972967cd597f7e8982a9794c4e23\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 14:19:06 GMT",
+        "x-vercel-cache": "MISS",
+        "x-vercel-id": "gru1::q6hrf-1792246746763-0669cfcdfedf",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/pages/Jur%C3%ADdico%20Imobili%C3%A1rio.html",
+        "status": 404,
+        "etag": null,
+        "content-length": "79",
+        "content-type": "text/plain; charset=utf-8",
+        "last-modified": null,
+        "x-vercel-cache": null,
+        "x-vercel-id": "gru1::sm62b-1792246746995-6574c7cc698c",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": null,
+      "mesmoTamanho": false
+    },
+    {
+      "grupo": "pages-raiz",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/pages/Consultoria%20Imobiili%C3%A1ria.html",
+        "status": 200,
+        "etag": "W/\"0672126e653fe260b5b70fe064a261fd\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 14:19:07 GMT",
+        "x-vercel-cache": "MISS",
+        "x-vercel-id": "gru1::7h8nf-1792246747029-a48a880b108d",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/pages/Consultoria%20Imobiili%C3%A1ria.html",
+        "status": 404,
+        "etag": null,
+        "content-length": "79",
+        "content-type": "text/plain; charset=utf-8",
+        "last-modified": null,
+        "x-vercel-cache": null,
+        "x-vercel-id": "gru1::7wm7z-1792246747295-c15b0e61bf8e",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": null,
+      "mesmoTamanho": false
+    },
+    {
+      "grupo": "css",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/pages/Site_Produtos/shared.css",
+        "status": 200,
+        "etag": "W/\"743d8d468f0c0980a6bc417dd73b0c26\"",
+        "content-length": null,
+        "content-type": "text/css; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 14:13:07 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::nbpdz-1792246747354-df20cb325e83",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/pages/Site_Produtos/shared.css",
+        "status": 404,
+        "etag": null,
+        "content-length": "79",
+        "content-type": "text/plain; charset=utf-8",
+        "last-modified": null,
+        "x-vercel-cache": null,
+        "x-vercel-id": "gru1::nbpdz-1792246747391-8e173ab5da0b",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": null,
+      "mesmoTamanho": false
+    },
+    {
+      "grupo": "css",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/pages/css/shared.css",
+        "status": 200,
+        "etag": "W/\"e921538637d7452f14a17ba6c8373804\"",
+        "content-length": null,
+        "content-type": "text/css; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 13:48:13 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::khbq5-1792246747422-2c63f2fbafa2",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/pages/css/shared.css",
+        "status": 200,
+        "etag": "W/\"e921538637d7452f14a17ba6c8373804\"",
+        "content-length": null,
+        "content-type": "text/css; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 13:48:13 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::ml9c4-1792246747462-621c6f1a2fd4",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": true,
+      "mesmoTamanho": true
+    },
+    {
+      "grupo": "assets-duplicados",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/assets/images/RINO_logo.png",
+        "status": 200,
+        "etag": "\"aae836f25687a82bf9edf2b2970bcf5c\"",
+        "content-length": "47156",
+        "content-type": "image/png",
+        "last-modified": "Sat, 17 Oct 2026 13:47:25 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::qsz9k-1792246747490-6b539346656a",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/assets/images/RINO_logo.png",
+        "status": 200,
+        "etag": "\"aae836f25687a82bf9edf2b2970bcf5c\"",
+        "content-length": "47156",
+        "content-type": "image/png",
+        "last-modified": "Sat, 17 Oct 2026 13:54:33 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::7w6kj-1792246747520-a0d6430e5f08",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": true,
+      "mesmoTamanho": true
+    },
+    {
+      "grupo": "assets-duplicados",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/assets/images/LOGO_RINOCERONTE.png",
+        "status": 200,
+        "etag": "\"cb0c6e73ea4e0afaea83c2b961863bb1\"",
+        "content-length": "2042458",
+        "content-type": "image/png",
+        "last-modified": "Sat, 17 Oct 2026 14:19:07 GMT",
+        "x-vercel-cache": "MISS",
+        "x-vercel-id": "gru1::2f7pn-1792246747553-4d708f3d9a13",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/assets/images/LOGO_RINOCERONTE.png",
+        "status": 200,
+        "etag": "\"cb0c6e73ea4e0afaea83c2b961863bb1\"",
+        "content-length": "2042458",
+        "content-type": "image/png",
+        "last-modified": "Sat, 17 Oct 2026 10:56:42 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::6j9vg-1792246748261-fbd88d921491",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": true,
+      "mesmoTamanho": true
+    },
+    {
+      "grupo": "assets-duplicados",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/assets/videos/rino-video-transparent.mp4",
+        "status": 200,
+        "etag": "\"256c66bdb880ac2b669d00abd712d8a1\"",
+        "content-length": "992664",
+        "content-type": "video/mp4",
+        "last-modified": "Sat, 17 Oct 2026 13:47:25 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::7h8nf-1792246748294-aa2dfc4143bc",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/assets/videos/rino-video-transparent.mp4",
+        "status": 200,
+        "etag": "\"256c66bdb880ac2b669d00abd712d8a1\"",
+        "content-length": "992664",
+        "content-type": "video/mp4",
+        "last-modified": "Sat, 17 Oct 2026 13:12:59 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::qsz9k-1792246748322-acb9edc911f8",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": true,
+      "mesmoTamanho": true
+    },
+    {
+      "grupo": "assets-so-aninhado",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/assets/images/hero-poster.jpg",
+        "status": 200,
+        "etag": "\"67913a74db109c53226586d670d8d6eb\"",
+        "content-length": "105009",
+        "content-type": "image/jpeg",
+        "last-modified": "Fri, 16 Oct 2026 01:26:21 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::c4vpr-1792246748364-fd0a4eea30fd",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/assets/images/hero-poster.jpg",
+        "status": 200,
+        "etag": "\"67913a74db109c53226586d670d8d6eb\"",
+        "content-length": "105009",
+        "content-type": "image/jpeg",
+        "last-modified": "Fri, 16 Oct 2026 01:26:21 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::2f7pn-1792246748398-573d753dd3af",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": true,
+      "mesmoTamanho": true
+    },
+    {
+      "grupo": "assets-so-aninhado",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/assets/images/favicon.png",
+        "status": 200,
+        "etag": "\"352a7aaa8f3f916732eff7653dd9df95\"",
+        "content-length": "4548",
+        "content-type": "image/png",
+        "last-modified": "Thu, 15 Oct 2026 16:24:47 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::6j9vg-1792246748427-8ebf922c88d7",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/assets/images/favicon.png",
+        "status": 200,
+        "etag": "\"352a7aaa8f3f916732eff7653dd9df95\"",
+        "content-length": "4548",
+        "content-type": "image/png",
+        "last-modified": "Thu, 15 Oct 2026 16:24:47 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::zk8t4-1792246748465-c1ddd292dd8c",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": true,
+      "mesmoTamanho": true
+    },
+    {
+      "grupo": "assets-so-aninhado",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/assets/js/navbar.js",
+        "status": 200,
+        "etag": "W/\"f2a180cb89b995dcf43fb0bc26b5b0a2\"",
+        "content-length": null,
+        "content-type": "application/javascript; charset=utf-8",
+        "last-modified": "Thu, 15 Oct 2026 03:45:03 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::khbq5-1792246748495-db306de0c50d",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/assets/js/navbar.js",
+        "status": 200,
+        "etag": "W/\"f2a180cb89b995dcf43fb0bc26b5b0a2\"",
+        "content-length": null,
+        "content-type": "application/javascript; charset=utf-8",
+        "last-modified": "Thu, 15 Oct 2026 03:45:03 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::mntmg-1792246748552-52b9fdd7151d",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": true,
+      "mesmoTamanho": true
+    },
+    {
+      "grupo": "assets-inexistente",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/assets/images/daniel-mathias-chagas.jpg",
+        "status": 404,
+        "etag": null,
+        "content-length": "79",
+        "content-type": "text/plain; charset=utf-8",
+        "last-modified": null,
+        "x-vercel-cache": null,
+        "x-vercel-id": "gru1::7wm7z-1792246748607-0666b69cf40a",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/assets/images/daniel-mathias-chagas.jpg",
+        "status": 404,
+        "etag": null,
+        "content-length": "79",
+        "content-type": "text/plain; charset=utf-8",
+        "last-modified": null,
+        "x-vercel-cache": null,
+        "x-vercel-id": "gru1::wglzv-1792246748647-da60e6894400",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": null,
+      "mesmoTamanho": true
+    },
+    {
+      "grupo": "pages-aninhado",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/pages/juridico-vendas.html",
+        "status": 200,
+        "etag": "W/\"851ae5357942a4847554c660bf0e0bde\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 13:49:09 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::nbpdz-1792246748682-c329582910b9",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/pages/juridico-vendas.html",
+        "status": 200,
+        "etag": "W/\"851ae5357942a4847554c660bf0e0bde\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 13:49:09 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::2b2r4-1792246748709-9da860b2dcaf",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": true,
+      "mesmoTamanho": true
+    },
+    {
+      "grupo": "ead",
+      "raiz": {
+        "url": "https://www.complexodmc.com.br/plataforma-ead/login.html",
+        "status": 200,
+        "etag": "W/\"c2a1b0fa7dcfc47f07aae645ffad0f0e\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 13:48:10 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::lrntn-1792246748745-87a8bfc209e3",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "aninhado": {
+        "url": "https://www.complexodmc.com.br/complexodmc.com.br/plataforma-ead/login.html",
+        "status": 200,
+        "etag": "W/\"c2a1b0fa7dcfc47f07aae645ffad0f0e\"",
+        "content-length": null,
+        "content-type": "text/html; charset=utf-8",
+        "last-modified": "Sat, 17 Oct 2026 13:48:10 GMT",
+        "x-vercel-cache": "HIT",
+        "x-vercel-id": "gru1::n5p92-1792246748774-89516e75ba48",
+        "location": null,
+        "cache-control": "public, max-age=0, must-revalidate"
+      },
+      "mesmoEtag": true,
+      "mesmoTamanho": true
+    }
+  ]
+}

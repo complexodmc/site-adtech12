@@ -1,0 +1,4 @@
+Vercel CLI 64.5.0 — `vercel build` com package.json engines.node="20.x" (HEAD 811ba98):
+{"status":"error","reason":"build_failed","message":"Node.js Version \"20.x\" is discontinued and must be upgraded. Please set \"engines\": { \"node\": \"24.x\" } in your `package.json` file to use Node.js 24."}
+Error: [BUILD_UTILS_NODE_VERSION_DISCONTINUED] — https://vercel.link/node-version
+.vercel/project.json: settings.nodeVersion = "24.x" (projeto já está em 24.x; só o package.json está desatualizado)

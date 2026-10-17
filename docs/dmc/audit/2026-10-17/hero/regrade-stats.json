@@ -1,0 +1,541 @@
+{
+  "geradoEm": "2026-10-17T14:19:23.981Z",
+  "lut": "dmc-dourado.cube",
+  "grades": {
+    "hue-rot": "hue=h=-140",
+    "gold-mono": "hue=s=0,colorchannelmixer=rr=0.92:gg=0.74:bb=0.36",
+    "lut3d": "lut3d=file=/Users/dmchagas/Site_Complexo_DMC/docs/dmc/audit/2026-10-17/hero/dmc-dourado.cube:interp=trilinear"
+  },
+  "videos": [
+    {
+      "id": "rino-hero",
+      "arquivo": "rino-hero.mp4",
+      "bytes": 3727569,
+      "frames": [
+        {
+          "t": 1,
+          "antes": {
+            "png": "rino-hero-t1.0s-antes.png",
+            "stats": {
+              "pixels": 921600,
+              "pctDoFrame": {
+                "preto_lt50": 75.2,
+                "neutro": 0.6,
+                "ciano_azul": 0.1,
+                "verde": 23.8,
+                "dourado_ambar": 0.3,
+                "vermelho_laranja": 0,
+                "magenta_roxo": 0
+              },
+              "pctDosCromaticos": {
+                "ciano_azul": 0.2,
+                "verde": 98.4,
+                "dourado_ambar": 1.4,
+                "vermelho_laranja": 0,
+                "magenta_roxo": 0
+              },
+              "satMediaCromaticos": 0.64
+            }
+          },
+          "depois": {
+            "hue-rot": {
+              "png": "rino-hero-t1.0s-depois-hue-rot.png",
+              "stats": {
+                "pixels": 921600,
+                "pctDoFrame": {
+                  "preto_lt50": 71.8,
+                  "neutro": 1.5,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 0,
+                  "vermelho_laranja": 21.2,
+                  "magenta_roxo": 5.5
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 0.1,
+                  "vermelho_laranja": 79.2,
+                  "magenta_roxo": 20.7
+                },
+                "satMediaCromaticos": 0.57
+              }
+            },
+            "gold-mono": {
+              "png": "rino-hero-t1.0s-depois-gold-mono.png",
+              "stats": {
+                "pixels": 921600,
+                "pctDoFrame": {
+                  "preto_lt50": 81.2,
+                  "neutro": 0,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 18.8,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 100,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "satMediaCromaticos": 0.61
+              }
+            },
+            "lut3d": {
+              "png": "rino-hero-t1.0s-depois-lut3d.png",
+              "stats": {
+                "pixels": 921600,
+                "pctDoFrame": {
+                  "preto_lt50": 76.6,
+                  "neutro": 23.1,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 0.3,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 1.9,
+                  "dourado_ambar": 98.1,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "satMediaCromaticos": 0.37
+              }
+            }
+          },
+          "comparacao": "rino-hero-t1.0s-comparacao.png"
+        },
+        {
+          "t": 4,
+          "antes": {
+            "png": "rino-hero-t4.0s-antes.png",
+            "stats": {
+              "pixels": 921600,
+              "pctDoFrame": {
+                "preto_lt50": 76.1,
+                "neutro": 0.2,
+                "ciano_azul": 0,
+                "verde": 23.2,
+                "dourado_ambar": 0.5,
+                "vermelho_laranja": 0,
+                "magenta_roxo": 0
+              },
+              "pctDosCromaticos": {
+                "ciano_azul": 0,
+                "verde": 97.8,
+                "dourado_ambar": 2.2,
+                "vermelho_laranja": 0,
+                "magenta_roxo": 0
+              },
+              "satMediaCromaticos": 0.66
+            }
+          },
+          "depois": {
+            "hue-rot": {
+              "png": "rino-hero-t4.0s-depois-hue-rot.png",
+              "stats": {
+                "pixels": 921600,
+                "pctDoFrame": {
+                  "preto_lt50": 74.6,
+                  "neutro": 0.9,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 0,
+                  "vermelho_laranja": 19.5,
+                  "magenta_roxo": 5
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 0,
+                  "vermelho_laranja": 79.7,
+                  "magenta_roxo": 20.3
+                },
+                "satMediaCromaticos": 0.57
+              }
+            },
+            "gold-mono": {
+              "png": "rino-hero-t4.0s-depois-gold-mono.png",
+              "stats": {
+                "pixels": 921600,
+                "pctDoFrame": {
+                  "preto_lt50": 79.9,
+                  "neutro": 0,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 20.1,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 100,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "satMediaCromaticos": 0.61
+              }
+            },
+            "lut3d": {
+              "png": "rino-hero-t4.0s-depois-lut3d.png",
+              "stats": {
+                "pixels": 921600,
+                "pctDoFrame": {
+                  "preto_lt50": 76.9,
+                  "neutro": 22.7,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 0.3,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 1.8,
+                  "dourado_ambar": 98.2,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "satMediaCromaticos": 0.35
+              }
+            }
+          },
+          "comparacao": "rino-hero-t4.0s-comparacao.png"
+        },
+        {
+          "t": 8,
+          "antes": {
+            "png": "rino-hero-t8.0s-antes.png",
+            "stats": {
+              "pixels": 921600,
+              "pctDoFrame": {
+                "preto_lt50": 78,
+                "neutro": 0.5,
+                "ciano_azul": 0,
+                "verde": 20.7,
+                "dourado_ambar": 0.7,
+                "vermelho_laranja": 0,
+                "magenta_roxo": 0
+              },
+              "pctDosCromaticos": {
+                "ciano_azul": 0.1,
+                "verde": 96.5,
+                "dourado_ambar": 3.5,
+                "vermelho_laranja": 0,
+                "magenta_roxo": 0
+              },
+              "satMediaCromaticos": 0.59
+            }
+          },
+          "depois": {
+            "hue-rot": {
+              "png": "rino-hero-t8.0s-depois-hue-rot.png",
+              "stats": {
+                "pixels": 921600,
+                "pctDoFrame": {
+                  "preto_lt50": 76.6,
+                  "neutro": 1.8,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 0,
+                  "vermelho_laranja": 17.2,
+                  "magenta_roxo": 4.3
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 0,
+                  "vermelho_laranja": 79.8,
+                  "magenta_roxo": 20.1
+                },
+                "satMediaCromaticos": 0.52
+              }
+            },
+            "gold-mono": {
+              "png": "rino-hero-t8.0s-depois-gold-mono.png",
+              "stats": {
+                "pixels": 921600,
+                "pctDoFrame": {
+                  "preto_lt50": 81.9,
+                  "neutro": 0,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 18.1,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 100,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "satMediaCromaticos": 0.61
+              }
+            },
+            "lut3d": {
+              "png": "rino-hero-t8.0s-depois-lut3d.png",
+              "stats": {
+                "pixels": 921600,
+                "pctDoFrame": {
+                  "preto_lt50": 78.9,
+                  "neutro": 20.7,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 0.4,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 1.3,
+                  "dourado_ambar": 98.7,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "satMediaCromaticos": 0.31
+              }
+            }
+          },
+          "comparacao": "rino-hero-t8.0s-comparacao.png"
+        }
+      ],
+      "clipeLut3d": {
+        "arquivo": "rino-hero-lut3d-dourado.mp4",
+        "bytes": 4355867,
+        "encodeMs": 5536
+      }
+    },
+    {
+      "id": "rino-transparent",
+      "arquivo": "rino-video-transparent.mp4",
+      "bytes": 992664,
+      "frames": [
+        {
+          "t": 1,
+          "antes": {
+            "png": "rino-transparent-t1.0s-antes.png",
+            "stats": {
+              "pixels": 230400,
+              "pctDoFrame": {
+                "preto_lt50": 63.7,
+                "neutro": 0.2,
+                "ciano_azul": 12.1,
+                "verde": 19.6,
+                "dourado_ambar": 4.4,
+                "vermelho_laranja": 0,
+                "magenta_roxo": 0
+              },
+              "pctDosCromaticos": {
+                "ciano_azul": 33.5,
+                "verde": 54.4,
+                "dourado_ambar": 12.1,
+                "vermelho_laranja": 0,
+                "magenta_roxo": 0
+              },
+              "satMediaCromaticos": 0.62
+            }
+          },
+          "depois": {
+            "hue-rot": {
+              "png": "rino-transparent-t1.0s-depois-hue-rot.png",
+              "stats": {
+                "pixels": 230400,
+                "pctDoFrame": {
+                  "preto_lt50": 63.3,
+                  "neutro": 1.1,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 10.6,
+                  "vermelho_laranja": 14.1,
+                  "magenta_roxo": 10.9
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 29.8,
+                  "vermelho_laranja": 39.7,
+                  "magenta_roxo": 30.5
+                },
+                "satMediaCromaticos": 0.57
+              }
+            },
+            "gold-mono": {
+              "png": "rino-transparent-t1.0s-depois-gold-mono.png",
+              "stats": {
+                "pixels": 230400,
+                "pctDoFrame": {
+                  "preto_lt50": 68.9,
+                  "neutro": 0,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 31.1,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 100,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "satMediaCromaticos": 0.61
+              }
+            },
+            "lut3d": {
+              "png": "rino-transparent-t1.0s-depois-lut3d.png",
+              "stats": {
+                "pixels": 230400,
+                "pctDoFrame": {
+                  "preto_lt50": 63.8,
+                  "neutro": 17.3,
+                  "ciano_azul": 0,
+                  "verde": 0.1,
+                  "dourado_ambar": 18.8,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0.5,
+                  "dourado_ambar": 99.5,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "satMediaCromaticos": 0.6
+              }
+            }
+          },
+          "comparacao": "rino-transparent-t1.0s-comparacao.png"
+        },
+        {
+          "t": 3,
+          "antes": {
+            "png": "rino-transparent-t3.0s-antes.png",
+            "stats": {
+              "pixels": 230400,
+              "pctDoFrame": {
+                "preto_lt50": 63.9,
+                "neutro": 0.2,
+                "ciano_azul": 6.8,
+                "verde": 24.3,
+                "dourado_ambar": 4.9,
+                "vermelho_laranja": 0,
+                "magenta_roxo": 0
+              },
+              "pctDosCromaticos": {
+                "ciano_azul": 18.8,
+                "verde": 67.6,
+                "dourado_ambar": 13.6,
+                "vermelho_laranja": 0,
+                "magenta_roxo": 0
+              },
+              "satMediaCromaticos": 0.56
+            }
+          },
+          "depois": {
+            "hue-rot": {
+              "png": "rino-transparent-t3.0s-depois-hue-rot.png",
+              "stats": {
+                "pixels": 230400,
+                "pctDoFrame": {
+                  "preto_lt50": 63.3,
+                  "neutro": 1.3,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 5.6,
+                  "vermelho_laranja": 15.4,
+                  "magenta_roxo": 14.4
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 15.8,
+                  "vermelho_laranja": 43.5,
+                  "magenta_roxo": 40.7
+                },
+                "satMediaCromaticos": 0.5
+              }
+            },
+            "gold-mono": {
+              "png": "rino-transparent-t3.0s-depois-gold-mono.png",
+              "stats": {
+                "pixels": 230400,
+                "pctDoFrame": {
+                  "preto_lt50": 68.7,
+                  "neutro": 0,
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 31.3,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0,
+                  "dourado_ambar": 100,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "satMediaCromaticos": 0.61
+              }
+            },
+            "lut3d": {
+              "png": "rino-transparent-t3.0s-depois-lut3d.png",
+              "stats": {
+                "pixels": 230400,
+                "pctDoFrame": {
+                  "preto_lt50": 64.2,
+                  "neutro": 23.3,
+                  "ciano_azul": 0,
+                  "verde": 0.1,
+                  "dourado_ambar": 12.4,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "pctDosCromaticos": {
+                  "ciano_azul": 0,
+                  "verde": 0.7,
+                  "dourado_ambar": 99.3,
+                  "vermelho_laranja": 0,
+                  "magenta_roxo": 0
+                },
+                "satMediaCromaticos": 0.56
+              }
+            }
+          },
+          "comparacao": "rino-transparent-t3.0s-comparacao.png"
+        }
+      ],
+      "clipeLut3d": {
+        "arquivo": "rino-transparent-lut3d-dourado.mp4",
+        "bytes": 211365,
+        "encodeMs": 726
+      }
+    }
+  ],
+  "alphaNativo": {
+    "vp9": {
+      "arquivo": "rino-transparent-alpha-vp9.webm",
+      "bytes": 920641,
+      "encodeMs": 4305,
+      "filtro": "colorkey=0x000000:0.2:0.05,lut3d",
+      "navegadores": "Chrome/Edge/Firefox/Android (VP9 alpha); Safari não",
+      "frameSobreGrafite": "rino-transparent-alpha-vp9-sobre-grafite.png"
+    },
+    "hevc": {
+      "arquivo": "rino-transparent-alpha-hevc.mov",
+      "bytes": 1412159,
+      "encodeMs": 477,
+      "navegadores": "Safari/iOS (HEVC alpha); Chrome não"
+    }
+  }
+}

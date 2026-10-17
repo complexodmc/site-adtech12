@@ -696,13 +696,13 @@
 
         if (tipo === 'bars') {
           g.fillStyle = '#ffffff'; g.font = '700 78px Poppins, DM Sans, sans-serif';
-          g.fillText('R$ 4,2M', 44, 190);
+          g.fillText('Holding', 44, 190);
           rr(370, 138, 168, 52, 26); g.fillStyle = 'rgba(125,255,155,0.16)'; g.fill();
           g.strokeStyle = 'rgba(125,255,155,0.8)'; g.lineWidth = 2; rr(370, 138, 168, 52, 26); g.stroke();
           g.fillStyle = '#7dff9b'; g.font = '600 30px Poppins, DM Sans, sans-serif';
-          g.fillText('▲ +38%', 392, 174);
+          g.fillText('Módulo', 392, 174);
           g.fillStyle = 'rgba(155,232,255,0.55)'; g.font = '400 24px Poppins, DM Sans, sans-serif';
-          g.fillText('receita recorrente · últimos 12 meses', 44, 232);
+          g.fillText('trilha de estudo · planejamento patrimonial', 44, 232);
 
           var x0 = 44, y0 = 620, cw = 610, ch = 300, i2;
           g.strokeStyle = 'rgba(79,216,255,0.15)'; g.lineWidth = 1;
@@ -726,7 +726,7 @@
             g.beginPath(); g.arc(pt[0], pt[1], i3 === 11 ? 9 : 6, 0, Math.PI * 2); g.fill();
           });
           g.fillStyle = '#7dff9b'; g.font = '700 28px Poppins, DM Sans, sans-serif';
-          g.fillText('126', pts[11][0] - 24, pts[11][1] - 20);
+          g.fillText('hoje', pts[11][0] - 24, pts[11][1] - 20);
           g.fillStyle = 'rgba(155,232,255,0.5)'; g.font = '400 20px Poppins, DM Sans, sans-serif';
           'JFMAMJJASOND'.split('').forEach(function (m, i3) { g.fillText(m, x0 + i3 * (cw / 11) - 6, y0 + 34); });
 
@@ -737,9 +737,9 @@
           g.beginPath(); g.arc(cx, cy, Rd, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * 0.72); g.stroke();
           g.lineCap = 'butt';
           g.fillStyle = '#ffffff'; g.font = '700 58px Poppins, DM Sans, sans-serif'; g.textAlign = 'center';
-          g.fillText('72%', cx, cy + 18);
+          g.fillText('Trilha', cx, cy + 18);
           g.fillStyle = 'rgba(155,232,255,0.6)'; g.font = '400 24px Poppins, DM Sans, sans-serif';
-          g.fillText('meta anual', cx, cy + 58); g.textAlign = 'left';
+          g.fillText('em andamento', cx, cy + 58); g.textAlign = 'left';
           [['#7dff9b', 'realizado'], ['rgba(79,216,255,0.5)', 'projetado']].forEach(function (L, i3) {
             var yl = 580 + i3 * 40;
             g.fillStyle = L[0]; rr(790, yl - 16, 22, 22, 5); g.fill();
@@ -748,7 +748,7 @@
           });
 
         } else if (tipo === 'list') {
-          [['128', 'módulos ativos'], ['24', 'em homologação'], ['9', 'na fila']].forEach(function (st, i3) {
+          [['E1', 'patrimonial'], ['E2', 'tributário'], ['E6', 'trabalhista']].forEach(function (st, i3) {
             var x = 44 + i3 * 260;
             g.fillStyle = '#ffffff'; g.font = '700 62px Poppins, DM Sans, sans-serif'; g.fillText(st[0], x, 178);
             g.fillStyle = 'rgba(155,232,255,0.55)'; g.font = '400 24px Poppins, DM Sans, sans-serif';

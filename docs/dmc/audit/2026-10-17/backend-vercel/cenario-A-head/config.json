@@ -1,0 +1,75 @@
+{
+  "version": 3,
+  "routes": [
+    {
+      "src": "^/server(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))?$",
+      "headers": {
+        "Location": "/"
+      },
+      "status": 307
+    },
+    {
+      "src": "^/solucoes/consultoria-trabalhista/defesa-e-capital$",
+      "headers": {
+        "Location": "/solucoes/consultoria-trabalhista/defesa-empresarial"
+      },
+      "status": 308
+    },
+    {
+      "src": "^/solucoes/consultoria-trabalhista$",
+      "headers": {
+        "Location": "/solucoes/consultoria-trabalhista/ciclo-fechado"
+      },
+      "status": 308
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "^/api(?:/(.*))$",
+      "dest": "/api/[...path].js",
+      "check": true
+    },
+    {
+      "src": "^/$",
+      "dest": "/complexodmc.com.br/index.html",
+      "check": true
+    },
+    {
+      "src": "^/solucoes(?:/([^/]+?))(?:/([a-z0-9-]+))$",
+      "dest": "/complexodmc.com.br/solucoes/$1/$2.html",
+      "check": true
+    },
+    {
+      "src": "^(?:/(.*))$",
+      "dest": "/complexodmc.com.br/$1",
+      "check": true
+    },
+    {
+      "src": "^/api/([^/]+)$",
+      "dest": "/api/[...path]?...path=$1",
+      "check": true
+    },
+    {
+      "src": "^/api(/.*)?$",
+      "status": 404
+    },
+    {
+      "handle": "error"
+    },
+    {
+      "status": 404,
+      "src": "^(?!/api).*$",
+      "dest": "/404.html"
+    },
+    {
+      "handle": "miss"
+    },
+    {
+      "src": "^/api/(.+)(?:\\.(?:js))$",
+      "dest": "/api/$1",
+      "check": true
+    }
+  ],
+  "crons": []
+}

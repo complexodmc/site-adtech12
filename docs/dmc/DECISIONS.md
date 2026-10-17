@@ -61,4 +61,29 @@ riscos relevantes, alterações institucionais sensíveis.
   As variáveis já existem no painel da Vercel, então a API não depende do arquivo.
 - Pendente do CEO (fora do nosso alcance): trocar a senha do usuário MongoDB no Atlas e o
   `JWT_SECRET` (atualizar nas variáveis da Vercel) e autorizar o hotfix em produção.
+- Rodada extra (2026-10-17 14:24 UTC): `server/.env.bak-atlas` também público (200, 628 B) e
+  ausente do probe anterior; localmente contém `MONGODB_URI` do Atlas com usuário:senha
+  (cluster `siteadtech`) e o mesmo `JWT_SECRET` de `server/.env`. A rotação passa a incluir
+  a senha desse usuário Atlas; apagar `server/.env.bak-atlas` (hardlink: existe cópia fora
+  do repo) e o build antigo `.vercel/output/` (contém os dois `.env`). Também 200:
+  `server/src/**`, `server/scripts/*`, `server/uploads/*` (PDF e capa), `package-lock.json`.
+- A correção "`.vercelignore` com `server/`" (AUDIT §5 P0) é inviável: `api/[...path].js`
+  importa `../server/src/server.js`; sem `server/` no upload o build termina "ok" mas a
+  função falha com `ERR_MODULE_NOT_FOUND` (derruba `/api/*`, viola D5). Substituir por
+  `"outputDirectory": "complexodmc.com.br"` em `vercel.json` (validado com `vercel build`:
+  estático só da pasta pública, função íntegra, `/api/health` 200) — proposta e evidências
+  em `docs/dmc/audit/2026-10-17/backend-vercel/`. Pré-requisito: `engines.node` → `24.x`
+  (CLI atual recusa 20.x). Porta de deploy: `docs/dmc/audit/tools/vercel-build-check.sh`.
 - Aprovação necessária: **sim** (publicação fora do pacote final + risco relevante).
+
+### D6 — Botão de acesso com dois destinos (2026-10-17)
+- Decisão: o "Login" do menu vira "Acessar", com duas opções: Área do aluno (plataforma
+  EAD) e Ad-tech. Implementar no redesign da navbar (desktop e mobile).
+- Aprovação: CEO ✔
+
+### D7 — Números institucionais removidos (2026-10-17)
+- Decisão: todos os indicadores sem comprovação (95% satisfação, 98% sucesso, R$ 80M+,
+  24/7, 40% economia tributária, 35%/60%/70%/98%/99% etc.) saem do site. Entram fatos
+  verificáveis (seis eixos, sede em São Paulo, metodologia). Número novo só com
+  comprovação documental e aprovação do CEO.
+- Aprovação: CEO ✔

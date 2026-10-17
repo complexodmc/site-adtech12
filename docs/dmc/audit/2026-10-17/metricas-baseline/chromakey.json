@@ -1,0 +1,975 @@
+{
+  "geradoEm": "2026-10-17T14:29:06.871Z",
+  "navegador": "Google Chrome 155.0.8059.84 (headless, channel chrome)",
+  "metodo": {
+    "viewport": "390x844, DPR 3, isMobile, hasTouch",
+    "cpuThrottle": "Emulation.setCPUThrottlingRate (campo cpuThrottle em cada medição; 4x padrão)",
+    "scroll": "10000 ms, scrollBy 120px a cada 50 ms, desce e sobe; scroll-behavior:auto forçado",
+    "fps": "contagem de callbacks de requestAnimationFrame / tempo decorrido",
+    "longTasks": "PerformanceObserver longtask (>50 ms) durante o scroll",
+    "mainThread": "delta de Performance.getMetrics (CDP) TaskDuration/ScriptDuration durante o scroll",
+    "condicoes": [
+      {
+        "id": "com-chromakey",
+        "desc": "pagina como esta (laco ativo, canvas visivel)"
+      },
+      {
+        "id": "canvas-display-none",
+        "desc": "canvas display:none injetado; laco JS continua"
+      },
+      {
+        "id": "sem-laco",
+        "desc": "rino-video-transparent.mp4 bloqueado; init() nunca roda"
+      }
+    ],
+    "paginas": [
+      {
+        "id": "home",
+        "url": "http://127.0.0.1:8080/complexodmc.com.br/index.html"
+      },
+      {
+        "id": "planejamento-sucessorio",
+        "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio.html"
+      }
+    ],
+    "runs": 2
+  },
+  "resumo": [
+    {
+      "page": "home",
+      "cond": "com-chromakey",
+      "cpuThrottle": 6,
+      "runs": 1,
+      "fps": 59,
+      "longTasksN": 1,
+      "longTasksMs": 97,
+      "longTaskMax": 97,
+      "gapP95": 16.8,
+      "gapMax": 83.3,
+      "mainPct": 82.2
+    },
+    {
+      "page": "home",
+      "cond": "sem-laco",
+      "cpuThrottle": 6,
+      "runs": 1,
+      "fps": 60.1,
+      "longTasksN": 0,
+      "longTasksMs": 0,
+      "longTaskMax": 0,
+      "gapP95": 16.7,
+      "gapMax": 16.8,
+      "mainPct": 34.3
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "com-chromakey",
+      "cpuThrottle": 6,
+      "runs": 1,
+      "fps": 59.8,
+      "longTasksN": 0,
+      "longTasksMs": 0,
+      "longTaskMax": 0,
+      "gapP95": 16.8,
+      "gapMax": 33.4,
+      "mainPct": 94.9
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "sem-laco",
+      "cpuThrottle": 6,
+      "runs": 1,
+      "fps": 59.9,
+      "longTasksN": 0,
+      "longTasksMs": 0,
+      "longTaskMax": 0,
+      "gapP95": 16.8,
+      "gapMax": 33.3,
+      "mainPct": 58.6
+    },
+    {
+      "page": "home",
+      "cond": "com-chromakey",
+      "cpuThrottle": 4,
+      "runs": 2,
+      "fps": 60.1,
+      "longTasksN": 0,
+      "longTasksMs": 0,
+      "longTaskMax": 0,
+      "gapP95": 16.8,
+      "gapMax": 16.8,
+      "mainPct": 63.6
+    },
+    {
+      "page": "home",
+      "cond": "canvas-display-none",
+      "cpuThrottle": 4,
+      "runs": 2,
+      "fps": 60.1,
+      "longTasksN": 0,
+      "longTasksMs": 0,
+      "longTaskMax": 0,
+      "gapP95": 16.8,
+      "gapMax": 16.8,
+      "mainPct": 68.2
+    },
+    {
+      "page": "home",
+      "cond": "sem-laco",
+      "cpuThrottle": 4,
+      "runs": 2,
+      "fps": 60.1,
+      "longTasksN": 0,
+      "longTasksMs": 0,
+      "longTaskMax": 0,
+      "gapP95": 16.7,
+      "gapMax": 16.8,
+      "mainPct": 21.8
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "com-chromakey",
+      "cpuThrottle": 4,
+      "runs": 2,
+      "fps": 59.3,
+      "longTasksN": 1,
+      "longTasksMs": 138,
+      "longTaskMax": 174,
+      "gapP95": 16.7,
+      "gapMax": 166.6,
+      "mainPct": 67.1
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "canvas-display-none",
+      "cpuThrottle": 4,
+      "runs": 2,
+      "fps": 60,
+      "longTasksN": 0,
+      "longTasksMs": 0,
+      "longTaskMax": 0,
+      "gapP95": 16.8,
+      "gapMax": 33.3,
+      "mainPct": 63.4
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "sem-laco",
+      "cpuThrottle": 4,
+      "runs": 2,
+      "fps": 60,
+      "longTasksN": 0,
+      "longTasksMs": 0,
+      "longTaskMax": 0,
+      "gapP95": 16.8,
+      "gapMax": 33.3,
+      "mainPct": 33.9
+    }
+  ],
+  "medicoes": [
+    {
+      "page": "home",
+      "cond": "com-chromakey",
+      "run": 1,
+      "cpuThrottle": 6,
+      "viewport": "390x844@3x",
+      "loadMs": 931,
+      "estado": {
+        "canvasInternalW": 480,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 1160.859375,
+        "videoTime": 3.128963,
+        "videoPaused": false,
+        "videoReady": 4,
+        "scrollHeight": 13408,
+        "videoTimeDepois": 2.885212,
+        "videoPausedDepois": false
+      },
+      "scroll": {
+        "ms": 10015,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 12564
+      },
+      "fps": {
+        "medio": 59,
+        "frames": 591
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.8,
+        "max": 83.3,
+        "acima50": 1,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 1,
+        "totalMs": 97,
+        "maxMs": 97
+      },
+      "mainThread": {
+        "taskDurationMs": 8235,
+        "scriptDurationMs": 4550,
+        "layoutDurationMs": 198,
+        "recalcStyleMs": 745,
+        "ocupacaoPct": 82.2
+      },
+      "custoPorFrameMs": {
+        "cpu4x": 5.13,
+        "cpu1x": 2.03,
+        "pixelsPorFrame": 230400
+      }
+    },
+    {
+      "page": "home",
+      "cond": "sem-laco",
+      "run": 1,
+      "cpuThrottle": 6,
+      "viewport": "390x844@3x",
+      "loadMs": 901,
+      "estado": {
+        "canvasInternalW": 300,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 1160.859375,
+        "videoTime": 0,
+        "videoPaused": true,
+        "videoReady": 0,
+        "scrollHeight": 12438,
+        "videoTimeDepois": 0,
+        "videoPausedDepois": true
+      },
+      "scroll": {
+        "ms": 10001,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 11594
+      },
+      "fps": {
+        "medio": 60.1,
+        "frames": 601
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 3431,
+        "scriptDurationMs": 119,
+        "layoutDurationMs": 218,
+        "recalcStyleMs": 844,
+        "ocupacaoPct": 34.3
+      }
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "com-chromakey",
+      "run": 1,
+      "cpuThrottle": 6,
+      "viewport": "390x844@3x",
+      "loadMs": 720,
+      "estado": {
+        "canvasInternalW": 480,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 3295.96875,
+        "videoTime": 3.292977,
+        "videoPaused": false,
+        "videoReady": 4,
+        "scrollHeight": 10726,
+        "videoTimeDepois": 3.033029,
+        "videoPausedDepois": false
+      },
+      "scroll": {
+        "ms": 10002,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 9882
+      },
+      "fps": {
+        "medio": 59.8,
+        "frames": 598
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.8,
+        "max": 33.4,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 9493,
+        "scriptDurationMs": 6381,
+        "layoutDurationMs": 8,
+        "recalcStyleMs": 652,
+        "ocupacaoPct": 94.9
+      },
+      "custoPorFrameMs": {
+        "cpu4x": 5.3,
+        "cpu1x": 1.97,
+        "pixelsPorFrame": 230400
+      }
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "sem-laco",
+      "run": 1,
+      "cpuThrottle": 6,
+      "viewport": "390x844@3x",
+      "loadMs": 718,
+      "estado": {
+        "canvasInternalW": 300,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 3295.96875,
+        "videoTime": 0,
+        "videoPaused": true,
+        "videoReady": 0,
+        "scrollHeight": 10726,
+        "videoTimeDepois": 0,
+        "videoPausedDepois": true
+      },
+      "scroll": {
+        "ms": 10011,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 9882
+      },
+      "fps": {
+        "medio": 59.9,
+        "frames": 600
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.8,
+        "max": 33.3,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 5866,
+        "scriptDurationMs": 2457,
+        "layoutDurationMs": 8,
+        "recalcStyleMs": 838,
+        "ocupacaoPct": 58.6
+      }
+    },
+    {
+      "page": "home",
+      "cond": "com-chromakey",
+      "run": 1,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 742,
+      "estado": {
+        "canvasInternalW": 480,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 1160.859375,
+        "videoTime": 3.098848,
+        "videoPaused": false,
+        "videoReady": 4,
+        "scrollHeight": 13498,
+        "videoTimeDepois": 2.874436,
+        "videoPausedDepois": false
+      },
+      "scroll": {
+        "ms": 10002,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 12654
+      },
+      "fps": {
+        "medio": 60.1,
+        "frames": 601
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 6713,
+        "scriptDurationMs": 4085,
+        "layoutDurationMs": 141,
+        "recalcStyleMs": 539,
+        "ocupacaoPct": 67.1
+      },
+      "custoPorFrameMs": {
+        "cpu4x": 5.51,
+        "cpu1x": 1.81,
+        "pixelsPorFrame": 230400
+      }
+    },
+    {
+      "page": "home",
+      "cond": "canvas-display-none",
+      "run": 1,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 589,
+      "estado": {
+        "canvasInternalW": 480,
+        "canvasDisplay": "none",
+        "canvasCssW": 0,
+        "canvasTop": 0,
+        "videoTime": 3.121842,
+        "videoPaused": false,
+        "videoReady": 4,
+        "scrollHeight": 13760,
+        "videoTimeDepois": 2.870434,
+        "videoPausedDepois": false
+      },
+      "scroll": {
+        "ms": 10015,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 12916
+      },
+      "fps": {
+        "medio": 60.1,
+        "frames": 602
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 6078,
+        "scriptDurationMs": 3859,
+        "layoutDurationMs": 113,
+        "recalcStyleMs": 480,
+        "ocupacaoPct": 60.7
+      }
+    },
+    {
+      "page": "home",
+      "cond": "sem-laco",
+      "run": 1,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 506,
+      "estado": {
+        "canvasInternalW": 300,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 1160.859375,
+        "videoTime": 0,
+        "videoPaused": true,
+        "videoReady": 0,
+        "scrollHeight": 12438,
+        "videoTimeDepois": 0,
+        "videoPausedDepois": true
+      },
+      "scroll": {
+        "ms": 10007,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 11594
+      },
+      "fps": {
+        "medio": 60.1,
+        "frames": 601
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 2068,
+        "scriptDurationMs": 73,
+        "layoutDurationMs": 140,
+        "recalcStyleMs": 461,
+        "ocupacaoPct": 20.7
+      }
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "com-chromakey",
+      "run": 1,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 693,
+      "estado": {
+        "canvasInternalW": 480,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 3295.96875,
+        "videoTime": 3.420042,
+        "videoPaused": false,
+        "videoReady": 4,
+        "scrollHeight": 10726,
+        "videoTimeDepois": 3.159471,
+        "videoPausedDepois": false
+      },
+      "scroll": {
+        "ms": 10016,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 9882
+      },
+      "fps": {
+        "medio": 60.1,
+        "frames": 602
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 6409,
+        "scriptDurationMs": 4283,
+        "layoutDurationMs": 4,
+        "recalcStyleMs": 386,
+        "ocupacaoPct": 64
+      },
+      "custoPorFrameMs": {
+        "cpu4x": 5.04,
+        "cpu1x": 1.81,
+        "pixelsPorFrame": 230400
+      }
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "canvas-display-none",
+      "run": 1,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 644,
+      "estado": {
+        "canvasInternalW": 480,
+        "canvasDisplay": "none",
+        "canvasCssW": 0,
+        "canvasTop": 0,
+        "videoTime": 3.312633,
+        "videoPaused": false,
+        "videoReady": 4,
+        "scrollHeight": 10726,
+        "videoTimeDepois": 3.028048,
+        "videoPausedDepois": false
+      },
+      "scroll": {
+        "ms": 10001,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 9882
+      },
+      "fps": {
+        "medio": 60.1,
+        "frames": 601
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 6244,
+        "scriptDurationMs": 4172,
+        "layoutDurationMs": 3,
+        "recalcStyleMs": 415,
+        "ocupacaoPct": 62.4
+      }
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "sem-laco",
+      "run": 1,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 716,
+      "estado": {
+        "canvasInternalW": 300,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 3295.96875,
+        "videoTime": 0,
+        "videoPaused": true,
+        "videoReady": 0,
+        "scrollHeight": 10726,
+        "videoTimeDepois": 0,
+        "videoPausedDepois": true
+      },
+      "scroll": {
+        "ms": 10007,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 9882
+      },
+      "fps": {
+        "medio": 60,
+        "frames": 600
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.8,
+        "max": 33.3,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 3406,
+        "scriptDurationMs": 1465,
+        "layoutDurationMs": 5,
+        "recalcStyleMs": 477,
+        "ocupacaoPct": 34
+      }
+    },
+    {
+      "page": "home",
+      "cond": "com-chromakey",
+      "run": 2,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 579,
+      "estado": {
+        "canvasInternalW": 480,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 1160.859375,
+        "videoTime": 3.23311,
+        "videoPaused": false,
+        "videoReady": 4,
+        "scrollHeight": 12438,
+        "videoTimeDepois": 2.973857,
+        "videoPausedDepois": false
+      },
+      "scroll": {
+        "ms": 10014,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 11594
+      },
+      "fps": {
+        "medio": 60.1,
+        "frames": 602
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 6033,
+        "scriptDurationMs": 3600,
+        "layoutDurationMs": 150,
+        "recalcStyleMs": 545,
+        "ocupacaoPct": 60.2
+      }
+    },
+    {
+      "page": "home",
+      "cond": "canvas-display-none",
+      "run": 2,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 502,
+      "estado": {
+        "canvasInternalW": 480,
+        "canvasDisplay": "none",
+        "canvasCssW": 0,
+        "canvasTop": 0,
+        "videoTime": 3.164017,
+        "videoPaused": false,
+        "videoReady": 4,
+        "scrollHeight": 13760,
+        "videoTimeDepois": 2.889962,
+        "videoPausedDepois": false
+      },
+      "scroll": {
+        "ms": 10002,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 12916
+      },
+      "fps": {
+        "medio": 60.1,
+        "frames": 601
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 7572,
+        "scriptDurationMs": 5015,
+        "layoutDurationMs": 134,
+        "recalcStyleMs": 558,
+        "ocupacaoPct": 75.7
+      }
+    },
+    {
+      "page": "home",
+      "cond": "sem-laco",
+      "run": 2,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 620,
+      "estado": {
+        "canvasInternalW": 300,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 1160.859375,
+        "videoTime": 0,
+        "videoPaused": true,
+        "videoReady": 0,
+        "scrollHeight": 13408,
+        "videoTimeDepois": 0,
+        "videoPausedDepois": true
+      },
+      "scroll": {
+        "ms": 10011,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 12564
+      },
+      "fps": {
+        "medio": 60.1,
+        "frames": 602
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.7,
+        "max": 16.8,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 2280,
+        "scriptDurationMs": 82,
+        "layoutDurationMs": 134,
+        "recalcStyleMs": 517,
+        "ocupacaoPct": 22.8
+      }
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "com-chromakey",
+      "run": 2,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 670,
+      "estado": {
+        "canvasInternalW": 480,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 3295.96875,
+        "videoTime": 3.308315,
+        "videoPaused": false,
+        "videoReady": 4,
+        "scrollHeight": 10726,
+        "videoTimeDepois": 3.056569,
+        "videoPausedDepois": false
+      },
+      "scroll": {
+        "ms": 10002,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 9882
+      },
+      "fps": {
+        "medio": 58.5,
+        "frames": 585
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.7,
+        "max": 166.6,
+        "acima50": 2,
+        "acima100": 2
+      },
+      "longTasks": {
+        "n": 2,
+        "totalMs": 276,
+        "maxMs": 174
+      },
+      "mainThread": {
+        "taskDurationMs": 7020,
+        "scriptDurationMs": 4515,
+        "layoutDurationMs": 6,
+        "recalcStyleMs": 548,
+        "ocupacaoPct": 70.2
+      }
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "canvas-display-none",
+      "run": 2,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 1185,
+      "estado": {
+        "canvasInternalW": 480,
+        "canvasDisplay": "none",
+        "canvasCssW": 0,
+        "canvasTop": 0,
+        "videoTime": 3.80261,
+        "videoPaused": false,
+        "videoReady": 4,
+        "scrollHeight": 10726,
+        "videoTimeDepois": 3.53042,
+        "videoPausedDepois": false
+      },
+      "scroll": {
+        "ms": 10001,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 9882
+      },
+      "fps": {
+        "medio": 60,
+        "frames": 600
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.8,
+        "max": 33.3,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 6441,
+        "scriptDurationMs": 4292,
+        "layoutDurationMs": 4,
+        "recalcStyleMs": 436,
+        "ocupacaoPct": 64.4
+      }
+    },
+    {
+      "page": "planejamento-sucessorio",
+      "cond": "sem-laco",
+      "run": 2,
+      "cpuThrottle": 4,
+      "viewport": "390x844@3x",
+      "loadMs": 688,
+      "estado": {
+        "canvasInternalW": 300,
+        "canvasDisplay": "block",
+        "canvasCssW": 110,
+        "canvasTop": 3295.96875,
+        "videoTime": 0,
+        "videoPaused": true,
+        "videoReady": 0,
+        "scrollHeight": 10726,
+        "videoTimeDepois": 0,
+        "videoPausedDepois": true
+      },
+      "scroll": {
+        "ms": 10004,
+        "passoPx": 120,
+        "intervaloMs": 50,
+        "alcanceMaxY": 9882
+      },
+      "fps": {
+        "medio": 60.1,
+        "frames": 601
+      },
+      "frameGapMs": {
+        "p50": 16.7,
+        "p95": 16.8,
+        "max": 16.8,
+        "acima50": 0,
+        "acima100": 0
+      },
+      "longTasks": {
+        "n": 0,
+        "totalMs": 0,
+        "maxMs": 0
+      },
+      "mainThread": {
+        "taskDurationMs": 3373,
+        "scriptDurationMs": 1484,
+        "layoutDurationMs": 6,
+        "recalcStyleMs": 431,
+        "ocupacaoPct": 33.7
+      }
+    }
+  ]
+}

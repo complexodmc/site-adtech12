@@ -1,0 +1,293 @@
+{
+  "geradoEm": "2026-10-17T14:29:22.510Z",
+  "amostragem": "1 frame/s (fps=1)",
+  "videos": [
+    {
+      "arquivo": "rino-hero.mp4",
+      "w": 1280,
+      "h": 720,
+      "dur": 11.708333,
+      "bytes": 3727569,
+      "frames": 281,
+      "fps": "24/1",
+      "framesAmostrados": 12,
+      "pctDoVideo": {
+        "preto_lt50": 75.6,
+        "neutro": 0.5,
+        "ciano_azul": 0.1,
+        "verde": 23.4,
+        "dourado_ambar": 0.5,
+        "vermelho_laranja": 0,
+        "magenta_roxo": 0
+      },
+      "pctDosCromaticos": {
+        "ciano_azul": 0.4,
+        "verde": 97.5,
+        "dourado_ambar": 2.1,
+        "vermelho_laranja": 0,
+        "magenta_roxo": 0
+      },
+      "porFrame": [
+        {
+          "t": 0,
+          "cromaticos_pct": 22.3,
+          "verde_pct_crom": 98.8,
+          "ciano_pct_crom": 0.1,
+          "dourado_pct_crom": 1
+        },
+        {
+          "t": 1,
+          "cromaticos_pct": 25.5,
+          "verde_pct_crom": 98.6,
+          "ciano_pct_crom": 0.1,
+          "dourado_pct_crom": 1.3
+        },
+        {
+          "t": 2,
+          "cromaticos_pct": 27.4,
+          "verde_pct_crom": 98.6,
+          "ciano_pct_crom": 0.1,
+          "dourado_pct_crom": 1.3
+        },
+        {
+          "t": 3,
+          "cromaticos_pct": 26.2,
+          "verde_pct_crom": 97.3,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 2.7
+        },
+        {
+          "t": 4,
+          "cromaticos_pct": 26.9,
+          "verde_pct_crom": 98.5,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 1.5
+        },
+        {
+          "t": 5,
+          "cromaticos_pct": 25.7,
+          "verde_pct_crom": 97.8,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 2.1
+        },
+        {
+          "t": 6,
+          "cromaticos_pct": 23.5,
+          "verde_pct_crom": 95.9,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 4.1
+        },
+        {
+          "t": 7,
+          "cromaticos_pct": 22,
+          "verde_pct_crom": 96.2,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 3.8
+        },
+        {
+          "t": 8,
+          "cromaticos_pct": 21.4,
+          "verde_pct_crom": 96.5,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 3.4
+        },
+        {
+          "t": 9,
+          "cromaticos_pct": 23.3,
+          "verde_pct_crom": 97.1,
+          "ciano_pct_crom": 0.3,
+          "dourado_pct_crom": 2.6
+        },
+        {
+          "t": 10,
+          "cromaticos_pct": 21.4,
+          "verde_pct_crom": 96.9,
+          "ciano_pct_crom": 2.1,
+          "dourado_pct_crom": 1
+        },
+        {
+          "t": 11,
+          "cromaticos_pct": 21.9,
+          "verde_pct_crom": 96.8,
+          "ciano_pct_crom": 2.7,
+          "dourado_pct_crom": 0.5
+        }
+      ]
+    },
+    {
+      "arquivo": "rino-video-transparent.mp4",
+      "w": 480,
+      "h": 480,
+      "dur": 5.098667,
+      "bytes": 992664,
+      "frames": 121,
+      "fps": "24/1",
+      "framesAmostrados": 5,
+      "pctDoVideo": {
+        "preto_lt50": 63.8,
+        "neutro": 0.2,
+        "ciano_azul": 9.6,
+        "verde": 21.3,
+        "dourado_ambar": 5,
+        "vermelho_laranja": 0,
+        "magenta_roxo": 0
+      },
+      "pctDosCromaticos": {
+        "ciano_azul": 26.8,
+        "verde": 59.2,
+        "dourado_ambar": 14,
+        "vermelho_laranja": 0,
+        "magenta_roxo": 0
+      },
+      "porFrame": [
+        {
+          "t": 0,
+          "cromaticos_pct": 35.8,
+          "verde_pct_crom": 60.4,
+          "ciano_pct_crom": 25.5,
+          "dourado_pct_crom": 14.1
+        },
+        {
+          "t": 1,
+          "cromaticos_pct": 34.6,
+          "verde_pct_crom": 48.1,
+          "ciano_pct_crom": 38.5,
+          "dourado_pct_crom": 13.4
+        },
+        {
+          "t": 2,
+          "cromaticos_pct": 36.6,
+          "verde_pct_crom": 59.4,
+          "ciano_pct_crom": 25.7,
+          "dourado_pct_crom": 14.8
+        },
+        {
+          "t": 3,
+          "cromaticos_pct": 35.9,
+          "verde_pct_crom": 68.4,
+          "ciano_pct_crom": 18.1,
+          "dourado_pct_crom": 13.6
+        },
+        {
+          "t": 4,
+          "cromaticos_pct": 36.9,
+          "verde_pct_crom": 59.3,
+          "ciano_pct_crom": 26.6,
+          "dourado_pct_crom": 14.2
+        }
+      ]
+    },
+    {
+      "arquivo": "rino-hero-gold-mono-720p.mp4",
+      "w": 1280,
+      "h": 720,
+      "dur": 11.708333,
+      "bytes": 3477182,
+      "frames": 281,
+      "fps": "24/1",
+      "framesAmostrados": 12,
+      "pctDoVideo": {
+        "preto_lt50": 80.1,
+        "neutro": 0.3,
+        "ciano_azul": 0,
+        "verde": 0,
+        "dourado_ambar": 19.5,
+        "vermelho_laranja": 0.1,
+        "magenta_roxo": 0
+      },
+      "pctDosCromaticos": {
+        "ciano_azul": 0,
+        "verde": 0,
+        "dourado_ambar": 99.7,
+        "vermelho_laranja": 0.3,
+        "magenta_roxo": 0
+      },
+      "porFrame": [
+        {
+          "t": 0,
+          "cromaticos_pct": 17.7,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.5
+        },
+        {
+          "t": 1,
+          "cromaticos_pct": 20.1,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.5
+        },
+        {
+          "t": 2,
+          "cromaticos_pct": 21.7,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.7
+        },
+        {
+          "t": 3,
+          "cromaticos_pct": 21.7,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.9
+        },
+        {
+          "t": 4,
+          "cromaticos_pct": 21.9,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.8
+        },
+        {
+          "t": 5,
+          "cromaticos_pct": 21.5,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.7
+        },
+        {
+          "t": 6,
+          "cromaticos_pct": 20.2,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.8
+        },
+        {
+          "t": 7,
+          "cromaticos_pct": 19.6,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.9
+        },
+        {
+          "t": 8,
+          "cromaticos_pct": 18.1,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.7
+        },
+        {
+          "t": 9,
+          "cromaticos_pct": 19.3,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.6
+        },
+        {
+          "t": 10,
+          "cromaticos_pct": 16.5,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.3
+        },
+        {
+          "t": 11,
+          "cromaticos_pct": 16.5,
+          "verde_pct_crom": 0,
+          "ciano_pct_crom": 0,
+          "dourado_pct_crom": 99.7
+        }
+      ]
+    }
+  ]
+}

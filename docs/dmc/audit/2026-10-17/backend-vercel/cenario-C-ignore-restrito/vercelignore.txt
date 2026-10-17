@@ -1,0 +1,22 @@
+# Deploy via CLI sobe a pasta local inteira. Lista restrita: tira segredos e material
+# interno, mas MANTÉM server/src e server/node_modules, que api/[...path].js importa (D5).
+.env
+.env.*
+**/.env
+**/.env.*
+.vercel
+.claude
+.vscode
+docs
+tests
+tools
+server/.env*
+server/uploads/
+server/scripts/
+server/README.md
+server/package-lock.json
+pages/
+assets/
+index.html
+complexodmc.com.br/_np_*.html
+complexodmc.com.br/pages/*.backup-*.html

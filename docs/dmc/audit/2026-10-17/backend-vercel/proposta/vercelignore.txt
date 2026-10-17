@@ -1,0 +1,22 @@
+# Proposta (cenário D) — vale para deploy via CLI; no deploy via Git os .env* já não existem
+# no repositório. Com outputDirectory=complexodmc.com.br só a pasta pública vira estático;
+# server/src e server/node_modules PRECISAM subir (api/[...path].js importa — D5).
+.env
+.env.*
+**/.env
+**/.env.*
+.vercel
+.claude
+.vscode
+docs
+tests
+tools
+server/uploads/
+server/scripts/
+server/README.md
+server/package-lock.json
+pages/
+assets/
+index.html
+complexodmc.com.br/_np_*.html
+complexodmc.com.br/pages/*.backup-*.html

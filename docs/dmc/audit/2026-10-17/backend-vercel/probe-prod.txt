@@ -1,0 +1,47 @@
+200 808   https://www.complexodmc.com.br/server/.env
+307 15 https://www.complexodmc.com.br/server/.env  https://complexodmc.com.br/server/.env
+200 628   https://www.complexodmc.com.br/server/.env.bak-atlas
+307 15 https://www.complexodmc.com.br/server/.env.bak-atlas  https://complexodmc.com.br/server/.env.bak-atlas
+200 1276   https://www.complexodmc.com.br/server/.env.example
+307 15 https://www.complexodmc.com.br/server/.env.example  https://complexodmc.com.br/server/.env.example
+200 4803   https://www.complexodmc.com.br/server/README.md
+307 15 https://www.complexodmc.com.br/server/README.md  https://complexodmc.com.br/server/README.md
+200 586   https://www.complexodmc.com.br/server/package.json
+307 15 https://www.complexodmc.com.br/server/package.json  https://complexodmc.com.br/server/package.json
+200 5734   https://www.complexodmc.com.br/server/src/server.js
+307 15 https://www.complexodmc.com.br/server/src/server.js  https://complexodmc.com.br/server/src/server.js
+200 1677   https://www.complexodmc.com.br/server/src/config.js
+307 15 https://www.complexodmc.com.br/server/src/config.js  https://complexodmc.com.br/server/src/config.js
+200 4235   https://www.complexodmc.com.br/server/scripts/seed.js
+307 15 https://www.complexodmc.com.br/server/scripts/seed.js  https://complexodmc.com.br/server/scripts/seed.js
+404 79   https://www.complexodmc.com.br/server/uploads/
+307 15 https://www.complexodmc.com.br/server/uploads/  https://complexodmc.com.br/server/uploads/
+404 79   https://www.complexodmc.com.br/server/uploads/capas/
+307 15 https://www.complexodmc.com.br/server/uploads/capas/  https://complexodmc.com.br/server/uploads/capas/
+404 79   https://www.complexodmc.com.br/.vercel/.env.production.local
+307 15 https://www.complexodmc.com.br/.vercel/.env.production.local  https://complexodmc.com.br/.vercel/.env.production.local
+404 79   https://www.complexodmc.com.br/.vercel/project.json
+307 15 https://www.complexodmc.com.br/.vercel/project.json  https://complexodmc.com.br/.vercel/project.json
+404 79   https://www.complexodmc.com.br/.env.local
+307 15 https://www.complexodmc.com.br/.env.local  https://complexodmc.com.br/.env.local
+404 79   https://www.complexodmc.com.br/vercel.json
+307 15 https://www.complexodmc.com.br/vercel.json  https://complexodmc.com.br/vercel.json
+404 79   https://www.complexodmc.com.br/.vercelignore
+307 15 https://www.complexodmc.com.br/.vercelignore  https://complexodmc.com.br/.vercelignore
+200 30   https://www.complexodmc.com.br/api/health
+307 15 https://www.complexodmc.com.br/api/health  https://complexodmc.com.br/api/health
+404 33   https://www.complexodmc.com.br/api/
+307 15 https://www.complexodmc.com.br/api/  https://complexodmc.com.br/api/
+401 52   https://www.complexodmc.com.br/api/catalogo
+307 15 https://www.complexodmc.com.br/api/catalogo  https://complexodmc.com.br/api/catalogo
+200 839   https://www.complexodmc.com.br/index.html
+307 15 https://www.complexodmc.com.br/index.html  https://complexodmc.com.br/index.html
+200 117983   https://www.complexodmc.com.br/complexodmc.com.br/index.html
+307 15 https://www.complexodmc.com.br/complexodmc.com.br/index.html  https://complexodmc.com.br/complexodmc.com.br/index.html
+404 79   https://www.complexodmc.com.br/docs/dmc/BRIEF.md
+307 15 https://www.complexodmc.com.br/docs/dmc/BRIEF.md  https://complexodmc.com.br/docs/dmc/BRIEF.md
+404 79   https://www.complexodmc.com.br/package.json
+307 15 https://www.complexodmc.com.br/package.json  https://complexodmc.com.br/package.json
+404 79   https://www.complexodmc.com.br/node_modules/express/package.json
+307 15 https://www.complexodmc.com.br/node_modules/express/package.json  https://complexodmc.com.br/node_modules/express/package.json
+2026-10-17T14:14:59Z

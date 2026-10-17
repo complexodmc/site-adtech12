@@ -1,0 +1,3 @@
+./.vc-config.json
+./api/[...path].js
+./package.json

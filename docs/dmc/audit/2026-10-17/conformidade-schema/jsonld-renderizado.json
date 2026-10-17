@@ -1,0 +1,1105 @@
+[
+  {
+    "file": "index.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+    "title": "Complexo DMC — Consultoria em Negócios",
+    "metaDescription": "Consultoria estratégica integrada para empresas, famílias empresárias e investidores: patrimônio, tributos, imóveis, auditoria, ativos e relações de trabalho.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 7221,
+    "verbosNoTextoVisivel": {
+      "execução": 1,
+      "parceiro": 4
+    }
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/atos-notariais.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/atos-notariais.html",
+    "title": "Atos Notariais | Complexo DMC",
+    "metaDescription": "Atos Notariais - Escrituras, procurações, atas notariais e autenticações com segurança jurídica e fé pública.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 3649,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/blindagem-patrimonial.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/blindagem-patrimonial.html",
+    "title": "Blindagem Patrimonial | Complexo DMC",
+    "metaDescription": "Blindagem Patrimonial - Proteja seus bens contra riscos financeiros e judiciais com planejamento personalizado.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 3365,
+    "verbosNoTextoVisivel": {
+      "execução": 1,
+      "penhora": 1
+    }
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/compliance-governanca.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/compliance-governanca.html",
+    "title": "Compliance e Governança Corporativa | Complexo DMC",
+    "metaDescription": "Compliance e Governança Corporativa - Promovemos integridade, transparência e conformidade legal na gestão empresarial.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 2995,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html",
+    "title": "Consultoria Imobiliária | Complexo DMC",
+    "metaDescription": "Consultoria Imobiliária para construtoras e incorporadoras — Jurídico Imobiliário e Jurídico Vendas com IA, advocacia especializada e cartórios parceiros para acelerar registros, blindar contratos e destravar repasses bancários.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 7914,
+    "verbosNoTextoVisivel": {
+      "execução": 2,
+      "advogado": 3,
+      "parceiro": 7
+    }
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/contabilidade.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/contabilidade.html",
+    "title": "Contabilidade | Complexo DMC",
+    "metaDescription": "Contabilidade - Contabilidade empresarial estratégica, demonstrações financeiras, obrigações fiscais e assessoria contábil completa.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 3646,
+    "verbosNoTextoVisivel": {
+      "execução": 1
+    }
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/holding-patrimonial.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/holding-patrimonial.html",
+    "title": "Holding Patrimonial | Complexo DMC",
+    "metaDescription": "Holding Patrimonial - Solução estratégica voltada à proteção e organização patrimonial com eficiência fiscal.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 3456,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/juridico-imobiliario.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/juridico-imobiliario.html",
+    "title": "Jurídico Imobiliário | Complexo DMC",
+    "metaDescription": "Jurídico Imobiliário - Minutas de contratos, due diligence e distratos com IA e validação de advogados especializados em Direito Imobiliário.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 10121,
+    "verbosNoTextoVisivel": {
+      "recurso": 1,
+      "impugnação": 1,
+      "advogado": 5,
+      "escritório": 3,
+      "parceiro": 5
+    }
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/juridico-vendas.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/juridico-vendas.html",
+    "title": "Jurídico Vendas | Complexo DMC",
+    "metaDescription": "Jurídico Vendas - Minutas de contratos, due diligence e distratos com IA e validação de advogados especializados em consultoria Imobiliário.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 8349,
+    "verbosNoTextoVisivel": {
+      "execução": 1,
+      "advogado": 5,
+      "escritório": 3,
+      "parceiro": 8
+    }
+  },
+  {
+    "file": "pages/mouse.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/mouse.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/mouse.html",
+    "title": "",
+    "metaDescription": null,
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 3,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio-empresarial.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio-empresarial.html",
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "metaDescription": "Planejamento Sucessório Empresarial e Familiar - Proteja seu patrimônio e garanta a continuidade dos seus negócios com a Complexo DMC.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 4783,
+    "verbosNoTextoVisivel": {
+      "execução": 1,
+      "penhora": 1
+    }
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio.html",
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "metaDescription": "Planejamento sucessório para famílias e empresas: holding, doação com reserva de usufruto, testamento e cláusulas de proteção. A transmissão do patrimônio organizada em vida, com carga tributária calculada.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 7937,
+    "verbosNoTextoVisivel": {
+      "penhora": 2
+    }
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-tributario.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-tributario.html",
+    "title": "Planejamento Tributário | Complexo DMC",
+    "metaDescription": "Planejamento Tributário - Reduza legalmente a carga fiscal e maximize os lucros da sua empresa.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 2915,
+    "verbosNoTextoVisivel": {
+      "execução": 1,
+      "defesa": 3
+    }
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/por-que-urgente.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/por-que-urgente.html",
+    "title": "Por que o planejamento sucessório é urgente? | Complexo DMC",
+    "metaDescription": "Por que o planejamento sucessório é urgente? Descubra os riscos de não planejar e proteja seu patrimônio.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 5149,
+    "verbosNoTextoVisivel": {
+      "execução": 1
+    }
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/pronto-patrimonio.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/pronto-patrimonio.html",
+    "title": "Proteção Patrimonial | Complexo DMC",
+    "metaDescription": "Proteção Patrimonial - Blindagem e proteção patrimonial completa com estratégias jurídicas avançadas para pessoas físicas e jurídicas.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 3786,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "pages/recuperacao-ativos.backup-2026-08-26.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/recuperacao-ativos.backup-2026-08-26.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/recuperacao-ativos.backup-2026-08-26.html",
+    "title": "Recuperação de Ativos | Complexo DMC",
+    "metaDescription": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais. Da localização do patrimônio à satisfação do crédito.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 5885,
+    "verbosNoTextoVisivel": {
+      "execução": 8,
+      "penhora": 6,
+      "bloqueio": 4,
+      "recurso": 1
+    }
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/recuperacao-ativos.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/recuperacao-ativos.html",
+    "title": "Recuperação de Ativos | Complexo DMC",
+    "metaDescription": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais. Da localização do patrimônio à satisfação do crédito.",
+    "jsonld": [
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://www.complexodmc.com.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Recuperação de Ativos",
+              "item": "https://www.complexodmc.com.br/pages/recuperacao-ativos.html"
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Recuperação de Ativos",
+          "serviceType": "Recuperação de ativos e execução de títulos",
+          "description": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais. Da localização do patrimônio à satisfação do crédito.",
+          "url": "https://www.complexodmc.com.br/pages/recuperacao-ativos.html",
+          "provider": {
+            "@type": "LegalService",
+            "name": "Complexo DMC",
+            "url": "https://www.complexodmc.com.br/"
+          },
+          "areaServed": {
+            "@type": "Country",
+            "name": "Brasil"
+          },
+          "audience": {
+            "@type": "Audience",
+            "audienceType": "Credores com título judicial ou extrajudicial"
+          }
+        }
+      },
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Ganhei a ação e o devedor não paga. O que acontece agora?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Começa a fase de cumprimento de sentença. O devedor é intimado para pagar em 15 dias e, se não o fizer, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%, na forma do art. 523 do Código de Processo Civil. A partir daí passam a caber os pedidos de bloqueio e penhora sobre o patrimônio localizado."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Preciso de uma sentença para cobrar?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nem sempre. O art. 784 do Código de Processo Civil lista documentos que já valem como título executivo sem passar por uma ação de conhecimento — cheque, duplicata, nota promissória, contrato assinado pelo devedor e por duas testemunhas, entre outros. Com um deles, a execução pode ser proposta diretamente."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Por quanto tempo ainda posso executar essa dívida?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A execução prescreve no mesmo prazo de prescrição da ação, conforme a Súmula 150 do Supremo Tribunal Federal. O prazo concreto depende da natureza do crédito, e é a primeira coisa que se verifica na análise do título — antes de qualquer diligência."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "O devedor passou os bens para outra pessoa. Dá para reverter?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Depende de quando a transferência ocorreu e do que o credor consegue demonstrar. Se já havia demanda capaz de levar o devedor à insolvência, a hipótese é de fraude à execução (art. 792 do Código de Processo Civil), e o ato pode ser declarado ineficaz perante o credor. Antes disso, o caminho é a ação pauliana, nos arts. 158 a 165 do Código Civil."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "É possível alcançar os sócios da empresa devedora?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Só quando estiverem presentes os requisitos do art. 50 do Código Civil — abuso da personalidade jurídica, caracterizado por desvio de finalidade ou confusão patrimonial. O pedido corre pelo incidente de desconsideração da personalidade jurídica, disciplinado nos arts. 133 a 137 do Código de Processo Civil, com contraditório próprio. A mera falta de bens da empresa não basta."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Salário e o único imóvel do devedor podem ser penhorados?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Em regra, não. Salários e verbas de natureza alimentar são impenhoráveis pelo art. 833, IV, do Código de Processo Civil — com a ressalva do §2º, que abre exceção para o pagamento de prestação alimentícia e para os valores que excedam 50 salários mínimos mensais. O imóvel residencial da família é protegido pela Lei 8.009/1990, que traz no art. 3º as hipóteses em que a proteção não se aplica."
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "tiposSchema": [
+      "BreadcrumbList",
+      "ListItem",
+      "Service",
+      "LegalService",
+      "Country",
+      "Audience",
+      "FAQPage",
+      "Question",
+      "Answer"
+    ],
+    "providers": [
+      {
+        "type": "LegalService",
+        "name": "Complexo DMC"
+      }
+    ],
+    "textoVisivelChars": 12586,
+    "verbosNoTextoVisivel": {
+      "execução": 11,
+      "penhora": 7,
+      "bloqueio": 7,
+      "recurso": 3
+    }
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/registro-imobiliario.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/registro-imobiliario.html",
+    "title": "Registro Imobiliário | Complexo DMC",
+    "metaDescription": "Registro Imobiliário - Regularização fundiária, registros de imóveis, averbações e due diligence imobiliária.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 3529,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/sucessao-testamentaria.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/sucessao-testamentaria.html",
+    "title": "Sucessão Testamentária | Complexo DMC",
+    "metaDescription": "Sucessão Testamentária - Garanta que sua vontade seja respeitada com testamentos seguros e válidos.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 3237,
+    "verbosNoTextoVisivel": {
+      "execução": 3,
+      "penhora": 1
+    }
+  },
+  {
+    "file": "pages/tecnologia.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/tecnologia.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/tecnologia.html",
+    "title": "Tecnologia | Complexo DMC",
+    "metaDescription": "Tecnologia - Soluções tecnológicas para automação jurídica, gestão empresarial e transformação digital.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 3160,
+    "verbosNoTextoVisivel": {
+      "escritório": 2
+    }
+  },
+  {
+    "file": "pages/treinamento-interesse.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/treinamento-interesse.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/pages/treinamento-interesse.html",
+    "title": "Interesse em Treinamento | Complexo DMC",
+    "metaDescription": "Obrigado pelo interesse em nossos treinamentos - Complexo DMC",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 591,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/blindagem-contratual.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/blindagem-contratual.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/blindagem-contratual.html",
+    "title": "Blindagem Contratual — Consultoria Trabalhista | Complexo DMC",
+    "metaDescription": "Estruturação de contratos, enquadramento e cláusula de arbitragem para reduzir a exposição trabalhista desde a admissão.",
+    "jsonld": [
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://www.complexodmc.com.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Consultoria Trabalhista",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Blindagem Contratual",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/blindagem-contratual"
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Blindagem Contratual",
+          "serviceType": "Consultoria Trabalhista",
+          "description": "Estruturação de contratos, enquadramento e cláusula de arbitragem para reduzir a exposição trabalhista desde a admissão, na forma do art. 507-A e do art. 444, parágrafo único, da CLT.",
+          "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/blindagem-contratual",
+          "areaServed": "BR",
+          "provider": {
+            "@type": "Organization",
+            "name": "Complexo DMC",
+            "url": "https://www.complexodmc.com.br/"
+          }
+        }
+      }
+    ],
+    "tiposSchema": [
+      "BreadcrumbList",
+      "ListItem",
+      "Service",
+      "Organization"
+    ],
+    "providers": [
+      {
+        "type": "Organization",
+        "name": "Complexo DMC"
+      }
+    ],
+    "textoVisivelChars": 3558,
+    "verbosNoTextoVisivel": {
+      "defesa": 1
+    }
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/camara-de-acordos.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/camara-de-acordos.html",
+    "title": "Câmara de Acordos e Mediação Trabalhista | Complexo DMC",
+    "metaDescription": "Mediação privada e acordos trabalhistas homologados, com formalização pela via adequada a cada caso.",
+    "jsonld": [
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://www.complexodmc.com.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Consultoria Trabalhista",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Câmara de Acordos",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/camara-de-acordos"
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Câmara de Acordos",
+          "serviceType": "Consultoria Trabalhista",
+          "description": "Mediação privada e acordos trabalhistas homologados, com formalização pela via adequada a cada caso.",
+          "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/camara-de-acordos",
+          "areaServed": "BR",
+          "provider": {
+            "@type": "Organization",
+            "name": "Complexo DMC",
+            "url": "https://www.complexodmc.com.br/"
+          }
+        }
+      }
+    ],
+    "tiposSchema": [
+      "BreadcrumbList",
+      "ListItem",
+      "Service",
+      "Organization"
+    ],
+    "providers": [
+      {
+        "type": "Organization",
+        "name": "Complexo DMC"
+      }
+    ],
+    "textoVisivelChars": 3482,
+    "verbosNoTextoVisivel": {
+      "execução": 2,
+      "audiência": 2,
+      "ajuizar": 1,
+      "defesa": 1,
+      "advogado": 1
+    }
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+    "metaDescription": "Programa completo de proteção trabalhista para empresas — do diagnóstico à quitação do exercício, em seis soluções integradas.",
+    "jsonld": [
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://www.complexodmc.com.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Consultoria Trabalhista",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado"
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": "Ciclo Fechado — soluções de Consultoria Trabalhista",
+          "itemListOrder": "https://schema.org/ItemListOrderAscending",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Blindagem Contratual",
+              "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/blindagem-contratual"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Conformidade Psicossocial",
+              "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/conformidade-psicossocial"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Decisão Assistida",
+              "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/decisao-assistida"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Câmara de Acordos",
+              "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/camara-de-acordos"
+            },
+            {
+              "@type": "ListItem",
+              "position": 5,
+              "name": "Quitação Anual",
+              "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/quitacao-anual"
+            },
+            {
+              "@type": "ListItem",
+              "position": 6,
+              "name": "Defesa Empresarial",
+              "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/defesa-empresarial"
+            }
+          ]
+        }
+      }
+    ],
+    "tiposSchema": [
+      "BreadcrumbList",
+      "ListItem",
+      "ItemList"
+    ],
+    "providers": [],
+    "textoVisivelChars": 2624,
+    "verbosNoTextoVisivel": {
+      "execução": 3,
+      "defesa": 2
+    }
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/conformidade-psicossocial.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/conformidade-psicossocial.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/conformidade-psicossocial.html",
+    "title": "Conformidade Psicossocial e NR-1 | Complexo DMC",
+    "metaDescription": "Adequação à NR-1 e aos riscos psicossociais no padrão ISO 45003, com dossiê documental para fiscalização.",
+    "jsonld": [
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://www.complexodmc.com.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Consultoria Trabalhista",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Conformidade Psicossocial",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/conformidade-psicossocial"
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Conformidade Psicossocial",
+          "serviceType": "Consultoria Trabalhista",
+          "description": "Adequação à NR-1 e aos riscos psicossociais no padrão ISO 45003, com dossiê documental para fiscalização.",
+          "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/conformidade-psicossocial",
+          "areaServed": "BR",
+          "provider": {
+            "@type": "Organization",
+            "name": "Complexo DMC",
+            "url": "https://www.complexodmc.com.br/"
+          }
+        }
+      }
+    ],
+    "tiposSchema": [
+      "BreadcrumbList",
+      "ListItem",
+      "Service",
+      "Organization"
+    ],
+    "providers": [
+      {
+        "type": "Organization",
+        "name": "Complexo DMC"
+      }
+    ],
+    "textoVisivelChars": 3391,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/decisao-assistida.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/decisao-assistida.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/decisao-assistida.html",
+    "title": "Decisão Assistida em Atos Trabalhistas | Complexo DMC",
+    "metaDescription": "Análise jurídica prévia de desligamentos, advertências e alterações de jornada, com trilha de auditoria.",
+    "jsonld": [
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://www.complexodmc.com.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Consultoria Trabalhista",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Decisão Assistida",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/decisao-assistida"
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Decisão Assistida",
+          "serviceType": "Consultoria Trabalhista",
+          "description": "Análise jurídica prévia de desligamentos, advertências e alterações de jornada, com trilha de auditoria.",
+          "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/decisao-assistida",
+          "areaServed": "BR",
+          "provider": {
+            "@type": "Organization",
+            "name": "Complexo DMC",
+            "url": "https://www.complexodmc.com.br/"
+          }
+        }
+      }
+    ],
+    "tiposSchema": [
+      "BreadcrumbList",
+      "ListItem",
+      "Service",
+      "Organization"
+    ],
+    "providers": [
+      {
+        "type": "Organization",
+        "name": "Complexo DMC"
+      }
+    ],
+    "textoVisivelChars": 3329,
+    "verbosNoTextoVisivel": {
+      "execução": 3,
+      "recurso": 1,
+      "defesa": 2
+    }
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "title": "Defesa Empresarial — Contencioso e Litígios Trabalhistas | Complexo DMC",
+    "metaDescription": "Defesa da empresa no litígio trabalhista: reclamatórias, ações coletivas, inquérito do MPT, fiscalização, recursos e execução, com tese, prova e cálculo sob um mesmo comando.",
+    "jsonld": [
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://www.complexodmc.com.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Consultoria Trabalhista",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Defesa Empresarial",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/defesa-empresarial"
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Defesa Empresarial",
+          "serviceType": "Contencioso Trabalhista",
+          "description": "Defesa da empresa no litígio trabalhista — reclamatórias individuais, ações coletivas e sindicais, inquérito civil e ação civil pública do MPT, defesa administrativa em fiscalização, recursos, execução e incidente de desconsideração da personalidade jurídica.",
+          "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/defesa-empresarial",
+          "areaServed": "BR",
+          "provider": {
+            "@type": "Organization",
+            "name": "Complexo DMC",
+            "url": "https://www.complexodmc.com.br/"
+          }
+        }
+      }
+    ],
+    "tiposSchema": [
+      "BreadcrumbList",
+      "ListItem",
+      "Service",
+      "Organization"
+    ],
+    "providers": [
+      {
+        "type": "Organization",
+        "name": "Complexo DMC"
+      }
+    ],
+    "textoVisivelChars": 8287,
+    "verbosNoTextoVisivel": {
+      "execução": 15,
+      "audiência": 5,
+      "contestação": 2,
+      "recurso": 8,
+      "defesa": 16,
+      "embargos": 1,
+      "impugnação": 2,
+      "escritório": 1
+    }
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/quitacao-anual.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/quitacao-anual.html",
+    "title": "Quitação Anual de Obrigações Trabalhistas — Art. 507-B | Complexo DMC",
+    "metaDescription": "Auditoria, regularização e quitação anual do exercício trabalhista com assistência sindical e eficácia liberatória.",
+    "jsonld": [
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Início",
+              "item": "https://www.complexodmc.com.br/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Consultoria Trabalhista",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Quitação Anual",
+              "item": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/quitacao-anual"
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "data": {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Quitação Anual",
+          "serviceType": "Consultoria Trabalhista",
+          "description": "Auditoria, regularização e quitação anual do exercício trabalhista com assistência sindical e eficácia liberatória, na forma do art. 507-B da CLT.",
+          "url": "https://www.complexodmc.com.br/solucoes/consultoria-trabalhista/quitacao-anual",
+          "areaServed": "BR",
+          "provider": {
+            "@type": "Organization",
+            "name": "Complexo DMC",
+            "url": "https://www.complexodmc.com.br/"
+          }
+        }
+      }
+    ],
+    "tiposSchema": [
+      "BreadcrumbList",
+      "ListItem",
+      "Service",
+      "Organization"
+    ],
+    "providers": [
+      {
+        "type": "Organization",
+        "name": "Complexo DMC"
+      }
+    ],
+    "textoVisivelChars": 4037,
+    "verbosNoTextoVisivel": {
+      "execução": 2,
+      "defesa": 1
+    }
+  },
+  {
+    "file": "plataforma-ead/admin.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/admin.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/login.html",
+    "title": "Acesso · Plataforma Complexo DMC",
+    "metaDescription": "Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 706,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "plataforma-ead/ao-vivo.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/ao-vivo.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/login.html",
+    "title": "Acesso · Plataforma Complexo DMC",
+    "metaDescription": "Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 706,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "plataforma-ead/aula.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/aula.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/login.html",
+    "title": "Acesso · Plataforma Complexo DMC",
+    "metaDescription": "Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 706,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "plataforma-ead/certificado.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/certificado.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/certificado.html",
+    "title": "Certificado · Complexo DMC",
+    "metaDescription": "Validação e impressão de certificado de conclusão — Complexo DMC.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 106,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "plataforma-ead/certificados.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/certificados.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/login.html",
+    "title": "Acesso · Plataforma Complexo DMC",
+    "metaDescription": "Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 706,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "plataforma-ead/dashboard.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/dashboard.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/login.html",
+    "title": "Acesso · Plataforma Complexo DMC",
+    "metaDescription": "Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 706,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "plataforma-ead/index.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/index.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/login.html",
+    "title": "Acesso · Plataforma Complexo DMC",
+    "metaDescription": "Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 706,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "plataforma-ead/login.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/login.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/login.html",
+    "title": "Acesso · Plataforma Complexo DMC",
+    "metaDescription": "Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 706,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "plataforma-ead/loja.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/loja.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/login.html",
+    "title": "Acesso · Plataforma Complexo DMC",
+    "metaDescription": "Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 706,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "plataforma-ead/meus-cursos.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/meus-cursos.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/login.html",
+    "title": "Acesso · Plataforma Complexo DMC",
+    "metaDescription": "Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 706,
+    "verbosNoTextoVisivel": {}
+  },
+  {
+    "file": "plataforma-ead/obrigado.html",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/obrigado.html",
+    "status": 200,
+    "finalUrl": "http://127.0.0.1:8080/complexodmc.com.br/plataforma-ead/obrigado.html",
+    "title": "Pedido recebido · Complexo DMC",
+    "metaDescription": "Pedido enviado · Loja Complexo DMC.",
+    "jsonld": [],
+    "tiposSchema": [],
+    "providers": [],
+    "textoVisivelChars": 623,
+    "verbosNoTextoVisivel": {}
+  }
+]
