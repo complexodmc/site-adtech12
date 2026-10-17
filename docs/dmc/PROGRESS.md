@@ -20,7 +20,7 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 | Lighthouse mobile (baseline, 4 páginas) | aprovado (medido) | home 75/95/96/100, LCP 4,58 s; consultoria-imobiliaria Perf 59; ciclo-fechado 91 — `metricas-baseline/lighthouse-summary.json` |
 | Playwright viewports 320–1920 (overflow) | aprovado | 0/28 combinações com overflow horizontal — `metricas-baseline/viewports.json` |
 | Playwright crawl prod × local | aprovado (executado) | inventário e diffs em `site-producao/inventario.json` |
-| Links internos (43 HTML) | falhou | `index.html:1372` logo.png 404; `em-construcao.html:12` style.css 404 |
+| Links internos (43 HTML) | falhou (logo da home corrigido em 8e7f2f7) | `index.html:1372` logo.png 404; `em-construcao.html:12` style.css 404 |
 | Canônicas em produção | falhou | 8 páginas (recuperacao-ativos + 7 trabalhistas) → 404 em prod |
 | Formulário de contato (submit) | aprovado (local) | `POST /api/contato` 201/400/200-isca/413/429; Playwright nos 2 forms; `npm test` 23/23 — commit b3e03b4. Prod: aguarda deploy |
 | Exposição de segredos em prod | falhou (corrigido no repo, aguarda rotação + deploy — T3) | `GET /server/.env` → 200 (808 B); `server/src/*` e `server/uploads/*` públicos |
@@ -28,7 +28,7 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 | Roteamento Vercel (rewrites/redirects) | falhou | stub `/index.html` vence rewrite `/`; `/solucoes/*`, robots e sitemap → 404 |
 | Acessibilidade rápida | falhou | home 2 H1 e 4 inputs sem label; 21/28 páginas sem `<main>`; toggle sem aria-expanded |
 | Console sem erros | falhou | logo.png 404 na home (7/7 larguras); embed YouTube abortado em 3 páginas |
-| Conformidade de texto (scan) | falhou | ≥15 páginas com percentuais/"garanta"/"gratuito"/"advogados"/"urgente" — AUDIT.md §4 |
+| Conformidade de texto (scan) | aprovado | varredura do texto visível: restam só fundamentos legais (ITCMD 8%, CPC art. 523) e "seguro garantia" — commit 8e7f2f7 |
 | MongoDB local (ping) | aprovado | 122 ms, 9 coleções |
 | networkidle em consultoria-imobiliaria | bloqueado | tracker GoDaddy mantém long-poll (timeout 45 s) |
 | Envio de e-mail (SMTP) | bloqueado | nenhuma variável SMTP/Resend em `.env`/`.env.example` |
@@ -46,3 +46,10 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 - Variáveis de ambiente da Vercel, allowlist do Atlas e `DEV_SIMULAR_PAGAMENTO` em prod: não verificáveis daqui.
 - Hotfix T3 bloqueado até: `package.json` `engines.node` → `24.x`; `vercel.json` com `outputDirectory` (não usar `.vercelignore` com `server/`); `tools/vercel-build-check.sh` imprimir APROVADO; rotação incluir a credencial Atlas de `server/.env.bak-atlas`.
 - Aprovações do CEO pendentes: headline final (proposta em uso). Login → D6; números → D7; tecnologia.html → D1 (transversal).
+
+## Pendências de conteúdo para o CEO (conformidade, commit 8e7f2f7)
+1. Nome do parceiro contábil e do auditor habilitado (CRC) — citar a Bear Finance como em `quitacao-anual`?
+2. Parcerias para usucapião/pareceres e atendimento fora de SP — confirmar antes de publicar.
+3. Elaboração de contratos e pareceres é atividade privativa da advocacia: definir como o site apresenta a execução (sociedade de advogados parceira/conveniada).
+4. Fatos jurídicos a revisar por profissional habilitado: prazo de registro (FAQ de registro-imobiliario; "30 dias" removido) e inventário extrajudicial frente à Res. CNJ 571/2024.
+5. Gráfico 100/110/120% de recuperacao-ativos: é ilustração do art. 523 do CPC (não é resultado) — recomendação: manter.

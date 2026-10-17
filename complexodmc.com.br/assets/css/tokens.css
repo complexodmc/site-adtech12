@@ -1,0 +1,294 @@
+/* ============================================================
+   COMPLEXO DMC — TOKENS (direção C · Híbrido Executivo)
+   Fonte única de cor, tipo, espaço e movimento. Só custom
+   properties: nenhum seletor de componente mora aqui.
+   Spec: docs/dmc/DESIGN-SYSTEM.md · Prévia: docs/dmc/design-preview.html
+
+   CARREGAMENTO
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&display=swap">
+   <link rel="stylesheet" href="/assets/css/tokens.css?v=1">   ← ANTES de styles.css/shared.css
+   Enquanto as declarações antigas existirem nos outros arquivos,
+   elas vencem (vêm depois): incluir este arquivo sozinho não muda
+   nada na tela. A migração acontece trocando o valor antigo pelo
+   token novo, arquivo por arquivo — nunca reescrevendo componente.
+
+   MAPA DE COMPATIBILIDADE  (antigo → novo)
+   Levantado em assets/css/styles.css e pages/css/*.css (2026-10-17).
+   Fundos e texto
+     --bg-primary                  → var(--surface-0)
+     --bg-secondary                → var(--surface-1)
+     --bg-tertiary, --bg-card      → var(--surface-2)
+     --glass-bg                    → var(--surface-glass)
+     --text-primary                → var(--text-1)
+     --text-secondary              → var(--text-2)
+     --text-tertiary               → var(--text-3)
+     --border-color, --glass-border→ var(--color-line)
+     --border-hover                → var(--color-line-strong)
+     --shadow-color                → sem uso (0 var()) — remover
+   Cor da casa (neon → dourado)
+     --color-primary (#5ed6e6)     → var(--color-gold)
+     --primary-green (#6ee68c / #00ff4d) → var(--color-gold)
+     --primary-cyan  (#5ed6e6 / #00e7fc) → var(--color-gold-soft)
+     --card-accent                 → var(--color-gold)
+     --card-accent-light           → var(--color-gold-soft)
+     Dentro de .np-eixo (eixos.css) continuam rgb(var(--np-accent))
+     e rgb(var(--np-accent-soft)): custom property declarada no :root
+     herda o valor JÁ CALCULADO, então o eixo precisa redeclará-las.
+   Degradês (cortados — viram cor sólida, tipo válido preservado)
+     --gradient-primary, --np-gradient → linear-gradient(var(--color-gold), var(--color-gold))
+                                        (em .np-eixo: rgb(var(--np-accent)) nas duas paradas)
+     --gradient-badge              → linear-gradient(var(--color-gold), var(--color-gold))
+     --gradient-glow, --gradient-flare, --gradient-card-hover → none
+   Cor literal (não é token hoje — trocar por sed, mesmo alfa)
+     rgba(0, 231, 252, a)  [180×] e rgba(0, 255, 77, a) [80×]
+       → rgba(var(--np-accent), a)   (vale ouro fora de eixo)
+     #00e7fc [44×], #00ff4d [37×], #5ed6e6, #6ee68c → rgb(var(--np-accent))
+     rgba(94, 214, 230, a) / rgba(110, 230, 140, a) (só styles.css)
+       → rgba(var(--np-accent), a)
+   Eixos
+     .np-pillar-* em styles.css:5675-5681 e eixos.css:24-54 → apagar;
+       as três paradas vêm daqui (mesmo formato "R, G, B").
+     body { --np-accent: 0,231,252 } (eixos.css) → apagar; o padrão
+       passa a ser o ouro declarado no :root abaixo.
+     .np-pillar-tecnologia → sem paleta própria de propósito (D1:
+       Tecnologia é capacidade transversal) — cai no ouro da casa.
+   Tipografia
+     --font-primary (DM Sans / Inter) → var(--font-text)
+     --font-display (Raleway)         → apagar a declaração antiga;
+                                        o nome é o mesmo, o valor vem daqui
+     font-family: "Poppins"/"Inter" literais → var(--font-text)
+   Espaço (mesmo valor em px — troca não muda a tela)
+     --spacing-xs 0.5rem → var(--space-2)   --spacing-sm 1rem → var(--space-4)
+     --spacing-md 2rem (styles) → var(--space-6) · 1.5rem (shared) → var(--space-5)
+     --spacing-lg 3rem (styles) → var(--space-8) · 2rem (shared)   → var(--space-6)
+     --spacing-xl 4rem (styles) → var(--space-9) · 3rem (shared)   → var(--space-8)
+     --spacing-2xl 4rem → var(--space-9)    --spacing-xxl/-3xl 6rem → var(--space-11)
+   Raio (muda de propósito: a casa fica mais reta)
+     --radius-sm 8px, --radius-md 12px → var(--radius-2)   (4px)
+     --radius-lg 16px, --radius-xl 24px → var(--radius-3)  (8px)
+   Movimento
+     --transition (all .3s)        → var(--transition-state)
+     --transition-fast (all .2s)   → var(--transition-state)
+     --transition-slow (all .5s)   → var(--transition-move)
+   z-index literais: 999 → var(--z-float) · 1000 → var(--z-header)
+     1001 → var(--z-menu) · 1101 → var(--z-drawer)
+   ============================================================ */
+
+:root {
+  /* ---------- Cor · base ---------- */
+  --color-black: #0b0c0e;          /* preto da casa (não #000) */
+  --color-graphite-900: #121416;
+  --color-graphite-800: #1a1c1f;
+  --color-graphite-700: #24272a;
+  --color-graphite-600: #36383c;
+  --color-graphite-500: #505357;
+  --color-graphite-400: #67696c;   /* borda de controle: ≥3:1 sobre 900/800 */
+  --color-white: #ffffff;
+  --color-paper: #f5f3ef;          /* seção clara editorial */
+  --color-paper-2: #e9e6e0;
+
+  /* Ouro: o realce do chifre do rinoceronte (LOGO_RINOCERONTE,
+     oklch .91 .19 125) levado ao matiz do metal — oklch .775 .10 82 */
+  --color-gold: #d6b069;
+  --color-gold-deep: #82602e;      /* texto/linha sobre papel */
+  --color-gold-soft: #e7d3b1;
+  --color-gold-rgb: 214, 176, 105;
+
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
+  --color-line-ink: rgba(11, 12, 14, 0.14);   /* fio sobre papel */
+  --color-control: var(--color-graphite-400);
+  --color-control-ink: #7f8285;               /* borda de campo sobre papel */
+
+  --color-error: #e88f84;          /* sobre escuro */
+  --color-error-ink: #aa5047;      /* sobre papel */
+  --color-success: #8ec899;
+
+  /* ---------- Cor · papéis ---------- */
+  --surface-0: var(--color-black);
+  --surface-1: var(--color-graphite-900);
+  --surface-2: var(--color-graphite-800);
+  --surface-3: var(--color-graphite-700);
+  --surface-glass: rgba(11, 12, 14, 0.72);
+  --surface-paper: var(--color-paper);
+
+  --text-1: #f5f3f0;               /* 17.7:1 sobre preto */
+  --text-2: #bfbdb9;               /* 10.4:1 */
+  --text-3: #9a9893;               /*  6.8:1 — só meta/legenda */
+  --text-ink-1: var(--color-black);
+  --text-ink-2: #4a4d52;           /* 7.7:1 sobre papel */
+  --text-ink-3: #616368;           /* 5.4:1 sobre papel */
+  --text-on-gold: var(--color-black);
+
+  /* Foco: outline (sobrevive ao modo de alto contraste do Windows) */
+  --focus-color: var(--color-gold);
+  --focus-color-ink: var(--color-gold-deep);
+  --focus-width: 2px;
+  --focus-offset: 3px;
+
+  /* Véu do herói (texto sobre vídeo): ≥ .80 atrás do texto */
+  --hero-veil: rgba(11, 12, 14, 0.86);
+  --hero-veil-mid: rgba(11, 12, 14, 0.6);
+  --hero-veil-off: rgba(11, 12, 14, 0);
+
+  /* Acento do eixo — padrão = ouro. Formato "R, G, B":
+     rgb(var(--np-accent)) · rgba(var(--np-accent), .2) */
+  --np-accent: 214, 176, 105;
+  --np-accent-deep: 130, 96, 46;
+  --np-accent-soft: 231, 211, 177;
+
+  /* ---------- Tipografia ---------- */
+  --font-text: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-numeric: "tnum" 1, "lnum" 1;   /* font-feature-settings p/ dados */
+
+  --fw-light: 300;      /* display (Newsreader só tem 300) */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;   /* teto: nada de 700/800 */
+
+  /* Escala fluida 320 → 1440 px (trava acima) */
+  --fs-display: clamp(2.5rem, 1.6429rem + 4.2857vw, 5.5rem);    /* 40 → 88 */
+  --fs-h1: clamp(2.25rem, 1.75rem + 2.5vw, 4rem);               /* 36 → 64 */
+  --fs-h2: clamp(1.875rem, 1.5536rem + 1.6071vw, 3rem);         /* 30 → 48 */
+  --fs-h3: clamp(1.375rem, 1.1964rem + 0.8929vw, 2rem);         /* 22 → 32 */
+  --fs-h4: clamp(1.125rem, 1.0536rem + 0.3571vw, 1.375rem);     /* 18 → 22 */
+  --fs-lead: clamp(1.125rem, 1.0536rem + 0.3571vw, 1.375rem);   /* 18 → 22 */
+  --fs-body: clamp(1rem, 0.9821rem + 0.0893vw, 1.0625rem);      /* 16 → 17 */
+  --fs-small: 0.875rem;                                          /* 14 */
+  --fs-overline: 0.75rem;                                        /* 12, caixa-alta */
+
+  --lh-display: 1.04;
+  --lh-heading: 1.15;
+  --lh-snug: 1.35;
+  --lh-body: 1.65;
+
+  --tracking-display: -0.015em;
+  --tracking-heading: -0.005em;
+  --tracking-overline: 0.16em;
+
+  --measure: 38rem;      /* largura máxima de parágrafo */
+
+  /* ---------- Espaço (escala 4/8) ---------- */
+  --space-0: 0;
+  --space-1: 0.25rem;   /*   4 */
+  --space-2: 0.5rem;    /*   8 */
+  --space-3: 0.75rem;   /*  12 */
+  --space-4: 1rem;      /*  16 */
+  --space-5: 1.5rem;    /*  24 */
+  --space-6: 2rem;      /*  32 */
+  --space-7: 2.5rem;    /*  40 */
+  --space-8: 3rem;      /*  48 */
+  --space-9: 4rem;      /*  64 */
+  --space-10: 5rem;     /*  80 */
+  --space-11: 6rem;     /*  96 */
+  --space-12: 8rem;     /* 128 */
+  --space-13: 10rem;    /* 160 */
+
+  --space-section: clamp(4rem, 2.5714rem + 7.1429vw, 9rem);     /* 64 → 144 */
+  --space-block: clamp(2.5rem, 1.7857rem + 3.5714vw, 5rem);     /* 40 → 80 */
+  --gutter: clamp(1rem, 0.4286rem + 2.8571vw, 3rem);            /* 16 → 48 */
+  --grid-gap: clamp(1rem, 0.7143rem + 1.4286vw, 2rem);          /* 16 → 32 */
+  --grid-columns: 12;
+
+  --container: 77.5rem;        /* 1240 */
+  --container-wide: 90rem;     /* 1440 */
+  --container-text: 46rem;     /*  736 */
+
+  --header-h: 4rem;            /* 64 · < 1024 */
+  --header-h-lg: 4.5rem;       /* 72 · ≥ 1024 */
+  --hit: 2.75rem;              /* 44 — alvo mínimo de toque */
+
+  /* ---------- Forma ---------- */
+  --radius-0: 0;
+  --radius-1: 2px;     /* botão, campo */
+  --radius-2: 4px;     /* mídia, painel */
+  --radius-3: 8px;     /* menu, diálogo — teto */
+  --border-hair: 1px;
+  --border-accent: 2px;
+
+  --shadow-raise: 0 12px 24px -16px rgba(0, 0, 0, 0.55);
+  --shadow-overlay: 0 32px 64px -32px rgba(0, 0, 0, 0.7);
+
+  /* ---------- Movimento ---------- */
+  --dur-fast: 160ms;
+  --dur-base: 240ms;
+  --dur-slow: 400ms;
+  --dur-reveal: 700ms;
+  --dur-hero: 1200ms;
+  --stagger: 80ms;
+  --reveal-distance: 16px;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Movimento só em transform/opacity; cor de estado pode trocar
+     (sem deslocamento). Nunca "all", box-shadow, width, top/left. */
+  --transition-move: transform var(--dur-slow) var(--ease-out), opacity var(--dur-slow) var(--ease-out);
+  --transition-state: color var(--dur-fast) linear, background-color var(--dur-fast) linear, border-color var(--dur-fast) linear, opacity var(--dur-fast) linear;
+
+  /* ---------- Camadas ---------- */
+  --z-below: -1;
+  --z-base: 0;
+  --z-raised: 10;
+  --z-sticky: 100;
+  --z-float: 999;      /* botão flutuante */
+  --z-header: 1000;
+  --z-menu: 1001;      /* mega-menu */
+  --z-drawer: 1101;    /* menu mobile */
+  --z-modal: 1200;
+  --z-toast: 1300;
+}
+
+/* ---------- Acento por eixo (dessaturado, mesma luminosidade) ----------
+   accent: texto/linha sobre escuro (≥ 8:1 no preto, ≥ 6.2:1 no grafite-700)
+   deep:   texto/linha sobre papel (≥ 4.6:1 no paper-2)
+   soft:   realce claro sobre escuro (≥ 13:1)                              */
+.np-pillar-patrimonial {   /* E1 · petróleo  #76b7c1 */
+  --np-accent: 118, 183, 193;
+  --np-accent-deep: 53, 110, 119;
+  --np-accent-soft: 189, 221, 226;
+}
+.np-pillar-fiscal {        /* E2 · sálvia    #88b89d */
+  --np-accent: 136, 184, 157;
+  --np-accent-deep: 70, 110, 89;
+  --np-accent-soft: 197, 221, 207;
+}
+.np-pillar-imobiliario {   /* E3 · ardósia   #8caed7 */
+  --np-accent: 140, 174, 215;
+  --np-accent-deep: 77, 104, 138;
+  --np-accent-soft: 199, 216, 237;
+}
+.np-pillar-auditoria {     /* E4 · cobre     #d49d7f (sai do âmbar: colidia com o ouro) */
+  --np-accent: 212, 157, 127;
+  --np-accent-deep: 136, 92, 66;
+  --np-accent-soft: 236, 207, 192;
+}
+.np-pillar-ativos {        /* E5 · rosé      #d697a1 */
+  --np-accent: 214, 151, 161;
+  --np-accent-deep: 140, 87, 97;
+  --np-accent-soft: 238, 204, 209;
+}
+.np-pillar-trabalhista {   /* E6 · violeta   #b39edb */
+  --np-accent: 179, 158, 219;
+  --np-accent-deep: 111, 93, 143;
+  --np-accent-soft: 218, 208, 239;
+}
+
+/* ---------- Movimento reduzido ----------
+   1ms (não 0) para que transitionend/animationend continuem
+   disparando no JS. Deslocamento zera; só resta o fade.        */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 1ms;
+    --dur-base: 1ms;
+    --dur-slow: 1ms;
+    --dur-reveal: 1ms;
+    --dur-hero: 1ms;
+    --stagger: 0ms;
+    --reveal-distance: 0px;
+  }
+}
