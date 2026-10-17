@@ -32,6 +32,7 @@ node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
 | `npm run seed` | Upsert idempotente do catálogo (não apaga nada) |
 | `npm run seed -- --reset` | Apaga cursos/módulos/aulas antes de recriar |
 | `npm run create-admin -- --email=… --senha=…` | Cria ou promove um administrador |
+| `npm test` (na raiz do repositório) | Testes `node:test` de `server/test/` — não precisam de MongoDB |
 
 O seed lê `complexodmc.com.br/plataforma-ead/js/data.js`, então o conteúdo dos
 cursos não fica duplicado no repositório.
@@ -47,6 +48,7 @@ cursos não fica duplicado no repositório.
 | ↳ `materiais[]` | `{ id, tipo: 'arquivo'\|'link', nome, arquivo, url, tamanho, createdAt }` |
 | `liberacoes` | `{ userId, cursoId, grantedAt, grantedBy }` |
 | `progresso` | `{ userId, aulaId, completedAt }` |
+| `leads` | `{ nome, email, telefone?, empresa?, perfil, eixo?, mensagem?, curso?, origem, consentimento: { aceito, em }, status: 'novo', createdAt }` |
 
 Índices únicos em `users.email`, `liberacoes(userId, cursoId)` e
 `progresso(userId, aulaId)` — criados sozinhos no boot.
@@ -64,6 +66,52 @@ Autenticação por JWT no header `Authorization: Bearer <token>`.
 - `POST /api/auth/signin` — `{ email, senha }` → `{ token, user }`
 
 `/api/auth/*` tem throttle de 20 tentativas por IP a cada 15 min.
+
+### Formulário de contato do site — `POST /api/contato`
+
+Usado pela home (`form#contactForm`, origem `home`) e por
+`pages/treinamento-interesse.html` (origem `treinamento-interesse`). Aceita JSON
+ou `application/x-www-form-urlencoded`; corpo de até 16 KB.
+
+| Campo | Regra |
+|---|---|
+| `nome` | obrigatório, 2–120 caracteres |
+| `email` | obrigatório, formato de e-mail, até 254 (gravado em minúsculas) |
+| `telefone` | opcional; se vier, 10–13 dígitos com DDD |
+| `empresa` | opcional, até 120 |
+| `perfil` | obrigatório: `empresario`, `incorporadora-construtora`, `familia-empresaria`, `produtor-rural`, `investidor`, `outro` |
+| `eixo` | obrigatório: `E1`…`E6` ou `nao-sei` — dispensado quando há `curso` |
+| `mensagem` | obrigatória, 10–4000 — dispensada quando há `curso` |
+| `curso` | opcional, até 150 (interesse em treinamento) |
+| `consentimento` | obrigatório e afirmativo (`true`, `"on"`, `"1"`, `"sim"`) — LGPD |
+| `origem` | página de onde veio; opcional, cortada em 120 |
+| `website` | isca anti-robô: tem de vir vazia |
+
+Respostas:
+
+| Status | Corpo | Quando |
+|---|---|---|
+| 201 | `{ ok: true, id }` | gravado em `leads` |
+| 200 | `{ ok: true }` | `website` preenchido: descartado em silêncio, nada é gravado |
+| 400 | `{ error, campos: { <campo>: "mensagem em português" } }` | validação |
+| 400 | `{ error }` | corpo ilegível (JSON malformado) |
+| 413 | `{ error }` | corpo acima de 16 KB |
+| 429 | `{ error }` + `Retry-After` | mais de 5 envios por IP em 15 min |
+| 503 | `{ error }` | falha ao gravar no banco (nunca responde sucesso sem gravar) |
+
+O throttle é em memória por instância (na Vercel, um freio de abuso, não um
+limite global). O IP vem de `req.ip`: `trust proxy` = 1 na Vercel, desligado fora
+dela (variável `TRUST_PROXY`).
+
+**Aviso por e-mail (opcional).** Com `RESEND_API_KEY` e `LEADS_EMAIL_TO`, cada
+lead gravado dispara um e-mail em texto puro pela API HTTP do Resend (`fetch`
+nativo, sem dependência nova), com `reply_to` no e-mail de quem escreveu.
+`LEADS_EMAIL_FROM` precisa ser de domínio verificado no Resend. Sem essas
+variáveis, o lead fica só em `leads` e o log registra
+`e-mail de notificação não configurado`. Falha no envio do e-mail não desfaz o
+lead nem vira erro para o visitante — vai para o log. SMTP não foi incluído para
+não trazer `nodemailer`; se a equipe preferir SMTP, ele entra no lugar de
+`criarNotificadorEmail` em `src/routes/contato.js`.
 
 ### Aluno autenticado
 - `GET /api/auth/me` — sessão atual
@@ -97,14 +145,17 @@ liberação. Apagar curso, módulo ou aula também apaga os arquivos.
 
 ### Só em desenvolvimento
 - `POST /api/liberacoes/dev/simular-pagamento` — `{ cursoIds[] }`, o próprio
-  aluno se libera. Exige `DEV_SIMULAR_PAGAMENTO=true`; o botão em
-  `obrigado.html` só aparece em `localhost`. **Deixe `false` em produção.**
+  aluno se libera. Só é registrada com `DEV_SIMULAR_PAGAMENTO=true` (sem a
+  flag, responde o 404 da API); o botão em `obrigado.html` só aparece em
+  `localhost`. **Deixe `false` em produção.**
 
 ## Antes de ir pra produção
 
 1. `DEV_SIMULAR_PAGAMENTO="false"` no `.env`.
-2. Rode atrás de HTTPS — o token trafega no header.
-3. Em Network Access no Atlas, libere o IP do servidor (hoje o acesso depende
+2. Para receber os leads por e-mail: `RESEND_API_KEY`, `LEADS_EMAIL_TO` e
+   `LEADS_EMAIL_FROM` nas variáveis da Vercel (domínio verificado no Resend).
+3. Rode atrás de HTTPS — o token trafega no header.
+4. Em Network Access no Atlas, libere o IP do servidor (hoje o acesso depende
    do IP da máquina que roda a API).
-4. Rotacione a senha do usuário do Atlas se ela já tiver circulado fora do
+5. Rotacione a senha do usuário do Atlas se ela já tiver circulado fora do
    cofre de segredos.

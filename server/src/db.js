@@ -12,6 +12,8 @@
 //                createdAt, resolvida, respostas:[{ id, userId, autorNome, texto, createdAt }] }
 //   lives      { _id:string, cursoId, titulo, descricao, inicioEm, duracaoMin, url, plataforma }
 //   certificados { codigo, userId, cursoId, nomeAluno, tituloCurso, cargaHoraria, emitidoEm }
+//   leads      { nome, email, telefone?, empresa?, perfil, eixo?, mensagem?, curso?, origem,
+//                consentimento:{ aceito, em }, status:'novo', createdAt }  (POST /api/contato)
 // =============================================================
 import { MongoClient } from 'mongodb';
 import { config } from './config.js';
@@ -52,7 +54,8 @@ export const col = {
   progresso: () => getDb().collection('progresso'),
   duvidas: () => getDb().collection('duvidas'),
   lives: () => getDb().collection('lives'),
-  certificados: () => getDb().collection('certificados')
+  certificados: () => getDb().collection('certificados'),
+  leads: () => getDb().collection('leads')
 };
 
 async function ensureIndexes() {
@@ -77,6 +80,8 @@ async function ensureIndexes() {
     // Um certificado por aluno/curso — o índice é o que garante a emissão única.
     col.certificados().createIndex({ userId: 1, cursoId: 1 }, { unique: true, name: 'uq_certificados' }),
     col.certificados().createIndex({ codigo: 1 }, { unique: true, name: 'uq_certificados_codigo' }),
-    col.certificados().createIndex({ cursoId: 1 }, { name: 'ix_certificados_curso' })
+    col.certificados().createIndex({ cursoId: 1 }, { name: 'ix_certificados_curso' }),
+    // Contatos do site, mais recentes primeiro.
+    col.leads().createIndex({ createdAt: -1 }, { name: 'ix_leads_data' })
   ]);
 }

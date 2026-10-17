@@ -213,6 +213,57 @@
     .thank-back a:hover {
       color: var(--primary-green);
     }
+
+    /* Formulário → POST /api/contato: select, consentimento LGPD, isca e estados */
+    .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-primary);
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .form-group select:focus {
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(0, 255, 77, 0.1);
+    }
+
+    .form-group [aria-invalid="true"] { border-color: #ff8a8a; }
+
+    .form-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: var(--spacing-md);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    .form-consent input {
+      flex: none;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--primary-green);
+    }
+
+    .form-hp {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .form-message { margin: var(--spacing-sm) 0 0; font-size: 0.9rem; line-height: 1.5; }
+    .form-message:empty { margin: 0; }
+    .form-message.is-enviando { color: var(--text-secondary); }
+    .form-message.is-erro { color: #ff8a8a; }
   </style>
   <script src="../assets/js/navbar.js" defer></script>
 </head>
@@ -238,26 +289,55 @@
         <h3 class="thank-form__title">Deixe seu contato</h3>
         <p class="thank-form__desc">Entraremos em contato quando o treinamento estiver disponivel.</p>
 
-        <form id="interestForm">
+        <!-- Envio: script abaixo faz POST JSON em /api/contato (origem "treinamento-interesse"). -->
+        <form id="interestForm" action="/api/contato" method="post" data-origem="treinamento-interesse">
           <div class="form-group">
             <label for="nome">Nome completo</label>
-            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" autocomplete="name" required minlength="2" maxlength="120">
           </div>
           <div class="form-group">
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+            <input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email" required maxlength="254">
           </div>
           <div class="form-group">
             <label for="telefone">Telefone / WhatsApp</label>
-            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
+            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" autocomplete="tel" required maxlength="30">
           </div>
+          <div class="form-group">
+            <label for="perfil">Perfil</label>
+            <select id="perfil" name="perfil" required>
+              <option value="">Selecione</option>
+              <option value="empresario">Empresário(a)</option>
+              <option value="incorporadora-construtora">Incorporadora / construtora</option>
+              <option value="familia-empresaria">Família empresária</option>
+              <option value="produtor-rural">Produtor rural</option>
+              <option value="investidor">Investidor(a)</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+
+          <!-- Isca anti-robô: fica fora da tela; quem preenche é descartado pelo servidor. -->
+          <div class="form-hp" aria-hidden="true">
+            <label for="website">Não preencha este campo</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-consent">
+            <input type="checkbox" id="consentimento" name="consentimento" value="true" required>
+            <label for="consentimento">Autorizo o Complexo DMC a usar estes dados para avisar sobre este treinamento, nos termos da LGPD (Lei 13.709/2018).</label>
+          </div>
+
+          <input type="hidden" id="curso" name="curso" value="">
+          <input type="hidden" name="origem" value="treinamento-interesse">
+
           <button type="submit" class="form-submit" id="submitBtn">Quero ser avisado</button>
+          <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
         </form>
 
-        <div class="form-success" id="formSuccess">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <h3>Contato registrado!</h3>
-          <p>Voce recebera um e-mail de confirmacao em breve. Fique de olho na sua caixa de entrada!</p>
+        <div class="form-success" id="formSuccess" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3>Contato registrado</h3>
+          <p>Vamos avisar pelo e-mail informado quando as inscrições deste treinamento abrirem.</p>
         </div>
       </div>
 
@@ -303,6 +383,7 @@
     const params = new URLSearchParams(window.location.search);
     const curso = params.get('curso') || 'Treinamento';
     document.getElementById('courseName').textContent = curso;
+    document.getElementById('curso').value = curso.slice(0, 150);
 
     // Mascara de telefone
     const telInput = document.getElementById('telefone');
@@ -319,40 +400,91 @@
       e.target.value = v;
     });
 
-    // Envio do formulario via mailto (envia email pelo site)
-    document.getElementById('interestForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const nome = document.getElementById('nome').value;
-      const email = document.getElementById('email').value;
-      const telefone = document.getElementById('telefone').value;
+    // Envio → POST /api/contato (contrato em server/src/routes/contato.js).
+    // Só mostra "Contato registrado" com resposta 2xx + { ok: true } do servidor.
+    (function () {
+      const form = document.getElementById('interestForm');
       const btn = document.getElementById('submitBtn');
+      const msg = document.getElementById('formMessage');
+      const rotulo = btn.textContent;
+      const EMAIL_EQUIPE = 'administrativo@complexodmc.com.br';
 
-      btn.disabled = true;
-      btn.textContent = 'Enviando...';
+      function estado(texto, tipo) {
+        msg.textContent = texto;
+        msg.className = 'form-message is-' + tipo;
+      }
 
-      // Monta o corpo do email
-      const assunto = encodeURIComponent('Interesse no Treinamento: ' + curso);
-      const corpo = encodeURIComponent(
-        'Novo interesse em treinamento!\n\n' +
-        'Curso: ' + curso + '\n' +
-        'Nome: ' + nome + '\n' +
-        'E-mail: ' + email + '\n' +
-        'Telefone: ' + telefone + '\n\n' +
-        'Este contato demonstrou interesse e deseja ser avisado quando o treinamento estiver disponivel.'
-      );
+      form.addEventListener('input', function (e) {
+        if (e.target && e.target.removeAttribute) e.target.removeAttribute('aria-invalid');
+      });
 
-      // Abre o cliente de email do usuario para enviar
-      window.location.href = 'mailto:contato@complexodmc.com.br?subject=' + assunto + '&body=' + corpo;
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        if (btn.disabled) return;
+        form.querySelectorAll('[aria-invalid="true"]').forEach(function (el) { el.removeAttribute('aria-invalid'); });
 
-      // Mostra mensagem de sucesso apos um breve delay
-      setTimeout(function() {
-        document.getElementById('interestForm').style.display = 'none';
-        document.querySelector('.thank-form__title').style.display = 'none';
-        document.querySelector('.thank-form__desc').style.display = 'none';
-        document.getElementById('formSuccess').classList.add('active');
-      }, 1000);
-    });
+        const dados = {};
+        new FormData(form).forEach(function (valor, campo) {
+          dados[campo] = typeof valor === 'string' ? valor.trim() : valor;
+        });
+        dados.consentimento = document.getElementById('consentimento').checked;
+        dados.origem = form.dataset.origem || 'treinamento-interesse';
+
+        btn.disabled = true;
+        btn.textContent = 'Enviando…';
+        estado('Enviando seu contato…', 'enviando');
+
+        let resposta;
+        let corpo = null;
+        try {
+          const opcoes = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(dados),
+            credentials: 'same-origin'
+          };
+          if (window.AbortSignal && typeof AbortSignal.timeout === 'function') opcoes.signal = AbortSignal.timeout(15000);
+          resposta = await fetch(form.getAttribute('action') || '/api/contato', opcoes);
+          corpo = await resposta.json().catch(function () { return null; });
+        } catch (err) {
+          resposta = null;
+        }
+        btn.disabled = false;
+        btn.textContent = rotulo;
+
+        if (!resposta) {
+          estado('Não conseguimos falar com o servidor. Confira sua conexão e tente de novo; se preferir, escreva para ' + EMAIL_EQUIPE + '.', 'erro');
+          return;
+        }
+        if (resposta.ok && corpo && corpo.ok === true) {
+          form.style.display = 'none';
+          document.querySelector('.thank-form__title').style.display = 'none';
+          document.querySelector('.thank-form__desc').style.display = 'none';
+          const sucesso = document.getElementById('formSuccess');
+          sucesso.classList.add('active');
+          sucesso.focus();
+          return;
+        }
+        if (resposta.status === 400 && corpo && corpo.campos) {
+          let primeiro = null;
+          Object.keys(corpo.campos).forEach(function (nome) {
+            const campo = form.elements.namedItem(nome);
+            if (campo && campo.setAttribute) {
+              campo.setAttribute('aria-invalid', 'true');
+              if (!primeiro) primeiro = campo;
+            }
+          });
+          if (primeiro && primeiro.focus) primeiro.focus();
+          estado(Object.values(corpo.campos).join(' '), 'erro');
+          return;
+        }
+        if (corpo && corpo.error && (resposta.status === 400 || resposta.status === 413 || resposta.status === 429)) {
+          estado(corpo.error, 'erro');
+          return;
+        }
+        estado('Não foi possível enviar agora. Tente novamente em instantes ou escreva para ' + EMAIL_EQUIPE + '.', 'erro');
+      });
+    })();
   </script>
 </body>
 </html>

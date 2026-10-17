@@ -6,7 +6,7 @@
 import express from 'express';
 import cors from 'cors';
 import { config } from './config.js';
-import { connect, close } from './db.js';
+import { connect, close, col } from './db.js';
 import { loadUser } from './auth.js';
 import authRoutes from './routes/auth.js';
 import catalogoRoutes from './routes/catalogo.js';
@@ -17,10 +17,17 @@ import capasRoutes from './routes/capas.js';
 import duvidasRoutes from './routes/duvidas.js';
 import livesRoutes from './routes/lives.js';
 import certificadosRoutes from './routes/certificados.js';
+import { criarRotaContato, corpoContato, criarNotificadorEmail } from './routes/contato.js';
 
 const app = express();
 
 app.disable('x-powered-by');
+// IP real atrás do proxy da Vercel (1 salto); localmente não confia em X-Forwarded-For.
+// Ver config.trustProxy. É o que dá sentido ao throttle por IP.
+app.set('trust proxy', config.trustProxy);
+// /api/contato tem parser próprio com teto de 16 KB. Fica antes do JSON global:
+// o corpo já chega consumido e o parser de 1 MB apenas segue adiante.
+app.use('/api/contato', corpoContato());
 app.use(express.json({ limit: '1mb' }));
 
 if (config.corsOrigins.length) {
@@ -79,6 +86,11 @@ app.use('/api', loadUser);
 app.post('/api/auth/signin', throttleAuth);
 app.post('/api/auth/signup', throttleAuth);
 app.use('/api/auth', authRoutes);
+// Formulários do site institucional (home, interesse em treinamento).
+app.use('/api/contato', criarRotaContato({
+  salvar: (lead) => col.leads().insertOne(lead),
+  notificar: criarNotificadorEmail(config.leadsEmail)
+}));
 app.use('/api/liberacoes', liberacoesRoutes);
 app.use('/api/progresso', progressoRoutes);
 app.use('/api/lives', livesRoutes);
@@ -146,6 +158,9 @@ async function start() {
   const s = app.listen(config.port, () => {
     console.log(`[DMC] servidor em http://localhost:${config.port}`);
     console.log(`[DMC] plataforma em http://localhost:${config.port}/plataforma-ead/`);
+    if (!config.leadsEmail.resendApiKey || !config.leadsEmail.para) {
+      console.log('[DMC] /api/contato: e-mail de aviso desligado (RESEND_API_KEY/LEADS_EMAIL_TO vazios) — leads só vão para a coleção "leads".');
+    }
     if (config.devSimularPagamento) {
       console.warn('[DMC] ⚠️  DEV_SIMULAR_PAGAMENTO=true — alunos podem liberar cursos pra si mesmos. Não use em produção.');
     }

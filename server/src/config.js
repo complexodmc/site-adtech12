@@ -19,6 +19,20 @@ function required(name) {
 // Teto do upload de material de apoio (PDF das aulas).
 const maxUploadMb = Number(process.env.MAX_UPLOAD_MB) || 25;
 
+// Quantos proxies à frente do Express são confiáveis para ler o IP real
+// (req.ip) do X-Forwarded-For. Na Vercel há exatamente um, que sobrescreve
+// o cabeçalho com o IP do cliente — por isso 1. Fora dela o padrão é não
+// confiar: sem proxy, qualquer cliente forjaria o cabeçalho e escaparia
+// do throttle.
+function trustProxy() {
+  const v = (process.env.TRUST_PROXY || '').trim();
+  if (!v) return process.env.VERCEL === '1' ? 1 : false;
+  if (/^\d+$/.test(v)) return Number(v);
+  if (v === 'false') return false;
+  if (v === 'true') return true;
+  return v; // ex.: "loopback", lista de IPs/CIDR
+}
+
 export const config = {
   mongoUri: required('MONGODB_URI'),
   mongoDb: (process.env.MONGODB_DB || 'complexodmc').trim(),
@@ -30,6 +44,14 @@ export const config = {
     .map(s => s.trim())
     .filter(Boolean),
   devSimularPagamento: String(process.env.DEV_SIMULAR_PAGAMENTO || '').toLowerCase() === 'true',
+  trustProxy: trustProxy(),
+  // Aviso de novo lead (/api/contato). Opcional: sem chave ou destinatário,
+  // o lead só é gravado em `leads` e registrado no log.
+  leadsEmail: {
+    resendApiKey: (process.env.RESEND_API_KEY || '').trim(),
+    para: (process.env.LEADS_EMAIL_TO || '').trim(),
+    de: (process.env.LEADS_EMAIL_FROM || '').trim()
+  },
   // Raiz do site estático (complexodmc.com.br/), servido pelo mesmo processo.
   staticRoot: path.resolve(__dirname, '..', '..', 'complexodmc.com.br'),
   // Materiais de apoio (PDF) ficam FORA do staticRoot — só saem pela API,

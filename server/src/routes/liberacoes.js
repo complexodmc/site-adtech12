@@ -95,11 +95,9 @@ router.delete('/', requireAdmin, async (req, res) => {
 
 // ============ DEV-ONLY ============
 // Equivalente à antiga RPC dev_simular_pagamento: o próprio aluno
-// libera cursos pra si. Só existe com DEV_SIMULAR_PAGAMENTO=true.
-router.post('/dev/simular-pagamento', requireAuth, async (req, res) => {
-  if (!config.devSimularPagamento) {
-    return res.status(403).json({ error: 'Simulação de pagamento desabilitada neste ambiente.' });
-  }
+// libera cursos pra si. Só existe com DEV_SIMULAR_PAGAMENTO=true —
+// sem a flag a rota nem é registrada (cai no 404 da API).
+if (config.devSimularPagamento) router.post('/dev/simular-pagamento', requireAuth, async (req, res) => {
   const cursoIds = (Array.isArray(req.body.cursoIds) ? req.body.cursoIds : [])
     .map(v => String(v || '').trim())
     .filter(Boolean);

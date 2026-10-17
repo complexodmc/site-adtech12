@@ -7110,3 +7110,80 @@ body {
   .page-video__play { transition: none; }
   .page-video__cover:hover img { transform: none; }
 }
+
+/* ====================== FORMULÁRIO DE CONTATO (/api/contato) ======================
+   Rótulos visíveis, selects, consentimento LGPD, isca anti-robô e #formMessage.
+   Escopo em #contactForm para não vazar sobre os inputs globais acima. */
+#contactForm .form-field { min-width: 0; }
+
+#contactForm label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+#contactForm .form-opcional { font-weight: 400; color: rgba(255, 255, 255, 0.5); }
+
+#contactForm select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid rgba(0, 255, 150, 0.3);
+  border-radius: 12px;
+  background: rgba(0, 20, 10, 0.4);
+  color: #ffffff;
+  font: inherit;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#contactForm select:focus { border-color: #00ff96; box-shadow: 0 0 0 1px rgba(0, 255, 150, 0.5); }
+#contactForm select option { background: #0b100d; color: #ffffff; }
+
+#contactForm [aria-invalid="true"] { border-color: #ff8a8a; }
+
+#contactForm .form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 4px 0 12px;
+}
+
+#contactForm .form-consent input[type="checkbox"] {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  padding: 0;
+  box-shadow: none;
+  transform: none;
+  accent-color: #00ff96;
+  cursor: pointer;
+}
+
+#contactForm .form-consent label { margin: 0; font-weight: 400; line-height: 1.5; }
+
+#contactForm select:focus-visible,
+#contactForm .form-consent input[type="checkbox"]:focus-visible {
+  outline: 2px solid #00ff96;
+  outline-offset: 2px;
+}
+
+/* Isca: fora da tela e fora da ordem de tabulação; pessoas não a veem. */
+#contactForm .form-hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+#contactForm .form-message { margin: 8px 0 0; font-size: 0.9rem; line-height: 1.5; }
+#contactForm .form-message:empty { margin: 0; }
+#contactForm .form-message.is-enviando { color: rgba(255, 255, 255, 0.75); }
+#contactForm .form-message.is-sucesso { color: #00ff96; }
+#contactForm .form-message.is-erro { color: #ff8a8a; }
+
+#contactForm .submit-btn:disabled { opacity: 0.6; cursor: progress; transform: none; }

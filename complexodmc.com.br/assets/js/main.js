@@ -192,82 +192,105 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ============================================
-    // FORMULÁRIO DE CONTATO
+    // FORMULÁRIO DE CONTATO → POST /api/contato
+    // Contrato: server/src/routes/contato.js. A validação de formato fica com
+    // o navegador (required/type/minlength) e a definitiva com o servidor.
+    // Estados em #formMessage: enviando / sucesso / erro. Só há "sucesso"
+    // quando o servidor responde 2xx com { ok: true } — nunca simulado.
     // ============================================
     const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
+
+    if (contactForm && contactForm.tagName === 'FORM') {
         const formMessage = document.getElementById('formMessage');
-        const submitBtn = contactForm.querySelector('.submit-btn');
+        const submitBtn = contactForm.querySelector('[type="submit"]');
+        const rotuloBotao = submitBtn ? submitBtn.textContent : '';
+        const endpoint = contactForm.getAttribute('action') || '/api/contato';
+        const EMAIL_EQUIPE = 'administrativo@complexodmc.com.br';
 
-        function showMessage(message, type) {
-            if (formMessage) {
-                formMessage.textContent = message;
-                formMessage.className = `form-message ${type} show`;
-                setTimeout(() => formMessage.classList.remove('show'), 5000);
+        function mostrarEstado(texto, estado) {
+            if (!formMessage) return;
+            formMessage.textContent = texto;
+            formMessage.className = 'form-message is-' + estado;
+        }
+
+        function ocupado(sim) {
+            if (sim) contactForm.setAttribute('aria-busy', 'true');
+            else contactForm.removeAttribute('aria-busy');
+            if (submitBtn) {
+                submitBtn.disabled = sim;
+                submitBtn.textContent = sim ? 'Enviando…' : rotuloBotao;
             }
         }
 
-        function validateForm(formData) {
-            const errors = [];
-
-            const nome = (formData.get('nome') || '').trim();
-            const email = (formData.get('email') || '').trim();
-            const telefone = (formData.get('telefone') || '').trim();
-            const mensagem = (formData.get('mensagem') || '').trim();
-
-            if (nome && nome.length < 2) {
-                errors.push('Nome deve ter pelo menos 2 caracteres');
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (email && !emailRegex.test(email)) {
-                errors.push('Email inválido');
-            }
-
-            if (telefone) {
-                const digits = telefone.replace(/\D/g, '');
-                if (digits.length < 10) {
-                    errors.push('Telefone inválido');
+        function marcarInvalidos(campos) {
+            let primeiro = null;
+            Object.keys(campos || {}).forEach((nome) => {
+                const campo = contactForm.elements.namedItem(nome);
+                if (campo && campo.setAttribute) {
+                    campo.setAttribute('aria-invalid', 'true');
+                    if (!primeiro) primeiro = campo;
                 }
-            }
-
-            if (mensagem && mensagem.length < 10) {
-                errors.push('Mensagem deve ter pelo menos 10 caracteres');
-            }
-
-            return errors;
+            });
+            if (primeiro && primeiro.focus) primeiro.focus();
         }
+
+        // Ao corrigir um campo apontado pelo servidor, tira a marca de erro.
+        contactForm.addEventListener('input', (e) => {
+            if (e.target && e.target.removeAttribute) e.target.removeAttribute('aria-invalid');
+        });
 
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            if (contactForm.getAttribute('aria-busy') === 'true') return;
+            contactForm.querySelectorAll('[aria-invalid="true"]').forEach((el) => el.removeAttribute('aria-invalid'));
 
-            const formData = new FormData(contactForm);
-            const errors = validateForm(formData);
+            const dados = {};
+            new FormData(contactForm).forEach((valor, campo) => {
+                dados[campo] = typeof valor === 'string' ? valor.trim() : valor;
+            });
+            const consentimento = contactForm.elements.namedItem('consentimento');
+            dados.consentimento = Boolean(consentimento && consentimento.checked);
+            dados.origem = contactForm.dataset.origem || dados.origem || window.location.pathname;
 
-            if (errors.length > 0) {
-                showMessage(errors[0], 'error');
+            ocupado(true);
+            mostrarEstado('Enviando sua mensagem…', 'enviando');
+
+            let resposta;
+            let corpo = null;
+            try {
+                const opcoes = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(dados),
+                    credentials: 'same-origin'
+                };
+                if (window.AbortSignal && typeof AbortSignal.timeout === 'function') {
+                    opcoes.signal = AbortSignal.timeout(15000);
+                }
+                resposta = await fetch(endpoint, opcoes);
+                corpo = await resposta.json().catch(() => null);
+            } catch (err) {
+                ocupado(false);
+                mostrarEstado('Não conseguimos falar com o servidor. Confira sua conexão e tente de novo; se preferir, escreva para ' + EMAIL_EQUIPE + '.', 'erro');
                 return;
             }
+            ocupado(false);
 
-            if (submitBtn) {
-                submitBtn.classList.add('loading');
-                submitBtn.disabled = true;
-            }
-
-            try {
-                // Simular envio (substituir por sua API)
-                await new Promise(resolve => setTimeout(resolve, 1500));
-                showMessage('Mensagem enviada com sucesso! Entraremos em contato em breve.', 'success');
+            if (resposta.ok && corpo && corpo.ok === true) {
                 contactForm.reset();
-            } catch (err) {
-                showMessage('Erro ao enviar mensagem. Por favor, tente novamente.', 'error');
-            } finally {
-                if (submitBtn) {
-                    submitBtn.classList.remove('loading');
-                    submitBtn.disabled = false;
-                }
+                mostrarEstado('Mensagem recebida. Nossa equipe vai retornar pelo contato informado.', 'sucesso');
+                return;
             }
+            if (resposta.status === 400 && corpo && corpo.campos) {
+                marcarInvalidos(corpo.campos);
+                mostrarEstado(Object.values(corpo.campos).join(' '), 'erro');
+                return;
+            }
+            if ((resposta.status === 429 || resposta.status === 413 || resposta.status === 400) && corpo && corpo.error) {
+                mostrarEstado(corpo.error, 'erro');
+                return;
+            }
+            mostrarEstado('Não foi possível enviar agora. Tente novamente em instantes ou escreva para ' + EMAIL_EQUIPE + '.', 'erro');
         });
     }
     
