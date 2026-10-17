@@ -52,6 +52,13 @@ export const config = {
     para: (process.env.LEADS_EMAIL_TO || '').trim(),
     de: (process.env.LEADS_EMAIL_FROM || '').trim()
   },
+  // Aviso de nova candidatura (/api/parcerias). Opcional: mesmo provedor do
+  // contato; destinatário próprio, com LEADS_EMAIL_TO de reserva.
+  parceriasEmail: {
+    resendApiKey: (process.env.RESEND_API_KEY || '').trim(),
+    para: (process.env.PARCERIAS_EMAIL_TO || '').trim() || (process.env.LEADS_EMAIL_TO || '').trim(),
+    de: (process.env.LEADS_EMAIL_FROM || '').trim()
+  },
   // Raiz do site estático (complexodmc.com.br/), servido pelo mesmo processo.
   staticRoot: path.resolve(__dirname, '..', '..', 'complexodmc.com.br'),
   // Materiais de apoio (PDF) ficam FORA do staticRoot — só saem pela API,

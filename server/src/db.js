@@ -14,6 +14,9 @@
 //   certificados { codigo, userId, cursoId, nomeAluno, tituloCurso, cargaHoraria, emitidoEm }
 //   leads      { nome, email, telefone?, empresa?, perfil, eixo?, mensagem?, curso?, origem,
 //                consentimento:{ aceito, em }, status:'novo', createdAt }  (POST /api/contato)
+//   parcerias_candidaturas { protocolo, programa, email, dados, fonte, status, historico[],
+//                responsavel, consentimento, comunicacoes, retencaoAte, createdAt, updatedAt }
+//                (POST /api/parcerias/* — ver routes/parcerias.js)
 // =============================================================
 import { MongoClient } from 'mongodb';
 import { config } from './config.js';
@@ -55,7 +58,8 @@ export const col = {
   duvidas: () => getDb().collection('duvidas'),
   lives: () => getDb().collection('lives'),
   certificados: () => getDb().collection('certificados'),
-  leads: () => getDb().collection('leads')
+  leads: () => getDb().collection('leads'),
+  parcerias: () => getDb().collection('parcerias_candidaturas')
 };
 
 async function ensureIndexes() {
@@ -82,6 +86,11 @@ async function ensureIndexes() {
     col.certificados().createIndex({ codigo: 1 }, { unique: true, name: 'uq_certificados_codigo' }),
     col.certificados().createIndex({ cursoId: 1 }, { name: 'ix_certificados_curso' }),
     // Contatos do site, mais recentes primeiro.
-    col.leads().createIndex({ createdAt: -1 }, { name: 'ix_leads_data' })
+    col.leads().createIndex({ createdAt: -1 }, { name: 'ix_leads_data' }),
+    // Candidaturas de parceria: fila do painel, checagem de duplicidade (24 h)
+    // e busca por protocolo. Sem índice TTL: a retenção depende do CEO.
+    col.parcerias().createIndex({ programa: 1, status: 1, createdAt: -1 }, { name: 'ix_parcerias_fila' }),
+    col.parcerias().createIndex({ email: 1, programa: 1, createdAt: -1 }, { name: 'ix_parcerias_email' }),
+    col.parcerias().createIndex({ protocolo: 1 }, { unique: true, name: 'uq_parcerias_protocolo' })
   ]);
 }

@@ -18,6 +18,10 @@ import duvidasRoutes from './routes/duvidas.js';
 import livesRoutes from './routes/lives.js';
 import certificadosRoutes from './routes/certificados.js';
 import { criarRotaContato, corpoContato, criarNotificadorEmail } from './routes/contato.js';
+import { requireAuth, requireAdmin } from './auth.js';
+import {
+  criarRotaParcerias, corpoParcerias, criarNotificadorParcerias, criarRepositorioParcerias
+} from './routes/parcerias.js';
 
 const app = express();
 
@@ -28,6 +32,8 @@ app.set('trust proxy', config.trustProxy);
 // /api/contato tem parser próprio com teto de 16 KB. Fica antes do JSON global:
 // o corpo já chega consumido e o parser de 1 MB apenas segue adiante.
 app.use('/api/contato', corpoContato());
+// Idem para as candidaturas de parceria (/api/parcerias): 16 KB, antes do global.
+app.use('/api/parcerias', corpoParcerias());
 app.use(express.json({ limit: '1mb' }));
 
 if (config.corsOrigins.length) {
@@ -90,6 +96,13 @@ app.use('/api/auth', authRoutes);
 app.use('/api/contato', criarRotaContato({
   salvar: (lead) => col.leads().insertOne(lead),
   notificar: criarNotificadorEmail(config.leadsEmail)
+}));
+// Candidaturas dos programas de parceria (Partner Lawyers / Business Partner)
+// + painel admin do funil. Throttle próprio, separado do contato.
+app.use('/api/parcerias', criarRotaParcerias({
+  ...criarRepositorioParcerias(() => col.parcerias()),
+  notificar: criarNotificadorParcerias(config.parceriasEmail),
+  exigirAdmin: [requireAuth, requireAdmin]
 }));
 app.use('/api/liberacoes', liberacoesRoutes);
 app.use('/api/progresso', progressoRoutes);
@@ -160,6 +173,9 @@ async function start() {
     console.log(`[DMC] plataforma em http://localhost:${config.port}/plataforma-ead/`);
     if (!config.leadsEmail.resendApiKey || !config.leadsEmail.para) {
       console.log('[DMC] /api/contato: e-mail de aviso desligado (RESEND_API_KEY/LEADS_EMAIL_TO vazios) — leads só vão para a coleção "leads".');
+    }
+    if (!config.parceriasEmail.resendApiKey || !config.parceriasEmail.para) {
+      console.log('[DMC] /api/parcerias: e-mail de aviso desligado (RESEND_API_KEY/PARCERIAS_EMAIL_TO vazios) — candidaturas só vão para "parcerias_candidaturas".');
     }
     if (config.devSimularPagamento) {
       console.warn('[DMC] ⚠️  DEV_SIMULAR_PAGAMENTO=true — alunos podem liberar cursos pra si mesmos. Não use em produção.');

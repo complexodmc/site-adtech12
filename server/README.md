@@ -49,6 +49,7 @@ cursos não fica duplicado no repositório.
 | `liberacoes` | `{ userId, cursoId, grantedAt, grantedBy }` |
 | `progresso` | `{ userId, aulaId, completedAt }` |
 | `leads` | `{ nome, email, telefone?, empresa?, perfil, eixo?, mensagem?, curso?, origem, consentimento: { aceito, em }, status: 'novo', createdAt }` |
+| `parcerias_candidaturas` | `{ protocolo, programa, email, dados, fonte, status, historico[], responsavel, consentimento: { aceito, em, finalidade }, comunicacoes: { aceito, em }, retencaoAte, createdAt, updatedAt }` |
 
 Índices únicos em `users.email`, `liberacoes(userId, cursoId)` e
 `progresso(userId, aulaId)` — criados sozinhos no boot.
@@ -113,6 +114,75 @@ lead nem vira erro para o visitante — vai para o log. SMTP não foi incluído 
 não trazer `nodemailer`; se a equipe preferir SMTP, ele entra no lugar de
 `criarNotificadorEmail` em `src/routes/contato.js`.
 
+### Candidaturas de parceria — `POST /api/parcerias/{partner-lawyers|business-partner}`
+
+Código em `src/routes/parcerias.js`. **A modalidade vem da rota**; um campo
+`programa` no corpo é ignorado. JSON ou `application/x-www-form-urlencoded`
+(checkbox repetido vira lista), corpo de até 16 KB, honeypot `website`, throttle
+próprio de 5 envios por IP em 15 min (contadores separados dos do contato).
+
+| Partner Lawyers | Regra |
+|---|---|
+| `nome` | obrigatório, 2–120, com letra |
+| `oab_numero` | obrigatório; só dígitos (3–7) depois de tirar `.`, espaço e `-`; gravado só com dígitos |
+| `oab_seccional`, `uf` | obrigatórios; uma das 27 UFs (gravadas em maiúsculas) |
+| `escritorio` | opcional, até 150 |
+| `areas` | obrigatório, ≥1: `empresarial`, `sucessoes-patrimonio`, `imobiliario`, `tributario`, `trabalhista-empresarial`, `recuperacao-ativos`, `outra` |
+| `cidade` | obrigatório, 2–80 |
+| `email` | obrigatório (mesma regra do contato; domínio gratuito é aceito) |
+| `telefone` | obrigatório, 10–13 dígitos (gravado só com dígitos) |
+| `apresentacao` | obrigatório, 30–2000, multilinha |
+
+| Business Partner | Regra |
+|---|---|
+| `nome`, `cidade`, `uf`, `email` | como acima |
+| `empresa` | opcional, até 120 |
+| `cargo` | obrigatório, 2–80 |
+| `segmento` | obrigatório: `consultoria-empresarial`, `desenvolvimento-negocios`, `representacao-comercial-b2b`, `mercado-imobiliario`, `construcao-civil`, `agronegocio`, `rede-empresarial`, `outro` |
+| `whatsapp` | obrigatório, 10–13 dígitos |
+| `experiencia_b2b` | obrigatório: `ate-2-anos`, `2-a-5-anos`, `5-a-10-anos`, `mais-de-10-anos` |
+| `perfil_empresas` | obrigatório, 10–1000 (setores e porte, sem nomes) |
+| `mensagem` | opcional, até 2000 |
+
+Nos dois: `consentimento` obrigatório e afirmativo (LGPD); `comunicacoes`
+opcional e separado (opt-in, padrão `false`); `pagina` (até 120, sem query) e
+`utm_source|medium|campaign|content` (até 80, só `[A-Za-z0-9._-]`) vão para
+`fonte`. Objeto/array onde se espera texto → `"Formato inválido."`. IP,
+user-agent e referrer não são gravados.
+
+| Status | Corpo | Quando |
+|---|---|---|
+| 201 | `{ ok: true, id, protocolo, programa }` | gravado (protocolo `PL-AAAA-XXXXXX` / `BP-AAAA-XXXXXX`) |
+| 200 | `{ ok: true, duplicada: true, protocolo, programa }` | mesmo e-mail + programa nas últimas 24 h, não arquivada: devolve o protocolo existente |
+| 200 | `{ ok: true }` (sem protocolo) | honeypot: nada gravado — o front não deve contar como conversão |
+| 400 | `{ error, campos }` ou `{ error }` | validação / corpo ilegível |
+| 413 · 429 · 503 | `{ error }` | corpo > 16 KB · excesso (com `Retry-After`) · banco indisponível |
+
+A duplicidade é um `findOne` antes do `insertOne`: dois envios simultâneos do
+mesmo e-mail ainda podem gerar duas candidaturas (janela de 24 h não cabe em
+índice único); o throttle reduz, a equipe arquiva a sobra. `retencaoAte`
+(criação + 24 meses) é só informativo — não há índice TTL.
+
+**Funil (só admin, `requireAuth` + `requireAdmin`).**
+Partner Lawyers: `recebido → validacao-profissional → avaliacao-institucional → reuniao → decisao → formalizacao`.
+Business Partner: `recebido → qualificacao → contato-comercial → reuniao → proposta-cooperacao → decisao`.
+Avança ou volta um passo por vez; `arquivada` de qualquer estado (exige `nota`
+de 5–500); de `arquivada` só reabre no estado anterior ao arquivamento.
+Listas exportadas em `FUNIS`, `ROTULOS_ESTADOS` e `estadosDoPrograma()`.
+
+- `GET /api/parcerias/admin/candidaturas?programa=…&status=…&pagina=1` — `programa`
+  obrigatório; 25 por página, mais recentes primeiro → `{ itens, total, pagina, totalPaginas, estados, rotulos }`
+  (itens sem os textos longos e sem histórico)
+- `GET /api/parcerias/admin/candidaturas/:protocolo` → `{ candidatura, estados, permitidos }`
+- `PATCH /api/parcerias/admin/candidaturas/:protocolo` — `{ status?, nota?, responsavel? }`;
+  grava `historico` `{ status, de?, em, por, nota?, responsavel? }`. Transição
+  inválida ou edição concorrente → 409 com a mensagem do motivo.
+
+**Aviso por e-mail (opcional):** `RESEND_API_KEY` + `PARCERIAS_EMAIL_TO`
+(reserva: `LEADS_EMAIL_TO`) + `LEADS_EMAIL_FROM`. Assunto
+`[Partner Lawyers] Nova candidatura — Nome` / `[Business Partner] …`. Falha no
+e-mail não desfaz a candidatura; sem chave, só log.
+
 ### Aluno autenticado
 - `GET /api/auth/me` — sessão atual
 - `GET /api/catalogo` — cursos → módulos → aulas, já aninhado e ordenado
@@ -154,6 +224,7 @@ liberação. Apagar curso, módulo ou aula também apaga os arquivos.
 1. `DEV_SIMULAR_PAGAMENTO="false"` no `.env`.
 2. Para receber os leads por e-mail: `RESEND_API_KEY`, `LEADS_EMAIL_TO` e
    `LEADS_EMAIL_FROM` nas variáveis da Vercel (domínio verificado no Resend).
+   Candidaturas de parceria: `PARCERIAS_EMAIL_TO` (senão vão para `LEADS_EMAIL_TO`).
 3. Rode atrás de HTTPS — o token trafega no header.
 4. Em Network Access no Atlas, libere o IP do servidor (hoje o acesso depende
    do IP da máquina que roda a API).
