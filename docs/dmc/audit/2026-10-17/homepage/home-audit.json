@@ -1,0 +1,624 @@
+{
+  "url": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+  "when": "2026-10-17T13:48:16.950Z",
+  "sections": [
+    {
+      "tag": "section",
+      "id": "hero",
+      "class": "hero hero-index",
+      "top": 0,
+      "height": 848,
+      "display": "flex",
+      "hidden": false
+    },
+    {
+      "tag": "section",
+      "id": null,
+      "class": "stats-bar",
+      "top": 848,
+      "height": 50,
+      "display": "block",
+      "hidden": false
+    },
+    {
+      "tag": "section",
+      "id": "conheca",
+      "class": "conheca",
+      "top": 898,
+      "height": 939,
+      "display": "block",
+      "hidden": false
+    },
+    {
+      "tag": "section",
+      "id": "features",
+      "class": "section np-section np-js",
+      "top": 1837,
+      "height": 2673,
+      "display": "block",
+      "hidden": false
+    },
+    {
+      "tag": "section",
+      "id": "treinamentos",
+      "class": "section treinamentos-section",
+      "top": 4510,
+      "height": 1217,
+      "display": "block",
+      "hidden": false
+    },
+    {
+      "tag": "section",
+      "id": "results",
+      "class": "section adtech-section-new",
+      "top": 5727,
+      "height": 1668,
+      "display": "block",
+      "hidden": false
+    },
+    {
+      "tag": "section",
+      "id": "artigos",
+      "class": "section instagram-section",
+      "top": 0,
+      "height": 0,
+      "display": "none",
+      "hidden": true
+    },
+    {
+      "tag": "section",
+      "id": "video",
+      "class": "section",
+      "top": 7394,
+      "height": 939,
+      "display": "block",
+      "hidden": false
+    },
+    {
+      "tag": "section",
+      "id": "contact",
+      "class": "section contact-section-new",
+      "top": 8333,
+      "height": 407,
+      "display": "block",
+      "hidden": false
+    },
+    {
+      "tag": "footer",
+      "id": null,
+      "class": "footer-section",
+      "top": 8755,
+      "height": 680,
+      "display": "block",
+      "hidden": false
+    },
+    {
+      "tag": "section",
+      "id": "rodape",
+      "class": "rodape",
+      "top": 9435,
+      "height": 501,
+      "display": "block",
+      "hidden": false
+    }
+  ],
+  "hero": {
+    "videoSrc": "http://127.0.0.1:8080/complexodmc.com.br/assets/videos/rino-hero.mp4",
+    "poster": "http://127.0.0.1:8080/complexodmc.com.br/assets/images/hero-poster.jpg",
+    "paused": false,
+    "readyState": 4,
+    "currentTime": 3.1566,
+    "duration": 11.708333,
+    "videoWidth": 1280,
+    "videoHeight": 720,
+    "badge": "business consulting and finance",
+    "h1": "Consultoria empresarial, tributária e contábil",
+    "sub": "Defendemos seus direitos e protegemos seus interesses com excelência em consultoria. Soluções estratégicas personalizadas para empresas e pessoas físicas.",
+    "cta": [
+      {
+        "text": "Agendar Consulta",
+        "href": "https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20agendar%20uma%20consulta%20com%20a%20Complexo%20DMC."
+      }
+    ]
+  },
+  "stats": [
+    "R$ 205M+ Ativos Transacionados",
+    "36+ Holdings Efetivadas",
+    "95% Satisfação dos Clientes",
+    "15+ Anos de Experiência",
+    "500+ Clientes Atendidos",
+    "R$ 80M+ Economia Tributária",
+    "120+ Famílias Protegidas",
+    "3.500+ Documentos Processados",
+    "98% Taxa de Sucesso",
+    "24/7 Suporte Especializado"
+  ],
+  "conheca": {
+    "videoSrc": "http://127.0.0.1:8080/complexodmc.com.br/assets/videos/rino-video-transparent.mp4",
+    "paused": false,
+    "canvasW": 480,
+    "canvasH": 480,
+    "orbit": [
+      {
+        "front": "PLAN. SUCES.",
+        "back": "Planejamento Sucessório",
+        "href": "pages/planejamento-sucessorio.html"
+      },
+      {
+        "front": "CONST. TRIB.",
+        "back": "Consultoria Tributária",
+        "href": "pages/planejamento-tributario.html"
+      },
+      {
+        "front": "ATOS NOTARIAL.",
+        "back": "Atos Notariais",
+        "href": "pages/atos-notariais.html"
+      },
+      {
+        "front": "REG. IMOB.",
+        "back": "Registro Imobiliário",
+        "href": "pages/registro-imobiliario.html"
+      },
+      {
+        "front": "CONTAB.",
+        "back": "Contabilidade",
+        "href": "pages/contabilidade.html"
+      },
+      {
+        "front": "TECN.",
+        "back": "Tecnologia",
+        "href": "pages/tecnologia.html"
+      },
+      {
+        "front": "PROT. PATRI.",
+        "back": "Proteção Patrimonial",
+        "href": "pages/pronto-patrimonio.html"
+      }
+    ],
+    "desc": "Uma empresa de business consulting com uma vertente em soluções de inovação e tecnologia."
+  },
+  "eixos": {
+    "abas": [
+      {
+        "eixo": "1",
+        "name": "Patrimonial e Sucessório",
+        "n": "5 soluções",
+        "selected": "false"
+      },
+      {
+        "eixo": "2",
+        "name": "Tributário, Fiscal e Corporativo",
+        "n": "2 soluções",
+        "selected": "false"
+      },
+      {
+        "eixo": "3",
+        "name": "Direito Notarial e Imobiliário",
+        "n": "5 soluções",
+        "selected": "true"
+      },
+      {
+        "eixo": "4",
+        "name": "Auditoria Empresarial e Contábil",
+        "n": "2 soluções",
+        "selected": "false"
+      },
+      {
+        "eixo": "5",
+        "name": "Recuperação de Ativos",
+        "n": "1 solução",
+        "selected": "false"
+      },
+      {
+        "eixo": "6",
+        "name": "Consultoria Trabalhista",
+        "n": "6 soluções",
+        "selected": "false"
+      }
+    ],
+    "flags": [
+      {
+        "id": "eixo-1",
+        "hidden": true,
+        "fixo": null,
+        "title": "Quem decide o destino do seu patrimônio",
+        "cta": "Fale agora mesmo com nossos especialistas",
+        "ctaHref": "#contact",
+        "spot": "Planejamento Sucessório",
+        "spotHref": "pages/planejamento-sucessorio.html"
+      },
+      {
+        "id": "eixo-2",
+        "hidden": true,
+        "fixo": null,
+        "title": "Menos imposto, dentro da lei",
+        "cta": "Fale agora mesmo com nossos especialistas",
+        "ctaHref": "#contact",
+        "spot": "Planejamento Tributário",
+        "spotHref": "pages/planejamento-tributario.html"
+      },
+      {
+        "id": "eixo-3",
+        "hidden": false,
+        "fixo": null,
+        "title": "Nada existe até o cartório registrar",
+        "cta": "Fale agora mesmo com nossos especialistas",
+        "ctaHref": "#contact",
+        "spot": "Jurídico Vendas",
+        "spotHref": "pages/juridico-vendas.html"
+      },
+      {
+        "id": "eixo-4",
+        "hidden": true,
+        "fixo": null,
+        "title": "O que os números dizem da sua operação",
+        "cta": "Fale agora mesmo com nossos especialistas",
+        "ctaHref": "#contact",
+        "spot": "Contabilidade",
+        "spotHref": "pages/contabilidade.html"
+      },
+      {
+        "id": "eixo-5",
+        "hidden": true,
+        "fixo": null,
+        "title": "Ganhar a ação é metade do caminho",
+        "cta": "Fale agora mesmo com nossos especialistas",
+        "ctaHref": "#contact",
+        "spot": "Recuperação de Ativos",
+        "spotHref": "pages/recuperacao-ativos.html"
+      },
+      {
+        "id": "eixo-6",
+        "hidden": true,
+        "fixo": "fixo",
+        "title": "Quem decide o valor do seu passivo trabalhista",
+        "cta": "Fale agora mesmo com nossos especialistas",
+        "ctaHref": "#contact",
+        "spot": "Ciclo Fechado",
+        "spotHref": "solucoes/consultoria-trabalhista/ciclo-fechado.html"
+      }
+    ],
+    "cards": [
+      {
+        "eixo": "1",
+        "title": "Planejamento Sucessório",
+        "href": "pages/planejamento-sucessorio.html",
+        "hidden": true
+      },
+      {
+        "eixo": "1",
+        "title": "Holding Patrimonial",
+        "href": "pages/holding-patrimonial.html",
+        "hidden": true
+      },
+      {
+        "eixo": "1",
+        "title": "Blindagem Patrimonial",
+        "href": "pages/blindagem-patrimonial.html",
+        "hidden": true
+      },
+      {
+        "eixo": "1",
+        "title": "Proteção Patrimonial",
+        "href": "pages/pronto-patrimonio.html",
+        "hidden": true
+      },
+      {
+        "eixo": "1",
+        "title": "Sucessão Testamentária",
+        "href": "pages/sucessao-testamentaria.html",
+        "hidden": true
+      },
+      {
+        "eixo": "2",
+        "title": "Planejamento Tributário",
+        "href": "pages/planejamento-tributario.html",
+        "hidden": true
+      },
+      {
+        "eixo": "2",
+        "title": "Compliance & Governança",
+        "href": "pages/compliance-governanca.html",
+        "hidden": true
+      },
+      {
+        "eixo": "3",
+        "title": "Consultoria Imobiliária",
+        "href": "pages/consultoria-imobiliaria.html",
+        "hidden": false
+      },
+      {
+        "eixo": "3",
+        "title": "Jurídico Imobiliário",
+        "href": "pages/juridico-imobiliario.html",
+        "hidden": false
+      },
+      {
+        "eixo": "3",
+        "title": "Jurídico Vendas",
+        "href": "pages/juridico-vendas.html",
+        "hidden": false
+      },
+      {
+        "eixo": "3",
+        "title": "Registro Imobiliário",
+        "href": "pages/registro-imobiliario.html",
+        "hidden": false
+      },
+      {
+        "eixo": "3",
+        "title": "Atos Notariais",
+        "href": "pages/atos-notariais.html",
+        "hidden": false
+      },
+      {
+        "eixo": "4",
+        "title": "Contabilidade",
+        "href": "pages/contabilidade.html",
+        "hidden": true
+      },
+      {
+        "eixo": "4",
+        "title": "Auditoria Empresarial",
+        "href": "#contact",
+        "hidden": true
+      },
+      {
+        "eixo": "5",
+        "title": "Recuperação de Ativos",
+        "href": "pages/recuperacao-ativos.html",
+        "hidden": true
+      },
+      {
+        "eixo": "6",
+        "title": "Quitação Anual",
+        "href": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+        "hidden": true
+      },
+      {
+        "eixo": "6",
+        "title": "Blindagem Contratual",
+        "href": "solucoes/consultoria-trabalhista/blindagem-contratual.html",
+        "hidden": true
+      },
+      {
+        "eixo": "6",
+        "title": "Conformidade Psicossocial",
+        "href": "solucoes/consultoria-trabalhista/conformidade-psicossocial.html",
+        "hidden": true
+      },
+      {
+        "eixo": "6",
+        "title": "Decisão Assistida",
+        "href": "solucoes/consultoria-trabalhista/decisao-assistida.html",
+        "hidden": true
+      },
+      {
+        "eixo": "6",
+        "title": "Câmara de Acordos",
+        "href": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+        "hidden": true
+      },
+      {
+        "eixo": "6",
+        "title": "Defesa Empresarial",
+        "href": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+        "hidden": true
+      }
+    ],
+    "cases": [
+      {
+        "q": "“Tenho imóveis no meu nome, filhos, e nada organizado para o dia em que eu faltar.”",
+        "href": "pages/holding-patrimonial.html"
+      },
+      {
+        "q": "“Recebi uma autuação da Receita e pago imposto demais todo mês.”",
+        "href": "pages/planejamento-tributario.html"
+      },
+      {
+        "q": "“Vou comprar um terreno e não sei se a matrícula está limpa.”",
+        "href": "pages/consultoria-imobiliaria.html"
+      },
+      {
+        "q": "“Alguém da família faleceu e o inventário não sai do lugar.”",
+        "href": "pages/atos-notariais.html"
+      },
+      {
+        "q": "“O banco pediu balanço auditado e a minha contabilidade não acompanha.”",
+        "href": "pages/contabilidade.html"
+      },
+      {
+        "q": "“Ganhei a ação, mas o devedor sumiu com o dinheiro e a execução não anda.”",
+        "href": "#contact"
+      }
+    ],
+    "visibleCards": 5,
+    "npTags": 27,
+    "npTagChips": 42
+  },
+  "sorteios": [
+    "eixo-3 / Registro Imobiliário",
+    "eixo-2 / Planejamento Tributário",
+    "eixo-5 / Recuperação de Ativos",
+    "eixo-5 / Recuperação de Ativos",
+    "eixo-1 / Planejamento Sucessório",
+    "eixo-1 / Proteção Patrimonial"
+  ],
+  "busca": {
+    "holding": {
+      "status": "3 soluções e 1 situação para “holding”.",
+      "visibleCards": 3,
+      "emptyShown": false,
+      "waHref": "https://wa.me/5511915267749"
+    },
+    "inventário": {
+      "status": "2 soluções e 1 situação para “inventário”.",
+      "visibleCards": 2,
+      "emptyShown": false,
+      "waHref": "https://wa.me/5511915267749"
+    },
+    "contabilidade": {
+      "status": "1 solução e 1 situação para “contabilidade”.",
+      "visibleCards": 1,
+      "emptyShown": false,
+      "waHref": "https://wa.me/5511915267749"
+    },
+    "xyzabc": {
+      "status": "Nada encontrado para xyzabc.",
+      "visibleCards": 0,
+      "emptyShown": true,
+      "waHref": "https://wa.me/5511915267749?text=Ol%C3%A1!%20Minha%20situa%C3%A7%C3%A3o%3A%20xyzabc"
+    }
+  },
+  "deadLinks": [
+    {
+      "text": "COMPLEXO DMC",
+      "class": "logo"
+    },
+    {
+      "text": "Conhecer Plataforma",
+      "class": "adtech-btn-primary",
+      "section": "results"
+    },
+    {
+      "text": "Ver Demonstração",
+      "class": "adtech-btn-secondary",
+      "section": "results"
+    },
+    {
+      "text": "Saiba mais",
+      "class": "adtech-card-link",
+      "section": "results"
+    },
+    {
+      "text": "Saiba mais",
+      "class": "adtech-card-link",
+      "section": "results"
+    },
+    {
+      "text": "Saiba mais",
+      "class": "adtech-card-link",
+      "section": "results"
+    },
+    {
+      "text": "Saiba mais",
+      "class": "adtech-card-link",
+      "section": "results"
+    },
+    {
+      "text": "2.4k\n                   89",
+      "class": "insta-post fade-in-element",
+      "section": "artigos"
+    },
+    {
+      "text": "3.1k\n                   156",
+      "class": "insta-post fade-in-element",
+      "section": "artigos"
+    },
+    {
+      "text": "1.8k\n                   67",
+      "class": "insta-post fade-in-element",
+      "section": "artigos"
+    },
+    {
+      "text": "4.2k\n                   203",
+      "class": "insta-post fade-in-element",
+      "section": "artigos"
+    },
+    {
+      "text": "987\n                   45",
+      "class": "insta-post fade-in-element",
+      "section": "artigos"
+    },
+    {
+      "text": "5.6k\n                   312",
+      "class": "insta-post fade-in-element",
+      "section": "artigos"
+    },
+    {
+      "text": "2.9k\n                   134",
+      "class": "insta-post fade-in-element",
+      "section": "artigos"
+    },
+    {
+      "text": "1.5k\n                   78",
+      "class": "insta-post fade-in-element",
+      "section": "artigos"
+    },
+    {
+      "text": "3.8k\n                   245",
+      "class": "insta-post fade-in-element",
+      "section": "artigos"
+    }
+  ],
+  "contactForm": {
+    "action": "mailto:administrativo@complexodmc.com.br",
+    "formMessageExists": false,
+    "nomeAfter": "",
+    "btnText": "Enviar mensagem",
+    "urlAfter": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+    "requestsDuringSubmit": [
+      "GET http://127.0.0.1:8080/complexodmc.com.br/index.html",
+      "GET https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap",
+      "GET https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+      "GET http://127.0.0.1:8080/complexodmc.com.br/assets/css/styles.css?v=traco4",
+      "GET http://127.0.0.1:8080/complexodmc.com.br/assets/js/navbar.js?v=traco3",
+      "GET http://127.0.0.1:8080/complexodmc.com.br/assets/js/video.js?v=1",
+      "GET http://127.0.0.1:8080/complexodmc.com.br/assets/images/hero-poster.jpg",
+      "GET http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png",
+      "GET http://127.0.0.1:8080/complexodmc.com.br/assets/js/main.js?v=traco3",
+      "GET http://127.0.0.1:8080/complexodmc.com.br/assets/images/AD-TECH-IMAGE.webp",
+      "GET https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2",
+      "GET https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6Z1xlFd2JQEk.woff2",
+      "GET https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2",
+      "GET https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLDD4Z1xlFd2JQEk.woff2",
+      "GET https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+      "GET http://127.0.0.1:8080/complexodmc.com.br/assets/videos/rino-hero.mp4",
+      "GET http://127.0.0.1:8080/complexodmc.com.br/assets/videos/rino-video-transparent.mp4"
+    ]
+  },
+  "styleCounts": {
+    "gradientBackgrounds": 177,
+    "borderedRoundedBoxes": 114,
+    "gradientTextSpans": 8,
+    "cardsAll": 58,
+    "tagsAll": 86,
+    "fonts": [
+      "Inter",
+      "Poppins",
+      "Arial",
+      "",
+      "Raleway",
+      "Font Awesome 6 Free"
+    ]
+  },
+  "pageHeightDesktop": 9586,
+  "mobile": {
+    "scrollHeight": 13089,
+    "horizontalOverflow": false,
+    "scrollWidth": 390,
+    "heroVideoPaused": false
+  },
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "failedRequests": [
+    "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png :: HTTP 404",
+    "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png :: HTTP 404",
+    "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png :: HTTP 404",
+    "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png :: HTTP 404",
+    "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png :: HTTP 404",
+    "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png :: HTTP 404",
+    "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png :: HTTP 404",
+    "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png :: HTTP 404",
+    "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png :: HTTP 404"
+  ]
+}

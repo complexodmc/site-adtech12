@@ -1,0 +1,4623 @@
+[
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 47,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 48,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 51,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 70,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Soluções completas em atos notariais com fé pública, garantindo validade e segurança jurídica aos seus documentos."
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 118,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "1000+"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 124,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$500M+"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 130,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "99%"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 136,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "10+"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 138,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 145,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "1000+"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 151,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$500M+"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 157,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "99%"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 163,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "10+"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 165,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 171,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "1000+"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 177,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$500M+"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 183,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "99%"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 189,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "10+"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 191,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/atos-notariais.html",
+    "line": 311,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Garanta segurança jurídica e fé pública para seus documentos mais importantes."
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 27,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "A blindagem patrimonial protege seus bens contra riscos financeiros e judiciais, garantindo segurança e continuidade aos seus negócios com planejamento personalizado."
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 34,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 35,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 38,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 51,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Estratégias jurídicas para proteger seu patrimônio contra riscos e garantir tranquilidade."
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 67,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "350+"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 73,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$3B+"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 79,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "99%"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 85,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 87,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Atuação"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 94,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "350+"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 100,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$3B+"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 106,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "99%"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 112,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 114,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Atuação"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 120,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "350+"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 126,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$3B+"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 132,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "99%"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 138,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/blindagem-patrimonial.html",
+    "line": 140,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Atuação"
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "line": 33,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "line": 34,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "line": 37,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);"
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "line": 73,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "150+ Empresas Atendidas"
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "line": 74,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% Conformidade Regulatória"
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "line": 75,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "60% Redução de Riscos"
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "line": 76,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "8+ Anos de Experiência"
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "line": 82,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Compliance corporativo é o conjunto de práticas e procedimentos adotados por uma empresa para garantir que suas atividades estejam em conformidade com leis, regulamentos e padrões éticos."
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "line": 85,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "Compliance reduz riscos de multas?"
+  },
+  {
+    "file": "pages/compliance-governanca.html",
+    "line": 113,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Garanta a Conformidade da Sua Empresa Agende uma consulta e descubra como implementar um programa de compliance eficiente."
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 6,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Consultoria Imobiliária para construtoras e incorporadoras — Jurídico Imobiliário e Jurídico Vendas com IA, advocacia especializada e cartórios parceiros para acelerar registros, blindar contratos e destravar repasses bancários."
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 38,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "Integramos o jurídico imobiliário e o comercial para que construtoras e incorporadoras convertam pendências registrais em liquidez imediata, com menos burocracia, prazos curtos e custo reduzido."
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 50,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 51,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 54,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 88,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "-70%"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 94,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 96,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 121,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "-70%"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 127,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 129,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 153,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "-70%"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 159,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 161,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 239,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 249,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 268,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background: radial-gradient(ellipse at 30% 50%, rgba(var(--np-accent), 0."
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 272,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background: radial-gradient(ellipse at 70% 50%, rgba(var(--np-accent-soft), 0."
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 293,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 429,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 438,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateX(-50%);"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 468,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "/* Hovered panel expands to 100% */"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 470,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 100%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 473,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "/* Sibling panel collapses to 0% */"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 475,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 0%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 572,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 597,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "Por que regularizar meu empreendimento é urgente ?"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 606,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "Reduzimos em até 70% o tempo entre a venda e o repasse bancário, acelerando a liquidez da incorporadora e antecipando o reconhecimento do VGV."
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 627,
+    "rules": [
+      "promessa/garantia",
+      "percentual/estatística"
+    ],
+    "phrase": "Cartórios de Notas e Registros de Imóveis parceiros em todas as regiões do país, com fluxo 100% digital e fé pública garantida."
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 712,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 723,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 724,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 725,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 726,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "06) 0%, transparent 70%);"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 742,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 743,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 744,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 746,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 754,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 755,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 767,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { transform: rotate(0deg) translateX(var(--ps-orbit-r)) rotate(0deg); }"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 768,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% { transform: rotate(360deg) translateX(var(--ps-orbit-r)) rotate(-360deg); }"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 884,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "IA e advogados imobiliários elaboram minutas e protocolam atos junto aos cartórios parceiros com SLA acordado."
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 887,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Validação por advogado imobiliário"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 927,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "height: 100%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 928,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "55) 60%);"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 947,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 954,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateY(-50%);"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 1066,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 1067,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateX(-50%) rotate(90deg);"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 1081,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Combinamos IA, advocacia especializada em Direito Imobiliário e uma rede nacional de cartórios parceiros para acelerar registros, blindar operações e destravar caixa em prazo recorde."
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 1088,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width=\"100%\""
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 1105,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 1154,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "É uma consultoria de negócios voltada a construtoras e incorporadoras, que opera em duas frentes integradas: Jurídico Imobiliário (registro do empreendimento, regularização fundiária, individualização de matrículas) e Jurídico Vendas (contr"
+  },
+  {
+    "file": "pages/consultoria-imobiliaria.html",
+    "line": 1219,
+    "rules": [
+      "honorários/gratuito",
+      "advocacia/escritório"
+    ],
+    "phrase": "Agende um diagnóstico gratuito com nossos advogados imobiliários e veja como destravar registros, blindar contratos e antecipar repasses bancários."
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 6,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Contabilidade | Complexo DMC"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 7,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Contabilidade - Contabilidade empresarial estratégica, demonstrações financeiras, obrigações fiscais e assessoria contábil completa."
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 30,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "E4 · AUDITORIA EMPRESARIAL E CONTÁBIL"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 32,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Contabilidade Estratégica"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 33,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Contabilidade empresarial estratégica, demonstrações financeiras, obrigações fiscais e assessoria contábil completa."
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 47,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 48,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 51,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 76,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Contabilidade Empresarial"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 77,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Escrituração contábil completa, livros obrigatórios e relatórios gerenciais para tomada de decisão."
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 100,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Planejamento Contábil"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 118,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "200+"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 124,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$2B+"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 130,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100%"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 136,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 138,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 145,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "200+"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 151,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$2B+"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 157,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100%"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 163,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 165,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 171,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "200+"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 177,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$2B+"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 183,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100%"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 189,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 191,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 206,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Quatro etapas entre o diagnóstico contábil e o relatório gerencial na mesa — cada uma com entrega própria."
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 211,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Diagnóstico Contábil"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 212,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Avaliação completa da situação contábil e fiscal atual da sua empresa."
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 240,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Contabilidade Estratégica em vídeo"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 241,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Como a contabilidade deixa de ser obrigação acessória e passa a sustentar decisão — no balanço, no fisco e no planejamento."
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 251,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Vídeo sobre contabilidade estratégica — em breve neste espaço."
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 269,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Qual a diferença entre contabilidade fiscal e gerencial?"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 273,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "A contabilidade fiscal foca no cumprimento das obrigações tributárias e legais, enquanto a contabilidade gerencial fornece informações estratégicas para a tomada de decisão, análise de desempenho e planejamento do negócio."
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 296,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Como funciona a transição de contador?"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 300,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Realizamos todo o processo de transição de forma transparente, incluindo a solicitação dos arquivos ao contador anterior, revisão da escrituração e regularização de eventuais pendências, sem interrupção dos serviços."
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 310,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Potencialize Sua Contabilidade"
+  },
+  {
+    "file": "pages/contabilidade.html",
+    "line": 311,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Transforme a contabilidade da sua empresa em uma ferramenta estratégica de crescimento."
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 36,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 37,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 40,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 69,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "200+"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 75,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$1."
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 81,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "40%"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 83,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Economia Tributária Média"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 87,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "10+"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 89,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos no Mercado"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 96,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "200+"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 102,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$1."
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 108,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "40%"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 110,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Economia Tributária Média"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 114,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "10+"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 116,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos no Mercado"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 122,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "200+"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 128,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$1."
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 134,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "40%"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 136,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Economia Tributária Média"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 140,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "10+"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 142,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos no Mercado"
+  },
+  {
+    "file": "pages/holding-patrimonial.html",
+    "line": 163,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Em geral, o investimento se paga rapidamente com a economia tributária gerada."
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 6,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Jurídico Imobiliário - Minutas de contratos, due diligence e distratos com IA e validação de advogados especializados em Direito Imobiliário."
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 40,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Através da nossa Inteligência Artificial, geramos minutas de Contratos, due diligence e distratos nos padrões da sua empresa, validados por advogados especializados em Direito Imobiliário e com fé pública conferida pelos nossos Cartórios Pa"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 52,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 53,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 56,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 90,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "-70%"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 96,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 98,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 123,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "-70%"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 129,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 131,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 155,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "-70%"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 161,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 163,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 177,
+    "rules": [
+      "superlativo/ranking"
+    ],
+    "phrase": "Três camadas integradas, únicas no mercado"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 206,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Advocacia"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 208,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Advogados especialistas validam as minutas e complementam o que sua operação exige, blindando cada ato contra riscos jurídicos."
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 210,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Validação por advogado imobiliário"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 227,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Atos com fé pública garantida"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 253,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "55) 60%);"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 259,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "height: 100%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 276,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "55) 60%);"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 352,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Da aquisição do terreno à individualização das matrículas — cada serviço une advocacia, cartório e estruturação societária para destravar registros, regularizar ativos e viabilizar lançamentos com previsibilidade."
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 410,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Conduzimos cada etapa em conjunto nos âmbitos societário, tributário, registral e notarial, garantindo coerência entre os documentos e aderência às Leis nº 4."
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 498,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 509,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 510,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 511,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 512,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "06) 0%, transparent 70%);"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 528,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 529,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 530,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 532,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 540,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 541,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 553,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { transform: rotate(0deg) translateX(var(--ps-orbit-r)) rotate(0deg); }"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 554,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% { transform: rotate(360deg) translateX(var(--ps-orbit-r)) rotate(-360deg); }"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 674,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Revisão por advogado imobiliário"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 713,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "height: 100%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 714,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "55) 60%);"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 733,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 740,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateY(-50%);"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 853,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 854,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateX(-50%) rotate(90deg);"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 867,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Um escritório feito para quem constrói e vende"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 868,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "O Complexo DMC é um escritório de consultoria em negócios, com atuação cirúrgica em atos notariais e registrais para construtoras, incorporadoras e loteadoras."
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 875,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width=\"100%\""
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 892,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 941,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "O Complexo DMC é um escritório de Direito Imobiliário que prepara minutas, qualifica documentos e formaliza os atos junto a Cartórios de Notas e Registros de Imóveis conveniados — a lavratura e o registro continuam sendo feitos pelo cartóri"
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 961,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "Com a documentação completa, minutas padronizadas por IA e qualificação prévia junto ao Registro de Imóveis, a escritura costuma sair em até 5 dias úteis — reduzindo em até 70% o prazo médio do mercado até o registro."
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 971,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "Temos uma rede de Cartórios de Notas e Registros de Imóveis parceiros em todas as regiões do país e operamos de forma 100% digital com assinatura eletrônica qualificada (ICP-Brasil) quando o cartório e as partes permitem."
+  },
+  {
+    "file": "pages/juridico-imobiliario.html",
+    "line": 1016,
+    "rules": [
+      "honorários/gratuito",
+      "advocacia/escritório"
+    ],
+    "phrase": "Agende um diagnóstico gratuito com nossos advogados imobiliários e descubra quanto sua construtora pode acelerar o ciclo de repasse com atos notariais sob medida."
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 6,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Jurídico Vendas - Minutas de contratos, due diligence e distratos com IA e validação de advogados especializados em consultoria Imobiliário."
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 40,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Através da nossa Inteligência Artificial, geramos minutas de Contratos, due diligence e distratos nos padrões da sua empresa, validados por advogados especializados em Direito Imobiliário e com fé pública conferida pelos nossos Cartórios Pa"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 52,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 53,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 56,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 90,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "-70%"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 96,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 98,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 123,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "-70%"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 129,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 131,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 155,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "-70%"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 161,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 163,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 177,
+    "rules": [
+      "superlativo/ranking"
+    ],
+    "phrase": "Três camadas integradas, únicas no mercado"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 206,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Advocacia"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 208,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Advogados especialistas validam as minutas e complementam o que sua operação exige, blindando cada ato contra riscos jurídicos."
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 210,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Validação por advogado imobiliário"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 227,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Atos com fé pública garantida"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 253,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "55) 60%);"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 259,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "height: 100%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 276,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "55) 60%);"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 352,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Da promessa de compra e venda à recuperação de unidades inadimplentes — cada produto une IA, advocacia e cartório para acelerar caixa, reduzir judicialização e realizar VGV."
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 499,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 510,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 511,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 512,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 513,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "06) 0%, transparent 70%);"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 529,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 530,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 531,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 533,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 541,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 542,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 554,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { transform: rotate(0deg) translateX(var(--ps-orbit-r)) rotate(0deg); }"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 555,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% { transform: rotate(360deg) translateX(var(--ps-orbit-r)) rotate(-360deg); }"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 675,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Revisão por advogado imobiliário"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 714,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "height: 100%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 715,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "55) 60%);"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 734,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 741,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateY(-50%);"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 854,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 855,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateX(-50%) rotate(90deg);"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 868,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Um escritório feito para quem constrói e vende"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 869,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "O Complexo DMC é um escritório de consultoria em negócios, com atuação cirúrgica em atos notariais e registrais para construtoras, incorporadoras e loteadoras."
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 876,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width=\"100%\""
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 893,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 942,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "O Complexo DMC é um escritório de Consultoria em negócios atuante no mercado imobiliário que prepara minutas, qualifica documentos e formaliza os atos junto a Cartórios de Notas e Registros de Imóveis conveniados — a lavratura e o registro "
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 962,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "Com a documentação completa, minutas padronizadas por IA e qualificação prévia junto ao Registro de Imóveis, a escritura costuma sair em até 5 dias úteis — reduzindo em até 70% o prazo médio do mercado até o registro."
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 972,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "Temos uma rede de Cartórios de Notas e Registros de Imóveis parceiros em todas as regiões do país e operamos de forma 100% digital com assinatura eletrônica qualificada (ICP-Brasil) quando o cartório e as partes permitem."
+  },
+  {
+    "file": "pages/juridico-vendas.html",
+    "line": 1017,
+    "rules": [
+      "honorários/gratuito",
+      "advocacia/escritório"
+    ],
+    "phrase": "Agende um diagnóstico gratuito com nossos advogados imobiliários e descubra quanto sua construtora pode acelerar o ciclo de repasse com atos notariais sob medida."
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 6,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Planejamento Sucessório Empresarial e Familiar - Proteja seu patrimônio e garanta a continuidade dos seus negócios com a Complexo DMC."
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 49,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 50,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 53,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 71,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "Por que o planejamento sucessório é urgente ?"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 72,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Estratégias jurídicas e empresariais para proteger o que você construiu e garantir uma transição tranquila."
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 89,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Planejamento estratégico para garantir que o negócio prospere através das gerações."
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 95,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Economia Tributária"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 140,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "98%"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 152,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 154,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 173,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "98%"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 185,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 187,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 197,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 278,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 285,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { transform: translateX(0); }"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 286,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% { transform: translateX(-50%); }"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 366,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 377,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 378,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 379,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 380,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "06) 0%, transparent 70%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 396,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 397,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 398,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 400,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 408,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 409,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 421,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { transform: rotate(0deg) translateX(var(--ps-orbit-r)) rotate(0deg); }"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 422,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% { transform: rotate(360deg) translateX(var(--ps-orbit-r)) rotate(-360deg); }"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 557,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 567,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 586,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background: radial-gradient(ellipse at 30% 50%, rgba(0, 231, 252, 0."
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 590,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background: radial-gradient(ellipse at 70% 50%, rgba(0, 255, 77, 0."
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 611,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 738,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 747,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateX(-50%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 777,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "/* Hovered panel expands to 100% */"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 779,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 782,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "/* Sibling panel collapses to 0% */"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 784,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 0%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 881,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 907,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Uma metodologia estruturada em 7 etapas para garantir a melhor estratégia sucessória."
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 1020,
+    "rules": [
+      "promessa/garantia",
+      "economia/redução prometida",
+      "superlativo/ranking"
+    ],
+    "phrase": "O planejamento sucessório é a ferramenta mais poderosa para garantir a preservação e continuidade do patrimônio construído ao longo de gerações."
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 1027,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width=\"100%\""
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 1057,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio-empresarial.html",
+    "line": 1177,
+    "rules": [
+      "promessa/garantia",
+      "honorários/gratuito"
+    ],
+    "phrase": "Agende uma consulta gratuita e descubra como podemos ajudar a garantir a continuidade do seu patrimônio."
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 52,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 53,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 56,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 143,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "98%"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 155,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 157,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 176,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "98%"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 188,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 190,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 208,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "98%"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 220,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 222,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 298,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 309,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 310,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 311,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 312,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "06) 0%, transparent 70%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 328,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 329,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 330,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 332,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 340,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 341,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 353,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { transform: rotate(0deg) translateX(var(--ps-orbit-r)) rotate(0deg); }"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 354,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% { transform: rotate(360deg) translateX(var(--ps-orbit-r)) rotate(-360deg); }"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 495,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 505,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 524,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background: radial-gradient(ellipse at 30% 50%, rgba(var(--np-accent), 0."
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 528,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background: radial-gradient(ellipse at 70% 50%, rgba(var(--np-accent-soft), 0."
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 549,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 676,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 685,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateX(-50%);"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 715,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "/* Hovered panel expands to 100% */"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 717,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 720,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "/* Sibling panel collapses to 0% */"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 722,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 0%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 819,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 904,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "O imposto continua sendo estadual, com alíquota máxima de 8% fixada pelo Senado Federal (Resolução 9/1992) — e a conta muda conforme o estado e a composição do patrimônio."
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 911,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width=\"100%\""
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 928,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/planejamento-sucessorio.html",
+    "line": 1016,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "A transmissão por herança ou doação é tributada pelo ITCMD, imposto estadual cuja alíquota máxima é de 8%, teto fixado pelo Senado Federal na Resolução 9/1992."
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 6,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Planejamento Tributário - Reduza legalmente a carga fiscal e maximize os lucros da sua empresa."
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 26,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "O planejamento tributário estratégico permite ao empresário reduzir legalmente a carga fiscal, maximizar lucros e evitar riscos fiscais com segurança e eficiência."
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 33,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 34,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 37,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);"
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 50,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Estratégias legais para reduzir tributos e maximizar seus resultados."
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 52,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Diagnóstico Diagnóstico Tributário Análise completa da situação fiscal da empresa para identificar oportunidades de economia."
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 53,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Regime Regime Tributário Ideal Avaliação e definição do melhor regime tributário para maximizar a eficiência fiscal."
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 65,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Análise de Oportunidades Identificação de oportunidades legais de economia tributária e créditos recuperáveis."
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 73,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "400+ Empresas Atendidas"
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 74,
+    "rules": [
+      "percentual/estatística",
+      "economia/redução prometida"
+    ],
+    "phrase": "R$500M+ Economia Gerada"
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 75,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "35% Redução Média de Tributos"
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 76,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "20+ Especialistas"
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 82,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "O planejamento tributário utiliza meios legais para reduzir a carga fiscal, diferente da sonegação que é ilegal."
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 83,
+    "rules": [
+      "percentual/estatística",
+      "economia/redução prometida"
+    ],
+    "phrase": "Quanto posso economizar?"
+  },
+  {
+    "file": "pages/planejamento-tributario.html",
+    "line": 113,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Reduza Seus Tributos com Estratégia Agende uma consulta e descubra como otimizar a carga tributária da sua empresa de forma legal."
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 6,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "Por que o planejamento sucessório é urgente?"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 8,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "Por que o planejamento sucessório é urgente?"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 36,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "Por que o planejamento sucessório é urgente?"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 37,
+    "rules": [
+      "promessa/garantia",
+      "economia/redução prometida"
+    ],
+    "phrase": "Agir agora garante proteção patrimonial, economia tributária, continuidade empresarial e harmonia familiar."
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 48,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 49,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 52,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 70,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "Por que o planejamento sucessório é urgente ?"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 71,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Estratégias jurídicas e empresariais para proteger o que você construiu e garantir uma transição tranquila."
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 88,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Planejamento estratégico para garantir que o negócio prospere através das gerações."
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 94,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Economia Tributária"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 139,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "98%"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 151,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 153,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 172,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "98%"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 184,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "15+"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 186,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 196,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 277,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 284,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { transform: translateX(0); }"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 285,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% { transform: translateX(-50%); }"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 364,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 375,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 376,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 377,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 378,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "06) 0%, transparent 70%);"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 386,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 394,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 395,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 396,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translate(-50%, -50%);"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 398,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 406,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 407,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 419,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { transform: rotate(0deg) translateX(var(--ps-orbit-r)) rotate(0deg); }"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 420,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% { transform: rotate(360deg) translateX(var(--ps-orbit-r)) rotate(-360deg); }"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 558,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 586,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 596,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 615,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background: radial-gradient(ellipse at 30% 50%, rgba(0, 231, 252, 0."
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 619,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background: radial-gradient(ellipse at 70% 50%, rgba(0, 255, 77, 0."
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 640,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 767,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 776,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateX(-50%);"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 806,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "/* Hovered panel expands to 100% */"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 808,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 100%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 811,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "/* Sibling panel collapses to 0% */"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 813,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "flex: 1 1 0%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 910,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 936,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Uma metodologia estruturada em 7 etapas para garantir a melhor estratégia sucessória."
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 1053,
+    "rules": [
+      "promessa/garantia",
+      "economia/redução prometida",
+      "superlativo/ranking"
+    ],
+    "phrase": "O planejamento sucessório é a ferramenta mais poderosa para garantir a preservação e continuidade do patrimônio construído ao longo de gerações."
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 1060,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width=\"100%\""
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 1090,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 1200,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "Vídeo sobre a urgência do planejamento sucessório — em breve neste espaço."
+  },
+  {
+    "file": "pages/por-que-urgente.html",
+    "line": 1210,
+    "rules": [
+      "promessa/garantia",
+      "honorários/gratuito"
+    ],
+    "phrase": "Agende uma consulta gratuita e descubra como podemos ajudar a garantir a continuidade do seu patrimônio."
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 47,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 48,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 51,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 70,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Estratégias jurídicas avançadas para proteger seu patrimônio contra riscos e garantir a perpetuidade dos seus bens."
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 83,
+    "rules": [
+      "economia/redução prometida"
+    ],
+    "phrase": "Criação e gestão de holdings familiares para centralizar a administração patrimonial e reduzir impostos."
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 101,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Implementação de regras e estruturas de governança para garantir harmonia e eficiência na gestão familiar."
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 118,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "300+"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 124,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$3B+"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 130,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "97%"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 136,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "10+"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 138,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 145,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "300+"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 151,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$3B+"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 157,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "97%"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 163,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "10+"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 165,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 171,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "300+"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 177,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$3B+"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 183,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "97%"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 189,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "10+"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 191,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 267,
+    "rules": [
+      "promessa/garantia",
+      "percentual/estatística"
+    ],
+    "phrase": "O planejamento sucessório preventivo evita conflitos familiares, reduz custos com inventário (que pode chegar a 20% do patrimônio) e garante que a vontade do titular seja respeitada."
+  },
+  {
+    "file": "pages/pronto-patrimonio.html",
+    "line": 311,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Garanta a segurança e perpetuidade do patrimônio da sua família com estratégias jurídicas especializadas."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 86,
+    "rules": [
+      "percentual/estatística",
+      "honorários/gratuito"
+    ],
+    "phrase": "O devedor é intimado para pagar em 15 dias e, se não o fizer, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%, na forma do art."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 162,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 163,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 166,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 204,
+    "rules": [
+      "honorários/gratuito"
+    ],
+    "phrase": "Condução da fase de execução do título judicial, com a multa e os honorários que a lei prevê quando não há pagamento voluntário (art."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 233,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "escritório, basta substituir os pares abaixo nas TRÊS"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 371,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 470,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "42) 55%,"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 471,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "3) 84%,"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 491,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 642,
+    "rules": [
+      "percentual/estatística",
+      "honorários/gratuito"
+    ],
+    "phrase": "O caso segue por cumprimento de sentença : o devedor é intimado para pagar em 15 dias e, se não pagar, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 726,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "radial-gradient(120% 90% at 30% 20%, rgba(var(--np-accent), ."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 744,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "gp__dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255, 255, 255, ."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 751,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "@keyframes gp-caret { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 762,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "gp__svg { display: block; width: 100%; height: auto; }"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 778,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "@keyframes gp-respirar { 0%, 100% { opacity: ."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 822,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { stroke-dashoffset: 14; opacity: 0 }"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 823,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "1% { opacity: 1 }"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 824,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "6% { opacity: 1 }"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 825,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "5% { stroke-dashoffset: -100; opacity: 0 }"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 826,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% { stroke-dashoffset: -100; opacity: 0 }"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 846,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { transform: scale(."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 847,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "5% { transform: scale(1."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 848,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "12% { transform: scale(1."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 849,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100% { transform: scale(."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 978,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "0% { opacity: 0 }"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 979,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "2% { opacity: 1 }"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 980,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "13%, 100% { opacity: 0 }"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1016,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "07), transparent 55%),"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1068,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1204,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "height: 100%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1217,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "333%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1620,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100%"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1624,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "Sem pagamento voluntário em 15 dias, incide multa de 10%"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1627,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "110%"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1631,
+    "rules": [
+      "percentual/estatística",
+      "honorários/gratuito"
+    ],
+    "phrase": "Somam-se os honorários advocatícios da execução, de mais 10%"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1634,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "120%"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1640,
+    "rules": [
+      "percentual/estatística",
+      "honorários/gratuito"
+    ],
+    "phrase": "523 do Código de Processo Civil acrescenta ao valor a multa de 10% e os honorários advocatícios de 10%."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1713,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1764,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1794,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "radial-gradient(120% 80% at 20% 0%, rgba(var(--np-accent), ."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1819,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "height: 100%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1882,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1889,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 1998,
+    "rules": [
+      "percentual/estatística",
+      "honorários/gratuito"
+    ],
+    "phrase": "O devedor é intimado para pagar em 15 dias e, se não pagar, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 2028,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "'3a5': 'Nessa faixa a verificação do prazo é urgente: vários créditos prescrevem em três ou cinco anos, e os títulos de crédito, antes disso."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 2029,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "mais5: 'Tempo decorrido exige checagem imediata de prescrição — a execução prescreve no mesmo prazo da ação (Súmula 150 do Supremo Tribunal Federal)."
+  },
+  {
+    "file": "pages/recuperacao-ativos.html",
+    "line": 2141,
+    "rules": [
+      "percentual/estatística",
+      "honorários/gratuito"
+    ],
+    "phrase": "O devedor é intimado para pagar em 15 dias e, se não o fizer, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%, na forma do art."
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 47,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 48,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 51,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 70,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Soluções completas em registro imobiliário para garantir a regularidade e segurança do seu patrimônio."
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 118,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "800+"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 124,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$1B+"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 130,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "98%"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 136,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "12+"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 138,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 145,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "800+"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 151,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$1B+"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 157,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "98%"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 163,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "12+"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 165,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 171,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "800+"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 177,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "R$1B+"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 183,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "98%"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 189,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "12+"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 191,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 249,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "O registro de imóveis é o que garante a propriedade efetiva do bem."
+  },
+  {
+    "file": "pages/registro-imobiliario.html",
+    "line": 311,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Garanta a segurança jurídica do seu patrimônio imobiliário com nosso suporte especializado."
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 6,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Sucessão Testamentária - Garanta que sua vontade seja respeitada com testamentos seguros e válidos."
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 38,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Garanta que sua vontade seja respeitada."
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 52,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 53,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 56,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,rgb(var(--np-accent)) 0%,rgb(var(--np-accent-soft)) 50%,rgb(var(--np-accent)) 100%);"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 75,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Soluções completas em sucessão testamentária para garantir que sua vontade seja cumprida com segurança jurídica."
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 89,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Redação e orientação para testamentos cerrados, garantindo sigilo e validade legal."
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 124,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "300+"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 130,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100%"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 136,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "95%"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 142,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "12+"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 144,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 151,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "300+"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 157,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100%"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 163,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "95%"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 169,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "12+"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 171,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 177,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "300+"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 183,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "100%"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 189,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "95%"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 195,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "12+"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 197,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/sucessao-testamentaria.html",
+    "line": 318,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Garanta que Sua Vontade Seja Respeitada"
+  },
+  {
+    "file": "pages/tecnologia.html",
+    "line": 43,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "position:absolute;top:50%;left:50%;"
+  },
+  {
+    "file": "pages/tecnologia.html",
+    "line": 44,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform:translate(-50%,-50%);"
+  },
+  {
+    "file": "pages/tecnologia.html",
+    "line": 47,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "background:linear-gradient(135deg,#00e7fc 0%,#00ff4d 50%,#00e7fc 100%);"
+  },
+  {
+    "file": "pages/tecnologia.html",
+    "line": 72,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Plataformas de automação para escritórios jurídicos, geração de documentos e gestão de processos."
+  },
+  {
+    "file": "pages/tecnologia.html",
+    "line": 140,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "50+"
+  },
+  {
+    "file": "pages/tecnologia.html",
+    "line": 148,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "9%"
+  },
+  {
+    "file": "pages/tecnologia.html",
+    "line": 153,
+    "rules": [
+      "anos de experiência"
+    ],
+    "phrase": "Anos de Experiência"
+  },
+  {
+    "file": "pages/tecnologia.html",
+    "line": 174,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Automação jurídica é o uso de tecnologia para automatizar tarefas repetitivas em escritórios de advocacia e departamentos jurídicos, como geração de contratos, petições, controle de prazos e gestão de processos."
+  },
+  {
+    "file": "pages/tecnologia.html",
+    "line": 185,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Sim, todas as nossas soluções são desenvolvidas em conformidade com a Lei Geral de Proteção de Dados (LGPD), garantindo a privacidade e segurança das informações dos seus clientes e da sua empresa."
+  },
+  {
+    "file": "pages/treinamento-interesse.html",
+    "line": 26,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "top: 20%;"
+  },
+  {
+    "file": "pages/treinamento-interesse.html",
+    "line": 27,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "left: 50%;"
+  },
+  {
+    "file": "pages/treinamento-interesse.html",
+    "line": 28,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "transform: translateX(-50%);"
+  },
+  {
+    "file": "pages/treinamento-interesse.html",
+    "line": 32,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/treinamento-interesse.html",
+    "line": 39,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/treinamento-interesse.html",
+    "line": 49,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "border-radius: 50%;"
+  },
+  {
+    "file": "pages/treinamento-interesse.html",
+    "line": 126,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/treinamento-interesse.html",
+    "line": 148,
+    "rules": [
+      "percentual/estatística"
+    ],
+    "phrase": "width: 100%;"
+  },
+  {
+    "file": "pages/treinamento-interesse.html",
+    "line": 348,
+    "rules": [
+      "êxito/sucesso"
+    ],
+    "phrase": "// Mostra mensagem de sucesso apos um breve delay"
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+    "line": 179,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "855-B a 855-E da CLT, que exigem advogado próprio e independente para o trabalhador; art."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/decisao-assistida.html",
+    "line": 148,
+    "rules": [
+      "urgência"
+    ],
+    "phrase": "Nos casos de baixo risco, liberação imediata acompanhada de checklist de execução."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "line": 118,
+    "rules": [
+      "advocacia/escritório"
+    ],
+    "phrase": "Quando a empresa vira ré, a defesa costuma chegar fragmentada: um escritório para a audiência, outro para o recurso, a planilha do cálculo em um terceiro lugar e o RH descobrindo o processo quando a intimação já venceu."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "line": 120,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Ele ocupa o balanço pela provisão, imobiliza caixa em depósito recursal e garantia de execução e, quando não encontra a empresa, procura quem está atrás dela: sócios, holding e as demais empresas do grupo."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "line": 159,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Cada recurso tem prazo, custo de garantia e efeito sobre a provisão — recorrer de tudo não é estratégia."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "line": 194,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Cálculo, conferência e impugnação de liquidação executados pela Bear Finance Serviços Financeiros e Contábil, com a provisão conciliada ao balanço no formato aceito pela auditoria independente."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "line": 223,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Capital imobilizado em garantia"
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "line": 224,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Depósito recursal e garantia de execução param dinheiro da empresa até o fim do processo."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "line": 247,
+    "rules": [
+      "promessa/garantia",
+      "superlativo/ranking"
+    ],
+    "phrase": "A substituição do depósito recursal e da garantia da execução por seguro garantia judicial ou fiança bancária vem do art."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "line": 257,
+    "rules": [
+      "superlativo/ranking"
+    ],
+    "phrase": "Ato Conjunto TST.CSJT.CGJT nº 1/2019"
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "line": 279,
+    "rules": [
+      "promessa/garantia"
+    ],
+    "phrase": "Diferença entre o valor pedido e o valor apurado ao fim de cada fase, tempo de tramitação por instância, provisão comparada ao desembolso efetivo e volume de capital mantido em garantia."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+    "line": 118,
+    "rules": [
+      "honorários/gratuito"
+    ],
+    "phrase": "É exatamente isso que toda empresa faz com o passivo trabalhista: a prescrição é quinquenal, e as obrigações permanecem em aberto até que alguém as liquide — normalmente um juiz, anos depois, com juros, correção e honorários."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+    "line": 119,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "O instrumento é pouco utilizado, e não por vedação legal: executá-lo exige auditoria contábil mês a mês, engenharia jurídica na discriminação das parcelas, negociação sindical e tecnologia para repetir o processo em escala."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+    "line": 143,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Conferência das obrigações de dar e de fazer, executada pela Bear Finance Serviços Financeiros e Contábil."
+  },
+  {
+    "file": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+    "line": 163,
+    "rules": [
+      "contabilidade"
+    ],
+    "phrase": "Cofre probatório versionado e reflexo na provisão contábil."
+  }
+]

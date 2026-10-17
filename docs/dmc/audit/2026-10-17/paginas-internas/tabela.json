@@ -1,0 +1,803 @@
+[
+  {
+    "arquivo": "pages/atos-notariais.html",
+    "title": "Atos Notariais | Complexo DMC",
+    "metaDescription": "Atos Notariais - Escrituras, procurações, atas notariais e autenticações com segurança jurídica e fé pública.",
+    "h1": "AtosNotariais",
+    "bodyClass": "np-eixo np-pillar-imobiliario",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": false,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 535
+  },
+  {
+    "arquivo": "pages/blindagem-patrimonial.html",
+    "title": "Blindagem Patrimonial | Complexo DMC",
+    "metaDescription": "Blindagem Patrimonial - Proteja seus bens contra riscos financeiros e judiciais com planejamento personalizado.",
+    "h1": "BlindagemPatrimonial",
+    "bodyClass": "np-eixo np-pillar-patrimonial",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": false,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 465
+  },
+  {
+    "arquivo": "pages/compliance-governanca.html",
+    "title": "Compliance e Governança Corporativa | Complexo DMC",
+    "metaDescription": "Compliance e Governança Corporativa - Promovemos integridade, transparência e conformidade legal na gestão empresarial.",
+    "h1": "Compliance eGovernança Corporativa",
+    "bodyClass": "",
+    "stylesheets": [
+      "css/shared.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": false,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 402
+  },
+  {
+    "arquivo": "pages/consultoria-imobiliaria.html",
+    "title": "Consultoria Imobiliária | Complexo DMC",
+    "metaDescription": "Consultoria Imobiliária para construtoras e incorporadoras — Jurídico Imobiliário e Jurídico Vendas com IA, advocacia especializada e cartórios parceiros para acelerar registros, blindar contratos e destravar repasses bancários.",
+    "h1": "Desde o Consultivo ao Ato Notarial",
+    "bodyClass": "np-eixo np-pillar-imobiliario",
+    "stylesheets": [
+      "css/consultoria-imobiliaria.css?v=4",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": false,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": true,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "7/8",
+    "palavras": 1140
+  },
+  {
+    "arquivo": "pages/contabilidade.html",
+    "title": "Contabilidade | Complexo DMC",
+    "metaDescription": "Contabilidade - Contabilidade empresarial estratégica, demonstrações financeiras, obrigações fiscais e assessoria contábil completa.",
+    "h1": "ContabilidadeEstratégica",
+    "bodyClass": "np-eixo np-pillar-auditoria",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": false,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 485
+  },
+  {
+    "arquivo": "pages/holding-patrimonial.html",
+    "title": "Holding Patrimonial | Complexo DMC",
+    "metaDescription": "Holding Patrimonial - Solução estratégica voltada à proteção e organização patrimonial com eficiência fiscal.",
+    "h1": "HoldingPatrimonial",
+    "bodyClass": "np-eixo np-pillar-patrimonial",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": false,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 486
+  },
+  {
+    "arquivo": "pages/juridico-imobiliario.html",
+    "title": "Jurídico Imobiliário | Complexo DMC",
+    "metaDescription": "Jurídico Imobiliário - Minutas de contratos, due diligence e distratos com IA e validação de advogados especializados em Direito Imobiliário.",
+    "h1": "Menos burocracia, mais eficiência ao Jurídico Imobiliário",
+    "bodyClass": "np-eixo np-pillar-imobiliario",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20Complexo%20DMC%2C%20quero%20um%20diagn%C3%B3stico%20not%C3%A1rial%20para%20minha%20construtora",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": false,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": true,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "7/8",
+    "palavras": 1455
+  },
+  {
+    "arquivo": "pages/juridico-vendas.html",
+    "title": "Jurídico Vendas | Complexo DMC",
+    "metaDescription": "Jurídico Vendas - Minutas de contratos, due diligence e distratos com IA e validação de advogados especializados em consultoria Imobiliário.",
+    "h1": "Menos burocracia, mais eficiência ao Jurídico Vendas",
+    "bodyClass": "np-eixo np-pillar-imobiliario",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20Complexo%20DMC%2C%20quero%20um%20diagn%C3%B3stico%20not%C3%A1rial%20para%20minha%20construtora",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": false,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": true,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "7/8",
+    "palavras": 1230
+  },
+  {
+    "arquivo": "pages/mouse.html",
+    "title": "",
+    "metaDescription": null,
+    "h1": "",
+    "bodyClass": "",
+    "stylesheets": [],
+    "videoSection": false,
+    "videoFrame": false,
+    "ctaSection": false,
+    "ctaHrefs": [],
+    "blocos": {
+      "abertura": false,
+      "problema": false,
+      "abordagem": false,
+      "solucoes": false,
+      "metodo": false,
+      "diferenciais": false,
+      "faq": false,
+      "conversao": false
+    },
+    "blocosPresentes": "0/8",
+    "palavras": 1
+  },
+  {
+    "arquivo": "pages/planejamento-sucessorio-empresarial.html",
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "metaDescription": "Planejamento Sucessório Empresarial e Familiar - Proteja seu patrimônio e garanta a continuidade dos seus negócios com a Complexo DMC.",
+    "h1": "Planejamento SucessórioEmpresarial e Familiar",
+    "bodyClass": "",
+    "stylesheets": [
+      "css/shared.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": false,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": true,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "7/8",
+    "palavras": 667
+  },
+  {
+    "arquivo": "pages/planejamento-sucessorio.html",
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "metaDescription": "Planejamento sucessório para famílias e empresas: holding, doação com reserva de usufruto, testamento e cláusulas de proteção. A transmissão do patrimônio organizada em vida, com carga tributária calculada.",
+    "h1": "PlanejamentoSucessório",
+    "bodyClass": "np-eixo np-pillar-patrimonial",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": false,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": true,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "7/8",
+    "palavras": 1240
+  },
+  {
+    "arquivo": "pages/planejamento-tributario.html",
+    "title": "Planejamento Tributário | Complexo DMC",
+    "metaDescription": "Planejamento Tributário - Reduza legalmente a carga fiscal e maximize os lucros da sua empresa.",
+    "h1": "PlanejamentoTributário",
+    "bodyClass": "",
+    "stylesheets": [
+      "css/shared.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": false,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 378
+  },
+  {
+    "arquivo": "pages/por-que-urgente.html",
+    "title": "Por que o planejamento sucessório é urgente? | Complexo DMC",
+    "metaDescription": "Por que o planejamento sucessório é urgente? Descubra os riscos de não planejar e proteja seu patrimônio.",
+    "h1": "Por que o planejamento sucessório éurgente?",
+    "bodyClass": "",
+    "stylesheets": [
+      "css/shared.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": false,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": true,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "7/8",
+    "palavras": 724
+  },
+  {
+    "arquivo": "pages/pronto-patrimonio.html",
+    "title": "Proteção Patrimonial | Complexo DMC",
+    "metaDescription": "Proteção Patrimonial - Blindagem e proteção patrimonial completa com estratégias jurídicas avançadas para pessoas físicas e jurídicas.",
+    "h1": "ProteçãoPatrimonial",
+    "bodyClass": "np-eixo np-pillar-patrimonial",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": false,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 524
+  },
+  {
+    "arquivo": "pages/recuperacao-ativos.backup-2026-08-26.html",
+    "title": "Recuperação de Ativos | Complexo DMC",
+    "metaDescription": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais. Da localização do patrimônio à satisfação do crédito.",
+    "h1": "Recuperaçãode Ativos",
+    "bodyClass": "np-eixo np-pillar-ativos",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": false,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 943
+  },
+  {
+    "arquivo": "pages/recuperacao-ativos.html",
+    "title": "Recuperação de Ativos | Complexo DMC",
+    "metaDescription": "Recuperação de ativos: rastreio patrimonial do devedor, bloqueio e penhora de bens, execução de títulos judiciais e extrajudiciais. Da localização do patrimônio à satisfação do crédito.",
+    "h1": "Recuperaçãode Ativos",
+    "bodyClass": "np-eixo np-pillar-ativos",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": false,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 2075
+  },
+  {
+    "arquivo": "pages/registro-imobiliario.html",
+    "title": "Registro Imobiliário | Complexo DMC",
+    "metaDescription": "Registro Imobiliário - Regularização fundiária, registros de imóveis, averbações e due diligence imobiliária.",
+    "h1": "RegistroImobiliário",
+    "bodyClass": "np-eixo np-pillar-imobiliario",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": false,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 513
+  },
+  {
+    "arquivo": "pages/sucessao-testamentaria.html",
+    "title": "Sucessão Testamentária | Complexo DMC",
+    "metaDescription": "Sucessão Testamentária - Garanta que sua vontade seja respeitada com testamentos seguros e válidos.",
+    "h1": "SucessãoTestamentária",
+    "bodyClass": "np-eixo np-pillar-patrimonial",
+    "stylesheets": [
+      "css/shared.css?v=3",
+      "css/eixos.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel",
+      "../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": false,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 461
+  },
+  {
+    "arquivo": "pages/tecnologia.html",
+    "title": "Tecnologia | Complexo DMC",
+    "metaDescription": "Tecnologia - Soluções tecnológicas para automação jurídica, gestão empresarial e transformação digital.",
+    "h1": "Tecnologia& Inovação",
+    "bodyClass": "",
+    "stylesheets": [
+      "css/shared.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%20daniel"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": false,
+      "abordagem": true,
+      "solucoes": false,
+      "metodo": true,
+      "diferenciais": false,
+      "faq": true,
+      "conversao": true
+    },
+    "blocosPresentes": "5/8",
+    "palavras": 448
+  },
+  {
+    "arquivo": "pages/treinamento-interesse.html",
+    "title": "Interesse em Treinamento | Complexo DMC",
+    "metaDescription": "Obrigado pelo interesse em nossos treinamentos - Complexo DMC",
+    "h1": "Obrigado pelo seu interesse!",
+    "bodyClass": "",
+    "stylesheets": [
+      "css/shared.css?v=3"
+    ],
+    "videoSection": false,
+    "videoFrame": false,
+    "ctaSection": false,
+    "ctaHrefs": [],
+    "blocos": {
+      "abertura": false,
+      "problema": false,
+      "abordagem": false,
+      "solucoes": false,
+      "metodo": false,
+      "diferenciais": false,
+      "faq": false,
+      "conversao": false
+    },
+    "blocosPresentes": "0/8",
+    "palavras": 82
+  },
+  {
+    "arquivo": "solucoes/consultoria-trabalhista/blindagem-contratual.html",
+    "title": "Blindagem Contratual — Consultoria Trabalhista | Complexo DMC",
+    "metaDescription": "Estruturação de contratos, enquadramento e cláusula de arbitragem para reduzir a exposição trabalhista desde a admissão.",
+    "h1": "Blindagem Contratual",
+    "bodyClass": "sol-page np-eixo np-pillar-trabalhista js-reveal",
+    "stylesheets": [
+      "../../pages/css/shared.css?v=3",
+      "../../pages/css/eixos.css?v=3",
+      "../../pages/css/solucao.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20Blindagem%20Contratual.",
+      "../../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": false,
+      "diferenciais": true,
+      "faq": false,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 522
+  },
+  {
+    "arquivo": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+    "title": "Câmara de Acordos e Mediação Trabalhista | Complexo DMC",
+    "metaDescription": "Mediação privada e acordos trabalhistas homologados, com formalização pela via adequada a cada caso.",
+    "h1": "Câmara de Acordos",
+    "bodyClass": "sol-page np-eixo np-pillar-trabalhista js-reveal",
+    "stylesheets": [
+      "../../pages/css/shared.css?v=3",
+      "../../pages/css/eixos.css?v=3",
+      "../../pages/css/solucao.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20a%20C%C3%A2mara%20de%20Acordos.",
+      "../../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": false,
+      "diferenciais": true,
+      "faq": false,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 522
+  },
+  {
+    "arquivo": "solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+    "metaDescription": "Programa completo de proteção trabalhista para empresas — do diagnóstico à quitação do exercício, em seis soluções integradas.",
+    "h1": "Ciclo Fechado",
+    "bodyClass": "sol-page np-eixo np-pillar-trabalhista js-reveal",
+    "stylesheets": [
+      "../../pages/css/shared.css?v=3",
+      "../../pages/css/eixos.css?v=3",
+      "../../pages/css/solucao.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conhecer%20o%20programa%20Ciclo%20Fechado%20de%20consultoria%20trabalhista.",
+      "../../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": false,
+      "diferenciais": false,
+      "faq": false,
+      "conversao": true
+    },
+    "blocosPresentes": "5/8",
+    "palavras": 404
+  },
+  {
+    "arquivo": "solucoes/consultoria-trabalhista/conformidade-psicossocial.html",
+    "title": "Conformidade Psicossocial e NR-1 | Complexo DMC",
+    "metaDescription": "Adequação à NR-1 e aos riscos psicossociais no padrão ISO 45003, com dossiê documental para fiscalização.",
+    "h1": "Conformidade Psicossocial",
+    "bodyClass": "sol-page np-eixo np-pillar-trabalhista js-reveal",
+    "stylesheets": [
+      "../../pages/css/shared.css?v=3",
+      "../../pages/css/eixos.css?v=3",
+      "../../pages/css/solucao.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20Conformidade%20Psicossocial%20e%20NR-1.",
+      "../../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": false,
+      "diferenciais": true,
+      "faq": false,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 486
+  },
+  {
+    "arquivo": "solucoes/consultoria-trabalhista/decisao-assistida.html",
+    "title": "Decisão Assistida em Atos Trabalhistas | Complexo DMC",
+    "metaDescription": "Análise jurídica prévia de desligamentos, advertências e alterações de jornada, com trilha de auditoria.",
+    "h1": "Decisão Assistida",
+    "bodyClass": "sol-page np-eixo np-pillar-trabalhista js-reveal",
+    "stylesheets": [
+      "../../pages/css/shared.css?v=3",
+      "../../pages/css/eixos.css?v=3",
+      "../../pages/css/solucao.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20Decis%C3%A3o%20Assistida.",
+      "../../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": false,
+      "diferenciais": true,
+      "faq": false,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 493
+  },
+  {
+    "arquivo": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+    "title": "Defesa Empresarial — Contencioso e Litígios Trabalhistas | Complexo DMC",
+    "metaDescription": "Defesa da empresa no litígio trabalhista: reclamatórias, ações coletivas, inquérito do MPT, fiscalização, recursos e execução, com tese, prova e cálculo sob um mesmo comando.",
+    "h1": "Defesa Empresarial",
+    "bodyClass": "sol-page np-eixo np-pillar-trabalhista js-reveal",
+    "stylesheets": [
+      "../../pages/css/shared.css?v=3",
+      "../../pages/css/eixos.css?v=3",
+      "../../pages/css/solucao.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20Defesa%20Empresarial.",
+      "../../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": true,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": true,
+      "faq": false,
+      "conversao": true
+    },
+    "blocosPresentes": "7/8",
+    "palavras": 1333
+  },
+  {
+    "arquivo": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+    "title": "Quitação Anual de Obrigações Trabalhistas — Art. 507-B | Complexo DMC",
+    "metaDescription": "Auditoria, regularização e quitação anual do exercício trabalhista com assistência sindical e eficácia liberatória.",
+    "h1": "Quitação Anual",
+    "bodyClass": "sol-page np-eixo np-pillar-trabalhista js-reveal",
+    "stylesheets": [
+      "../../pages/css/shared.css?v=3",
+      "../../pages/css/eixos.css?v=3",
+      "../../pages/css/solucao.css?v=3"
+    ],
+    "videoSection": true,
+    "videoFrame": true,
+    "ctaSection": true,
+    "ctaHrefs": [
+      "https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20a%20Quita%C3%A7%C3%A3o%20Anual%20de%20obriga%C3%A7%C3%B5es%20trabalhistas.",
+      "../../index.html#contact"
+    ],
+    "blocos": {
+      "abertura": true,
+      "problema": true,
+      "abordagem": false,
+      "solucoes": true,
+      "metodo": true,
+      "diferenciais": true,
+      "faq": false,
+      "conversao": true
+    },
+    "blocosPresentes": "6/8",
+    "palavras": 605
+  }
+]

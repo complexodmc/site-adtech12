@@ -1,0 +1,56 @@
+# Headers produção (www) — 2026-10-17T13:49:48Z
+--- https://www.complexodmc.com.br/
+HTTP/2 200 
+accept-ranges: bytes
+access-control-allow-origin: *
+age: 209172
+cache-control: public, max-age=0, must-revalidate
+content-disposition: inline
+content-type: text/html; charset=utf-8
+date: Sat, 17 Oct 2026 13:49:48 GMT
+etag: "3342fd1ab158b81308048e490c7c6b48"
+last-modified: Thu, 15 Oct 2026 03:43:35 GMT
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-cache: HIT
+x-vercel-id: gru1::6c6ml-1792244988452-e1861f0a2c85
+content-length: 839
+
+--- https://www.complexodmc.com.br/api/health
+HTTP/2 200 
+age: 0
+cache-control: public, max-age=0, must-revalidate
+content-type: application/json; charset=utf-8
+date: Sat, 17 Oct 2026 13:49:48 GMT
+etag: W/"1e-Ev5NEv54bwYUQSnh2ZO3+UD1ATk"
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-cache: MISS
+x-vercel-id: gru1::iad1::qsz9k-1792244988503-52f3e4346ff5
+content-length: 30
+
+--- https://www.complexodmc.com.br/plataforma-ead/
+HTTP/2 200 
+accept-ranges: bytes
+access-control-allow-origin: *
+age: 102
+cache-control: public, max-age=0, must-revalidate
+content-disposition: inline; filename="plataforma-ead"
+content-type: text/html; charset=utf-8
+date: Sat, 17 Oct 2026 13:49:48 GMT
+etag: "aab9b2d2bfa80fc2755f7b7012c3040f"
+last-modified: Sat, 17 Oct 2026 13:48:06 GMT
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-cache: HIT
+x-vercel-id: gru1::7h8nf-1792244988720-a7331f314a48
+content-length: 1040
+
+# Headers servidor local
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.14.4
+Date: Sat, 17 Oct 2026 13:49:48 GMT
+Content-type: text/html
+Content-Length: 124375
+Last-Modified: Wed, 26 Aug 2026 13:15:04 GMT
+

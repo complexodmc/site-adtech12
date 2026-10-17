@@ -1,0 +1,212 @@
+pages/atos-notariais.html:70 [promessa/garantia] Soluções completas em atos notariais com fé pública, garantindo validade e segurança jurídica aos seus documentos.
+pages/atos-notariais.html:311 [promessa/garantia] Garanta segurança jurídica e fé pública para seus documentos mais importantes.
+pages/blindagem-patrimonial.html:27 [promessa/garantia] A blindagem patrimonial protege seus bens contra riscos financeiros e judiciais, garantindo segurança e continuidade aos seus negócios com planejamento personalizado.
+pages/blindagem-patrimonial.html:51 [promessa/garantia] Estratégias jurídicas para proteger seu patrimônio contra riscos e garantir tranquilidade.
+pages/compliance-governanca.html:73 [percentual/estatística] 150+ Empresas Atendidas
+pages/compliance-governanca.html:74 [percentual/estatística] 100% Conformidade Regulatória
+pages/compliance-governanca.html:75 [percentual/estatística] 60% Redução de Riscos
+pages/compliance-governanca.html:76 [anos de experiência] 8+ Anos de Experiência
+pages/compliance-governanca.html:82 [promessa/garantia] Compliance corporativo é o conjunto de práticas e procedimentos adotados por uma empresa para garantir que suas atividades estejam em conformidade com leis, regulamentos e padrões éticos.
+pages/compliance-governanca.html:85 [percentual/estatística] Compliance reduz riscos de multas?
+pages/compliance-governanca.html:113 [promessa/garantia] Garanta a Conformidade da Sua Empresa Agende uma consulta e descubra como implementar um programa de compliance eficiente.
+pages/consultoria-imobiliaria.html:6 [advocacia/escritório] Consultoria Imobiliária para construtoras e incorporadoras — Jurídico Imobiliário e Jurídico Vendas com IA, advocacia especializada e cartórios parceiros para acelerar registros, blindar contratos e destravar repasses bancários.
+pages/consultoria-imobiliaria.html:38 [urgência] Integramos o jurídico imobiliário e o comercial para que construtoras e incorporadoras convertam pendências registrais em liquidez imediata, com menos burocracia, prazos curtos e custo reduzido.
+pages/consultoria-imobiliaria.html:249 [percentual/estatística] flex: 1 1 50%;
+pages/consultoria-imobiliaria.html:293 [percentual/estatística] border-radius: 50%;
+pages/consultoria-imobiliaria.html:429 [percentual/estatística] left: 50%;
+pages/consultoria-imobiliaria.html:468 [percentual/estatística] /* Hovered panel expands to 100% */
+pages/consultoria-imobiliaria.html:470 [percentual/estatística] flex: 1 1 100%;
+pages/consultoria-imobiliaria.html:473 [percentual/estatística] /* Sibling panel collapses to 0% */
+pages/consultoria-imobiliaria.html:475 [percentual/estatística] flex: 1 1 0%;
+pages/consultoria-imobiliaria.html:597 [urgência] Por que regularizar meu empreendimento é urgente ?
+pages/consultoria-imobiliaria.html:606 [percentual/estatística] Reduzimos em até 70% o tempo entre a venda e o repasse bancário, acelerando a liquidez da incorporadora e antecipando o reconhecimento do VGV.
+pages/consultoria-imobiliaria.html:627 [promessa/garantia,percentual/estatística] Cartórios de Notas e Registros de Imóveis parceiros em todas as regiões do país, com fluxo 100% digital e fé pública garantida.
+pages/consultoria-imobiliaria.html:723 [percentual/estatística] top: 50%;
+pages/consultoria-imobiliaria.html:726 [percentual/estatística] 06) 0%, transparent 70%);
+pages/consultoria-imobiliaria.html:884 [advocacia/escritório] IA e advogados imobiliários elaboram minutas e protocolam atos junto aos cartórios parceiros com SLA acordado.
+pages/consultoria-imobiliaria.html:887 [advocacia/escritório] Validação por advogado imobiliário
+pages/consultoria-imobiliaria.html:928 [percentual/estatística] 55) 60%);
+pages/consultoria-imobiliaria.html:1081 [advocacia/escritório] Combinamos IA, advocacia especializada em Direito Imobiliário e uma rede nacional de cartórios parceiros para acelerar registros, blindar operações e destravar caixa em prazo recorde.
+pages/consultoria-imobiliaria.html:1088 [percentual/estatística] width="100%"
+pages/consultoria-imobiliaria.html:1154 [advocacia/escritório] É uma consultoria de negócios voltada a construtoras e incorporadoras, que opera em duas frentes integradas: Jurídico Imobiliário (registro do empreendimento, regularização fundiária, individualização de matrículas) e Jurídico Vendas (contr
+pages/consultoria-imobiliaria.html:1219 [honorários/gratuito,advocacia/escritório] Agende um diagnóstico gratuito com nossos advogados imobiliários e veja como destravar registros, blindar contratos e antecipar repasses bancários.
+pages/contabilidade.html:6 [contabilidade] Contabilidade | Complexo DMC
+pages/contabilidade.html:7 [contabilidade] Contabilidade - Contabilidade empresarial estratégica, demonstrações financeiras, obrigações fiscais e assessoria contábil completa.
+pages/contabilidade.html:30 [contabilidade] E4 · AUDITORIA EMPRESARIAL E CONTÁBIL
+pages/contabilidade.html:32 [contabilidade] Contabilidade Estratégica
+pages/contabilidade.html:33 [contabilidade] Contabilidade empresarial estratégica, demonstrações financeiras, obrigações fiscais e assessoria contábil completa.
+pages/contabilidade.html:76 [contabilidade] Contabilidade Empresarial
+pages/contabilidade.html:77 [contabilidade] Escrituração contábil completa, livros obrigatórios e relatórios gerenciais para tomada de decisão.
+pages/contabilidade.html:100 [contabilidade] Planejamento Contábil
+pages/contabilidade.html:206 [contabilidade] Quatro etapas entre o diagnóstico contábil e o relatório gerencial na mesa — cada uma com entrega própria.
+pages/contabilidade.html:211 [contabilidade] Diagnóstico Contábil
+pages/contabilidade.html:212 [contabilidade] Avaliação completa da situação contábil e fiscal atual da sua empresa.
+pages/contabilidade.html:240 [contabilidade] Contabilidade Estratégica em vídeo
+pages/contabilidade.html:241 [contabilidade] Como a contabilidade deixa de ser obrigação acessória e passa a sustentar decisão — no balanço, no fisco e no planejamento.
+pages/contabilidade.html:251 [contabilidade] Vídeo sobre contabilidade estratégica — em breve neste espaço.
+pages/contabilidade.html:269 [contabilidade] Qual a diferença entre contabilidade fiscal e gerencial?
+pages/contabilidade.html:273 [contabilidade] A contabilidade fiscal foca no cumprimento das obrigações tributárias e legais, enquanto a contabilidade gerencial fornece informações estratégicas para a tomada de decisão, análise de desempenho e planejamento do negócio.
+pages/contabilidade.html:296 [contabilidade] Como funciona a transição de contador?
+pages/contabilidade.html:300 [contabilidade] Realizamos todo o processo de transição de forma transparente, incluindo a solicitação dos arquivos ao contador anterior, revisão da escrituração e regularização de eventuais pendências, sem interrupção dos serviços.
+pages/contabilidade.html:310 [contabilidade] Potencialize Sua Contabilidade
+pages/contabilidade.html:311 [contabilidade] Transforme a contabilidade da sua empresa em uma ferramenta estratégica de crescimento.
+pages/holding-patrimonial.html:83 [economia/redução prometida] Economia Tributária Média
+pages/holding-patrimonial.html:89 [anos de experiência] Anos no Mercado
+pages/holding-patrimonial.html:163 [economia/redução prometida] Em geral, o investimento se paga rapidamente com a economia tributária gerada.
+pages/juridico-imobiliario.html:6 [advocacia/escritório] Jurídico Imobiliário - Minutas de contratos, due diligence e distratos com IA e validação de advogados especializados em Direito Imobiliário.
+pages/juridico-imobiliario.html:40 [advocacia/escritório] Através da nossa Inteligência Artificial, geramos minutas de Contratos, due diligence e distratos nos padrões da sua empresa, validados por advogados especializados em Direito Imobiliário e com fé pública conferida pelos nossos Cartórios Pa
+pages/juridico-imobiliario.html:177 [superlativo/ranking] Três camadas integradas, únicas no mercado
+pages/juridico-imobiliario.html:206 [advocacia/escritório] Advocacia
+pages/juridico-imobiliario.html:208 [advocacia/escritório] Advogados especialistas validam as minutas e complementam o que sua operação exige, blindando cada ato contra riscos jurídicos.
+pages/juridico-imobiliario.html:210 [advocacia/escritório] Validação por advogado imobiliário
+pages/juridico-imobiliario.html:227 [promessa/garantia] Atos com fé pública garantida
+pages/juridico-imobiliario.html:253 [percentual/estatística] 55) 60%);
+pages/juridico-imobiliario.html:352 [advocacia/escritório] Da aquisição do terreno à individualização das matrículas — cada serviço une advocacia, cartório e estruturação societária para destravar registros, regularizar ativos e viabilizar lançamentos com previsibilidade.
+pages/juridico-imobiliario.html:410 [promessa/garantia] Conduzimos cada etapa em conjunto nos âmbitos societário, tributário, registral e notarial, garantindo coerência entre os documentos e aderência às Leis nº 4.
+pages/juridico-imobiliario.html:509 [percentual/estatística] top: 50%;
+pages/juridico-imobiliario.html:510 [percentual/estatística] left: 50%;
+pages/juridico-imobiliario.html:512 [percentual/estatística] 06) 0%, transparent 70%);
+pages/juridico-imobiliario.html:532 [percentual/estatística] border-radius: 50%;
+pages/juridico-imobiliario.html:674 [advocacia/escritório] Revisão por advogado imobiliário
+pages/juridico-imobiliario.html:867 [advocacia/escritório] Um escritório feito para quem constrói e vende
+pages/juridico-imobiliario.html:868 [advocacia/escritório] O Complexo DMC é um escritório de consultoria em negócios, com atuação cirúrgica em atos notariais e registrais para construtoras, incorporadoras e loteadoras.
+pages/juridico-imobiliario.html:875 [percentual/estatística] width="100%"
+pages/juridico-imobiliario.html:941 [advocacia/escritório] O Complexo DMC é um escritório de Direito Imobiliário que prepara minutas, qualifica documentos e formaliza os atos junto a Cartórios de Notas e Registros de Imóveis conveniados — a lavratura e o registro continuam sendo feitos pelo cartóri
+pages/juridico-imobiliario.html:961 [percentual/estatística] Com a documentação completa, minutas padronizadas por IA e qualificação prévia junto ao Registro de Imóveis, a escritura costuma sair em até 5 dias úteis — reduzindo em até 70% o prazo médio do mercado até o registro.
+pages/juridico-imobiliario.html:971 [percentual/estatística] Temos uma rede de Cartórios de Notas e Registros de Imóveis parceiros em todas as regiões do país e operamos de forma 100% digital com assinatura eletrônica qualificada (ICP-Brasil) quando o cartório e as partes permitem.
+pages/juridico-imobiliario.html:1016 [honorários/gratuito,advocacia/escritório] Agende um diagnóstico gratuito com nossos advogados imobiliários e descubra quanto sua construtora pode acelerar o ciclo de repasse com atos notariais sob medida.
+pages/juridico-vendas.html:6 [advocacia/escritório] Jurídico Vendas - Minutas de contratos, due diligence e distratos com IA e validação de advogados especializados em consultoria Imobiliário.
+pages/juridico-vendas.html:40 [advocacia/escritório] Através da nossa Inteligência Artificial, geramos minutas de Contratos, due diligence e distratos nos padrões da sua empresa, validados por advogados especializados em Direito Imobiliário e com fé pública conferida pelos nossos Cartórios Pa
+pages/juridico-vendas.html:177 [superlativo/ranking] Três camadas integradas, únicas no mercado
+pages/juridico-vendas.html:206 [advocacia/escritório] Advocacia
+pages/juridico-vendas.html:208 [advocacia/escritório] Advogados especialistas validam as minutas e complementam o que sua operação exige, blindando cada ato contra riscos jurídicos.
+pages/juridico-vendas.html:210 [advocacia/escritório] Validação por advogado imobiliário
+pages/juridico-vendas.html:227 [promessa/garantia] Atos com fé pública garantida
+pages/juridico-vendas.html:253 [percentual/estatística] 55) 60%);
+pages/juridico-vendas.html:352 [advocacia/escritório] Da promessa de compra e venda à recuperação de unidades inadimplentes — cada produto une IA, advocacia e cartório para acelerar caixa, reduzir judicialização e realizar VGV.
+pages/juridico-vendas.html:510 [percentual/estatística] top: 50%;
+pages/juridico-vendas.html:511 [percentual/estatística] left: 50%;
+pages/juridico-vendas.html:513 [percentual/estatística] 06) 0%, transparent 70%);
+pages/juridico-vendas.html:533 [percentual/estatística] border-radius: 50%;
+pages/juridico-vendas.html:675 [advocacia/escritório] Revisão por advogado imobiliário
+pages/juridico-vendas.html:868 [advocacia/escritório] Um escritório feito para quem constrói e vende
+pages/juridico-vendas.html:869 [advocacia/escritório] O Complexo DMC é um escritório de consultoria em negócios, com atuação cirúrgica em atos notariais e registrais para construtoras, incorporadoras e loteadoras.
+pages/juridico-vendas.html:876 [percentual/estatística] width="100%"
+pages/juridico-vendas.html:942 [advocacia/escritório] O Complexo DMC é um escritório de Consultoria em negócios atuante no mercado imobiliário que prepara minutas, qualifica documentos e formaliza os atos junto a Cartórios de Notas e Registros de Imóveis conveniados — a lavratura e o registro 
+pages/juridico-vendas.html:962 [percentual/estatística] Com a documentação completa, minutas padronizadas por IA e qualificação prévia junto ao Registro de Imóveis, a escritura costuma sair em até 5 dias úteis — reduzindo em até 70% o prazo médio do mercado até o registro.
+pages/juridico-vendas.html:972 [percentual/estatística] Temos uma rede de Cartórios de Notas e Registros de Imóveis parceiros em todas as regiões do país e operamos de forma 100% digital com assinatura eletrônica qualificada (ICP-Brasil) quando o cartório e as partes permitem.
+pages/juridico-vendas.html:1017 [honorários/gratuito,advocacia/escritório] Agende um diagnóstico gratuito com nossos advogados imobiliários e descubra quanto sua construtora pode acelerar o ciclo de repasse com atos notariais sob medida.
+pages/planejamento-sucessorio-empresarial.html:6 [promessa/garantia] Planejamento Sucessório Empresarial e Familiar - Proteja seu patrimônio e garanta a continuidade dos seus negócios com a Complexo DMC.
+pages/planejamento-sucessorio-empresarial.html:71 [urgência] Por que o planejamento sucessório é urgente ?
+pages/planejamento-sucessorio-empresarial.html:72 [promessa/garantia] Estratégias jurídicas e empresariais para proteger o que você construiu e garantir uma transição tranquila.
+pages/planejamento-sucessorio-empresarial.html:89 [promessa/garantia] Planejamento estratégico para garantir que o negócio prospere através das gerações.
+pages/planejamento-sucessorio-empresarial.html:95 [economia/redução prometida] Economia Tributária
+pages/planejamento-sucessorio-empresarial.html:278 [percentual/estatística] border-radius: 50%;
+pages/planejamento-sucessorio-empresarial.html:377 [percentual/estatística] top: 50%;
+pages/planejamento-sucessorio-empresarial.html:378 [percentual/estatística] left: 50%;
+pages/planejamento-sucessorio-empresarial.html:380 [percentual/estatística] 06) 0%, transparent 70%);
+pages/planejamento-sucessorio-empresarial.html:567 [percentual/estatística] flex: 1 1 50%;
+pages/planejamento-sucessorio-empresarial.html:777 [percentual/estatística] /* Hovered panel expands to 100% */
+pages/planejamento-sucessorio-empresarial.html:779 [percentual/estatística] flex: 1 1 100%;
+pages/planejamento-sucessorio-empresarial.html:782 [percentual/estatística] /* Sibling panel collapses to 0% */
+pages/planejamento-sucessorio-empresarial.html:784 [percentual/estatística] flex: 1 1 0%;
+pages/planejamento-sucessorio-empresarial.html:907 [promessa/garantia] Uma metodologia estruturada em 7 etapas para garantir a melhor estratégia sucessória.
+pages/planejamento-sucessorio-empresarial.html:1020 [promessa/garantia,economia/redução prometida,superlativo/ranking] O planejamento sucessório é a ferramenta mais poderosa para garantir a preservação e continuidade do patrimônio construído ao longo de gerações.
+pages/planejamento-sucessorio-empresarial.html:1027 [percentual/estatística] width="100%"
+pages/planejamento-sucessorio-empresarial.html:1177 [promessa/garantia,honorários/gratuito] Agende uma consulta gratuita e descubra como podemos ajudar a garantir a continuidade do seu patrimônio.
+pages/planejamento-sucessorio.html:309 [percentual/estatística] top: 50%;
+pages/planejamento-sucessorio.html:310 [percentual/estatística] left: 50%;
+pages/planejamento-sucessorio.html:312 [percentual/estatística] 06) 0%, transparent 70%);
+pages/planejamento-sucessorio.html:332 [percentual/estatística] border-radius: 50%;
+pages/planejamento-sucessorio.html:505 [percentual/estatística] flex: 1 1 50%;
+pages/planejamento-sucessorio.html:715 [percentual/estatística] /* Hovered panel expands to 100% */
+pages/planejamento-sucessorio.html:717 [percentual/estatística] flex: 1 1 100%;
+pages/planejamento-sucessorio.html:720 [percentual/estatística] /* Sibling panel collapses to 0% */
+pages/planejamento-sucessorio.html:722 [percentual/estatística] flex: 1 1 0%;
+pages/planejamento-sucessorio.html:904 [percentual/estatística] O imposto continua sendo estadual, com alíquota máxima de 8% fixada pelo Senado Federal (Resolução 9/1992) — e a conta muda conforme o estado e a composição do patrimônio.
+pages/planejamento-sucessorio.html:911 [percentual/estatística] width="100%"
+pages/planejamento-sucessorio.html:1016 [percentual/estatística] A transmissão por herança ou doação é tributada pelo ITCMD, imposto estadual cuja alíquota máxima é de 8%, teto fixado pelo Senado Federal na Resolução 9/1992.
+pages/planejamento-tributario.html:6 [economia/redução prometida] Planejamento Tributário - Reduza legalmente a carga fiscal e maximize os lucros da sua empresa.
+pages/planejamento-tributario.html:26 [economia/redução prometida] O planejamento tributário estratégico permite ao empresário reduzir legalmente a carga fiscal, maximizar lucros e evitar riscos fiscais com segurança e eficiência.
+pages/planejamento-tributario.html:50 [economia/redução prometida] Estratégias legais para reduzir tributos e maximizar seus resultados.
+pages/planejamento-tributario.html:52 [economia/redução prometida] Diagnóstico Diagnóstico Tributário Análise completa da situação fiscal da empresa para identificar oportunidades de economia.
+pages/planejamento-tributario.html:53 [economia/redução prometida] Regime Regime Tributário Ideal Avaliação e definição do melhor regime tributário para maximizar a eficiência fiscal.
+pages/planejamento-tributario.html:65 [economia/redução prometida] Análise de Oportunidades Identificação de oportunidades legais de economia tributária e créditos recuperáveis.
+pages/planejamento-tributario.html:73 [percentual/estatística] 400+ Empresas Atendidas
+pages/planejamento-tributario.html:74 [percentual/estatística,economia/redução prometida] R$500M+ Economia Gerada
+pages/planejamento-tributario.html:75 [percentual/estatística] 35% Redução Média de Tributos
+pages/planejamento-tributario.html:76 [percentual/estatística] 20+ Especialistas
+pages/planejamento-tributario.html:82 [economia/redução prometida] O planejamento tributário utiliza meios legais para reduzir a carga fiscal, diferente da sonegação que é ilegal.
+pages/planejamento-tributario.html:83 [percentual/estatística,economia/redução prometida] Quanto posso economizar?
+pages/planejamento-tributario.html:113 [economia/redução prometida] Reduza Seus Tributos com Estratégia Agende uma consulta e descubra como otimizar a carga tributária da sua empresa de forma legal.
+pages/por-que-urgente.html:6 [urgência] Por que o planejamento sucessório é urgente?
+pages/por-que-urgente.html:37 [promessa/garantia,economia/redução prometida] Agir agora garante proteção patrimonial, economia tributária, continuidade empresarial e harmonia familiar.
+pages/por-que-urgente.html:70 [urgência] Por que o planejamento sucessório é urgente ?
+pages/por-que-urgente.html:71 [promessa/garantia] Estratégias jurídicas e empresariais para proteger o que você construiu e garantir uma transição tranquila.
+pages/por-que-urgente.html:88 [promessa/garantia] Planejamento estratégico para garantir que o negócio prospere através das gerações.
+pages/por-que-urgente.html:94 [economia/redução prometida] Economia Tributária
+pages/por-que-urgente.html:277 [percentual/estatística] border-radius: 50%;
+pages/por-que-urgente.html:375 [percentual/estatística] top: 50%;
+pages/por-que-urgente.html:376 [percentual/estatística] left: 50%;
+pages/por-que-urgente.html:378 [percentual/estatística] 06) 0%, transparent 70%);
+pages/por-que-urgente.html:596 [percentual/estatística] flex: 1 1 50%;
+pages/por-que-urgente.html:806 [percentual/estatística] /* Hovered panel expands to 100% */
+pages/por-que-urgente.html:808 [percentual/estatística] flex: 1 1 100%;
+pages/por-que-urgente.html:811 [percentual/estatística] /* Sibling panel collapses to 0% */
+pages/por-que-urgente.html:813 [percentual/estatística] flex: 1 1 0%;
+pages/por-que-urgente.html:936 [promessa/garantia] Uma metodologia estruturada em 7 etapas para garantir a melhor estratégia sucessória.
+pages/por-que-urgente.html:1053 [promessa/garantia,economia/redução prometida,superlativo/ranking] O planejamento sucessório é a ferramenta mais poderosa para garantir a preservação e continuidade do patrimônio construído ao longo de gerações.
+pages/por-que-urgente.html:1060 [percentual/estatística] width="100%"
+pages/por-que-urgente.html:1200 [urgência] Vídeo sobre a urgência do planejamento sucessório — em breve neste espaço.
+pages/por-que-urgente.html:1210 [promessa/garantia,honorários/gratuito] Agende uma consulta gratuita e descubra como podemos ajudar a garantir a continuidade do seu patrimônio.
+pages/pronto-patrimonio.html:70 [promessa/garantia] Estratégias jurídicas avançadas para proteger seu patrimônio contra riscos e garantir a perpetuidade dos seus bens.
+pages/pronto-patrimonio.html:83 [economia/redução prometida] Criação e gestão de holdings familiares para centralizar a administração patrimonial e reduzir impostos.
+pages/pronto-patrimonio.html:101 [promessa/garantia] Implementação de regras e estruturas de governança para garantir harmonia e eficiência na gestão familiar.
+pages/pronto-patrimonio.html:267 [promessa/garantia,percentual/estatística] O planejamento sucessório preventivo evita conflitos familiares, reduz custos com inventário (que pode chegar a 20% do patrimônio) e garante que a vontade do titular seja respeitada.
+pages/pronto-patrimonio.html:311 [promessa/garantia] Garanta a segurança e perpetuidade do patrimônio da sua família com estratégias jurídicas especializadas.
+pages/recuperacao-ativos.html:86 [percentual/estatística,honorários/gratuito] O devedor é intimado para pagar em 15 dias e, se não o fizer, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%, na forma do art.
+pages/recuperacao-ativos.html:204 [honorários/gratuito] Condução da fase de execução do título judicial, com a multa e os honorários que a lei prevê quando não há pagamento voluntário (art.
+pages/recuperacao-ativos.html:233 [advocacia/escritório] escritório, basta substituir os pares abaixo nas TRÊS
+pages/recuperacao-ativos.html:371 [percentual/estatística] border-radius: 50%;
+pages/recuperacao-ativos.html:470 [percentual/estatística] 42) 55%,
+pages/recuperacao-ativos.html:471 [percentual/estatística] 3) 84%,
+pages/recuperacao-ativos.html:642 [percentual/estatística,honorários/gratuito] O caso segue por cumprimento de sentença : o devedor é intimado para pagar em 15 dias e, se não pagar, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%.
+pages/recuperacao-ativos.html:1016 [percentual/estatística] 07), transparent 55%),
+pages/recuperacao-ativos.html:1217 [percentual/estatística] 333%;
+pages/recuperacao-ativos.html:1624 [percentual/estatística] Sem pagamento voluntário em 15 dias, incide multa de 10%
+pages/recuperacao-ativos.html:1631 [percentual/estatística,honorários/gratuito] Somam-se os honorários advocatícios da execução, de mais 10%
+pages/recuperacao-ativos.html:1640 [percentual/estatística,honorários/gratuito] 523 do Código de Processo Civil acrescenta ao valor a multa de 10% e os honorários advocatícios de 10%.
+pages/recuperacao-ativos.html:1998 [percentual/estatística,honorários/gratuito] O devedor é intimado para pagar em 15 dias e, se não pagar, o débito é acrescido de multa de 10% e de honorários advocatícios de 10%.
+pages/recuperacao-ativos.html:2028 [urgência] '3a5': 'Nessa faixa a verificação do prazo é urgente: vários créditos prescrevem em três ou cinco anos, e os títulos de crédito, antes disso.
+pages/recuperacao-ativos.html:2029 [urgência] mais5: 'Tempo decorrido exige checagem imediata de prescrição — a execução prescreve no mesmo prazo da ação (Súmula 150 do Supremo Tribunal Federal).
+pages/registro-imobiliario.html:70 [promessa/garantia] Soluções completas em registro imobiliário para garantir a regularidade e segurança do seu patrimônio.
+pages/registro-imobiliario.html:249 [promessa/garantia] O registro de imóveis é o que garante a propriedade efetiva do bem.
+pages/registro-imobiliario.html:311 [promessa/garantia] Garanta a segurança jurídica do seu patrimônio imobiliário com nosso suporte especializado.
+pages/sucessao-testamentaria.html:6 [promessa/garantia] Sucessão Testamentária - Garanta que sua vontade seja respeitada com testamentos seguros e válidos.
+pages/sucessao-testamentaria.html:38 [promessa/garantia] Garanta que sua vontade seja respeitada.
+pages/sucessao-testamentaria.html:75 [promessa/garantia] Soluções completas em sucessão testamentária para garantir que sua vontade seja cumprida com segurança jurídica.
+pages/sucessao-testamentaria.html:89 [promessa/garantia] Redação e orientação para testamentos cerrados, garantindo sigilo e validade legal.
+pages/sucessao-testamentaria.html:318 [promessa/garantia] Garanta que Sua Vontade Seja Respeitada
+pages/tecnologia.html:72 [advocacia/escritório] Plataformas de automação para escritórios jurídicos, geração de documentos e gestão de processos.
+pages/tecnologia.html:174 [advocacia/escritório] Automação jurídica é o uso de tecnologia para automatizar tarefas repetitivas em escritórios de advocacia e departamentos jurídicos, como geração de contratos, petições, controle de prazos e gestão de processos.
+pages/tecnologia.html:185 [promessa/garantia] Sim, todas as nossas soluções são desenvolvidas em conformidade com a Lei Geral de Proteção de Dados (LGPD), garantindo a privacidade e segurança das informações dos seus clientes e da sua empresa.
+pages/treinamento-interesse.html:26 [percentual/estatística] top: 20%;
+pages/treinamento-interesse.html:27 [percentual/estatística] left: 50%;
+pages/treinamento-interesse.html:32 [percentual/estatística] border-radius: 50%;
+pages/treinamento-interesse.html:348 [êxito/sucesso] // Mostra mensagem de sucesso apos um breve delay
+solucoes/consultoria-trabalhista/camara-de-acordos.html:179 [advocacia/escritório] 855-B a 855-E da CLT, que exigem advogado próprio e independente para o trabalhador; art.
+solucoes/consultoria-trabalhista/decisao-assistida.html:148 [urgência] Nos casos de baixo risco, liberação imediata acompanhada de checklist de execução.
+solucoes/consultoria-trabalhista/defesa-empresarial.html:118 [advocacia/escritório] Quando a empresa vira ré, a defesa costuma chegar fragmentada: um escritório para a audiência, outro para o recurso, a planilha do cálculo em um terceiro lugar e o RH descobrindo o processo quando a intimação já venceu.
+solucoes/consultoria-trabalhista/defesa-empresarial.html:120 [promessa/garantia] Ele ocupa o balanço pela provisão, imobiliza caixa em depósito recursal e garantia de execução e, quando não encontra a empresa, procura quem está atrás dela: sócios, holding e as demais empresas do grupo.
+solucoes/consultoria-trabalhista/defesa-empresarial.html:159 [promessa/garantia] Cada recurso tem prazo, custo de garantia e efeito sobre a provisão — recorrer de tudo não é estratégia.
+solucoes/consultoria-trabalhista/defesa-empresarial.html:194 [contabilidade] Cálculo, conferência e impugnação de liquidação executados pela Bear Finance Serviços Financeiros e Contábil, com a provisão conciliada ao balanço no formato aceito pela auditoria independente.
+solucoes/consultoria-trabalhista/defesa-empresarial.html:223 [promessa/garantia] Capital imobilizado em garantia
+solucoes/consultoria-trabalhista/defesa-empresarial.html:224 [promessa/garantia] Depósito recursal e garantia de execução param dinheiro da empresa até o fim do processo.
+solucoes/consultoria-trabalhista/defesa-empresarial.html:247 [promessa/garantia,superlativo/ranking] A substituição do depósito recursal e da garantia da execução por seguro garantia judicial ou fiança bancária vem do art.
+solucoes/consultoria-trabalhista/defesa-empresarial.html:257 [superlativo/ranking] Ato Conjunto TST.CSJT.CGJT nº 1/2019
+solucoes/consultoria-trabalhista/defesa-empresarial.html:279 [promessa/garantia] Diferença entre o valor pedido e o valor apurado ao fim de cada fase, tempo de tramitação por instância, provisão comparada ao desembolso efetivo e volume de capital mantido em garantia.
+solucoes/consultoria-trabalhista/quitacao-anual.html:118 [honorários/gratuito] É exatamente isso que toda empresa faz com o passivo trabalhista: a prescrição é quinquenal, e as obrigações permanecem em aberto até que alguém as liquide — normalmente um juiz, anos depois, com juros, correção e honorários.
+solucoes/consultoria-trabalhista/quitacao-anual.html:119 [contabilidade] O instrumento é pouco utilizado, e não por vedação legal: executá-lo exige auditoria contábil mês a mês, engenharia jurídica na discriminação das parcelas, negociação sindical e tecnologia para repetir o processo em escala.
+solucoes/consultoria-trabalhista/quitacao-anual.html:143 [contabilidade] Conferência das obrigações de dar e de fazer, executada pela Bear Finance Serviços Financeiros e Contábil.
+solucoes/consultoria-trabalhista/quitacao-anual.html:163 [contabilidade] Cofre probatório versionado e reflexo na provisão contábil.
+TOTAL 575

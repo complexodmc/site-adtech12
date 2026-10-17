@@ -1,0 +1,2158 @@
+{
+  "ead": {
+    "plataforma-ead/index.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/login.html",
+      "title": "Acesso · Plataforma Complexo DMC",
+      "bodyClass": "login-page is-gl-ready",
+      "three": "128",
+      "canvases": [
+        {
+          "id": "arquitetura",
+          "w": 1440,
+          "h": 900,
+          "cls": "arquitetura"
+        }
+      ],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/index.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/login.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/login.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/login-experience.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/CopyShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/RenderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/three.min.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/LuminosityHighPassShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/MaskPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/ShaderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/EffectComposer.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/UnrealBloomPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/cena-three.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [
+        "warning: [.WebGL-0x11c0048ae00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+        "warning: [.WebGL-0x11c0048ae00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+        "warning: [.WebGL-0x11c0048ae00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+        "warning: [.WebGL-0x11c0048ae00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+      ],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_index.png"
+    },
+    "plataforma-ead/login.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/login.html",
+      "title": "Acesso · Plataforma Complexo DMC",
+      "bodyClass": "login-page is-gl-ready",
+      "three": "128",
+      "canvases": [
+        {
+          "id": "arquitetura",
+          "w": 1440,
+          "h": 900,
+          "cls": "arquitetura"
+        }
+      ],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/login.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/login.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/login-experience.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/CopyShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/EffectComposer.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/LuminosityHighPassShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/MaskPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/three.min.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/RenderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/ShaderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/cena-three.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/UnrealBloomPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_login.png"
+    },
+    "plataforma-ead/dashboard.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/login.html",
+      "title": "Acesso · Plataforma Complexo DMC",
+      "bodyClass": "login-page is-gl-ready",
+      "three": "128",
+      "canvases": [
+        {
+          "id": "arquitetura",
+          "w": 1440,
+          "h": 900,
+          "cls": "arquitetura"
+        }
+      ],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/dashboard.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/shell.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/login.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/login.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/login-experience.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/LuminosityHighPassShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/CopyShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/MaskPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/three.min.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/RenderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/EffectComposer.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/UnrealBloomPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/ShaderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/cena-three.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_dashboard.png"
+    },
+    "plataforma-ead/loja.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/login.html",
+      "title": "Acesso · Plataforma Complexo DMC",
+      "bodyClass": "login-page is-gl-ready",
+      "three": "128",
+      "canvases": [
+        {
+          "id": "arquitetura",
+          "w": 1440,
+          "h": 900,
+          "cls": "arquitetura"
+        }
+      ],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/loja.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/shell.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/login.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/login.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/login-experience.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/LuminosityHighPassShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/EffectComposer.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/three.min.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/RenderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/CopyShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/MaskPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/UnrealBloomPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/ShaderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/cena-three.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_loja.png"
+    },
+    "plataforma-ead/obrigado.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/obrigado.html",
+      "title": "Pedido recebido · Complexo DMC",
+      "bodyClass": "bg-grid has-shell",
+      "three": null,
+      "canvases": [],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/obrigado.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/shell.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_obrigado.png"
+    },
+    "plataforma-ead/certificado.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/certificado.html",
+      "title": "Certificado · Complexo DMC",
+      "bodyClass": "bg-grid cert-page",
+      "three": null,
+      "canvases": [],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/certificado.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_certificado.png"
+    },
+    "plataforma-ead/certificados.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/login.html",
+      "title": "Acesso · Plataforma Complexo DMC",
+      "bodyClass": "login-page is-gl-ready",
+      "three": "128",
+      "canvases": [
+        {
+          "id": "arquitetura",
+          "w": 1440,
+          "h": 900,
+          "cls": "arquitetura"
+        }
+      ],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/certificados.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/shell.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/login.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/login.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/login-experience.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/CopyShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/LuminosityHighPassShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/EffectComposer.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/three.min.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.gstatic.com/l/font",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/l/font",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/RenderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/ShaderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/UnrealBloomPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/MaskPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/cena-three.js",
+          "status": 200,
+          "type": "script"
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_certificados.png"
+    },
+    "plataforma-ead/aula.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/login.html",
+      "title": "Acesso · Plataforma Complexo DMC",
+      "bodyClass": "login-page is-gl-ready",
+      "three": "128",
+      "canvases": [
+        {
+          "id": "arquitetura",
+          "w": 1440,
+          "h": 900,
+          "cls": "arquitetura"
+        }
+      ],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/aula.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/shell.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/login.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/login.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/CopyShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/login-experience.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/LuminosityHighPassShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/EffectComposer.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/three.min.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/RenderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/MaskPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/ShaderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/cena-three.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/UnrealBloomPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_aula.png"
+    },
+    "plataforma-ead/admin.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/login.html",
+      "title": "Acesso · Plataforma Complexo DMC",
+      "bodyClass": "login-page is-gl-ready",
+      "three": "128",
+      "canvases": [
+        {
+          "id": "arquitetura",
+          "w": 1440,
+          "h": 900,
+          "cls": "arquitetura"
+        }
+      ],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/admin.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/admin.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/login.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/login.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/login-experience.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/CopyShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/LuminosityHighPassShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/EffectComposer.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/RenderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/MaskPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/three.min.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/ShaderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/UnrealBloomPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/cena-three.js",
+          "status": 200,
+          "type": "script"
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_admin.png"
+    },
+    "plataforma-ead/meus-cursos.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/login.html",
+      "title": "Acesso · Plataforma Complexo DMC",
+      "bodyClass": "login-page is-gl-ready",
+      "three": "128",
+      "canvases": [
+        {
+          "id": "arquitetura",
+          "w": 1440,
+          "h": 900,
+          "cls": "arquitetura"
+        }
+      ],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/meus-cursos.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/shell.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/login.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/login.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/login-experience.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/CopyShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/LuminosityHighPassShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/three.min.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/EffectComposer.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/RenderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/MaskPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/ShaderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/UnrealBloomPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/cena-three.js",
+          "status": 200,
+          "type": "script"
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_meus-cursos.png"
+    },
+    "plataforma-ead/ao-vivo.html": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/login.html",
+      "title": "Acesso · Plataforma Complexo DMC",
+      "bodyClass": "login-page is-gl-ready",
+      "three": "128",
+      "canvases": [
+        {
+          "id": "arquitetura",
+          "w": 1440,
+          "h": 900,
+          "cls": "arquitetura"
+        }
+      ],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/ao-vivo.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/shell.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/login.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/login.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/login-experience.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/CopyShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/LuminosityHighPassShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/RenderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/EffectComposer.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/MaskPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/three.min.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/ShaderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/UnrealBloomPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/cena-three.js",
+          "status": 200,
+          "type": "script"
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_ao-vivo.png"
+    },
+    "plataforma-ead/login.html@mobile": {
+      "finalPath": "/complexodmc.com.br/plataforma-ead/login.html",
+      "title": "Acesso · Plataforma Complexo DMC",
+      "bodyClass": "login-page is-gl-ready",
+      "three": "128",
+      "canvases": [
+        {
+          "id": "arquitetura",
+          "w": 390,
+          "h": 844,
+          "cls": "arquitetura"
+        }
+      ],
+      "customNavbar": false,
+      "linksEad": [],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/login.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/plataforma.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/css/login.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/api-client.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/login-experience.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/app.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/CopyShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/LuminosityHighPassShader.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/EffectComposer.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/RenderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/ShaderPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/UnrealBloomPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/MaskPass.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/login/cena-three.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/plataforma-ead/js/vendor/three/three.min.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/plataforma-ead_login_mobile.png"
+    }
+  },
+  "institucional": {
+    "index.html": {
+      "finalPath": "/complexodmc.com.br/index.html",
+      "title": "Consultoria Empresarial - Soluções Estratégicas",
+      "bodyClass": "loaded",
+      "three": null,
+      "canvases": [
+        {
+          "id": "rinoCanvas",
+          "w": 480,
+          "h": 480,
+          "cls": "orbit-center-video"
+        }
+      ],
+      "customNavbar": true,
+      "linksEad": [
+        {
+          "text": "Cursos",
+          "href": "plataforma-ead/login.html"
+        },
+        {
+          "text": "Login",
+          "href": "https://adtech-app.complexodmc.com.br"
+        },
+        {
+          "text": "Saiba Mais",
+          "href": "plataforma-ead/login.html?curso=Planejamento%20Sucess%C3%B3rio"
+        },
+        {
+          "text": "Saiba Mais",
+          "href": "plataforma-ead/login.html?curso=Compliance%20%26%20Governan%C3%A7a"
+        },
+        {
+          "text": "Saiba Mais",
+          "href": "plataforma-ead/login.html?curso=Planejamento%20Tribut%C3%A1rio"
+        },
+        {
+          "text": "Saiba Mais",
+          "href": "plataforma-ead/login.html?curso=Holding%20Familiar"
+        },
+        {
+          "text": "Saiba Mais",
+          "href": "plataforma-ead/login.html?curso=Blindagem%20Patrimonial"
+        },
+        {
+          "text": "Saiba Mais",
+          "href": "plataforma-ead/login.html?curso=Automa%C3%A7%C3%A3o%20Jur%C3%ADdica"
+        }
+      ],
+      "navCursos": "plataforma-ead/login.html",
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/index.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/hero-poster.jpg",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/logo.png",
+          "status": 404,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/js/main.js?v=traco3",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/css/styles.css?v=traco4",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/videos/rino-hero.mp4",
+          "status": 200,
+          "type": "media"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/js/navbar.js?v=traco3",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/videos/rino-video-transparent.mp4",
+          "status": 200,
+          "type": "media"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/js/video.js?v=1",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLCz7Z1xlFd2JQEk.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLEj6Z1xlFd2JQEk.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLDD4Z1xlFd2JQEk.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [
+        "error: Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "screenshot": "audit/2026-10-17/ead/index.png"
+    },
+    "pages/planejamento-sucessorio.html": {
+      "finalPath": "/complexodmc.com.br/pages/planejamento-sucessorio.html",
+      "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+      "bodyClass": "np-eixo np-pillar-patrimonial",
+      "three": null,
+      "canvases": [
+        {
+          "id": "tech-net-canvas",
+          "w": 520,
+          "h": 520,
+          "cls": ""
+        },
+        {
+          "id": "rinoCanvasPS",
+          "w": 480,
+          "h": 480,
+          "cls": "ps-orbit-center-video"
+        }
+      ],
+      "customNavbar": true,
+      "linksEad": [
+        {
+          "text": "Cursos",
+          "href": "../plataforma-ead/login.html"
+        },
+        {
+          "text": "Login",
+          "href": "https://adtech-app.complexodmc.com.br"
+        }
+      ],
+      "navCursos": "../plataforma-ead/login.html",
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/pages/planejamento-sucessorio.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/pages/css/shared.css?v=3",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/pages/css/eixos.css?v=3",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/js/navbar.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/js/video.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/videos/rino-video-transparent.mp4",
+          "status": 200,
+          "type": "media"
+        },
+        {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVsEpbCIPrEVIT9d0c8.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://www.youtube.com/embed/13w3h_VjvGs",
+          "status": 200,
+          "type": "document",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLDD4Z1xlFd2JQEk.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://www.youtube.com/s/player/0229cd64/www-player.css",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://www.youtube.com/s/_/ytembeds/_/ss/k=ytembeds.base.CM9xcvOf5Pc.L.W.O/am=AAAAIIAx/d=1/br=1/rs=AGKMywGivgpp1KxybH3UacetDo0IfBA_Pg/m=root,base",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://www.youtube.com/s/_/ytembeds/_/js/k=ytembeds.base.en_US.L9bVgDs7sK4.es5.O/am=AAAAIIAx/d=1/excm=base,root/br=1/rs=AGKMywFjb4Th_vcNDUBki8G1E-hAohD4cw/m=root,base",
+          "status": 200,
+          "type": "script",
+          "externo": true
+        },
+        {
+          "url": "https://www.youtube.com/s/player/0229cd64/player_embed.vflset/pt_BR/base.js",
+          "status": 200,
+          "type": "script",
+          "externo": true
+        },
+        {
+          "url": "https://www.youtube.com/s/_/ytembeds/_/js/k=ytembeds.base.en_US.L9bVgDs7sK4.es5.O/ck=ytembeds.base.CM9xcvOf5Pc.L.W.O/am=AAAAIIAx/d=1/exm=base,root/excm=base,root/ed=1/br=1/rs=AGKMywHbaMow21gcibsukC77lNouJLyerg/m=r78Drb",
+          "status": 200,
+          "type": "script",
+          "externo": true
+        },
+        {
+          "url": "https://static.doubleclick.net/instream/ad_status.js",
+          "status": 200,
+          "type": "script",
+          "externo": true
+        },
+        {
+          "url": "https://googleads.g.doubleclick.net/pagead/id",
+          "status": 302,
+          "type": "xhr",
+          "externo": true
+        },
+        {
+          "url": "https://www.google.com/js/th/UuzLx1YTO8P6u56myU4pojdeJmdcBWAsOkQVPkq63qc.js",
+          "status": 200,
+          "type": "script",
+          "externo": true
+        },
+        {
+          "url": "https://googleads.g.doubleclick.net/pagead/id",
+          "status": 200,
+          "type": "xhr",
+          "externo": true
+        },
+        {
+          "url": "https://i.ytimg.com/vi/13w3h_VjvGs/sddefault.jpg",
+          "status": 200,
+          "type": "image",
+          "externo": true
+        },
+        {
+          "url": "https://www.youtube.com/generate_204",
+          "status": 204,
+          "type": "image",
+          "externo": true
+        },
+        {
+          "url": "https://jnn-pa.googleapis.com/$rpc/google.internal.waa.v1.Waa/GenerateIT",
+          "status": 200,
+          "type": "xhr",
+          "externo": true
+        },
+        {
+          "url": "https://www.youtube.com/youtubei/v1/log_event",
+          "status": 200,
+          "type": "xhr",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [
+        "warning: Unrecognized feature: 'web-share'.",
+        "warning: No available adapters."
+      ],
+      "screenshot": "audit/2026-10-17/ead/pages_planejamento-sucessorio.png"
+    },
+    "solucoes/consultoria-trabalhista/ciclo-fechado.html": {
+      "finalPath": "/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+      "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+      "bodyClass": "sol-page np-eixo np-pillar-trabalhista js-reveal",
+      "three": null,
+      "canvases": [
+        {
+          "id": "",
+          "w": 520,
+          "h": 520,
+          "cls": "sol-net__canvas"
+        }
+      ],
+      "customNavbar": true,
+      "linksEad": [
+        {
+          "text": "Cursos",
+          "href": "../../plataforma-ead/login.html"
+        },
+        {
+          "text": "Login",
+          "href": "https://adtech-app.complexodmc.com.br"
+        }
+      ],
+      "navCursos": "../../plataforma-ead/login.html",
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/pages/css/shared.css?v=3",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/pages/css/eixos.css?v=3",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/pages/css/solucao.css?v=3",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/js/navbar.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/js/video.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/js/solucao.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [],
+      "screenshot": "audit/2026-10-17/ead/solucoes_consultoria-trabalhista_ciclo-fechado.png"
+    },
+    "em-construcao.html": {
+      "finalPath": "/complexodmc.com.br/em-construcao.html",
+      "title": "Em Construção - Complexo DMC",
+      "bodyClass": "loaded",
+      "three": null,
+      "canvases": [],
+      "customNavbar": false,
+      "linksEad": [
+        {
+          "text": "Ad-tech",
+          "href": "em-construcao.html"
+        },
+        {
+          "text": "Produtos",
+          "href": "em-construcao.html"
+        },
+        {
+          "text": "Treinamentos",
+          "href": "em-construcao.html"
+        },
+        {
+          "text": "Artigos",
+          "href": "em-construcao.html"
+        },
+        {
+          "text": "Login",
+          "href": "em-construcao.html"
+        }
+      ],
+      "navCursos": null,
+      "requests": [
+        {
+          "url": "/complexodmc.com.br/em-construcao.html",
+          "status": 200,
+          "type": "document"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/css/style.css",
+          "status": 404,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/css/em-construcao.css",
+          "status": 200,
+          "type": "stylesheet"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/images/RINO_logo.png",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/videos/BACKGROUND2.gif",
+          "status": 200,
+          "type": "image"
+        },
+        {
+          "url": "/complexodmc.com.br/assets/js/main.js",
+          "status": 200,
+          "type": "script"
+        },
+        {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "status": 200,
+          "type": "stylesheet",
+          "externo": true
+        },
+        {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2",
+          "status": 200,
+          "type": "font",
+          "externo": true
+        }
+      ],
+      "consoleErrors": [
+        "error: Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "screenshot": "audit/2026-10-17/ead/em-construcao.png"
+    }
+  },
+  "compartilhados": {
+    "/complexodmc.com.br/assets/images/RINO_logo.png": {
+      "status": 200,
+      "paginas": [
+        "plataforma-ead/index.html",
+        "plataforma-ead/login.html",
+        "plataforma-ead/dashboard.html",
+        "plataforma-ead/loja.html",
+        "plataforma-ead/obrigado.html",
+        "plataforma-ead/certificados.html",
+        "plataforma-ead/aula.html",
+        "plataforma-ead/admin.html",
+        "plataforma-ead/admin.html",
+        "plataforma-ead/meus-cursos.html",
+        "plataforma-ead/ao-vivo.html",
+        "plataforma-ead/login.html@mobile"
+      ]
+    },
+    "https://fonts.googleapis.com/css2": {
+      "status": 200,
+      "paginas": [
+        "plataforma-ead/index.html",
+        "plataforma-ead/login.html",
+        "plataforma-ead/dashboard.html",
+        "plataforma-ead/dashboard.html",
+        "plataforma-ead/loja.html",
+        "plataforma-ead/loja.html",
+        "plataforma-ead/obrigado.html",
+        "plataforma-ead/certificado.html",
+        "plataforma-ead/certificados.html",
+        "plataforma-ead/certificados.html",
+        "plataforma-ead/aula.html",
+        "plataforma-ead/aula.html",
+        "plataforma-ead/admin.html",
+        "plataforma-ead/admin.html",
+        "plataforma-ead/meus-cursos.html",
+        "plataforma-ead/meus-cursos.html",
+        "plataforma-ead/ao-vivo.html",
+        "plataforma-ead/ao-vivo.html",
+        "plataforma-ead/login.html@mobile"
+      ]
+    },
+    "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2": {
+      "status": 200,
+      "paginas": [
+        "plataforma-ead/index.html",
+        "plataforma-ead/login.html",
+        "plataforma-ead/dashboard.html",
+        "plataforma-ead/loja.html",
+        "plataforma-ead/obrigado.html",
+        "plataforma-ead/certificado.html",
+        "plataforma-ead/aula.html",
+        "plataforma-ead/admin.html",
+        "plataforma-ead/meus-cursos.html",
+        "plataforma-ead/ao-vivo.html",
+        "plataforma-ead/login.html@mobile"
+      ]
+    },
+    "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2": {
+      "status": 200,
+      "paginas": [
+        "plataforma-ead/index.html",
+        "plataforma-ead/login.html",
+        "plataforma-ead/dashboard.html",
+        "plataforma-ead/loja.html",
+        "plataforma-ead/obrigado.html",
+        "plataforma-ead/certificado.html",
+        "plataforma-ead/aula.html",
+        "plataforma-ead/admin.html",
+        "plataforma-ead/meus-cursos.html",
+        "plataforma-ead/ao-vivo.html",
+        "plataforma-ead/login.html@mobile"
+      ]
+    },
+    "https://fonts.gstatic.com/l/font": {
+      "status": 200,
+      "paginas": [
+        "plataforma-ead/certificados.html",
+        "plataforma-ead/certificados.html"
+      ]
+    }
+  },
+  "geradoEm": "2026-10-17T13:48:39.164Z",
+  "compartilhadosComInstitucional": [
+    "/complexodmc.com.br/assets/images/RINO_logo.png",
+    "https://fonts.googleapis.com/css2",
+    "https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+    "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2"
+  ]
+}

@@ -1,0 +1,2 @@
+◇ injected env (7) from server/.env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+{"mongoUriDefinida":true,"hostMascarado":"***.0.0.1","conectou":true,"ms":122,"colecoes":["liberacoes","aulas","certificados","cursos","lives","modulos","users","progresso","duvidas"],"temColecaoLeads":false}

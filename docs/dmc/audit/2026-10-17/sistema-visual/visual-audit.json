@@ -1,0 +1,2006 @@
+{
+  "home": {
+    "desktop": {
+      "title": "Consultoria Empresarial - Soluções Estratégicas",
+      "bodyClass": "loaded",
+      "fonts": [
+        "Inter 400 normal",
+        "Inter 500 normal",
+        "Inter 600 normal",
+        "Inter 700 normal",
+        "Inter 800 normal",
+        "Poppins 600 normal",
+        "Poppins 700 normal",
+        "Poppins 800 normal",
+        "Font Awesome 6 Free 900 normal"
+      ],
+      "h1": {
+        "sel": "h1",
+        "fontFamily": "Inter, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "60.8px",
+        "color": "rgb(232, 237, 243)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "body": {
+        "sel": "body",
+        "fontFamily": "Inter, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "color": "rgb(232, 237, 243)",
+        "bg": "rgb(15, 19, 24)"
+      },
+      "h2": {
+        "sel": "h2",
+        "fontFamily": "Inter, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "48px",
+        "color": "rgb(232, 237, 243)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "btn": {
+        "sel": ".btn-primary, .np-btn, .cta-button, .page-hero__cta a, a.btn",
+        "fontFamily": "Inter, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "15.2px",
+        "color": "rgb(232, 237, 243)",
+        "bg": "rgba(17, 17, 17, 0.72)"
+      },
+      "topColors": [
+        [
+          "rgb(232, 237, 243)",
+          807
+        ],
+        [
+          "rgb(255, 255, 255)",
+          282
+        ],
+        [
+          "rgb(164, 173, 186)",
+          247
+        ],
+        [
+          "rgb(0, 255, 77)",
+          175
+        ],
+        [
+          "rgb(185, 140, 245)",
+          161
+        ],
+        [
+          "rgb(127, 180, 255)",
+          159
+        ],
+        [
+          "rgb(94, 214, 230)",
+          153
+        ],
+        [
+          "rgb(0, 0, 238)",
+          138
+        ],
+        [
+          "rgb(0, 231, 252)",
+          92
+        ],
+        [
+          "rgb(110, 230, 140)",
+          91
+        ],
+        [
+          "rgb(233, 184, 108)",
+          86
+        ],
+        [
+          "rgb(244, 140, 178)",
+          72
+        ],
+        [
+          "rgb(8, 19, 26)",
+          64
+        ],
+        [
+          "rgba(255, 255, 255, 0.08)",
+          58
+        ],
+        [
+          "rgba(255, 255, 255, 0.1)",
+          44
+        ]
+      ],
+      "landmarks": {
+        "main": 0,
+        "header": 0,
+        "nav": 1,
+        "footer": 1,
+        "h1": 2,
+        "skipLink": false
+      },
+      "headingsSeq": "H1 H2 H2 H3 H3 H3 H4 H3 H4 H3 H4 H3 H4 H3 H4 H3 H4 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H2 H3 H3 H3 H3 H3 H3 H2 H3 H4 H4 H4 H4 H2 H3 H2 H2 H1 H3 H3 H3 H3",
+      "focusableCount": 73,
+      "revealOpacity0": 0,
+      "totalRevealEls": 0,
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "gradientsInUse": 177,
+      "backdropFilterEls": 9,
+      "menuToggleAria": {
+        "expanded": null,
+        "controls": null
+      },
+      "rootVars": {
+        "--np-accent": "",
+        "--primary-cyan": "#5ed6e6",
+        "--primary-green": "#6ee68c",
+        "--bg-primary": "#0f1318",
+        "--text-primary": "#e8edf3",
+        "--font-primary": "",
+        "--font-display": "",
+        "--gradient-primary": "linear-gradient(\n    90deg,\n    rgba(94, 214, 230, 1) 0%,\n    rgba(110, 230, 140"
+      },
+      "bodyVars": {
+        "--np-accent": "",
+        "--np-accent-deep": "",
+        "--primary-cyan": "#5ed6e6",
+        "--primary-green": "#6ee68c"
+      },
+      "domNodes": 1508,
+      "focusTrace": [
+        {
+          "tag": "A",
+          "cls": "logo",
+          "outline": "auto 1px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link active",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        }
+      ],
+      "coverage": [
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "total": 22422,
+          "used": 0,
+          "usedPct": 0
+        },
+        {
+          "url": "assets/css/styles.css",
+          "total": 158122,
+          "used": 73726,
+          "usedPct": 47
+        },
+        {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+          "total": 102025,
+          "used": 702,
+          "usedPct": 1
+        }
+      ],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "resourcesByType": {
+        "text/html": {
+          "count": 2,
+          "bytes": 124835
+        },
+        "text/css": {
+          "count": 3,
+          "bytes": 199595
+        },
+        "image/jpeg": {
+          "count": 1,
+          "bytes": 105009
+        },
+        "text/javascript": {
+          "count": 3,
+          "bytes": 44353
+        },
+        "video/mp4": {
+          "count": 2,
+          "bytes": 4720233
+        },
+        "application/octet-stream": {
+          "count": 1,
+          "bytes": 150124
+        },
+        "font/woff2": {
+          "count": 4,
+          "bytes": 72088
+        }
+      },
+      "biggest": [
+        "3727569 assets/videos/rino-hero.mp4",
+        "992664 assets/videos/rino-video-transparent.mp4",
+        "158421 assets/css/styles.css?v=traco4",
+        "150124 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+        "124375 index.html",
+        "105009 assets/images/hero-poster.jpg",
+        "48432 https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2",
+        "36294 assets/js/main.js?v=traco3",
+        "22422 https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@300;400;500;600;700;800&",
+        "18752 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      ],
+      "totalBytes": 5416237,
+      "requests": 16
+    },
+    "mobile": {
+      "title": "Consultoria Empresarial - Soluções Estratégicas",
+      "bodyClass": "loaded",
+      "fonts": [
+        "Inter 400 normal",
+        "Inter 500 normal",
+        "Inter 600 normal",
+        "Inter 700 normal",
+        "Inter 800 normal",
+        "Poppins 600 normal",
+        "Poppins 700 normal",
+        "Poppins 800 normal",
+        "Font Awesome 6 Free 900 normal"
+      ],
+      "h1": {
+        "sel": "h1",
+        "fontFamily": "Inter, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "28.8px",
+        "color": "rgb(232, 237, 243)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "body": {
+        "sel": "body",
+        "fontFamily": "Inter, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "color": "rgb(232, 237, 243)",
+        "bg": "rgb(15, 19, 24)"
+      },
+      "h2": {
+        "sel": "h2",
+        "fontFamily": "Inter, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "32px",
+        "color": "rgb(232, 237, 243)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "btn": {
+        "sel": ".btn-primary, .np-btn, .cta-button, .page-hero__cta a, a.btn",
+        "fontFamily": "Inter, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "14.4px",
+        "color": "rgb(232, 237, 243)",
+        "bg": "rgba(17, 17, 17, 0.72)"
+      },
+      "topColors": [
+        [
+          "rgb(232, 237, 243)",
+          807
+        ],
+        [
+          "rgb(255, 255, 255)",
+          282
+        ],
+        [
+          "rgb(164, 173, 186)",
+          247
+        ],
+        [
+          "rgb(0, 255, 77)",
+          175
+        ],
+        [
+          "rgb(185, 140, 245)",
+          161
+        ],
+        [
+          "rgb(127, 180, 255)",
+          159
+        ],
+        [
+          "rgb(94, 214, 230)",
+          152
+        ],
+        [
+          "rgb(0, 0, 238)",
+          138
+        ],
+        [
+          "rgb(0, 231, 252)",
+          92
+        ],
+        [
+          "rgb(110, 230, 140)",
+          90
+        ],
+        [
+          "rgb(233, 184, 108)",
+          86
+        ],
+        [
+          "rgb(244, 140, 178)",
+          72
+        ],
+        [
+          "rgb(8, 19, 26)",
+          64
+        ],
+        [
+          "rgba(255, 255, 255, 0.08)",
+          58
+        ],
+        [
+          "rgba(255, 255, 255, 0.1)",
+          44
+        ]
+      ],
+      "landmarks": {
+        "main": 0,
+        "header": 0,
+        "nav": 1,
+        "footer": 1,
+        "h1": 2,
+        "skipLink": false
+      },
+      "headingsSeq": "H1 H2 H2 H3 H3 H3 H4 H3 H4 H3 H4 H3 H4 H3 H4 H3 H4 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H3 H2 H3 H3 H3 H3 H3 H3 H2 H3 H4 H4 H4 H4 H2 H3 H2 H2 H1 H3 H3 H3 H3",
+      "focusableCount": 77,
+      "revealOpacity0": 0,
+      "totalRevealEls": 0,
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "gradientsInUse": 177,
+      "backdropFilterEls": 9,
+      "menuToggleAria": {
+        "expanded": null,
+        "controls": null
+      },
+      "rootVars": {
+        "--np-accent": "",
+        "--primary-cyan": "#5ed6e6",
+        "--primary-green": "#6ee68c",
+        "--bg-primary": "#0f1318",
+        "--text-primary": "#e8edf3",
+        "--font-primary": "",
+        "--font-display": "",
+        "--gradient-primary": "linear-gradient(\n    90deg,\n    rgba(94, 214, 230, 1) 0%,\n    rgba(110, 230, 140"
+      },
+      "bodyVars": {
+        "--np-accent": "",
+        "--np-accent-deep": "",
+        "--primary-cyan": "#5ed6e6",
+        "--primary-green": "#6ee68c"
+      },
+      "domNodes": 1507,
+      "focusTrace": [
+        {
+          "tag": "A",
+          "cls": "logo",
+          "outline": "auto 1px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link active",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        }
+      ],
+      "coverage": null,
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "resourcesByType": {
+        "text/html": {
+          "count": 2,
+          "bytes": 124835
+        },
+        "text/css": {
+          "count": 3,
+          "bytes": 199595
+        },
+        "image/jpeg": {
+          "count": 1,
+          "bytes": 105009
+        },
+        "text/javascript": {
+          "count": 3,
+          "bytes": 44353
+        },
+        "video/mp4": {
+          "count": 2,
+          "bytes": 4720233
+        },
+        "application/octet-stream": {
+          "count": 1,
+          "bytes": 150124
+        },
+        "font/woff2": {
+          "count": 4,
+          "bytes": 72088
+        }
+      },
+      "biggest": [
+        "3727569 assets/videos/rino-hero.mp4",
+        "992664 assets/videos/rino-video-transparent.mp4",
+        "158421 assets/css/styles.css?v=traco4",
+        "150124 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+        "124375 index.html",
+        "105009 assets/images/hero-poster.jpg",
+        "48432 https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2",
+        "36294 assets/js/main.js?v=traco3",
+        "22422 https://fonts.googleapis.com/css2?family=Allura&family=Inter:wght@300;400;500;600;700;800&",
+        "18752 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      ],
+      "totalBytes": 5416237,
+      "requests": 16
+    }
+  },
+  "planejamento-sucessorio": {
+    "desktop": {
+      "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+      "bodyClass": "np-eixo np-pillar-patrimonial",
+      "fonts": [
+        "DM Sans 300 normal",
+        "DM Sans 400 normal",
+        "DM Sans 600 normal",
+        "DM Sans 700 normal",
+        "Poppins 800 normal",
+        "Raleway 600 normal",
+        "Font Awesome 6 Free 900 normal"
+      ],
+      "h1": {
+        "sel": "h1",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "56px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "body": {
+        "sel": "body",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(10, 10, 10)"
+      },
+      "h2": {
+        "sel": "h2",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "40px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "btn": {
+        "sel": ".btn-primary, .np-btn, .cta-button, .page-hero__cta a, a.btn",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "15.2px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(17, 17, 17, 0.72)"
+      },
+      "topColors": [
+        [
+          "rgb(255, 255, 255)",
+          492
+        ],
+        [
+          "rgb(94, 214, 230)",
+          90
+        ],
+        [
+          "rgb(179, 179, 179)",
+          78
+        ],
+        [
+          "rgb(128, 128, 128)",
+          46
+        ],
+        [
+          "rgb(168, 238, 246)",
+          31
+        ],
+        [
+          "rgb(10, 10, 10)",
+          22
+        ],
+        [
+          "rgba(255, 255, 255, 0.08)",
+          20
+        ],
+        [
+          "rgba(168, 238, 246, 0.3)",
+          14
+        ],
+        [
+          "rgba(17, 17, 17, 0.6)",
+          14
+        ],
+        [
+          "rgb(253, 253, 253)",
+          12
+        ],
+        [
+          "rgba(253, 253, 253, 0.42)",
+          12
+        ],
+        [
+          "rgba(255, 255, 255, 0.55)",
+          12
+        ],
+        [
+          "rgb(0, 0, 0)",
+          8
+        ],
+        [
+          "rgba(94, 214, 230, 0.06)",
+          7
+        ],
+        [
+          "rgb(21, 25, 28)",
+          6
+        ]
+      ],
+      "landmarks": {
+        "main": 0,
+        "header": 0,
+        "nav": 1,
+        "footer": 1,
+        "h1": 1,
+        "skipLink": false
+      },
+      "headingsSeq": "H1 H2 H3 H3 H3 H3 H3 H3 H3 H2 H3 H3 H2 H3 H3 H3 H3 H3 H3 H3 H2 H2 H2 H2",
+      "focusableCount": 27,
+      "revealOpacity0": 5,
+      "totalRevealEls": 7,
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "gradientsInUse": 42,
+      "backdropFilterEls": 5,
+      "menuToggleAria": {
+        "expanded": null,
+        "controls": null
+      },
+      "rootVars": {
+        "--np-accent": "",
+        "--primary-cyan": "#00e7fc",
+        "--primary-green": "#00ff4d",
+        "--bg-primary": "#0a0a0a",
+        "--text-primary": "#ffffff",
+        "--font-primary": "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        "--font-display": "'Raleway', 'DM Sans', sans-serif",
+        "--gradient-primary": "linear-gradient(90deg, #00e7fc 0%, #00ff4d 100%)"
+      },
+      "bodyVars": {
+        "--np-accent": "94, 214, 230",
+        "--np-accent-deep": "32, 158, 200",
+        "--primary-cyan": "rgb(168, 238, 246)",
+        "--primary-green": "rgb(94, 214, 230)"
+      },
+      "domNodes": 436,
+      "focusTrace": [
+        {
+          "tag": "A",
+          "cls": "logo",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        }
+      ],
+      "coverage": [
+        {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+          "total": 102025,
+          "used": 778,
+          "usedPct": 1
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "total": 12870,
+          "used": 0,
+          "usedPct": 0
+        },
+        {
+          "url": "pages/css/shared.css",
+          "total": 43458,
+          "used": 22964,
+          "usedPct": 53
+        },
+        {
+          "url": "pages/planejamento-sucessorio.html",
+          "total": 3681,
+          "used": 3010,
+          "usedPct": 82
+        },
+        {
+          "url": "pages/css/eixos.css",
+          "total": 15940,
+          "used": 7002,
+          "usedPct": 44
+        },
+        {
+          "url": "pages/planejamento-sucessorio.html",
+          "total": 9228,
+          "used": 5862,
+          "usedPct": 64
+        },
+        {
+          "url": "https://www.youtube.com/embed/13w3h_VjvGs",
+          "total": 9438,
+          "used": 0,
+          "usedPct": 0
+        },
+        {
+          "url": "https://www.youtube.com/s/player/0229cd64/www-player.css",
+          "total": 550436,
+          "used": 2459,
+          "usedPct": 0
+        }
+      ],
+      "consoleErrors": [],
+      "resourcesByType": {
+        "text/html": {
+          "count": 3,
+          "bytes": 209514
+        },
+        "image/png": {
+          "count": 1,
+          "bytes": 47156
+        },
+        "text/css": {
+          "count": 6,
+          "bytes": 150179
+        },
+        "text/javascript": {
+          "count": 7,
+          "bytes": 980395
+        },
+        "video/mp4": {
+          "count": 1,
+          "bytes": 992664
+        },
+        "application/octet-stream": {
+          "count": 1,
+          "bytes": 150124
+        },
+        "font/woff2": {
+          "count": 4,
+          "bytes": 97324
+        },
+        "other": {
+          "count": 1,
+          "bytes": 0
+        },
+        "application/json": {
+          "count": 2,
+          "bytes": 151
+        },
+        "application/json+protobuf": {
+          "count": 1,
+          "bytes": 122
+        },
+        "image/jpeg": {
+          "count": 1,
+          "bytes": 58677
+        }
+      },
+      "biggest": [
+        "992664 assets/videos/rino-video-transparent.mp4",
+        "526956 https://www.youtube.com/s/player/0229cd64/player_embed.vflset/pt_BR/base.js",
+        "246655 https://www.youtube.com/s/_/ytembeds/_/js/k=ytembeds.base.en_US.L9bVgDs7sK4.es5.O/ck=ytemb",
+        "174087 https://www.youtube.com/s/_/ytembeds/_/js/k=ytembeds.base.en_US.L9bVgDs7sK4.es5.O/am=AAAAI",
+        "153384 https://www.youtube.com/embed/13w3h_VjvGs?si=R_sfa_LmJYUAU3Jw",
+        "150124 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+        "59016 https://www.youtube.com/s/player/0229cd64/www-player.css",
+        "58677 https://i.ytimg.com/vi/13w3h_VjvGs/sddefault.jpg",
+        "56130 pages/planejamento-sucessorio.html",
+        "47156 assets/images/RINO_logo.png"
+      ],
+      "totalBytes": 2686306,
+      "requests": 28
+    },
+    "mobile": {
+      "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+      "bodyClass": "np-eixo np-pillar-patrimonial",
+      "fonts": [
+        "DM Sans 300 normal",
+        "DM Sans 400 normal",
+        "DM Sans 600 normal",
+        "DM Sans 700 normal",
+        "Poppins 800 normal",
+        "Raleway 600 normal",
+        "Font Awesome 6 Free 900 normal"
+      ],
+      "h1": {
+        "sel": "h1",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "28.8px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "body": {
+        "sel": "body",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(10, 10, 10)"
+      },
+      "h2": {
+        "sel": "h2",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "24px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "btn": {
+        "sel": ".btn-primary, .np-btn, .cta-button, .page-hero__cta a, a.btn",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "15.2px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(17, 17, 17, 0.72)"
+      },
+      "topColors": [
+        [
+          "rgb(255, 255, 255)",
+          492
+        ],
+        [
+          "rgb(94, 214, 230)",
+          90
+        ],
+        [
+          "rgb(179, 179, 179)",
+          78
+        ],
+        [
+          "rgb(128, 128, 128)",
+          46
+        ],
+        [
+          "rgb(168, 238, 246)",
+          31
+        ],
+        [
+          "rgb(10, 10, 10)",
+          22
+        ],
+        [
+          "rgba(255, 255, 255, 0.08)",
+          20
+        ],
+        [
+          "rgba(168, 238, 246, 0.3)",
+          14
+        ],
+        [
+          "rgba(17, 17, 17, 0.6)",
+          14
+        ],
+        [
+          "rgb(253, 253, 253)",
+          12
+        ],
+        [
+          "rgba(253, 253, 253, 0.42)",
+          12
+        ],
+        [
+          "rgba(255, 255, 255, 0.55)",
+          12
+        ],
+        [
+          "rgb(0, 0, 0)",
+          8
+        ],
+        [
+          "rgba(94, 214, 230, 0.06)",
+          7
+        ],
+        [
+          "rgb(21, 25, 28)",
+          6
+        ]
+      ],
+      "landmarks": {
+        "main": 0,
+        "header": 0,
+        "nav": 1,
+        "footer": 1,
+        "h1": 1,
+        "skipLink": false
+      },
+      "headingsSeq": "H1 H2 H3 H3 H3 H3 H3 H3 H3 H2 H3 H3 H2 H3 H3 H3 H3 H3 H3 H3 H2 H2 H2 H2",
+      "focusableCount": 28,
+      "revealOpacity0": 5,
+      "totalRevealEls": 7,
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "gradientsInUse": 42,
+      "backdropFilterEls": 5,
+      "menuToggleAria": {
+        "expanded": null,
+        "controls": null
+      },
+      "rootVars": {
+        "--np-accent": "",
+        "--primary-cyan": "#00e7fc",
+        "--primary-green": "#00ff4d",
+        "--bg-primary": "#0a0a0a",
+        "--text-primary": "#ffffff",
+        "--font-primary": "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        "--font-display": "'Raleway', 'DM Sans', sans-serif",
+        "--gradient-primary": "linear-gradient(90deg, #00e7fc 0%, #00ff4d 100%)"
+      },
+      "bodyVars": {
+        "--np-accent": "94, 214, 230",
+        "--np-accent-deep": "32, 158, 200",
+        "--primary-cyan": "rgb(168, 238, 246)",
+        "--primary-green": "rgb(94, 214, 230)"
+      },
+      "domNodes": 436,
+      "focusTrace": [
+        {
+          "tag": "A",
+          "cls": "logo",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        }
+      ],
+      "coverage": null,
+      "consoleErrors": [],
+      "resourcesByType": {
+        "text/html": {
+          "count": 3,
+          "bytes": 209538
+        },
+        "text/css": {
+          "count": 6,
+          "bytes": 150179
+        },
+        "image/png": {
+          "count": 1,
+          "bytes": 47156
+        },
+        "text/javascript": {
+          "count": 7,
+          "bytes": 980395
+        },
+        "video/mp4": {
+          "count": 1,
+          "bytes": 992664
+        },
+        "application/octet-stream": {
+          "count": 1,
+          "bytes": 150124
+        },
+        "font/woff2": {
+          "count": 4,
+          "bytes": 97324
+        },
+        "other": {
+          "count": 1,
+          "bytes": 0
+        },
+        "image/jpeg": {
+          "count": 1,
+          "bytes": 58677
+        },
+        "application/json": {
+          "count": 2,
+          "bytes": 151
+        },
+        "application/json+protobuf": {
+          "count": 1,
+          "bytes": 120
+        }
+      },
+      "biggest": [
+        "992664 assets/videos/rino-video-transparent.mp4",
+        "526956 https://www.youtube.com/s/player/0229cd64/player_embed.vflset/pt_BR/base.js",
+        "246655 https://www.youtube.com/s/_/ytembeds/_/js/k=ytembeds.base.en_US.L9bVgDs7sK4.es5.O/ck=ytemb",
+        "174087 https://www.youtube.com/s/_/ytembeds/_/js/k=ytembeds.base.en_US.L9bVgDs7sK4.es5.O/am=AAAAI",
+        "153408 https://www.youtube.com/embed/13w3h_VjvGs?si=R_sfa_LmJYUAU3Jw",
+        "150124 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+        "59016 https://www.youtube.com/s/player/0229cd64/www-player.css",
+        "58677 https://i.ytimg.com/vi/13w3h_VjvGs/sddefault.jpg",
+        "56130 pages/planejamento-sucessorio.html",
+        "47156 assets/images/RINO_logo.png"
+      ],
+      "totalBytes": 2686328,
+      "requests": 28
+    }
+  },
+  "consultoria-imobiliaria": {
+    "desktop": {
+      "title": "Consultoria Imobiliária | Complexo DMC",
+      "bodyClass": "np-eixo np-pillar-imobiliario",
+      "fonts": [
+        "DM Sans 400 normal",
+        "DM Sans 600 normal",
+        "DM Sans 700 normal",
+        "Poppins 800 normal",
+        "Raleway 600 normal",
+        "Font Awesome 6 Free 900 normal"
+      ],
+      "h1": {
+        "sel": "h1",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "56px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "body": {
+        "sel": "body",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(10, 10, 10)"
+      },
+      "h2": {
+        "sel": "h2",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "44px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "btn": {
+        "sel": ".btn-primary, .np-btn, .cta-button, .page-hero__cta a, a.btn",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "15.2px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(17, 17, 17, 0.72)"
+      },
+      "topColors": [
+        [
+          "rgb(255, 255, 255)",
+          485
+        ],
+        [
+          "rgb(127, 180, 255)",
+          68
+        ],
+        [
+          "rgb(179, 179, 179)",
+          66
+        ],
+        [
+          "rgb(186, 214, 255)",
+          54
+        ],
+        [
+          "rgb(128, 128, 128)",
+          46
+        ],
+        [
+          "rgb(10, 10, 10)",
+          22
+        ],
+        [
+          "rgba(255, 255, 255, 0.78)",
+          18
+        ],
+        [
+          "rgba(255, 255, 255, 0.08)",
+          13
+        ],
+        [
+          "rgba(186, 214, 255, 0.3)",
+          12
+        ],
+        [
+          "rgba(255, 255, 255, 0.62)",
+          12
+        ],
+        [
+          "rgb(253, 253, 253)",
+          12
+        ],
+        [
+          "rgba(253, 253, 253, 0.62)",
+          12
+        ],
+        [
+          "rgb(0, 0, 0)",
+          8
+        ],
+        [
+          "rgba(10, 10, 10, 0.85)",
+          7
+        ],
+        [
+          "rgb(21, 25, 28)",
+          6
+        ]
+      ],
+      "landmarks": {
+        "main": 0,
+        "header": 0,
+        "nav": 1,
+        "footer": 1,
+        "h1": 1,
+        "skipLink": false
+      },
+      "headingsSeq": "H1 H3 H3 H2 H3 H3 H3 H3 H3 H3 H2 H2 H3 H3 H3 H2 H2 H2 H2",
+      "focusableCount": 23,
+      "revealOpacity0": 5,
+      "totalRevealEls": 7,
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "gradientsInUse": 45,
+      "backdropFilterEls": 5,
+      "menuToggleAria": {
+        "expanded": null,
+        "controls": null
+      },
+      "rootVars": {
+        "--np-accent": "",
+        "--primary-cyan": "#00e7fc",
+        "--primary-green": "#00ff4d",
+        "--bg-primary": "#0a0a0a",
+        "--text-primary": "#ffffff",
+        "--font-primary": "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        "--font-display": "'Raleway', 'DM Sans', sans-serif",
+        "--gradient-primary": "linear-gradient(90deg, #00e7fc 0%, #00ff4d 100%)"
+      },
+      "bodyVars": {
+        "--np-accent": "127, 180, 255",
+        "--np-accent-deep": "74, 124, 245",
+        "--primary-cyan": "rgb(186, 214, 255)",
+        "--primary-green": "rgb(127, 180, 255)"
+      },
+      "domNodes": 440,
+      "focusTrace": [
+        {
+          "tag": "A",
+          "cls": "logo",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        }
+      ],
+      "coverage": [
+        {
+          "url": "pages/consultoria-imobiliaria.html",
+          "total": 4437,
+          "used": 3710,
+          "usedPct": 84
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "total": 12870,
+          "used": 0,
+          "usedPct": 0
+        },
+        {
+          "url": "pages/consultoria-imobiliaria.html",
+          "total": 3681,
+          "used": 3010,
+          "usedPct": 82
+        },
+        {
+          "url": "pages/css/eixos.css",
+          "total": 15940,
+          "used": 6251,
+          "usedPct": 39
+        },
+        {
+          "url": "pages/css/consultoria-imobiliaria.css",
+          "total": 45084,
+          "used": 22757,
+          "usedPct": 50
+        },
+        {
+          "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css",
+          "total": 102025,
+          "used": 778,
+          "usedPct": 1
+        },
+        {
+          "url": "pages/consultoria-imobiliaria.html",
+          "total": 9544,
+          "used": 6060,
+          "usedPct": 63
+        },
+        {
+          "url": "https://www.youtube.com/embed/13w3h_VjvGs",
+          "total": 9438,
+          "used": 0,
+          "usedPct": 0
+        },
+        {
+          "url": "https://www.youtube.com/s/_/ytembeds/_/ss/k=ytembeds.base.CM9xcvOf5Pc.L.W.O/am=AAAAIIAx/d=1/br=1/rs=AGKMywGivgpp1KxybH3UacetDo0IfBA_Pg/m=root,base",
+          "total": 11682,
+          "used": 11672,
+          "usedPct": 100
+        },
+        {
+          "url": "https://www.youtube.com/s/player/0229cd64/www-player.css",
+          "total": 550436,
+          "used": 2459,
+          "usedPct": 0
+        }
+      ],
+      "consoleErrors": [],
+      "resourcesByType": {
+        "text/html": {
+          "count": 3,
+          "bytes": 214920
+        },
+        "text/css": {
+          "count": 6,
+          "bytes": 154469
+        },
+        "image/png": {
+          "count": 1,
+          "bytes": 47156
+        },
+        "text/javascript": {
+          "count": 8,
+          "bytes": 1003323
+        },
+        "video/mp4": {
+          "count": 1,
+          "bytes": 992664
+        },
+        "other": {
+          "count": 2,
+          "bytes": 0
+        },
+        "application/octet-stream": {
+          "count": 1,
+          "bytes": 150124
+        },
+        "font/woff2": {
+          "count": 4,
+          "bytes": 97324
+        },
+        "image/jpeg": {
+          "count": 1,
+          "bytes": 58677
+        },
+        "application/json": {
+          "count": 4,
+          "bytes": 155
+        },
+        "application/json+protobuf": {
+          "count": 1,
+          "bytes": 122
+        }
+      },
+      "biggest": [
+        "992664 assets/videos/rino-video-transparent.mp4",
+        "526956 https://www.youtube.com/s/player/0229cd64/player_embed.vflset/pt_BR/base.js",
+        "245243 https://www.youtube.com/s/_/ytembeds/_/js/k=ytembeds.base.en_US.L9bVgDs7sK4.es5.O/ck=ytemb",
+        "176731 https://www.youtube.com/s/_/ytembeds/_/js/k=ytembeds.base.en_US.L9bVgDs7sK4.es5.O/am=AAAAI",
+        "153001 https://www.youtube.com/embed/13w3h_VjvGs?si=R_sfa_LmJYUAU3Jw",
+        "150124 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+        "61919 pages/consultoria-imobiliaria.html",
+        "59016 https://www.youtube.com/s/player/0229cd64/www-player.css",
+        "58677 https://i.ytimg.com/vi/13w3h_VjvGs/sddefault.jpg",
+        "47156 assets/images/RINO_logo.png"
+      ],
+      "totalBytes": 2718934,
+      "requests": 32
+    },
+    "mobile": {
+      "title": "Consultoria Imobiliária | Complexo DMC",
+      "bodyClass": "np-eixo np-pillar-imobiliario",
+      "fonts": [
+        "DM Sans 400 normal",
+        "DM Sans 600 normal",
+        "DM Sans 700 normal",
+        "Poppins 800 normal",
+        "Raleway 600 normal",
+        "Font Awesome 6 Free 900 normal"
+      ],
+      "h1": {
+        "sel": "h1",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "28.8px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "body": {
+        "sel": "body",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(10, 10, 10)"
+      },
+      "h2": {
+        "sel": "h2",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "31.2px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "btn": {
+        "sel": ".btn-primary, .np-btn, .cta-button, .page-hero__cta a, a.btn",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "15.2px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(17, 17, 17, 0.72)"
+      },
+      "topColors": [
+        [
+          "rgb(255, 255, 255)",
+          485
+        ],
+        [
+          "rgb(127, 180, 255)",
+          68
+        ],
+        [
+          "rgb(179, 179, 179)",
+          66
+        ],
+        [
+          "rgb(186, 214, 255)",
+          54
+        ],
+        [
+          "rgb(128, 128, 128)",
+          46
+        ],
+        [
+          "rgb(10, 10, 10)",
+          22
+        ],
+        [
+          "rgba(255, 255, 255, 0.78)",
+          18
+        ],
+        [
+          "rgba(255, 255, 255, 0.08)",
+          13
+        ],
+        [
+          "rgba(186, 214, 255, 0.3)",
+          12
+        ],
+        [
+          "rgba(255, 255, 255, 0.62)",
+          12
+        ],
+        [
+          "rgb(253, 253, 253)",
+          12
+        ],
+        [
+          "rgba(253, 253, 253, 0.62)",
+          12
+        ],
+        [
+          "rgb(0, 0, 0)",
+          8
+        ],
+        [
+          "rgba(10, 10, 10, 0.85)",
+          7
+        ],
+        [
+          "rgb(21, 25, 28)",
+          6
+        ]
+      ],
+      "landmarks": {
+        "main": 0,
+        "header": 0,
+        "nav": 1,
+        "footer": 1,
+        "h1": 1,
+        "skipLink": false
+      },
+      "headingsSeq": "H1 H3 H3 H2 H3 H3 H3 H3 H3 H3 H2 H2 H3 H3 H3 H2 H2 H2 H2",
+      "focusableCount": 24,
+      "revealOpacity0": 7,
+      "totalRevealEls": 7,
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "gradientsInUse": 45,
+      "backdropFilterEls": 5,
+      "menuToggleAria": {
+        "expanded": null,
+        "controls": null
+      },
+      "rootVars": {
+        "--np-accent": "",
+        "--primary-cyan": "#00e7fc",
+        "--primary-green": "#00ff4d",
+        "--bg-primary": "#0a0a0a",
+        "--text-primary": "#ffffff",
+        "--font-primary": "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        "--font-display": "'Raleway', 'DM Sans', sans-serif",
+        "--gradient-primary": "linear-gradient(90deg, #00e7fc 0%, #00ff4d 100%)"
+      },
+      "bodyVars": {
+        "--np-accent": "127, 180, 255",
+        "--np-accent-deep": "74, 124, 245",
+        "--primary-cyan": "rgb(186, 214, 255)",
+        "--primary-green": "rgb(127, 180, 255)"
+      },
+      "domNodes": 440,
+      "focusTrace": [
+        {
+          "tag": "A",
+          "cls": "logo",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "auto 3px",
+          "boxShadow": "none"
+        }
+      ],
+      "coverage": null,
+      "consoleErrors": [],
+      "resourcesByType": {
+        "text/html": {
+          "count": 3,
+          "bytes": 215618
+        },
+        "text/css": {
+          "count": 6,
+          "bytes": 154469
+        },
+        "text/javascript": {
+          "count": 8,
+          "bytes": 1003323
+        },
+        "image/png": {
+          "count": 1,
+          "bytes": 47156
+        },
+        "video/mp4": {
+          "count": 1,
+          "bytes": 992664
+        },
+        "other": {
+          "count": 2,
+          "bytes": 0
+        },
+        "application/octet-stream": {
+          "count": 1,
+          "bytes": 150124
+        },
+        "font/woff2": {
+          "count": 4,
+          "bytes": 97324
+        },
+        "image/jpeg": {
+          "count": 1,
+          "bytes": 58677
+        },
+        "application/json": {
+          "count": 4,
+          "bytes": 155
+        },
+        "application/json+protobuf": {
+          "count": 1,
+          "bytes": 122
+        }
+      },
+      "biggest": [
+        "992664 assets/videos/rino-video-transparent.mp4",
+        "526956 https://www.youtube.com/s/player/0229cd64/player_embed.vflset/pt_BR/base.js",
+        "245243 https://www.youtube.com/s/_/ytembeds/_/js/k=ytembeds.base.en_US.L9bVgDs7sK4.es5.O/ck=ytemb",
+        "176731 https://www.youtube.com/s/_/ytembeds/_/js/k=ytembeds.base.en_US.L9bVgDs7sK4.es5.O/am=AAAAI",
+        "153699 https://www.youtube.com/embed/13w3h_VjvGs?si=R_sfa_LmJYUAU3Jw",
+        "150124 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2",
+        "61919 pages/consultoria-imobiliaria.html",
+        "59016 https://www.youtube.com/s/player/0229cd64/www-player.css",
+        "58677 https://i.ytimg.com/vi/13w3h_VjvGs/sddefault.jpg",
+        "47156 assets/images/RINO_logo.png"
+      ],
+      "totalBytes": 2719632,
+      "requests": 32
+    }
+  },
+  "ciclo-fechado": {
+    "desktop": {
+      "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+      "bodyClass": "sol-page np-eixo np-pillar-trabalhista js-reveal",
+      "fonts": [
+        "DM Sans 300 normal",
+        "DM Sans 400 normal",
+        "DM Sans 600 normal",
+        "DM Sans 700 normal",
+        "Raleway 600 normal",
+        "Raleway 700 normal",
+        "Raleway 800 normal"
+      ],
+      "h1": {
+        "sel": "h1",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "56px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "body": {
+        "sel": "body",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(10, 10, 10)"
+      },
+      "h2": {
+        "sel": "h2",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "40px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "btn": {
+        "sel": ".btn-primary, .np-btn, .cta-button, .page-hero__cta a, a.btn",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "15.2px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(17, 17, 17, 0.72)"
+      },
+      "topColors": [
+        [
+          "rgb(255, 255, 255)",
+          212
+        ],
+        [
+          "rgb(185, 140, 245)",
+          143
+        ],
+        [
+          "rgb(179, 179, 179)",
+          36
+        ],
+        [
+          "rgb(128, 128, 128)",
+          17
+        ],
+        [
+          "rgba(255, 255, 255, 0.08)",
+          15
+        ],
+        [
+          "rgba(255, 255, 255, 0.1)",
+          13
+        ],
+        [
+          "rgb(0, 0, 0)",
+          8
+        ],
+        [
+          "rgba(185, 140, 245, 0.22)",
+          8
+        ],
+        [
+          "rgb(17, 17, 17)",
+          7
+        ],
+        [
+          "rgba(185, 140, 245, 0.1)",
+          7
+        ],
+        [
+          "rgb(253, 253, 253)",
+          6
+        ],
+        [
+          "rgba(253, 253, 253, 0.42)",
+          6
+        ],
+        [
+          "rgba(17, 17, 17, 0.4)",
+          3
+        ],
+        [
+          "rgb(21, 25, 28)",
+          3
+        ],
+        [
+          "rgba(185, 140, 245, 0.08)",
+          2
+        ]
+      ],
+      "landmarks": {
+        "main": 1,
+        "header": 1,
+        "nav": 2,
+        "footer": 1,
+        "h1": 1,
+        "skipLink": false
+      },
+      "headingsSeq": "H1 H2 H3 H3 H3 H2 H2 H2",
+      "focusableCount": 24,
+      "revealOpacity0": 2,
+      "totalRevealEls": 3,
+      "horizontalScroll": false,
+      "scrollWidth": 1440,
+      "gradientsInUse": 17,
+      "backdropFilterEls": 5,
+      "menuToggleAria": {
+        "expanded": null,
+        "controls": null
+      },
+      "rootVars": {
+        "--np-accent": "",
+        "--primary-cyan": "#00e7fc",
+        "--primary-green": "#00ff4d",
+        "--bg-primary": "#0a0a0a",
+        "--text-primary": "#ffffff",
+        "--font-primary": "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        "--font-display": "'Raleway', 'DM Sans', sans-serif",
+        "--gradient-primary": "linear-gradient(90deg, #00e7fc 0%, #00ff4d 100%)"
+      },
+      "bodyVars": {
+        "--np-accent": "185, 140, 245",
+        "--np-accent-deep": "124, 92, 255",
+        "--primary-cyan": "rgb(226, 178, 255)",
+        "--primary-green": "rgb(185, 140, 245)"
+      },
+      "domNodes": 268,
+      "focusTrace": [
+        {
+          "tag": "A",
+          "cls": "logo",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        }
+      ],
+      "coverage": [
+        {
+          "url": "https://fonts.googleapis.com/css2",
+          "total": 9122,
+          "used": 0,
+          "usedPct": 0
+        },
+        {
+          "url": "pages/css/shared.css",
+          "total": 43458,
+          "used": 21064,
+          "usedPct": 48
+        },
+        {
+          "url": "pages/css/solucao.css",
+          "total": 14452,
+          "used": 5396,
+          "usedPct": 37
+        },
+        {
+          "url": "pages/css/eixos.css",
+          "total": 15940,
+          "used": 3554,
+          "usedPct": 22
+        }
+      ],
+      "consoleErrors": [],
+      "resourcesByType": {
+        "text/html": {
+          "count": 1,
+          "bytes": 21516
+        },
+        "text/css": {
+          "count": 4,
+          "bytes": 83234
+        },
+        "image/png": {
+          "count": 1,
+          "bytes": 47156
+        },
+        "text/javascript": {
+          "count": 3,
+          "bytes": 15082
+        },
+        "font/woff2": {
+          "count": 2,
+          "bytes": 80100
+        }
+      },
+      "biggest": [
+        "47156 assets/images/RINO_logo.png",
+        "43486 pages/css/shared.css?v=3",
+        "43120 https://fonts.gstatic.com/s/raleway/v37/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2",
+        "36980 https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K6z9mXg.woff2",
+        "21516 solucoes/consultoria-trabalhista/ciclo-fechado.html",
+        "16055 pages/css/eixos.css?v=3",
+        "14571 pages/css/solucao.css?v=3",
+        "9122 https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&family=Raleway:wght@",
+        "7023 assets/js/solucao.js",
+        "4413 assets/js/navbar.js"
+      ],
+      "totalBytes": 247088,
+      "requests": 11
+    },
+    "mobile": {
+      "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+      "bodyClass": "sol-page np-eixo np-pillar-trabalhista js-reveal",
+      "fonts": [
+        "DM Sans 300 normal",
+        "DM Sans 400 normal",
+        "DM Sans 600 normal",
+        "DM Sans 700 normal",
+        "Raleway 600 normal",
+        "Raleway 700 normal",
+        "Raleway 800 normal"
+      ],
+      "h1": {
+        "sel": "h1",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "28.8px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "body": {
+        "sel": "body",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "16px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgb(10, 10, 10)"
+      },
+      "h2": {
+        "sel": "h2",
+        "fontFamily": "Raleway, \"DM Sans\", sans-serif",
+        "fontSize": "24px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      "btn": {
+        "sel": ".btn-primary, .np-btn, .cta-button, .page-hero__cta a, a.btn",
+        "fontFamily": "\"DM Sans\", -apple-system, \"system-ui\", \"Segoe UI\", sans-serif",
+        "fontSize": "15.2px",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(17, 17, 17, 0.72)"
+      },
+      "topColors": [
+        [
+          "rgb(255, 255, 255)",
+          212
+        ],
+        [
+          "rgb(185, 140, 245)",
+          143
+        ],
+        [
+          "rgb(179, 179, 179)",
+          36
+        ],
+        [
+          "rgb(128, 128, 128)",
+          17
+        ],
+        [
+          "rgba(255, 255, 255, 0.08)",
+          15
+        ],
+        [
+          "rgba(255, 255, 255, 0.1)",
+          13
+        ],
+        [
+          "rgb(0, 0, 0)",
+          8
+        ],
+        [
+          "rgba(185, 140, 245, 0.22)",
+          8
+        ],
+        [
+          "rgb(17, 17, 17)",
+          7
+        ],
+        [
+          "rgba(185, 140, 245, 0.1)",
+          7
+        ],
+        [
+          "rgb(253, 253, 253)",
+          6
+        ],
+        [
+          "rgba(253, 253, 253, 0.42)",
+          6
+        ],
+        [
+          "rgba(17, 17, 17, 0.4)",
+          3
+        ],
+        [
+          "rgb(21, 25, 28)",
+          3
+        ],
+        [
+          "rgba(185, 140, 245, 0.08)",
+          2
+        ]
+      ],
+      "landmarks": {
+        "main": 1,
+        "header": 1,
+        "nav": 2,
+        "footer": 1,
+        "h1": 1,
+        "skipLink": false
+      },
+      "headingsSeq": "H1 H2 H3 H3 H3 H2 H2 H2",
+      "focusableCount": 25,
+      "revealOpacity0": 2,
+      "totalRevealEls": 3,
+      "horizontalScroll": false,
+      "scrollWidth": 390,
+      "gradientsInUse": 17,
+      "backdropFilterEls": 5,
+      "menuToggleAria": {
+        "expanded": null,
+        "controls": null
+      },
+      "rootVars": {
+        "--np-accent": "",
+        "--primary-cyan": "#00e7fc",
+        "--primary-green": "#00ff4d",
+        "--bg-primary": "#0a0a0a",
+        "--text-primary": "#ffffff",
+        "--font-primary": "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        "--font-display": "'Raleway', 'DM Sans', sans-serif",
+        "--gradient-primary": "linear-gradient(90deg, #00e7fc 0%, #00ff4d 100%)"
+      },
+      "bodyVars": {
+        "--np-accent": "185, 140, 245",
+        "--np-accent-deep": "124, 92, 255",
+        "--primary-cyan": "rgb(226, 178, 255)",
+        "--primary-green": "rgb(185, 140, 245)"
+      },
+      "domNodes": 268,
+      "focusTrace": [
+        {
+          "tag": "A",
+          "cls": "logo",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        },
+        {
+          "tag": "A",
+          "cls": "nav-link",
+          "outline": "solid 3px",
+          "boxShadow": "none"
+        }
+      ],
+      "coverage": null,
+      "consoleErrors": [],
+      "resourcesByType": {
+        "text/html": {
+          "count": 3,
+          "bytes": 85648
+        },
+        "text/css": {
+          "count": 4,
+          "bytes": 84436
+        },
+        "image/png": {
+          "count": 1,
+          "bytes": 47156
+        },
+        "text/javascript": {
+          "count": 3,
+          "bytes": 15082
+        }
+      },
+      "biggest": [
+        "47156 assets/images/RINO_logo.png",
+        "43486 pages/css/shared.css?v=3",
+        "33244 https://fonts.gstatic.com/l/font?kit=1PtEg8zYS_SKggPN4iEgvnHyvveLxVsEpeKEFkDvuIxa1M6lKWVXh",
+        "30888 https://fonts.gstatic.com/l/font?kit=rP2-p2ywxg089UriI5-g4vlH9VoD8CmcqZG40F9JadbnoEwA_JwDR",
+        "21516 solucoes/consultoria-trabalhista/ciclo-fechado.html",
+        "16055 pages/css/eixos.css?v=3",
+        "14571 pages/css/solucao.css?v=3",
+        "10324 https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;600;700&family=Raleway:wght@",
+        "7023 assets/js/solucao.js",
+        "4413 assets/js/navbar.js"
+      ],
+      "totalBytes": 232322,
+      "requests": 11
+    }
+  }
+}

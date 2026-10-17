@@ -1,0 +1,25 @@
+// Submete o formulário de contato da home local e registra requisições de rede.
+import { chromium } from 'playwright';
+import fs from 'node:fs';
+const out = process.argv[2];
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+const reqs = [];
+page.on('request', r => reqs.push({ method: r.method(), url: r.url(), type: r.resourceType() }));
+await page.goto('http://127.0.0.1:8080/complexodmc.com.br/index.html', { waitUntil: 'networkidle' });
+const form = page.locator('#contactForm');
+const info = await form.evaluate(f => ({ action: f.action, method: f.method, enctype: f.enctype, campos: [...f.elements].map(e => ({ name: e.name, type: e.type, required: e.required })) }));
+const antes = reqs.length;
+await form.scrollIntoViewIfNeeded();
+await page.fill('#contactForm [name=nome]', 'Auditoria DMC');
+await page.fill('#contactForm [name=email]', 'auditoria@example.com');
+await page.fill('#contactForm [name=telefone]', '11999990000');
+await page.fill('#contactForm [name=mensagem]', 'Mensagem de teste da auditoria backend.');
+await page.click('#contactForm .submit-btn');
+await page.waitForTimeout(2500);
+const formMessageExiste = await page.locator('#formMessage').count();
+const depois = reqs.slice(antes).filter(r => !/\.(png|jpg|webp|mp4|woff2?|css|js|svg)(\?|$)/i.test(r.url));
+await page.screenshot({ path: out + '/contato-apos-submit.png', fullPage: false });
+fs.writeFileSync(out + '/contato-form.json', JSON.stringify({ form: info, requisicoesAposSubmit: depois, elementoFormMessageExiste: formMessageExiste > 0 }, null, 2));
+console.log(JSON.stringify({ form: info, requisicoesAposSubmit: depois, elementoFormMessageExiste: formMessageExiste > 0 }, null, 2));
+await browser.close();

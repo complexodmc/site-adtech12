@@ -1,0 +1,443 @@
+[
+  {
+    "page": "home",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+    "width": 320,
+    "navError": null,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Empresarial - Soluções Estratégicas",
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (File not found)"
+    ],
+    "pageErrors": [],
+    "failedRequests": [
+      {
+        "status": 404,
+        "url": "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+    "width": 375,
+    "navError": null,
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Empresarial - Soluções Estratégicas",
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (File not found)"
+    ],
+    "pageErrors": [],
+    "failedRequests": [
+      {
+        "status": 404,
+        "url": "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+    "width": 390,
+    "navError": null,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Empresarial - Soluções Estratégicas",
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (File not found)"
+    ],
+    "pageErrors": [],
+    "failedRequests": [
+      {
+        "status": 404,
+        "url": "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+    "width": 768,
+    "navError": null,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Empresarial - Soluções Estratégicas",
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (File not found)"
+    ],
+    "pageErrors": [],
+    "failedRequests": [
+      {
+        "status": 404,
+        "url": "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+    "width": 1024,
+    "navError": null,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Empresarial - Soluções Estratégicas",
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (File not found)"
+    ],
+    "pageErrors": [],
+    "failedRequests": [
+      {
+        "status": 404,
+        "url": "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+    "width": 1440,
+    "navError": null,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Empresarial - Soluções Estratégicas",
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (File not found)"
+    ],
+    "pageErrors": [],
+    "failedRequests": [
+      {
+        "status": 404,
+        "url": "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png"
+      }
+    ]
+  },
+  {
+    "page": "home",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/index.html",
+    "width": 1920,
+    "navError": null,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Empresarial - Soluções Estratégicas",
+    "consoleErrors": [
+      "Failed to load resource: the server responded with a status of 404 (File not found)"
+    ],
+    "pageErrors": [],
+    "failedRequests": [
+      {
+        "status": 404,
+        "url": "http://127.0.0.1:8080/complexodmc.com.br/assets/images/logo.png"
+      }
+    ]
+  },
+  {
+    "page": "planejamento-sucessorio",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio.html",
+    "width": 320,
+    "navError": null,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "overflow": false,
+    "culprits": [],
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "planejamento-sucessorio",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio.html",
+    "width": 375,
+    "navError": null,
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false,
+    "culprits": [],
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "planejamento-sucessorio",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio.html",
+    "width": 390,
+    "navError": null,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false,
+    "culprits": [],
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "planejamento-sucessorio",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio.html",
+    "width": 768,
+    "navError": null,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "overflow": false,
+    "culprits": [],
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "planejamento-sucessorio",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio.html",
+    "width": 1024,
+    "navError": null,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false,
+    "culprits": [],
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "planejamento-sucessorio",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio.html",
+    "width": 1440,
+    "navError": null,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false,
+    "culprits": [],
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "planejamento-sucessorio",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/planejamento-sucessorio.html",
+    "width": 1920,
+    "navError": null,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "overflow": false,
+    "culprits": [],
+    "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "consultoria-imobiliaria",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html",
+    "width": 320,
+    "navError": "page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html\", waiting until \"networkidle\"\n",
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Imobiliária | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "consultoria-imobiliaria",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html",
+    "width": 375,
+    "navError": "page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html\", waiting until \"networkidle\"\n",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Imobiliária | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "consultoria-imobiliaria",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html",
+    "width": 390,
+    "navError": "page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html\", waiting until \"networkidle\"\n",
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Imobiliária | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "consultoria-imobiliaria",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html",
+    "width": 768,
+    "navError": "page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html\", waiting until \"networkidle\"\n",
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Imobiliária | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "consultoria-imobiliaria",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html",
+    "width": 1024,
+    "navError": "page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html\", waiting until \"networkidle\"\n",
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Imobiliária | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "consultoria-imobiliaria",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html",
+    "width": 1440,
+    "navError": "page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html\", waiting until \"networkidle\"\n",
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Imobiliária | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "consultoria-imobiliaria",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html",
+    "width": 1920,
+    "navError": "page.goto: Timeout 45000ms exceeded.\nCall log:\n  - navigating to \"http://127.0.0.1:8080/complexodmc.com.br/pages/consultoria-imobiliaria.html\", waiting until \"networkidle\"\n",
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "overflow": false,
+    "culprits": [],
+    "title": "Consultoria Imobiliária | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "ciclo-fechado",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "width": 320,
+    "navError": null,
+    "scrollWidth": 320,
+    "clientWidth": 320,
+    "overflow": false,
+    "culprits": [],
+    "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "ciclo-fechado",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "width": 375,
+    "navError": null,
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflow": false,
+    "culprits": [],
+    "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "ciclo-fechado",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "width": 390,
+    "navError": null,
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "overflow": false,
+    "culprits": [],
+    "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "ciclo-fechado",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "width": 768,
+    "navError": null,
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "overflow": false,
+    "culprits": [],
+    "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "ciclo-fechado",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "width": 1024,
+    "navError": null,
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "overflow": false,
+    "culprits": [],
+    "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "ciclo-fechado",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "width": 1440,
+    "navError": null,
+    "scrollWidth": 1440,
+    "clientWidth": 1440,
+    "overflow": false,
+    "culprits": [],
+    "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  },
+  {
+    "page": "ciclo-fechado",
+    "url": "http://127.0.0.1:8080/complexodmc.com.br/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+    "width": 1920,
+    "navError": null,
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "overflow": false,
+    "culprits": [],
+    "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC",
+    "consoleErrors": [],
+    "pageErrors": [],
+    "failedRequests": []
+  }
+]

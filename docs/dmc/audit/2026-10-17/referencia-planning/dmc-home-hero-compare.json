@@ -1,0 +1,306 @@
+{
+  "390": {
+    "video": {
+      "src": "http://127.0.0.1:8080/complexodmc.com.br/assets/videos/rino-hero.mp4",
+      "poster": "http://127.0.0.1:8080/complexodmc.com.br/assets/images/hero-poster.jpg",
+      "w": 1280,
+      "h": 720,
+      "duration": 11.708333,
+      "paused": false,
+      "readyState": 4,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 792
+      },
+      "objectFit": "cover",
+      "autoplay": true,
+      "muted": true,
+      "loop": true,
+      "playsInline": true,
+      "preload": "auto"
+    },
+    "h1": {
+      "text": "Consultoria empresarial,\ntributária e contábil",
+      "rect": {
+        "x": 32,
+        "y": 295,
+        "w": 326,
+        "h": 95
+      },
+      "size": "28.8px",
+      "weight": "700",
+      "font": "Inter, -apple-system, \"system-ui\", \"Sego",
+      "color": "rgb(232, 237, 243)",
+      "lh": "31.68px"
+    },
+    "hero": {
+      "cls": "hero-title",
+      "rect": {
+        "x": 32,
+        "y": 295,
+        "w": 326,
+        "h": 95
+      }
+    },
+    "nav": {
+      "rect": {
+        "x": 8,
+        "y": 24,
+        "w": 374,
+        "h": 65
+      },
+      "bg": "rgba(17, 17, 17, 0.4)",
+      "pos": "fixed",
+      "links": [
+        "COMPLEXO DMC",
+        "Início",
+        "Sobre",
+        "Produtos",
+        "Fale Conosco",
+        "Consultoria Imobiliária",
+        "Cursos",
+        "Login"
+      ]
+    },
+    "docH": 11906,
+    "docW": 390,
+    "ctas": [
+      {
+        "t": "Fale Conosco",
+        "rect": {
+          "x": 146,
+          "y": 206,
+          "w": 99,
+          "h": 19
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "Fale agora mesmo com nossos especialistas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "Fale agora mesmo com nossos especialistas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "Fale agora mesmo com nossos especialistas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "Fale agora mesmo com nossos especialistas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "Fale agora mesmo com nossos especialistas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "E3 · Direito Notarial e Imobiliário\n            \n ",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgb(22, 27, 34)"
+      },
+      {
+        "t": "E3 · Direito Notarial e Imobiliário\n            \n ",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgb(22, 27, 34)"
+      }
+    ]
+  },
+  "1440": {
+    "video": {
+      "src": "http://127.0.0.1:8080/complexodmc.com.br/assets/videos/rino-hero.mp4",
+      "poster": "http://127.0.0.1:8080/complexodmc.com.br/assets/images/hero-poster.jpg",
+      "w": 1280,
+      "h": 720,
+      "duration": 11.708333,
+      "paused": false,
+      "readyState": 4,
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 848
+      },
+      "objectFit": "cover",
+      "autoplay": true,
+      "muted": true,
+      "loop": true,
+      "playsInline": true,
+      "preload": "auto"
+    },
+    "h1": {
+      "text": "Consultoria empresarial,\ntributária e contábil",
+      "rect": {
+        "x": 138,
+        "y": 324,
+        "w": 732,
+        "h": 134
+      },
+      "size": "60.8px",
+      "weight": "700",
+      "font": "Inter, -apple-system, \"system-ui\", \"Sego",
+      "color": "rgb(232, 237, 243)",
+      "lh": "66.88px"
+    },
+    "hero": {
+      "cls": "hero-title",
+      "rect": {
+        "x": 138,
+        "y": 324,
+        "w": 732,
+        "h": 134
+      }
+    },
+    "nav": {
+      "rect": {
+        "x": 220,
+        "y": 24,
+        "w": 1000,
+        "h": 78
+      },
+      "bg": "rgba(17, 17, 17, 0.4)",
+      "pos": "fixed",
+      "links": [
+        "COMPLEXO DMC",
+        "Início",
+        "Sobre",
+        "Produtos",
+        "Fale Conosco",
+        "Consultoria Imobiliária",
+        "Cursos",
+        "Login"
+      ]
+    },
+    "docH": 9886,
+    "docW": 1440,
+    "ctas": [
+      {
+        "t": "Fale Conosco",
+        "rect": {
+          "x": 733,
+          "y": 53,
+          "w": 99,
+          "h": 19
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "Fale agora mesmo com nossos especialistas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "Fale agora mesmo com nossos especialistas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "Fale agora mesmo com nossos especialistas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "Fale agora mesmo com nossos especialistas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "Fale agora mesmo com nossos especialistas",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "t": "E3 · Direito Notarial e Imobiliário\n            \n ",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgb(22, 27, 34)"
+      },
+      {
+        "t": "E3 · Direito Notarial e Imobiliário\n            \n ",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgb(22, 27, 34)"
+      }
+    ]
+  },
+  "videoFileSizes": {
+    "rino-hero.mp4": 3727569,
+    "rino-video-transparent.mp4": 992664
+  }
+}

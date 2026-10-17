@@ -20,6 +20,11 @@
   ],
   "redirects": [
     {
+      "source": "/server/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/solucoes/consultoria-trabalhista/defesa-e-capital",
       "destination": "/solucoes/consultoria-trabalhista/defesa-empresarial",
       "permanent": true

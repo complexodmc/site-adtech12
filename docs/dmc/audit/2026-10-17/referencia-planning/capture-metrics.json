@@ -1,0 +1,1406 @@
+{
+  "heroDesktop": {
+    "heroRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 765
+    },
+    "chain": [
+      {
+        "tag": "VIDEO",
+        "cls": "",
+        "rect": {
+          "x": -240,
+          "y": -157,
+          "w": 1920,
+          "h": 1080
+        },
+        "pos": "absolute",
+        "overflow": "clip",
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none",
+        "opacity": "1",
+        "zIndex": "auto",
+        "anim": "none",
+        "animDur": "0s"
+      },
+      {
+        "tag": "DIV",
+        "cls": "active",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 765
+        },
+        "pos": "absolute",
+        "overflow": "visible",
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none",
+        "opacity": "1",
+        "zIndex": "auto",
+        "anim": "opc",
+        "animDur": "1.6s"
+      },
+      {
+        "tag": "DIV",
+        "cls": "slideHome",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 765
+        },
+        "pos": "relative",
+        "overflow": "hidden",
+        "bg": "rgb(0, 0, 0)",
+        "bgImg": "url(\"https://i2.wp.com/planning.com.br/wp-content/uploads/2023/03/solucoes-contabeis-tributarias-financeiras-e-societarias-0e2e.jpg?ssl=1\")",
+        "opacity": "1",
+        "zIndex": "1",
+        "anim": "none",
+        "animDur": "0s"
+      },
+      {
+        "tag": "DIV",
+        "cls": "site-content",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 9415
+        },
+        "pos": "static",
+        "overflow": "visible",
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none",
+        "opacity": "1",
+        "zIndex": "auto",
+        "anim": "none",
+        "animDur": "0s"
+      },
+      {
+        "tag": "DIV",
+        "cls": "",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 10360
+        },
+        "pos": "static",
+        "overflow": "hidden",
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none",
+        "opacity": "1",
+        "zIndex": "auto",
+        "anim": "none",
+        "animDur": "0s"
+      },
+      {
+        "tag": "BODY",
+        "cls": "home wp-singular page-template-default page page-id-2 wp-theme-planning solucoes",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 10360
+        },
+        "pos": "static",
+        "overflow": "visible",
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none",
+        "opacity": "1",
+        "zIndex": "auto",
+        "anim": "none",
+        "animDur": "0s"
+      }
+    ],
+    "overlays": [
+      {
+        "tag": "DIV",
+        "cls": "slide-text",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1440,
+          "h": 765
+        },
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "linear-gradient(4deg, rgb(19, 22, 28) 14%, rgba(19, 22, 28, 0.42) 65%, rgba(19, 22, 28, 0.77) 100%)",
+        "opacity": "1",
+        "mix": "normal"
+      }
+    ],
+    "h1": {
+      "text": "Somos a ponte entre os\ndesafios do seu negócio hoje,\ne o seu negócio do futuro.\nSomos a Planning.",
+      "rect": {
+        "x": 115,
+        "y": 379,
+        "w": 693,
+        "h": 205
+      },
+      "font": "BW, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Helvetica, Cantarell, sans-serif",
+      "size": "42px",
+      "weight": "300",
+      "lh": "50.4px",
+      "color": "rgb(255, 255, 255)",
+      "shadow": "none",
+      "maxW": "none",
+      "anim": "none",
+      "animDur": "0s",
+      "animDelay": "0s",
+      "ls": "normal",
+      "align": "start"
+    },
+    "sub": [
+      {
+        "tag": "SPAN",
+        "text": "",
+        "rect": {
+          "x": 236,
+          "y": 343,
+          "w": 0,
+          "h": 32
+        },
+        "size": "26px",
+        "weight": "900",
+        "color": "rgb(10, 225, 140)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "anim": "none",
+        "animDur": "0s",
+        "animDelay": "0s"
+      },
+      {
+        "tag": "SPAN",
+        "text": "",
+        "rect": {
+          "x": 236,
+          "y": 343,
+          "w": 16,
+          "h": 32
+        },
+        "size": "26px",
+        "weight": "900",
+        "color": "rgb(10, 225, 140)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "anim": "none",
+        "animDur": "0s",
+        "animDelay": "0s"
+      },
+      {
+        "tag": "P",
+        "text": "SAIBA MAIS",
+        "rect": {
+          "x": 115,
+          "y": 599,
+          "w": 693,
+          "h": 66
+        },
+        "size": "16px",
+        "weight": "400",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "anim": "none",
+        "animDur": "0s",
+        "animDelay": "0s"
+      },
+      {
+        "tag": "A",
+        "text": "SAIBA MAIS",
+        "rect": {
+          "x": 115,
+          "y": 619,
+          "w": 220,
+          "h": 46
+        },
+        "size": "16px",
+        "weight": "700",
+        "color": "rgb(0, 0, 0)",
+        "bg": "rgb(10, 225, 140)",
+        "anim": "none",
+        "animDur": "0s",
+        "animDelay": "0s"
+      }
+    ],
+    "keyframes": [
+      {
+        "name": "shake",
+        "css": "@keyframes shake { \n  4.5%, 10.5% { transform: translate(0px, 0px) rotate(0deg); }\n  5% { transform: translate(1px, 1px) rotate(0deg); }\n  5.5% { transform: translate(-1px, -2px) rotate(-1deg); }\n  6% { transform: translate(-3px, 0px) rotate(1deg); }\n  6.5% { transform: translate(3px, 2px) rotate(0deg); }\n  7% { transform: translate(1px, -1px) rotate(1deg); }\n  7.5% { transform: translate(-1px, 2px) rotate(-1deg); }\n  8% { transform: translate(-3px, 1px) rotate(0deg); }\n  8.5% { transform: translate(3px, 1px) rotate(-1deg); }\n  9% { transform: translate(-1px, -1px) rotate(1deg); }\n  9.5% { tra"
+      },
+      {
+        "name": "opc",
+        "css": "@keyframes opc { \n  0% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+      },
+      {
+        "name": "text",
+        "css": "@keyframes text { \n  25% { opacity: 0; }\n  50% { opacity: 1; }\n  75% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+      }
+    ],
+    "vw": 1440,
+    "vh": 900,
+    "scrollY": 0
+  },
+  "menuDesktop": {
+    "headerRect": {
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 94
+    },
+    "headerBg": "rgba(0, 0, 0, 0)",
+    "headerTrans": "all",
+    "top": [
+      {
+        "text": "Sobre",
+        "rect": {
+          "x": 393,
+          "y": 42,
+          "w": 54,
+          "h": 50
+        },
+        "font": "BW, -apple-system, \"",
+        "size": "15.4px",
+        "weight": "400",
+        "color": "rgb(255, 255, 255)",
+        "tt": "none",
+        "ls": "normal",
+        "hasSub": true,
+        "subVisible": false,
+        "subRect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "subBg": "rgba(0, 0, 0, 0)",
+        "subTrans": "all",
+        "subItems": 3
+      },
+      {
+        "text": "Atuação",
+        "rect": {
+          "x": 465,
+          "y": 42,
+          "w": 70,
+          "h": 50
+        },
+        "font": "BW, -apple-system, \"",
+        "size": "15.4px",
+        "weight": "400",
+        "color": "rgb(10, 225, 140)",
+        "tt": "none",
+        "ls": "normal",
+        "hasSub": true,
+        "subVisible": true,
+        "subRect": {
+          "x": 485,
+          "y": 90,
+          "w": 258,
+          "h": 244
+        },
+        "subBg": "rgba(0, 0, 0, 0)",
+        "subTrans": "all",
+        "subItems": 5
+      },
+      {
+        "text": "Verticais",
+        "rect": {
+          "x": 553,
+          "y": 42,
+          "w": 72,
+          "h": 50
+        },
+        "font": "BW, -apple-system, \"",
+        "size": "15.4px",
+        "weight": "400",
+        "color": "rgb(255, 255, 255)",
+        "tt": "none",
+        "ls": "normal",
+        "hasSub": true,
+        "subVisible": false,
+        "subRect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "subBg": "rgba(0, 0, 0, 0)",
+        "subTrans": "all",
+        "subItems": 9
+      },
+      {
+        "text": "Partnership",
+        "rect": {
+          "x": 644,
+          "y": 42,
+          "w": 95,
+          "h": 50
+        },
+        "font": "BW, -apple-system, \"",
+        "size": "15.4px",
+        "weight": "400",
+        "color": "rgb(255, 255, 255)",
+        "tt": "none",
+        "ls": "normal",
+        "hasSub": false,
+        "subVisible": false,
+        "subRect": null,
+        "subBg": null,
+        "subTrans": null,
+        "subItems": 0
+      },
+      {
+        "text": "Cases",
+        "rect": {
+          "x": 742,
+          "y": 42,
+          "w": 53,
+          "h": 50
+        },
+        "font": "BW, -apple-system, \"",
+        "size": "15.4px",
+        "weight": "400",
+        "color": "rgb(255, 255, 255)",
+        "tt": "none",
+        "ls": "normal",
+        "hasSub": false,
+        "subVisible": false,
+        "subRect": null,
+        "subBg": null,
+        "subTrans": null,
+        "subItems": 0
+      },
+      {
+        "text": "Conteúdo | Reforma Tributária",
+        "rect": {
+          "x": 799,
+          "y": 42,
+          "w": 224,
+          "h": 50
+        },
+        "font": "BW, -apple-system, \"",
+        "size": "15.4px",
+        "weight": "400",
+        "color": "rgb(255, 255, 255)",
+        "tt": "none",
+        "ls": "normal",
+        "hasSub": false,
+        "subVisible": false,
+        "subRect": null,
+        "subBg": null,
+        "subTrans": null,
+        "subItems": 0
+      },
+      {
+        "text": "SOLICITAR PROPOSTA",
+        "rect": {
+          "x": 1037,
+          "y": 46,
+          "w": 174,
+          "h": 44
+        },
+        "font": "BW, -apple-system, \"",
+        "size": "13.4px",
+        "weight": "700",
+        "color": "rgb(0, 0, 0)",
+        "tt": "uppercase",
+        "ls": "normal",
+        "hasSub": false,
+        "subVisible": false,
+        "subRect": null,
+        "subBg": null,
+        "subTrans": null,
+        "subItems": 0
+      }
+    ]
+  },
+  "headerScrolled": {
+    "cls": "site-header",
+    "bg": "rgba(0, 0, 0, 0)",
+    "h": 72,
+    "shadow": "none",
+    "backdrop": "none"
+  },
+  "areasDesktop": {
+    "section": {
+      "rect": {
+        "x": 0,
+        "y": 885,
+        "w": 1440,
+        "h": 787
+      },
+      "pad": "80px 0px",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    "h2": {
+      "rect": {
+        "x": 115,
+        "y": 1005,
+        "w": 447,
+        "h": 102
+      },
+      "size": "48px",
+      "weight": "300",
+      "lh": "50.4px"
+    },
+    "items": [
+      {
+        "cls": "item-service inspect in",
+        "rect": {
+          "x": 115,
+          "y": 1187,
+          "w": 210,
+          "h": 406
+        },
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(100, 100, 100)",
+        "radius": "0px",
+        "pad": "0px 0px 60px",
+        "shadow": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.18s",
+        "opacity": "1",
+        "transform": "none",
+        "title": "Contabilidade",
+        "textLen": 0,
+        "icon": true,
+        "cta": "SAIBA MAIS"
+      },
+      {
+        "cls": "item-service inspect in",
+        "rect": {
+          "x": 365,
+          "y": 1187,
+          "w": 210,
+          "h": 406
+        },
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(100, 100, 100)",
+        "radius": "0px",
+        "pad": "0px 0px 60px",
+        "shadow": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.18s",
+        "opacity": "1",
+        "transform": "none",
+        "title": "BPO de Folha de Pagamento",
+        "textLen": 0,
+        "icon": true,
+        "cta": "SAIBA MAIS"
+      },
+      {
+        "cls": "item-service inspect in",
+        "rect": {
+          "x": 615,
+          "y": 1187,
+          "w": 210,
+          "h": 406
+        },
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(100, 100, 100)",
+        "radius": "0px",
+        "pad": "0px 0px 60px",
+        "shadow": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.18s",
+        "opacity": "1",
+        "transform": "none",
+        "title": "Auditoria e Consultoria Tributária",
+        "textLen": 0,
+        "icon": true,
+        "cta": "SAIBA MAIS"
+      },
+      {
+        "cls": "item-service inspect in",
+        "rect": {
+          "x": 865,
+          "y": 1187,
+          "w": 210,
+          "h": 406
+        },
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(100, 100, 100)",
+        "radius": "0px",
+        "pad": "0px 0px 60px",
+        "shadow": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.18s",
+        "opacity": "1",
+        "transform": "none",
+        "title": "Inteligência Tributária",
+        "textLen": 0,
+        "icon": true,
+        "cta": "SAIBA MAIS"
+      },
+      {
+        "cls": "item-service inspect in",
+        "rect": {
+          "x": 1115,
+          "y": 1187,
+          "w": 210,
+          "h": 406
+        },
+        "bg": "rgba(0, 0, 0, 0)",
+        "border": "0px none rgb(100, 100, 100)",
+        "radius": "0px",
+        "pad": "0px 0px 60px",
+        "shadow": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.18s",
+        "opacity": "1",
+        "transform": "none",
+        "title": "Estruturações Corporativas",
+        "textLen": 0,
+        "icon": true,
+        "cta": "SAIBA MAIS"
+      }
+    ]
+  },
+  "verticaisDesktop": [
+    {
+      "title": "Varejo e Distribuição",
+      "rect": {
+        "x": -1513,
+        "y": 3181,
+        "w": 226,
+        "h": 83
+      },
+      "bgEl": {
+        "tag": "DIV",
+        "cls": "flex-segmento",
+        "rect": {
+          "x": -1573,
+          "y": 2826,
+          "w": 474,
+          "h": 500
+        },
+        "bgImg": "linear-gradient(4deg, rgb(19, 22, 28) 14%, rgba(19, 22, 28, 0.2) 65%, rgba(19, 22, 28, 0.77) 100%)",
+        "bgSize": "auto",
+        "bgAttach": "scroll",
+        "bg": "rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "title": "Energia",
+      "rect": {
+        "x": -999,
+        "y": 3201,
+        "w": 226,
+        "h": 41
+      },
+      "bgEl": {
+        "tag": "DIV",
+        "cls": "flex-segmento",
+        "rect": {
+          "x": -1059,
+          "y": 2826,
+          "w": 474,
+          "h": 500
+        },
+        "bgImg": "linear-gradient(4deg, rgb(19, 22, 28) 14%, rgba(19, 22, 28, 0.2) 65%, rgba(19, 22, 28, 0.77) 100%)",
+        "bgSize": "auto",
+        "bgAttach": "scroll",
+        "bg": "rgba(0, 0, 0, 0)"
+      }
+    },
+    {
+      "title": "Hotelaria",
+      "rect": {
+        "x": -485,
+        "y": 3201,
+        "w": 226,
+        "h": 41
+      },
+      "bgEl": {
+        "tag": "DIV",
+        "cls": "flex-segmento",
+        "rect": {
+          "x": -545,
+          "y": 2826,
+          "w": 474,
+          "h": 500
+        },
+        "bgImg": "linear-gradient(4deg, rgb(19, 22, 28) 14%, rgba(19, 22, 28, 0.2) 65%, rgba(19, 22, 28, 0.77) 100%)",
+        "bgSize": "auto",
+        "bgAttach": "scroll",
+        "bg": "rgba(0, 0, 0, 0)"
+      }
+    }
+  ],
+  "revealDesktop": {
+    "count": 17,
+    "sample": [
+      {
+        "cls": "swiper-container swiper-clientes inspect",
+        "opacity": "0",
+        "transform": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9)"
+      },
+      {
+        "cls": "inspect down in",
+        "opacity": "1",
+        "transform": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.2s"
+      },
+      {
+        "cls": "colmd6 colsm6 colxs12 inspect in",
+        "opacity": "1",
+        "transform": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.05s"
+      },
+      {
+        "cls": "item-service inspect in",
+        "opacity": "1",
+        "transform": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.18s"
+      },
+      {
+        "cls": "item-service inspect in",
+        "opacity": "1",
+        "transform": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.18s"
+      },
+      {
+        "cls": "item-service inspect in",
+        "opacity": "1",
+        "transform": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.18s"
+      },
+      {
+        "cls": "item-service inspect in",
+        "opacity": "1",
+        "transform": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.18s"
+      },
+      {
+        "cls": "item-service inspect in",
+        "opacity": "1",
+        "transform": "none",
+        "trans": "1s cubic-bezier(0.53, 0.46, 0.17, 0.9) 0.18s"
+      }
+    ],
+    "rules": [
+      ".left { left: 0px; }",
+      ".right { right: 0px; }",
+      "#video-home.active { animation-name: opc; animation-duration: 1.6s; animation-fill-mode: forwards; }",
+      ".load #content { opacity: 1; }",
+      ".inspect { opacity: 0; transform: translate3d(0px, 10px, 0px); transition: 1s cubic-bezier(0.53, 0.46, 0.17, 0.9); }",
+      ".inspect.down { transform: translate3d(0px, -15px, 0px); }",
+      ".inspect.in { opacity: 1; transform: none; }",
+      "#titles-circle .inspect { transform: translate3d(-20px, 0px, 0px); }",
+      "#titles-circle .inspect.in { transform: none; }",
+      ".title-tab:hover, .title-tab.active { border-color: rgb(0, 0, 0); }",
+      "#perguntas-frequentes .acc-item.active { padding-bottom: 15px; }",
+      "#perguntas-frequentes .acc-item.active span.icon-plus { transform: none; opacity: 0.4; }",
+      "#perguntas-frequentes .acc-item.active .acc-title { color: var(--verde); }",
+      "#form-franquias.active { animation-name: form_franquia; animation-duration: 1s; transition-delay: 1.5s; animation-fill-mode: forwards; }",
+      ".btn.active, .btn:active { outline: 0px; background-image: none; box-shadow: rgba(0, 0, 0, 0.125) 0px 3px 5px inset; }",
+      ".btn-default.active, .btn-default:active, .btn-default:hover { color: rgb(255, 255, 255); background-color: var(--dark); border-color: var(--dark); }",
+      ".btn-link.active, .btn-link:active, .btn-link[disabled], .btn-link:hover, .btn-link:focus { background-color: transparent; box-shadow: none; }",
+      ".e-message.active { transition-delay: 0.4s; animation-name: message; animation-duration: 1.5s; animation-fill-mode: forwards; }",
+      ".share a.active { background: rgb(255, 255, 255); }",
+      ".share a.active path { fill: var(--verde); }",
+      ".lins-atuacao .active a { background: var(--verde); }",
+      ".sidemenu .menu > li.active .sub-menu { animation-name: none; display: block; opacity: 1; visibility: visible; transform: none; }",
+      "body.active-menu { overflow: hidden; }",
+      "body.active-menu .open-menu i { background-color: transparent !important; }",
+      "body.active-menu .open-menu i::before { transform: translateY(8px) rotate(45deg); }"
+    ]
+  },
+  "footerDesktop": {
+    "tag": "FOOTER",
+    "cls": "site-footer relative bg",
+    "rect": {
+      "x": 0,
+      "y": 6351,
+      "w": 1440,
+      "h": 944
+    },
+    "bg": "rgb(0, 0, 0)",
+    "color": "rgb(244, 246, 249)",
+    "pad": "20px 0px 0px",
+    "text": "Assine a nossa Newsletter! Cadastre-se e receba novidades exclusivas no seu e-mail. Goiânia – GO (62) 3926-1126 Rua Mário Bitar, nº 81, Setor Marista, 74150-260 São Paulo – SP Av. Brigadeiro Faria Lima, nº 1.811, 9º Andar, Conj. 918, Jardim Paulistano, 01452-001 Rio de Janeiro – RJ Rua do Passeio, nº 38, Bloco II, 15º Andar, Centro, 20021-290 Patos de Minas – MG R. José de Santana, 345 - Centro, Patos de Minas - MG, 38700-052 Curitiba – PR Av. Brasília, nº 6759, Sala 30, Novo Mundo, 81020-010 Belém – PA Tv. Dom Romualdo de Seixas, 1476 - Sala 1801 e 1810 - Umarizal, 66055-200 São Luís – MA Rua dos Currupiões, nº 18, bairro Jardim Renascença, 65.075-140 Campo Novo do Parecis – MT Avenida Brasil, 1124-NE - Centro, 78360-000 Fortaleza – CE Rua Alberto Feitosa Lima, 91, 60810-018 Maceió – AL Rua Rita de Cássia, 363, Gruta de Lurdes, 57050-000 Sorocaba – SP R. Francisca de Queiroz, 128 - Vila",
+    "links": 11,
+    "form": {
+      "rect": {
+        "x": 535,
+        "y": 6451,
+        "w": 790,
+        "h": 126
+      },
+      "fields": [
+        "Nome",
+        "E-mail",
+        "Telefone",
+        "Empresa"
+      ],
+      "btnBg": "rgba(0, 0, 0, 0)"
+    },
+    "floatingCta": []
+  },
+  "homeText": " Sobre Atuação Verticais Partnership Cases Conteúdo | Reforma Tributária SOLICITAR PROPOSTA Soluções Somos a ponte entre os desafios do seu negócio hoje, e o seu negócio do futuro. Somos a Planning. SAIBA MAIS Áreas de atuação Contabilidade Tenha domínio dos desafios, das necessidades e da legislação do seu mercado para identificar oportunidades e garantir conformidade. SAIBA MAIS BPO de Folha de Pagamento Liberte seu negócio dos processos burocráticos com a parceria da Planning e uma metodologia eficiente e especializada. SAIBA MAIS Auditoria e Consultoria Tributária Conte com agente externo para assegurar a confiabilidade das informações financeiras e uma parceria certa para uma estrutura sólida. SAIBA MAIS Inteligência Tributária Resgate seus créditos, maximize seus ganhos e garanta resultados com a atuação do nosso time e tecnologia de ponta. SAIBA MAIS Estruturações Corporativas Desfrute de assessoria para tomar decisões significativas com segurança e estratégia, estruturando seus negócios com precisão. SAIBA MAIS Por que a Planning? + 100 bilhões de faturamento sob gestão​ Somos reconhecidos pela Leaders League!​ NPS em zona de excelência​ Cultura baseada em princípios de ESG + 20 mil colaboradores sob gestão​​ +1000 profissionais no time Planning Verticais de negócio Eficiência tributária para todos os setores e negócios Temos um time atualizado e comprometido com soluções alinhadas ao planejamento estratégico dos maiores segmentos do mercado brasileiro. 6 Varejo e Distribuição CONHEÇA MAIS + 7 Energia CONHEÇA MAIS + 8 Hotelaria CONHEÇA MAIS + 9 Serviços CONHEÇA MAIS + 1 Indústrias CONHEÇA MAIS + 2 Agronegócio CONHEÇA MAIS + 3 Automotivo CONHEÇA MAIS + 4 Construção Civil CONHEÇA MAIS + 5 Transportes e Logística CONHEÇA MAIS + 6 Varejo e Distribuição CONHEÇA MAIS + 7 Energia CONHEÇA MAIS + 8 Hotelaria CONHEÇA MAIS + 9 Serviços CONHEÇA MAIS + 1 Indústrias CONHEÇA MAIS + 2 Agronegócio CONHEÇA MAIS + 3 Automotivo CONHEÇA MAIS + 4 Construção Civil CONHEÇA MAIS + Gestão contábil Somos especialistas em gestão contábil nos principais ERPs do mercado Com unidades localizadas em pontos estratégicos do Brasil, impulsionamos negócios em todos os estados brasileiros. Últimas Publicações Contabilidade 07/02 Contabilidade terceirizada ou interna: Qual a melhor? Artigo 16/09 Diagnóstico de Recuperação Tributária: quanto sua empresa tem a recuperar? Artigo 15/09 Regimes Especiais de Tributação Estadual: oportunidades de economia por setor Perguntas Frequentes O que é a Planning? A Planning é uma empresa de terceirização contábil que se destaca pelos seus entregáveis de valor e parceria intrínseca com os clientes. Com uma abordagem personalizada, a Planning atua como um braço essencial para a contabilidade de empresas de médio e grande porte, garantindo conformidade e otimização dos processos tributários e financeiros. Quais serviços a empresa Planning oferece? O Grupo Planning oferece uma gama completa de serviços, incluindo BPO contábil e tributário, BPO de folha de pagamento, auditoria e consultoria tributária, inteligência tributária e estruturações corporativas. Cada serviço é cuidadosamente desenvolvido para atender às necessidades específicas de cada cliente. Como a Planning pode ajudar minha empresa? O serviço de contabilidade da Planning auxilia sua empresa a superar desafios contábeis e tributários, identificando oportunidades e garantindo a conformidade legal. Com a expertise do time, sua empresa pode focar em seu crescimento e inovação, enquanto cuidamos dos aspectos contábeis, tributários e financeiros. Quais são os benefícios de contratar a empresa de contabilidade Planning? Ao contratar a Planning como sua contabilidade, você garante acesso a especialistas que conhecem a fundo a vertical do seu setor e o ERP que sua empresa utiliza. Os benefícios incluem resultados apresentados em BI, segurança na gestão financeira e um serviço personalizado que se adapta às demandas específicas do seu negócio. A Planning oferece gestão contábil personalizada? Sim, oferecemos consultoria personalizada, avaliando a realidade e as necessidades específicas da sua empresa. Com criatividade e inovação, a Planning consultoria propõe soluções que realmente fazem a diferença, ajudando sua empresa a alcançar novos patamares. Como a empresa Planning lida com a confidencialidade das informações? A confidencialidade das informações é uma prioridade. A Planning atua presencialmente e como empresa de contabilidade online. Acima de tudo, em ambas atuações, adota rigorosos protocolos de segurança para garantir que todos os dados dos clientes sejam protegidos com a máxima integridade e sigilo. Quais são os diferenciais da Planning em relação a outras empresas do mercado? Os diferenciais incluem entregáveis apresentados em BI, uma abordagem personalizada de experts e a especialização na vertical do cliente e no ERP utilizado. A Planning se destaca como a melhor empresa de contabilidade, oferecendo serviços de alta qualidade e construindo parcerias duradouras e confiáveis. Nos escolher é optar por uma empresa que entende as necessidades do seu negócio e está comprometida em proporcionar resultados excepcionais. Seja bem-vindo ao grupo Planning! Aqui, sua empresa encontra a ponte para o futuro. Entre em contato. Assine a nossa Newsletter! Cadastre-se e receba novidades exclusivas no seu e-mail. Goiânia – GO (62) 3926-1126 Rua Mário Bitar, nº 81, Setor Marista, 74150-260 São Paulo – SP Av. Brigadeiro Faria Lima, nº 1.811, 9º Andar, Conj. 918, Jardim Paulistano, 01452-001 Rio de Janeiro – RJ Rua do Passeio, nº 38, Bloco II, 15º Andar, Centro, 20021-290 Patos de Minas – MG R. José de Santana, 345 - Centro, Patos de Minas - MG, 38700-052 Curitiba – PR Av. Brasília, nº 6759, Sala 30, Novo Mundo, 81020-010 Belém – PA Tv. Dom Romualdo de Seixas, 1476 - Sala 1801 e 1810 - Umarizal, 66055-200 São Luís – MA Rua dos Currupiões, nº 18, bairro Jardim Renascença, 65.075-140 Campo Novo do Parecis – MT Avenida Brasil, 1124-NE - Centro,",
+  "inner": {
+    "title": "Estruturações Corporativas para Médias e Grandes Empresas - Planning",
+    "docH": 11006,
+    "h1": {
+      "text": "Estruturações Corporativas",
+      "rect": {
+        "x": 115,
+        "y": 236,
+        "w": 797,
+        "h": 30
+      },
+      "size": "26px",
+      "weight": "700",
+      "color": "rgb(10, 225, 140)"
+    },
+    "video": null,
+    "heroBgEl": {
+      "tag": "DIV",
+      "cls": "",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 1440,
+        "h": 580
+      },
+      "bgImg": "none",
+      "bg": "rgb(0, 0, 0)"
+    },
+    "headings": [
+      {
+        "tag": "H2",
+        "t": "Excelência jurídica \npara empresas em crescimento",
+        "y": 266,
+        "size": "44px"
+      },
+      {
+        "tag": "H2",
+        "t": "Tome decisões significativas \ncom segurança e estratégia",
+        "y": 714,
+        "size": "40px"
+      },
+      {
+        "tag": "H2",
+        "t": "Contribuímos na preservação\ndo seu legado familiar",
+        "y": 1277,
+        "size": "40px"
+      },
+      {
+        "tag": "H2",
+        "t": "Temos cases nos\nprincipais mercados",
+        "y": 2220,
+        "size": "54px"
+      }
+    ],
+    "sections": [
+      {
+        "cls": "bricks--section rd-section",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 0,
+          "h": 0
+        },
+        "bg": "rgb(11, 97, 86)",
+        "bgImg": "none"
+      },
+      {
+        "cls": "pt0 pb60",
+        "rect": {
+          "x": 115,
+          "y": 1277,
+          "w": 1210,
+          "h": 582
+        },
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none"
+      },
+      {
+        "cls": "bg-verde fz22 mt60 pb50 pt50 text-black",
+        "rect": {
+          "x": 0,
+          "y": 1919,
+          "w": 1440,
+          "h": 182
+        },
+        "bg": "rgb(10, 225, 140)",
+        "bgImg": "none"
+      },
+      {
+        "cls": "bg-gray text-black pt50 pb50",
+        "rect": {
+          "x": 0,
+          "y": 9108,
+          "w": 1440,
+          "h": 275
+        },
+        "bg": "rgb(244, 246, 249)",
+        "bgImg": "none"
+      },
+      {
+        "cls": "bg-black text-white pt40 pb80 bg",
+        "rect": {
+          "x": 0,
+          "y": 9383,
+          "w": 1440,
+          "h": 678
+        },
+        "bg": "rgb(0, 0, 0)",
+        "bgImg": "none"
+      }
+    ],
+    "imgs": [
+      {
+        "src": "tps://planning.com.br/wp-content/themes/planning/images/logo-white.svg",
+        "rect": {
+          "x": 115,
+          "y": 47,
+          "w": 204,
+          "h": 42
+        },
+        "nw": 300,
+        "nh": 62,
+        "alt": "Planning"
+      },
+      {
+        "src": ".com.br/wp-content/uploads/2023/03/estruturacoes-corporativas-c2e3.png",
+        "rect": {
+          "x": 130,
+          "y": 1277,
+          "w": 487,
+          "h": 487
+        },
+        "nw": 1000,
+        "nh": 1000,
+        "alt": "Estruturações Corporativas"
+      },
+      {
+        "src": "tps://planning.com.br/wp-content/themes/planning/images/logo-white.svg",
+        "rect": {
+          "x": 115,
+          "y": 9575,
+          "w": 280,
+          "h": 58
+        },
+        "nw": 300,
+        "nh": 62,
+        "alt": "Planning"
+      },
+      {
+        "src": ":image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==",
+        "rect": {
+          "x": 425,
+          "y": 9463,
+          "w": 280,
+          "h": 280
+        },
+        "nw": 1,
+        "nh": 1,
+        "alt": "PrimeGlobal"
+      },
+      {
+        "src": "tps://planning.com.br/wp-content/themes/planning/images/logo-white.svg",
+        "rect": {
+          "x": 115,
+          "y": 10368,
+          "w": 177,
+          "h": 36
+        },
+        "nw": 300,
+        "nh": 62,
+        "alt": "logo"
+      },
+      {
+        "src": "ntent/themes/planning/images/useless/desenvolvedor-wordpress.png?ssl=1",
+        "rect": {
+          "x": 1198,
+          "y": 10940,
+          "w": 127,
+          "h": 40
+        },
+        "nw": 127,
+        "nh": 40,
+        "alt": "Elton Disner: Criação de sites para empresas de contabilidad"
+      }
+    ],
+    "ctas": [
+      {
+        "t": "Fechar",
+        "y": 0,
+        "bg": "rgba(0, 0, 0, 0)",
+        "href": null
+      },
+      {
+        "t": "Iniciar conversa",
+        "y": 0,
+        "bg": "rgb(11, 97, 86)",
+        "href": null
+      },
+      {
+        "t": "FALE COM UM ESPECIALISTA",
+        "y": 9220,
+        "bg": "rgb(10, 225, 140)",
+        "href": "https://planning.com.br/contato/"
+      },
+      {
+        "t": "Saiba mais",
+        "y": 9936,
+        "bg": "rgb(10, 225, 140)",
+        "href": "https://www.primeglobal.net/firms/planning-accounting-and-tax"
+      }
+    ],
+    "forms": [
+      {
+        "rect": {
+          "x": 535,
+          "y": 10162,
+          "w": 790,
+          "h": 126
+        },
+        "fields": [
+          "Nome",
+          "E-mail",
+          "Telefone",
+          "Empresa"
+        ]
+      }
+    ],
+    "text": " Sobre Atuação Verticais Partnership Cases Conteúdo | Reforma Tributária SOLICITAR PROPOSTA Home » Áreas de atuação » Estruturações Corporativas Estruturações Corporativas Excelência jurídica para empresas em crescimento Orientamos o seu negócio em todos os processos que levem à expansão e maturidade empresarial. Tome decisões significativas com segurança e estratégia Assessoramos empresários, companhias e grupos que desejam estruturar ou reestruturar seus negócios com compra e venda de empresas, parcial ou totalmente, além de atuar na condução da rotina societária. Com o planejamento das estruturações corporativas, que envolvem os vários tipos de sociedades existentes, garantimos tranquilidade, segurança e eficiência aos processos da sua empresa. A excelência técnica da equipe societária alinhada à integração com as áreas contábil e tributária do escritório permitem a construção de modelos jurídicos realmente sustentáveis para negócios, transformando as estruturações corporativas em um dos seus grandes diferenciais. Contribuímos na preservação do seu legado familiar Mais do que garantir segurança para o seu negócio crescer e garantir uma maturidade empresarial de excelência, nós ainda assessoramos famílias que querem garantir a perpetuidade de suas empresas, seja na organização de seu patrimônio ou no planejamento e antecipação da sucessão de bens. Através de instrumentos jurídicos como holdings, testamentos, seguros, protocolos familiares e acordos de sócios, estruturamos o patrimônio familiar e planejamos as sucessões com foco na melhor proteção possível dos bens. Todo nosso trabalho é pautado na redução da possibilidade de conflito entre herdeiros, em uma sucessão patrimonial segura e que garanta a máxima eficiência tributária na exploração dos ativos. Uma empresa bem estruturada inspira confiança e atrai investidores, parceiros e clientes. Isso é maturidade empresarial. Temos cases nos principais mercados Agronegócio Automotivo Construção Civil Energia Hotelaria Indústrias Serviços Transportes e Logística Varejo e Distribuição Você tem 15 minutos para conversarmos sobre o próximo passo da sua empresa? FALE COM UM ESPECIALISTA Em 2026, a Leaders League reconheceu nossa atuação nas categorias Outsourcing (BPO) – Brasil, Consultivo Tributário – Brasil e Contabilidade e Finanças – Centro-Oeste, com base em critérios técnicos rigorosos. Saiba mais Assine a nossa Newsletter! Cadastre-se e receba novidades exclusivas no seu e-mail. Goiânia – GO (62) 3926-1126 Rua Mário Bitar, nº 81, Setor Marista, 74150-260 São Paulo – SP Av. Brigadeiro Faria Lima, nº 1.811, 9º Andar, Conj. 918, Jardim Paulistano, 01452-001 Rio de Janeiro – RJ Rua do Passeio, nº 38, Bloco II, 15º Andar, Centro, 20021-290 Patos de Minas – MG R. José de Santana, 345 - Centro, Patos de Minas - MG, 38700-052 Curitiba – PR Av. Brasília, nº 6759, Sala 30, Novo Mundo, 81020-010 Belém – PA Tv. Dom Romualdo de Seixas, 1476 - Sala 1801 e 1810 - Umarizal, 66055-200 São Luís – MA Rua dos Currupiões, nº 18, bairro Jardim Renascença, 65.075-140 Campo Novo do Parecis – MT Avenida Brasil, 1124-NE - Centro, 78360-000 Fortaleza – CE Rua Alberto Feitosa Lima, 91, 60810-018 Maceió – AL Rua Rita de Cássia, 363, Gruta de Lurdes, 57050-000 Sorocaba – SP R. Francisca de Queiroz, 128 - Vila Independência, 18040-325 Recife – PE Empresarial Itamaraty - R. Agenor Lopes, 25 - 801 - Boa Viagem, 51021-110 São Bernardo do Campo R. José Versolato, 111 - Salas 3303 a 3307 - Centro, 09750-730 Trabalhe conosco Conteúdo Fale conosco Política de Privacidade Política de Cookies 2026 © Planning Todos os direitos Reservados PLANNING AUDITORES E CONTADORES S/S LTDA - CNPJ: 24.296.850/0001-47 ",
+    "breadcrumb": true
+  },
+  "heroMobile": {
+    "heroRect": {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 717
+    },
+    "chain": [
+      {
+        "tag": "VIDEO",
+        "cls": "",
+        "rect": {
+          "x": -765,
+          "y": -181,
+          "w": 1920,
+          "h": 1080
+        },
+        "pos": "absolute",
+        "overflow": "clip",
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none",
+        "opacity": "1",
+        "zIndex": "auto",
+        "anim": "none",
+        "animDur": "0s"
+      },
+      {
+        "tag": "DIV",
+        "cls": "active",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 717
+        },
+        "pos": "absolute",
+        "overflow": "visible",
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none",
+        "opacity": "1",
+        "zIndex": "auto",
+        "anim": "opc",
+        "animDur": "1.6s"
+      },
+      {
+        "tag": "DIV",
+        "cls": "slideHome",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 717
+        },
+        "pos": "relative",
+        "overflow": "hidden",
+        "bg": "rgb(0, 0, 0)",
+        "bgImg": "url(\"https://i2.wp.com/planning.com.br/wp-content/uploads/2023/03/solucoes-contabeis-tributarias-financeiras-e-societarias-0e2e.jpg?resize=480,600&ssl=1\")",
+        "opacity": "1",
+        "zIndex": "1",
+        "anim": "none",
+        "animDur": "0s"
+      },
+      {
+        "tag": "DIV",
+        "cls": "site-content",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 11744
+        },
+        "pos": "static",
+        "overflow": "visible",
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none",
+        "opacity": "1",
+        "zIndex": "auto",
+        "anim": "none",
+        "animDur": "0s"
+      },
+      {
+        "tag": "DIV",
+        "cls": "",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 14898
+        },
+        "pos": "static",
+        "overflow": "hidden",
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none",
+        "opacity": "1",
+        "zIndex": "auto",
+        "anim": "none",
+        "animDur": "0s"
+      },
+      {
+        "tag": "BODY",
+        "cls": "home wp-singular page-template-default page page-id-2 wp-theme-planning solucoes",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 14898
+        },
+        "pos": "static",
+        "overflow": "visible",
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "none",
+        "opacity": "1",
+        "zIndex": "auto",
+        "anim": "none",
+        "animDur": "0s"
+      }
+    ],
+    "overlays": [
+      {
+        "tag": "DIV",
+        "cls": "slide-text",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 390,
+          "h": 717
+        },
+        "bg": "rgba(0, 0, 0, 0)",
+        "bgImg": "linear-gradient(4deg, rgb(19, 22, 28) 14%, rgba(19, 22, 28, 0.42) 65%, rgba(19, 22, 28, 0.77) 100%)",
+        "opacity": "1",
+        "mix": "normal"
+      }
+    ],
+    "h1": {
+      "text": "Somos a ponte entre os\ndesafios do seu negócio hoje,\ne o seu negócio do futuro.\nSomos a Planning.",
+      "rect": {
+        "x": 15,
+        "y": 269,
+        "w": 360,
+        "h": 115
+      },
+      "font": "BW, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Helvetica, Cantarell, sans-serif",
+      "size": "24px",
+      "weight": "300",
+      "lh": "28.8px",
+      "color": "rgb(255, 255, 255)",
+      "shadow": "none",
+      "maxW": "none",
+      "anim": "none",
+      "animDur": "0s",
+      "animDelay": "0s",
+      "ls": "normal",
+      "align": "start"
+    },
+    "sub": [
+      {
+        "tag": "SPAN",
+        "text": "con",
+        "rect": {
+          "x": 127,
+          "y": 236,
+          "w": 41,
+          "h": 30
+        },
+        "size": "24px",
+        "weight": "900",
+        "color": "rgb(10, 225, 140)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "anim": "none",
+        "animDur": "0s",
+        "animDelay": "0s"
+      },
+      {
+        "tag": "SPAN",
+        "text": "",
+        "rect": {
+          "x": 168,
+          "y": 236,
+          "w": 15,
+          "h": 30
+        },
+        "size": "24px",
+        "weight": "900",
+        "color": "rgb(10, 225, 140)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "anim": "none",
+        "animDur": "0s",
+        "animDelay": "0s"
+      },
+      {
+        "tag": "P",
+        "text": "SAIBA MAIS",
+        "rect": {
+          "x": 15,
+          "y": 399,
+          "w": 360,
+          "h": 66
+        },
+        "size": "16px",
+        "weight": "400",
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "anim": "none",
+        "animDur": "0s",
+        "animDelay": "0s"
+      },
+      {
+        "tag": "A",
+        "text": "SAIBA MAIS",
+        "rect": {
+          "x": 15,
+          "y": 419,
+          "w": 220,
+          "h": 46
+        },
+        "size": "14px",
+        "weight": "700",
+        "color": "rgb(0, 0, 0)",
+        "bg": "rgb(10, 225, 140)",
+        "anim": "none",
+        "animDur": "0s",
+        "animDelay": "0s"
+      }
+    ],
+    "keyframes": [
+      {
+        "name": "shake",
+        "css": "@keyframes shake { \n  4.5%, 10.5% { transform: translate(0px, 0px) rotate(0deg); }\n  5% { transform: translate(1px, 1px) rotate(0deg); }\n  5.5% { transform: translate(-1px, -2px) rotate(-1deg); }\n  6% { transform: translate(-3px, 0px) rotate(1deg); }\n  6.5% { transform: translate(3px, 2px) rotate(0deg); }\n  7% { transform: translate(1px, -1px) rotate(1deg); }\n  7.5% { transform: translate(-1px, 2px) rotate(-1deg); }\n  8% { transform: translate(-3px, 1px) rotate(0deg); }\n  8.5% { transform: translate(3px, 1px) rotate(-1deg); }\n  9% { transform: translate(-1px, -1px) rotate(1deg); }\n  9.5% { tra"
+      },
+      {
+        "name": "opc",
+        "css": "@keyframes opc { \n  0% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+      },
+      {
+        "name": "text",
+        "css": "@keyframes text { \n  25% { opacity: 0; }\n  50% { opacity: 1; }\n  75% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+      }
+    ],
+    "vw": 390,
+    "vh": 844,
+    "scrollY": 0
+  },
+  "mobileVideoRequests": [
+    {
+      "url": "https://planning.com.br/wp-content/uploads/2023/04/planning5bea.mp4",
+      "status": 206,
+      "cl": "30751140",
+      "range": "bytes=0-"
+    },
+    {
+      "url": "https://planning.com.br/wp-content/uploads/2023/04/planning5bea.mp4",
+      "status": 206,
+      "cl": "30751140",
+      "range": "bytes=0-"
+    }
+  ],
+  "mobileOverflow": {
+    "docW": 390,
+    "vw": 390,
+    "docH": 14898,
+    "h1Size": "24px",
+    "bodyPad": "0px"
+  },
+  "mobileMenu": {
+    "cands": [
+      {
+        "tag": "BUTTON",
+        "cls": "open-menu hmd",
+        "id": "open-menu",
+        "rect": {
+          "x": 345,
+          "y": 34,
+          "w": 30,
+          "h": 19
+        },
+        "aria": "Menu mobile"
+      },
+      {
+        "tag": "DIV",
+        "cls": "sidemenu hmd hidden-xl",
+        "id": "",
+        "rect": {
+          "x": -394,
+          "y": 0,
+          "w": 390,
+          "h": 844
+        },
+        "aria": null
+      }
+    ],
+    "headerH": 84
+  },
+  "mobileMenuOpened": "[aria-label*=\"menu\" i]",
+  "mobileMenuState": {
+    "navCls": null,
+    "bodyCls": "home wp-singular page-template-default page page-id-2 wp-theme-planning solucoes-contabeis-tributarias-financeiras-e-societarias load active-menu",
+    "navRect": null,
+    "navBg": null,
+    "ulBg": null,
+    "ulPos": null,
+    "ulTrans": null,
+    "visibleLinks": [],
+    "visibleCount": 0
+  },
+  "areasMobile": [
+    {
+      "x": 15,
+      "y": 1022,
+      "w": 360,
+      "h": 275
+    },
+    {
+      "x": 15,
+      "y": 1367,
+      "w": 360,
+      "h": 275
+    },
+    {
+      "x": 15,
+      "y": 1702,
+      "w": 360,
+      "h": 302
+    },
+    {
+      "x": 15,
+      "y": 2064,
+      "w": 360,
+      "h": 275
+    },
+    {
+      "x": 15,
+      "y": 2398,
+      "w": 360,
+      "h": 275
+    }
+  ],
+  "mobileTapTargets": [
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "CONHEÇA MAIS +",
+      "h": 17
+    },
+    {
+      "t": "Contabilidade",
+      "h": 21
+    },
+    {
+      "t": "Artigo",
+      "h": 21
+    },
+    {
+      "t": "Artigo",
+      "h": 21
+    },
+    {
+      "t": "Entre em contato",
+      "h": 20
+    },
+    {
+      "t": "(62) 3926-1126",
+      "h": 17
+    },
+    {
+      "t": "Sobre",
+      "h": 32
+    },
+    {
+      "t": "Carreira",
+      "h": 32
+    },
+    {
+      "t": "Cases de Sucesso",
+      "h": 32
+    },
+    {
+      "t": "Blog",
+      "h": 32
+    },
+    {
+      "t": "Contato",
+      "h": 32
+    },
+    {
+      "t": "Indústrias",
+      "h": 32
+    },
+    {
+      "t": "Agronegócio",
+      "h": 32
+    },
+    {
+      "t": "Automotivo",
+      "h": 32
+    },
+    {
+      "t": "Construção Civil",
+      "h": 32
+    }
+  ]
+}

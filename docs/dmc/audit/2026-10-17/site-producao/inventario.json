@@ -1,0 +1,272 @@
+{
+  "geradoEm": "2026-10-17T14:01:39.518Z",
+  "producao": {
+    "homeReal": "/complexodmc.com.br/index.html (stub em / com meta refresh + location.replace)",
+    "robots": "404",
+    "sitemap": "404",
+    "lastModifiedHome": "Thu, 15 Oct 2026 03:43:35 GMT"
+  },
+  "paginas": [
+    {
+      "path": "/index.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Consultoria Empresarial - Soluções Estratégicas"
+    },
+    {
+      "path": "/pages/atos-notariais.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Atos Notariais | Complexo DMC"
+    },
+    {
+      "path": "/pages/blindagem-patrimonial.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Blindagem Patrimonial | Complexo DMC"
+    },
+    {
+      "path": "/pages/compliance-governanca.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Compliance e Governança Corporativa | Complexo DMC"
+    },
+    {
+      "path": "/pages/consultoria-imobiliaria.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Consultoria Imobiliária | Complexo DMC"
+    },
+    {
+      "path": "/pages/contabilidade.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Contabilidade | Complexo DMC"
+    },
+    {
+      "path": "/pages/holding-patrimonial.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Holding Patrimonial | Complexo DMC"
+    },
+    {
+      "path": "/pages/juridico-imobiliario.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Jurídico Imobiliário | Complexo DMC"
+    },
+    {
+      "path": "/pages/juridico-vendas.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Jurídico Vendas | Complexo DMC"
+    },
+    {
+      "path": "/pages/planejamento-sucessorio.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Planejamento Sucessório Empresarial e Familiar | Complexo DMC"
+    },
+    {
+      "path": "/pages/planejamento-tributario.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Planejamento Tributário | Complexo DMC"
+    },
+    {
+      "path": "/pages/por-que-urgente.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Por que o planejamento sucessório é urgente? | Complexo DMC"
+    },
+    {
+      "path": "/pages/pronto-patrimonio.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Proteção Patrimonial | Complexo DMC"
+    },
+    {
+      "path": "/pages/recuperacao-ativos.html",
+      "prod": "ausente",
+      "local": 200,
+      "title": "Recuperação de Ativos | Complexo DMC"
+    },
+    {
+      "path": "/pages/registro-imobiliario.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Registro Imobiliário | Complexo DMC"
+    },
+    {
+      "path": "/pages/sucessao-testamentaria.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Sucessão Testamentária | Complexo DMC"
+    },
+    {
+      "path": "/pages/tecnologia.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Tecnologia | Complexo DMC"
+    },
+    {
+      "path": "/plataforma-ead/login.html",
+      "prod": 200,
+      "local": 200,
+      "title": "Acesso · Plataforma Complexo DMC"
+    },
+    {
+      "path": "/solucoes/consultoria-trabalhista/blindagem-contratual.html",
+      "prod": "ausente",
+      "local": 200,
+      "title": "Blindagem Contratual — Consultoria Trabalhista | Complexo DMC"
+    },
+    {
+      "path": "/solucoes/consultoria-trabalhista/camara-de-acordos.html",
+      "prod": "ausente",
+      "local": 200,
+      "title": "Câmara de Acordos e Mediação Trabalhista | Complexo DMC"
+    },
+    {
+      "path": "/solucoes/consultoria-trabalhista/ciclo-fechado.html",
+      "prod": "ausente",
+      "local": 200,
+      "title": "Ciclo Fechado — Consultoria Trabalhista | Complexo DMC"
+    },
+    {
+      "path": "/solucoes/consultoria-trabalhista/conformidade-psicossocial.html",
+      "prod": "ausente",
+      "local": 200,
+      "title": "Conformidade Psicossocial e NR-1 | Complexo DMC"
+    },
+    {
+      "path": "/solucoes/consultoria-trabalhista/decisao-assistida.html",
+      "prod": "ausente",
+      "local": 200,
+      "title": "Decisão Assistida em Atos Trabalhistas | Complexo DMC"
+    },
+    {
+      "path": "/solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "prod": "ausente",
+      "local": 200,
+      "title": "Defesa Empresarial — Contencioso e Litígios Trabalhistas | Complexo DMC"
+    },
+    {
+      "path": "/solucoes/consultoria-trabalhista/quitacao-anual.html",
+      "prod": "ausente",
+      "local": 200,
+      "title": "Quitação Anual de Obrigações Trabalhistas — Art. 507-B | Complexo DMC"
+    }
+  ],
+  "eixosHomeProd": [
+    "E1 Patrimonial e Sucessório (5 soluções)",
+    "E2 Tributário, Fiscal e Corporativo (2)",
+    "E3 Direito Notarial e Imobiliário (5)",
+    "E4 Auditoria Empresarial e Contábil (2)",
+    "E5 Recuperação de Ativos (1, card -> #contact)",
+    "E6 Tecnologia e Inovação (3: Tecnologia & Inovação -> pages/tecnologia.html; Ad-tech -> #results; Plataforma EAD -> plataforma-ead/login.html)"
+  ],
+  "eixosHomeLocal": [
+    "E1 (5)",
+    "E2 (2)",
+    "E3 (5)",
+    "E4 (2)",
+    "E5 Recuperação de Ativos (1 -> pages/recuperacao-ativos.html)",
+    "E6 Consultoria Trabalhista (6 -> solucoes/consultoria-trabalhista/*)"
+  ],
+  "formulario": {
+    "id": "contactForm",
+    "action": "mailto:administrativo@complexodmc.com.br",
+    "method": "post",
+    "enctype": "text/plain",
+    "js": "assets/js/main.js:242 preventDefault + setTimeout 1500ms + mensagem de sucesso; nada é enviado"
+  },
+  "consoleProd": {
+    "https://www.complexodmc.com.br/": {
+      "console": [
+        "[warning] Mixed Content: The page at 'https://www.complexodmc.com.br/complexodmc.com.br/index.html' was loaded over a secure connection, but contains a form that targets an insecure endpoint 'mailto:administrativo@complexodmc.com.br'. This endpoint should be made available over a secure connection.",
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ],
+      "failed": [
+        {
+          "url": "https://www.complexodmc.com.br/complexodmc.com.br/assets/images/logo.png",
+          "status": 404
+        }
+      ]
+    },
+    "https://www.complexodmc.com.br/complexodmc.com.br/index.html": {
+      "console": [
+        "[warning] Mixed Content: The page at 'https://www.complexodmc.com.br/complexodmc.com.br/index.html' was loaded over a secure connection, but contains a form that targets an insecure endpoint 'mailto:administrativo@complexodmc.com.br'. This endpoint should be made available over a secure connection.",
+        "[error] Failed to load resource: the server responded with a status of 404 ()"
+      ],
+      "failed": [
+        {
+          "url": "https://www.complexodmc.com.br/complexodmc.com.br/assets/images/logo.png",
+          "status": 404
+        }
+      ]
+    },
+    "https://www.complexodmc.com.br/complexodmc.com.br/pages/consultoria-imobiliaria.html": {
+      "console": [
+        "[warning] Unrecognized feature: 'web-share'.",
+        "[warning] No available adapters.",
+        "[warning] Unrecognized feature: 'web-share'."
+      ],
+      "failed": [
+        {
+          "url": "https://www.youtube.com/embed/13w3h_VjvGs?si=R_sfa_LmJYUAU3Jw",
+          "status": "failed:net::ERR_ABORTED"
+        }
+      ]
+    },
+    "https://www.complexodmc.com.br/complexodmc.com.br/plataforma-ead/login.html": {
+      "console": [
+        "[warning] [.WebGL-0x10c00443200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+        "[warning] [.WebGL-0x10c00443200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+        "[warning] [.WebGL-0x10c00443200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+        "[warning] [.WebGL-0x10c00443200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+      ],
+      "failed": []
+    },
+    "https://www.complexodmc.com.br/complexodmc.com.br/pages/planejamento-sucessorio.html": {
+      "console": [
+        "[warning] Unrecognized feature: 'web-share'.",
+        "[warning] No available adapters."
+      ],
+      "failed": []
+    },
+    "https://www.complexodmc.com.br/complexodmc.com.br/pages/juridico-imobiliario.html": {
+      "console": [
+        "[warning] Unrecognized feature: 'web-share'.",
+        "[warning] No available adapters.",
+        "[warning] Unrecognized feature: 'web-share'."
+      ],
+      "failed": [
+        {
+          "url": "https://www.youtube.com/embed/13w3h_VjvGs?si=R_sfa_LmJYUAU3Jw",
+          "status": "failed:net::ERR_ABORTED"
+        }
+      ]
+    },
+    "https://www.complexodmc.com.br/complexodmc.com.br/pages/juridico-vendas.html": {
+      "console": [
+        "[warning] Unrecognized feature: 'web-share'.",
+        "[warning] No available adapters.",
+        "[warning] Unrecognized feature: 'web-share'."
+      ],
+      "failed": [
+        {
+          "url": "https://www.youtube.com/embed/13w3h_VjvGs?si=R_sfa_LmJYUAU3Jw",
+          "status": "failed:net::ERR_ABORTED"
+        }
+      ]
+    },
+    "https://www.complexodmc.com.br/complexodmc.com.br/pages/por-que-urgente.html": {
+      "console": [
+        "[warning] Unrecognized feature: 'web-share'.",
+        "[warning] No available adapters."
+      ],
+      "failed": []
+    }
+  }
+}
