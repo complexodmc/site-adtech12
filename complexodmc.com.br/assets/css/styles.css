@@ -989,6 +989,28 @@ strong, b { font-weight: var(--fw-semibold); }
   outline-offset: 2px;
 }
 .dmc-form [aria-invalid="true"] { border-color: var(--color-error-ink) !important; }
+.dmc-form .form-field__error {
+  margin: var(--space-2) 0 0;
+  padding-left: 1.25em;
+  position: relative;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--color-error-ink);
+}
+.dmc-form .form-field__error::before {
+  content: "!";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: 0.95em;
+  height: 0.95em;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.85em;
+  line-height: 0.95em;
+  text-align: center;
+  font-weight: var(--fw-semibold);
+}
 
 .dmc-form .form-hp {
   position: absolute;

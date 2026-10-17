@@ -127,27 +127,50 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        // Erro por campo: <p id="cf-email-erro"> logo abaixo do campo, ligado por
+        // aria-describedby, para o leitor de tela anunciar o erro certo no campo certo.
+        function limparErro(campo) {
+            if (!campo || !campo.removeAttribute) return;
+            campo.removeAttribute('aria-invalid');
+            const erro = campo.id && document.getElementById(campo.id + '-erro');
+            if (erro) erro.remove();
+            const ids = (campo.getAttribute('aria-describedby') || '').split(/\s+/)
+                .filter((id) => id && id !== campo.id + '-erro');
+            if (ids.length) campo.setAttribute('aria-describedby', ids.join(' '));
+            else campo.removeAttribute('aria-describedby');
+        }
+
         function marcarInvalidos(campos) {
             let primeiro = null;
             Object.keys(campos || {}).forEach((nome) => {
                 const campo = contactForm.elements.namedItem(nome);
-                if (campo && campo.setAttribute) {
-                    campo.setAttribute('aria-invalid', 'true');
-                    if (!primeiro) primeiro = campo;
+                if (!campo || !campo.setAttribute || !campo.id) return;
+                campo.setAttribute('aria-invalid', 'true');
+                const idErro = campo.id + '-erro';
+                let erro = document.getElementById(idErro);
+                if (!erro) {
+                    erro = document.createElement('p');
+                    erro.id = idErro;
+                    erro.className = 'form-field__error';
+                    (campo.closest('.form-field, .form-consent') || campo.parentNode).appendChild(erro);
                 }
+                erro.textContent = String(campos[nome]);
+                const ids = (campo.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+                if (ids.indexOf(idErro) === -1) ids.push(idErro);
+                campo.setAttribute('aria-describedby', ids.join(' '));
+                if (!primeiro) primeiro = campo;
             });
             if (primeiro && primeiro.focus) primeiro.focus();
         }
 
-        // Ao corrigir um campo apontado pelo servidor, tira a marca de erro.
-        contactForm.addEventListener('input', (e) => {
-            if (e.target && e.target.removeAttribute) e.target.removeAttribute('aria-invalid');
-        });
+        // Ao corrigir um campo apontado pelo servidor, tira a marca e a mensagem de erro.
+        contactForm.addEventListener('input', (e) => limparErro(e.target));
+        contactForm.addEventListener('change', (e) => limparErro(e.target));
 
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             if (contactForm.getAttribute('aria-busy') === 'true') return;
-            contactForm.querySelectorAll('[aria-invalid="true"]').forEach((el) => el.removeAttribute('aria-invalid'));
+            contactForm.querySelectorAll('[aria-invalid="true"]').forEach(limparErro);
 
             const dados = {};
             new FormData(contactForm).forEach((valor, campo) => {
