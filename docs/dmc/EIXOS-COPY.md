@@ -68,7 +68,8 @@ Regras de uso
     governança) para famílias empresárias.
   - `pages/sucessao-testamentaria.html` — testamento público ou cerrado, cláusulas e legados,
     lavrados por cartório conveniado.
-  - `pages/por-que-urgente.html` — conteúdo de apoio: o que acontece no inventário sem plano.
+  - `pages/por-que-urgente.html` — conteúdo de apoio: por que planejar a sucessão em vida (legítima,
+    inventário, ITCMD). Texto visível sem urgência; slug mantido (troca exige 301).
 - **[CONFIRMAR]** parceiros que redigem os atos e cartórios conveniados (pendência 3).
 
 ## E2 · Tributário, Fiscal e Corporativo — `np-pillar-fiscal`
@@ -178,8 +179,8 @@ Regras de uso
   periódica de leitura.
 - **CTA:** "Solicitar a revisão das demonstrações" → `index.html#contact` (assunto E4).
 - **Mapa de serviços**
-  - `pages/contabilidade.html` — Auditoria e Inteligência Contábil: revisão, controles e
-    leitura gerencial; escrituração por parceiro.
+  - `pages/contabilidade.html` — Auditoria Empresarial e Contábil: revisão das demonstrações,
+    controles, governança dos números e leitura gerencial; escrituração por parceiro (slug mantido).
   - Card "Auditoria Empresarial" da home → `#contact` (sem página própria).
 - **[CONFIRMAR]** nome e CRC do auditor e do parceiro contábil (pendência 1); criar página de
   Auditoria Empresarial ou fundir com `contabilidade.html`; trocar o slug `contabilidade`
@@ -267,16 +268,20 @@ Regras de uso
 
 ## Capacidades transversais (não são eixos — D1)
 
-- **Tecnologia** (`pages/tecnologia.html`): automação documental e dados a serviço dos eixos —
-  IA de minutas (E3), ARTHEU (E5), fluxo digital da Decisão Assistida (E6).
+- **Tecnologia** (`pages/tecnologia.html`, "Tecnologia aplicada aos seis eixos"): automação documental,
+  dados e painéis a serviço dos eixos — IA de minutas (E3), ARTHEU (E5), fluxo digital da Decisão
+  Assistida (E6). Fora da página até confirmação do CEO: integração com tribunais e cartórios,
+  integração via API e acessibilidade para PCDs da Ad-tech (ainda citados em `index.html`).
 - **Contabilidade operacional:** executada por parceiro habilitado; o eixo é a leitura (E4).
 - **Treinamentos / Plataforma EAD:** mantida (D5); fora do painel dos eixos.
 
 ## Divergências com o texto publicado (para decisão do CEO)
 
-1. `consultoria-imobiliaria.html` "Operação Sob Medida" cita "mensalidade dedicada" e
-   "pacote por empreendimento" — forma de contratação/pagamento em publicidade. Sugestão:
-   "Escopo dimensionado por ato, por empreendimento ou por carteira, apresentado em proposta."
+1. `consultoria-imobiliaria.html` "Operação Sob Medida" citava "mensalidade dedicada" e
+   "pacote por empreendimento" — forma de contratação/pagamento em publicidade. Aplicada a sugestão
+   "Escopo dimensionado por ato, por empreendimento ou por carteira, apresentado em proposta" no
+   card e nas FAQs de `consultoria-imobiliaria`, `juridico-imobiliario` e `juridico-vendas`
+   (2026-10-17); CEO pode reverter.
 2. "Blindagem" (E1 Blindagem Patrimonial, E6 Blindagem Contratual) sugere proteção garantida.
    Sugestão: "Separação Patrimonial" e "Arquitetura Contratual".
 3. Slugs `por-que-urgente` (urgência) e `contabilidade` (identidade contábil) — trocar exige

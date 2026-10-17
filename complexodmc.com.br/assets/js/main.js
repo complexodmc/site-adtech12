@@ -59,6 +59,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // <a href="#contact" data-assunto="E1"> pré-seleciona #cf-eixo.
     // ============================================
     const assunto = document.getElementById('cf-eixo');
+    // Vindo de página interna: index.html?assunto=E1#contact
+    const assuntoUrl = new URLSearchParams(location.search).get('assunto');
+    if (assunto && assuntoUrl && /^E[1-6]$/.test(assuntoUrl)) assunto.value = assuntoUrl;
     document.addEventListener('click', (e) => {
         const cta = e.target.closest && e.target.closest('[data-assunto]');
         if (!cta || !assunto) return;
