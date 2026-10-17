@@ -112,3 +112,14 @@ riscos relevantes, alterações institucionais sensíveis.
   API da EAD — D5). Alinhar `engines.node` (20.x) com o projeto Vercel (24.x). Ajustar rewrites
   e redirects ao novo diretório de saída e validar com `vercel build` em checkout limpo.
 - Aprovação necessária: não (dentro de D3).
+- Executado (2026-10-17, fullstack-architect, sem publicar): `vercel.json` com `outputDirectory`,
+  rewrites `/api` e `/solucoes/:vertical/:slug`, redirects 301 (via `statusCode`, não 308) para
+  `/complexodmc.com.br[/*]`, `/index.html`, `/em-construcao.html`, `planejamento-sucessorio-
+  empresarial` e as cinco URLs antigas da raiz (`source` percent-encoded); `functions.excludeFiles`
+  só `complexodmc.com.br/**` (função 126 MB → 8,6 MB; `server/uploads` fica porque `materiais.js`/
+  `capas.js` servem por `sendFile` — D5); `.vercelignore` com padrões anchored (`/pages/`,
+  `/assets/`, `/index.html`) — `pages/` sem barra inicial excluiria a pasta pública. Raiz do git
+  limpa (`index.html`, `pages/`, `assets/`), resíduos e 17 mídias órfãs removidos (órfãs em HEAD
+  **e** no checkpoint 4b59d15, não citadas no BRIEF); mídias citadas no BRIEF, de marca (RINO_*)
+  ou de parceiro (Bear Finance) ficam. `engines.node` 24.x. Porta de deploy APROVADO; roteamento
+  validado por emulador do `config.json` compilado (não pelo proxy real). Roteiro: `DEPLOY.md`.

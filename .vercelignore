@@ -1,14 +1,27 @@
-# O deploy via CLI sobe a pasta local inteira: sem esta lista, segredos e material
-# interno vão para a CDN pública (foi assim que server/.env chegou a produção).
+# Vale para deploy via CLI (`vercel`/`vercel --prod` a partir desta pasta): sem esta lista o
+# upload leva segredos e material interno para a CDN (foi assim que server/.env chegou a
+# produção — DECISIONS.md T3). No deploy via Git os .env* já não existem no repositório.
+#
+# NUNCA excluir `server/` nem `server/src`: api/[...path].js importa ../server/src/server.js;
+# sem eles o build "passa" e a função cai com ERR_MODULE_NOT_FOUND (derruba /api/* — D5).
+# Com `outputDirectory: "complexodmc.com.br"` no vercel.json só a pasta pública vira estático.
 .env
 .env.*
 **/.env
 **/.env.*
 .vercel
 .claude
-docs
-tests
-tools
+.codex
+.vscode
+/docs
+/tests
+/tools
+server/test
+server/README.md
+server/package-lock.json
+# Travas: cópias antigas da raiz (removidas do git em T5) nunca devem voltar ao upload.
+/index.html
+/pages/
+/assets/
 complexodmc.com.br/_np_*.html
 complexodmc.com.br/pages/*.backup-*.html
-server/test
