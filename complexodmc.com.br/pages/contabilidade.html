@@ -16,12 +16,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
 
+  <link rel="preload" as="image" href="../assets/images/contabilidade-hero.webp" fetchpriority="high">
   <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
   <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
   <link rel="stylesheet" href="css/shared.css?v=3">
   <link rel="stylesheet" href="css/eixos.css?v=4">
   <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/hero-filme.css?v=2">
 
   <script src="../assets/js/navbar.js?v=c4" defer></script>
   <script src="../assets/js/solucao.js?v=3" defer></script>
@@ -46,21 +48,42 @@
 
   <main id="conteudo">
 
-    <!-- ============================== HERÓI ============================== -->
-    <section class="page-hero" aria-labelledby="hero-titulo">
-      <div class="page-hero__inner">
-        <div class="page-hero__content">
-          <p class="page-hero__badge">E4 · Auditoria Empresarial e Contábil</p>
-          <h1 class="page-hero__title" id="hero-titulo">Auditoria Empresarial <em>e Contábil</em></h1>
-          <p class="page-hero__subtitle">Leitura independente dos números para quem decide: demonstrações revisadas, controles internos testados e governança da informação financeira. Escrituração e obrigações acessórias ficam com parceiro contábil habilitado.</p>
+    <!-- ============================== HERÓI ==============================
+         Faixa com filme de fundo (profissional revisando demonstrativos à mesa;
+         loop de 8 s, sem som) sob véu ≥ .86 à esquerda. Abaixo do fio, a tese
+         em três colunas. Cartaz = primeiro quadro (LCP); com
+         prefers-reduced-motion nenhum <source> casa e fica só o cartaz.
+         CSS: pages/css/hero-filme.css. -->
+    <section class="page-hero hf-hero" aria-labelledby="hero-titulo" style="--hf-pos: 60% 35%">
+      <div class="hf-hero__media" aria-hidden="true">
+        <img src="../assets/images/contabilidade-hero.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
+        <video class="hf-hero__video" autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback tabindex="-1">
+          <source src="../assets/videos/contabilidade-hero.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
+          <source src="../assets/videos/contabilidade-hero.mp4" type="video/mp4" media="(prefers-reduced-motion: no-preference)">
+        </video>
+      </div>
+
+      <div class="hf-hero__wrap">
+        <div class="hf-hero__content">
+          <nav class="hf-trilha" aria-label="Trilha de navegação">
+            <ol>
+              <li><a href="../">Início</a></li>
+              <li><a href="../#eixo-4">E4 · Auditoria Empresarial e Contábil</a></li>
+              <li><span aria-current="page">Auditoria e inteligência contábil</span></li>
+            </ol>
+          </nav>
+          <h1 class="page-hero__title hf-hero__title" id="hero-titulo">Auditoria Empresarial <em>e Contábil</em></h1>
+          <p class="page-hero__subtitle hf-hero__lead">Leitura independente dos números para quem decide: demonstrações revisadas, controles internos testados e governança da informação financeira.</p>
           <div class="page-hero__actions">
-            <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20Auditoria%20Empresarial%20e%20Cont%C3%A1bil." target="_blank" rel="noopener noreferrer">Solicitar a revisão das demonstrações <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20falar%20sobre%20Auditoria%20Empresarial%20e%20Cont%C3%A1bil." target="_blank" rel="noopener noreferrer">Fale com um especialista <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
             <a class="dmc-btn dmc-btn--link" href="#processo">Como funciona</a>
           </div>
         </div>
-        <!-- Malha de nós no acento do eixo (assets/js/solucao.js). Sem JS: grade de pontos. -->
-        <div class="page-hero__visual" aria-hidden="true">
-          <div class="sol-net"><canvas class="sol-net__canvas"></canvas></div>
+
+        <div class="hf-tese">
+          <p class="hf-tese__frase">Quem lê os números não pode ser quem os produz. Uma decisão séria pede uma leitura <em>independente</em>.</p>
+          <p class="hf-tese__ponto">Balanço, DRE e fluxo de caixa revisados, controles internos testados e um relatório que sócios, conselho e banco leem da mesma forma.</p>
+          <p class="hf-tese__ponto">Escrituração e obrigações acessórias com parceiro contábil habilitado. Parecer de auditoria assinado por auditor contábil habilitado.</p>
         </div>
       </div>
     </section>

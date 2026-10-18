@@ -29,6 +29,8 @@ const METAS = { performance: 90, accessibility: 95, bestPractices: 95, seo: 95 }
 const TODAS = [
   ['home', '/'],
   ['planejamento-sucessorio', '/pages/planejamento-sucessorio.html'],
+  ['planejamento-tributario', '/pages/planejamento-tributario.html'],
+  ['contabilidade', '/pages/contabilidade.html'],
   ['recuperacao-ativos', '/pages/recuperacao-ativos.html'],
   ['consultoria-imobiliaria', '/pages/consultoria-imobiliaria.html'],
   ['ciclo-fechado', '/solucoes/consultoria-trabalhista/ciclo-fechado']

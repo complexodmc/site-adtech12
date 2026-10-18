@@ -16,12 +16,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
 
+  <link rel="preload" as="image" href="../assets/images/planejamento-tributario-hero.webp" fetchpriority="high">
   <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
   <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
   <link rel="stylesheet" href="css/shared.css?v=3">
   <link rel="stylesheet" href="css/eixos.css?v=4">
   <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/hero-filme.css?v=2">
 
   <script src="../assets/js/navbar.js?v=c4" defer></script>
   <script src="../assets/js/solucao.js?v=3" defer></script>
@@ -46,21 +48,41 @@
 
   <main id="conteudo">
 
-    <!-- ============================== HERÓI ============================== -->
-    <section class="page-hero" aria-labelledby="hero-titulo">
-      <div class="page-hero__inner">
-        <div class="page-hero__content">
-          <p class="page-hero__badge">E2 · Tributário, Fiscal e Corporativo</p>
-          <h1 class="page-hero__title" id="hero-titulo">Planejamento <em>Tributário</em></h1>
-          <p class="page-hero__subtitle">Regime, créditos e estrutura societária analisados juntos para organizar a carga fiscal dentro da lei — com cada escolha fundamentada e documentada.</p>
+    <!-- ============================== HERÓI ==============================
+         Faixa com filme de fundo (análise de demonstrativos à mesa; loop de
+         13 s, sem som) sob véu ≥ .86 à esquerda. Abaixo do fio, a tese em três
+         colunas. Cartaz = primeiro quadro (LCP); com prefers-reduced-motion
+         nenhum <source> casa e fica só o cartaz. CSS: pages/css/hero-filme.css. -->
+    <section class="page-hero hf-hero" aria-labelledby="hero-titulo" style="--hf-pos: 55% 50%">
+      <div class="hf-hero__media" aria-hidden="true">
+        <img src="../assets/images/planejamento-tributario-hero.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
+        <video class="hf-hero__video" autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback tabindex="-1">
+          <source src="../assets/videos/planejamento-tributario-hero.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
+          <source src="../assets/videos/planejamento-tributario-hero.mp4" type="video/mp4" media="(prefers-reduced-motion: no-preference)">
+        </video>
+      </div>
+
+      <div class="hf-hero__wrap">
+        <div class="hf-hero__content">
+          <nav class="hf-trilha" aria-label="Trilha de navegação">
+            <ol>
+              <li><a href="../">Início</a></li>
+              <li><a href="../#eixo-2">E2 · Tributário, Fiscal e Corporativo</a></li>
+              <li><span aria-current="page">Planejamento tributário</span></li>
+            </ol>
+          </nav>
+          <h1 class="page-hero__title hf-hero__title" id="hero-titulo">Planejamento <em>tributário</em></h1>
+          <p class="page-hero__subtitle hf-hero__lead">Regime, créditos e estrutura societária analisados juntos para organizar a carga fiscal dentro da lei, com cada escolha fundamentada e documentada.</p>
           <div class="page-hero__actions">
-            <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer">Agendar avaliação tributária <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-            <a class="dmc-btn dmc-btn--link" href="#beneficios">Nossas Áreas</a>
+            <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20uma%20avalia%C3%A7%C3%A3o%20tribut%C3%A1ria%20da%20minha%20empresa." target="_blank" rel="noopener noreferrer">Fale com um especialista <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--link" href="#processo">Como funciona</a>
           </div>
         </div>
-        <!-- Malha de nós no acento do eixo (assets/js/solucao.js). Sem JS: grade de pontos. -->
-        <div class="page-hero__visual" aria-hidden="true">
-          <div class="sol-net"><canvas class="sol-net__canvas"></canvas></div>
+
+        <div class="hf-tese">
+          <p class="hf-tese__frase">Regime, crédito e estrutura são decisões. Tomadas sem método, quem as revisa é <em>a fiscalização</em>.</p>
+          <p class="hf-tese__ponto">Simples Nacional, Lucro Presumido ou Lucro Real comparados com os números da própria empresa, junto com créditos recuperáveis e a estrutura societária.</p>
+          <p class="hf-tese__ponto">Cada escolha registrada com fundamento legal e documentação. Na defesa administrativa, representação por profissional habilitado.</p>
         </div>
       </div>
     </section>

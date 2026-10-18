@@ -17,12 +17,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
 
+  <link rel="preload" as="image" href="../assets/images/planejamento-sucessorio-hero.webp" fetchpriority="high">
   <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
   <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
   <link rel="stylesheet" href="css/shared.css?v=3">
   <link rel="stylesheet" href="css/eixos.css?v=4">
   <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/hero-filme.css?v=2">
 
   <script src="../assets/js/navbar.js?v=c4" defer></script>
   <script src="../assets/js/solucao.js?v=3" defer></script>
@@ -47,21 +49,42 @@
 
   <main id="conteudo">
 
-    <!-- ============================== HERÓI ============================== -->
-    <section class="page-hero" aria-labelledby="hero-titulo">
-      <div class="page-hero__inner">
-        <div class="page-hero__content">
-          <p class="page-hero__badge">E1 · Patrimonial e Sucessório</p>
-          <h1 class="page-hero__title" id="hero-titulo">Planejamento <em>sucessório</em></h1>
-          <p class="page-hero__subtitle">Decidir em vida quem recebe o quê, quando e sob quais regras. O planejamento sucessório organiza a passagem do patrimônio entre gerações com os instrumentos previstos em lei — holding, doação com reserva de usufruto, testamento e cláusulas de proteção — para que a sua família não descubra essas respostas dentro de um inventário.</p>
+    <!-- ============================== HERÓI ==============================
+         Faixa com filme de fundo (reunião de família com o consultor; loop de
+         14 s, sem som, marca d'água removida) sob véu ≥ .86 à esquerda.
+         Abaixo do fio, a tese em três colunas. Cartaz = primeiro quadro (LCP);
+         com prefers-reduced-motion nenhum <source> casa e fica só o cartaz.
+         CSS: pages/css/hero-filme.css. -->
+    <section class="page-hero hf-hero" aria-labelledby="hero-titulo">
+      <div class="hf-hero__media" aria-hidden="true">
+        <img src="../assets/images/planejamento-sucessorio-hero.webp" alt="" width="960" height="540" fetchpriority="high" decoding="async">
+        <video class="hf-hero__video" autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback tabindex="-1">
+          <source src="../assets/videos/planejamento-sucessorio-hero.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
+          <source src="../assets/videos/planejamento-sucessorio-hero.mp4" type="video/mp4" media="(prefers-reduced-motion: no-preference)">
+        </video>
+      </div>
+
+      <div class="hf-hero__wrap">
+        <div class="hf-hero__content">
+          <nav class="hf-trilha" aria-label="Trilha de navegação">
+            <ol>
+              <li><a href="../">Início</a></li>
+              <li><a href="../#eixo-1">E1 · Patrimonial e Sucessório</a></li>
+              <li><span aria-current="page">Planejamento sucessório</span></li>
+            </ol>
+          </nav>
+          <h1 class="page-hero__title hf-hero__title" id="hero-titulo">Planejamento <em>sucessório</em></h1>
+          <p class="page-hero__subtitle hf-hero__lead">Decidir em vida quem recebe o quê, quando e sob quais regras, para que a sua família não descubra essas respostas dentro de um inventário.</p>
           <div class="page-hero__actions">
-            <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer">Agendar consulta <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conversar%20sobre%20o%20planejamento%20sucess%C3%B3rio%20da%20minha%20fam%C3%ADlia." target="_blank" rel="noopener noreferrer">Fale com um especialista <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
             <a class="dmc-btn dmc-btn--link" href="#processo">Como funciona</a>
           </div>
         </div>
-        <!-- Malha de nós no acento do eixo (assets/js/solucao.js). Sem JS: grade de pontos. -->
-        <div class="page-hero__visual" aria-hidden="true">
-          <div class="sol-net"><canvas class="sol-net__canvas"></canvas></div>
+
+        <div class="hf-tese">
+          <p class="hf-tese__frase">Todo patrimônio muda de mãos um dia. A questão é se a família decide <em>antes</em> ou o inventário decide depois.</p>
+          <p class="hf-tese__ponto">Holding, doação com reserva de usufruto, testamento e cláusulas de proteção: os instrumentos previstos em lei, combinados conforme a família e os bens.</p>
+          <p class="hf-tese__ponto">ITCMD e custos de transmissão calculados antes de cada ato. Escrituras e registros feitos por cartórios conveniados e parceiros habilitados.</p>
         </div>
       </div>
     </section>

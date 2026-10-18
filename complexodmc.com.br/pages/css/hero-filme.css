@@ -1,0 +1,110 @@
+/* ============================================================
+   HERÓI COM FILME — componente das páginas internas (pages/*.html)
+   Modelo: faixa cinematográfica de largura total, trilha, título,
+   lead curto e CTA à esquerda sob véu; abaixo, fio e a tese em
+   três colunas (frase + dois pontos com fio do acento do eixo).
+   Uso: <section class="page-hero hf-hero"> + .hf-hero__media (img + video)
+   + .hf-hero__wrap (.hf-trilha, h1, lead, ações) + .hf-tese. Enquadramento
+   do filme por página com --hf-pos no style da seção. Tokens: assets/css/tokens.css. Carrega depois de
+   eixos.css e components.css.
+   ============================================================ */
+.np-eixo .page-hero.hf-hero {
+  position: relative;
+  isolation: isolate;
+  padding: 0 0 var(--space-section);
+  background: var(--surface-0);
+  overflow: hidden;
+}
+
+/* Filme: ocupa a faixa superior; celular = 16:9 no topo, texto abaixo */
+.hf-hero__media {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: -2;
+  height: min(56.25vw, 34rem);
+  margin-top: var(--header-h);
+}
+.hf-hero__media img,
+.hf-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--hf-pos, 60% 40%);
+}
+.hf-hero__video { pointer-events: none; }
+/* Véu: base escura que funde com a página; texto nunca sobre imagem crua */
+.hf-hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--hero-veil-off) 0%, var(--hero-veil-off) 55%, var(--surface-0) 100%);
+}
+
+.hf-hero__wrap {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: calc(var(--header-h) + min(56.25vw, 34rem) + var(--space-5)) var(--gutter) 0;
+}
+.hf-hero__content { max-width: 44rem; }
+
+.hf-trilha ol { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: 0 0 var(--space-5); padding: 0; list-style: none; font-size: var(--fs-small); color: var(--text-3); }
+.hf-trilha li + li::before { content: "/"; margin-right: var(--space-2); color: var(--color-graphite-500); }
+.hf-trilha a { color: rgb(var(--np-accent)); text-decoration: none; }
+.hf-trilha a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.hf-trilha [aria-current] { color: var(--text-2); }
+/* Celular: o item atual repete o h1 logo abaixo e fazia a trilha quebrar em
+   2 linhas só depois da troca de fonte (CLS 0,13). Fica em 1 linha sempre. */
+@media (max-width: 767px) {
+  .hf-trilha li:last-child { display: none; }
+  .hf-trilha li { white-space: nowrap; }
+}
+
+.np-eixo .hf-hero__title { max-width: none; }
+.np-eixo .hf-hero__lead { max-width: 36rem; }
+
+/* Tese: fio + três colunas */
+.hf-tese {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+  padding-top: var(--space-8);
+  border-top: var(--border-hair, 1px) solid var(--color-line);
+}
+.hf-tese__frase {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--fw-light);
+  font-size: var(--fs-h3);
+  line-height: 1.3;
+  color: var(--text-1);
+  text-wrap: balance;
+}
+.hf-tese__frase em { font-style: italic; color: rgb(var(--np-accent)); }
+.hf-tese__ponto {
+  margin: 0;
+  padding-left: var(--space-5);
+  border-left: 3px solid rgb(var(--np-accent));
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+@media (min-width: 768px) {
+  .hf-hero__media { inset: 0; height: auto; margin-top: 0; }
+  .hf-hero__media::after {
+    background:
+      linear-gradient(90deg, var(--hero-veil) 0%, var(--hero-veil) 30%, var(--hero-veil-mid) 58%, var(--hero-veil-off) 100%),
+      linear-gradient(180deg, var(--hero-veil-mid) 0%, var(--hero-veil-off) 22%, var(--hero-veil-off) 48%, var(--hero-veil) 66%, var(--surface-0) 82%);
+  }
+  .hf-hero__wrap { padding-top: calc(var(--header-h) + var(--space-11)); }
+  .hf-tese { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--space-12); }
+  .hf-tese__frase { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) {
+  .hf-tese { grid-template-columns: minmax(0, 6fr) minmax(0, 3fr) minmax(0, 3fr); column-gap: var(--space-8); align-items: start; }
+  .hf-tese__frase { grid-column: auto; padding-right: var(--space-8); }
+}
