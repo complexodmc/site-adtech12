@@ -501,7 +501,7 @@ function familias(scene, aspect) {
   keyLight(scene, { intensity: 2.0, pos: keyPos, target: keyTgt, size: 30, radius: 8, far: 100 }); // da abertura alta à direita
   hemi(scene, 0x2b3340, 0x1f2126, 0.35);
   RectAreaLightUniformsLib.init();
-  const area = new THREE.RectAreaLight(0xffd9b0, 2.2, 6, 3); area.position.set(0, 7.4, -1); area.lookAt(0, 0, -1); scene.add(area);
+  const area = new THREE.RectAreaLight(0xffd9b0, 2.2, 6, 3); area.position.set(0, 7.1, -1); area.lookAt(0, 0, -1); scene.add(area);
   const bounce = new THREE.RectAreaLight(0xf2d8c0, 0.25, 4, 7); bounce.position.set(4.5, 3.5, 2); bounce.lookAt(-8, 3.5, -2); scene.add(bounce); // rebatida (15 %) na parede/pilar esquerdo
 
   // cantaria: estratos + bush-hammer (micro 3 oitavas) + lascas; roughness .55–.75 por bloco; albedo ±12 % por instância
@@ -564,12 +564,12 @@ function familias(scene, aspect) {
   const jamb = new THREE.PointLight(0xffc48f, 14, 9, 1.8); jamb.position.set(0, DH * 0.65, zWall + 0.9); scene.add(jamb); // rebatida no batente/ombreiras
 
   // forro de concreto (fecha o céu até o alto do quadro) + paredes laterais na mesma cantaria (juntas de bloco por normal)
-  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(26, 90), withMaps(std(0x3a393b, { roughness: 0.9 }), concreteMaps(512, { color: 0x3a393b, dark: 0.12, boards: 8, repeat: 1, scale: 3 }), { normalScale: 0.3 })); ceil.rotation.x = Math.PI / 2; ceil.position.set(0, 8.2, -28); ceil.receiveShadow = true; scene.add(ceil);
+  const ceil = new THREE.Mesh(new THREE.PlaneGeometry(26, 90), withMaps(std(0x4c4b4e, { roughness: 0.9 }), concreteMaps(512, { color: 0x4c4b4e, dark: 0.12, boards: 8, repeat: 1, scale: 3 }), { normalScale: 0.3 })); ceil.rotation.x = Math.PI / 2; ceil.position.set(0, 7.3, -28); ceil.receiveShadow = true; scene.add(ceil);
   const ashlar = procMaps(1024, (x, y) => { const rows = 6; const ry = y * rows, row = Math.floor(ry), fy = ry - row; const wset = [1.6, 1.1, 1.35][row % 3] / 3.6; const ox = (row % 2) * 0.5 * wset; const fx = ((x + ox) / wset) % 1; const j = Math.exp(-Math.pow((fy - 0.5) / 0.022, 2)) + Math.exp(-Math.pow((fx - 0.5) / (0.022 / (wset * rows)), 2)); const micro = fbm(x * 120, y * 120, 3), strata = fbm(x * 2, y * 5, 2), blk = hash2(row, Math.floor((x + ox) / wset)); return clamp01(0.45 + micro * 0.22 + strata * 0.08 + (blk - 0.5) * 0.12 - 0.7 * Math.min(1, j)); }, { nStrength: 0.7, repeat: 1, roughFn: (x, y, hv) => clamp01(0.55 + 0.2 * hv) });
   const gwall = withMaps(std(0x55565a, { roughness: 0.72 }), ashlar, { normalScale: 0.3 });
   for (const tx of [gwall.normalMap, gwall.roughnessMap]) tx.repeat.set(70 / 3.6, 9 / 3.6);
   const wallWash = new THREE.RectAreaLight(0xb4bcc8, 1.3, 44, 2); wallWash.position.set(-5.5, 6.4, -16); wallWash.lookAt(-9.5, 3, -16); scene.add(wallWash); // hemisférica fraca (fria) na parede esquerda
-  const ceilBounce = new THREE.RectAreaLight(0xe8d6c4, 0.32, 12, 60); ceilBounce.position.set(0, 1.0, -20); ceilBounce.lookAt(0, 9, -20); scene.add(ceilBounce); // rebatida do piso no forro
+  const ceilBounce = new THREE.RectAreaLight(0xe8d6c4, 0.5, 12, 60); ceilBounce.position.set(0, 1.0, -20); ceilBounce.lookAt(0, 9, -20); scene.add(ceilBounce); // rebatida do piso no forro
   for (const sx of [-1, 1]) { const w = new THREE.Mesh(new THREE.PlaneGeometry(70, 9), gwall); w.position.set(sx * 9.5, 4.5, -22); w.rotation.y = sx > 0 ? -Math.PI / 2 : Math.PI / 2; w.receiveShadow = true; scene.add(w); }
   // piso em lajotas 1,2 u (roughness .45: reflexo largo, sem hot spot) + subpiso
   const floorMat = phys(0x141618, { roughness: 0.45, metalness: 0, clearcoat: 0.25, clearcoatRoughness: 0.45 });
@@ -620,7 +620,7 @@ function grupos(scene, aspect) {
   const r = rng(5);
 
   const alu = std(0x3c3e42, { roughness: 0.42, metalness: 0.85 });
-  const dark = std(0x17181b, { roughness: 0.85 });
+  const dark = new THREE.MeshPhysicalMaterial({ color: 0x17181b, roughness: 1, metalness: 0, specularIntensity: 0 }); // sem lóbulo especular: o sol rasante virava face bege no núcleo dos pilotis
   const conc = withMaps(std(0xffffff, { roughness: 0.85 }), concreteMaps(512, { color: 0x5a5651, dark: 0.18, repeat: 2, scale: 4 }), { normalScale: 0.5, mapAlso: true });
   const goldM = GOLD({ roughness: 0.3 });
   // calçada escura (albedo baixo), paginação a cada 2 u só por normal; meio-fio; rua; canteiro; balizadores com poças de luz
@@ -703,22 +703,22 @@ function patrimonio(scene, aspect) {
   scene.fog = new THREE.FogExp2(0x0e0f12, 0.03);
   scene.background = new THREE.Color(0x0e0f12);
   envStudio(scene, 0.7);
-  const key = keyLight(scene, { intensity: 1.4, pos: [-9, 12, 6], target: [0, 1.6, 0], size: 14, radius: 6, far: 60, map: 4096 }); // quente, de cima-esquerda, à frente
+  const key = keyLight(scene, { color: 0xffdcc2, intensity: 1.4, pos: [-9, 12, 6], target: [0, 1.6, 0], size: 14, radius: 6, far: 60, map: 4096 }); // quente (menos saturada: o ouro fica só no metal), de cima-esquerda
   hemi(scene, 0x232a36, 0x0b0c0e, 0.8);
   const fillP = new THREE.DirectionalLight(0x7f8898, 0.4); fillP.position.set(10, 5, 10); scene.add(fillP); // preenchimento frio fraco à direita
   RectAreaLightUniformsLib.init();
-  const back = new THREE.DirectionalLight(0xffe0bf, DEBUG.includes('noback') ? 0 : 1.0); back.position.set(-4, 6, -10); back.target.position.set(0, 1.5, 0); scene.add(back.target, back); // contraluz 1,0
-  const top = new THREE.SpotLight(0xffd3a4, DEBUG.includes('nosweep') ? 0 : 9, 24, 0.24, 0.8, 1.4); top.position.set(-1.5, 9, -1.5); top.target.position.set(-1.5, 0, -1.5); scene.add(top.target, top); // top light 1×1 a 0,6 (equivalente), varre 3 u
+  const back = new THREE.DirectionalLight(0xffe8d2, DEBUG.includes('noback') ? 0 : 1.0); back.position.set(-4, 6, -10); back.target.position.set(0, 1.5, 0); scene.add(back.target, back); // contraluz 1,0
+  const top = new THREE.SpotLight(0xffe2c8, DEBUG.includes('nosweep') ? 0 : 9, 24, 0.24, 0.8, 1.4); top.position.set(-1.5, 9, -1.5); top.target.position.set(-1.5, 0, -1.5); scene.add(top.target, top); // top light 1×1 a 0,6 (equivalente), varre 3 u
 
   // sala: piso de pedra escura com juntas 1,2 u (normal), rodapé, parede de concreto aparente a 6 u (tábuas 0,3 u + furos)
   const fMaps = procMaps(1024, (x, y) => { const fx = (x * 10) % 1, fy = (y * 10) % 1; const j = Math.exp(-Math.pow((fx - 0.5) / 0.012, 2)) + Math.exp(-Math.pow((fy - 0.5) / 0.012, 2)); return clamp01(0.5 + (fbm(x * 6, y * 6, 2) - 0.5) * 0.08 - 0.4 * Math.min(1, j)); }, { nStrength: 0.2, repeat: 10, roughFn: (x, y, hv) => clamp01(0.5 + (hv - 0.5) * 0.1) });
-  const floor = new THREE.Mesh(new THREE.PlaneGeometry(120, 120), withMaps(phys(0x141618, { roughness: 0.72, clearcoat: 0, envMapIntensity: 0.35 }), fMaps, { normalScale: 0.4 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
-  const wMaps = concreteMaps(1024, { color: 0x4e4b47, dark: 0.22, boards: 14, ties: 4, rBase: 0.86, rVar: 0.08, repeat: 1, scale: 5 });
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(120, 120), withMaps(phys(0x141618, { roughness: 0.86, clearcoat: 0, envMapIntensity: 0.3, specularIntensity: 0.3 }), fMaps, { normalScale: 0.4 })); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+  const wMaps = concreteMaps(1024, { color: 0x4c4c4d, dark: 0.22, boards: 14, ties: 4, rBase: 0.86, rVar: 0.08, repeat: 1, scale: 5 });
   const wall = new THREE.Mesh(new THREE.PlaneGeometry(40, 12), withMaps(std(0xffffff, { roughness: 0.86 }), wMaps, { normalScale: 0.9, mapAlso: true })); wall.position.set(0, 6, -6); wall.receiveShadow = true; scene.add(wall);
   for (const tx of [wall.material.map, wall.material.normalMap, wall.material.roughnessMap]) tx.repeat.set(40 / 12, 1);
   scene.add(box(40, 0.14, 0.06, std(0x0d0e10, { roughness: 0.6 }), 0, 0.07, -5.97, false)); // rodapé
-  const wallWash = new THREE.RectAreaLight(0xffe4c4, 1.6, 16, 1.0); wallWash.position.set(0, 11.2, -4.6); wallWash.lookAt(0, 0, -6.2); scene.add(wallWash); // lava a parede de cima (30 % da key)
-  const wallSpot = new THREE.SpotLight(0xffe0c0, 64, 20, 0.6, 0.8, 1.6); wallSpot.position.set(1, 11, -3.2); wallSpot.target.position.set(1, 3, -6); scene.add(wallSpot.target, wallSpot);
+  const wallWash = new THREE.RectAreaLight(0xece4da, 1.8, 16, 1.0); wallWash.position.set(0, 11.2, -4.6); wallWash.lookAt(0, 0, -6.2); scene.add(wallWash); // lava a parede de cima (30 % da key)
+  const wallSpot = new THREE.SpotLight(0xf2e6d8, 70, 20, 0.6, 0.8, 1.6); wallSpot.position.set(1, 11, -3.2); wallSpot.target.position.set(1, 3, -6); scene.add(wallSpot.target, wallSpot);
   // pedestal de pedra (chanfro) com tampo polido (roughness .08) + reflexo atenuado da pilha
   const PW = 6.2, PD = 4.2, PH = 0.5;
   const stoneMat = withMaps(phys(0x1c1e22, { roughness: 0.08, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 0.8 }), noiseMaps(512, 8, { nStrength: 0.08, rBase: 0.1, rVar: 0.04, repeat: 1 }), { normalScale: 0.15 });
@@ -762,7 +762,7 @@ function patrimonio(scene, aspect) {
     cam.lookAt(0, 1.5, 0); cam.rotateY(D2R(9)); // pilha no terço direito (texto à esquerda, como nas outras quatro)
     slabs.forEach((g, i) => { g.position.y = g.userData.y0 + Math.sin(t * TAU + i * 0.07 * TAU) * 0.02; });
   };
-  return { cam, update, dof, exposure: 1.75 };
+  return { cam, update, dof, exposure: 1.95 };
 }
 
 // =====================================================================
@@ -780,7 +780,7 @@ function terras(scene, aspect) {
   scene.add(dome);
   envGradient(scene, 0x2a2d33, 0x5a4a38, 0x2a241c, 0.35);
   const key = keyLight(scene, { color: 0xffd0ae, intensity: 12, pos: [78, 22, -42], target: [0, 0, -14], size: 70, radius: 3, far: 260, normalBias: 0.06 }); // sol a ≈ 12° de trás-direita
-  hemi(scene, 0x3b4250, 0x1c1814, 0.7); // sombras neutro-frias
+  hemi(scene, 0x3b4250, 0x1c1814, 1.0); // sombras neutro-frias
 
   const SIZE = 240, SEG = 640, AMP = 4.5;
   const hill = (x, z) => 12 * Math.exp(-((x + 48) ** 2 + (z + 88) ** 2) / (2 * 26 ** 2)) + 9 * Math.exp(-((x - 70) ** 2 + (z + 95) ** 2) / (2 * 30 ** 2));
@@ -834,7 +834,7 @@ function terras(scene, aspect) {
     roughFn: (x, y, hv) => { const o = ((Math.floor(y * N) * N) + Math.floor(x * N)) * 4; const g = idd[o + 1]; const id = idd[o]; const use = id > 0 ? USE[id - 1] : 3; return clamp01((use <= 1 ? 0.86 : 0.95) - (g === 255 ? 0.25 : 0) + (hv - 0.5) * 0.12); },
     colorFn: (x, y, hv) => {
       const o = ((Math.floor(y * N) * N) + Math.floor(x * N)) * 4; const id = idd[o], g = idd[o + 1], bl = idd[o + 2] / 255;
-      let c = [0.26, 0.265, 0.19]; // pasto, oliva-cinza
+      let c = [0.235, 0.265, 0.18]; // pasto, oliva-cinza
       if (id > 0) {
         const use = USE[id - 1], a = dirs[id - 1];
         if (use === 0) c = [0.2, 0.165, 0.14]; // solo recém-revolvido (herói), escuro e pouco saturado
@@ -853,7 +853,7 @@ function terras(scene, aspect) {
   const detail = noiseMaps(512, 14, { nStrength: 0.5, oct: 3 }); // pedras/torrões de ≈ 0,3 u (tile de 4 u, repetido 60×)
   detailNormal(terrMat, detail.normalMap, 60, 0.6);
   const uWind = { value: 0 };
-  terrMat.onBeforeCompile = ((prev) => (sh) => { prev?.(sh); sh.uniforms.uWind = uWind; sh.vertexShader = 'uniform float uWind;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n transformed.y += 0.05 * sin(position.x * 0.9 + uWind) * sin(position.z * 0.7 - uWind * 0.8);'); })(terrMat.onBeforeCompile);
+  terrMat.onBeforeCompile = ((prev) => (sh) => { prev?.(sh); sh.uniforms.uWind = uWind; sh.vertexShader = 'uniform float uWind;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n transformed.y += 0.05 * sin(position.x * 0.9 + uWind) * sin(position.z * 0.7 - uWind * 0.5);'); })(terrMat.onBeforeCompile); // fatores inteiros/meios do período → quadro 144 ≡ quadro 0
   const terr = new THREE.Mesh(geo, terrMat); terr.castShadow = true; terr.receiveShadow = true; scene.add(terr);
   const water = new THREE.Mesh(new THREE.CircleGeometry(1, 48), phys(0x0c0e12, { roughness: 0.04, metalness: 0, envMapIntensity: 1.6, clearcoat: 1, clearcoatRoughness: 0.02 })); water.rotation.x = -Math.PI / 2; water.scale.set(lake.rx * 0.98, lake.rz * 0.98, 1); water.position.set(lake.x, lakeLevel + 0.08, lake.z); water.receiveShadow = true; scene.add(water);
 
@@ -929,7 +929,7 @@ const POST_PARAMS = {
   familias: { vig: 0.28, grain: 0.024, desat: 0.12, desatHi: 0.25, chroma: 0.0007 },
   grupos: { vig: 0.28, grain: 0.024, desat: 0.1, desatHi: 0.1, chroma: 0.0007 },
   patrimonio: { vig: 0.32, grain: 0.02, desat: 0.08, desatHi: 0.0, chroma: 0.0007 },
-  terras: { vig: 0.3, grain: 0.026, desat: 0.38, desatHi: 0.42, chroma: 0.0007 },
+  terras: { vig: 0.3, grain: 0.026, desat: 0.5, desatHi: 0.45, chroma: 0.0007 },
 };
 
 // ---------- pós comum: aberração .0007, vinheta, canto/faixa inferior, curva S, dessaturação (meios-tons / altas luzes), grão em luminância com corte em L < .05 ----------

@@ -92,3 +92,52 @@ rodada 1 media 16–33 aqui contra 30–35 lá): alvo adotado YAVG 30–55 neste
 .05→.035 (famílias); ambiente de reflexo de `grupos` mais claro que o céu visível (#8a6a4a a 1.4) porque o vidro a 4 % de
 Fresnel sobre um céu escuro devolve preto; `patrimonio` a 26 u (a 20 u a pilha não cabe no terço) e RectArea de
 contraluz a 2,2 (a 8–12 a reflexão LTC no topo das lâminas virava uma "caixa branca").
+
+## Rodada 3 (prescrições do diretor de arte, 2026-10-17, notas 4–6) — o que mudou em `scenes.js`
+- Helpers novos: `halo` (sprite radial aditivo para lâmpadas, substitui o flare em linha), `envFromSky` (PMREM do próprio
+  `skyDome` → o vidro reflete a faixa quente do céu), `detailNormal` (2.ª normal tileada somada por `onBeforeCompile`),
+  `crownTex` (copa de árvore com alpha fbm, 2 variantes), `lightBand` (faixa de luz interna que varre um pavimento).
+  `skyDome` ganhou `bands` (nuvens estratificadas rasantes em espaço azimute × altura) e `coldBand`/`coldCol` (faixa fria
+  logo acima do horizonte).
+- `construcao`: temperaturas separadas — névoa/céu/ambiente em grafite neutro-frio (#3a3734→#1d1c1b, PMREM topo #3a3f48),
+  sol neutro lateral (#d3d6da, 18°) só para a sombra longa da torre da grua sobre o pátio (VSM radius 2; sem gobo), 3200 K só
+  no spot do herói + RectArea dourada no topo da laje; câmera +1,5 u e horizonte ≈ 30 % (lança cortada pelo quadro); chão com
+  normal dos sulcos ×2, roughness em 2 oitavas e 4 poças; escoras com placa de base/cabeçote em U e travamento em X, tábuas de
+  borda 0,05 u + sarrafo, pilares 0,5 u com junta de concretagem (normal); contrapeso em 3 blocos; gancho/carga retirados
+  (trolley junto à torre com moitão curto que desce 0,3 u), lança gira 3°; postes só com halo; nuvem baixa estratificada.
+- `familias`: forro de concreto a 7,3 u (fecha o "triângulo preto"), rebatida piso→forro (RectArea 0,5 para cima); paredes
+  laterais em cantaria (fiadas 0,6 u, 3 larguras de bloco, juntas por normal) na mesma tonalidade dos pilares, com lavagem
+  frontal fria 1,3; névoa neutra (#242322); pórticos com 3 conjuntos de larguras de bloco alternados, defasagem de fiada,
+  lascas (fbm 3 oitavas), bush-hammer (micro 3 oitavas, nStrength .6), albedo ±12 %, cornija de 3 degraus; fim do eixo com
+  parede de cantaria, nicho recuado 0,4 u, porta de bronze 0,1 u com frisos, spot 520 + RectArea 7 + ponto 14 no batente;
+  raios em 2 cones (largo .45×, estreito 1,2×) com intensidade ±15 % em 6 s (cos); poeira 200 pts a .13; piso roughness .45.
+- `grupos`: câmera 3/4 alta a 45 mm (x 33, y 12,5, z 64, yaw 27°, pitch 5°; horizonte ≈ 45 %), matriz no terço esquerdo, pódio
+  novo (10×10×9,6 u) com marquise e pilotis no primeiro plano direito; vidro `MeshPhysical` #8c949a roughness .08 metalness .9
+  com `envFromSky` 1.0; montantes 0,1×0,15 u e lajes 0,18 u instanciadas (offset 0,02 u, sem z-fighting); forros 2700 K em
+  faixas contínuas (55 % dos pavimentos) + 2–3 % de módulos inteiros acesos a rgb(108,78,50); núcleo dos pilotis opaco;
+  calçada #3a3836 com paginação só por normal; 6 balizadores com PointLight (poças); faixa de luz varre 1 u no 6.º
+  pavimento; dolly lateral 1,5 u; céu horizonte #3e3a34 com nuvens estratificadas; hemi 2,4; exposição 2,15.
+- `patrimonio`: sala — parede de concreto aparente a 6 u (14 tábuas, 4 furos por tile, lavada de cima por RectArea 1,8 + spot
+  70, luz neutra), piso de pedra escura com juntas 1,2 u (normal) fosco (roughness .86), rodapé; pedestal 6,2×4,2×0,5 u com
+  `Reflector` sob véu (opacidade .5) = reflexo "aterrado" da pilha; 6 lâminas: base 0,14 u (2×), lâmina central (i = 3)
+  deslocada 0,3 u com perfil de ouro 0,03 u, demais arestas em aço grafite, espaçadores de ouro r 0,022; vidro com
+  `transmission` .92 (ior 1,52, thickness .12, atenuação #6e8088 a 1,6 u) — vê-se a lâmina de baixo através da de cima;
+  contraluz 1,0; top light spot 9 (cone .24, dentro do pedestal) varre 3 u; keys dessaturadas (#ffdcc2) para o ouro medido
+  ficar só no metal; FogExp2 .03; exposição 1,95; pilha no terço direito (texto à esquerda, como nas outras quatro).
+- `terras`: céu horizonte #3e3a34 → zênite #1e2126 com faixa fria #2a2d33 e nuvem rasante; névoa #45423e; hemi #3b4250 a 1,0
+  (sombras neutro-frias); key #ffd0ae; uso por talhão (arado escuro / palha / faixas de cultura verde-oliva × solo a 3 u /
+  pasto) com albedos dessaturados; relevo em 2 escalas (fbm 3 u + pedras 0,6 u na textura de 2048 + normal de detalhe
+  tileada 60× a .6); câmera pitch 15° (horizonte no terço superior) e DOF a 24 u (talhão em primeiro plano nítido); silos a
+  (26, −50) com cúpula e anéis, galpão de duas águas com beiral 0,3 u, cumeeira e empenas; copas em billboards cruzados (3
+  planos, 2 variantes, `alphaTest` .5, sombra com forma) só em z < −20, 14 grupos nas grotas + 6 no açude; pós desat .5.
+
+Calibrações que divergem do número literal (motivo medido no preview, `measure.mjs`):
+- `construcao`: pitch 5,2° (não "−6°" a mais): a −6° adicionais o horizonte subia a ≈ 8 % e o céu sumia; a 5,2° o horizonte
+  geométrico fica a 27 % e a linha visível da névoa a ≈ 35 %. Sol a 18° (não 7°): a 7° a sombra da torre tinha 110 u e virava
+  mancha; a 18° cruza o pátio com forma.
+- `familias`: fiadas da parede 0,6 u = as dos pilares (a leitura de "tijolo" vinha da névoa sépia e da falta de luz frontal,
+  não da escala); forro a 7,3 u com RectArea de rebatida (a hemisférica não ilumina superfícies voltadas para baixo).
+- `grupos`: horizonte ≈ 45 % (pedido 40 %): a 40 % a marquise do pódio saía do quadro; YAVG 34 neste medidor (pedido 35–40).
+- `patrimonio`: top light como `SpotLight` (não RectArea): LTC no vidro com transmissão estourava os topos; piso fosco
+  (.86) porque qualquer brilho do piso era contado como "ouro" pelo medidor.
+- `terras`: sulcos mantidos em 0,8 u (0,02 u = 0,2 px na textura de 2048 → aliasing); o detalhe fino vem da normal tileada.
