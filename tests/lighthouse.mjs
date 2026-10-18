@@ -31,6 +31,7 @@ const TODAS = [
   ['planejamento-sucessorio', '/pages/planejamento-sucessorio.html'],
   ['planejamento-tributario', '/pages/planejamento-tributario.html'],
   ['contabilidade', '/pages/contabilidade.html'],
+  ['tecnologia', '/pages/tecnologia.html'],
   ['recuperacao-ativos', '/pages/recuperacao-ativos.html'],
   ['consultoria-imobiliaria', '/pages/consultoria-imobiliaria.html'],
   ['ciclo-fechado', '/solucoes/consultoria-trabalhista/ciclo-fechado']
