@@ -29,7 +29,7 @@ test.describe('estrutura da home', () => {
         h1: document.querySelectorAll('h1').length,
         mainHome: document.querySelector('main#conteudo')?.classList.contains('home') ?? null,
         videoFrame: !!document.querySelector('#video .page-video__frame[data-video]'),
-        ancoras: ['features', 'segmentos', 'contact', 'newsletter', 'conheca'].filter((id) => !document.getElementById(id)),
+        ancoras: ['features', 'treinamentos', 'contact', 'newsletter', 'conheca'].filter((id) => !document.getElementById(id)),
         spriteNoMain: !!document.querySelector('main > svg[hidden] symbol[id^="ico-e"]'),
         canvasConheca: document.querySelectorAll('#conheca canvas').length,
         tabsFora: [...document.querySelectorAll('main [role="tab"]')].map((t) => t.closest('section')?.id || '?').filter((id) => id !== 'conheca')
@@ -95,15 +95,15 @@ test.describe('estrutura da home', () => {
     expect(logos).toEqual([]);
   });
 
-  test('publicações/segmentos: datetime ISO ≤ hoje, 0 placeholder fora de .publicacoes__vazio, 0 login.html?curso=', async ({ page, request }) => {
+  test('publicações/método: datetime ISO ≤ hoje, 0 placeholder fora de .publicacoes__vazio, 0 login.html?curso=', async ({ page, request }) => {
     pagina('/');
     await abrir(page, '/');
     const e = await page.evaluate(() => ({
       times: [...document.querySelectorAll('#publicacoes time')].map((t) => t.getAttribute('datetime')),
       placeholder: [...document.querySelectorAll('#publicacoes *')].filter((el) => !el.closest('.publicacoes__vazio') && el.children.length === 0 && /lorem|t[íi]tulo do artigo|em breve/i.test(el.textContent)).map((el) => el.textContent.trim().slice(0, 60)),
       linksPubli: [...document.querySelectorAll('#publicacoes a[href]')].map((a) => a.href),
-      cursoLogin: [...document.querySelectorAll('#segmentos a[href*="login.html?curso="]')].map((a) => a.getAttribute('href')),
-      linksSeg: [...document.querySelectorAll('#segmentos a[href]')].map((a) => a.href)
+      cursoLogin: [...document.querySelectorAll('#treinamentos a[href*="login.html?curso="]')].map((a) => a.getAttribute('href')),
+      linksEad: [...document.querySelectorAll('#treinamentos a[href^="plataforma-ead"]')].map((a) => a.href)
     }));
     await anexar('home-publicacoes.json', e);
     const hoje = new Date().toISOString().slice(0, 10);
@@ -111,10 +111,10 @@ test.describe('estrutura da home', () => {
     expect(ruins, 'datetime inválido ou futuro').toEqual([]);
     if (e.placeholder.length) causa('placeholder de publicação fora de .publicacoes__vazio');
     expect(e.placeholder).toEqual([]);
-    if (e.cursoLogin.length) causa('link login.html?curso= na seção de segmentos');
+    if (e.cursoLogin.length) causa('link login.html?curso= na seção de método');
     expect(e.cursoLogin).toEqual([]);
     const quebrados = [];
-    for (const u of [...new Set([...e.linksPubli, ...e.linksSeg])]) {
+    for (const u of [...new Set([...e.linksPubli, ...e.linksEad])]) {
       if (!u.startsWith(new URL(page.url()).origin)) continue;
       const r = await request.get(u, { maxRedirects: 0 });
       if (r.status() !== 200) quebrados.push({ url: u, status: r.status() });
@@ -134,7 +134,7 @@ for (const [rotulo, viewport] of [['1440', { width: 1440, height: 900 }], ['390'
         await page.locator(`#${id}`).scrollIntoViewIfNeeded();
         await page.waitForTimeout(500);
         // Contraste é do estado final (§7): espera as revelações da seção terminarem (--dur-reveal 700 ms + --stagger × --i,
-        // até ~1 s em .seg-item[--i:5]); senão o axe mistura o texto em fade com o papel e reprova color-contrast.
+        // até ~1 s em .metodo-programa[--i:4]); senão o axe mistura o texto em fade com o papel e reprova color-contrast.
         await page.waitForFunction((sel) => [...document.querySelectorAll(`${sel} .dmc-reveal`)].every((el) => parseFloat(getComputedStyle(el).opacity) >= 0.999), `#${id}`, { timeout: 3000 }).catch(() => {});
         const r = await new AxeBuilder({ page }).include(`#${id}`).analyze();
         const graves = r.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')
