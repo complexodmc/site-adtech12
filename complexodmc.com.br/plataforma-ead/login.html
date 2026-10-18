@@ -1,225 +1,489 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-root="../">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Plataforma Complexo DMC — Acesso institucional ao programa de formação Arquitetura Patrimonial Estratégica.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DMC Business School · Acesso, cursos e bolsas</title>
+  <meta name="description" content="DMC Business School, a escola do Complexo DMC: acesso de alunos e professores, catálogo de cursos e pré-inscrição no Concurso de Bolsas.">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="theme-color" content="#030708">
-  <title>Acesso · Plataforma Complexo DMC</title>
+  <meta name="theme-color" content="#0b0c0e">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Complexo DMC">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url" content="https://www.complexodmc.com.br/plataforma-ead/login.html">
+  <meta property="og:title" content="DMC Business School · Acesso, cursos e bolsas">
+  <meta property="og:description" content="Cursos do Complexo DMC e pré-inscrição no Concurso de Bolsas da DMC Business School.">
+  <meta property="og:image" content="https://www.complexodmc.com.br/assets/images/og-image.jpg">
 
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <!-- DMC Business School na direção C (substitui a tela turquesa antiga;
+       login.css, js/login/* e three.js seguem no disco, sem uso aqui).
+       Estilo: css/business-school.css · Comportamento: js/business-school.js
+       Acesso: window.DMC_Auth (js/app.js) · Catálogo: GET /api/vitrine/cursos
+       Bolsas: POST /api/bolsas/pre-inscricao (sem JS o formulário posta direto). -->
+  <script>
+    /* Antes da primeira pintura: marca que há JS e se existe sessão salva —
+       o cartão nasce em "Verificando sua sessão…" em vez de mostrar o
+       formulário e trocá-lo depois. Só lê o navegador; nada é enviado. */
+    (function (c) { c.add('bs-js'); try { if (localStorage.getItem('dmc:token')) c.add('bs-verificando'); } catch (e) { /* sem storage */ } })(document.documentElement.classList);
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/plataforma.css">
-  <link rel="stylesheet" href="css/login.css">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
+
+  <link rel="preload" as="image" type="image/avif" href="../assets/images/home/vertical-familias-m.avif" media="(max-width: 1023px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" href="../assets/images/home/vertical-familias.avif" media="(min-width: 1024px)" fetchpriority="high">
+
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/business-school.css?v=1">
+
+  <script src="../assets/js/navbar.js?v=c4" defer></script>
+  <script src="js/api-client.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/business-school.js?v=1" type="module"></script>
 </head>
-<body class="login-page">
+<body class="bs">
+  <!-- Ícones das capas sem imagem (iconeKey do curso) e seta: usados pelo JS via <use>. -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="bs-i-graduation" viewBox="0 0 24 24"><path d="M2 9.5 12 5l10 4.5L12 14zM6 11.5v4.6c1.6 1.3 3.6 2 6 2s4.4-.7 6-2v-4.6M22 9.5v5.5"/></symbol>
+    <symbol id="bs-i-monitor" viewBox="0 0 24 24"><path d="M3 4.5h18v11H3zM8.5 20h7M12 15.5V20"/></symbol>
+    <symbol id="bs-i-shield" viewBox="0 0 24 24"><path d="M12 3l7.5 3v5.5c0 4.6-3.1 8.2-7.5 9.5-4.4-1.3-7.5-4.9-7.5-9.5V6zM9 12l2.2 2.2L15.5 10"/></symbol>
+    <symbol id="bs-i-building" viewBox="0 0 24 24"><path d="M3 21h18M5 21V8.5l7-4.5 7 4.5V21M9.5 21v-6h5v6M11.5 10.5h1"/></symbol>
+    <symbol id="bs-i-briefcase" viewBox="0 0 24 24"><path d="M3 7.5h18v12H3zM8.5 7.5v-2A1.5 1.5 0 0 1 10 4h4a1.5 1.5 0 0 1 1.5 1.5v2M3 12.5h18"/></symbol>
+    <symbol id="bs-i-scale" viewBox="0 0 24 24"><path d="M12 4v16M6 7h12M6 7l-3 6.5a3 3 0 0 0 6 0zM18 7l-3 6.5a3 3 0 0 0 6 0zM8.5 20h7"/></symbol>
+    <symbol id="bs-i-seta" viewBox="0 0 16 16"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+  </svg>
 
-  <!-- Atmosfera compartilhada: grid técnico + iluminação. Atravessa os
-       dois lados da tela para que não exista divisão visual rígida. -->
-  <div class="atmos" aria-hidden="true">
-    <div class="atmos__grid"></div>
-    <div class="atmos__lume atmos__lume--torre"></div>
-    <div class="atmos__lume atmos__lume--chao"></div>
-    <div class="atmos__lume atmos__lume--acesso"></div>
-    <div class="atmos__vinheta"></div>
-  </div>
+  <dmc-navbar data-over>
+    <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+    <header class="dmc-nav dmc-nav--over">
+      <div class="dmc-wrap dmc-nav__bar">
+        <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+          <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22">
+          <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+        </a>
+        <a class="dmc-nav__toggle" href="#rodape">Menu <i aria-hidden="true"></i></a>
+      </div>
+    </header>
+  </dmc-navbar>
 
-  <!-- Arquitetura do conhecimento (WebGL). Puramente decorativa: o
-       conteúdo equivalente está nos rótulos e na progressão abaixo. -->
-  <canvas class="arquitetura" id="arquitetura" aria-hidden="true"></canvas>
+  <main id="conteudo">
 
-  <main class="acesso-layout">
-
-    <!-- ══════════ ESQUERDA · A ARQUITETURA ══════════ -->
-    <section class="palco" aria-labelledby="palco-titulo">
-
-      <!-- Os quatro níveis, de cima para baixo. `data-camada` casa com
-           o índice que a cena 3D usa para destacar a laje correspondente,
-           e é por ele que login-experience.js ancora cada rótulo na
-           projeção real da câmera. -->
-      <ul class="camadas" id="camadas" role="list">
-        <li class="camadas__item" data-camada="4">
-          <span class="camadas__icone" aria-hidden="true">
-            <!-- cubo: o conhecimento que virou objeto no mundo -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/><path d="M12 12 20 7.5M12 12v9M12 12 4 7.5"/></svg>
-          </span>
-          <span class="camadas__texto">
-            <span class="camadas__nome">Aplicação</span>
-            <span class="camadas__desc">Transforma conhecimento em ação no mundo real.</span>
-          </span>
-          <span class="camadas__conector" aria-hidden="true"><i class="camadas__no"></i></span>
-        </li>
-        <li class="camadas__item" data-camada="3">
-          <span class="camadas__icone" aria-hidden="true">
-            <!-- torre de xadrez: escolher a posição antes de mover -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v3l-2 2v4l2 3v5H7v-5l2-3V9L7 7V4Z"/><path d="M9.5 4v2M14.5 4v2M9 20h6"/></svg>
-          </span>
-          <span class="camadas__texto">
-            <span class="camadas__nome">Estratégia</span>
-            <span class="camadas__desc">Define o caminho, prioriza o que importa.</span>
-          </span>
-          <span class="camadas__conector" aria-hidden="true"><i class="camadas__no"></i></span>
-        </li>
-        <li class="camadas__item" data-camada="2">
-          <span class="camadas__icone" aria-hidden="true">
-            <!-- rede de nós: o saber organizado em relações -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="17" r="2"/><circle cx="19" cy="17" r="2"/><path d="M12 7v5M12 12 6.6 15.8M12 12l5.4 3.8M7 17h10"/></svg>
-          </span>
-          <span class="camadas__texto">
-            <span class="camadas__nome">Método</span>
-            <span class="camadas__desc">Organiza o processo, sistematiza o saber.</span>
-          </span>
-          <span class="camadas__conector" aria-hidden="true"><i class="camadas__no"></i></span>
-        </li>
-        <li class="camadas__item" data-camada="1">
-          <span class="camadas__icone" aria-hidden="true">
-            <!-- coluna clássica: o princípio que sustenta -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21h16M6 21V8M10 21V8M14 21V8M18 21V8"/><path d="M3 8h18l-9-5-9 5Z"/></svg>
-          </span>
-          <span class="camadas__texto">
-            <span class="camadas__nome">Fundação</span>
-            <span class="camadas__desc">Sólida, confiável e baseada em princípios.</span>
-          </span>
-          <span class="camadas__conector" aria-hidden="true"><i class="camadas__no"></i></span>
-        </li>
-      </ul>
-
-      <div class="palco__copy">
-        <h1 class="palco__titulo" id="palco-titulo">
-          Conhecimento que se constrói
-          <span class="palco__titulo-acento">camada sobre camada</span>
-        </h1>
-        <p class="palco__lede">
-          Formação estratégica, modular e aplicada<br>
-          para transformar conhecimento em resultado.
-        </p>
-        <ul class="palco__pilares" role="list">
-          <li><b>Trilhas modulares</b><span>Aprendizado estruturado</span></li>
-          <li><b>Aulas sob demanda</b><span>Estude no seu ritmo</span></li>
-          <li><b>Progresso acompanhado</b><span>Acompanhamento de performance</span></li>
-        </ul>
+    <!-- ============================== 1 · HERÓI + ACESSO ============================== -->
+    <section class="bs-hero" id="hero" aria-labelledby="hero-titulo">
+      <div class="bs-hero__media" aria-hidden="true">
+        <picture>
+          <source type="image/avif" media="(min-width: 1024px)" srcset="../assets/images/home/vertical-familias.avif">
+          <source type="image/webp" media="(min-width: 1024px)" srcset="../assets/images/home/vertical-familias.webp">
+          <source type="image/avif" srcset="../assets/images/home/vertical-familias-m.avif">
+          <img src="../assets/images/home/vertical-familias-m.webp" width="1200" height="750" alt="" fetchpriority="high" decoding="async">
+        </picture>
       </div>
 
-      <ol class="progressao" aria-label="Progressão do método">
-        <li class="progressao__etapa"><span class="progressao__no" aria-hidden="true"></span>Fundação</li>
-        <li class="progressao__etapa"><span class="progressao__no" aria-hidden="true"></span>Método</li>
-        <li class="progressao__etapa"><span class="progressao__no" aria-hidden="true"></span>Estratégia</li>
-        <li class="progressao__etapa"><span class="progressao__no" aria-hidden="true"></span>Aplicação</li>
-      </ol>
-    </section>
-
-    <!-- ══════════ DIREITA · O ACESSO ══════════ -->
-    <section class="acesso">
-      <div class="acesso__card" id="acesso-card">
-
-        <a class="acesso__marca" href="../index.html" aria-label="Voltar ao site do Complexo DMC">
-          <img src="../assets/images/RINO_logo.png" alt="Complexo DMC" class="acesso__logo" width="52" height="52">
-        </a>
-
-        <p class="acesso__overline">Plataforma institucional</p>
-        <h2 class="acesso__titulo">
-          Arquitetura Patrimonial
-          <span class="acesso__titulo-acento">Estratégica</span>
-        </h2>
-
-        <div class="abas" role="tablist" aria-label="Modo de acesso">
-          <span class="abas__indicador" aria-hidden="true"></span>
-          <button type="button" class="abas__botao is-active" data-auth-tab="signin"
-                  role="tab" id="aba-entrar" aria-selected="true" aria-controls="login-form">Entrar</button>
-          <button type="button" class="abas__botao" data-auth-tab="signup"
-                  role="tab" id="aba-criar" aria-selected="false" aria-controls="login-form">Criar conta</button>
+      <div class="dmc-wrap bs-hero__grade">
+        <div class="bs-hero__texto">
+          <nav class="bs-trilha" aria-label="Trilha de navegação">
+            <ol>
+              <li><a href="../">Início</a></li>
+              <li><span aria-current="page">DMC Business School</span></li>
+            </ol>
+          </nav>
+          <p class="dmc-overline">DMC Business School</p>
+          <h1 class="bs-hero__titulo" id="hero-titulo">Formação para quem decide em <em>cenários complexos</em></h1>
+          <p class="bs-hero__lead">Cursos e treinamentos do Complexo DMC em planejamento patrimonial e sucessório, holding, direito notarial e imobiliário, negócios e vendas e tecnologia.</p>
+          <div class="bs-hero__acoes">
+            <a class="dmc-btn dmc-btn--secondary" href="#catalogo">Ver o catálogo <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--link" href="#bolsas">Concurso de Bolsas</a>
+          </div>
         </div>
 
-        <!-- Sem autocomplete="off": o formulário precisa aceitar o
-             preenchimento do gerenciador de senhas. Cada campo declara
-             o próprio autocomplete. -->
-        <form id="login-form" novalidate data-auth-mode="signin" aria-labelledby="aba-entrar">
-
-          <div class="campo" data-auth-only="signup">
-            <label for="nome">Nome completo</label>
-            <div class="campo__caixa">
-              <span class="campo__icone" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              </span>
-              <input type="text" id="nome" name="nome" placeholder="Como gostaria de ser chamado" autocomplete="name">
-            </div>
+        <!-- Cartão de acesso. Sem JS o fieldset fica desabilitado: o formulário
+             nunca posta e-mail e senha na URL. -->
+        <section class="bs-acesso" id="acesso" tabindex="-1" aria-labelledby="acesso-titulo">
+          <h2 class="dmc-sr-only" id="acesso-titulo">Acesso à plataforma</h2>
+          <div class="bs-marca">
+            <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22">
+            <i aria-hidden="true"></i>
+            <p class="bs-marca__nome"><b>DMC</b> <span>Business School</span></p>
           </div>
+          <p class="bs-acesso__sub">Plataforma de ensino do Complexo DMC</p>
 
-          <div class="campo">
-            <label for="email">E-mail</label>
-            <div class="campo__caixa">
-              <span class="campo__icone" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6 8.5-6"/></svg>
-              </span>
-              <input type="email" id="email" name="email" required placeholder="seuemail@dominio.com" autocomplete="email" inputmode="email">
-            </div>
-          </div>
+          <p class="bs-acesso__verificando" aria-hidden="true"><span class="bs-giro"></span>Verificando sua sessão…</p>
 
-          <div class="campo">
-            <label for="senha">Senha</label>
-            <div class="campo__caixa">
-              <span class="campo__icone" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-              </span>
-              <input type="password" id="senha" name="senha" required placeholder="••••••••" autocomplete="current-password">
-              <button type="button" class="campo__olho" id="ver-senha" aria-label="Mostrar senha" aria-pressed="false">
-                <svg class="campo__olho-ver" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="2.6"/></svg>
-                <svg class="campo__olho-ocultar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16"/><path d="M9.9 5.2A9.7 9.7 0 0 1 12 5c6.4 0 10 6 10 6a17 17 0 0 1-3.3 3.9M6.3 7.4A17 17 0 0 0 2 11s3.6 6 10 6a9.9 9.9 0 0 0 3.6-.65"/></svg>
+          <div class="bs-entrada" id="bs-entrada">
+            <div class="bs-perfil" role="radiogroup" aria-label="Tipo de acesso" data-perfil="aluno">
+              <button type="button" role="radio" aria-checked="true" tabindex="0" data-perfil="aluno">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 8 10 4.2 18 8l-8 3.8zM5.5 9.7v3.8c1.2 1 2.7 1.6 4.5 1.6s3.3-.6 4.5-1.6V9.7M18 8v4.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+                Aluno
+              </button>
+              <button type="button" role="radio" aria-checked="false" tabindex="-1" data-perfil="professor">
+                <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2.5 3.5h15v9.5h-15zM10 13v3.5M6.5 17.5h7M5.5 7h5M5.5 9.8h8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+                Professor
               </button>
             </div>
-            <p class="campo__aviso" id="caps-aviso" role="status" hidden>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 4.5 11.5h4v3.5h7v-3.5h4z"/><path d="M8.5 19h7"/></svg>
-              Caps Lock está ativado
-            </p>
+
+            <div class="bs-abas" role="tablist" aria-label="Acesso do aluno">
+              <button type="button" role="tab" id="aba-entrar" aria-selected="true" aria-controls="bs-form" tabindex="0">Entrar</button>
+              <button type="button" role="tab" id="aba-criar" aria-selected="false" aria-controls="bs-form" tabindex="-1">Criar conta</button>
+            </div>
+            <p class="bs-nota" id="bs-nota-prof" hidden>Acesso ao painel de gestão de cursos, restrito a professores cadastrados pela coordenação.</p>
+
+            <form class="bs-form" id="bs-form" role="tabpanel" aria-labelledby="aba-entrar" method="post" novalidate>
+              <fieldset class="bs-campos" disabled>
+                <div class="bs-campo" data-so="criar" hidden>
+                  <label for="bs-nome">Nome completo</label>
+                  <input class="bs-input" type="text" id="bs-nome" name="nome" autocomplete="name" maxlength="120">
+                </div>
+                <div class="bs-campo">
+                  <label for="bs-email">E-mail</label>
+                  <input class="bs-input" type="email" id="bs-email" name="email" autocomplete="username" inputmode="email" spellcheck="false" maxlength="254" required>
+                </div>
+                <div class="bs-campo">
+                  <label for="bs-senha">Senha</label>
+                  <div class="bs-senha">
+                    <input class="bs-input" type="password" id="bs-senha" name="senha" autocomplete="current-password" minlength="6" required>
+                    <button type="button" class="bs-senha__ver" id="bs-ver-senha" aria-label="Mostrar senha" aria-pressed="false">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="bs-olho-aberto" d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12Z M12 9.4a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 0 0 0-5.2Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path class="bs-olho-fechado" d="M4 4l16 16M9.9 5.2A9.7 9.7 0 0 1 12 5c6.4 0 10 6 10 6a17 17 0 0 1-3.3 3.9M6.3 7.4A17 17 0 0 0 2 11s3.6 6 10 6a9.9 9.9 0 0 0 3.6-.65" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+                    </button>
+                  </div>
+                  <p class="bs-caps" id="bs-caps" hidden>Caps Lock está ativado.</p>
+                </div>
+                <p class="bs-nota bs-nota--criar" data-so="criar" hidden>Com a conta criada, você vê os cursos disponíveis; cada curso é liberado quando a compra é concluída na loja.</p>
+                <p class="bs-msg bs-msg--erro" id="bs-erro" role="alert" data-carregar="Não foi possível carregar o acesso agora. Recarregue a página em instantes." data-nome="Informe seu nome." data-email="Informe um e-mail válido." data-senha="A senha precisa ter pelo menos 6 caracteres." data-falha="Não foi possível entrar agora. Tente de novo em instantes." data-prof="Esta conta não tem perfil de professor."></p>
+                <p class="bs-msg" id="bs-aviso" role="status" data-liberado="Acesso liberado. Abrindo a plataforma…" data-saiu="Você saiu da sua conta." data-curso="Crie sua conta para continuar a inscrição em “{curso}”. Já tem conta? Use Entrar."></p>
+                <button type="submit" class="dmc-btn dmc-btn--primary bs-enviar" id="bs-enviar" data-entrar="Acessar plataforma" data-criar="Criar conta e acessar" data-professor="Acessar painel do professor" data-ocupado="Acessando…"><span>Acessar plataforma</span> <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+              </fieldset>
+            </form>
+            <noscript><p class="bs-msg bs-msg--erro">Para entrar na plataforma, ative o JavaScript do navegador.</p></noscript>
           </div>
 
-          <p id="login-error" class="acesso__erro" role="alert" hidden></p>
-          <p id="login-notice" class="acesso__aviso" role="status" hidden></p>
+          <div class="bs-sessao" id="bs-sessao" hidden>
+            <p class="bs-msg bs-msg--erro" id="bs-sessao-aviso" role="alert"></p>
+            <p class="bs-sessao__ola">Você está conectado como <strong id="bs-sessao-nome"></strong></p>
+            <div class="bs-sessao__acoes">
+              <a class="dmc-btn dmc-btn--primary" id="bs-ir-aluno" href="dashboard.html">Ir para a área do aluno <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+              <a class="dmc-btn dmc-btn--secondary" id="bs-ir-admin" href="admin.html" hidden>Painel do professor <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+              <button type="button" class="dmc-btn dmc-btn--link" id="bs-sair">Sair</button>
+            </div>
+          </div>
 
-          <button type="submit" class="acesso__cta" id="acesso-cta">Acessar plataforma</button>
-        </form>
+          <p class="bs-acesso__ajuda">Problemas de acesso? <a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></p>
+        </section>
+      </div>
+    </section>
 
-        <p class="acesso__rodape" data-auth-only="signin">
-          Problemas de acesso? Entre em contato com
-          <a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a>
-        </p>
-        <p class="acesso__rodape" data-auth-only="signup">
-          Após criar a conta você verá os cursos disponíveis. A liberação acontece
-          quando a compra é concluída na loja.
-        </p>
+    <!-- ============================== 2 · ÁREAS DE CAPACITAÇÃO (papel) ============================== -->
+    <section class="bs-sec dmc-on-paper" id="areas" aria-labelledby="areas-titulo">
+      <div class="dmc-wrap">
+        <header class="bs-head">
+          <p class="dmc-overline">Áreas</p>
+          <h2 class="bs-h2" id="areas-titulo">Áreas <em>de capacitação</em></h2>
+          <p class="bs-lead">Cinco frentes de formação técnica, organizadas a partir das áreas em que o Complexo DMC atua.</p>
+        </header>
+        <ul class="bs-areas">
+          <li class="bs-area">
+            <svg class="bs-area__icone" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="16" cy="5.5" r="2.5"/><circle cx="9" cy="15.5" r="2.5"/><circle cx="23" cy="15.5" r="2.5"/><circle cx="5" cy="26" r="2"/><circle cx="13" cy="26" r="2"/><circle cx="19" cy="26" r="2"/><circle cx="27" cy="26" r="2"/><path d="M16 8v3H9v2M16 11h7v2M9 18v3H5v3M9 21h4v3M23 18v3h-4v3M23 21h4v3"/></svg>
+            <span class="bs-area__n">01</span>
+            <h3 class="bs-area__t">Planejamento Sucessório e Patrimonial</h3>
+            <p class="bs-area__d">Organização do patrimônio e da sucessão em vida: doação, testamento, governança familiar e o custo de não planejar.</p>
+            <a class="dmc-btn dmc-btn--secondary" href="#catalogo" data-bs-area="planejamento-sucessorio-patrimonial">Ver cursos<span class="dmc-sr-only"> de Planejamento Sucessório e Patrimonial</span> <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          </li>
+          <li class="bs-area">
+            <svg class="bs-area__icone" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M11 3.5h10v6H11zM16 9.5V14M7 18v-4h18v4M16 14v4M3 18h8v6H3zM12 18h8v6h-8zM21 18h8v6h-8zM2.5 28h27"/></svg>
+            <span class="bs-area__n">02</span>
+            <h3 class="bs-area__t">Holding Patrimonial</h3>
+            <p class="bs-area__d">Estruturação societária do patrimônio: modelagem, integralização de bens, acordo de sócios e governança.</p>
+            <a class="dmc-btn dmc-btn--secondary" href="#catalogo" data-bs-area="holding-patrimonial">Ver cursos<span class="dmc-sr-only"> de Holding Patrimonial</span> <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          </li>
+          <li class="bs-area">
+            <svg class="bs-area__icone" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M7.5 3.5h12l5 5v20h-17zM19.5 3.5v5h5M11.5 18.5l4.5-4 4.5 4V24h-9zM14.5 24v-3h3v3M11.5 27h9"/></svg>
+            <span class="bs-area__n">03</span>
+            <h3 class="bs-area__t">Direito Notarial e Imobiliário</h3>
+            <p class="bs-area__d">Matrícula, cadeia dominial, incorporação e registro: a leitura técnica do ciclo imobiliário.</p>
+            <a class="dmc-btn dmc-btn--secondary" href="#catalogo" data-bs-area="notarial-imobiliario">Ver cursos<span class="dmc-sr-only"> de Direito Notarial e Imobiliário</span> <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          </li>
+          <li class="bs-area">
+            <svg class="bs-area__icone" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="6.5" cy="16" r="4"/><circle cx="25.5" cy="16" r="4"/><path d="M11 11.5c3.2-2.6 6.8-2.6 10 0M18.8 9.6l2.2 1.9-2.6.9M21 20.5c-3.2 2.6-6.8 2.6-10 0M13.2 22.4 11 20.5l2.6-.9"/></svg>
+            <span class="bs-area__n">04</span>
+            <h3 class="bs-area__t">Negócios e Vendas</h3>
+            <p class="bs-area__d">Relacionamento comercial, negociação e estruturação de propostas em mercados de alto valor.</p>
+            <a class="dmc-btn dmc-btn--secondary" href="#catalogo" data-bs-area="negocios-vendas">Ver cursos<span class="dmc-sr-only"> de Negócios e Vendas</span> <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          </li>
+          <li class="bs-area">
+            <svg class="bs-area__icone" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="5" cy="10" r="2"/><circle cx="5" cy="22" r="2"/><circle cx="16" cy="5" r="2"/><circle cx="16" cy="16" r="2"/><circle cx="16" cy="27" r="2"/><circle cx="27" cy="11" r="2"/><circle cx="27" cy="21" r="2"/><path d="M6.8 9.1 14.2 5.9M7 10l7 5M6.9 11.4l7.6 13.9M6.9 20.6l7.6-13.9M7 22l7-5M6.8 22.9l7.4 3.2M17.9 5.6l7.3 4.6M18 15.6l7-3.8M18 16.4l7 3.8M17.9 26.4l7.3-4.6"/></svg>
+            <span class="bs-area__n">05</span>
+            <h3 class="bs-area__t">Tecnologia</h3>
+            <p class="bs-area__d">Automação documental, inteligência artificial e dados aplicados à rotina jurídica e empresarial.</p>
+            <a class="dmc-btn dmc-btn--secondary" href="#catalogo" data-bs-area="tecnologia">Ver cursos<span class="dmc-sr-only"> de Tecnologia</span> <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================== 3 · CATÁLOGO (papel 2) ============================== -->
+    <section class="bs-sec bs-catalogo dmc-on-paper" id="catalogo" aria-labelledby="catalogo-titulo">
+      <div class="dmc-wrap">
+        <header class="bs-head">
+          <p class="dmc-overline">Cursos</p>
+          <h2 class="bs-h2" id="catalogo-titulo" tabindex="-1">Catálogo <em>de cursos</em></h2>
+          <p class="bs-lead">Cursos publicados na plataforma da DMC Business School. Filtre por área, modalidade ou nome.</p>
+        </header>
+
+        <noscript><p class="bs-cat__estado">O catálogo é carregado pela plataforma. Ative o JavaScript do navegador para ver os cursos.</p></noscript>
+
+        <div class="bs-cat bs-so-js">
+          <div class="bs-filtros" role="search" aria-label="Filtrar cursos">
+            <div class="bs-campo bs-busca">
+              <label for="bs-busca">Buscar por nome</label>
+              <input class="bs-input" type="search" id="bs-busca" autocomplete="off" spellcheck="false" maxlength="80">
+            </div>
+            <button type="button" class="bs-filtros__alternar" id="bs-filtros-alternar" aria-expanded="false" aria-controls="bs-filtros-grupos">
+              <span>Filtros</span> <small id="bs-filtros-resumo">Área: Todas · Modalidade: Todas</small>
+              <svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+            </button>
+            <div class="bs-filtros__grupos" id="bs-filtros-grupos">
+              <fieldset class="bs-filtro">
+                <legend>Área</legend>
+                <label class="bs-opcao"><input type="radio" name="bs-area" value="todas" checked> Todas</label>
+                <label class="bs-opcao"><input type="radio" name="bs-area" value="planejamento-sucessorio-patrimonial"> Planejamento Sucessório e Patrimonial</label>
+                <label class="bs-opcao"><input type="radio" name="bs-area" value="holding-patrimonial"> Holding Patrimonial</label>
+                <label class="bs-opcao"><input type="radio" name="bs-area" value="notarial-imobiliario"> Direito Notarial e Imobiliário</label>
+                <label class="bs-opcao"><input type="radio" name="bs-area" value="negocios-vendas"> Negócios e Vendas</label>
+                <label class="bs-opcao"><input type="radio" name="bs-area" value="tecnologia"> Tecnologia</label>
+              </fieldset>
+              <fieldset class="bs-filtro">
+                <legend>Modalidade</legend>
+                <label class="bs-opcao"><input type="radio" name="bs-modalidade" value="todas" checked> Todas</label>
+                <label class="bs-opcao"><input type="radio" name="bs-modalidade" value="online"> Online</label>
+                <label class="bs-opcao"><input type="radio" name="bs-modalidade" value="presencial"> Presencial</label>
+                <label class="bs-opcao"><input type="radio" name="bs-modalidade" value="hibrido"> Híbrido</label>
+              </fieldset>
+            </div>
+          </div>
+
+          <div class="bs-cat__res">
+            <p class="bs-cat__contagem" id="bs-contagem" role="status"></p>
+            <ul class="bs-cards" id="bs-cards" aria-busy="true" aria-label="Cursos">
+              <li class="bs-card bs-card--esqueleto" aria-hidden="true"><div class="bs-card__capa"></div><div class="bs-card__corpo"><i></i><i></i><i></i></div></li>
+              <li class="bs-card bs-card--esqueleto" aria-hidden="true"><div class="bs-card__capa"></div><div class="bs-card__corpo"><i></i><i></i><i></i></div></li>
+              <li class="bs-card bs-card--esqueleto" aria-hidden="true"><div class="bs-card__capa"></div><div class="bs-card__corpo"><i></i><i></i><i></i></div></li>
+            </ul>
+            <div class="bs-cat__estado" id="bs-cat-estado" role="status" data-vazio="Nenhum curso publicado nesta seleção." data-limpar="Limpar filtros" data-falha="Não foi possível carregar o catálogo agora. Tente novamente em instantes." data-tentar="Tentar de novo"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 4 · CONCURSO DE BOLSAS ============================== -->
+    <section class="bs-sec bs-bolsas" id="bolsas" aria-labelledby="bolsas-titulo">
+      <div class="bs-bolsas__fundo" aria-hidden="true"><svg id="bs-fundo-roseta" viewBox="-100 -100 200 200" focusable="false"></svg></div>
+      <div class="dmc-wrap">
+        <header class="bs-head bs-head--bolsas">
+          <p class="dmc-overline">Função social</p>
+          <h2 class="bs-h2 bs-h2--grande" id="bolsas-titulo">Conhecimento que <em>abre portas</em>.</h2>
+          <p class="bs-lead">O Concurso de Bolsas da DMC Business School leva formação técnica a quem tem talento e compromisso, mas ainda não tem acesso. É parte de como o Complexo DMC entende o seu papel: devolver conhecimento à sociedade.</p>
+        </header>
+
+        <h3 class="bs-h3">Como vai funcionar</h3>
+        <ol class="bs-passos">
+          <li class="bs-passo is-atual"><span class="bs-passo__n" aria-hidden="true">01</span><p class="bs-passo__t">Pré-inscrição</p><p class="bs-passo__d">Agora, nesta página, sem custo.</p></li>
+          <li class="bs-passo"><span class="bs-passo__n" aria-hidden="true">02</span><p class="bs-passo__t">Edital</p><p class="bs-passo__d">Critérios, número de bolsas e calendário publicados em edital próprio.</p></li>
+          <li class="bs-passo"><span class="bs-passo__n" aria-hidden="true">03</span><p class="bs-passo__t">Seleção</p><p class="bs-passo__d">Conforme as regras do edital.</p></li>
+          <li class="bs-passo"><span class="bs-passo__n" aria-hidden="true">04</span><p class="bs-passo__t">Início</p><p class="bs-passo__d">Bolsistas estudam na plataforma da DMC Business School.</p></li>
+        </ol>
+
+        <div class="bs-insc">
+          <!-- Credencial viva: só no navegador, redesenhada a partir do nome.
+               Decorativa para leitor de tela — o protocolo é anunciado no status
+               do formulário. -->
+          <div class="bs-cred-col">
+            <div class="bs-cred-palco">
+              <div class="bs-cred" id="bs-cred" aria-hidden="true">
+                <div class="bs-cred__topo">
+                  <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">
+                  <span><b>DMC</b> Business School</span>
+                </div>
+                <p class="bs-cred__titulo">Concurso de Bolsas</p>
+                <div class="bs-cred__selo">
+                  <svg viewBox="-100 -100 200 200" focusable="false"><g class="bs-cred__camada is-ativa"></g><g class="bs-cred__camada"></g></svg>
+                  <span class="bs-cred__monograma" id="bs-cred-monograma"></span>
+                </div>
+                <dl class="bs-cred__dados">
+                  <div class="bs-cred__linha bs-cred__linha--nome"><dt>Candidatura</dt><dd id="bs-cred-nome">Seu nome</dd></div>
+                  <div class="bs-cred__linha"><dt>Área</dt><dd id="bs-cred-area">A escolher</dd></div>
+                  <div class="bs-cred__linha"><dt>Cidade · UF</dt><dd id="bs-cred-local">—</dd></div>
+                </dl>
+                <p class="bs-cred__rodape"><span>Protocolo</span> <b id="bs-cred-protocolo">após o envio</b></p>
+                <p class="bs-carimbo" id="bs-carimbo"><span data-caso="ok">Pré-inscrição confirmada</span><span data-caso="dup" hidden>Pré-inscrição já registrada</span><span data-caso="sem" hidden>Pré-inscrição recebida</span><b id="bs-carimbo-protocolo"></b></p>
+              </div>
+            </div>
+            <p class="bs-cred__legenda">A credencial é desenhada a partir do seu nome, aqui no navegador. Nada é enviado antes do clique em “Fazer minha pré-inscrição”.</p>
+            <button type="button" class="dmc-btn dmc-btn--secondary bs-indicar bs-so-js" id="bs-indicar" data-titulo="Concurso de Bolsas · DMC Business School" data-texto="Pré-inscrição aberta para o Concurso de Bolsas da DMC Business School, sem custo." data-copiado="Link copiado. É só colar na conversa." data-copie="Copie o link:">Indique alguém <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 10.5V2.5M5 5.2 8 2.2l3 3M3.5 8.5v5h9v-5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+            <p class="bs-msg" id="bs-indicar-status" role="status"></p>
+          </div>
+
+          <div class="bs-insc__form">
+            <h3 class="bs-h3" id="bf-titulo">Pré-inscrição</h3>
+            <p class="bs-insc__intro">Campos com <span aria-hidden="true">*</span><span class="dmc-sr-only">asterisco</span> são obrigatórios.</p>
+
+            <form class="bs-fb" id="bs-bolsa" action="/api/bolsas/pre-inscricao" method="post" novalidate aria-labelledby="bf-titulo">
+              <div class="bs-campo">
+                <label for="bf-nome">Nome completo <span class="bs-req" aria-hidden="true">*</span></label>
+                <input class="bs-input" type="text" id="bf-nome" name="nome" autocomplete="name" required minlength="2" maxlength="120" data-erro="Informe seu nome completo.">
+              </div>
+              <div class="bs-linha bs-linha--2">
+                <div class="bs-campo">
+                  <label for="bf-email">E-mail <span class="bs-req" aria-hidden="true">*</span></label>
+                  <input class="bs-input" type="email" id="bf-email" name="email" autocomplete="email" inputmode="email" spellcheck="false" required maxlength="254" data-erro="Informe um e-mail válido.">
+                </div>
+                <div class="bs-campo">
+                  <label for="bf-whatsapp">WhatsApp <span class="bs-sub">(opcional)</span></label>
+                  <input class="bs-input" type="tel" id="bf-whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" maxlength="20" aria-describedby="bf-whatsapp-ajuda" data-erro="Informe o WhatsApp com DDD (10 a 13 dígitos).">
+                  <p class="bs-ajuda" id="bf-whatsapp-ajuda">Com DDD.</p>
+                </div>
+              </div>
+              <div class="bs-linha bs-linha--local">
+                <div class="bs-campo">
+                  <label for="bf-cidade">Cidade <span class="bs-req" aria-hidden="true">*</span></label>
+                  <input class="bs-input" type="text" id="bf-cidade" name="cidade" autocomplete="address-level2" required minlength="2" maxlength="80" data-erro="Informe sua cidade.">
+                </div>
+                <div class="bs-campo">
+                  <label for="bf-uf">UF <span class="bs-req" aria-hidden="true">*</span></label>
+                  <select class="bs-input" id="bf-uf" name="uf" autocomplete="address-level1" required data-erro="Selecione a UF.">
+                    <option value="">—</option>
+                    <option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option>
+                  </select>
+                </div>
+              </div>
+              <fieldset class="bs-grupo" id="bf-perfil" data-erro="Selecione o seu perfil.">
+                <legend>Perfil <span class="bs-req" aria-hidden="true">*</span></legend>
+                <div class="bs-opcoes">
+                  <label class="bs-escolha"><input type="radio" name="perfil" value="estudante-graduacao" required> Estudante de graduação</label>
+                  <label class="bs-escolha"><input type="radio" name="perfil" value="recem-formado"> Recém-formado(a)</label>
+                  <label class="bs-escolha"><input type="radio" name="perfil" value="profissional"> Profissional em atuação</label>
+                  <label class="bs-escolha"><input type="radio" name="perfil" value="outro"> Outro</label>
+                </div>
+              </fieldset>
+              <div class="bs-campo">
+                <label for="bf-area">Área de interesse <span class="bs-req" aria-hidden="true">*</span></label>
+                <select class="bs-input" id="bf-area" name="area" required data-erro="Selecione a área de interesse.">
+                  <option value="">Selecione</option>
+                  <option value="planejamento-sucessorio-patrimonial">Planejamento Sucessório e Patrimonial</option>
+                  <option value="holding-patrimonial">Holding Patrimonial</option>
+                  <option value="notarial-imobiliario">Direito Notarial e Imobiliário</option>
+                  <option value="negocios-vendas">Negócios e Vendas</option>
+                  <option value="tecnologia">Tecnologia</option>
+                </select>
+              </div>
+              <div class="bs-campo">
+                <label for="bf-motivacao">Em uma frase: o que essa bolsa mudaria na sua trajetória? <span class="bs-sub">(opcional)</span></label>
+                <textarea class="bs-input" id="bf-motivacao" name="motivacao" rows="3" maxlength="400" aria-describedby="bf-motivacao-ajuda" data-erro="Use até 400 caracteres."></textarea>
+                <p class="bs-ajuda bs-ajuda--contador" id="bf-motivacao-ajuda">Até 400 caracteres. <span id="bf-contador" aria-hidden="true"></span></p>
+              </div>
+
+              <div class="bs-hp" aria-hidden="true">
+                <label for="bf-website">Site</label>
+                <input type="text" id="bf-website" name="website" tabindex="-1" autocomplete="off">
+              </div>
+              <input type="hidden" name="pagina" value="business-school">
+
+              <div class="bs-aceites">
+                <div class="bs-aceite">
+                  <input type="checkbox" id="bf-consentimento" name="consentimento" value="true" required data-erro="Para enviar, confirme a leitura da Política de Privacidade.">
+                  <label for="bf-consentimento">Li a <a href="../pages/politica-de-privacidade.html#bolsas" target="_blank" rel="noopener">Política de Privacidade</a> e quero ser avisado(a) da abertura do Concurso de Bolsas e da inscrição oficial. <span class="bs-req" aria-hidden="true">*</span></label>
+                </div>
+                <div class="bs-aceite">
+                  <input type="checkbox" id="bf-comunicacoes" name="comunicacoes" value="true">
+                  <label for="bf-comunicacoes">Aceito receber comunicações institucionais do Complexo DMC por e-mail. Posso cancelar a qualquer momento.</label>
+                </div>
+              </div>
+
+              <p class="bs-insc__nota">A pré-inscrição registra seu interesse e não garante bolsa. Critérios, número de bolsas e calendário serão definidos no edital.</p>
+              <div class="bs-msg bs-msg--erro" id="bf-erro" role="alert" data-revise="Revise os campos indicados." data-rede="Não foi possível falar com o servidor. Verifique sua conexão e tente de novo." data-s413="Os dados enviados passaram do tamanho permitido. Encurte a resposta e tente de novo." data-s429="Muitas tentativas a partir desta conexão. Aguarde alguns minutos e tente de novo." data-falha="Não foi possível registrar a pré-inscrição agora. Tente de novo em instantes."></div>
+              <div class="bs-envio">
+                <button type="submit" class="dmc-btn dmc-btn--primary bs-fb__enviar" id="bf-enviar" data-ocupado="Enviando…"><span>Fazer minha pré-inscrição</span> <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+              </div>
+            </form>
+
+            <!-- Resposta da API: ok = 201 com protocolo · dup = e-mail já pré-inscrito · sem = 200 sem protocolo -->
+            <div class="bs-confirmacao" id="bf-confirmacao" tabindex="-1" hidden>
+              <p class="bs-confirmacao__titulo" data-caso="ok">Pré-inscrição confirmada</p>
+              <p class="bs-confirmacao__titulo" data-caso="dup">Este e-mail já tem uma pré-inscrição</p>
+              <p class="bs-confirmacao__titulo" data-caso="sem">Pré-inscrição recebida</p>
+              <p class="bs-confirmacao__protocolo" data-caso="ok dup"><span>Protocolo</span> <strong id="bf-conf-codigo"></strong></p>
+              <p class="bs-confirmacao__texto" data-caso="ok">Guarde o protocolo. Usaremos o e-mail informado para avisar sobre a abertura do Concurso de Bolsas e a inscrição oficial.</p>
+              <p class="bs-confirmacao__texto" data-caso="sem">Usaremos o e-mail informado para avisar sobre a abertura do Concurso de Bolsas e a inscrição oficial.</p>
+              <p class="bs-confirmacao__texto" data-caso="dup">Não é preciso enviar de novo. O aviso da abertura do Concurso de Bolsas vai para o e-mail já cadastrado.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Feixe da transição: nasce no botão e atravessa até a arquitetura. -->
-  <div class="feixe" id="feixe" aria-hidden="true"></div>
-  <div class="cortina" id="cortina" aria-hidden="true"></div>
+  <!-- Alternativa de contato anexada às mensagens de falha (contatos verificados). -->
+  <template id="bs-contato">Se preferir, fale com a equipe: <a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a> ou <a href="https://wa.me/5511915267749" rel="noopener" target="_blank">WhatsApp +55 11 91526-7749</a>.</template>
 
-  <script src="js/api-client.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/login/login-experience.js"></script>
+  <footer class="dmc-footer" id="rodape">
+    <div class="dmc-wrap">
+      <div class="dmc-footer__grid">
+        <div class="dmc-footer__brand">
+          <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+            <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">
+            <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+          </a>
+          <p>Consultoria em negócios para decisões que envolvem empresa, patrimônio e família.</p>
+          <p>Sede em São Paulo. Atendimento a empresas, famílias empresárias, incorporadoras e investidores.</p>
+        </div>
 
-  <!-- Autenticação primeiro e em script clássico: o formulário
-       precisa funcionar mesmo que o motor 3D não carregue. -->
-  <script>DMC_bootLogin();</script>
+        <nav aria-labelledby="rodape-eixos">
+          <p class="dmc-footer__title" id="rodape-eixos">Eixos</p>
+          <ul class="dmc-footer__list">
+            <li class="np-pillar-patrimonial"><a href="../pages/planejamento-sucessorio.html"><span class="dmc-footer__num">E1</span>Patrimonial e Sucessório</a></li>
+            <li class="np-pillar-fiscal"><a href="../pages/planejamento-tributario.html"><span class="dmc-footer__num">E2</span>Tributário, Fiscal e Corporativo</a></li>
+            <li class="np-pillar-imobiliario"><a href="../pages/consultoria-imobiliaria.html"><span class="dmc-footer__num">E3</span>Notarial e Imobiliário</a></li>
+            <li class="np-pillar-auditoria"><a href="../pages/contabilidade.html"><span class="dmc-footer__num">E4</span>Auditoria Empresarial e Contábil</a></li>
+            <li class="np-pillar-ativos"><a href="../pages/recuperacao-ativos.html"><span class="dmc-footer__num">E5</span>Recuperação de Ativos</a></li>
+            <li class="np-pillar-trabalhista"><a href="../solucoes/consultoria-trabalhista/ciclo-fechado.html"><span class="dmc-footer__num">E6</span>Consultoria Trabalhista</a></li>
+          </ul>
+        </nav>
 
-  <!-- Arquitetura do conhecimento (Three.js + bloom, servido local:
-       nenhuma dependência de CDN numa tela de autenticação).
-       Ordem obrigatória: three → shaders → passes → cena. Se qualquer
-       um falhar, a página cai no fallback em CSS (.is-gl-off) sem
-       perder conteúdo — o formulário nunca depende da cena. -->
-  <script src="js/vendor/three/three.min.js"></script>
-  <script src="js/vendor/three/CopyShader.js"></script>
-  <script src="js/vendor/three/LuminosityHighPassShader.js"></script>
-  <script src="js/vendor/three/EffectComposer.js"></script>
-  <script src="js/vendor/three/RenderPass.js"></script>
-  <script src="js/vendor/three/MaskPass.js"></script>
-  <script src="js/vendor/three/ShaderPass.js"></script>
-  <script src="js/vendor/three/UnrealBloomPass.js"></script>
-  <script src="js/login/cena-three.js"></script>
-  <script>DMC_bootLoginExperience();</script>
+        <nav aria-labelledby="rodape-casa">
+          <p class="dmc-footer__title" id="rodape-casa">Sobre</p>
+          <ul class="dmc-footer__list">
+            <li><a href="../pages/sobre.html">Sobre o Complexo DMC</a></li>
+            <li><a href="../#features">Soluções</a></li>
+            <li><a href="../#treinamentos">Treinamentos</a></li>
+            <li><a href="../pages/tecnologia.html">Tecnologia</a></li>
+            <li><a href="../parcerias/">Parcerias</a></li>
+            <li><a href="../pages/por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
+            <li><a href="login.html" aria-current="page">DMC Business School</a></li>
+            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">ADTECH</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <p class="dmc-footer__title">Contato</p>
+          <ul class="dmc-footer__list">
+            <li><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></li>
+            <li><a href="tel:+5511915267749">+55 (11) 91526-7749</a></li>
+            <li><a href="../#contact">Formulário de contato</a></li>
+            <li><span>Rua Riachuelo, 231<br>São Paulo, SP — Brasil</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dmc-footer__legal">
+        <p>&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+        <p>Conteúdo informativo. A atuação em atos privativos da advocacia, da contabilidade e da auditoria é realizada por profissionais e sociedades parceiras habilitadas; os atos notariais e registrais, por cartórios conveniados.</p>
+        <p><a href="../pages/politica-de-privacidade.html">Política de Privacidade</a></p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

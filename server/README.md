@@ -51,6 +51,7 @@ cursos não fica duplicado no repositório.
 | `leads` | `{ nome, email, telefone?, empresa?, perfil, eixo?, mensagem?, curso?, origem, consentimento: { aceito, em }, status: 'novo', createdAt }` |
 | `parcerias_candidaturas` | `{ protocolo, programa, email, dados, fonte, status, historico[], responsavel, consentimento: { aceito, em, finalidade }, comunicacoes: { aceito, em }, retencaoAte, createdAt, updatedAt }` |
 | `newsletter_inscricoes` | `{ email (minúsculas, único), nome, empresa?, status: 'ativa'\|'descadastrada', origem, criadoEm, atualizadoEm, consentimentos: [{ em, ipTruncado\|null, origem, politicaVersao, texto, baseLegal }] (50 mais recentes), descadastro?: { em, via: 'token'\|'email'\|'manual' } (vigente), descadastros: [{ em, via }] (histórico; preservado na reinscrição, eliminado pelo prazo da Política de Privacidade [CONFIRMAR: prazo e procedimento manual de eliminação]) }` |
+| `bolsas_preinscricoes` | `{ protocolo (único), email (minúsculas, único), dados: { nome, email, whatsapp?, cidade, uf, perfil, area, motivacao? }, fonte, status: 'pre-inscrito', consentimento: { aceito, em, finalidade: 'aviso-concurso-bolsas' }, comunicacoes: { aceito, em }, createdAt }` |
 
 Índices únicos em `users.email`, `liberacoes(userId, cursoId)` e
 `progresso(userId, aulaId)` — criados sozinhos no boot.
@@ -287,6 +288,68 @@ CSRF distribuído. Fase 2: Vercel KV/Upstash para contadores compartilhados.
 e-mail de boas-vindas nem *double opt-in* nesta fase — o front não pode sugerir
 que exista. Sem chave, só grava e loga.
 
+### DMC Business School — `GET /api/vitrine/cursos` e `POST /api/bolsas/pre-inscricao`
+
+Código em `src/routes/vitrine.js` e `src/routes/bolsas.js` (banco injetado pelo
+`server.js`; testes em `test/vitrine.test.js` e `test/bolsas.test.js`).
+
+**Vitrine (pública, sem token).** `GET /api/vitrine/cursos` →
+`200 { cursos: [{ id, titulo, subtitulo, descricao, cargaHoraria, modalidade, iconeKey, capaUrl, modulos, aulas }] }`:
+só `isAtivo !== false`, por `ordem`; `modulos` e `aulas` são contagens reais do
+banco (`aulas` inclui as "Em breve" — o mesmo número dos cards da loja);
+`capaUrl` vazio quando o curso não tem capa. Lista de campos fechada: nunca sai
+`videoUrl`, materiais, roteiro, `linkCheckout` nem preço.
+`Cache-Control: public, max-age=300`. Banco fora → `503 { error }` (`no-store`).
+
+**Pré-inscrição no Concurso de Bolsas.** Não é inscrição no concurso nem
+promessa de bolsa: registra quem quer ser avisado quando o concurso abrir
+(finalidade do consentimento: `aviso-concurso-bolsas`). Critérios, quantidade de
+bolsas e datas não existem na API — o front não pode sugeri-los. JSON ou
+`application/x-www-form-urlencoded`, corpo de até 16 KB, honeypot `website`,
+throttle próprio de 5 envios por IP em 15 min.
+
+| Campo | Regra |
+|---|---|
+| `nome` | obrigatório, 2–120, com letra |
+| `email` | obrigatório, gravado em minúsculas; **um registro por e-mail** |
+| `whatsapp` | opcional, 10–13 dígitos (gravado só com dígitos) |
+| `cidade` | obrigatório, 2–80 |
+| `uf` | obrigatório, uma das 27 UFs |
+| `perfil` | obrigatório: `estudante-graduacao`, `recem-formado`, `profissional`, `outro` |
+| `area` | obrigatório: `planejamento-sucessorio-patrimonial`, `holding-patrimonial`, `notarial-imobiliario`, `negocios-vendas`, `tecnologia` |
+| `motivacao` | opcional, até 400, multilinha |
+| `consentimento` | obrigatório e afirmativo (LGPD) |
+| `comunicacoes` | opcional, opt-in separado (padrão `false`) |
+
+`pagina` (só o caminho: sem host, query e fragmento; `[A-Za-z0-9._/-]`, até 80)
+e `utm_source|medium|campaign|content` (`[A-Za-z0-9._-]`, até 80) vão para
+`fonte`. Objeto/array onde se espera texto → `"Formato inválido."`. IP,
+user-agent e referrer não são gravados.
+
+| Status | Corpo | Quando |
+|---|---|---|
+| 201 | `{ ok: true, protocolo }` | gravado (protocolo `BOL-AAAA-XXXXXX`) |
+| 200 | `{ ok: true, duplicada: true, protocolo }` | e-mail já pré-inscrito: devolve o protocolo existente; nada é alterado |
+| 200 | `{ ok: true }` (sem protocolo) | honeypot: nada gravado — o front não deve contar como conversão |
+| 400 | `{ error: 'Revise os campos indicados.', campos }` ou `{ error }` | validação / corpo ilegível |
+| 413 · 429 · 503 | `{ error }` | corpo > 16 KB · excesso (com `Retry-After`) · banco indisponível |
+
+Duplicidade sem corrida: índice único `uq_bolsas_email` — o insert vai direto e
+o E11000 do e-mail devolve o protocolo da pré-inscrição existente (envios
+simultâneos → um 201, os demais 200 `duplicada`). Protocolo também tem índice
+único (`uq_bolsas_protocolo`; colisão sorteia outro).
+
+- `GET /api/bolsas/admin/pre-inscricoes?pagina=1` — `requireAuth` +
+  `requireAdmin` (401/403 sem permissão) → `{ ok, pagina, porPagina: 25, total, totalPaginas, rotulos: { perfis, areas }, itens }`,
+  mais recentes primeiro, `Cache-Control: no-store`. Ainda não há tela da
+  equipe: a consulta é por esta rota.
+
+**Aviso por e-mail (opcional):** `RESEND_API_KEY` + `BOLSAS_EMAIL_TO`
+(reserva: `LEADS_EMAIL_TO`) + `LEADS_EMAIL_FROM`. Assunto
+`[Concurso de Bolsas] Nova pré-inscrição — Nome`. Falha no e-mail não desfaz a
+pré-inscrição; sem chave, só log. Não existe e-mail de confirmação para quem se
+pré-inscreve — o front não pode sugerir que exista.
+
 ### Aluno autenticado
 - `GET /api/auth/me` — sessão atual
 - `GET /api/catalogo` — cursos → módulos → aulas, já aninhado e ordenado
@@ -329,6 +392,7 @@ liberação. Apagar curso, módulo ou aula também apaga os arquivos.
 2. Para receber os leads por e-mail: `RESEND_API_KEY`, `LEADS_EMAIL_TO` e
    `LEADS_EMAIL_FROM` nas variáveis da Vercel (domínio verificado no Resend).
    Candidaturas de parceria: `PARCERIAS_EMAIL_TO` (senão vão para `LEADS_EMAIL_TO`).
+   Concurso de Bolsas: `BOLSAS_EMAIL_TO` (senão vai para `LEADS_EMAIL_TO`).
    Newsletter: `NEWSLETTER_POLITICA_VERSAO` com a data real da Política de
    Privacidade (**obrigatória em produção** — sem ela a inscrição responde 503);
    `NEWSLETTER_GRAVAR_IP=true` só depois de publicar a política corrigida;

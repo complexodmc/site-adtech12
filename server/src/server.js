@@ -25,6 +25,11 @@ import {
 import {
   criarRotaNewsletter, criarRepositorioNewsletter, assuntoEmailInscricao, corpoEmailInscricao
 } from './routes/newsletter.js';
+import { capaUrl } from './routes/capas.js';
+import { criarRotaVitrine, criarListagemVitrine } from './routes/vitrine.js';
+import {
+  criarRotaBolsas, corpoBolsas, criarNotificadorBolsas, criarRepositorioBolsas
+} from './routes/bolsas.js';
 
 const app = express();
 
@@ -40,6 +45,8 @@ app.use('/api/parcerias', corpoParcerias());
 // Newsletter: mesmo parser de 16 KB do contato (JSON + urlencoded, 413/400 tratados),
 // com o texto do 413 sem falar em "mensagem" (o form não tem esse campo).
 app.use('/api/newsletter', corpoContato({ mensagem413: 'Conteúdo grande demais. Reduza o texto dos campos e tente de novo.' }));
+// Idem para a pré-inscrição no Concurso de Bolsas (/api/bolsas): 16 KB, antes do global.
+app.use('/api/bolsas', corpoBolsas());
 app.use(express.json({ limit: '1mb' }));
 
 if (config.corsOrigins.length) {
@@ -136,6 +143,18 @@ app.use('/api/parcerias', criarRotaParcerias({
   notificar: criarNotificadorParcerias(config.parceriasEmail),
   exigirAdmin: [requireAuth, requireAdmin]
 }));
+// Vitrine pública da DMC Business School: cursos ativos com contagens reais
+// de módulos/aulas — sem token, sem vídeo, material, roteiro, checkout ou preço.
+app.use('/api/vitrine', criarRotaVitrine({
+  listar: criarListagemVitrine({ cursos: col.cursos, modulos: col.modulos, aulas: col.aulas, capaUrl })
+}));
+// Pré-inscrições do Concurso de Bolsas (um registro por e-mail) + lista da
+// equipe. Throttle próprio, separado do contato e das parcerias.
+app.use('/api/bolsas', criarRotaBolsas({
+  ...criarRepositorioBolsas(() => col.bolsas()),
+  notificar: criarNotificadorBolsas(config.bolsasEmail),
+  exigirAdmin: [requireAuth, requireAdmin]
+}));
 app.use('/api/liberacoes', liberacoesRoutes);
 app.use('/api/progresso', progressoRoutes);
 app.use('/api/lives', livesRoutes);
@@ -213,6 +232,9 @@ async function start() {
     }
     if (!config.parceriasEmail.resendApiKey || !config.parceriasEmail.para) {
       console.log('[DMC] /api/parcerias: e-mail de aviso desligado (RESEND_API_KEY/PARCERIAS_EMAIL_TO vazios) — candidaturas só vão para "parcerias_candidaturas".');
+    }
+    if (!config.bolsasEmail.resendApiKey || !config.bolsasEmail.para) {
+      console.log('[DMC] /api/bolsas: e-mail de aviso desligado (RESEND_API_KEY/BOLSAS_EMAIL_TO vazios) — pré-inscrições só vão para "bolsas_preinscricoes".');
     }
     if (!config.newsletter.notificar) {
       console.log('[DMC] /api/newsletter: aviso interno por inscrição desligado (NEWSLETTER_NOTIFICAR != "true") — inscrições só vão para "newsletter_inscricoes".');

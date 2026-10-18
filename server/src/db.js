@@ -22,6 +22,9 @@
 //                consentimentos:[{ em, ipTruncado|null, origem, politicaVersao, texto, baseLegal }] (50 mais recentes),
 //                descadastro?:{ em, via:'token'|'email'|'manual' } (o vigente; some na reinscrição),
 //                descadastros:[{ em, via }] (histórico, nunca apagado) }  (POST /api/newsletter — ver routes/newsletter.js)
+//   bolsas_preinscricoes { protocolo, email (minúsculas, único), dados, fonte, status:'pre-inscrito',
+//                consentimento:{ aceito, em, finalidade }, comunicacoes:{ aceito, em }, createdAt }
+//                (POST /api/bolsas/pre-inscricao — ver routes/bolsas.js)
 // =============================================================
 import { MongoClient } from 'mongodb';
 import { config } from './config.js';
@@ -69,7 +72,8 @@ export const col = {
   certificados: () => getDb().collection('certificados'),
   leads: () => getDb().collection('leads'),
   parcerias: () => getDb().collection('parcerias_candidaturas'),
-  newsletter: () => getDb().collection('newsletter_inscricoes')
+  newsletter: () => getDb().collection('newsletter_inscricoes'),
+  bolsas: () => getDb().collection('bolsas_preinscricoes')
 };
 
 async function ensureIndexes() {
@@ -104,6 +108,12 @@ async function ensureIndexes() {
     col.parcerias().createIndex({ protocolo: 1 }, { unique: true, name: 'uq_parcerias_protocolo' }),
     // Newsletter: e-mail é a chave de dedupe (upsert) e a lista ativa sai por status/data.
     col.newsletter().createIndex({ email: 1 }, { unique: true, name: 'uq_newsletter_email' }),
-    col.newsletter().createIndex({ status: 1, criadoEm: -1 }, { name: 'ix_newsletter_status_data' })
+    col.newsletter().createIndex({ status: 1, criadoEm: -1 }, { name: 'ix_newsletter_status_data' }),
+    // Concurso de Bolsas: o índice único em e-mail É a regra de duplicidade
+    // (um registro por pessoa, sem corrida); protocolo também único; lista
+    // da equipe pelos mais recentes.
+    col.bolsas().createIndex({ email: 1 }, { unique: true, name: 'uq_bolsas_email' }),
+    col.bolsas().createIndex({ protocolo: 1 }, { unique: true, name: 'uq_bolsas_protocolo' }),
+    col.bolsas().createIndex({ createdAt: -1 }, { name: 'ix_bolsas_data' })
   ]);
 }

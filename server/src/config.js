@@ -63,6 +63,13 @@ export const config = {
     para: (process.env.PARCERIAS_EMAIL_TO || '').trim() || (process.env.LEADS_EMAIL_TO || '').trim(),
     de: (process.env.LEADS_EMAIL_FROM || '').trim()
   },
+  // Aviso de nova pré-inscrição no Concurso de Bolsas (/api/bolsas). Opcional:
+  // mesmo provedor do contato; destinatário próprio, com LEADS_EMAIL_TO de reserva.
+  bolsasEmail: {
+    resendApiKey: (process.env.RESEND_API_KEY || '').trim(),
+    para: (process.env.BOLSAS_EMAIL_TO || '').trim() || (process.env.LEADS_EMAIL_TO || '').trim(),
+    de: (process.env.LEADS_EMAIL_FROM || '').trim()
+  },
   // Newsletter (/api/newsletter). politicaVersao é gravada em cada consentimento
   // (em produção, sem ela a inscrição é recusada com 503); o IP truncado só é
   // gravado com NEWSLETTER_GRAVAR_IP=true (a Política publicada hoje diz que o
