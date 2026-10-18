@@ -76,6 +76,31 @@
       "source": "/solucoes/consultoria-trabalhista",
       "destination": "/solucoes/consultoria-trabalhista/ciclo-fechado",
       "statusCode": 301
+    },
+    {
+      "source": "/parcerias",
+      "destination": "/parcerias/",
+      "statusCode": 301
+    },
+    {
+      "source": "/parcerias/advogados-parceiros",
+      "destination": "/parcerias/advogados-parceiros/",
+      "statusCode": 301
+    },
+    {
+      "source": "/parcerias/business-partner",
+      "destination": "/parcerias/business-partner/",
+      "statusCode": 301
+    },
+    {
+      "source": "/parcerias/partner-lawyers",
+      "destination": "/parcerias/advogados-parceiros/",
+      "statusCode": 301
+    },
+    {
+      "source": "/parcerias/partner-lawyers/",
+      "destination": "/parcerias/advogados-parceiros/",
+      "statusCode": 301
     }
   ],
   "rewrites": [

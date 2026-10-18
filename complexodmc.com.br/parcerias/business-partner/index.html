@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-root="../../">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Business Partner — Parcerias de Negócios | Complexo DMC</title>
+  <meta name="description" content="Programa de cooperação comercial do Complexo DMC para quem identifica oportunidades de consultoria em negócios na própria rede de relacionamento B2B.">
+  <link rel="canonical" href="https://www.complexodmc.com.br/parcerias/business-partner/">
+  <meta name="theme-color" content="#0b0c0e">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Complexo DMC">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url" content="https://www.complexodmc.com.br/parcerias/business-partner/">
+  <meta property="og:title" content="DMC | Business Partner — relacionamento empresarial com método">
+  <meta property="og:description" content="Para consultores, representantes B2B e redes empresariais que identificam oportunidades de consultoria em negócios compatíveis com os seis eixos do Complexo DMC.">
+  <meta property="og:image" content="https://www.complexodmc.com.br/assets/images/parcerias/og-business-partner.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://www.complexodmc.com.br/parcerias/business-partner/">
+  <meta name="twitter:title" content="DMC | Business Partner — relacionamento empresarial com método">
+  <meta name="twitter:description" content="Para consultores, representantes B2B e redes empresariais que identificam oportunidades de consultoria em negócios compatíveis com os seis eixos do Complexo DMC.">
+  <meta name="twitter:image" content="https://www.complexodmc.com.br/assets/images/parcerias/og-business-partner.jpg">
+
+  <!-- DMC | Business Partner na direção C. Ordem do <head> = pages/sobre.html.
+       Identidade: body.pp-bp (bronze, com o ouro da casa nos detalhes) — trio
+       --np-accent em assets/css/parcerias.css. Texto: docs/dmc/parcerias/COPY.md §3.
+       Formulário: POST /api/parcerias/business-partner; com JS, parcerias.js envia em JSON. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
+
+  <link rel="preload" as="image" href="../../assets/images/parcerias/bp-hero.webp" imagesrcset="../../assets/images/parcerias/bp-hero-960.webp 960w, ../../assets/images/parcerias/bp-hero.webp 1920w" imagesizes="100vw" fetchpriority="high">
+
+  <link rel="icon" type="image/png" sizes="64x64" href="../../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../../pages/css/shared.css?v=3">
+  <link rel="stylesheet" href="../../pages/css/eixos.css?v=4">
+  <link rel="stylesheet" href="../../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="../../assets/css/parcerias.css?v=1">
+
+  <script src="../../assets/js/navbar.js?v=c4" defer></script>
+  <script src="../../assets/js/video.js?v=1" defer></script>
+  <script src="../../assets/js/parcerias.js?v=1" defer></script>
+
+  <!-- FAQPage: o mesmo texto das perguntas visíveis, palavra por palavra. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Como são definidas as condições da parceria?",
+        "acceptedAnswer": { "@type": "Answer", "text": "As condições são apresentadas na reunião e formalizadas em contrato; não divulgamos valores nem percentuais nesta página." }
+      },
+      {
+        "@type": "Question",
+        "name": "Advogados podem participar?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Advogados e sociedades de advocacia participam pelo programa DMC | Partner Lawyers, voltado à cooperação técnica e institucional. O Business Partner é um programa comercial de consultoria em negócios e não envolve indicação de clientela jurídica." }
+      },
+      {
+        "@type": "Question",
+        "name": "Que tipo de oportunidade posso apresentar?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Demandas de consultoria em negócios ligadas aos seis eixos — como organização patrimonial e sucessória, revisão tributária, viabilidade imobiliária, auditoria e conformidade trabalhista. Causas, processos e demandas por serviço jurídico não fazem parte do programa." }
+      },
+      {
+        "@type": "Question",
+        "name": "A participação garante algum resultado?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Não. O programa não promete ganho, volume de oportunidades nem resultado. A contratação de cada consultoria depende da análise da equipe e da decisão da empresa atendida." }
+      },
+      {
+        "@type": "Question",
+        "name": "Como ficam as informações das empresas que apresento?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Apresente uma oportunidade só com a autorização da empresa interessada. Dados de terceiros não devem ser enviados no formulário de cadastro; o tratamento das informações de cada oportunidade é definido na formalização da parceria, nos termos da LGPD." }
+      },
+      {
+        "@type": "Question",
+        "name": "Quanto tempo leva a análise?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Não há prazo pré-definido. Cada cadastro é analisado individualmente, e o retorno é feito pelo e-mail informado." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://www.complexodmc.com.br/" },
+      { "@type": "ListItem", "position": 2, "name": "Parcerias", "item": "https://www.complexodmc.com.br/parcerias/" },
+      { "@type": "ListItem", "position": 3, "name": "Business Partner", "item": "https://www.complexodmc.com.br/parcerias/business-partner/" }
+    ]
+  }
+  </script>
+</head>
+<body class="np-eixo pp-bp" data-pp-programa="business-partner">
+
+  <dmc-navbar data-over>
+    <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+    <header class="dmc-nav dmc-nav--over">
+      <div class="dmc-wrap dmc-nav__bar">
+        <a class="dmc-brand" href="../../" aria-label="Complexo DMC, página inicial">
+          <img src="../../assets/images/rino-marca.webp" alt="" width="50" height="22">
+          <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+        </a>
+        <a class="dmc-nav__toggle" href="#rodape">Menu <i aria-hidden="true"></i></a>
+      </div>
+    </header>
+  </dmc-navbar>
+
+  <main id="conteudo" class="pp">
+
+    <!-- ============================== 1 · HERÓI ==============================
+         ≥1024px: véu com corte diagonal e fio em bronze (::before/::after, parcerias.css). -->
+    <section class="pp-hero" id="hero" aria-labelledby="hero-titulo">
+      <div class="pp-hero__media" aria-hidden="true">
+        <img src="../../assets/images/parcerias/bp-hero.webp" srcset="../../assets/images/parcerias/bp-hero-960.webp 960w, ../../assets/images/parcerias/bp-hero.webp 1920w" sizes="100vw" width="1920" height="1080" alt="" fetchpriority="high" decoding="async">
+      </div>
+      <div class="dmc-wrap">
+        <div class="pp-hero__inner">
+          <nav class="pp-trilha" aria-label="Trilha de navegação">
+            <ol>
+              <li><a href="../../">Início</a></li>
+              <li><a href="../">Parcerias</a></li>
+              <li><span aria-current="page">Business Partner</span></li>
+            </ol>
+          </nav>
+          <p class="pp-lockup pp-lockup--hero"><span class="dmc-sr-only">DMC | Business Partner</span><img src="../../assets/images/rino-marca.webp" alt="" width="50" height="22" aria-hidden="true"><b aria-hidden="true">DMC</b><i aria-hidden="true"></i><span aria-hidden="true">Business Partner</span></p>
+          <h1 class="pp-hero__titulo" id="hero-titulo">Conecte oportunidades empresariais a <em>uma estrutura de inteligência estratégica.</em></h1>
+          <p class="pp-hero__lead">Desenvolva relacionamentos de negócios e conheça uma proposta de cooperação com o ecossistema Complexo DMC.</p>
+          <div class="pp-hero__acoes">
+            <a class="dmc-btn dmc-btn--primary" href="#candidatura">Quero ser Business Partner <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--link" href="#como-funciona">Como funciona</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 2 · O PROGRAMA (papel) ============================== -->
+    <section class="pp-sec dmc-on-paper" id="programa" aria-labelledby="programa-titulo">
+      <div class="dmc-wrap pp-split">
+        <header class="pp-head pp-head--sem-margem">
+          <p class="dmc-overline">O programa</p>
+          <h2 class="pp-h2" id="programa-titulo">Relacionamento empresarial <em>com método</em></h2>
+        </header>
+        <div class="pp-split__corpo">
+          <div class="pp-prosa">
+            <p>O Business Partner é o programa de cooperação comercial do Complexo DMC para profissionais e organizações que, na própria rede, identificam empresas e famílias empresárias com demandas de consultoria em negócios.</p>
+            <p>O parceiro apresenta a oportunidade. A análise, o diagnóstico e a condução ficam com a equipe do Complexo DMC, nos seis eixos de especialidade.</p>
+            <p>As condições de cada parceria são apresentadas em reunião e formalizadas em contrato.</p>
+          </div>
+          <aside class="pp-fora" aria-labelledby="fora-titulo">
+            <h3 class="pp-fora__t" id="fora-titulo">Fora do programa</h3>
+            <p class="pp-fora__texto">Atividades de captação de clientela para serviços jurídicos não fazem parte do Business Partner. O parceiro não indica advogados, não apresenta causas e não oferece serviços jurídicos.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 3 · PERFIL (escuro, grade arquitetônica) ============================== -->
+    <section class="pp-sec pp-sec--grade" id="perfil" aria-labelledby="perfil-titulo">
+      <div class="dmc-wrap">
+        <header class="pp-head">
+          <p class="dmc-overline">Perfil</p>
+          <h2 class="pp-h2" id="perfil-titulo">Para quem <em>é o programa</em></h2>
+        </header>
+        <div class="pp-celulas">
+          <ol class="pp-celulas__lista">
+            <li><h3 class="pp-item__t">Consultores empresariais</h3><p class="pp-item__d">Atuação em gestão, estratégia ou finanças de empresas.</p></li>
+            <li><h3 class="pp-item__t">Desenvolvimento de negócios</h3><p class="pp-item__d">Profissionais de expansão comercial e novos negócios.</p></li>
+            <li><h3 class="pp-item__t">Representantes comerciais B2B</h3><p class="pp-item__d">Relacionamento contínuo com carteiras de empresas.</p></li>
+            <li><h3 class="pp-item__t">Relacionamento corporativo</h3><p class="pp-item__d">Gestão de contas, relações institucionais e atendimento a grupos econômicos.</p></li>
+            <li><h3 class="pp-item__t">Consultores imobiliários</h3><p class="pp-item__d">Contato com incorporadoras, construtoras e investidores do setor.</p></li>
+            <li><h3 class="pp-item__t">Redes empresariais</h3><p class="pp-item__d">Associações, grupos e comunidades de empresários.</p></li>
+            <li><h3 class="pp-item__t">Organizações com atuação comercial complementar</h3><p class="pp-item__d">Empresas cujos serviços se somam aos eixos do Complexo DMC.</p></li>
+          </ol>
+          <a class="pp-celulas__cta" href="#candidatura"><span>Quero ser Business Partner</span> <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 4 · OPORTUNIDADES (papel) ==============================
+         Cada linha leva a cor do eixo (np-pillar-*). E5 fora da lista (COPY §3.4, decisão
+         de 2026-10-17; CONFORMIDADE §4 D5). -->
+    <section class="pp-sec dmc-on-paper" id="oportunidades" aria-labelledby="oportunidades-titulo">
+      <div class="dmc-wrap">
+        <header class="pp-head">
+          <p class="dmc-overline">Oportunidades</p>
+          <h2 class="pp-h2" id="oportunidades-titulo">Onde a sua rede <em>encontra os seis eixos</em></h2>
+          <p class="pp-lead">Exemplos de perfil de empresa e o eixo de consultoria relacionado. Cada oportunidade é analisada pela equipe do Complexo DMC antes de qualquer proposta.</p>
+        </header>
+        <ul class="pp-mapa">
+          <li class="np-pillar-patrimonial">
+            <h3 class="pp-item__t">Famílias empresárias, sócios e produtores rurais</h3>
+            <div class="pp-mapa__eixo"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><a href="../../pages/planejamento-sucessorio.html"><b>E1</b> Planejamento Patrimonial e Sucessório</a></div>
+            <p class="pp-item__d">Organização da estrutura patrimonial e da sucessão em vida.</p>
+          </li>
+          <li class="np-pillar-fiscal">
+            <h3 class="pp-item__t">Empresas em crescimento ou mudança de estrutura societária</h3>
+            <div class="pp-mapa__eixo"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><a href="../../pages/planejamento-tributario.html"><b>E2</b> Tributário, Fiscal e Corporativo</a></div>
+            <p class="pp-item__d">Revisão de regime, estrutura societária e programa de integridade.</p>
+          </li>
+          <li class="np-pillar-imobiliario">
+            <h3 class="pp-item__t">Incorporadoras, construtoras e investidores imobiliários</h3>
+            <div class="pp-mapa__eixo"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><a href="../../pages/consultoria-imobiliaria.html"><b>E3</b> Notarial e Imobiliário</a></div>
+            <p class="pp-item__d">Viabilidade, due diligence de terreno e acompanhamento do ciclo do empreendimento.</p>
+          </li>
+          <li class="np-pillar-auditoria">
+            <h3 class="pp-item__t">Empresas que prestam contas a sócios, conselho ou banco</h3>
+            <div class="pp-mapa__eixo"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><a href="../../pages/contabilidade.html"><b>E4</b> Auditoria Empresarial e Contábil</a></div>
+            <p class="pp-item__d">Leitura independente dos números, controles internos e governança.</p>
+          </li>
+          <li class="np-pillar-trabalhista">
+            <h3 class="pp-item__t">Empresas com operação intensiva em mão de obra</h3>
+            <div class="pp-mapa__eixo"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><a href="../../solucoes/consultoria-trabalhista/ciclo-fechado.html"><b>E6</b> Consultoria Trabalhista</a></div>
+            <p class="pp-item__d">Diagnóstico trabalhista, conformidade psicossocial (NR-1) e gestão preventiva.</p>
+          </li>
+        </ul>
+        <p class="pp-nota">O parceiro apresenta a oportunidade de consultoria. Causas, processos e demandas por serviço jurídico não fazem parte do programa.</p>
+      </div>
+    </section>
+
+    <!-- ============================== 5 · COMO FUNCIONA (escuro) ============================== -->
+    <section class="pp-sec pp-sec--grade" id="como-funciona" aria-labelledby="como-titulo">
+      <div class="dmc-wrap">
+        <header class="pp-head">
+          <p class="dmc-overline">Como funciona</p>
+          <h2 class="pp-h2" id="como-titulo">Do cadastro à <em>cooperação autorizada</em></h2>
+          <p class="pp-lead">Sete etapas, cada uma com decisão própria. O cadastro não cria vínculo nem autoriza atuação em nome do Complexo DMC.</p>
+        </header>
+        <ol class="pp-etapas pp-etapas--escada">
+          <li><span class="pp-etapa__n" aria-hidden="true">01</span><h3 class="pp-item__t">Cadastro</h3><p class="pp-item__d">Envio do formulário com o seu perfil e o perfil das empresas com que se relaciona.</p></li>
+          <li><span class="pp-etapa__n" aria-hidden="true">02</span><h3 class="pp-item__t">Análise do perfil</h3><p class="pp-item__d">Leitura da experiência informada e da aderência da sua rede ao público dos seis eixos.</p></li>
+          <li><span class="pp-etapa__n" aria-hidden="true">03</span><h3 class="pp-item__t">Reunião comercial</h3><p class="pp-item__d">Apresentação do programa, dos papéis de cada parte e das condições da parceria.</p></li>
+          <li><span class="pp-etapa__n" aria-hidden="true">04</span><h3 class="pp-item__t">Avaliação de compatibilidade</h3><p class="pp-item__d">Decisão sobre a continuidade, considerando perfil, rede e forma de atuação.</p></li>
+          <li><span class="pp-etapa__n" aria-hidden="true">05</span><h3 class="pp-item__t">Definição das condições da parceria</h3><p class="pp-item__d">Condições e limites de atuação do parceiro definidos e registrados.</p></li>
+          <li><span class="pp-etapa__n" aria-hidden="true">06</span><h3 class="pp-item__t">Formalização contratual, quando aplicável</h3><p class="pp-item__d">Assinatura do contrato de parceria.</p></li>
+          <li><span class="pp-etapa__n" aria-hidden="true">07</span><h3 class="pp-item__t">Início da cooperação autorizada</h3><p class="pp-item__d">A partir da formalização, o parceiro apresenta oportunidades nos limites do contrato.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== 6 · ESTRUTURA (papel) ============================== -->
+    <section class="pp-sec dmc-on-paper" id="estrutura" aria-labelledby="estrutura-titulo">
+      <div class="dmc-wrap">
+        <header class="pp-head">
+          <p class="dmc-overline">Estrutura</p>
+          <h2 class="pp-h2" id="estrutura-titulo">O que sustenta <em>a parceria</em></h2>
+        </header>
+        <ol class="benefit-grid pp-grade--5">
+          <li class="benefit-card"><h3 class="benefit-card__title">Seis eixos, uma consultoria</h3><p class="benefit-card__text">Patrimônio, tributos, imóveis, auditoria, crédito e relações de trabalho tratados por uma mesma consultoria, com plano único quando o caso envolve mais de um eixo.</p></li>
+          <li class="benefit-card"><h3 class="benefit-card__title">Método comum</h3><p class="benefit-card__text">Diagnóstico, cenários e plano de atos seguem o mesmo método nos seis eixos.</p></li>
+          <li class="benefit-card"><h3 class="benefit-card__title">Papéis definidos</h3><p class="benefit-card__text">Atos privativos executados por profissionais e sociedades parceiras habilitadas; atos notariais e registrais, por cartórios conveniados.</p></li>
+          <li class="benefit-card"><h3 class="benefit-card__title">Tecnologia própria</h3><p class="benefit-card__text">ADTECH e DMC Business School no portal digital DMC.</p><a class="dmc-btn dmc-btn--link pp-item__link" href="../../pages/tecnologia.html#portal">Conhecer o portal digital</a></li>
+          <li class="benefit-card"><h3 class="benefit-card__title">Alcance</h3><p class="benefit-card__text">Sede em São Paulo e atendimento em todo o Brasil e no exterior.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== 7 · CANDIDATURA (escuro + folha de papel) ============================== -->
+    <section class="pp-sec pp-cand" id="candidatura" aria-labelledby="candidatura-titulo">
+      <div class="dmc-wrap pp-cand__grade">
+        <div class="pp-cand__intro">
+          <p class="dmc-overline">Candidatura</p>
+          <h2 class="pp-h2" id="candidatura-titulo">Quero ser <em>Business Partner</em></h2>
+          <p class="pp-texto">Conte quem você é e com que perfil de empresa se relaciona. Os dados servem apenas para avaliar a sua candidatura ao Business Partner. Campos com * são obrigatórios.</p>
+          <p class="pp-aviso"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 5.8v5.2M10 13.4v.8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><strong>Não inclua nomes de empresas, clientes ou pessoas da sua rede.</strong></p>
+        </div>
+
+        <div class="pp-folha dmc-on-paper">
+          <form class="pp-form" id="bp-form" action="/api/parcerias/business-partner" method="post" data-pp-form="business-partner" aria-describedby="bp-status">
+            <div class="pp-campo">
+              <label for="bp-nome">Nome completo <span class="pp-req" aria-hidden="true">*</span></label>
+              <input type="text" id="bp-nome" name="nome" autocomplete="name" required minlength="2" maxlength="120" data-erro="Informe o seu nome completo.">
+            </div>
+
+            <div class="pp-linha">
+              <div class="pp-campo">
+                <label for="bp-empresa">Empresa</label>
+                <input type="text" id="bp-empresa" name="empresa" autocomplete="organization" maxlength="120" aria-describedby="bp-empresa-ajuda">
+                <p class="pp-ajuda" id="bp-empresa-ajuda">Se houver. Deixe em branco se atua como profissional autônomo.</p>
+              </div>
+              <div class="pp-campo">
+                <label for="bp-cargo">Cargo ou ocupação <span class="pp-req" aria-hidden="true">*</span></label>
+                <input type="text" id="bp-cargo" name="cargo" autocomplete="organization-title" required minlength="2" maxlength="80" aria-describedby="bp-cargo-ajuda" data-erro="Informe o seu cargo ou ocupação.">
+                <p class="pp-ajuda" id="bp-cargo-ajuda">Ex.: consultor empresarial, gerente de contas.</p>
+              </div>
+            </div>
+
+            <div class="pp-linha">
+              <div class="pp-campo">
+                <label for="bp-segmento">Segmento de atuação <span class="pp-req" aria-hidden="true">*</span></label>
+                <select id="bp-segmento" name="segmento" required data-erro="Selecione o segmento de atuação.">
+                  <option value="">Selecione…</option>
+                  <option value="consultoria-empresarial">Consultoria empresarial</option>
+                  <option value="desenvolvimento-negocios">Desenvolvimento de negócios</option>
+                  <option value="representacao-comercial-b2b">Representação comercial B2B</option>
+                  <option value="mercado-imobiliario">Mercado imobiliário</option>
+                  <option value="construcao-civil">Construção civil</option>
+                  <option value="agronegocio">Agronegócio</option>
+                  <option value="rede-empresarial">Rede empresarial</option>
+                  <option value="outro">Outro</option>
+                </select>
+              </div>
+              <div class="pp-campo">
+                <label for="bp-experiencia">Experiência em relacionamento B2B <span class="pp-req" aria-hidden="true">*</span></label>
+                <select id="bp-experiencia" name="experiencia_b2b" required data-erro="Selecione o tempo de experiência.">
+                  <option value="">Selecione…</option>
+                  <option value="ate-2-anos">Até 2 anos</option>
+                  <option value="2-a-5-anos">De 2 a 5 anos</option>
+                  <option value="5-a-10-anos">De 5 a 10 anos</option>
+                  <option value="mais-de-10-anos">Mais de 10 anos</option>
+                </select>
+              </div>
+            </div>
+
+            <fieldset class="pp-grupo" aria-describedby="bp-local-ajuda">
+              <legend>Cidade e UF <span class="pp-req" aria-hidden="true">*</span></legend>
+              <div class="pp-linha pp-linha--local">
+                <div class="pp-campo">
+                  <label class="pp-sub" for="bp-cidade">Cidade</label>
+                  <input type="text" id="bp-cidade" name="cidade" autocomplete="address-level2" required minlength="2" maxlength="80" aria-describedby="bp-local-ajuda" data-erro="Informe cidade e UF.">
+                </div>
+                <div class="pp-campo">
+                  <label class="pp-sub" for="bp-uf">UF</label>
+                  <select id="bp-uf" name="uf" autocomplete="address-level1" required aria-describedby="bp-local-ajuda" data-erro="Informe cidade e UF.">
+                    <option value="">Selecione…</option>
+                    <option>AC</option><option>AL</option><option>AP</option><option>AM</option><option>BA</option><option>CE</option><option>DF</option><option>ES</option><option>GO</option><option>MA</option><option>MT</option><option>MS</option><option>MG</option><option>PA</option><option>PB</option><option>PR</option><option>PE</option><option>PI</option><option>RJ</option><option>RN</option><option>RS</option><option>RO</option><option>RR</option><option>SC</option><option>SP</option><option>SE</option><option>TO</option>
+                  </select>
+                </div>
+              </div>
+              <p class="pp-ajuda" id="bp-local-ajuda">Base principal de atuação. Ex.: Ribeirão Preto/SP.</p>
+            </fieldset>
+
+            <div class="pp-linha">
+              <div class="pp-campo">
+                <label for="bp-email">E-mail <span class="pp-req" aria-hidden="true">*</span></label>
+                <input type="email" id="bp-email" name="email" autocomplete="email" required maxlength="254" spellcheck="false" aria-describedby="bp-email-ajuda" data-erro="Informe um e-mail válido.">
+                <p class="pp-ajuda" id="bp-email-ajuda">Usado para o retorno sobre a candidatura.</p>
+              </div>
+              <div class="pp-campo">
+                <label for="bp-whatsapp">WhatsApp <span class="pp-req" aria-hidden="true">*</span></label>
+                <input type="tel" id="bp-whatsapp" name="whatsapp" autocomplete="tel" inputmode="numeric" required maxlength="30" aria-describedby="bp-whatsapp-ajuda" data-erro="Informe um WhatsApp com DDD." data-pp-regra="telefone">
+                <p class="pp-ajuda" id="bp-whatsapp-ajuda">Com DDD.</p>
+              </div>
+            </div>
+
+            <div class="pp-campo">
+              <label for="bp-perfil">Perfil das empresas com as quais se relaciona <span class="pp-req" aria-hidden="true">*</span></label>
+              <textarea id="bp-perfil" name="perfil_empresas" rows="4" required minlength="10" maxlength="1000" aria-describedby="bp-perfil-ajuda" data-erro="Descreva o perfil das empresas da sua rede." data-erro-curto="Descrição muito curta (mínimo de 10 caracteres)."></textarea>
+              <p class="pp-ajuda pp-ajuda--contador"><span id="bp-perfil-ajuda">Setores e porte, sem nomes de empresas ou pessoas. Ex.: indústrias de médio porte; incorporadoras.</span> <span class="pp-contador" data-pp-contador="bp-perfil" aria-hidden="true"></span></p>
+            </div>
+
+            <div class="pp-campo">
+              <label for="bp-mensagem">Mensagem</label>
+              <textarea id="bp-mensagem" name="mensagem" rows="4" maxlength="2000" aria-describedby="bp-mensagem-ajuda"></textarea>
+              <p class="pp-ajuda pp-ajuda--contador"><span id="bp-mensagem-ajuda">Opcional. Algo mais sobre a sua atuação.</span> <span class="pp-contador" data-pp-contador="bp-mensagem" aria-hidden="true"></span></p>
+            </div>
+
+            <!-- Isca anti-robô: fora da tela e fora da árvore de acessibilidade. -->
+            <div class="pp-hp" aria-hidden="true">
+              <label for="bp-website">Não preencha este campo</label>
+              <input type="text" id="bp-website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="pp-aceites">
+              <div class="pp-aceite">
+                <input type="checkbox" id="bp-consentimento" name="consentimento" value="true" required data-erro="Para enviar, confirme que leu a Política de Privacidade e pede a avaliação da candidatura.">
+                <label for="bp-consentimento">Li a <a href="../../pages/politica-de-privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a> e peço a avaliação da minha candidatura ao programa DMC | Business Partner. Os dados deste formulário serão usados só para essa avaliação (LGPD, Lei 13.709/2018). <span class="pp-req" aria-hidden="true">*</span></label>
+              </div>
+              <div class="pp-aceite">
+                <input type="checkbox" id="bp-comunicacoes" name="comunicacoes" value="true">
+                <label for="bp-comunicacoes">Aceito receber comunicações institucionais do Complexo DMC por e-mail. Posso cancelar a qualquer momento.</label>
+              </div>
+            </div>
+
+            <input type="hidden" name="pagina" value="/parcerias/business-partner/">
+            <input type="hidden" name="utm_source" value="">
+            <input type="hidden" name="utm_medium" value="">
+            <input type="hidden" name="utm_campaign" value="">
+            <input type="hidden" name="utm_content" value="">
+
+            <p class="pp-status" id="bp-status" role="status" aria-live="polite"></p>
+
+            <div class="pp-envio">
+              <button type="submit" class="dmc-btn dmc-btn--primary pp-enviar">Enviar candidatura — Business Partner</button>
+              <p class="pp-ajuda">O envio não cria vínculo nem autoriza atuação em nome do Complexo DMC.</p>
+            </div>
+          </form>
+
+          <!-- Mensagens do COPY §3.7 lidas por parcerias.js (nada é mostrado sem resposta do servidor). -->
+          <template id="bp-msgs">
+            <p data-msg="enviando">Enviando candidatura…</p>
+            <p data-msg="sucesso-titulo">Candidatura recebida.</p>
+            <p data-msg="sucesso-protocolo">Protocolo <strong data-protocolo></strong>.</p>
+            <p data-msg="sucesso-texto">Guarde este número: ele identifica a sua candidatura em qualquer contato com a equipe. O retorno é feito pelo e-mail informado.</p>
+            <p data-msg="duplicada-titulo">Já recebemos sua candidatura ao Business Partner com estes dados (protocolo <strong data-protocolo></strong>).</p>
+            <p data-msg="duplicada-texto">Ela segue em análise; não é preciso reenviar. Para atualizar alguma informação, escreva para administrativo@complexodmc.com.br informando o protocolo.</p>
+            <p data-msg="duplicada-sem-titulo">Já recebemos sua candidatura ao Business Partner com estes dados.</p>
+            <p data-msg="duplicada-sem-texto">Ela segue em análise; não é preciso reenviar. Para atualizar alguma informação, escreva para administrativo@complexodmc.com.br.</p>
+            <p data-msg="generica-titulo">Candidatura recebida.</p>
+            <p data-msg="generica-texto">O retorno é feito pelo e-mail informado.</p>
+            <p data-msg="servidor">Não foi possível concluir o envio agora. Tente novamente em instantes ou escreva para administrativo@complexodmc.com.br.</p>
+            <p data-msg="limite">Muitas tentativas em pouco tempo. Aguarde alguns minutos e tente de novo.</p>
+            <p data-msg="validacao">Revise os campos destacados para enviar.</p>
+            <a data-msg="whatsapp" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20programa%20DMC%20%7C%20Business%20Partner." target="_blank" rel="noopener noreferrer">Converse com nossa equipe</a>
+            <a data-msg="proximo" href="#como-funciona">Como funciona</a>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 8 · PERGUNTAS FREQUENTES (papel) ============================== -->
+    <section class="pp-sec dmc-on-paper" id="perguntas" aria-labelledby="perguntas-titulo">
+      <div class="dmc-wrap pp-split">
+        <header class="pp-head pp-head--sem-margem">
+          <h2 class="pp-h2" id="perguntas-titulo">Perguntas <em>frequentes</em></h2>
+        </header>
+        <div class="pp-faq" data-pp-faq>
+          <div class="pp-faq__item">
+            <h3 class="pp-faq__q" id="faq-1">Como são definidas as condições da parceria?</h3>
+            <div class="pp-faq__a" id="faq-1-r"><p>As condições são apresentadas na reunião e formalizadas em contrato; não divulgamos valores nem percentuais nesta página.</p></div>
+          </div>
+          <div class="pp-faq__item">
+            <h3 class="pp-faq__q" id="faq-2">Advogados podem participar?</h3>
+            <div class="pp-faq__a" id="faq-2-r"><p>Advogados e sociedades de advocacia participam pelo programa <a href="../advogados-parceiros/">DMC | Partner Lawyers</a>, voltado à cooperação técnica e institucional. O Business Partner é um programa comercial de consultoria em negócios e não envolve indicação de clientela jurídica.</p></div>
+          </div>
+          <div class="pp-faq__item">
+            <h3 class="pp-faq__q" id="faq-3">Que tipo de oportunidade posso apresentar?</h3>
+            <div class="pp-faq__a" id="faq-3-r"><p>Demandas de consultoria em negócios ligadas aos seis eixos — como organização patrimonial e sucessória, revisão tributária, viabilidade imobiliária, auditoria e conformidade trabalhista. Causas, processos e demandas por serviço jurídico não fazem parte do programa.</p></div>
+          </div>
+          <div class="pp-faq__item">
+            <h3 class="pp-faq__q" id="faq-4">A participação garante algum resultado?</h3>
+            <div class="pp-faq__a" id="faq-4-r"><p>Não. O programa não promete ganho, volume de oportunidades nem resultado. A contratação de cada consultoria depende da análise da equipe e da decisão da empresa atendida.</p></div>
+          </div>
+          <div class="pp-faq__item">
+            <h3 class="pp-faq__q" id="faq-5">Como ficam as informações das empresas que apresento?</h3>
+            <div class="pp-faq__a" id="faq-5-r"><p>Apresente uma oportunidade só com a autorização da empresa interessada. Dados de terceiros não devem ser enviados no formulário de cadastro; o tratamento das informações de cada oportunidade é definido na formalização da parceria, nos termos da LGPD.</p></div>
+          </div>
+          <div class="pp-faq__item">
+            <h3 class="pp-faq__q" id="faq-6">Quanto tempo leva a análise?</h3>
+            <div class="pp-faq__a" id="faq-6-r"><p>Não há prazo pré-definido. Cada cadastro é analisado individualmente, e o retorno é feito pelo e-mail informado.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 9 · VÍDEO DO TEMA ============================== -->
+    <section class="page-section" id="video" aria-labelledby="video-titulo">
+      <div class="page-section__container pp-video">
+        <div class="page-section__header">
+          <p class="page-section__overline">Em vídeo</p>
+          <h2 class="page-section__title" id="video-titulo">Business Partner <em>em vídeo</em></h2>
+          <p class="page-section__description">Como funciona a cooperação comercial com o ecossistema Complexo DMC.</p>
+        </div>
+        <div class="page-video__frame" data-video="" data-video-title="DMC | Business Partner">
+          <div class="page-video__empty">
+            <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
+            <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
+            <p class="page-video__empty-text">Vídeo sobre o programa Business Partner — em breve neste espaço.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 10 · CONVERSA (papel) ============================== -->
+    <section class="cta-section dmc-on-paper" id="conversa" aria-labelledby="cta-titulo">
+      <div class="cta-section__container">
+        <p class="page-section__overline">Candidatura</p>
+        <h2 class="cta-section__title" id="cta-titulo">Relacionamentos de negócios, <em>com estrutura</em></h2>
+        <p class="cta-section__text">Envie a sua candidatura ou converse com a nossa equipe sobre o programa.</p>
+        <div class="cta-section__actions">
+          <a class="dmc-btn dmc-btn--primary" href="#candidatura">Quero ser Business Partner <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="dmc-btn dmc-btn--secondary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20programa%20DMC%20%7C%20Business%20Partner." target="_blank" rel="noopener noreferrer">Converse com nossa equipe <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="dmc-btn dmc-btn--link" href="../">Central de Parcerias</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================== RODAPÉ (o mesmo da home) ============================== -->
+  <footer class="dmc-footer" id="rodape">
+    <div class="dmc-wrap">
+      <div class="dmc-footer__grid">
+        <div class="dmc-footer__brand">
+          <a class="dmc-brand" href="../../" aria-label="Complexo DMC, página inicial">
+            <img src="../../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">
+            <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+          </a>
+          <p>Consultoria em negócios para decisões que envolvem empresa, patrimônio e família.</p>
+          <p>Sede em São Paulo. Atendimento a empresas, famílias empresárias, incorporadoras e investidores.</p>
+        </div>
+
+        <nav aria-labelledby="rodape-eixos">
+          <p class="dmc-footer__title" id="rodape-eixos">Eixos</p>
+          <ul class="dmc-footer__list">
+            <li class="np-pillar-patrimonial"><a href="../../pages/planejamento-sucessorio.html"><span class="dmc-footer__num">E1</span>Patrimonial e Sucessório</a></li>
+            <li class="np-pillar-fiscal"><a href="../../pages/planejamento-tributario.html"><span class="dmc-footer__num">E2</span>Tributário, Fiscal e Corporativo</a></li>
+            <li class="np-pillar-imobiliario"><a href="../../pages/consultoria-imobiliaria.html"><span class="dmc-footer__num">E3</span>Notarial e Imobiliário</a></li>
+            <li class="np-pillar-auditoria"><a href="../../pages/contabilidade.html"><span class="dmc-footer__num">E4</span>Auditoria Empresarial e Contábil</a></li>
+            <li class="np-pillar-ativos"><a href="../../pages/recuperacao-ativos.html"><span class="dmc-footer__num">E5</span>Recuperação de Ativos</a></li>
+            <li class="np-pillar-trabalhista"><a href="../../solucoes/consultoria-trabalhista/ciclo-fechado.html"><span class="dmc-footer__num">E6</span>Consultoria Trabalhista</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="rodape-casa">
+          <p class="dmc-footer__title" id="rodape-casa">Sobre</p>
+          <ul class="dmc-footer__list">
+            <li><a href="../../pages/sobre.html">Sobre o Complexo DMC</a></li>
+            <li><a href="../../#features">Soluções</a></li>
+            <li><a href="../../#treinamentos">Treinamentos</a></li>
+            <li><a href="../../pages/tecnologia.html">Tecnologia</a></li>
+            <li><a href="../../parcerias/">Parcerias</a></li>
+            <li><a href="../../pages/por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
+            <li><a href="../../plataforma-ead/login.html">DMC Business School</a></li>
+            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">ADTECH</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <p class="dmc-footer__title">Contato</p>
+          <ul class="dmc-footer__list">
+            <li><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></li>
+            <li><a href="tel:+5511915267749">+55 (11) 91526-7749</a></li>
+            <li><a href="../../#contact">Formulário de contato</a></li>
+            <li><span>Rua Riachuelo, 231<br>São Paulo, SP — Brasil</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dmc-footer__legal">
+        <p>&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+        <p>Conteúdo informativo. DMC | Business Partner é um programa de cooperação comercial do Complexo DMC, voltado a oportunidades de consultoria em negócios; não é pessoa jurídica própria e não abrange captação de clientela para serviços jurídicos. As condições de cada parceria constam de contrato próprio. A atuação em atos privativos da advocacia, da contabilidade e da auditoria é realizada por profissionais e sociedades parceiras habilitadas; os atos notariais e registrais, por cartórios conveniados.</p>
+        <p><a href="../../pages/politica-de-privacidade.html">Política de Privacidade</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20o%20programa%20DMC%20%7C%20Business%20Partner." target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Conversar pelo WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+</body>
+</html>

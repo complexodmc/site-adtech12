@@ -175,9 +175,11 @@ dmc-navbar { display: block; }
 
 /* ============================================================
    NAVBAR
-   Fixa, 64/72px. Transparente sobre o herói (.dmc-nav--over até
-   24px de rolagem), translúcida depois. ≥1024: Eixos ▾ (mega-menu),
-   links, Acessar ▾ (D6) e CTA. <1024: botão Menu → gaveta.
+   Fixa, 64/72px (72 desde 1024). Transparente sobre o herói
+   (.dmc-nav--over até 24px de rolagem), translúcida depois.
+   ≥1200: Eixos ▾ · Sobre · Treinamentos · Parcerias ▾ · Tecnologia,
+   Acessar ▾ (portal) e CTA dourado. 768–1199: CTA + botão Menu.
+   <768: botão Menu → gaveta (CTA dentro dela).
    ============================================================ */
 .dmc-nav,
 .dmc-nav *,
@@ -273,6 +275,7 @@ dmc-navbar { display: block; }
 .dmc-nav__link:hover,
 .dmc-nav__trigger:hover,
 .dmc-nav__trigger[aria-expanded="true"],
+.dmc-nav__trigger.is-current,
 .dmc-nav__link[aria-current] { color: var(--text-1); }
 .dmc-nav__trigger svg,
 .dmc-drawer__acc svg {
@@ -306,19 +309,94 @@ dmc-navbar { display: block; }
 .dmc-nav__toggle i::before,
 .dmc-nav__toggle i::after { content: ""; height: 1.5px; background: currentColor; }
 
+/* CTA comercial: o elemento dominante da barra. Ouro sólido, texto
+   grafite (≈9:1), seta ↗; no hover clareia, a seta sobe e um brilho
+   atravessa o botão (só transform — reduce zera a duração). */
+.dmc-nav__cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 2.75rem;
+  padding-inline: var(--space-5);
+  background: var(--color-gold);
+  color: var(--color-graphite-900);
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 10px 24px -16px rgba(var(--color-gold-rgb), 0.8);
+}
+.dmc-nav__cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.38) 50%, transparent 65%);
+  transform: translateX(-110%);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.dmc-nav__cta:hover { background: var(--color-gold-soft); color: var(--color-black); }
+.dmc-nav__cta:hover::after { transform: translateX(110%); }
+.dmc-nav__cta:hover svg { transform: translate(2px, -2px); }
+.dmc-nav__cta--drawer { width: 100%; min-height: 3.25rem; justify-content: space-between; }
+
+@media (min-width: 768px) {
+  .dmc-nav__side { display: flex; align-items: center; gap: var(--space-4); margin-left: auto; }
+  .dmc-nav__side .dmc-access { display: none; }
+}
 @media (min-width: 1024px) {
-  .dmc-nav__bar { height: var(--header-h-lg); gap: var(--space-5); }
-  .dmc-nav__menu { display: block; margin-right: auto; margin-left: var(--space-6); }
-  .dmc-nav__links { display: flex; align-items: center; gap: var(--space-6); }
-  .dmc-nav__side { display: flex; align-items: center; gap: var(--space-5); }
+  .dmc-nav__bar { height: var(--header-h-lg); }
+}
+@media (min-width: 1200px) {
+  .dmc-nav__bar { gap: var(--space-5); }
+  .dmc-nav__menu { display: block; margin-right: auto; margin-left: var(--space-4); }
+  .dmc-nav__links { display: flex; align-items: center; gap: var(--space-5); }
+  .dmc-nav__side { margin-left: 0; }
+  .dmc-nav__side .dmc-access { display: block; }
+  .dmc-nav__cta { min-height: 2.875rem; }
   .dmc-nav__toggle { display: none; }
 }
-@media (min-width: 1024px) and (max-width: 1199px) {
-  .dmc-nav__menu { margin-left: var(--space-5); }
-  .dmc-nav__links { gap: var(--space-5); }
-  .dmc-nav__side { gap: var(--space-4); }
-  .dmc-nav__side .dmc-btn { padding-inline: var(--space-4); }
+@media (min-width: 1366px) {
+  .dmc-nav__menu { margin-left: var(--space-6); }
+  .dmc-nav__links { gap: var(--space-6); }
+  .dmc-nav__side { gap: var(--space-5); }
 }
+
+/* ---------- Parcerias ▾ (painel curto sob o gatilho) ---------- */
+.dmc-sub { position: relative; }
+.dmc-sub__menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: calc(-1 * var(--space-4));
+  min-width: 19rem;
+  padding: var(--space-2);
+  background: var(--surface-2);
+  border: var(--border-hair) solid var(--color-line-strong);
+  border-radius: var(--radius-3);
+  box-shadow: var(--shadow-overlay);
+}
+.dmc-sub__menu[hidden] { display: none; }
+.dmc-sub__menu.is-entering { animation: dmc-drop var(--dur-base) var(--ease-out) both; }
+.dmc-sub__menu a,
+.dmc-drawer__sub a {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  align-items: baseline;
+  min-height: var(--hit);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-1);
+  color: var(--text-1);
+  text-decoration: none;
+  transition: var(--transition-state);
+}
+.dmc-sub__menu a:hover,
+.dmc-sub__menu a[aria-current] { background: var(--surface-3); }
+.dmc-sub__num {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  font-feature-settings: var(--font-numeric);
+  color: var(--color-gold);
+}
+.dmc-sub__text { display: grid; gap: 2px; }
+.dmc-sub__text b { font-size: var(--fs-small); font-weight: var(--fw-semibold); }
+.dmc-sub__text small { font-size: 0.8125rem; color: var(--text-3); }
 
 /* ---------- Mega-menu dos seis eixos ---------- */
 .dmc-mega {
@@ -383,34 +461,101 @@ dmc-navbar { display: block; }
 }
 .dmc-mega__foot p { margin: 0; }
 
-/* ---------- Acessar ▾ (D6: Área do aluno · Ad-tech) ---------- */
+/* ---------- Acessar ▾ — portal digital DMC (4 plataformas) ----------
+   Item com login real: etiqueta "Entrar ↗". Sem URL confirmada:
+   "Em estruturação" e o link vai para a apresentação institucional. */
 .dmc-access { position: relative; }
-.dmc-access__menu {
+.dmc-portal {
   position: absolute;
   top: calc(100% + var(--space-2));
   right: 0;
-  min-width: 16rem;
-  padding: var(--space-2);
+  width: min(36rem, calc(100vw - 2 * var(--gutter)));
+  padding: var(--space-4);
   background: var(--surface-2);
   border: var(--border-hair) solid var(--color-line-strong);
   border-radius: var(--radius-3);
   box-shadow: var(--shadow-overlay);
 }
-.dmc-access__menu[hidden] { display: none; }
-.dmc-access__menu.is-entering { animation: dmc-drop var(--dur-base) var(--ease-out) both; }
-.dmc-access__menu a {
+.dmc-portal[hidden] { display: none; }
+.dmc-portal.is-entering { animation: dmc-drop var(--dur-base) var(--ease-out) both; }
+.dmc-portal__head {
+  margin: 0 0 var(--space-3);
+  padding-inline: var(--space-2);
+  font-size: 0.75rem;
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.dmc-portal__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+.dmc-portal__item a {
   display: grid;
-  gap: 2px;
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  column-gap: var(--space-3);
+  row-gap: var(--space-2);
+  align-content: start;
+  height: 100%;
   min-height: var(--hit);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-1);
+  padding: var(--space-4);
+  border: var(--border-hair) solid var(--color-line);
+  border-radius: var(--radius-2);
   color: var(--text-1);
   text-decoration: none;
   transition: var(--transition-state);
 }
-.dmc-access__menu a:hover { background: var(--surface-3); }
-.dmc-access__menu b { font-size: var(--fs-small); font-weight: var(--fw-semibold); }
-.dmc-access__menu small { font-size: 0.8125rem; color: var(--text-3); }
+.dmc-portal__item a:hover { background: var(--surface-3); border-color: rgba(var(--color-gold-rgb), 0.45); }
+.dmc-portal__icon {
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: var(--border-hair) solid rgba(var(--color-gold-rgb), 0.35);
+  border-radius: var(--radius-2);
+  background: rgba(var(--color-gold-rgb), 0.06);
+  color: var(--color-gold);
+}
+.dmc-portal__icon svg { width: 1.375rem; height: 1.375rem; }
+.dmc-portal__text { display: grid; gap: 2px; min-width: 0; }
+.dmc-portal__text b { font-size: var(--fs-small); font-weight: var(--fw-semibold); }
+.dmc-portal__text small { font-size: 0.8125rem; color: var(--text-3); }
+.dmc-portal__tag {
+  grid-column: 2;
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 0.75rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  color: var(--color-gold);
+}
+.dmc-portal__tag svg { width: 12px; height: 12px; transition: transform var(--dur-base) var(--ease-out); }
+.dmc-portal__item a:hover .dmc-portal__tag svg { transform: translate(2px, -2px); }
+.dmc-portal__tag--soon {
+  padding: 1px var(--space-2);
+  border: var(--border-hair) solid var(--color-line-strong);
+  border-radius: 999px;
+  font-weight: var(--fw-medium);
+  color: var(--text-3);
+}
+.dmc-portal__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--hit);
+  margin-top: var(--space-3);
+  padding: var(--space-2) var(--space-2) 0;
+  border-top: var(--border-hair) solid var(--color-line);
+  font-size: var(--fs-small);
+  color: var(--text-2);
+  text-decoration: none;
+  transition: var(--transition-state);
+}
+.dmc-portal__foot:hover { color: var(--text-1); }
+.dmc-portal__foot svg { width: 1rem; height: 1rem; color: var(--color-gold); transition: transform var(--dur-base) var(--ease-out); }
+.dmc-portal__foot:hover svg { transform: translateX(4px); }
 
 /* ---------- Gaveta mobile (<1024): tela cheia, foco preso ---------- */
 .dmc-drawer {
@@ -486,21 +631,16 @@ dmc-navbar { display: block; }
 .dmc-drawer__axes .dmc-mega__num { padding-top: 0.15em; }
 .dmc-drawer__axes .dmc-mega__name { font-size: 0.9375rem; font-weight: var(--fw-medium); }
 .dmc-drawer__axes .dmc-mega__scope { grid-column: 2; margin-top: 2px; font-size: 0.8125rem; color: var(--text-3); }
-.dmc-drawer__group { display: grid; gap: var(--space-2); }
+.dmc-drawer__sub { padding-bottom: var(--space-4); }
+.dmc-drawer__sub[hidden] { display: none; }
+.dmc-drawer__sub a { padding-inline: 0; }
+.dmc-drawer__group { display: grid; gap: var(--space-3); }
 .dmc-drawer__group .dmc-overline { color: var(--text-3); }
-.dmc-drawer__group ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--space-2); }
-.dmc-drawer__group a {
-  display: grid;
-  gap: 2px;
-  min-height: var(--hit);
-  padding: var(--space-3) var(--space-4);
-  border: var(--border-hair) solid var(--color-line-strong);
-  border-radius: var(--radius-1);
-  text-decoration: none;
+.dmc-drawer__group .dmc-portal__grid { grid-template-columns: minmax(0, 1fr); }
+.dmc-drawer__group .dmc-portal__item a { border-color: var(--color-line-strong); }
+@media (min-width: 480px) {
+  .dmc-drawer__group .dmc-portal__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-.dmc-drawer__group b { font-size: var(--fs-small); font-weight: var(--fw-semibold); }
-.dmc-drawer__group small { font-size: 0.8125rem; color: var(--text-3); }
-.dmc-drawer__cta { width: 100%; justify-content: space-between; }
 
 html.dmc-lock,
 html.dmc-lock body { overflow: hidden; }

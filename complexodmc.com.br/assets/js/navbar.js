@@ -13,11 +13,19 @@
    "index.html": em produção /index.html é 301 → / (vercel.json). Só em
    file:// (sem servidor) o link leva a index.html, senão abriria a pasta.
 
-   Mega-menu "Eixos": o painel fica no DOM logo depois do botão, dentro
-   do mesmo <li>, para que Tab entre nele após Enter/Espaço e Shift+Tab
-   volte ao botão. ↓/↑ abrem focando o primeiro/último eixo; dentro do
-   painel ↓/↑/Home/End percorrem os itens; Esc fecha e devolve o foco;
-   clique fora e perda de foco fecham.
+   Barra (≥1200): Eixos ▾ · Sobre · Treinamentos · Parcerias ▾ ·
+   Tecnologia | Acessar ▾ · CTA dourado. Abaixo de 1200 a gaveta assume
+   (o CTA continua na barra a partir de 768). A altura de 72px segue
+   valendo desde 1024 (--header-h-lg), que é o que os heróis compensam.
+
+   Painéis (Eixos, Parcerias, Acessar): cada um fica no DOM logo depois
+   do botão, dentro do mesmo <li>, para que Tab entre nele após
+   Enter/Espaço e Shift+Tab volte ao botão. ↓/↑ abrem focando o
+   primeiro/último item; dentro do painel ↓/↑/Home/End percorrem os
+   itens; Esc fecha e devolve o foco; clique fora e perda de foco fecham.
+
+   Acessar: só destinos reais. Plataforma sem URL confirmada não ganha
+   login — aponta para a apresentação dela em pages/tecnologia.html.
 
    Estilo: assets/css/components.css (+ tokens.css). Página que ainda
    não os declara recebe os dois injetados aqui — tokens ANTES do CSS
@@ -32,8 +40,9 @@
   if (window.customElements && customElements.get('dmc-navbar')) return;
 
   var SCRIPT = document.currentScript;
-  var VERSION = '2';
+  var VERSION = '3';
   var ADTECH = 'https://adtech-app.complexodmc.com.br';
+  var WIDE = '(min-width: 1200px)';
   var FONTS = 'https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&display=swap';
 
   // Os seis eixos: nome, frase de escopo (docs/dmc/EIXOS-COPY.md) e página
@@ -53,10 +62,34 @@
       escopo: 'Do contrato à quitação anual do passivo.' }
   ];
 
+  // Central de Parcerias (pastas com index.html; ver dir()).
+  var PARCERIAS = [
+    { nome: 'Visão geral', sub: 'Central de Parcerias DMC', href: 'parcerias/' },
+    { nome: 'Advogados Parceiros', sub: 'Partner Lawyers', href: 'parcerias/advogados-parceiros/' },
+    { nome: 'Agente Prospector', sub: 'Business Partner', href: 'parcerias/business-partner/' }
+  ];
+
+  // Portal digital (Acessar). `entrar` = há login real; sem ele, o item
+  // leva à apresentação institucional e mostra o estágio.
+  // Grafias conforme o CEO; validação contra ativos de marca pendente
+  // (docs/dmc/DECISIONS.md, T7).
+  var PLATAFORMAS = [
+    { id: 'school', nome: 'DMC Business School', desc: 'Cursos e treinamentos', href: 'plataforma-ead/login.html', entrar: true },
+    { id: 'adtech', nome: 'ADTECH', desc: 'Gestão jurídica e notarial', href: ADTECH, externo: true, entrar: true },
+    { id: 'artheu', nome: 'Artheu IA', desc: 'Inteligência artificial', href: 'pages/tecnologia.html#artheu' },
+    { id: 'bloadhound', nome: 'Bloadhound', desc: 'Fintech de protestos', href: 'pages/tecnologia.html#bloadhound' }
+  ];
+
   var ICON = {
     chevron: '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>',
     arrow: '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
-    close: '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="m4 4 10 10M14 4 4 14" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>'
+    arrowUp: '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.5 11.5 11.5 4.5M6 4.5h5.5V10" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
+    close: '<svg viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d="m4 4 10 10M14 4 4 14" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
+    // Marcas do portal: traço único 1.4, sem preenchimento.
+    school: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m2.5 9 9.5-4.5L21.5 9 12 13.5z M6.5 11v4.6c1.4 1.3 3.3 2 5.5 2s4.1-.7 5.5-2V11 M21.5 9v5.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>',
+    adtech: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3.5h8l4 4v13H6z M14 3.5v4h4 M9 12h6 M9 15.5h6 M9 19h3.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>',
+    artheu: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="4.5" cy="6" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="19.5" cy="6" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="4.5" cy="18" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="19.5" cy="18" r="1.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="m5.9 7 4.2 3.4m3.8 0L18.1 7M5.9 17l4.2-3.4m3.8 0 4.2 3.4M6.1 6h11.8" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".7"/></svg>',
+    bloadhound: '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 3.5h9.5v8 M5 3.5v17h6.5 M8 8h4 M8 11.5h3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="16" cy="16" r="3.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="m18.6 18.6 2.9 2.9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>'
   };
 
   function resolveRoot() {
@@ -123,12 +156,42 @@
   function template(o) {
     var r = o.root;
     var h = function (hash) { return o.isHome ? hash : o.home + hash; };
+    // Pasta servida pelo index.html. Sem servidor (file://) a pasta abriria
+    // a listagem, então só aí o link aponta para o arquivo.
+    var dir = function (path) { return r + path + (location.protocol === 'file:' ? 'index.html' : ''); };
+    var here = function (href) {
+      try {
+        var u = new URL(href, location.href);
+        return u.origin === location.origin && !u.hash &&
+          u.pathname.replace(/index\.html$/, '') === location.pathname.replace(/index\.html$/, '');
+      } catch (e) { return false; }
+    };
+    // aria-current na página aberta (compara o caminho resolvido com o atual)
+    var cur = function (href) { return here(href) ? ' aria-current="page"' : ''; };
+    var emParcerias = location.pathname.indexOf(r + 'parcerias/') === 0;
     var brand = '<a class="dmc-brand" href="' + (o.isHome ? '#hero' : o.home) + '" aria-label="Complexo DMC, página inicial">' +
       '<img src="' + r + 'assets/images/rino-marca.webp" alt="" width="50" height="22" decoding="async">' +
       '<span aria-hidden="true">COMPLEXO <b>DMC</b></span></a>';
-    var access =
-      '<li><a href="' + r + 'plataforma-ead/login.html"><b>Área do aluno</b><small>Plataforma de cursos</small></a></li>' +
-      '<li><a href="' + ADTECH + '" rel="noopener"><b>Ad-tech</b><small>Documentos e prazos do caso</small></a></li>';
+
+    var plataforma = function (p) {
+      var href = p.externo ? p.href : r + p.href;
+      var tag = p.entrar
+        ? '<span class="dmc-portal__tag">Entrar ' + ICON.arrowUp + '</span>'
+        : '<span class="dmc-portal__tag dmc-portal__tag--soon">Em estruturação</span>';
+      return '<li class="dmc-portal__item dmc-portal__item--' + p.id + '"><a href="' + href + '"' + (p.externo ? ' rel="noopener"' : '') + cur(href) + '>' +
+        '<span class="dmc-portal__icon">' + ICON[p.id] + '</span>' +
+        '<span class="dmc-portal__text"><b>' + esc(p.nome) + '</b><small>' + esc(p.desc) + '</small></span>' + tag + '</a></li>';
+    };
+    var access = PLATAFORMAS.map(plataforma).join('');
+    var parceria = function (p, i) {
+      var href = dir(p.href);
+      return '<li><a href="' + href + '"' + cur(href) + '><span class="dmc-sub__num">' + (i ? '0' + i : '—') + '</span>' +
+        '<span class="dmc-sub__text"><b>' + esc(p.nome) + '</b><small>' + esc(p.sub) + '</small></span></a></li>';
+    };
+    var parcerias = PARCERIAS.map(parceria).join('');
+    var cta = function (cls) {
+      return '<a class="dmc-btn dmc-nav__cta ' + cls + '" href="' + h('#contact') + '">Converse com nossos especialistas ' + ICON.arrowUp + '</a>';
+    };
     var skip = o.skipTarget ? '<a class="dmc-skip" href="#' + o.skipTarget + '">Pular para o conteúdo</a>' : '';
     // Painel dos eixos: vai dentro do <li> do botão (ordem do DOM = ordem do Tab).
     // position:absolute em relação ao header fixo, como antes.
@@ -140,21 +203,29 @@
             '<a class="dmc-btn dmc-btn--link" href="' + h('#features') + '">Ver os seis eixos na página inicial</a></div>' +
         '</div>' +
       '</div>';
+    var tecnologia = r + 'pages/tecnologia.html';
 
     return skip +
       '<header class="dmc-nav' + (o.over ? ' dmc-nav--over' : '') + '" id="navbar">' +
         '<div class="dmc-wrap dmc-nav__bar">' + brand +
           '<nav class="dmc-nav__menu" aria-label="Principal"><ul class="dmc-nav__links">' +
             '<li><button class="dmc-nav__trigger" type="button" aria-expanded="false" aria-controls="dmc-mega" data-dmc="mega">Eixos ' + ICON.chevron + '</button>' + mega + '</li>' +
-            '<li><a class="dmc-nav__link" href="' + h('#conheca') + '">A casa</a></li>' +
+            '<li><a class="dmc-nav__link" href="' + r + 'pages/sobre.html"' + cur(r + 'pages/sobre.html') + '>Sobre</a></li>' +
             '<li><a class="dmc-nav__link" href="' + h('#treinamentos') + '">Treinamentos</a></li>' +
+            '<li class="dmc-sub"><button class="dmc-nav__trigger' + (emParcerias ? ' is-current' : '') + '" type="button" aria-expanded="false" aria-controls="dmc-sub-parcerias" data-dmc="parcerias">Parcerias ' + ICON.chevron + '</button>' +
+              '<ul class="dmc-sub__menu" id="dmc-sub-parcerias" hidden>' + parcerias + '</ul></li>' +
+            '<li><a class="dmc-nav__link" href="' + tecnologia + '"' + cur(tecnologia) + '>Tecnologia</a></li>' +
           '</ul></nav>' +
           '<div class="dmc-nav__side">' +
             '<div class="dmc-access">' +
               '<button class="dmc-nav__trigger" type="button" aria-expanded="false" aria-controls="dmc-access-menu" data-dmc="access">Acessar ' + ICON.chevron + '</button>' +
-              '<ul class="dmc-access__menu" id="dmc-access-menu" hidden>' + access + '</ul>' +
+              '<div class="dmc-portal" id="dmc-access-menu" hidden>' +
+                '<p class="dmc-portal__head">Portal digital DMC</p>' +
+                '<ul class="dmc-portal__grid" aria-label="Plataformas do Complexo DMC">' + access + '</ul>' +
+                '<a class="dmc-portal__foot" href="' + tecnologia + '#portal">Conheça o ecossistema tecnológico ' + ICON.arrow + '</a>' +
+              '</div>' +
             '</div>' +
-            '<a class="dmc-btn dmc-btn--secondary" href="' + h('#contact') + '">Converse com nossos especialistas</a>' +
+            cta('dmc-nav__cta--bar') +
           '</div>' +
           '<button class="dmc-nav__toggle" type="button" aria-expanded="false" aria-controls="dmc-drawer" aria-haspopup="dialog">Menu <i aria-hidden="true"></i></button>' +
         '</div>' +
@@ -167,11 +238,14 @@
           '<ul class="dmc-drawer__list">' +
             '<li><button class="dmc-drawer__acc" type="button" aria-expanded="false" aria-controls="dmc-drawer-eixos">Eixos ' + ICON.chevron + '</button>' +
               '<ul class="dmc-drawer__axes" id="dmc-drawer-eixos" hidden>' + EIXOS.map(function (e) { return eixoItem(e, r, 'span'); }).join('') + '</ul></li>' +
-            '<li><a href="' + h('#conheca') + '">A casa</a></li>' +
+            '<li><a href="' + r + 'pages/sobre.html"' + cur(r + 'pages/sobre.html') + '>Sobre</a></li>' +
             '<li><a href="' + h('#treinamentos') + '">Treinamentos</a></li>' +
+            '<li><button class="dmc-drawer__acc" type="button" aria-expanded="' + emParcerias + '" aria-controls="dmc-drawer-parcerias">Parcerias ' + ICON.chevron + '</button>' +
+              '<ul class="dmc-drawer__sub" id="dmc-drawer-parcerias"' + (emParcerias ? '' : ' hidden') + '>' + parcerias + '</ul></li>' +
+            '<li><a href="' + tecnologia + '"' + cur(tecnologia) + '>Tecnologia</a></li>' +
           '</ul>' +
-          '<div class="dmc-drawer__group"><p class="dmc-overline">Acessar</p><ul>' + access + '</ul></div>' +
-          '<a class="dmc-btn dmc-btn--primary dmc-drawer__cta" href="' + h('#contact') + '">Converse com nossos especialistas ' + ICON.arrow + '</a>' +
+          cta('dmc-nav__cta--drawer') +
+          '<div class="dmc-drawer__group"><p class="dmc-overline">Acessar · Portal digital DMC</p><ul class="dmc-portal__grid">' + access + '</ul></div>' +
         '</div>' +
       '</div>';
   }
@@ -264,8 +338,10 @@
       return api;
     }
     var megaBtn = host.querySelector('[data-dmc="mega"]');
+    var subBtn = host.querySelector('[data-dmc="parcerias"]');
     var accessBtn = host.querySelector('[data-dmc="access"]');
     if (megaBtn) makePanel(megaBtn, host.querySelector('#dmc-mega'), true);
+    if (subBtn) makePanel(subBtn, host.querySelector('#dmc-sub-parcerias'), false);
     if (accessBtn) makePanel(accessBtn, host.querySelector('#dmc-access-menu'), false);
 
     document.addEventListener('pointerdown', function (e) {
@@ -310,15 +386,18 @@
     drawer.addEventListener('click', function (e) {
       if (e.target.closest('a[href]')) closeDrawer(false);
     });
-    var acc = host.querySelector('.dmc-drawer__acc');
-    var accList = host.querySelector('#dmc-drawer-eixos');
-    acc.addEventListener('click', function () {
-      var open = acc.getAttribute('aria-expanded') !== 'true';
-      acc.setAttribute('aria-expanded', String(open));
-      accList.hidden = !open;
+    // Acordeões da gaveta (Eixos, Parcerias): cada botão abre a lista de aria-controls.
+    Array.prototype.forEach.call(host.querySelectorAll('.dmc-drawer__acc'), function (acc) {
+      var list = host.querySelector('#' + acc.getAttribute('aria-controls'));
+      if (!list) return;
+      acc.addEventListener('click', function () {
+        var open = acc.getAttribute('aria-expanded') !== 'true';
+        acc.setAttribute('aria-expanded', String(open));
+        list.hidden = !open;
+      });
     });
 
-    var wide = window.matchMedia('(min-width: 1024px)');
+    var wide = window.matchMedia(WIDE);
     var onWide = function () {
       if (wide.matches) closeDrawer(false);
       else panels.forEach(function (p) { p.close(false); });

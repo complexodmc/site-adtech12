@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Candidaturas de parceria · Painel</title>
+
+  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <!-- Só leitura: herda o visual do painel. Sem fontes nem scripts de terceiros. -->
+  <link rel="stylesheet" href="css/plataforma.css">
+  <link rel="stylesheet" href="css/parcerias-admin.css">
+</head>
+<body class="bg-grid pa-page">
+  <a class="pa-skip" href="#pa-lista-titulo">Pular para a lista de candidaturas</a>
+  <div class="glow-corner" aria-hidden="true"></div>
+
+  <header class="app-nav">
+    <div class="app-nav__inner">
+      <a class="app-brand" href="admin.html">
+        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
+        <span class="app-brand__label">Complexo DMC</span>
+        <span class="app-brand__sub">Parcerias</span>
+      </a>
+      <nav class="app-user" aria-label="Sessão">
+        <a class="btn-ghost" href="admin.html" id="pa-link-admin">Painel admin</a>
+        <span id="pa-user-nome"></span>
+        <span class="user-avatar" id="pa-user-iniciais" aria-hidden="true"></span>
+        <button class="btn-ghost" type="button" id="pa-sair">Sair</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-shell" id="pa-main">
+    <div class="admin-inner">
+
+      <section class="admin-hero">
+        <div class="admin-hero__title">
+          <span class="overline">Programas de parceria</span>
+          <h1>Candidaturas de parceria</h1>
+          <p>Fila de avaliação de Partner Lawyers e Business Partner. Cada candidatura avança ou volta uma etapa por vez; arquivar exige o motivo na nota. Toda ação fica no histórico com o seu usuário.</p>
+        </div>
+      </section>
+
+      <!-- Feedback de ações e carregamentos (lido por leitores de tela). -->
+      <div class="pa-status" id="pa-status" role="status" aria-live="polite" aria-atomic="true"></div>
+
+      <!-- Sem permissão (403): substitui o conteúdo. -->
+      <section class="pa-restrito" id="pa-restrito" hidden aria-labelledby="pa-restrito-titulo">
+        <h2 id="pa-restrito-titulo">Acesso restrito a administradores</h2>
+        <p>Sua conta não tem permissão para ver as candidaturas de parceria. Se precisar de acesso, peça a um administrador da plataforma.</p>
+        <a class="btn-ghost" href="dashboard.html">Ir para o painel do aluno</a>
+      </section>
+
+      <div id="pa-app" hidden>
+        <form class="pa-filtros" id="pa-filtros" aria-label="Filtros">
+          <div class="pa-filtros__campo">
+            <label class="field-label" for="pa-programa">Programa</label>
+            <select class="input" id="pa-programa" name="programa">
+              <option value="partner-lawyers">Partner Lawyers</option>
+              <option value="business-partner">Business Partner</option>
+            </select>
+          </div>
+          <div class="pa-filtros__campo">
+            <label class="field-label" for="pa-filtro-status">Status</label>
+            <select class="input" id="pa-filtro-status" name="status">
+              <option value="">Todos</option>
+            </select>
+          </div>
+          <div class="pa-filtros__acoes">
+            <button class="btn-ghost" type="submit" id="pa-atualizar">Atualizar</button>
+          </div>
+        </form>
+
+        <div class="pa-grid">
+          <section class="pa-painel" aria-labelledby="pa-lista-titulo">
+            <div class="editor-section__head">
+              <h2 id="pa-lista-titulo" tabindex="-1">Candidaturas</h2>
+              <span class="pa-contagem" id="pa-contagem"></span>
+            </div>
+            <div class="pa-tabela-wrap" role="region" aria-label="Tabela de candidaturas (rola na horizontal)" tabindex="0">
+              <table class="pa-tabela" id="pa-tabela" aria-busy="false">
+                <caption class="pa-sr-only" id="pa-legenda">Candidaturas</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Protocolo</th>
+                    <th scope="col">Recebida em</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Cidade/UF</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Responsável</th>
+                  </tr>
+                </thead>
+                <tbody id="pa-linhas"></tbody>
+              </table>
+            </div>
+            <p class="pa-vazio" id="pa-vazio" hidden>Nenhuma candidatura neste filtro.</p>
+            <nav class="pa-paginacao" aria-label="Paginação">
+              <button class="btn-ghost" type="button" id="pa-anterior">Anterior</button>
+              <span id="pa-pagina-info"></span>
+              <button class="btn-ghost" type="button" id="pa-proxima">Próxima</button>
+            </nav>
+          </section>
+
+          <section class="pa-painel pa-detalhe" id="pa-detalhe" aria-labelledby="pa-det-titulo">
+            <div class="editor-section__head">
+              <h2 id="pa-det-titulo" tabindex="-1">Detalhe</h2>
+              <span class="pa-badge" id="pa-det-status" hidden></span>
+            </div>
+            <p class="pa-vazio" id="pa-det-vazio">Escolha uma candidatura na lista para ver os dados e as ações.</p>
+
+            <div id="pa-det-conteudo" hidden>
+              <h3 class="pa-sub">Dados enviados</h3>
+              <dl class="pa-dados" id="pa-det-dados"></dl>
+
+              <h3 class="pa-sub">Origem e consentimento</h3>
+              <dl class="pa-dados" id="pa-det-fonte"></dl>
+
+              <section class="pa-acoes" id="pa-acoes" aria-labelledby="pa-acoes-titulo" aria-busy="false">
+                <h3 class="pa-sub" id="pa-acoes-titulo">Ações</h3>
+                <div class="pa-campo">
+                  <label class="field-label" for="pa-nota">Nota</label>
+                  <textarea class="input" id="pa-nota" rows="3" maxlength="500" aria-describedby="pa-nota-ajuda"></textarea>
+                  <p class="pa-ajuda" id="pa-nota-ajuda">De 5 a 500 caracteres. Obrigatória para arquivar; vai para o histórico junto com a ação. Não registre dados de clientes nem de casos.</p>
+                  <p class="pa-erro" id="pa-nota-erro" hidden></p>
+                </div>
+                <div class="pa-botoes" id="pa-botoes" role="group" aria-label="Mudar etapa"></div>
+                <div class="pa-botoes">
+                  <button class="btn-ghost" type="button" id="pa-so-nota">Registrar só a nota</button>
+                </div>
+
+                <form class="pa-campo pa-responsavel" id="pa-resp-form" autocomplete="off">
+                  <label class="field-label" for="pa-responsavel">Responsável</label>
+                  <div class="pa-linha">
+                    <input class="input" id="pa-responsavel" maxlength="120" aria-describedby="pa-resp-ajuda">
+                    <button class="btn-ghost" type="submit">Salvar responsável</button>
+                  </div>
+                  <p class="pa-ajuda" id="pa-resp-ajuda">Nome de quem conduz a candidatura. Deixe vazio e salve para remover.</p>
+                  <p class="pa-erro" id="pa-resp-erro" hidden></p>
+                </form>
+              </section>
+
+              <h3 class="pa-sub">Histórico</h3>
+              <ol class="pa-historico" id="pa-det-historico"></ol>
+            </div>
+          </section>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/api-client.js"></script>
+  <script src="js/parcerias-admin.js"></script>
+</body>
+</html>
