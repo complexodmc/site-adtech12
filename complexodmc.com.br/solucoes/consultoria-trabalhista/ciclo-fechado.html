@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
 
+  <link rel="preload" as="image" href="../../assets/images/ciclo-fechado-hero.webp" fetchpriority="high">
   <link rel="icon" type="image/png" sizes="64x64" href="../../assets/images/favicon-dmc.png">
   <link rel="apple-touch-icon" href="../../assets/images/apple-touch-icon.png">
   <link rel="stylesheet" href="../../assets/css/tokens.css?v=1">
@@ -37,6 +38,7 @@
   <link rel="stylesheet" href="../../pages/css/solucao.css?v=3">
   <link rel="stylesheet" href="../../pages/css/eixos.css?v=4">
   <link rel="stylesheet" href="../../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="../../pages/css/hero-filme.css?v=3">
 
   <script src="../../assets/js/navbar.js?v=c4" defer></script>
   <script src="../../assets/js/solucao.js?v=3" defer></script>
@@ -136,31 +138,41 @@
 
   <main id="conteudo">
 
-    <!-- ============================== 1 · HERÓI ============================== -->
-    <section class="page-hero page-hero--eixo" aria-labelledby="hero-titulo">
-      <div class="page-hero__inner">
-        <div class="page-hero__content">
+    <!-- ============================== 1 · HERÓI ==============================
+         Faixa com filme de fundo (consultor ao notebook; loop de 9 s, sem som)
+         sob véu ≥ .86 à esquerda. Abaixo do fio, a tese em três colunas.
+         Cartaz = primeiro quadro (LCP); com prefers-reduced-motion nenhum
+         <source> casa e fica só o cartaz. Trilha = BreadcrumbList do <head>.
+         CSS: pages/css/hero-filme.css. -->
+    <section class="page-hero hf-hero" aria-labelledby="hero-titulo" style="--hf-pos: 62% 40%">
+      <div class="hf-hero__media" aria-hidden="true">
+        <img src="../../assets/images/ciclo-fechado-hero.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async">
+        <video class="hf-hero__video" autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback tabindex="-1">
+          <source src="../../assets/videos/ciclo-fechado-hero.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
+          <source src="../../assets/videos/ciclo-fechado-hero.mp4" type="video/mp4" media="(prefers-reduced-motion: no-preference)">
+        </video>
+      </div>
 
-          <nav class="sol-crumbs" aria-label="Trilha de navegação">
+      <div class="hf-hero__wrap">
+        <div class="hf-hero__content">
+          <nav class="hf-trilha hf-trilha--curta" aria-label="Trilha de navegação">
             <ol>
               <li><a href="../../">Início</a></li>
-              <li><span aria-current="page">Consultoria Trabalhista</span></li>
+              <li><span aria-current="page">E6 · Consultoria Trabalhista</span></li>
             </ol>
           </nav>
-
-          <p class="page-hero__badge">E6 · Consultoria Trabalhista</p>
-          <h1 class="page-hero__title" id="hero-titulo">Ciclo <em>fechado</em></h1>
-          <p class="page-hero__subtitle">Programa completo de proteção trabalhista para empresas — do diagnóstico à quitação do exercício.</p>
-
+          <h1 class="page-hero__title hf-hero__title" id="hero-titulo">Ciclo <em>fechado</em></h1>
+          <p class="page-hero__subtitle hf-hero__lead">Programa completo de proteção trabalhista para empresas, do diagnóstico à quitação do exercício.</p>
           <div class="page-hero__actions">
             <a class="dmc-btn dmc-btn--primary" href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20conhecer%20o%20programa%20Ciclo%20Fechado%20de%20consultoria%20trabalhista." target="_blank" rel="noopener noreferrer">Falar com o time trabalhista <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
             <a class="dmc-btn dmc-btn--link" href="#o-ciclo">Ver as seis soluções</a>
           </div>
         </div>
 
-        <!-- Malha de nós no acento do eixo (assets/js/solucao.js). Sem JS: grade de pontos. -->
-        <div class="page-hero__visual" aria-hidden="true">
-          <div class="sol-net"><canvas class="sol-net__canvas"></canvas></div>
+        <div class="hf-tese">
+          <p class="hf-tese__frase">O valor do passivo trabalhista é definido pela gestão ou <em>pela sentença</em>. O Ciclo Fechado trabalha para que seja pela gestão.</p>
+          <p class="hf-tese__ponto">Contratos revisados na admissão, decisões de risco documentadas antes de virarem prova e conflitos tratados fora do processo sempre que possível.</p>
+          <p class="hf-tese__ponto">Passivo apurado e quitado ano a ano. Pareceres e atuação processual por advogados parceiros habilitados.</p>
         </div>
       </div>
     </section>

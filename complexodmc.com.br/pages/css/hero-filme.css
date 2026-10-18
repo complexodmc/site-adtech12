@@ -57,9 +57,10 @@
 .hf-trilha a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 .hf-trilha [aria-current] { color: var(--text-2); }
 /* Celular: o item atual repete o h1 logo abaixo e fazia a trilha quebrar em
-   2 linhas só depois da troca de fonte (CLS 0,13). Fica em 1 linha sempre. */
+   2 linhas só depois da troca de fonte (CLS 0,13). Fica em 1 linha sempre.
+   .hf-trilha--curta: trilha de 2 níveis que cabe em 1 linha; mostra tudo. */
 @media (max-width: 767px) {
-  .hf-trilha li:last-child { display: none; }
+  .hf-trilha:not(.hf-trilha--curta) li:last-child { display: none; }
   .hf-trilha li { white-space: nowrap; }
 }
 
