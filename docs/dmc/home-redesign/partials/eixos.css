@@ -1,0 +1,163 @@
+/* ==== 03 · SEIS EIXOS ==== */
+/* Depende só de tokens.css + components.css. `--num-font` vem de `.home`
+   (_shared.css §2.3); o fallback abaixo repete o mesmo valor para o
+   fragmento ler igual fora da home (design-preview, testes). */
+.eixos-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--grid-gap);
+  row-gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.eixos-grid > li { min-width: 0; }
+
+.eixos-item {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: var(--space-3);
+  min-width: 0;
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--space-6) 0;
+  border-top: var(--border-hair) solid var(--color-line-ink);
+  scroll-margin-top: calc(var(--header-h-lg) + var(--space-6));
+}
+.eixos-grid > li:last-child .eixos-item { border-bottom: var(--border-hair) solid var(--color-line-ink); }
+
+/* Fio de acento que cresce (§2.4 — se _shared.css já o declarar, este bloco é redundante e pode cair) */
+.eixos-item::before {
+  content: "";
+  position: absolute;
+  inset: -1px 0 auto 0;
+  height: var(--border-accent);
+  background: rgb(var(--np-accent-deep));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.eixos-item:hover::before,
+.eixos-item:focus-within::before,
+.eixos-item:target::before { transform: scaleX(1); }
+
+.eixos-item__icon {
+  width: 2rem;
+  height: 2rem;
+  color: rgb(var(--np-accent-deep));
+}
+.eixos-item__num {
+  margin: 0;
+  font: var(--num-font, var(--fw-medium) var(--fs-small) / 1 var(--font-text));
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: rgb(var(--np-accent-deep));
+}
+.eixos-item .dmc-h3 {
+  color: var(--text-ink-1);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.eixos-item__desc {
+  margin: 0;
+  max-width: 32rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-ink-2);
+}
+.eixos-item__cta {
+  align-self: end;
+  justify-self: start;
+  margin-top: var(--space-2);
+}
+.eixos-item__cta svg { color: rgb(var(--np-accent-deep)); }
+
+/* Catálogo recolhido — details nativo, sem JS */
+.eixos-catalogo { margin-top: var(--space-block); }
+.eixos-catalogo > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 3rem;
+  box-sizing: border-box;
+  padding: var(--space-2) 0;
+  border-top: var(--border-hair) solid var(--color-line-ink);
+  font: var(--fw-medium) var(--fs-small) / 1.2 var(--font-text);
+  color: var(--text-ink-1);
+  list-style: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.eixos-catalogo > summary::-webkit-details-marker { display: none; }
+.eixos-catalogo > summary::marker { content: ""; }
+.eixos-catalogo > summary:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+.eixos-catalogo__chev {
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--text-ink-3);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.eixos-catalogo[open] > summary .eixos-catalogo__chev { transform: rotate(180deg); }
+
+.eixos-catalogo__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6) var(--grid-gap);
+  padding-block: var(--space-6);
+}
+.eixos-catalogo__grid > ul {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.eixos-catalogo__head {
+  margin-bottom: var(--space-2);
+  font: var(--num-font, var(--fw-medium) var(--fs-small) / 1 var(--font-text));
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: rgb(var(--np-accent-deep));
+}
+.eixos-catalogo__grid li > a {
+  display: flex;
+  align-items: center;
+  min-height: var(--hit); /* alvo ≥ 44 px (padding-block .55em sozinho dá 36 px a 14 px) */
+  padding-block: var(--space-1);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--text-ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line-ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+  transition: var(--transition-state);
+}
+.eixos-catalogo__grid li > a:hover,
+.eixos-catalogo__grid li > a:focus-visible {
+  color: var(--text-ink-1);
+  text-decoration-color: currentColor;
+}
+.eixos-catalogo__grid li > a:focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .eixos-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .eixos-item { padding: var(--space-7) 0 var(--space-8); }
+  .eixos-grid > li:last-child .eixos-item { border-bottom: 0; }
+  .eixos-catalogo__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .eixos-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .eixos-catalogo__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1440px) {
+  .eixos-item { padding: var(--space-8) 0 var(--space-9); }
+}

@@ -45,3 +45,9 @@ secret*
 # Evidências de auditoria/QA (screenshots, vídeos de teste): ficam só locais
 docs/dmc/audit/20*/
 docs/dmc/qa/
+
+# Evidências visuais do redesign da home ficam locais (T4)
+docs/dmc/home-redesign/aceite/
+docs/dmc/home-redesign/partials/preview/
+docs/dmc/home-redesign/integracao/*.png
+docs/dmc/home-redesign/midia-contact-sheet.png

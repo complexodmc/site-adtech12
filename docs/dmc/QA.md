@@ -23,8 +23,31 @@ e `docs/dmc/qa/<AAAA-MM-DD>/lighthouse/{resumo.json,<pagina>.report.html,<pagina
 ## Grupos (tests/e2e)
 rotas (sitemap 200, 13 redirects, 18 arquivos internos ≠ 200, varredura de segredos, sub-recursos, links por página,
 crawl) · viewports (7 larguras × 25) · console (desktop + 390) · a11y (axe serious/critical + h1/main/labels/lang) ·
-navegacao (mega-menu, Acessar, gaveta, quebra 1024) · home (tablist, #eixo-N) · formulario (frontend + API real) ·
-movimento (reduced-motion) · seo (title/description únicos, canonical = sitemap, JSON-LD) · vercel-config.
+navegacao (mega-menu, Acessar, gaveta, quebra 1024) · formulario (frontend + API real) ·
+seo (title/description únicos, canonical = sitemap, JSON-LD) · vercel-config ·
+**eixos** (substitui `home`; 1440 + 390 + sem JS: 6 `article#eixo-N` visíveis, 0 `role=tab`, 6 `<use href="#ico-eN">` distintos,
+`/#eixo-N` via `:target`, Tab pelos 6 CTAs com foco visível, destinos 200 sem redirect com o mesmo `np-pillar-<slug>`,
+`details` fechado com 21 links ≥ 44 px → 200 e no sitemap; 15 testes) ·
+**movimento** (herói reduce/controle em desktop e 390; `#conheca` canvas parado/ausente — mantido; `#presenca`: 390 → 0 canvas e
+SVG visível, 1440 + reduce → `data-motion="still"` e ≤ 1 rAF/s, controle → `running` e > 10 rAF/s e pára com aba oculta,
+27 UFs/1 sede/sem número de cobertura, 0 requisições externas; `#verticais`: 0 `video[src]` em 390 e em reduce, controle
+`is-playing`; 14 testes) ·
+**newsletter** (`#newsletterForm` → `POST /api/newsletter`: contrato do form + LGPD + honeypot, obrigatórios, 201 válido
+com documento em `newsletter_inscricoes`, 400 por campo com `aria-describedby`, isca 200, 429/413/503 e falha de rede sem
+falso sucesso; API real com `mongod` descartável: 201/400/isca/429 + `Retry-After`, e-mail repetido = 1 documento, 413,
+urlencoded 201; sem `mongod` → integração "bloqueado"; 12 testes) ·
+**home-secoes** (ordem dos 11 ids `hero…video, contact`, `#video` antes de `#contact`, h2 + `aria-labelledby`, âncoras
+`#features/#treinamentos/#contact/#newsletter`, `role=tab` só em `#conheca`; conformidade = 0 ocorrências por seção e atribuição
+na mesma seção quando cita ato; 0 marca/logo de terceiro fora do rodapé; `time[datetime]` ≤ hoje, 0 placeholder, 0
+`login.html?curso=`; axe por seção em 1440 e 390 (22); imagens fora do herói lazy/width/height/≤ 250 KB e `<picture>` avif+webp
+nas verticais (2); overflow por seção 320–1920 (7); 35 testes).
+**newsletter-descadastro** (`pages/newsletter-descadastro.html` → `POST /api/newsletter/descadastro { email }`; fora do sitemap, por isso
+overflow 320/390/768/1440 + console, estrutura/noindex/canonical, axe serious/critical, teclado, 400 por campo (API real), 202 neutro (API real),
+429/503/403 simulados e falha de rede sem falso sucesso, envio sem JS → HTML, link `#newsletter` da política; 15 testes).
+Comandos filtrados (porta própria; não passar `--reporter`):
+`QA_PORT=<porta> QA_DATA=<data>-home-v2 npx playwright test tests/e2e/eixos.spec.js tests/e2e/movimento.spec.js tests/e2e/newsletter.spec.js tests/e2e/home-secoes.spec.js tests/e2e/formulario.spec.js`
+· só a estrutura: `npx playwright test tests/e2e/home-secoes.spec.js --grep "estrutura da home"` · só axe por seção: `--grep "axe por seção"`
+· só overflow por seção: `--grep "overflow por seção"` · só API da newsletter: `tests/e2e/newsletter.spec.js --grep "integração"`.
 Ruído externo tolerado: só o listado em `tests/e2e/_site.js` (`RUIDO_EXTERNO`), com motivo; na linha de base, 0 ocorrências.
 
 ## Linha de base 2026-10-17-final (porta D3, working tree sobre e2a64dc) — **aprovado**
@@ -127,3 +150,59 @@ Checagens diretas (`internas/g2-e2-e4-transversais/v3/checagens.json`): nas 6, 1
 Conformidade (diff HEAD × working tree, `conformidade-diff-texto.json`): title/meta iguais nas 6; JSON-LD 0 blocos antes/depois; frases novas comuns = cabeçalho/mega-menu/rodapé compartilhados (aviso de atos privativos); específicas = olhos "Eixo E2", cartão-irmão em tributário ("Programa de integridade…") e compliance ("…dentro da lei, com fundamento documentado"), © 2026, bullets da política sem o travessão, "Treinamento"/"Deixe seu contato"; removidas só chips do herói, numerais de etapa, breadcrumb e `aria-label` de seções em contabilidade. Sem promessa, número sem fonte ou ato privativo sem atribuição. Pré-existente: compliance FAQ "3 a 6 meses" sem fonte.
 Capturas 390/1440: `internas/g2-e2-e4-transversais/v3/*.png` (rolagem 120 ms/passo + 400 ms; `.reveal` ocultos = 0 nas 12). O cabeçalho aparece no meio da captura 390 por ser `position: fixed` em captura de página inteira (medido: `top: 0` após voltar ao topo) — artefato, não defeito.
 Resultado: **não aprovado** — 0 falhas dono página; meta de CLS não atingida em contabilidade (0,166, dono camada-compartilhada) e SEO 69 em treinamento-interesse por `noindex` intencional.
+
+## Contratos de teste do redesign da home — 2026-10-17 (QA, working tree sobre db32651)
+Mapa em `docs/dmc/home-redesign/contratos-qa.md`: asserções com arquivo:linha que dependem da estrutura atual (home.spec 7/7 quebram com o grid de eixos;
+movimento.spec l. 53–61 mira `#conheca canvas` e usa `toDataURL`, inútil para WebGL; rotas.spec l. 187/189 exige que a home preserve `#features` (28 links de entrada),
+`#treinamentos` (28) e `#contact` (44, 34 com `?assunto=E1..E6`)), evolução proposta por seção, 2 specs novos (`newsletter.spec.js`, `home-secoes.spec.js`), comandos
+filtrados (`LH_PAGINAS=home npm run test:lh`) e metas. Linha de base medida (home + movimento + formulario, `mongod` descartável, porta 4641): **20/20 aprovados** —
+`qa/2026-10-17-contratos-qa/e2e/`. Não existe `POST /api/newsletter` (server.js devolve 404 em `/api/*` desconhecido) — dono backend-engineer.
+
+## Verificação independente — cabeçalho + Acessar + Central de Parcerias + candidaturas — 2026-10-17 (working tree 21:47 sobre b26a462)
+Relatório para o CEO: `docs/dmc/QA_REPORT.md`. Spec novo **`tests/e2e/parcerias.spec.js` (73 testes)**: estrutura/SEO das 3 páginas (canonical com barra,
+og:image 200 e 1200×630 reais, FAQPage = FAQ visível, BreadcrumbList = trilha), FAQ por teclado, `#video` antes do CTA, links internos, 4 redirects;
+formulários contra a API real (`mongod` descartável): 201 + protocolo `^(PL|BP)-AAAA-[2-9A-HJ-NP-Z]{6}$`, modalidade pela rota, duplicidade com o mesmo
+protocolo, erro por campo no cliente e no servidor, honeypot, 429 (`x-qa-cliente`), 413, duplo clique, sem dado pessoal em URL/evento, `*_submit_success`
+só após o 201 (resposta retida), UTMs saneadas, envio sem JS; painel admin (redirect, 401/403, lista por programa, "Acesso restrito"); 503/rede com rota
+interceptada; cabeçalho e overflow em 7 larguras × (3 páginas + tecnologia). Estável em `--repeat-each=3` (219/219).
+`vercel build` (64.5.0, sem login): redirects compilados `^/parcerias$` etc., `vercel-config` 1/1.
+Suíte completa (porta 4651): **669 testes, 650 aprovados, 19 falharam, 0 bloqueado** — 0 do pacote (parcerias 73, navegacao 40, rotas 121, seo 31, viewports 203,
+console 58, a11y 58, vercel-config 1); as 19 são home/newsletter (`newsletter` 8, `home-secoes` 10, `movimento` 1 `#presenca`) — `qa/2026-10-17-parcerias/e2e/resumo.json`.
+API `npm test` 129/129. Lighthouse mobile (mediana de 3, 4655): parcerias 99/100/100/100, advogados-parceiros 100/100/100/100, business-partner 99/100/100/100,
+tecnologia 100/100/100/100, planejamento-sucessorio 100/100/100/100; LCP 1,20–1,88 s, CLS ≤ 0,002, TBT 0 — `qa/2026-10-17/parcerias/lighthouse/resumo.json`.
+Conformidade (4 páginas, FAQ aberto + meta + JSON-LD + alt): 0 percentual numérico/R$/comissão/remuneração afirmativa/garantia afirmativa/número institucional/selo
+— `qa/2026-10-17/parcerias/conformidade.json`. Capturas antes (prod, só GET) × depois: `qa/2026-10-17/parcerias/capturas/`.
+Pendências P3: `/parcerias/partner-lawyers/` com barra → 404 (`vercel.json:96`); contador do throttle compartilhado PL+BP (`routes/parcerias.js:773-774`);
+corrida medida (2 envios simultâneos → 2 candidaturas, documentada); sem JS mostra JSON cru. ADTECH (`adtech-app…`, 64.181.172.211) sem resposta em 443/80 daqui.
+Conformidade para o CEO: "Agente Prospector" (`navbar.js:69`, `parcerias/index.html:175`), "percentuais" no FAQ do BP, h1 "Excelência profissional", `[CONFIRMAR]` da retenção na política (l. 199).
+
+## Home v2 — rodada 1 (QA, 2026-10-17, working tree sobre b26a462) — **falhou** (10 pendências reais; 9 falhas eram do teste)
+Comandos: `QA_PORT=4660 QA_DATA=2026-10-17-home-v2-r1 npm run test:e2e` (mongod descartável subiu; 199 s) · `LH_PAGINAS=home LH_RUNS=3 QA_LH_PORT=4661 QA_DATA=2026-10-17-home-v2-r1 npm run test:lh` · `npm test`.
+E2E: **665 testes, 646 aprovados, 19 falharam, 0 bloqueados** — `qa/2026-10-17-home-v2-r1/e2e/resumo.json` (HTML em `e2e/relatorio/`). Por grupo: a11y 58/58 · console 58/58 · eixos 15/15 ·
+formulario 8/8 · home-secoes 25/35 · movimento 13/14 · navegacao 40/40 · newsletter 4/12 · parcerias 69/69 · rotas 121/121 · seo 31/31 · vercel-config 1/1 · viewports 203/203 (0 overflow 320–1920 × 29 páginas).
+Falhas por causa e dono:
+- **newsletter 8 — página (frontend-motion)**: `index.html` l. 717–718 `data-origem="home-newsletter"` (spec `"home"`, HOME_REDESIGN l. 677; contratos-qa §3.1) e l. 752 `id="newsletterMessage"` (spec `#nlMessage`, l. 688) + `main.js` l. ~407 `querySelector('#newsletterMessage')` → 7 testes não encontram `#nlMessage`. 8.ª (400): `main.js` `validarLocal` (l. 386–400) barra e-mail sem TLD e nome < 2 letras no cliente, nunca faz POST → o 400 do servidor fica inalcançável pela UI (spec l. 702: só "valida obrigatórios"). Se a validação local for mantida por decisão, QA passa a simular o 400 com `page.route`.
+- **movimento 1 — camada (frontend-motion, `brasil.js` l. 11/179)**: escreve `data-motion="on"`; spec exige `"running"` (HOME_REDESIGN l. 544/556; contratos-qa l. 136/141). O resto está certo: 1 canvas em 1440, SVG visível, 27 UFs, sede SP, rAF 60/s (desenho limitado a 30 fps), pára com aba oculta.
+- **home-secoes conformidade 1 — conteúdo (content-director)**: `#publicacoes` "Legítima, inventário e ITCMD…" (`copy.json` l. 261) cita "inventário" sem categoria de atribuição na seção (S13). Decidir: acrescentar a categoria pertinente na seção ou declarar títulos editoriais isentos (aí o QA restringe `RE_ATO_PRIVATIVO` em `#publicacoes`).
+- **home-secoes 9 — teste (corrigido nesta rodada)**: (a) overflow ×7: `div.form-hp` (honeypot `position:absolute; left:-10000px`, styles.css:602) em `#newsletter`/`#contact` — não gera rolagem (scrollWidth = clientWidth; viewports 203/203) e o contrato §3.1 exige honeypot fora da tela; `overflowPorSecao` (`_site.js`) passa a ignorar elementos posicionados inteiramente à esquerda da janela, gate `scrollWidth − clientWidth` mantido. (b) terceiros ×1: `/logo/` casava `eixos-cata**logo**__chev`; agora `(?<![a-z])(logo|marca|brand|selo)`. (c) axe `#treinamentos` 1440 ×1: axe amostrava `.metodo-programa > .dmc-overline` em meio ao fade de `.dmc-reveal` (700 ms + 80 ms × `--i:4` ≈ 1,0 s; o teste esperava 500 ms); em repouso rgb(130,96,46) sobre #f5f3ef = **5,17:1** (`diag/overline-treinamentos.txt`); o teste agora espera opacity 1 nos `.dmc-reveal` da seção. Reexecução de `home-secoes` após os ajustes: **34/35** (só a conformidade) — `qa/2026-10-17-home-v2-r1/apos-ajuste-teste/e2e/resumo.json`.
+Lighthouse mobile home (mediana de 3, LH 13.5.0) — `qa/2026-10-17-home-v2-r1/lighthouse/resumo.json`: **99/100/100/100 · LCP 1,96 s · CLS 0,003 · TBT 20 ms**; Perf por execução 99/99/99; LCP 1,963/1,963/1,957 s; CLS 0,042/0,003/0,003 (1 de 3 acima de 0,01). Gate 90 ok, mas **LCP > 1,8 s (§7)**: +0,16 s sobre a base 1,80 s. LCP = poster do herói (`hero-dmc-poster-mobile.webp`, fetchpriority=high). Causa: 4 CSS render-blocking (tokens 6 KB, components 6, styles 7, **home.css 8 KB** — est. 454 ms) + CSS do Google Fonts; a base tinha 3 CSS. S16 manda fundir `home.css` em `styles.css` na publicação — dono camada (frontend-motion). Peso 1 212 KB (inclui `hero-dmc-mobile.mp4` 1 003 KB, herói pré-existente).
+API `npm test`: **129/129** (24 suítes; contato, newsletter, parcerias, admin). Segredos em `complexodmc.com.br/`, `api/`, `vercel.json`: 0; `.env` não rastreado.
+Sobreposições conferidas: (b) `components.css?v=3`, `navbar.js?v=c4`, rodapé "DMC Business School"/"ADTECH", sem link "Parcerias"; (a) `rede-neural.js?v=2` carregado, 2 canvas (`#conheca`, `#presenca`) com gate.
+
+## Home v2 — rodada 2 (QA, 2026-10-17, working tree sobre b26a462) — **aprovado** (0 falhas, 0 bloqueados; 2 execuções consecutivas verdes)
+Comandos: `QA_PORT=4660 QA_DATA=2026-10-17-home-v2-r2 npm run test:e2e` (mongod descartável 127.0.0.1:60369 subiu; 184 s) · `LH_PAGINAS=home LH_RUNS=3 QA_LH_PORT=4661 QA_DATA=2026-10-17-home-v2-r2 npm run test:lh` · `npm test`. 2.ª execução consecutiva (§6): suíte filtrada `eixos+movimento+newsletter+home-secoes+formulario` **84/84** + Lighthouse ×3 — `qa/2026-10-17-home-v2-r2/2a-execucao/{e2e,lighthouse}/resumo.json`.
+E2E: **684 testes, 684 aprovados, 0 falharam, 0 bloqueados** — `qa/2026-10-17-home-v2-r2/e2e/resumo.json` (HTML em `e2e/relatorio/`, stdout em `e2e-stdout.log`). Por grupo: a11y 58/58 · console 58/58 · eixos 15/15 · formulario 8/8 · home-secoes 35/35 · movimento 14/14 · navegacao 40/40 · newsletter 12/12 · newsletter-descadastro 15/15 · parcerias 73/73 · rotas 121/121 · seo 31/31 · vercel-config 1/1 · viewports 203/203 (0 overflow 320–1920 × 29 páginas). As 10 pendências da rodada 1 fecharam: newsletter 8 (`data-origem="home"`, `#nlMessage`, 400 alcançável), movimento 1 (`brasil.js` `data-motion="running"`), conformidade 1 (`#publicacoes`). Nenhum teste alterado nesta rodada.
+Lighthouse mobile home (mediana de 3, LH 13.5.0) — `qa/2026-10-17-home-v2-r2/lighthouse/resumo.json`: **100/100/100/100 · LCP 1,65 s · CLS 0,003 · TBT 3 ms** (Perf por execução 99/100/100; LCP 1,660/1,652/1,652 s). 2.ª execução: 100/100/100/100 · LCP 1,66 s · CLS 0,003 · TBT 13 ms (99/100/100). §7: Perf ≥ 95 ok, LCP ≤ 1,8 s ok (era 1,96 s na r1; `home.css` fundido — 20 requisições), CLS ≤ 0,01 ok (mediana), TBT ≤ 50 ms ok, 0 auditoria reprovada nas 4 categorias. Peso 1 192 KB, dos quais `hero-dmc-mobile.mp4` 1 003 KB (herói pré-existente, excluído do orçamento §7); 0 bytes dos loops das verticais no mobile.
+Observação (não bloqueia; dono camada, frontend-motion, P3): na 1.ª execução de cada lote (cache de fonte frio) CLS = 0,042 em `h1#hero-title` por troca das web fonts Newsreader/Hanken (`layout-shifts` dos `home-r1.report.json`); execuções 2–3 = 0,003. Mesmo padrão da r1 e da suíte final D3 (herói fora do escopo pela sobreposição (b)). Mitigação sugerida: `size-adjust`/`ascent-override` na fonte de fallback ou `font-display: optional` no display do herói.
+API `npm test`: **129/129** (24 suítes; `server-test.log`). Segredos em `complexodmc.com.br/` (grep por chave/token/senha/URI Mongo): 0 — só o JWT em `localStorage` do cliente da EAD; `server/.env` não rastreado.
+Sobreposições conferidas: (b) `components.css?v=3` (l. 107), `navbar.js?v=c4` (l. 110), rodapé "DMC Business School" (l. 910) / "ADTECH" (l. 911), sem link "Parcerias"; (a) `rede-neural.js?v=2` carregado (l. 946), 2 canvas (`#conheca`, `#presenca`) com gate — `movimento` 14/14.
+
+## Verificação independente — página de descadastro da newsletter + seção Newsletter da política — 2026-10-17 (QA, working tree sobre 67e37c3) — **aprovado**
+Alvo: `pages/newsletter-descadastro.html` + `pages/js/newsletter-descadastro.js` + `pages/css/newsletter-descadastro.css`; diff de `pages/politica-de-privacidade.html` (seção `#newsletter` + 4 referências).
+Servidor `tests/server/serve.mjs` na porta 4662 (PID guardado e encerrado; `mongod` descartável 127.0.0.1:60097).
+Comandos: `QA_PORT=4662 QA_REUSE=1 QA_DATA=2026-10-17/newsletter-descadastro npx playwright test tests/e2e/newsletter-descadastro.spec.js` · `npx lighthouse …/pages/newsletter-descadastro.html --form-factor=mobile` · sonda ad-hoc (axe completo 320/375 com `reducedMotion`, anéis de foco, 24 hrefs + âncoras, navbar, isca pela UI, envio vazio, política em 320) · curl na API.
+E2E: **15/15** — `qa/2026-10-17/newsletter-descadastro/e2e/resumo.json`. Lighthouse mobile **100/100/100/69** (LCP 1,5 s, CLS 0,013, TBT 0); SEO 69 = só `is-crawlable`, pelo `noindex` intencional (mesma isenção de treinamento-interesse) — `lighthouse-mobile.json`.
+Sonda (`probe.json`, capturas `descadastro-320.png`, `descadastro-1440.png`, `politica-newsletter-320.png`): overflow 0 em 320/375; axe só `region` moderado no `.whatsapp-float` (padrão de todas as páginas, não serious); foco visível em input (2px #82602e), botão, CTA do herói, links do aside (3px) e rodapé; 24 hrefs internos 200 e 7 âncoras existem (`#newsletter`, `#features`, `#treinamentos`, `#contact`, `#artheu`, `#bloadhound`, `#portal`); navbar.js montou 39 links com profundidade certa; isca preenchida pela UI → 200 `{ok:true}` e "Pedido recebido." (neutro); envio vazio com JS → 400, `#nd-email-erro` "Informe seu e-mail.", `aria-invalid` + `aria-describedby`; 0 `<style>` inline; 0 segredos; `meta robots noindex`, fora do sitemap.
+API (curl, `x-qa-cliente`): e-mail inscrito × nunca inscrito × já descadastrado → **mesma resposta 202, 77 B** (sem vazamento de existência); 4.º pedido ao mesmo e-mail em 24 h → 429; 6.º do mesmo IP → 429; `Origin` estranho → 403; isca → 200; urlencoded + `Accept: text/html` → 202 HTML com `X-Frame-Options: DENY`, `Cache-Control: no-store`, CSP fechado; `GET ?token=inválido` → 400 HTML.
+Política: 0 console, 0 overflow em 320, âncoras `#newsletter/#parcerias/#compartilhamento` existem, 0 link interno quebrado; texto da página ("resposta é sempre a mesma", "não afeta os envios já feitos", "inscrição é reativada") coerente com a seção; Provimento 205: 0 promessa/número.
+Pendências (não bloqueiam a página): (1) content-director — a seção `#newsletter` da política publica 4 marcadores `[CONFIRMAR: …]` visíveis (IP truncado, ferramenta de disparo, ferramenta de envio, prazo de retenção pós-descadastro); a página já tinha 7 (total 11). (2) frontend-motion (camada, P3) — `.whatsapp-float` fora de landmark (axe `region`, moderado, site inteiro). (3) Ruído da sonda, não do produto: `extraHTTPHeaders x-qa-cliente` dispara preflight CORS no Google Fonts; o spec de viewport (sem o cabeçalho) mediu 0 erros de console.

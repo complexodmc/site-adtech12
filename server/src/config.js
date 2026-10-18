@@ -36,6 +36,10 @@ function trustProxy() {
 export const config = {
   mongoUri: required('MONGODB_URI'),
   mongoDb: (process.env.MONGODB_DB || 'complexodmc').trim(),
+  // Tempo máximo para achar o servidor Mongo. Na Vercel a função dura 10 s:
+  // 5 s garante que banco fora vire 503 (contato/newsletter) e não 504 do edge.
+  mongoServerSelectionTimeoutMs: Number(process.env.MONGODB_SERVER_SELECTION_TIMEOUT_MS)
+    || (process.env.VERCEL === '1' ? 5000 : 15000),
   jwtSecret: required('JWT_SECRET'),
   jwtExpiresIn: (process.env.JWT_EXPIRES_IN || '7d').trim(),
   port: Number(process.env.PORT) || 3000,
@@ -58,6 +62,29 @@ export const config = {
     resendApiKey: (process.env.RESEND_API_KEY || '').trim(),
     para: (process.env.PARCERIAS_EMAIL_TO || '').trim() || (process.env.LEADS_EMAIL_TO || '').trim(),
     de: (process.env.LEADS_EMAIL_FROM || '').trim()
+  },
+  // Newsletter (/api/newsletter). politicaVersao é gravada em cada consentimento
+  // (em produção, sem ela a inscrição é recusada com 503); o IP truncado só é
+  // gravado com NEWSLETTER_GRAVAR_IP=true (a Política publicada hoje diz que o
+  // IP não é gravado); o aviso interno por inscrição é opcional e desligado.
+  newsletter: {
+    politicaVersao: (process.env.NEWSLETTER_POLITICA_VERSAO || '').trim() || 'nao-informada',
+    exigirPoliticaVersao: process.env.NODE_ENV === 'production',
+    gravarIp: String(process.env.NEWSLETTER_GRAVAR_IP || '').toLowerCase() === 'true',
+    // Origens aceitas no descadastro por e-mail (CSRF): produção + CORS_ORIGINS
+    // + localhost fora da Vercel. Pedidos sem Origin/Referer (curl) passam.
+    origensPermitidas: [
+      'https://complexodmc.com.br', 'https://www.complexodmc.com.br',
+      ...(process.env.CORS_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean),
+      ...(process.env.NEWSLETTER_ORIGENS || '').split(',').map(s => s.trim()).filter(Boolean),
+      ...(process.env.VERCEL === '1' && process.env.NODE_ENV === 'production' ? [] : ['http://localhost', 'http://127.0.0.1'])
+    ],
+    notificar: String(process.env.NEWSLETTER_NOTIFICAR || '').toLowerCase() === 'true',
+    email: {
+      resendApiKey: (process.env.RESEND_API_KEY || '').trim(),
+      para: (process.env.NEWSLETTER_EMAIL_TO || '').trim() || (process.env.LEADS_EMAIL_TO || '').trim(),
+      de: (process.env.LEADS_EMAIL_FROM || '').trim()
+    }
   },
   // Raiz do site estático (complexodmc.com.br/), servido pelo mesmo processo.
   staticRoot: path.resolve(__dirname, '..', '..', 'complexodmc.com.br'),

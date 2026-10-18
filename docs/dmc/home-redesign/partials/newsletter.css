@@ -1,0 +1,52 @@
+/* ==== 09 · NEWSLETTER ==== */
+/* Reaproveita .dmc-form/.form-* de styles.css (978-1142); aqui só a grade da seção
+   e as duas linhas do formulário. Só tokens; sem sombra, sem raio > 2 px, sem !important. */
+.news-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-8) var(--grid-gap);
+  align-items: start;
+}
+.news-grid > * { min-width: 0; }
+.news-head { max-width: 48rem; }
+.news-head .dmc-h1 { text-wrap: balance; max-width: 22ch; overflow-wrap: anywhere; }
+.news-head__legal { margin-top: var(--space-2); }
+.news-head__legal a {
+  color: var(--text-ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--color-control-ink);
+  text-underline-offset: 0.25em;
+  overflow-wrap: anywhere;
+}
+.news-head__legal a:hover { text-decoration-color: var(--color-black); }
+
+.news-form { gap: var(--space-4); }
+.news-form__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+.news-form__row > * { min-width: 0; }
+.news-form__submit { display: grid; align-self: end; }
+/* Erro do consentimento: o <p> entra depois do label na grade 1.25rem + 1fr
+   de .form-consent; sem isto cairia na coluna da caixa (uma palavra por linha). */
+.news-form .form-consent .form-field__error { grid-column: 1 / -1; margin-top: 0; }
+.news-form__btn { min-height: 3rem; width: 100%; }
+.news-form .form-consent { margin-top: var(--space-2); }
+.news-form[aria-busy="true"] .news-form__btn { cursor: progress; }
+
+@media (min-width: 640px) {
+  .news-form__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .news-form__btn { width: auto; justify-self: start; min-width: 12rem; }
+}
+@media (min-width: 768px) {
+  .news-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .news-head, .news-form { grid-column: 1 / -1; }
+  .news-form__btn { justify-self: stretch; }
+}
+@media (min-width: 1024px) {
+  .news-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); row-gap: var(--space-6); }
+  .news-head { grid-column: 1 / span 5; }
+  .news-grid .news-form { grid-column: 7 / span 6; }
+}

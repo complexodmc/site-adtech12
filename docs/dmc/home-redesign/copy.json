@@ -1,0 +1,421 @@
+{
+  "_meta": {
+    "documento": "Copy final da nova home — Complexo DMC",
+    "autor": "content-director",
+    "data": "2026-10-17",
+    "revisao": "r2 2026-10-17 — ver copy-revisao.md (24 apontamentos de dois revisores)",
+    "fontes": ["docs/dmc/HOME_REDESIGN.md", "docs/dmc/home-redesign/fatos.md", "docs/dmc/home-redesign/referencia-e-mensagens.md", "docs/dmc/EIXOS-COPY.md", "complexodmc.com.br/index.html (HEAD b26a462)", "complexodmc.com.br/pages/sobre.html"],
+    "convencoes": {
+      "em": "O trecho entre <em></em> no campo 'titulo' é a expressão em Newsreader itálico/ouro do H2.",
+      "hrefs": "Relativos a complexodmc.com.br/index.html. Só páginas existentes e no sitemap (exceto âncoras internas).",
+      "grafia": "ADTECH (nunca Ad-tech). Complexo DMC (nunca 'a DMC' em texto público).",
+      "conformidade": "Provimento 205/2021 CFOAB + D7: sem número institucional, percentual, garantia, resultado, honorário, urgência. Atos privativos sempre atribuídos a parceiros habilitados/cartórios conveniados. Fórmula completa de atribuição só em porque.itens[2]."
+    },
+    "nao_mexer": ["#hero (headline, sub, CTAs)", "navbar", "form#contactForm (campos, ids, select#cf-eixo)", "#video estrutura (.page-video__frame[data-video])", "rodapé estrutura"]
+  },
+
+  "casa": {
+    "id": "conheca",
+    "overline": "Sobre",
+    "titulo": "Uma decisão, <em>várias áreas da lei</em>. Alguém precisa coordenar.",
+    "subtitulo": "O Complexo DMC integra seis eixos de especialidade para decisões empresariais, patrimoniais e operacionais de alta complexidade.",
+    "cta": { "texto": "Conhecer o Complexo DMC", "href": "pages/sobre.html", "aria_label": "Conhecer o Complexo DMC: história, método e governança" },
+    "ficha": [
+      { "dt": "O que somos", "dd": "Consultoria em negócios, com sede em São Paulo, para decisões que envolvem mais de uma área ao mesmo tempo." },
+      { "dt": "Como trabalhamos", "dd": "Seis especialidades trabalhando o mesmo caso. Cada ato que a lei reserva a profissionais habilitados fica com quem pode praticá-lo." }
+    ],
+    "removido": ["botão 'Converse com nossos especialistas' (duplicado do herói)", "tablist dos seis eixos (vai para #features)", "rede neural (único canvas fica em #presenca)"]
+  },
+
+  "eixos": {
+    "id": "features",
+    "overline": "Seis eixos",
+    "titulo": "Seis eixos, <em>uma só governança</em>.",
+    "subtitulo": "Comece pela sua situação, não pelo catálogo: cada eixo leva às soluções que a tratam.",
+    "grid_aria_label": "Os seis eixos do Complexo DMC",
+    "cta_padrao": "Explorar soluções",
+    "itens": [
+      {
+        "codigo": "E1", "slug": "np-pillar-patrimonial", "id": "eixo-1", "icone": "ico-e1", "icone_nome": "Transmissão",
+        "nome": "Planejamento Patrimonial e Sucessório",
+        "nome_curto": "Patrimonial e Sucessório",
+        "descricao": "Sucessão, holding e proteção do patrimônio familiar organizados em vida, com a carga tributária calculada antes de cada ato.",
+        "cta": { "texto": "Explorar soluções", "href": "pages/planejamento-sucessorio.html", "aria_label": "Explorar soluções de Planejamento Patrimonial e Sucessório" }
+      },
+      {
+        "codigo": "E2", "slug": "np-pillar-fiscal", "id": "eixo-2", "icone": "ico-e2", "icone_nome": "Praças sobrepostas",
+        "nome": "Tributário, Fiscal e Corporativo",
+        "nome_curto": "Tributário e Corporativo",
+        "descricao": "Regime, créditos e estrutura societária revisados em conjunto, com programa de integridade e cada escolha registrada com fundamento legal.",
+        "cta": { "texto": "Explorar soluções", "href": "pages/planejamento-tributario.html", "aria_label": "Explorar soluções do eixo Tributário, Fiscal e Corporativo" }
+      },
+      {
+        "codigo": "E3", "slug": "np-pillar-imobiliario", "id": "eixo-3", "icone": "ico-e3", "icone_nome": "Matrícula",
+        "nome": "Direito Notarial e Imobiliário",
+        "nome_curto": "Notarial e Imobiliário",
+        "descricao": "Viabilidade, incorporação, venda e registro de cada unidade tratados como processo contínuo, com os atos lavrados por cartórios conveniados.",
+        "cta": { "texto": "Explorar soluções", "href": "pages/consultoria-imobiliaria.html", "aria_label": "Explorar soluções de Direito Notarial e Imobiliário" }
+      },
+      {
+        "codigo": "E4", "slug": "np-pillar-auditoria", "id": "eixo-4", "icone": "ico-e4", "icone_nome": "Lente sobre o livro",
+        "nome": "Auditoria Empresarial e Contábil",
+        "nome_curto": "Auditoria e Contábil",
+        "descricao": "Leitura gerencial de balanço, DRE e controles para que sócio, conselho e banco leiam o mesmo número. Escrituração e auditoria com parceiros habilitados.",
+        "cta": { "texto": "Explorar soluções", "href": "pages/contabilidade.html", "aria_label": "Explorar soluções de Auditoria Empresarial e Contábil" },
+        "pendencia": "[CEO 10] slug 'contabilidade' e página de Auditoria Empresarial"
+      },
+      {
+        "codigo": "E5", "slug": "np-pillar-ativos", "id": "eixo-5", "icone": "ico-e5", "icone_nome": "Do título ao ativo",
+        "nome": "Recuperação de Ativos",
+        "nome_curto": "Recuperação de Ativos",
+        "descricao": "Análise do título, levantamento do patrimônio do devedor e coordenação de bloqueio, penhora e execução, com atos processuais de parceiros habilitados.",
+        "cta": { "texto": "Explorar soluções", "href": "pages/recuperacao-ativos.html", "aria_label": "Explorar soluções de Recuperação de Ativos" }
+      },
+      {
+        "codigo": "E6", "slug": "np-pillar-trabalhista", "id": "eixo-6", "icone": "ico-e6", "icone_nome": "Ciclo em quatro tempos",
+        "nome": "Consultoria Trabalhista",
+        "nome_curto": "Consultoria Trabalhista",
+        "descricao": "Passivo trabalhista tratado como ciclo: contratos revisados, demissões e acordos documentados, exercício fechado com quitação e defesa por advogados parceiros.",
+        "cta": { "texto": "Explorar soluções", "href": "solucoes/consultoria-trabalhista/ciclo-fechado.html", "aria_label": "Explorar soluções de Consultoria Trabalhista" }
+      }
+    ],
+    "catalogo": {
+      "summary": "Todas as soluções por eixo",
+      "grupos": [
+        { "slug": "np-pillar-patrimonial", "aria_label": "Planejamento Patrimonial e Sucessório", "head": "E1 · Patrimonial e Sucessório", "links": [
+          { "texto": "Planejamento Sucessório", "href": "pages/planejamento-sucessorio.html" },
+          { "texto": "Holding Patrimonial", "href": "pages/holding-patrimonial.html" },
+          { "texto": "Separação Patrimonial", "texto_pagina": "Blindagem Patrimonial", "href": "pages/blindagem-patrimonial.html", "pendencia": "[CEO 2] texto do link usa a alternativa registrada; o H1 da página segue 'Blindagem Patrimonial' até decisão. Se o CEO mantiver o nome, reverter o texto." },
+          { "texto": "Proteção Patrimonial", "href": "pages/pronto-patrimonio.html" },
+          { "texto": "Sucessão Testamentária", "href": "pages/sucessao-testamentaria.html" }
+        ] },
+        { "slug": "np-pillar-fiscal", "aria_label": "Tributário, Fiscal e Corporativo", "head": "E2 · Tributário e Corporativo", "links": [
+          { "texto": "Planejamento Tributário", "href": "pages/planejamento-tributario.html" },
+          { "texto": "Compliance e Governança", "href": "pages/compliance-governanca.html" }
+        ] },
+        { "slug": "np-pillar-imobiliario", "aria_label": "Direito Notarial e Imobiliário", "head": "E3 · Notarial e Imobiliário", "links": [
+          { "texto": "Consultoria Imobiliária", "href": "pages/consultoria-imobiliaria.html" },
+          { "texto": "Jurídico Imobiliário", "href": "pages/juridico-imobiliario.html", "pendencia": "[CEO 12] rótulo oficial da página; alternativa sem 'Jurídico': 'Assessoria Imobiliária'" },
+          { "texto": "Jurídico Vendas", "href": "pages/juridico-vendas.html", "pendencia": "[CEO 12] rótulo oficial da página; alternativa sem 'Jurídico': 'Assessoria em Vendas'" },
+          { "texto": "Registro Imobiliário", "href": "pages/registro-imobiliario.html" },
+          { "texto": "Atos Notariais", "href": "pages/atos-notariais.html" }
+        ] },
+        { "slug": "np-pillar-auditoria", "aria_label": "Auditoria Empresarial e Contábil", "head": "E4 · Auditoria e Contábil", "links": [
+          { "texto": "Auditoria Empresarial e Contábil", "href": "pages/contabilidade.html" }
+        ] },
+        { "slug": "np-pillar-ativos", "aria_label": "Recuperação de Ativos", "head": "E5 · Recuperação de Ativos", "links": [
+          { "texto": "Recuperação de Ativos", "href": "pages/recuperacao-ativos.html" }
+        ] },
+        { "slug": "np-pillar-trabalhista", "aria_label": "Consultoria Trabalhista", "head": "E6 · Consultoria Trabalhista", "links": [
+          { "texto": "Ciclo Fechado (programa)", "href": "solucoes/consultoria-trabalhista/ciclo-fechado.html" },
+          { "texto": "Arquitetura Contratual", "texto_pagina": "Blindagem Contratual", "href": "solucoes/consultoria-trabalhista/blindagem-contratual.html", "pendencia": "[CEO 2] texto do link usa a alternativa registrada; href e H1 da página inalterados até decisão." },
+          { "texto": "Conformidade Psicossocial", "href": "solucoes/consultoria-trabalhista/conformidade-psicossocial.html" },
+          { "texto": "Decisão Assistida", "href": "solucoes/consultoria-trabalhista/decisao-assistida.html" },
+          { "texto": "Câmara de Acordos", "href": "solucoes/consultoria-trabalhista/camara-de-acordos.html" },
+          { "texto": "Quitação Anual", "href": "solucoes/consultoria-trabalhista/quitacao-anual.html" },
+          { "texto": "Gestão do Contencioso Trabalhista", "texto_pagina": "Defesa Empresarial", "href": "solucoes/consultoria-trabalhista/defesa-empresarial.html", "pendencia": "[CEO 2] texto do link usa a alternativa registrada; href e H1 da página inalterados até decisão." }
+        ] }
+      ],
+      "nao_linkar": ["pages/planejamento-sucessorio-empresarial.html (301)", "card 'Auditoria Empresarial → #contact' (não é página)"]
+    },
+    "falas_do_cliente_para_catalogo_cards_json": {
+      "nota": "Saem da home (S4). Insumo para mega-menu e internas.",
+      "E1": "Tenho imóveis e participações no meu nome e ninguém na família sabe o que acontece depois.",
+      "E2": "A empresa cresceu, o regime ficou o mesmo e nunca comparamos com os nossos números.",
+      "E3": "Tenho um terreno e não sei se o empreendimento fecha.",
+      "E4": "O banco pediu balanço revisado e os números da empresa não se explicam.",
+      "E5": "Tenho uma sentença e o devedor não paga.",
+      "E6": "Tenho reclamatórias repetidas com os mesmos pedidos e não sei onde o passivo começa."
+    }
+  },
+
+  "porque": {
+    "id": "porque",
+    "overline": "Por quê",
+    "titulo": "Por que o <em>Complexo DMC</em>?",
+    "subtitulo": "Seis razões que você confere já no primeiro diagnóstico.",
+    "itens": [
+      {
+        "n": "01",
+        "titulo": "Um caso, um plano, uma coordenação",
+        "texto": "Uma sucessão pode envolver holding, tributo e matrícula ao mesmo tempo. Aqui as seis especialidades trabalham o mesmo caso, no mesmo plano, sob uma coordenação única."
+      },
+      {
+        "n": "02",
+        "titulo": "Cenários antes do ato",
+        "texto": "Cada decisão chega ao cliente como relatório de caminhos comparados por custo, prazo e fundamento normativo. A escritura, o protocolo ou a reorganização vêm depois da escolha, não antes."
+      },
+      {
+        "n": "03",
+        "titulo": "Cada ato com quem a lei habilita",
+        "texto": "Advogados parceiros redigem contratos, pareceres e petições; contadores e auditores habilitados escrituram e opinam; cartórios conveniados lavram e registram. O Complexo DMC coordena o plano e responde pela consultoria.",
+        "nota": "Única ocorrência da fórmula completa de atribuição na home (S13)."
+      },
+      {
+        "n": "04",
+        "titulo": "Quem lê os números não é quem os produz",
+        "texto": "A revisão das demonstrações e dos controles é feita por quem não os produziu, e os achados alimentam a análise tributária e a conferência da folha."
+      },
+      {
+        "n": "05",
+        "titulo": "Acompanhamento com indicadores que o cliente vê",
+        "texto": "Relatório periódico e indicadores próprios por frente de trabalho: protocolos no Registro de Imóveis, exercício trabalhista fechado, provisão e desembolso lado a lado. O plano é revisto quando a lei, a empresa ou a família mudam."
+      },
+      {
+        "n": "06",
+        "titulo": "Tecnologia que acelera; profissional habilitado que assina",
+        "texto": "Automação documental, dossiês organizados com controle de acesso e painel de acompanhamento do caso apoiam as seis especialidades. Cada documento passa pela revisão do parceiro habilitado que responde por ele antes da assinatura.",
+        "cta": { "texto": "Ver a tecnologia aplicada ao método", "href": "pages/tecnologia.html", "aria_label": "Ver a tecnologia aplicada ao método do Complexo DMC" },
+        "nota": "Sem ARTHEU, IA de minutas, tribunais/cartórios, API, PCD [CEO 4, CEO 6]. ADTECH citada só na página de destino."
+      }
+    ]
+  },
+
+  "verticais": {
+    "id": "verticais",
+    "overline": "Verticais de negócio",
+    "titulo": "Setores diferentes, <em>a mesma pergunta</em>: o que decidir agora.",
+    "subtitulo": "Cinco situações comuns em setores que atendemos — e o eixo que conduz cada uma.",
+    "lista_aria_label": "Verticais de negócio do Complexo DMC",
+    "eyebrow_regra": "Pergunta direta ao leitor, sem aspas e sem itálico de citação (não é fala de cliente nem depoimento). Rótulo visual opcional: 'Situação típica'.",
+    "alt_regra": "img alt=\"\" (decorativa: o article já carrega número, setor, headline e texto). Campo 'alt_reserva' só se a figura passar a ser informativa (fotografia real).",
+    "itens": [
+      {
+        "n": "01", "slug": "construcao", "setor": "Construção civil e incorporação",
+        "eyebrow": "Tem um terreno e não sabe se o empreendimento fecha?",
+        "titulo": "Do terreno à matrícula de <em>cada unidade</em>.",
+        "texto": "Antes de comprar o terreno: viabilidade, situação da matrícula e o caminho até o registro de cada unidade pelos cartórios conveniados, num mesmo plano.",
+        "cta": { "texto": "Avaliar um terreno ou empreendimento", "href": "pages/consultoria-imobiliaria.html", "aria_label": "Avaliar um terreno ou empreendimento: Consultoria Imobiliária" },
+        "midia": { "poster": "assets/images/home/vertical-construcao", "loop": "assets/videos/home/vertical-construcao", "alt": "", "alt_reserva": "Lajes e formas de concreto de um edifício em obra, vistos de cima, em luz noturna" },
+        "eixos": ["E3", "E6", "E5"]
+      },
+      {
+        "n": "02", "slug": "familias", "setor": "Empresas familiares e holdings",
+        "eyebrow": "Os sócios são irmãos e ninguém combinou a sucessão?",
+        "titulo": "Quem herda as quotas e <em>quem assume o comando</em>.",
+        "texto": "Holding, acordo de sócios e protocolo familiar desenhados juntos, com a carga tributária de cada cenário calculada no diagnóstico.",
+        "cta": { "texto": "Ver como organizamos a sucessão entre sócios", "href": "pages/planejamento-sucessorio.html", "aria_label": "Ver como organizamos a sucessão entre sócios: Planejamento Sucessório" },
+        "midia": { "poster": "assets/images/home/vertical-familias", "loop": "assets/videos/home/vertical-familias", "alt": "", "alt_reserva": "Sequência de pórticos de pedra em recuo, um atrás do outro, sobre piso de reflexo fosco" },
+        "eixos": ["E1", "E2", "E4"]
+      },
+      {
+        "n": "03", "slug": "grupos", "setor": "Grupos empresariais",
+        "eyebrow": "São quatro empresas e nenhuma estrutura foi pensada em conjunto?",
+        "titulo": "Quatro empresas, <em>uma estrutura</em> decidida.",
+        "texto": "Comparação documentada de regimes com os números da própria empresa, reorganização societária e programa de integridade sob a mesma governança.",
+        "cta": { "texto": "Comparar regimes com os números da sua empresa", "href": "pages/planejamento-tributario.html", "aria_label": "Comparar regimes com os números da sua empresa: Planejamento Tributário" },
+        "midia": { "poster": "assets/images/home/vertical-grupos", "loop": "assets/videos/home/vertical-grupos", "alt": "", "alt_reserva": "Volumes geométricos separados sobre plano escuro, ligados por linhas finas douradas" },
+        "eixos": ["E2", "E4", "E6"]
+      },
+      {
+        "n": "04", "slug": "patrimonio", "setor": "Investidores e estrutura patrimonial",
+        "eyebrow": "Tem imóveis e participações e não sabe o que está em seu nome?",
+        "titulo": "O que está em seu nome, <em>e por quê</em>.",
+        "texto": "Centralização em holding, governança e tributação avaliadas caso a caso, com a leitura independente dos números de cada participação.",
+        "cta": { "texto": "Entender a holding para imóveis e participações", "href": "pages/holding-patrimonial.html", "aria_label": "Entender a holding para imóveis e participações: Holding Patrimonial" },
+        "midia": { "poster": "assets/images/home/vertical-patrimonio", "loop": "assets/videos/home/vertical-patrimonio", "alt": "", "alt_reserva": "Lâminas translúcidas empilhadas com arestas douradas, levemente desalinhadas entre si" },
+        "eixos": ["E1", "E4", "E3", "E5"]
+      },
+      {
+        "n": "05", "slug": "terras", "setor": "Famílias que detêm imóveis e terras",
+        "setor_pendencia": "[CEO 6] se aprovado 'Agronegócio', muda só este rótulo",
+        "eyebrow": "A área está na família há gerações e a matrícula não bate?",
+        "titulo": "Antes de dividir a terra, <em>a matrícula</em>.",
+        "texto": "Retificação de área e regularização fundiária analisadas antes de qualquer escritura de divisão, doação ou venda das terras. A sucessão da família entra pelo eixo patrimonial.",
+        "cta": { "texto": "Entender a regularização da matrícula", "href": "pages/registro-imobiliario.html", "aria_label": "Entender a regularização da matrícula: Registro Imobiliário" },
+        "cta_secundario": { "texto": "Planejar a sucessão das terras", "href": "pages/planejamento-sucessorio.html", "aria_label": "Planejar a sucessão das terras: Planejamento Sucessório", "nota": "Link textual discreto abaixo do CTA principal; único painel com dois destinos porque a página de registro não trata de sucessão." },
+        "midia": { "poster": "assets/images/home/vertical-terras", "loop": "assets/videos/home/vertical-terras", "alt": "", "alt_reserva": "Relevo baixo em malha de contorno com divisas de parcelas em linhas claras, sob sol rasante" },
+        "eixos": ["E3", "E1"]
+      }
+    ],
+    "video_aria": { "aria_hidden": "true", "tabindex": "-1", "nota": "Loop decorativo; sem legenda, sem áudio, sem controles." }
+  },
+
+  "presenca": {
+    "id": "presenca",
+    "overline": "Presença",
+    "titulo": "De São Paulo, <em>conectados aos desafios</em> do Brasil.",
+    "subtitulo": "Sede em São Paulo. Atendimento em todo o Brasil e no exterior, com os parceiros definidos conforme o caso.",
+    "subtitulo_fonte": "D9 (CEO, 2026-10-17): fórmula literal 'atendimento em todo o Brasil e no exterior' (capacidade, não carteira); sem números de estados, países ou clientes. Divergência: FAQ 'Atendem fora de São Paulo?' em pages/sobre.html (HTML + JSON-LD) ainda usa a fórmula anterior e deve ser alinhada à D9 no mesmo lote.",
+    "endereco": "Rua Riachuelo, 231 · São Paulo, SP",
+    "cta": { "texto": "Descrever o seu caso", "href": "#contact", "aria_label": "Descrever o seu caso no formulário de contato" },
+    "mapa": {
+      "role": "img",
+      "title": "Mapa do Brasil com a sede do Complexo DMC em São Paulo",
+      "rotulo_sede": "São Paulo",
+      "fallback_mobile": "Mesmo SVG, estático, sem canvas; nenhuma legenda, número ou lista de praças.",
+      "canvas_aria_hidden": "true"
+    },
+    "proibido_aqui": ["N estados", "N cidades", "atuação nacional (como selo)", "lista de praças", "legenda de cobertura"]
+  },
+
+  "publicacoes": {
+    "id": "publicacoes",
+    "overline": "Inteligência",
+    "titulo": "O que escrevemos sobre <em>o que fazemos</em>.",
+    "destaque": {
+      "slug": "np-pillar-patrimonial",
+      "eixo": "E1 · Patrimonial e Sucessório",
+      "time": { "exibir": false, "datetime": "2026-10-17", "texto": "Revisado em 17 out 2026", "pendencia": "[CEO 7] NÃO renderizar o <time> até o CEO confirmar a revisão editorial e por quem (a data atual é de commit, não de revisão por profissional habilitado). Se aprovado, o texto passa a 'Revisado em 17 out 2026 por <função habilitada>'." },
+      "titulo": "Por que planejar a sucessão em vida",
+      "texto": "Legítima, inventário e ITCMD: o que muda quando a família decide antes, com doação, holding e testamento — e o que fica com advogados parceiros e cartórios conveniados.",
+      "cta": { "texto": "Ler a análise", "href": "pages/por-que-urgente.html", "aria_label": "Ler a análise: Por que planejar a sucessão em vida" }
+    },
+    "proximas": {
+      "overline": "Em preparação",
+      "slots": 2,
+      "slots_regra": "Traços vazios, aria-hidden; sem título fictício, sem data, sem 'em breve'.",
+      "cta": { "texto": "Receber quando sair", "href": "#newsletter", "aria_label": "Ir para a newsletter e receber as próximas análises" }
+    },
+    "quando_houver_3": "Aside sai; três article.publicacao com a mesma anatomia (eixo, data real ISO ≤ hoje, título, uma linha, 'Ler a análise')."
+  },
+
+  "metodo_ou_treinamentos": {
+    "id": "treinamentos",
+    "id_nota": "Id mantido por 28 rodapés e navbar.js. Rótulo 'Treinamentos' no menu/rodapés: [CEO 15] (proposta: 'Método').",
+    "overline": "Método e formação",
+    "titulo": "Como <em>conduzimos</em> uma decisão.",
+    "subtitulo": "A conversa inicial leva a um diagnóstico; o diagnóstico, a uma proposta com escopo, etapas e entregas.",
+    "etapas": [
+      { "n": "01", "titulo": "Diagnóstico", "texto": "Leitura do caso com os documentos e os dados do cliente. Identificamos o que precisa ser decidido e os eixos envolvidos." },
+      { "n": "02", "titulo": "Cenários e decisão", "texto": "Você recebe um relatório com dois ou três caminhos e o que cada um custa, demora e exige em documentos. A decisão é sua, com os cenários na mesa." },
+      { "n": "03", "titulo": "Estruturação e implementação", "texto": "Plano de atos coordenado pela consultoria e executado com os parceiros do caso, cada um no que a lei lhe atribui." },
+      { "n": "04", "titulo": "Acompanhamento e revisão", "texto": "Reuniões periódicas com os indicadores do seu caso. Quando a lei, a empresa ou a família mudam, o plano é ajustado com você." }
+    ],
+    "programa": {
+      "overline": "Formação",
+      "titulo": "Arquitetura Patrimonial Estratégica",
+      "meta": "Programa de formação institucional", "meta_pendencia": "[CEO 3] carga horária (42 h) e modalidade só voltam com confirmação do catálogo ativo",
+      "texto": "Leitura do patrimônio como sistema: direito, administração, contabilidade e tecnologia sob a mesma governança consultiva.",
+      "cta": { "texto": "Conhecer a plataforma", "href": "plataforma-ead/", "aria_label": "Conhecer a plataforma DMC Business School" },
+      "fonte": "plataforma-ead/js/data.js (titulo, cargaHoraria, modalidade, descricao parafraseada). Sem público-alvo nem ementa além da descrição oficial. Sem preço, sem módulos, sem login.html?curso=.",
+      "pendencia": "[CEO 3] demais cursos do seed (Holding Familiar Aplicada, Compliance & Governança Familiar, Tecnologia Jurídica & IA) e os 6 da home antiga ficam fora até confirmação."
+    },
+    "removido": ["seis cards de cursos sem lastro (cargas e modalidades sem fonte)", "links plataforma-ead/login.html?curso=…"]
+  },
+
+  "newsletter": {
+    "id": "newsletter",
+    "overline": "Newsletter",
+    "titulo": "Receba as <em>próximas análises</em>.",
+    "subtitulo": "Textos curtos, só quando houver algo a dizer: sucessão, tributos, imóveis, auditoria, crédito e passivo trabalhista.",
+    "legal_visivel": "Você pode se descadastrar a qualquer momento pelo link de cada e-mail ou escrevendo para administrativo@complexodmc.com.br.",
+    "form": {
+      "id": "newsletterForm",
+      "action": "/api/newsletter",
+      "aria_label": "Inscrição na newsletter do Complexo DMC",
+      "campos": {
+        "nome": { "label": "Nome", "autocomplete": "name", "required": true },
+        "email": { "label": "E-mail", "autocomplete": "email", "required": true },
+        "empresa": { "label": "Empresa", "opcional_texto": "(opcional)", "autocomplete": "organization", "required": false },
+        "website_honeypot": { "label": "Não preencha este campo", "aria_hidden": true }
+      },
+      "consentimento": {
+        "texto_id": "v1",
+        "label_html": "Autorizo o Complexo DMC a usar meu nome e e-mail para enviar análises, nos termos da LGPD (Lei 13.709/2018) e da <a href=\"pages/politica-de-privacidade.html\">Política de Privacidade</a>.",
+        "pendencia": "[CEO 9] BLOQUEIO DE PUBLICAÇÃO (não de copy): pages/politica-de-privacidade.html tem 7 marcadores [CONFIRMAR] (CNPJ, encarregado, retenção, transferência internacional). A seção #newsletter entra no HTML com atributo hidden até a política sair sem marcadores; o texto de consentimento está correto e não muda."
+      },
+      "botao": { "texto": "Quero receber análises", "texto_enviando": "Enviando…" }
+    },
+    "mensagens": {
+      "regra": "Sucesso só com 2xx e {ok:true}. Mensagens de erro nunca contêm 'receb' nem 'cadastrad'.",
+      "sucesso_201": "Inscrição registrada. Você pode sair da lista a qualquer momento pelo link de cada mensagem ou por administrativo@complexodmc.com.br.",
+      "sucesso_200_honeypot": "Inscrição registrada.",
+      "erro_400_campos_intro": "Revise os campos indicados.",
+      "erro_400_por_campo": {
+        "nome_vazio": "Informe seu nome.",
+        "nome_curto": "Informe seu nome completo.",
+        "nome_longo": "Nome muito longo (máximo de 120 caracteres).",
+        "email_vazio": "Informe seu e-mail.",
+        "email_invalido": "E-mail inválido. Confira o endereço digitado.",
+        "empresa_longa": "Nome da empresa muito longo (máximo de 120 caracteres).",
+        "consentimento": "Para se inscrever, é preciso autorizar o uso do seu nome e e-mail (LGPD)."
+      },
+      "erro_400_json": "Não foi possível ler os dados enviados. Tente de novo.",
+      "erro_413": "Conteúdo grande demais. Confira os campos e tente de novo.",
+      "erro_429": "Muitas tentativas em sequência. Aguarde alguns minutos e tente de novo.",
+      "erro_503": "Não foi possível registrar agora. Tente de novo em alguns minutos ou escreva para administrativo@complexodmc.com.br.",
+      "erro_rede": "Não conseguimos falar com o servidor. Confira sua conexão e tente de novo.",
+      "sem_js": "POST nativo urlencoded para /api/newsletter; a resposta do servidor é a mensagem."
+    },
+    "descadastro": {
+      "pagina_titulo": "Sair da lista",
+      "confirmacao_pergunta": "Confirma a saída da newsletter do Complexo DMC?",
+      "botao_confirmar": "Confirmar saída",
+      "feito": "Pronto. Este e-mail não está mais na lista.",
+      "por_email_202": "Se este e-mail estiver na lista, ele será removido.",
+      "token_invalido": "Este link não é válido. Para sair da lista, escreva para administrativo@complexodmc.com.br."
+    }
+  },
+
+  "video": {
+    "id": "video",
+    "overline": "Em vídeo",
+    "titulo": "O Complexo DMC <em>em vídeo</em>.",
+    "subtitulo": "Quem somos e como os seis eixos trabalham juntos quando uma decisão envolve empresa, patrimônio e pessoas ao mesmo tempo.",
+    "data_video_title": "Complexo DMC",
+    "vazio": {
+      "titulo": "Espaço reservado para o vídeo",
+      "texto": "Vídeo institucional do Complexo DMC — em preparação."
+    },
+    "pendencia": "[CEO 11] ID do YouTube em data-video. Estrutura .page-video__frame[data-video] intocada.",
+    "divergencia": "Texto atual do vazio diz 'em breve neste espaço'; proposto 'em preparação' (sem prazo implícito)."
+  },
+
+  "contato_ajustes": {
+    "id": "contact",
+    "overline": "Contato",
+    "titulo": "Comece pela <em>decisão a tomar</em>.",
+    "subtitulo": "Descreva o contexto da empresa ou do patrimônio. A conversa inicial parte do eixo correspondente e define o diagnóstico.",
+    "frase": "Conte o cenário. Estruturamos a decisão com você.",
+    "canais": [
+      { "rotulo": "E-mail", "texto": "administrativo@complexodmc.com.br", "href": "mailto:administrativo@complexodmc.com.br" },
+      { "rotulo": "Telefone", "texto": "+55 (11) 91526-7749", "href": "tel:+5511915267749" },
+      { "rotulo": "WhatsApp", "texto": "Conversar pelo WhatsApp", "href": "https://wa.me/5511915267749", "nota": "canal secundário; o formulário é o primário" }
+    ],
+    "form": "Intocado: campos, ids, select#cf-eixo (E1–E6 + 'Ainda não sei'), consentimento, #formMessage, botão 'Enviar mensagem'.",
+    "whatsapp_qualificado": {
+      "regra": "main.js: ao clicar em [data-assunto=EN] ou chegar com ?assunto=EN, href = wa.me/5511915267749?text=encodeURIComponent(texto). Sem eixo, mantém o texto atual.",
+      "padrao": "Olá! Gostaria de uma conversa inicial com o Complexo DMC.",
+      "E1": "Olá! Gostaria de uma conversa inicial sobre Planejamento Patrimonial e Sucessório.",
+      "E2": "Olá! Gostaria de uma conversa inicial sobre o eixo Tributário, Fiscal e Corporativo.",
+      "E3": "Olá! Gostaria de uma conversa inicial sobre Direito Notarial e Imobiliário.",
+      "E4": "Olá! Gostaria de uma conversa inicial sobre Auditoria Empresarial e Contábil.",
+      "E5": "Olá! Gostaria de uma conversa inicial sobre Recuperação de Ativos.",
+      "E6": "Olá! Gostaria de uma conversa inicial sobre Consultoria Trabalhista."
+    },
+    "divergencias": [
+      "Overline atual 'Entre em Contato' → 'Contato' (caixa e concisão).",
+      "Lead atual 'O especialista do eixo correspondente conduz a conversa inicial' → 'A conversa inicial parte do eixo correspondente e define o diagnóstico' ([CEO 8]: nenhuma afirmação de estrutura de equipe)."
+    ]
+  },
+
+  "rodape_ajustes": {
+    "id": "rodape",
+    "marca": {
+      "p1": "Consultoria em negócios para decisões que envolvem empresa, patrimônio e família.",
+      "p2": "Atendimento a empresas, famílias empresárias, incorporadoras e investidores, no Brasil e no exterior.",
+      "p2_fonte": "D9"
+    },
+    "coluna_sobre": {
+      "titulo": "Sobre",
+      "links": [
+        { "texto": "Sobre o Complexo DMC", "href": "pages/sobre.html" },
+        { "texto": "Soluções", "href": "#features" },
+        { "texto": "Treinamentos", "href": "#treinamentos", "pendencia": "[CEO 15] rótulo vs. seção 'Método e formação'" },
+        { "texto": "Tecnologia", "href": "pages/tecnologia.html" },
+        { "texto": "Parcerias", "href": "parcerias/", "condicao": "NÃO renderizar: sobreposição (b) do diretor veda o link no rodapé da home até liberação (parcerias/index.html já existe no HEAD b26a462; a liberação é do diretor, não do arquivo)" },
+        { "texto": "Por que planejar a sucessão em vida", "href": "pages/por-que-urgente.html" },
+        { "texto": "Newsletter", "href": "#newsletter", "novo": true },
+        { "texto": "DMC Business School", "href": "plataforma-ead/login.html", "antes": "Área do aluno" },
+        { "texto": "ADTECH", "href": "https://adtech-app.complexodmc.com.br", "antes": "Ad-tech" }
+      ]
+    },
+    "legal": {
+      "copyright": "© 2026 Complexo DMC. Todos os direitos reservados.",
+      "aviso": "Conteúdo informativo. A atuação em atos privativos da advocacia, da contabilidade e da auditoria é realizada por profissionais e sociedades parceiras habilitadas; os atos notariais e registrais, por cartórios conveniados.",
+      "privacidade": { "texto": "Política de Privacidade", "href": "pages/politica-de-privacidade.html" }
+    },
+    "intocado": ["coluna Eixos (6 links)", "coluna Contato", "marca/logo"]
+  }
+}

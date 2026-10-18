@@ -100,6 +100,8 @@ process.env.JWT_SECRET = crypto.randomBytes(24).toString('hex');
 process.env.RESEND_API_KEY = '';                // nenhum e-mail sai do teste
 process.env.LEADS_EMAIL_TO = '';
 process.env.LEADS_EMAIL_FROM = '';
+process.env.NEWSLETTER_NOTIFICAR = '';          // nenhum aviso interno sai do teste
+process.env.NEWSLETTER_POLITICA_VERSAO = 'qa';
 process.env.DEV_SIMULAR_PAGAMENTO = 'false';
 process.env.CORS_ORIGINS = '';
 

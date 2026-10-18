@@ -8,7 +8,7 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 | 2 Auditoria DMC × Planning | ✅ consolidada 2026-10-17 (12 relatórios: 8 iniciais + extras raiz do repositório, deploy Vercel/D5, schema/atos privativos, chromakey/regrade) | docs/dmc/AUDIT.md (inventário, matriz, baseline, violações, backlog, riscos, bloqueios); evidências em docs/dmc/audit/2026-10-17/{site-producao,…,raiz-repositorio,backend-vercel,conformidade-schema,hero}/ |
 | 3 Estratégia / direção | ✅ aprovada (opção C) | DECISIONS.md D2 |
 | 4 Engenharia paralela | ✅ 1ª rodada | b3e03b4 (contato+headers), 8e7f2f7 (conformidade), 0e20496 (tokens) |
-| 5 Implementação criativa | ✅ home + 26 páginas internas na direção C (onda 1 pilotos e2a64dc; onda 2 = 24 páginas em 4 grupos com verificação independente); navbar.js sem 301 e Tab no mega-menu | docs/dmc/qa/2026-10-17/internas/*, QA.md |
+| 5 Implementação criativa | ✅ home + 26 páginas internas na direção C (onda 1 pilotos e2a64dc; onda 2 = 24 páginas em 4 grupos com verificação independente); navbar.js sem 301 e Tab no mega-menu. **Home v2 (2026-10-17) consolidada na árvore de trabalho, não commitada**: 10 seções (`#porque`, `#verticais`, `#presenca`, `#publicacoes`, `#newsletter` novas; `#conheca`, hero, contato, vídeo e rodapé mantidos), loops procedurais das 5 verticais, `POST /api/newsletter` + descadastro, 684/684 e2e, Lighthouse home 100/100/100/100; relatório ao CEO pronto; aguarda aprovação do CEO para commit (squash, T4) | docs/dmc/home-redesign/RELATORIO-CEO.md; integracao/README.md; aceite/*.md; `qa/2026-10-17-home-v2-r2/` |
 | 6 Mídias e 3D | ✅ filme do hero + rede neural (home); rino dourado com alpha nativo nas páginas de E1/E3 (chromakey e getImageData removidos); og-image, favicons; por página só `data-video` lazy (IDs do YouTube a definir pelo CEO) | e0b7744, 8018600 |
 | 7 QA | ✅ porta D3 aprovada 2026-10-17: E2E 454/454, API 23/23, Lighthouse mobile 100/100/100/100 em 9 internas e 99/100/100/100 na home, 0 segredos, 0 overflow 320–1920 | docs/dmc/QA.md; `docs/dmc/qa/2026-10-17-final/` |
 | 8 Entrega / publicação | 🔄 T5 preparada (vercel.json `outputDirectory`, raiz do git limpa, sitemap/robots, engines 24.x, DEPLOY.md); publicar só após rotação T3 + D3 | docs/dmc/DEPLOY.md; DECISIONS.md T5 |
@@ -17,6 +17,13 @@ Após compactação de contexto: retome daqui. Não refaça auditoria concluída
 
 | Teste | Resultado | Observação |
 |---|---|---|
+| Revisão final do arquiteto — home v2 (2026-10-17, árvore de trabalho sobre b26a462, porta 4670) | aprovado (0 falhas; 0 resíduos no diff) | Playwright próprio em 390 e 1440: 0 erro de console/pageerror/requestfailed/4xx; 11 ids na ordem; 1 h1; `role=tab` só em `#conheca`; 390 → 0 vídeo com `src`, mapa `still`; 1440 → 5 loops carregados após rolar e pausados fora da tela (`is-playing` é classe de fade, não de estado), `data-motion="paused"` ao sair; rodapé = Newsletter / DMC Business School / ADTECH, sem "Parcerias"; 27 links internos → 200; 0 âncora quebrada. `vercel.json`/`sitemap.xml` sem diff; `home.css` provisório removido (S16); versões de cache `components.css?v=3`, `styles.css?v=c7`, `navbar.js?v=c4`, `main.js?v=c4`. Pendências do CEO consolidadas em RELATORIO-CEO.md §5 (20 itens; 9 = política de privacidade é condição de publicação) |
+| Home v2 rodada 2 — suíte completa + Lighthouse home + `npm test` (QA, 2026-10-17, sobre b26a462) | aprovado (0 falhas, 0 bloqueados; 2 execuções consecutivas) | E2E **684/684** (mongod descartável ok, 184 s): a11y 58 · console 58 · eixos 15 · formulario 8 · home-secoes 35 · movimento 14 · navegacao 40 · newsletter 12 · newsletter-descadastro 15 · parcerias 73 · rotas 121 · seo 31 · vercel-config 1 · viewports 203 (0 overflow 320–1920). As 10 pendências da r1 fecharam; nenhum teste alterado. Lighthouse home **100/100/100/100, LCP 1,65 s, CLS 0,003, TBT 3 ms** (99/100/100 por execução); 2.ª execução: filtrada 84/84 + LH 100/100/100/100, LCP 1,66 s. Observação P3 (camada): CLS 0,042 só na 1.ª execução de cada lote, por troca de web font no `h1` do herói (fora do escopo). `npm test` 129/129. Segredos 0 — `qa/2026-10-17-home-v2-r2/{e2e,lighthouse}/resumo.json`, `2a-execucao/{e2e,lighthouse}/resumo.json` |
+| Verificação independente — página de descadastro da newsletter + seção Newsletter da política (QA, 2026-10-17, sobre 67e37c3) | aprovado (0 falhas; 2 pendências não bloqueantes) | `tests/e2e/newsletter-descadastro.spec.js` 15/15 na porta 4662 (API real, `mongod` descartável); Lighthouse mobile 100/100/100/69 (SEO só `is-crawlable`, `noindex` intencional; LCP 1,5 s, CLS 0,013); overflow 0 em 320/375/390/768/1440; axe 0 serious/critical (só `region` do `.whatsapp-float`, site inteiro); foco visível; 24 hrefs 200 + âncoras ok; isca, vazio, 400 por campo, 202 neutro; API: inscrito × não inscrito × já saído = mesma resposta 202/77 B, 429 por e-mail (3/24 h) e por IP (5/15 min), 403 Origin estranho, HTML sem JS com `X-Frame-Options: DENY`; política 0 console/0 overflow/âncoras ok. Pendências: content-director — 4 `[CONFIRMAR]` novos visíveis na seção `#newsletter`; frontend-motion P3 — `.whatsapp-float` fora de landmark — `qa/2026-10-17/newsletter-descadastro/{e2e/resumo.json,lighthouse-mobile.json,probe.json,*.png}` |
+| Home v2 rodada 1 — suíte completa + Lighthouse home + `npm test` (QA, 2026-10-17, sobre b26a462) | falhou (10 pendências: 8 página, 1 camada, 1 conteúdo; 9 falhas de teste corrigidas) | E2E 665: 646 aprovados, 19 falharam, 0 bloqueados (mongod ok). Página (frontend-motion): newsletter 8 — `data-origem="home-newsletter"`/`#newsletterMessage` vs spec `home`/`#nlMessage` (index.html l. 717–718/752, main.js l. ~407) e `validarLocal` torna o 400 inalcançável. Camada (frontend-motion): `brasil.js` `data-motion="on"` vs spec `running`. Conteúdo (content-director): `#publicacoes` cita "inventário" sem atribuição na seção (copy.json l. 261). Teste corrigido: overflow ×7 (honeypot `.form-hp` off-screen), terceiros ×1 (`/logo/` casava "catalogo"), axe `#treinamentos` ×1 (amostra em meio ao fade; repouso 5,17:1) → `home-secoes` 34/35 na reexecução. Lighthouse home 99/100/100/100, **LCP 1,96 s > 1,8 s (§7)**, CLS 0,003, TBT 20 ms — 4.º CSS render-blocking `home.css` (S16: fundir em styles.css), dono camada. `npm test` 129/129. Segredos 0 — `qa/2026-10-17-home-v2-r1/{e2e,lighthouse}/resumo.json`, `apos-ajuste-teste/e2e/resumo.json` |
+| Verificação independente — cabeçalho + Acessar + Central de Parcerias + candidaturas (QA, 2026-10-17) | aprovado (0 falha do pacote) · 4 pendências P3 · 4 de conformidade (CEO) | `tests/e2e/parcerias.spec.js` 73/73 (API real com `mongod` descartável; estável 3×). Suíte completa 650/669 — as 19 falhas são home/newsletter (`newsletter` 8, `home-secoes` 10, `movimento` 1). `vercel build` ok, 4 redirects `^/parcerias…$`; API 129/129; Lighthouse mobile 99–100/100/100/100 em parcerias, advogados-parceiros, business-partner, tecnologia e planejamento-sucessorio (CLS ≤ 0,002). P3: `/parcerias/partner-lawyers/` com barra 404 (`vercel.json:96`), throttle compartilhado PL+BP, corrida → 2 candidaturas, sem JS mostra JSON. ADTECH sem resposta daqui. CEO: "Agente Prospector", "percentuais" no FAQ BP, h1 "Excelência profissional", `[CONFIRMAR]` de retenção na política — `docs/dmc/QA_REPORT.md`, `qa/2026-10-17-parcerias/e2e/`, `qa/2026-10-17/parcerias/` |
+| Suíte da nova home escrita, ainda não executada (QA, 2026-10-17) | bloqueado (home nova em montagem) | 4 specs: `tests/e2e/eixos.spec.js` (15, substitui `home.spec.js` — removido), `movimento.spec.js` (14: herói + `#conheca` mantidos; `#presenca` e `#verticais` novos), `newsletter.spec.js` (12; API real com `mongod` descartável), `home-secoes.spec.js` (35: ordem dos ids, conformidade, terceiros, axe por seção 1440/390, imagens ≤ 250 KB, overflow por seção 320–1920). `npx playwright test --list`: 76 testes nos 4 arquivos, 596 na suíte (sintaxe ok). Helpers em `tests/e2e/_site.js` (`SECOES_HOME`, `EIXOS`, `CATALOGO_EIXOS`, `RE_CONFORMIDADE`, `instalarContadorRaf/contarRaf`, `textoVisivel`, `focoVisivel`, `overflowPorSecao`, `estaNoSitemap`). Destrava quando frontend-motion entregar a home nova: `QA_PORT=<porta> QA_DATA=<data>-home-v2 npx playwright test tests/e2e/{eixos,movimento,newsletter,home-secoes,formulario}.spec.js` (ver QA.md §Grupos) |
+| Contratos de teste do redesign da home (QA, 2026-10-17) | aprovado (linha de base 20/20) · pendências abertas | `docs/dmc/home-redesign/contratos-qa.md`: home.spec 7/7 quebram com o grid; movimento.spec precisa de novo método para canvas WebGL; a home deve preservar `#features` (28 links de entrada), `#treinamentos` (28) e `#contact` (44); `POST /api/newsletter` inexistente (backend-engineer); 6 cursos da home fora do catálogo da EAD (content-director). Base medida: home 7/7, movimento 5/5, formulario 8/8 — `qa/2026-10-17-contratos-qa/e2e/` |
 | Verificação g4-e5-e6 v2 — recuperacao-ativos + 6 trabalhistas (QA independente, 2026-10-17) | aprovado (0 falhas) | Suíte filtrada 106/106; Lighthouse mobile 100/100/100/100 nas 7 (LCP ≤ 1,21 s, CLS ≤ 0,004, TBT 0); checagens diretas ok nas 7 incl. 0 `<style>` inline (pendência v1 resolvida em `pages/css/recuperacao-ativos.css`); JSON-LD idêntico ao HEAD; texto sem mudança de sentido — `qa/2026-10-17-g4-e5-e6-v2/e2e/resumo.json`, `qa/2026-10-17/internas/g4-e5-e6/v2/` |
 | Verificação g4-e5-e6 v1 — recuperacao-ativos + 6 trabalhistas (QA independente, 2026-10-17) | falhou (1 pendência dono=pagina) | Suíte filtrada 106/106; Lighthouse mobile 100/100/100/100 nas 7 (LCP ≤ 1,35 s, CLS ≤ 0,003); checagens diretas ok nas 7; JSON-LD/texto sem mudança de sentido. Pendência: `recuperacao-ativos.html:45` `<style>` inline (`.ra-growth`, `.ra-tri`) — `qa/2026-10-17-g4-e5-e6-v1/e2e/resumo.json`, `qa/2026-10-17/internas/g4-e5-e6/v1/` |
 | Suíte D3 final — rotas/redirects/segredos/sub-recursos/links/crawl (QA 2026-10-17-final, 454/454) | aprovado (109/109) | sitemap 200, 13 redirects do vercel.json, 18 arquivos internos ≠ 200, 0 segredos, 0 sub-recursos 4xx/5xx, links por página sem 301/404 (navbar.js corrigido), crawl sem link quebrado — `qa/2026-10-17-final/e2e/resumo.json` |
@@ -147,3 +154,49 @@ ativos na EAD e cargas/formatos (20/16/24/18/12/8 h; presencial e híbrido); (c)
 que a plataforma entrega isso hoje; (d) logo do JSON-LD = `RINO_logo.png` (1280×560) — ok?
 **Para frontend/mídia:** gerar `og-image.jpg` 1200×630 a partir do novo poster do hero (hoje
 aponta para o poster antigo); pré-seleção do `select#cf-eixo` pelo `data-assunto` dos CTAs.
+
+## Seção "Sobre" da home + página institucional — 2026-10-17
+Feito: seção `#conheca` redesenhada (overline "Sobre", headline "Decisões complexas pedem visão
+integrada.", lead = mensagem central do CEO, tablist dos seis eixos com setas/Home/End, foco do
+eixo com fade + 8px, CTAs primário → `#contact` e secundário → `pages/sobre.html`); rede neural
+reescrita (anel com arco lento, brilho radial sutil, linhas finas, pulsos, rótulos número + nome
+curto, avanço automático a cada 5 s até a primeira interação, nó clicável, reduce = quadro
+estático); `pages/sobre.html` nova (content-director); "A casa" → "Sobre" no menu/gaveta/rodapés;
+`sitemap.xml`. QA local: 0 overflow e 0 erro de console em 390/1024/1440; interações verificadas
+por script (clique, teclado, hover lista↔rede, clique no nó, reduced-motion sem animação nem
+avanço). Capturas em `docs/dmc/qa/2026-10-17/sobre/`.
+**Para o CEO:** (a) revisar o texto de `pages/sobre.html` (afirmação "um responsável por eixo e
+governança comum" veio do briefing, não de documento-fonte); (b) nomes dos parceiros habilitados
+e cartórios conveniados continuam só por categoria; (c) atendimento fora de SP respondido como
+"definido na conversa inicial".
+
+## Página Sobre v2 (layout na estrutura da Planning) — 2026-10-17
+Pedido do CEO: a v1 de `pages/sobre.html` "não está adequada"; seguir planning.com.br/sobre como
+modelo de layout. Refeita com CSS próprio `pages/css/sobre.css` (namespace `sb-`, só tokens) e
+abas em `assets/js/sobre.js`. Estrutura: herói com cartaz do rinoceronte + trilha · faixa preta
+de fatos sobreposta (só fatos D7) · "Somos o Complexo DMC" (malha `.sol-net` + texto) · "Quem
+conduz" (CEO) · propósito em faixa escura · seis eixos em abas (pergunta, especialidade, para
+quem, quando procurar — de EIXOS-COPY) · método 01–04 · governança "quem assina o quê" · FAQ ·
+`#video` · conversa + sede. Corpo em papel, faixas escuras. JSON-LD: AboutPage, FAQPage (igual
+ao HTML) e BreadcrumbList. QA: 0 overflow 320–1920, 0 erro de console, contraste ≥ 5,1:1, abas
+por clique/setas/Home/End/`#sb-eixo-N`, sem JS = seis painéis empilhados; e2e `--grep sobre`
+15/16 — a falha são os links `/parcerias/*` do menu, WIP da sessão de Parcerias.
+**Para o CEO:** foto e demais sócios do bloco "Quem conduz"; linha do tempo e selos só com datas
+e prêmios comprovados.
+
+## Página Sobre v3 — fotos e documento institucional (2026-10-17)
+Fonte: "Complexo-DMC-Institucional" (PDF do CEO, em ~/Downloads) + 5 fotos enviadas no chat.
+Fotos tratadas (recorte, cor única, nitidez, vinheta leve; WebP em 2 larguras, sem metadados/GPS) em
+`assets/images/sobre/`: recepção 3º, sala de atendimento 3º (porta-retratos desfocados, sem objetos
+pessoais), estúdio 7º, portaria (rosto do porteiro desfocado) e retratos P&B 4:5 de Daniel, Dr. Matheus
+e Darci (os dois últimos extraídos do PDF). Descartada: estações de trabalho (telas com documentos).
+Página: fatos 3 andares/5 competências/6 eixos/1 endereço; "Somos" com foto e texto da apresentação;
+"Quem responde" (3 retratos, cargos e registros CRA/OAB/CRC); trajetória 01–04; instalações (quadro de
+andares + galeria); método com entrega por etapa + 4 princípios; FAQ "fora de SP" com o atendimento
+digital do 7º; sede com sala 32, CEP, prédio, razão social e CNPJ (também no JSON-LD). Governança
+intacta. `solucao.js` saiu da página. e2e `--grep sobre` 17/17; 0 overflow; 0 erro de console.
+**Para o CEO (conformidade):** (a) o PDF descreve jurídico e contabilidade internos; governança e
+rodapé dizem que atos privativos são de parceiros — decidir com o responsável jurídico; (b) fora:
+"remuneração por resultado/honorários de êxito" (Prov. 205/2021 veda divulgar honorários) e "reunião
+de 30 minutos sem compromisso".
+

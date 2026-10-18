@@ -17,6 +17,11 @@
 //   parcerias_candidaturas { protocolo, programa, email, dados, fonte, status, historico[],
 //                responsavel, consentimento, comunicacoes, retencaoAte, createdAt, updatedAt }
 //                (POST /api/parcerias/* — ver routes/parcerias.js)
+//   newsletter_inscricoes { email (minúsculas, único), nome, empresa?, status:'ativa'|'descadastrada',
+//                origem, criadoEm, atualizadoEm,
+//                consentimentos:[{ em, ipTruncado|null, origem, politicaVersao, texto, baseLegal }] (50 mais recentes),
+//                descadastro?:{ em, via:'token'|'email'|'manual' } (o vigente; some na reinscrição),
+//                descadastros:[{ em, via }] (histórico, nunca apagado) }  (POST /api/newsletter — ver routes/newsletter.js)
 // =============================================================
 import { MongoClient } from 'mongodb';
 import { config } from './config.js';
@@ -26,9 +31,13 @@ let db = null;
 
 export async function connect() {
   if (db) return db;
+  // Falha rápido se o IP não estiver liberado no Network Access do Atlas.
+  // Se a URI já traz serverSelectionTimeoutMS, ela manda; senão vale
+  // config.mongoServerSelectionTimeoutMs (menor na Vercel, onde a função tem
+  // 10 s e o 503 de contato/newsletter precisa sair antes do 504 do edge).
+  const uriTemTimeout = /[?&]serverSelectionTimeoutMS=/i.test(config.mongoUri);
   client = new MongoClient(config.mongoUri, {
-    // Falha rápido se o IP não estiver liberado no Network Access do Atlas.
-    serverSelectionTimeoutMS: 15000,
+    ...(uriTemTimeout ? {} : { serverSelectionTimeoutMS: config.mongoServerSelectionTimeoutMs }),
     retryWrites: true
   });
   await client.connect();
@@ -59,7 +68,8 @@ export const col = {
   lives: () => getDb().collection('lives'),
   certificados: () => getDb().collection('certificados'),
   leads: () => getDb().collection('leads'),
-  parcerias: () => getDb().collection('parcerias_candidaturas')
+  parcerias: () => getDb().collection('parcerias_candidaturas'),
+  newsletter: () => getDb().collection('newsletter_inscricoes')
 };
 
 async function ensureIndexes() {
@@ -91,6 +101,9 @@ async function ensureIndexes() {
     // e busca por protocolo. Sem índice TTL: a retenção depende do CEO.
     col.parcerias().createIndex({ programa: 1, status: 1, createdAt: -1 }, { name: 'ix_parcerias_fila' }),
     col.parcerias().createIndex({ email: 1, programa: 1, createdAt: -1 }, { name: 'ix_parcerias_email' }),
-    col.parcerias().createIndex({ protocolo: 1 }, { unique: true, name: 'uq_parcerias_protocolo' })
+    col.parcerias().createIndex({ protocolo: 1 }, { unique: true, name: 'uq_parcerias_protocolo' }),
+    // Newsletter: e-mail é a chave de dedupe (upsert) e a lista ativa sai por status/data.
+    col.newsletter().createIndex({ email: 1 }, { unique: true, name: 'uq_newsletter_email' }),
+    col.newsletter().createIndex({ status: 1, criadoEm: -1 }, { name: 'ix_newsletter_status_data' })
   ]);
 }

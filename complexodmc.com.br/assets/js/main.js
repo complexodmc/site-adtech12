@@ -1,7 +1,9 @@
 // ============================================
 // COMPLEXO DMC — MAIN JAVASCRIPT (home)
-// Menu: assets/js/navbar.js · Rede neural: assets/js/rede-neural.js
-// Vídeo do fim da página: assets/js/video.js
+// Menu: assets/js/navbar.js · Rede neural (#conheca): assets/js/rede-neural.js
+// Mapa (#presenca): assets/js/brasil.js · Vídeo do fim da página: assets/js/video.js
+// Seções novas da home v2 (docs/dmc/HOME_REDESIGN.md §5.3): initVerticais,
+// initNewsletter, initEixosAncora e o WhatsApp qualificado, no fim deste arquivo.
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -245,259 +247,322 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================
-// SOLUÇÕES — PAINEL DOS SEIS EIXOS
-// Progressive enhancement: sem JS os seis banners (#eixo-1…6) e
-// os cards aparecem empilhados e a faixa E1…E6 são âncoras. Aqui a
-// faixa vira tablist (setas, Home, End, tabindex móvel) e mostra um
-// eixo por vez. Estado inicial: E1, ou o #eixo-N da URL.
+// HOME v2 — seções novas (docs/dmc/HOME_REDESIGN.md §5.3)
+// Tudo abaixo é progressive enhancement: sem JS as seções ficam
+// inteiras (poster das verticais, SVG do mapa, POST nativo da newsletter).
 // ============================================================
 (function () {
   'use strict';
 
-  const initEixos = (cards) => {
-    const sec = document.getElementById('features');
-    if (!sec) return;
+  // ==== 05 · VERTICAIS DE NEGÓCIOS · loops de vídeo decorativos ====
+  // Spec: docs/dmc/HOME_REDESIGN.md §3·05 e §2.7. Exportado, sem auto-execução;
+  // o integrador chama initVerticais() a partir de main.js (?v=c4).
+  //
+  // Gate (todos obrigatórios): viewport ≥ 1024 · prefers-reduced-motion: no-preference
+  // · !navigator.connection.saveData · IntersectionObserver disponível.
+  // Fora do gate o <video> nunca recebe <source> (0 bytes; o <picture> é a imagem final).
+  // Dentro: IO threshold .25 → ao entrar injeta <source> a partir de data-src-webm /
+  // data-src-mp4 (uma vez), remove hidden e play(); ao sair pause(); visibilitychange
+  // pausa/retoma; evento playing → classe is-playing (CSS faz o fade). Sem fetch, sem rAF,
+  // sem acesso a nada fora de #verticais.
 
-    const abas = Array.from(sec.querySelectorAll('.np-axes a[data-eixo]'));
-    const paineis = Array.from(sec.querySelectorAll('.np-flag[data-eixo]'));
-    const grade = document.getElementById('npGrid');
-    if (!abas.length || !paineis.length) return;
+  function initVerticais(root = document) {
+    const secao = root.querySelector('#verticais');
+    if (!secao) return;
 
-    const lista = sec.querySelector('.np-axes');
-    lista.setAttribute('role', 'tablist');
-    abas.forEach((aba) => {
-      const n = aba.dataset.eixo;
-      aba.setAttribute('role', 'tab');
-      aba.id = 'aba-eixo-' + n;
-      aba.setAttribute('aria-controls', 'eixo-' + n);
-      aba.parentElement.setAttribute('role', 'presentation');
+    const loops = Array.from(secao.querySelectorAll('video.verticais-item__loop[data-src-webm], video.verticais-item__loop[data-src-mp4]'));
+    if (!loops.length || typeof IntersectionObserver !== 'function' || typeof matchMedia !== 'function') return;
+
+    const mqLargura = matchMedia('(min-width: 1024px)');
+    const mqMovimento = matchMedia('(prefers-reduced-motion: no-preference)');
+    const economia = () => Boolean(navigator.connection && navigator.connection.saveData);
+    const liberado = () => mqLargura.matches && mqMovimento.matches && !economia();
+
+    if (!liberado()) return;   // nunca anexa src: Lighthouse mobile e reduce ficam em 0 bytes
+
+    const visiveis = new Set();
+
+    function preparar(video) {
+      if (video.dataset.pronto === '1') return;
+      video.dataset.pronto = '1';
+      const fontes = [
+        ['webm', 'video/webm'],
+        ['mp4', 'video/mp4']
+      ];
+      for (const [chave, tipo] of fontes) {
+        const src = video.dataset['src' + chave.charAt(0).toUpperCase() + chave.slice(1)];
+        if (!src) continue;
+        const source = document.createElement('source');
+        source.src = src;
+        source.type = tipo;
+        video.appendChild(source);
+      }
+      video.addEventListener('playing', () => video.classList.add('is-playing'), { passive: true });
+      // Último <source> falhou → nenhuma fonte tocável: volta ao poster.
+      const ultimo = video.lastElementChild;
+      if (ultimo) ultimo.addEventListener('error', () => {
+        video.classList.remove('is-playing');
+        video.classList.add('is-broken');
+        video.hidden = true;
+      }, { once: true });
+      video.hidden = false;
+      video.load();
+    }
+
+    function tocar(video) {
+      if (!liberado() || document.hidden || video.classList.contains('is-broken')) return;
+      preparar(video);
+      const p = video.play();
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+    }
+
+    function pausar(video) {
+      if (!video.paused) video.pause();
+    }
+
+    // Observa a <figure> (sempre renderizada), não o <video>: com [hidden] ele tem caixa
+    // zero e nunca "entra" na viewport.
+    const io = new IntersectionObserver((entradas) => {
+      for (const e of entradas) {
+        const video = e.target.querySelector('video.verticais-item__loop');
+        if (!video) continue;
+        if (e.isIntersecting) { visiveis.add(video); tocar(video); }
+        else { visiveis.delete(video); pausar(video); }
+      }
+    }, { threshold: 0.25 });
+
+    loops.forEach((v) => io.observe(v.closest('.verticais-item__media') || v.parentElement));
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) loops.forEach(pausar);
+      else visiveis.forEach(tocar);
     });
-    paineis.forEach((p) => {
-      p.setAttribute('role', 'tabpanel');
-      p.setAttribute('aria-labelledby', 'aba-eixo-' + p.dataset.eixo);
-    });
 
-    // Sorteia qual solução do eixo aparece no box "Em destaque" — uma
-    // vez por visita e por eixo, para a troca de aba não embaralhar o
-    // painel a cada clique. O HTML já vem com um destaque válido (sem JS).
-    const sortearDestaque = (painel) => {
-      // Um eixo pode fixar o seu destaque no HTML com data-np-spot="fixo".
-      // É o caso de um programa que não é um dos cards do catálogo — o
-      // sorteio o apagaria a cada visita.
-      if (painel.dataset.npSpot === 'fixo' || painel.dataset.npSorteado) return;
-      painel.dataset.npSorteado = '1';
-      const doEixo = cards.filter((c) => c.dataset.eixo === painel.dataset.eixo && c.querySelector('.np-ico'));
-      const spot = painel.querySelector('.np-spot');
-      if (!spot || !doEixo.length) return;
-      const card = doEixo[Math.floor(Math.random() * doEixo.length)];
-      spot.querySelector('.np-spot-ico').innerHTML = card.querySelector('.np-ico').innerHTML;
-      spot.querySelector('.np-spot-name').textContent = card.querySelector('.np-ct').textContent;
-      spot.querySelector('.np-spot-desc').textContent = card.querySelector('.np-cd').textContent;
-      spot.querySelector('.np-spot-link').setAttribute('href', card.getAttribute('href'));
-    };
+    // Saiu do gate (rotacionou, ativou reduce): pausa; voltou: retoma só o que está na tela.
+    const reavaliar = () => { if (liberado()) visiveis.forEach(tocar); else loops.forEach(pausar); };
+    if (typeof mqLargura.addEventListener === 'function') {
+      mqLargura.addEventListener('change', reavaliar);
+      mqMovimento.addEventListener('change', reavaliar);
+    }
+  }
 
-    // Entrada suave: a classe reinicia a animação (CSS: mídia, depois texto).
-    const entrar = (el) => {
-      if (!el) return;
-      el.classList.remove('is-entering');
-      void el.offsetWidth;
-      el.classList.add('is-entering');
-    };
+  // ==== 09 · NEWSLETTER ==== initNewsletter()
+  // Clone do formulário de contato (acima) para #newsletterForm → POST /api/newsletter.
+  // Contrato: server/src/routes/newsletter.js (201 {ok:true} · 200 isca · 400 {error,campos}
+  // · 413 · 429 · 503). Copy: docs/dmc/home-redesign/copy.json → newsletter.mensagens.
+  // Regras: sucesso SÓ com resposta 2xx e corpo.ok === true; erros nunca contêm
+  // "receb"/"cadastrad"; sem JS o form faz POST nativo (novalidate só entra aqui).
+  // Sem auto-execução; não toca nada fora da própria seção.
 
-    let atual = null;
-    const api = { aoTrocarAba: null, atual: () => atual };
+  const EMAIL_NEWSLETTER = 'administrativo@complexodmc.com.br';
+  const TIMEOUT_MS = 15000;
 
-    const ativar = (n, foco, animar) => {
-      atual = n;
-      abas.forEach((aba) => {
-        const ligada = aba.dataset.eixo === n;
-        aba.setAttribute('aria-selected', ligada ? 'true' : 'false');
-        aba.tabIndex = ligada ? 0 : -1;
-      });
-      paineis.forEach((p) => {
-        p.hidden = p.dataset.eixo !== n;
-        if (!p.hidden) {
-          sortearDestaque(p);
-          if (animar) entrar(p);
+  const MENSAGENS_NEWSLETTER = Object.freeze({
+    enviando: 'Enviando…',
+    sucesso201: 'Inscrição registrada. Você pode sair da lista a qualquer momento pelo link de cada mensagem ou por ' + EMAIL_NEWSLETTER + '.',
+    sucesso200: 'Inscrição registrada.',
+    revise: 'Revise os campos indicados.',
+    nomeVazio: 'Informe seu nome.',
+    emailVazio: 'Informe seu e-mail.',
+    consentimento: 'Para se inscrever, é preciso autorizar o uso do seu nome e e-mail (LGPD).',
+    erro400Json: 'Não foi possível ler os dados enviados. Tente de novo.',
+    erro413: 'Conteúdo grande demais. Confira os campos e tente de novo.',
+    erro429: 'Muitas tentativas em sequência. Aguarde alguns minutos e tente de novo.',
+    erro503: 'Não foi possível registrar agora. Tente de novo em alguns minutos ou escreva para ' + EMAIL_NEWSLETTER + '.',
+    erroRede: 'Não conseguimos falar com o servidor. Confira sua conexão e tente de novo.'
+  });
+
+  // Guarda final (OAB/LGPD): nenhuma mensagem de erro pode soar como confirmação.
+  const PROIBIDO_EM_ERRO = /receb|cadastrad/i;
+  function textoErro(texto) {
+    return PROIBIDO_EM_ERRO.test(texto) ? MENSAGENS_NEWSLETTER.erro503 : texto;
+  }
+
+  // Validação local só dos obrigatórios (HOME_REDESIGN.md §3.09: "valida obrigatórios");
+  // formato de e-mail, tamanho mínimo/máximo e demais regras ficam com o servidor
+  // (400 {error, campos}), que é a fonte única da regra e o que o QA exercita.
+  function validarLocal(valores) {
+    const M = MENSAGENS_NEWSLETTER;
+    const campos = {};
+    if (!String(valores.nome || '').trim()) campos.nome = M.nomeVazio;
+    if (!String(valores.email || '').trim()) campos.email = M.emailVazio;
+    if (valores.consentimento !== true) campos.consentimento = M.consentimento;
+    return campos;
+  }
+
+  function initNewsletter(root = document) {
+    const form = root.getElementById ? root.getElementById('newsletterForm') : root.querySelector('#newsletterForm');
+    if (!form || form.tagName !== 'FORM' || form.dataset.nlPronto === '1') return null;
+    form.dataset.nlPronto = '1';
+
+    const mensagem = form.querySelector('#nlMessage');
+    const botao = form.querySelector('[type="submit"]');
+    const rotuloBotao = botao ? botao.textContent : '';
+    const endpoint = form.getAttribute('action') || '/api/newsletter';
+    const M = MENSAGENS_NEWSLETTER;
+
+    // Com JS a validação nativa sai de cena (mensagens próprias, por campo);
+    // sem JS o navegador continua bloqueando vazios antes do POST nativo.
+    form.noValidate = true;
+
+    function mostrarEstado(texto, estado) {
+      if (!mensagem) return;
+      mensagem.textContent = estado === 'erro' ? textoErro(texto) : texto;
+      mensagem.className = 'form-message is-' + estado;
+    }
+
+    function ocupado(sim) {
+      if (sim) form.setAttribute('aria-busy', 'true');
+      else form.removeAttribute('aria-busy');
+      if (botao) {
+        botao.disabled = sim;
+        botao.textContent = sim ? M.enviando : rotuloBotao;
+      }
+    }
+
+    function limparErro(campo) {
+      if (!campo || !campo.removeAttribute || !campo.id) return;
+      campo.removeAttribute('aria-invalid');
+      const erro = form.querySelector('#' + campo.id + '-erro');
+      if (erro) erro.remove();
+      const ids = (campo.getAttribute('aria-describedby') || '').split(/\s+/)
+        .filter((id) => id && id !== campo.id + '-erro');
+      if (ids.length) campo.setAttribute('aria-describedby', ids.join(' '));
+      else campo.removeAttribute('aria-describedby');
+    }
+
+    function marcarInvalidos(campos) {
+      let primeiro = null;
+      Object.keys(campos || {}).forEach((nome) => {
+        const campo = form.elements.namedItem(nome);
+        if (!campo || !campo.setAttribute || !campo.id) return;
+        campo.setAttribute('aria-invalid', 'true');
+        const idErro = campo.id + '-erro';
+        let erro = form.querySelector('#' + idErro);
+        if (!erro) {
+          erro = document.createElement('p');
+          erro.id = idErro;
+          erro.className = 'form-field__error';
+          (campo.closest('.form-field, .form-consent') || campo.parentNode).appendChild(erro);
         }
+        erro.textContent = textoErro(String(campos[nome]));
+        const ids = (campo.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+        if (ids.indexOf(idErro) === -1) ids.push(idErro);
+        campo.setAttribute('aria-describedby', ids.join(' '));
+        if (!primeiro) primeiro = campo;
       });
-      let i = 0;
-      cards.forEach((c) => {
-        c.hidden = c.dataset.eixo !== n;
-        if (!c.hidden) c.style.setProperty('--i', i++);
+      if (primeiro && primeiro.focus) primeiro.focus();
+    }
+
+    form.addEventListener('input', (e) => limparErro(e.target));
+    form.addEventListener('change', (e) => limparErro(e.target));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (form.getAttribute('aria-busy') === 'true') return;
+      form.querySelectorAll('[aria-invalid="true"]').forEach(limparErro);
+
+      const dados = {};
+      new FormData(form).forEach((valor, campo) => {
+        dados[campo] = typeof valor === 'string' ? valor.trim() : valor;
       });
-      if (animar) entrar(grade);
-      if (foco) {
-        history.replaceState(null, '', '#eixo-' + n);
-        document.getElementById('aba-eixo-' + n).focus();
-      }
-    };
+      const consentimento = form.elements.namedItem('consentimento');
+      dados.consentimento = Boolean(consentimento && consentimento.checked);
+      dados.origem = form.dataset.origem || dados.origem || 'home';
 
-    const irPara = (i) => {
-      if (api.aoTrocarAba) api.aoTrocarAba();
-      ativar(abas[(i + abas.length) % abas.length].dataset.eixo, true, true);
-    };
-
-    abas.forEach((aba, i) => {
-      aba.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (aba.dataset.eixo === atual && !sec.classList.contains('np-busca')) { aba.focus(); return; }
-        irPara(i);
-      });
-      // ← → percorrem as abas; Home/End vão às pontas (padrão de tablist)
-      aba.addEventListener('keydown', (e) => {
-        const alvo =
-          e.key === 'ArrowRight' ? i + 1 :
-          e.key === 'ArrowLeft' ? i - 1 :
-          e.key === 'Home' ? 0 :
-          e.key === 'End' ? abas.length - 1 : null;
-        if (alvo === null) return;
-        e.preventDefault();
-        irPara(alvo);
-      });
-    });
-
-    sec.classList.add('np-js');
-    const naUrl = (location.hash.match(/^#eixo-([1-6])$/) || [])[1];
-    ativar(naUrl || '1', false, false);
-    // Link externo para #eixo-N: o painel já abriu; leva a faixa de abas à vista.
-    if (naUrl) requestAnimationFrame(() => lista.scrollIntoView({ block: 'start' }));
-    window.addEventListener('hashchange', () => {
-      const h = (location.hash.match(/^#eixo-([1-6])$/) || [])[1];
-      if (h && h !== atual) {
-        ativar(h, false, true);
-        lista.scrollIntoView({ block: 'start' });
-      }
-    });
-    api.ativar = ativar;
-    return api;
-  };
-
-  // ============================================================
-  // O campo "qual é a sua situação"
-  // Enquanto a pessoa digita, filtra situações e soluções pelo
-  // texto visível + o dicionário de sinônimos em data-busca —
-  // tudo no navegador, nada trafega. Se não casar nada, o campo
-  // troca de função e vira canal direto de WhatsApp.
-  // ============================================================
-  const initBusca = (cards, eixos) => {
-    const sec = document.getElementById('features');
-    const form = document.getElementById('npAskForm');
-    const input = document.getElementById('npAsk');
-    const status = document.getElementById('npAskStatus');
-    const vazio = document.querySelector('.np-ask-empty');
-    const limpar = form && form.querySelector('.np-ask-clear');
-    const paineis = Array.from(document.querySelectorAll('.np-flag[data-eixo]'));
-    const situacoes = Array.from(document.querySelectorAll('.np-cases li'));
-    if (!form || !input || !eixos) return;
-
-    const sem = (s) =>
-      s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-    // palavras que aparecem em qualquer frase e não distinguem nada
-    const vazias = new Set(['que','com','uma','para','meu','minha','nao','dos','das','mas','por','sem','tem','the','and','como','sobre','quero','preciso','estou','tenho','fazer','ser','ter']);
-
-    const indexar = (el) =>
-      sem(el.textContent + ' ' + (el.dataset.busca || '')).replace(/\s+/g, ' ');
-
-    const itens = [...cards, ...situacoes.map((li) => li.querySelector('.np-case'))]
-      .filter(Boolean)
-      .map((el) => ({ el, alvo: el.closest('li') || el, texto: indexar(el) }));
-
-    const texto = (n, sing, plur) => n + ' ' + (n === 1 ? sing : plur);
-
-    const buscar = () => {
-      const q = input.value.trim();
-      const termos = sem(q)
-        .split(/[^a-z0-9]+/)
-        .filter((t) => t.length >= 3 && !vazias.has(t));
-
-      limpar.hidden = !q;
-      sec.classList.toggle('np-busca', termos.length > 0);
-
-      // campo vazio: volta para o modo abas
-      if (!termos.length) {
-        itens.forEach((i) => {
-          i.alvo.hidden = false;
-          i.alvo.style.order = '';
-        });
-        status.textContent = '';
-        vazio.hidden = true;
-        eixos.ativar(eixos.atual(), false, false);
+      const invalidos = validarLocal(dados);
+      if (Object.keys(invalidos).length) {
+        marcarInvalidos(invalidos);
+        mostrarEstado(M.revise + ' ' + Object.values(invalidos).join(' '), 'erro');
         return;
       }
 
-      let solucoes = 0;
-      let casos = 0;
-      itens.forEach((i) => {
-        const acertos = termos.filter((t) => i.texto.includes(t)).length;
-        i.alvo.hidden = !acertos;
-        // quem casa mais termos sobe na grade (order aceita negativo)
-        i.alvo.style.order = acertos ? String(-acertos) : '';
-        if (acertos) i.el.classList.contains('np-card') ? solucoes++ : casos++;
-      });
+      ocupado(true);
+      mostrarEstado(M.enviando, 'enviando');
 
-      // na busca, os banners de eixo saem de cena
-      paineis.forEach((p) => (p.hidden = true));
-
-      if (solucoes + casos === 0) {
-        status.innerHTML = 'Nada encontrado para <b>' + q.replace(/[<>&]/g, '') + '</b>.';
-        vazio.hidden = false;
-        vazio.querySelector('.np-ask-wa').href =
-          'https://wa.me/5511915267749?text=' +
-          encodeURIComponent('Olá! Minha situação: ' + q);
-      } else {
-        status.innerHTML =
-          '<b>' + texto(solucoes, 'solução', 'soluções') + '</b>' +
-          (casos ? ' e ' + texto(casos, 'situação', 'situações') : '') +
-          ' para “' + q.replace(/[<>&]/g, '') + '”.';
-        vazio.hidden = true;
+      let resposta;
+      let corpo = null;
+      try {
+        const opcoes = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(dados),
+          credentials: 'same-origin'
+        };
+        if (window.AbortSignal && typeof AbortSignal.timeout === 'function') {
+          opcoes.signal = AbortSignal.timeout(TIMEOUT_MS);
+        }
+        resposta = await fetch(endpoint, opcoes);
+        corpo = await resposta.json().catch(() => null);
+      } catch (err) {
+        ocupado(false);
+        mostrarEstado(M.erroRede, 'erro');
+        return;
       }
-    };
+      ocupado(false);
 
-    let tempo;
-    input.addEventListener('input', () => {
-      clearTimeout(tempo);
-      tempo = setTimeout(buscar, 120);
+      // Sucesso só com 2xx E { ok: true } — nunca simulado.
+      if (resposta.ok && corpo && corpo.ok === true) {
+        form.reset();
+        mostrarEstado(resposta.status === 201 ? M.sucesso201 : M.sucesso200, 'sucesso');
+        return;
+      }
+      if (resposta.status === 400 && corpo && corpo.campos && typeof corpo.campos === 'object') {
+        marcarInvalidos(corpo.campos);
+        mostrarEstado(M.revise + ' ' + Object.values(corpo.campos).join(' '), 'erro');
+        return;
+      }
+      if (resposta.status === 400) { mostrarEstado(M.erro400Json, 'erro'); return; }
+      if (resposta.status === 413) { mostrarEstado(M.erro413, 'erro'); return; }
+      if (resposta.status === 429) { mostrarEstado(M.erro429, 'erro'); return; }
+      mostrarEstado(M.erro503, 'erro'); // 503, demais 5xx, 2xx sem ok:true, qualquer outro
     });
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      clearTimeout(tempo);
-      buscar();
-      // Enter sem resultado abre o WhatsApp: é gesto do usuário,
-      // então nenhum bloqueador de pop-up atrapalha.
-      if (!vazio.hidden) vazio.querySelector('.np-ask-wa').click();
-    });
-    limpar.addEventListener('click', () => {
-      input.value = '';
-      buscar();
-      input.focus();
-    });
-    // trocar de eixo pela faixa encerra a busca
-    eixos.aoTrocarAba = () => {
-      sec.classList.remove('np-busca');
-      if (!input.value) return;
-      input.value = '';
-      itens.forEach((i) => {
-        i.alvo.hidden = false;
-        i.alvo.style.order = '';
-      });
-      status.textContent = '';
-      vazio.hidden = true;
-      limpar.hidden = true;
-    };
-  };
 
-  const initSolucoes = () => {
-    const grid = document.getElementById('npGrid');
-    if (!grid) return;
-    const cards = Array.from(grid.querySelectorAll('.np-card'));
-    const eixos = initEixos(cards);
-    initBusca(cards, eixos);
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSolucoes);
-  } else {
-    initSolucoes();
+    return form;
   }
+
+  // ==== 03 · SEIS EIXOS · âncora #eixo-N ====
+  // Sem ARIA, sem replaceState: só garante que o artigo pare abaixo da navbar
+  // fixa (scroll-margin-top vem do CSS) quando a página abre com #eixo-1…6.
+  function initEixosAncora() {
+    const n = (location.hash.match(/^#eixo-([1-6])$/) || [])[1];
+    if (!n) return;
+    const alvo = document.getElementById('eixo-' + n);
+    if (!alvo || !alvo.scrollIntoView) return;
+    requestAnimationFrame(() => alvo.scrollIntoView({ block: 'start' }));
+  }
+
+  // ==== WhatsApp qualificado (copy.json › contato_ajustes.whatsapp_qualificado) ====
+  // Ao clicar em [data-assunto="EN"] ou chegar com ?assunto=EN, o flutuante passa a
+  // abrir a conversa já com o eixo; sem eixo, mantém o texto atual do HTML.
+  function initWhatsAppQualificado() {
+    const flutuante = document.querySelector('.whatsapp-float');
+    if (!flutuante) return;
+    const TEXTOS = {
+      E1: 'Olá! Gostaria de uma conversa inicial sobre Planejamento Patrimonial e Sucessório.',
+      E2: 'Olá! Gostaria de uma conversa inicial sobre o eixo Tributário, Fiscal e Corporativo.',
+      E3: 'Olá! Gostaria de uma conversa inicial sobre Direito Notarial e Imobiliário.',
+      E4: 'Olá! Gostaria de uma conversa inicial sobre Auditoria Empresarial e Contábil.',
+      E5: 'Olá! Gostaria de uma conversa inicial sobre Recuperação de Ativos.',
+      E6: 'Olá! Gostaria de uma conversa inicial sobre Consultoria Trabalhista.'
+    };
+    const qualificar = (eixo) => {
+      if (!TEXTOS[eixo]) return;
+      flutuante.href = 'https://wa.me/5511915267749?text=' + encodeURIComponent(TEXTOS[eixo]);
+    };
+    qualificar(new URLSearchParams(location.search).get('assunto'));
+    document.addEventListener('click', (e) => {
+      const cta = e.target.closest && e.target.closest('[data-assunto]');
+      if (cta) qualificar(cta.getAttribute('data-assunto'));
+    });
+  }
+
+  const iniciar = () => {
+    initVerticais();
+    initNewsletter();
+    initEixosAncora();
+    initWhatsAppQualificado();
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
+  else iniciar();
 })();

@@ -1,0 +1,75 @@
+/* ==== 06 · PRESENÇA NACIONAL ==== */
+/* Seção #presenca — texto 35 % / mapa 65 %. Cores só por token; movimento só em
+   transform/opacity. O canvas (brasil.js) é injetado em ≥768 sem reduce. */
+.presenca { background: var(--surface-0); }
+.presenca-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--grid-gap);
+  align-items: center;
+}
+.presenca-grid > * { min-width: 0; }
+.presenca-text { margin-bottom: 0; }
+.presenca-text .dmc-h1 { overflow-wrap: anywhere; }
+.presenca-sede { font-style: normal; }
+.presenca-text .dmc-btn--link { justify-self: start; }
+
+/* Figura: quadrado (viewBox 1000×1000) — nunca estoura em 320 px */
+.presenca-mapa {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 22rem;
+  margin: var(--space-8) auto 0;
+  aspect-ratio: var(--ratio-map, 1);
+}
+.presenca-mapa__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.presenca-mapa__ufs path {
+  fill: var(--surface-2);
+  stroke: var(--color-line-strong);
+  stroke-width: 0.8;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+}
+.presenca-mapa__ufs path[data-uf="SP"] { fill: var(--surface-3); }
+.presenca-mapa__nos circle { fill: var(--text-3); }
+.presenca-mapa__nos .is-sede { fill: var(--color-gold); }
+.presenca-mapa__anel { fill: none; stroke: var(--color-gold); stroke-width: 1; opacity: 0.35; vector-effect: non-scaling-stroke; }
+.presenca-mapa__rotulo {
+  font: 500 11px / 1 var(--font-text);
+  letter-spacing: 0.04em;
+  fill: var(--text-2);
+}
+/* Com o canvas vivo, os nós passam a ser desenhados por ele (com paralaxe) */
+.presenca-mapa__nos { transition: opacity var(--dur-reveal) var(--ease-out); }
+.presenca-mapa.is-live .presenca-mapa__nos { opacity: 0; }
+.presenca-mapa__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-reveal) var(--ease-out);
+}
+.presenca-mapa.is-live .presenca-mapa__canvas { opacity: 1; }
+
+@media (min-width: 768px) {
+  .presenca-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .presenca-text { grid-column: 1 / -1; }
+  .presenca-mapa { grid-column: 2 / span 6; max-width: 34rem; margin-top: var(--space-8); }
+}
+@media (min-width: 1024px) {
+  .presenca-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .presenca-text { grid-column: 1 / span 4; }
+  .presenca-mapa { grid-column: 6 / span 7; max-width: 38rem; margin: 0; justify-self: end; }
+}
+@media (min-width: 1440px) {
+  .presenca-mapa { max-width: 42rem; }
+}

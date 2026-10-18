@@ -1,0 +1,97 @@
+/* ==== 08 · MÉTODO E FORMAÇÃO ==== */
+/* Papel; fio tinta com 07 (mesmo bloco). Quatro etapas separadas por fio,
+   numeração Hanken 14 em ouro profundo; aside do programa sem caixa. */
+.metodo .dmc-reveal { transition-delay: calc(var(--stagger) * min(var(--i, 0), 5)); }
+
+.metodo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+.metodo-grid > * { min-width: 0; }
+.metodo-head { grid-column: 1 / -1; }
+
+/* Etapas */
+.metodo-etapas {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--grid-gap);
+  row-gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: etapa;
+}
+.metodo-etapa {
+  min-width: 0;
+  counter-increment: etapa;
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  border-top: var(--border-hair) solid var(--color-line-ink);
+  padding: var(--space-6) 0;
+}
+.metodo-etapa::before {
+  content: counter(etapa, decimal-leading-zero);
+  font: var(--num-font, var(--fw-medium) var(--fs-small) / 1 var(--font-text));
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--color-gold-deep);
+  margin-bottom: var(--space-3);
+}
+.metodo-etapa h3 { color: var(--text-ink-1); overflow-wrap: break-word; }
+.metodo-etapa p {
+  margin: 0;
+  max-width: 32rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-ink-2);
+}
+
+/* Programa (aside sem caixa) */
+.metodo-programa {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  justify-items: start;
+  border-top: var(--border-hair) solid var(--color-line-ink);
+  padding: var(--space-6) 0 0;
+  margin-top: var(--space-4);
+}
+.metodo-programa h3 { color: var(--text-ink-1); overflow-wrap: anywhere; }
+.metodo-programa__meta { margin: 0; }
+.metodo-programa__text {
+  margin: 0;
+  max-width: 28rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-ink-2);
+}
+.metodo-programa .dmc-btn--link { margin-top: var(--space-2); }
+.metodo-programa .dmc-btn--link svg { color: var(--color-gold-deep); }
+
+@media (min-width: 768px) {
+  .metodo-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .metodo-etapas { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-6); }
+  .metodo-etapa { padding-bottom: 0; }
+  .metodo-programa { margin-top: var(--space-8); }
+}
+@media (min-width: 1024px) {
+  .metodo-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  /* 1024–1439: 2×2 (4 colunas de ~137 px quebram "Acompanhamento"/"Estruturação" no meio) */
+  .metodo-etapas { grid-column: 1 / span 8; }
+  .metodo-programa {
+    grid-column: 10 / span 3;
+    align-self: start;
+    margin-top: 0;
+    border-top: 0;
+    border-left: var(--border-hair) solid var(--color-line-ink);
+    padding: 0 0 0 var(--space-6);
+  }
+}
+@media (min-width: 1440px) {
+  /* 4 etapas em linha: 9 colunas (≈206 px cada) para a palavra mais longa dos títulos caber inteira */
+  .metodo-etapas { grid-column: 1 / span 9; grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 0; }
+}

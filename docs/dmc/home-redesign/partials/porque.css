@@ -1,0 +1,120 @@
+/* ==== 04 · POR QUE O COMPLEXO DMC? ==== */
+/* Mosaico editorial: seção em --surface-0; o painel de papel ocupa 7 colunas
+   e sangra até a borda direita da tela (::before com inset negativo, cortado
+   por overflow-x: clip na seção — clip não cria contêiner de rolagem, então
+   o sticky da intro continua funcionando e a sangria não entra no scrollWidth).
+   Só tokens; zero sombra; cor da casa (ouro-deep) na numeração.
+   --num-font vem de _shared.css (§2.3); o fallback abaixo cobre a prévia isolada. */
+
+.porque {
+  padding-block: 0;
+  overflow-x: clip;
+}
+
+.porque-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--grid-gap);
+  align-items: start;
+}
+
+.porque-intro {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding-top: var(--space-section);
+}
+.porque-intro .dmc-h1 { max-width: 14ch; overflow-wrap: anywhere; }
+
+.porque-panel {
+  position: relative;
+  isolation: isolate;
+  grid-column: 1 / -1;
+  min-width: 0;
+  margin-inline: calc(-1 * var(--gutter));
+  padding: var(--space-9) var(--gutter);
+  background: transparent;              /* o papel vem do ::before */
+}
+.porque-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--surface-paper);
+}
+
+/* Lista numerada: ol real; CSS espelha o DOM */
+.porque-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: porque;
+}
+.porque-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--space-3);
+  min-width: 0;
+  padding-block: var(--space-6);
+  border-top: var(--border-hair) solid var(--color-line-ink);
+}
+.porque-item:last-child { border-bottom: var(--border-hair) solid var(--color-line-ink); }
+.porque-item::before {
+  counter-increment: porque;
+  content: counter(porque, decimal-leading-zero);
+  font: var(--num-font, var(--fw-medium) var(--fs-small) / 1 var(--font-text));
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--color-gold-deep);
+}
+.porque-item > h3 {
+  margin: 0;
+  color: var(--text-ink-1);
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.porque-item > p {
+  margin: 0;
+  max-width: 34rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-ink-2);
+}
+.porque-item__cta {
+  justify-self: start;
+  margin-top: var(--space-3);
+}
+
+/* ≥640: número em coluna própria, alinhado à primeira linha do título */
+@media (min-width: 640px) {
+  .porque-item {
+    grid-template-columns: 3rem minmax(0, 1fr);
+    column-gap: var(--space-4);
+  }
+  .porque-item::before { grid-row: 1 / span 3; padding-top: 0.45em; }
+  .porque-item > h3,
+  .porque-item > p,
+  .porque-item__cta { grid-column: 2; }
+}
+
+/* 768–1023: 8 colunas, mesma pilha */
+@media (min-width: 768px) {
+  .porque-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+}
+
+/* ≥1024: intro sticky em 4 colunas; painel em 7 que sangra à direita */
+@media (min-width: 1024px) {
+  .porque-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .porque-intro {
+    grid-column: 1 / span 4;
+    position: sticky;
+    top: calc(var(--header-h-lg) + var(--space-6));
+    margin-bottom: 0;
+    padding-block: var(--space-section);
+  }
+  .porque-panel {
+    grid-column: 6 / span 7;
+    margin-inline: 0;
+    padding: var(--space-section) var(--space-8) var(--space-section) var(--space-9);
+  }
+  .porque-panel::before { inset: 0 -100vw 0 0; }
+}

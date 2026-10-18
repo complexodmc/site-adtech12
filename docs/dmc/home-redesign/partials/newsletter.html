@@ -1,0 +1,53 @@
+<!-- ==== 09 · NEWSLETTER ==== (fragmento; integrador cola em index.html antes de #video)
+     Copy: docs/dmc/home-redesign/copy.json → newsletter. Contrato: blueprint-newsletter.md.
+     [CEO 9] Enquanto pages/politica-de-privacidade.html tiver marcadores [CONFIRMAR],
+     a seção entra com o atributo `hidden` (decisão do integrador/CEO, não deste parcial).
+     Sem JS: POST nativo urlencoded para /api/newsletter (resposta JSON crua é o fallback). -->
+<section class="dmc-section dmc-on-paper dmc-section--rule news" id="newsletter" aria-labelledby="news-title">
+  <div class="dmc-wrap news-grid">
+    <div class="dmc-sec-head news-head">
+      <p class="dmc-overline">Newsletter</p>
+      <h2 class="dmc-h1" id="news-title">Receba as <em>próximas análises</em>.</h2>
+      <p class="dmc-lead">Textos curtos, só quando houver algo a dizer: sucessão, tributos, imóveis, auditoria, crédito e passivo trabalhista.</p>
+      <p class="dmc-small news-head__legal">Você pode se descadastrar a qualquer momento pelo link de cada e-mail ou escrevendo para <a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a>.</p>
+    </div>
+
+    <form class="dmc-form news-form" id="newsletterForm" action="/api/newsletter" method="post"
+          data-origem="home-newsletter" aria-label="Inscrição na newsletter do Complexo DMC" aria-describedby="newsletterMessage">
+      <div class="news-form__row">
+        <div class="form-field">
+          <label for="nl-nome">Nome</label>
+          <input type="text" id="nl-nome" name="nome" autocomplete="name" required minlength="2" maxlength="120">
+        </div>
+        <div class="form-field">
+          <label for="nl-email">E-mail</label>
+          <input type="email" id="nl-email" name="email" autocomplete="email" inputmode="email" required maxlength="254">
+        </div>
+      </div>
+
+      <div class="news-form__row">
+        <div class="form-field">
+          <label for="nl-empresa">Empresa <span class="form-opcional">(opcional)</span></label>
+          <input type="text" id="nl-empresa" name="empresa" autocomplete="organization" maxlength="120">
+        </div>
+        <div class="news-form__submit">
+          <button type="submit" class="dmc-btn dmc-btn--primary news-form__btn">Quero receber análises</button>
+        </div>
+      </div>
+
+      <!-- Isca anti-robô: fora da tela; quem preenche recebe 200 neutro e nada é gravado. -->
+      <div class="form-hp" aria-hidden="true">
+        <label for="nl-website">Não preencha este campo</label>
+        <input type="text" id="nl-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="form-consent">
+        <input type="checkbox" id="nl-consentimento" name="consentimento" value="true" required>
+        <label for="nl-consentimento">Autorizo o Complexo DMC a usar meu nome e e-mail para enviar análises e conteúdos institucionais, nos termos da LGPD e da <a href="pages/politica-de-privacidade.html">Política de Privacidade</a>. Posso cancelar a qualquer momento.</label>
+      </div>
+
+      <input type="hidden" name="origem" value="home-newsletter">
+      <p class="form-message" id="newsletterMessage" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>

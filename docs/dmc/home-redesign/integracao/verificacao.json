@@ -1,0 +1,116 @@
+{
+ "390": {
+  "erros": [],
+  "overflowAntes": 0,
+  "overflowDepois": 0,
+  "elementosLargos": [],
+  "ordemDom": [
+   "hero",
+   "conheca",
+   "features",
+   "porque",
+   "verticais",
+   "presenca",
+   "publicacoes",
+   "treinamentos",
+   "newsletter",
+   "video",
+   "contact"
+  ],
+  "idsFaltando": [],
+  "eixos": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "spritePrimeiroFilho": true,
+  "h1": 1,
+  "roleTab": 0,
+  "canvasConheca": 1,
+  "canvasPresenca": 0,
+  "motion": "still",
+  "videosPlaying": 0,
+  "videosSrc": 0,
+  "rodape": [
+   "Newsletter",
+   "DMC Business School",
+   "ADTECH"
+  ],
+  "imgsSemDim": [],
+  "focaveisFeatures": [
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "SUMMARY",
+   "A",
+   "A",
+   "A"
+  ],
+  "linksInternosTestados": 27,
+  "quebrados": [],
+  "ancorasQuebradas": []
+ },
+ "1440": {
+  "erros": [],
+  "overflowAntes": 0,
+  "overflowDepois": 0,
+  "elementosLargos": [],
+  "ordemDom": [
+   "hero",
+   "conheca",
+   "features",
+   "porque",
+   "verticais",
+   "presenca",
+   "publicacoes",
+   "treinamentos",
+   "newsletter",
+   "video",
+   "contact"
+  ],
+  "idsFaltando": [],
+  "eixos": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "spritePrimeiroFilho": true,
+  "h1": 1,
+  "roleTab": 0,
+  "canvasConheca": 1,
+  "canvasPresenca": 0,
+  "motion": "still",
+  "videosPlaying": 0,
+  "videosSrc": 0,
+  "rodape": [
+   "Newsletter",
+   "DMC Business School",
+   "ADTECH"
+  ],
+  "imgsSemDim": [],
+  "focaveisFeatures": [
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "dmc-btn dmc-btn--link eixos-item__cta",
+   "SUMMARY",
+   "A",
+   "A",
+   "A"
+  ],
+  "linksInternosTestados": 27,
+  "quebrados": [],
+  "ancorasQuebradas": []
+ }
+}

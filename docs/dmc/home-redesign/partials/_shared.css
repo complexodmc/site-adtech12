@@ -1,0 +1,72 @@
+/* ==== 00 · _SHARED (home v2) ====================================================
+   Primeiro bloco de assets/css/home.css (depois de styles.css?v=c5).
+   Escopo: custom properties locais em <main id="conteudo" class="home"> e os ajustes de
+   componente permitidos pela spec (docs/dmc/HOME_REDESIGN.md §2.3–2.5).
+   Não toca tokens.css nem components.css (compartilhados com as 26 internas).
+   Só tokens (nenhum literal de cor); transições só em transform/opacity/cor de estado;
+   sem sombra nem overrides forçados. Breakpoints: 640 / 768 / 1024 / 1440. */
+
+/* ---------- 2.3 · Custom properties locais ---------- */
+.home {
+  --ratio-wide: 21 / 9;      /* painel 1 de 05 (verticais) em ≥1024 */
+  --ratio-panel: 16 / 10;    /* demais painéis de 05 e todos em <1024 */
+  --ratio-map: 1;            /* viewBox quadrado do Brasil (06) */
+  --veil: var(--hero-veil);          /* .86 — véu sobre mídia com texto */
+  --veil-mid: var(--hero-veil-mid);  /* .60 */
+  --veil-off: var(--hero-veil-off);  /* 0   */
+  --num-font: 500 var(--fs-small) / 1 var(--font-text);   /* numeração 01…06 / E1…E6 */
+}
+
+/* ---------- 2.5 · Grade ---------- */
+/* Container largo (1440) para a mídia de 05 e o mapa de 06; texto fica em .dmc-wrap (1240). */
+.dmc-wrap--wide {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--container-wide) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Âncoras (#features, #eixo-N, #presenca…) param abaixo da navbar fixa. */
+.home section[id],
+.home article[id^="eixo-"] {
+  scroll-margin-top: calc(var(--header-h-lg) + var(--space-6));
+}
+
+/* Todo item de grid com min-width:0; títulos quebram sem overflow (320 px). */
+.home [class$="-grid"] > *,
+.home [class*="-grid "] > * { min-width: 0; }
+.home h2,
+.home h3,
+.home h4 { overflow-wrap: anywhere; }
+
+/* ---------- 2.4 · Ajustes de componente permitidos ---------- */
+/* Fio tinta entre seções de papel vizinhas (o fio claro de --color-line some sobre papel). */
+.dmc-on-paper.dmc-section--rule { border-color: var(--color-line-ink); }
+
+/* Cabeçalho de seção: nunca centrado; medida editorial. */
+.home .dmc-sec-head { max-width: 48rem; }
+
+/* Numeração 01…06 / E1…E6: cada parcial aplica `font: var(--num-font)` +
+   `font-variant-numeric: tabular-nums` + `letter-spacing: .08em` no seu __num (§2.6). */
+
+/* Fio de acento que cresce da esquerda — migrado de styles.css 53-65
+   (.casa__tab/.np-axes a/.np-card morrem com o catálogo antigo).
+   Sobre papel usa --np-accent-deep (4,6:1); só transform, uma vez, respeita reduced-motion
+   via os tokens de duração. */
+.eixos-item { position: relative; }
+.eixos-item::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: var(--border-accent);
+  background: rgb(var(--np-accent-deep));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.eixos-item:hover::before,
+.eixos-item:focus-within::before,
+.eixos-item:target::before { transform: scaleX(1); }
+
+/* Reduced-motion: coberto por tokens.css (--dur-slow → 1 ms); nada a declarar aqui. */

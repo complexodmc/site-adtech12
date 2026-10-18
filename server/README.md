@@ -50,6 +50,7 @@ cursos não fica duplicado no repositório.
 | `progresso` | `{ userId, aulaId, completedAt }` |
 | `leads` | `{ nome, email, telefone?, empresa?, perfil, eixo?, mensagem?, curso?, origem, consentimento: { aceito, em }, status: 'novo', createdAt }` |
 | `parcerias_candidaturas` | `{ protocolo, programa, email, dados, fonte, status, historico[], responsavel, consentimento: { aceito, em, finalidade }, comunicacoes: { aceito, em }, retencaoAte, createdAt, updatedAt }` |
+| `newsletter_inscricoes` | `{ email (minúsculas, único), nome, empresa?, status: 'ativa'\|'descadastrada', origem, criadoEm, atualizadoEm, consentimentos: [{ em, ipTruncado\|null, origem, politicaVersao, texto, baseLegal }] (50 mais recentes), descadastro?: { em, via: 'token'\|'email'\|'manual' } (vigente), descadastros: [{ em, via }] (histórico; preservado na reinscrição, eliminado pelo prazo da Política de Privacidade [CONFIRMAR: prazo e procedimento manual de eliminação]) }` |
 
 Índices únicos em `users.email`, `liberacoes(userId, cursoId)` e
 `progresso(userId, aulaId)` — criados sozinhos no boot.
@@ -178,10 +179,113 @@ Listas exportadas em `FUNIS`, `ROTULOS_ESTADOS` e `estadosDoPrograma()`.
   grava `historico` `{ status, de?, em, por, nota?, responsavel? }`. Transição
   inválida ou edição concorrente → 409 com a mensagem do motivo.
 
+**Tela da equipe: `/plataforma-ead/parcerias.html`** (noindex; não há link no
+`admin.html` — abra pela URL). Usa a mesma sessão da EAD: entre por
+`login.html` com uma conta `isAdmin` (sem sessão, a tela manda para
+`login.html?next=parcerias.html`; conta sem admin vê "Acesso restrito a
+administradores"). Filtra por programa e status, abre o detalhe (dados, fonte/UTM,
+consentimento, opt-in, histórico) e executa só as transições que a API devolve em
+`permitidos`: avançar, voltar, arquivar (nota obrigatória), reabrir, responsável e
+nota avulsa. Em 409, recarrega a candidatura e avisa que o status mudou. Arquivos:
+`plataforma-ead/parcerias.html`, `js/parcerias-admin.js`, `css/parcerias-admin.css`
+(lê `plataforma.css` e `api-client.js` sem alterá-los).
+
 **Aviso por e-mail (opcional):** `RESEND_API_KEY` + `PARCERIAS_EMAIL_TO`
 (reserva: `LEADS_EMAIL_TO`) + `LEADS_EMAIL_FROM`. Assunto
 `[Partner Lawyers] Nova candidatura — Nome` / `[Business Partner] …`. Falha no
 e-mail não desfaz a candidatura; sem chave, só log.
+
+### Newsletter — `POST /api/newsletter`
+
+Código em `src/routes/newsletter.js`; especificação em
+`docs/dmc/home-redesign/blueprint-newsletter.md`. Mesmo desenho do contato:
+parser próprio de 16 KB (JSON ou `application/x-www-form-urlencoded`, o form
+funciona sem JS), honeypot `website`, throttle próprio de 5 envios por IP em
+15 min, validação pura e **nunca sucesso sem gravar**. A coleção é separada de
+`leads` (finalidade, base legal e retenção diferentes).
+
+| Campo | Regra |
+|---|---|
+| `nome` | obrigatório, 2–120 caracteres, ao menos uma letra |
+| `email` | obrigatório, ≤ 254, só ASCII visível (IDN/`İ` recusados), caracteres invisíveis (ZWSP, soft hyphen) removidos, gravado em minúsculas — é a chave de dedupe |
+| `empresa` | opcional, ≤ 120 |
+| `consentimento` | obrigatório e afirmativo (`true`, `"on"`, `"1"`, `"sim"`, `"yes"`) |
+| `origem` | preenchido pela página (`home-newsletter`), cortado em 120; padrão `nao-informada` |
+| `website` | honeypot — deve vir vazio |
+
+| Status | Corpo | Quando |
+|---|---|---|
+| 201 | `{ ok: true }` | gravado **ou já existia** (dedupe silencioso: um só `updateOne` com upsert; sem `id`, não revela quem está na lista; reativa quem se descadastrou) |
+| 200 | `{ ok: true }` | honeypot preenchido — descartado, só log |
+| 400 | `{ error: 'Revise os campos indicados.', campos: { nome?, email?, empresa?, consentimento? } }` | validação (mensagens em pt-BR) |
+| 400 | `{ error }` | JSON malformado |
+| 413 | `{ error: 'Conteúdo grande demais. Reduza o texto dos campos e tente de novo.' }` | corpo acima de 16 KB |
+| 429 | `{ error }` + `Retry-After` | mais de 5 envios por IP em 15 min |
+| 503 | `{ error }` | banco fora / gravação falhou / `NEWSLETTER_POLITICA_VERSAO` vazia em produção |
+
+Cada inscrição acrescenta um registro ao histórico `consentimentos` (prova do
+art. 8º §2º da LGPD; ficam os 50 mais recentes): data, origem,
+`NEWSLETTER_POLITICA_VERSAO`, o id do texto aceito (`v1` — o texto exato está
+em `TEXTOS_CONSENTIMENTO` no `newsletter.js`; o front copia dali) e
+`baseLegal: 'consentimento'`. O **IP truncado** (IPv4 `/24`, IPv6 `/48`) só é
+gravado com `NEWSLETTER_GRAVAR_IP=true`; por padrão fica `null`, porque a
+Política de Privacidade publicada diz que o IP não é gravado — ligue só depois
+de publicar a política corrigida (ver blueprint, §10). Em produção
+(`NODE_ENV=production`), sem `NEWSLETTER_POLITICA_VERSAO` a inscrição é recusada
+com 503 e o log acusa — consentimento sem versão de política não serve de prova.
+
+O aviso interno (quando ligado) só sai para inscrição **nova** ou **reativada**;
+reenvio do mesmo e-mail responde 201 igual, mas não gera e-mail. O aviso sai
+sem `reply_to` (o endereço pode ter sido digitado por terceiro). Logs nunca
+contêm o e-mail do inscrito, inclusive nos erros do driver (`resumirErro`).
+
+**Descadastro** (`/api/newsletter/descadastro`), dois caminhos na mesma rota:
+
+- `GET ?token=…` — só **exibe** uma página HTML de confirmação (sem script) com
+  o e-mail mascarado e um `<form method="post">`. Nunca altera estado (antivírus
+  e pré-carregadores abrem links de e-mail). Token inválido → 400 HTML, sem
+  dizer se o e-mail existe.
+- `POST { token }` — efetiva (`via: 'token'`). 200 `{ ok: true }` ou HTML
+  "Pronto…" (ver negociação abaixo). Mesma resposta se já estava fora ou nunca
+  existiu. Token inválido → 400.
+- `POST { email }` — autoatendimento (`via: 'email'`), **sem prova de posse**:
+  é opt-out reversível, e terceiro pode descadastrar alguém. Freios: throttle
+  por IP (5/15 min), **limite por endereço-alvo** (3 pedidos/24 h, qualquer IP
+  → 429) e **allowlist de origem**: pedido com `Origin`/`Referer` de outro site
+  → 403 (`complexodmc.com.br`, `www`, `CORS_ORIGINS`, `NEWSLETTER_ORIGENS` e,
+  fora da Vercel, `localhost` são aceitos; sem `Origin` — curl — passa). Com
+  tudo em ordem: **sempre** 202 `{ ok: true, mensagem: 'Se este e-mail estiver
+  na lista, ele será removido.' }`, exista ou não. E-mail inválido → 400
+  `campos.email`. É o caminho honesto enquanto não há serviço de e-mail.
+- Falha no banco → 503. Honeypot → 200 neutro.
+
+Negociação de conteúdo (todas as respostas do `POST /descadastro`): JSON é o
+padrão — quem envia `Content-Type: application/json` ou `Accept: */*` (fetch,
+curl) recebe JSON; só o formulário HTML sem JS (urlencoded + `Accept: text/html`)
+recebe página HTML, inclusive nos 400/403/429/503. O front deve mandar
+`Accept: application/json`. As páginas HTML saem com `Cache-Control: no-store`,
+`Referrer-Policy: no-referrer`, `X-Frame-Options: DENY`, `nosniff` e CSP fechado
+(sem script, `frame-ancestors 'none'`), também fora da Vercel.
+
+Token: `base64url(email) + '.' + base64url(HMAC-SHA256(JWT_SECRET,
+'dmc-newsletter-descadastro:v1:' + email))`, sem expiração, comparado com
+`timingSafeEqual`. A primeira metade é o e-mail apenas codificado: a URL do
+`GET` carrega o e-mail (logs da Vercel, histórico do navegador) — por isso
+`no-referrer` e `no-store`; um token opaco gravado no documento fica para a fase
+2. Gere com `gerarTokenDescadastro(email, config.jwtSecret)` para o rodapé dos
+e-mails e os cabeçalhos `List-Unsubscribe` (RFC 8058). Trocar o `JWT_SECRET`
+invalida os links; o descadastro por e-mail continua.
+
+Limitação conhecida: os throttles (IP e endereço-alvo) são em memória por
+instância; na Vercel cada lambda tem o seu e um cold start zera a janela. São
+freios de abuso, não limites globais — a allowlist de origem é o que segura o
+CSRF distribuído. Fase 2: Vercel KV/Upstash para contadores compartilhados.
+
+**Aviso interno (opcional, desligado por padrão):** `NEWSLETTER_NOTIFICAR=true`
++ `RESEND_API_KEY` + `NEWSLETTER_EMAIL_TO` (reserva: `LEADS_EMAIL_TO`) +
+`LEADS_EMAIL_FROM`. Assunto `Nova inscrição na newsletter — Nome`. Não existe
+e-mail de boas-vindas nem *double opt-in* nesta fase — o front não pode sugerir
+que exista. Sem chave, só grava e loga.
 
 ### Aluno autenticado
 - `GET /api/auth/me` — sessão atual
@@ -225,6 +329,12 @@ liberação. Apagar curso, módulo ou aula também apaga os arquivos.
 2. Para receber os leads por e-mail: `RESEND_API_KEY`, `LEADS_EMAIL_TO` e
    `LEADS_EMAIL_FROM` nas variáveis da Vercel (domínio verificado no Resend).
    Candidaturas de parceria: `PARCERIAS_EMAIL_TO` (senão vão para `LEADS_EMAIL_TO`).
+   Newsletter: `NEWSLETTER_POLITICA_VERSAO` com a data real da Política de
+   Privacidade (**obrigatória em produção** — sem ela a inscrição responde 503);
+   `NEWSLETTER_GRAVAR_IP=true` só depois de publicar a política corrigida;
+   `NEWSLETTER_NOTIFICAR` / `NEWSLETTER_EMAIL_TO` só se a equipe quiser um
+   aviso por inscrição. `MONGODB_SERVER_SELECTION_TIMEOUT_MS` fica em 5000 na
+   Vercel por padrão (banco fora → 503 antes do limite de 10 s da função).
 3. Rode atrás de HTTPS — o token trafega no header.
 4. Em Network Access no Atlas, libere o IP do servidor (hoje o acesso depende
    do IP da máquina que roda a API).

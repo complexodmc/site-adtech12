@@ -48,7 +48,8 @@ const ACEITES = new Set(['true', 'on', '1', 'sim', 'yes']);
 // ---------- normalização ----------
 // Retorna string limpa, '' para ausente, ou null quando o tipo é inválido
 // (objeto/array — barra tentativa de injetar operador ou estrutura).
-function texto(valor, { multilinha = false } = {}) {
+// Exportada para os outros formulários do site (newsletter) usarem a MESMA regra.
+export function texto(valor, { multilinha = false } = {}) {
   if (valor === undefined || valor === null) return '';
   if (typeof valor !== 'string' && typeof valor !== 'number') return null;
   let s = String(valor).normalize('NFC');
@@ -72,12 +73,12 @@ function normalizarEixo(valor) {
   return chave(valor);
 }
 
-function aceitou(valor) {
+export function aceitou(valor) {
   if (valor === true || valor === 1) return true;
   return typeof valor === 'string' && ACEITES.has(valor.trim().toLowerCase());
 }
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 // ---------- validação (pura) ----------
 // Regras:
@@ -185,13 +186,16 @@ export function ehRobo(corpo) {
 // Parser próprio, com teto pequeno. O server.js monta isto ANTES do
 // express.json global (1 MB): o corpo já chega consumido e o global
 // apenas segue adiante.
-export function corpoContato() {
+// `mensagem413` é opcional (padrão: texto do contato); a newsletter, que não
+// tem campo mensagem, passa o seu.
+export const MENSAGEM_413 = 'Conteúdo grande demais. Reduza a mensagem e tente de novo.';
+export function corpoContato({ mensagem413 = MENSAGEM_413 } = {}) {
   return [
     express.json({ limit: CORPO_MAX }),
     express.urlencoded({ extended: false, limit: CORPO_MAX }),
     (err, _req, res, next) => {
       if (err && err.type === 'entity.too.large') {
-        return res.status(413).json({ error: 'Conteúdo grande demais. Reduza a mensagem e tente de novo.' });
+        return res.status(413).json({ error: mensagem413 });
       }
       if (err && (err.type === 'entity.parse.failed' || err.status === 400)) {
         return res.status(400).json({ error: 'Não foi possível ler os dados enviados.' });
@@ -203,7 +207,13 @@ export function corpoContato() {
 
 // ---------- notificação por e-mail (Resend, via fetch — sem dependência) ----------
 // Sem RESEND_API_KEY ou LEADS_EMAIL_TO devolve null: o lead só é gravado e logado.
-export function criarNotificadorEmail({ resendApiKey, para, de, fetchImpl = globalThis.fetch, timeoutMs = 5000 } = {}) {
+// `assunto` e `corpo` são opcionais (padrão: e-mail de lead do contato); a
+// newsletter passa os seus. `replyTo` (padrão: e-mail de quem enviou) pode ser
+// `null` para o aviso sair sem reply_to.
+export function criarNotificadorEmail({
+  resendApiKey, para, de, fetchImpl = globalThis.fetch, timeoutMs = 5000,
+  assunto = assuntoEmail, corpo = corpoEmail, replyTo = (lead) => lead.email
+} = {}) {
   if (!resendApiKey || !para) return null;
   const destinatarios = String(para).split(',').map(s => s.trim()).filter(Boolean);
   const remetente = de || 'Site Complexo DMC <onboarding@resend.dev>';
@@ -215,9 +225,9 @@ export function criarNotificadorEmail({ resendApiKey, para, de, fetchImpl = glob
       body: JSON.stringify({
         from: remetente,
         to: destinatarios,
-        reply_to: lead.email,
-        subject: assuntoEmail(lead),
-        text: corpoEmail(lead)
+        ...(replyTo ? { reply_to: replyTo(lead) } : {}),
+        subject: assunto(lead),
+        text: corpo(lead)
       }),
       signal: AbortSignal.timeout(timeoutMs)
     });

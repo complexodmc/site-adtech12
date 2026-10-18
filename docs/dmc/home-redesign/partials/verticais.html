@@ -1,0 +1,142 @@
+<!-- ==== 05 · VERTICAIS DE NEGÓCIOS · #verticais ====
+     Spec: docs/dmc/HOME_REDESIGN.md §3·05 · copy: docs/dmc/home-redesign/copy.json › verticais
+     Fragmento colado em <main id="conteudo" class="home"> entre #porque e #presenca.
+     Fundo --surface-0 (o papel de 04 termina; o preto volta inteiro). O fio de entrada de 06
+     pertence a 06 (.dmc-section--rule): esta seção não desenha fio.
+     Mídia: posters <picture> AVIF+WebP (desktop ≥1024 / -m abaixo) + <video> decorativo
+     (preload=none, sem src: verticais.js injeta <source> só ≥1024 + no-preference + !saveData).
+     Heading fora do link; um só <a> por painel; alt="" (o article já carrega número, setor,
+     headline e texto). -->
+<section class="dmc-section verticais" id="verticais" aria-labelledby="verticais-title">
+  <div class="dmc-wrap">
+    <div class="dmc-sec-head dmc-reveal">
+      <p class="dmc-overline">Verticais de negócio</p>
+      <h2 class="dmc-h1" id="verticais-title">Setores diferentes, <em>a mesma pergunta</em>: qual é a decisão a tomar.</h2>
+      <p class="dmc-lead">Cada painel começa pela situação do seu negócio e leva à página do eixo que a conduz.</p>
+    </div>
+  </div>
+
+  <ol class="dmc-wrap dmc-wrap--wide verticais-grid" aria-label="Verticais de negócio do Complexo DMC">
+
+    <!-- 01 · Construção civil e incorporação · painel 21:9 em ≥1440, 2:1 em 1024, 16:10 abaixo -->
+    <li class="verticais-cell verticais-cell--wide">
+      <article class="verticais-item verticais-item--wide dmc-reveal" style="--i:0" aria-labelledby="vert-1-titulo" data-vertical="construcao">
+        <figure class="verticais-item__media" aria-hidden="true">
+          <picture>
+            <source type="image/avif" media="(min-width:1024px)" srcset="assets/images/home/vertical-construcao.avif">
+            <source type="image/webp" media="(min-width:1024px)" srcset="assets/images/home/vertical-construcao.webp">
+            <source type="image/avif" srcset="assets/images/home/vertical-construcao-m.avif">
+            <img src="assets/images/home/vertical-construcao-m.webp" width="1200" height="750" loading="lazy" decoding="async" alt="">
+          </picture>
+          <video class="verticais-item__loop" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback hidden
+                 data-src-webm="assets/videos/home/vertical-construcao.webm" data-src-mp4="assets/videos/home/vertical-construcao.mp4"></video>
+          <span class="verticais-item__veil"></span>
+        </figure>
+        <div class="verticais-item__body">
+          <p class="verticais-item__num">01 <span>Construção civil e incorporação</span></p>
+          <p class="verticais-item__eyebrow">Tem um terreno e não sabe se o empreendimento fecha?</p>
+          <h3 class="verticais-item__title" id="vert-1-titulo">Do terreno à matrícula de <em>cada unidade</em>.</h3>
+          <p class="verticais-item__text">Antes de comprar o terreno: viabilidade, situação da matrícula e o caminho até o registro de cada unidade pelos cartórios conveniados, num mesmo plano.</p>
+          <a class="dmc-btn dmc-btn--secondary verticais-item__cta" href="pages/consultoria-imobiliaria.html" aria-label="Avaliar um terreno ou empreendimento: Consultoria Imobiliária">Avaliar um terreno ou empreendimento <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </article>
+    </li>
+
+    <!-- 02 · Empresas familiares e holdings -->
+    <li class="verticais-cell">
+      <article class="verticais-item dmc-reveal" style="--i:1" aria-labelledby="vert-2-titulo" data-vertical="familias">
+        <figure class="verticais-item__media" aria-hidden="true">
+          <picture>
+            <source type="image/avif" media="(min-width:1024px)" srcset="assets/images/home/vertical-familias.avif">
+            <source type="image/webp" media="(min-width:1024px)" srcset="assets/images/home/vertical-familias.webp">
+            <source type="image/avif" srcset="assets/images/home/vertical-familias-m.avif">
+            <img src="assets/images/home/vertical-familias-m.webp" width="1200" height="750" loading="lazy" decoding="async" alt="">
+          </picture>
+          <video class="verticais-item__loop" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback hidden
+                 data-src-webm="assets/videos/home/vertical-familias.webm" data-src-mp4="assets/videos/home/vertical-familias.mp4"></video>
+          <span class="verticais-item__veil"></span>
+        </figure>
+        <div class="verticais-item__body">
+          <p class="verticais-item__num">02 <span>Empresas familiares e holdings</span></p>
+          <p class="verticais-item__eyebrow">Os sócios são irmãos e ninguém combinou a sucessão?</p>
+          <h3 class="verticais-item__title" id="vert-2-titulo">Quem herda as quotas e <em>quem assume o comando</em>.</h3>
+          <p class="verticais-item__text">Holding, acordo de sócios e protocolo familiar desenhados juntos, com a carga tributária de cada cenário calculada no diagnóstico.</p>
+          <a class="dmc-btn dmc-btn--secondary verticais-item__cta" href="pages/planejamento-sucessorio.html" aria-label="Ver como organizamos a sucessão entre sócios: Planejamento Sucessório">Ver como organizamos a sucessão entre sócios <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </article>
+    </li>
+
+    <!-- 03 · Grupos empresariais -->
+    <li class="verticais-cell">
+      <article class="verticais-item dmc-reveal" style="--i:2" aria-labelledby="vert-3-titulo" data-vertical="grupos">
+        <figure class="verticais-item__media" aria-hidden="true">
+          <picture>
+            <source type="image/avif" media="(min-width:1024px)" srcset="assets/images/home/vertical-grupos.avif">
+            <source type="image/webp" media="(min-width:1024px)" srcset="assets/images/home/vertical-grupos.webp">
+            <source type="image/avif" srcset="assets/images/home/vertical-grupos-m.avif">
+            <img src="assets/images/home/vertical-grupos-m.webp" width="1200" height="750" loading="lazy" decoding="async" alt="">
+          </picture>
+          <video class="verticais-item__loop" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback hidden
+                 data-src-webm="assets/videos/home/vertical-grupos.webm" data-src-mp4="assets/videos/home/vertical-grupos.mp4"></video>
+          <span class="verticais-item__veil"></span>
+        </figure>
+        <div class="verticais-item__body">
+          <p class="verticais-item__num">03 <span>Grupos empresariais</span></p>
+          <p class="verticais-item__eyebrow">São quatro empresas e nenhuma estrutura foi pensada em conjunto?</p>
+          <h3 class="verticais-item__title" id="vert-3-titulo">Quatro empresas, <em>uma estrutura</em> decidida.</h3>
+          <p class="verticais-item__text">Comparação documentada de regimes com os números da própria empresa, reorganização societária e programa de integridade sob a mesma governança.</p>
+          <a class="dmc-btn dmc-btn--secondary verticais-item__cta" href="pages/planejamento-tributario.html" aria-label="Comparar regimes com os números da sua empresa: Planejamento Tributário">Comparar regimes com os números da sua empresa <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </article>
+    </li>
+
+    <!-- 04 · Investidores e estrutura patrimonial -->
+    <li class="verticais-cell">
+      <article class="verticais-item dmc-reveal" style="--i:3" aria-labelledby="vert-4-titulo" data-vertical="patrimonio">
+        <figure class="verticais-item__media" aria-hidden="true">
+          <picture>
+            <source type="image/avif" media="(min-width:1024px)" srcset="assets/images/home/vertical-patrimonio.avif">
+            <source type="image/webp" media="(min-width:1024px)" srcset="assets/images/home/vertical-patrimonio.webp">
+            <source type="image/avif" srcset="assets/images/home/vertical-patrimonio-m.avif">
+            <img src="assets/images/home/vertical-patrimonio-m.webp" width="1200" height="750" loading="lazy" decoding="async" alt="">
+          </picture>
+          <video class="verticais-item__loop" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback hidden
+                 data-src-webm="assets/videos/home/vertical-patrimonio.webm" data-src-mp4="assets/videos/home/vertical-patrimonio.mp4"></video>
+          <span class="verticais-item__veil"></span>
+        </figure>
+        <div class="verticais-item__body">
+          <p class="verticais-item__num">04 <span>Investidores e estrutura patrimonial</span></p>
+          <p class="verticais-item__eyebrow">Tem imóveis e participações e não sabe o que está em seu nome?</p>
+          <h3 class="verticais-item__title" id="vert-4-titulo">O que está em seu nome, <em>e por quê</em>.</h3>
+          <p class="verticais-item__text">Centralização em holding, governança e tributação avaliadas caso a caso, com a leitura independente dos números de cada participação.</p>
+          <a class="dmc-btn dmc-btn--secondary verticais-item__cta" href="pages/holding-patrimonial.html" aria-label="Entender a holding para imóveis e participações: Holding Patrimonial">Entender a holding para imóveis e participações <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </article>
+    </li>
+
+    <!-- 05 · Famílias que detêm imóveis e terras · [CEO 6] se aprovado "Agronegócio", muda só o rótulo do span -->
+    <li class="verticais-cell">
+      <article class="verticais-item dmc-reveal" style="--i:4" aria-labelledby="vert-5-titulo" data-vertical="terras">
+        <figure class="verticais-item__media" aria-hidden="true">
+          <picture>
+            <source type="image/avif" media="(min-width:1024px)" srcset="assets/images/home/vertical-terras.avif">
+            <source type="image/webp" media="(min-width:1024px)" srcset="assets/images/home/vertical-terras.webp">
+            <source type="image/avif" srcset="assets/images/home/vertical-terras-m.avif">
+            <img src="assets/images/home/vertical-terras-m.webp" width="1200" height="750" loading="lazy" decoding="async" alt="">
+          </picture>
+          <video class="verticais-item__loop" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback hidden
+                 data-src-webm="assets/videos/home/vertical-terras.webm" data-src-mp4="assets/videos/home/vertical-terras.mp4"></video>
+          <span class="verticais-item__veil"></span>
+        </figure>
+        <div class="verticais-item__body">
+          <p class="verticais-item__num">05 <span>Famílias que detêm imóveis e terras</span></p>
+          <p class="verticais-item__eyebrow">A área está na família há gerações e a matrícula não bate?</p>
+          <h3 class="verticais-item__title" id="vert-5-titulo">Antes de dividir a terra, <em>a matrícula</em>.</h3>
+          <p class="verticais-item__text">Retificação de área e regularização fundiária analisadas antes de qualquer escritura de divisão, doação ou venda das terras. A sucessão da família entra pelo eixo patrimonial.</p>
+          <a class="dmc-btn dmc-btn--secondary verticais-item__cta" href="pages/registro-imobiliario.html" aria-label="Entender a regularização da matrícula: Registro Imobiliário">Entender a regularização da matrícula <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        </div>
+      </article>
+    </li>
+
+  </ol>
+</section>

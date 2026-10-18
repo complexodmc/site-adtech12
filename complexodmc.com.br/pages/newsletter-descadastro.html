@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-root="../">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Descadastro da newsletter | Complexo DMC</title>
+  <meta name="description" content="Peça a saída do seu e-mail da lista de análises do Complexo DMC. O pedido é efetivado sem confirmar se o endereço está cadastrado.">
+  <link rel="canonical" href="https://www.complexodmc.com.br/pages/newsletter-descadastro.html">
+  <!-- Página utilitária (autoatendimento LGPD art. 8º §5º): fora do sitemap.xml, não indexável.
+       Canonical autorreferente só para absorver variantes com query string. -->
+  <meta name="robots" content="noindex, follow">
+  <meta name="theme-color" content="#0b0c0e">
+
+  <!-- Página de formulário na direção C (docs/dmc/DESIGN-SYSTEM.md §6): cabeçalho e rodapé
+       padrão, sem herói de malha e SEM bloco de vídeo (mesma exceção de treinamento-interesse
+       e politica-de-privacidade). O POST em /api/newsletter/descadastro com { email } é
+       contrato com server/src/routes/newsletter.js: resposta 202 neutra, exista ou não o cadastro. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
+
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="css/shared.css?v=3">
+  <link rel="stylesheet" href="css/eixos.css?v=4">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/newsletter-descadastro.css?v=1">
+
+  <script src="../assets/js/navbar.js?v=c4" defer></script>
+  <script src="js/newsletter-descadastro.js?v=1" defer></script>
+</head>
+<body class="np-eixo">
+
+  <!-- navbar.js troca este conteúdo pelo menu completo (com o próprio "pular para o
+       conteúdo"). Sem JS ficam o atalho, a marca e o caminho para o rodapé. -->
+  <dmc-navbar data-over>
+    <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+    <header class="dmc-nav dmc-nav--over">
+      <div class="dmc-wrap dmc-nav__bar">
+        <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+          <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22">
+          <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+        </a>
+        <a class="dmc-nav__toggle" href="#rodape">Menu <i aria-hidden="true"></i></a>
+      </div>
+    </header>
+  </dmc-navbar>
+
+  <main id="conteudo">
+
+    <!-- ============================== ABERTURA (sem malha) ============================== -->
+    <section class="page-hero" aria-labelledby="hero-titulo">
+      <div class="page-hero__inner">
+        <div class="page-hero__content">
+          <p class="page-hero__badge">Newsletter</p>
+          <h1 class="page-hero__title" id="hero-titulo">Descadastro da <em>newsletter</em></h1>
+          <p class="page-hero__subtitle">Informe o e-mail que deseja retirar da lista de análises do Complexo DMC. O pedido é efetivado sem confirmar se o endereço está cadastrado: a resposta é sempre a mesma, para não revelar quem está inscrito.</p>
+          <div class="page-hero__actions">
+            <a class="dmc-btn dmc-btn--primary" href="#descadastro">Cancelar inscrição <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--link" href="politica-de-privacidade.html#newsletter">Como tratamos a newsletter</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== FORMULÁRIO (papel) ==============================
+         Envio: pages/js/newsletter-descadastro.js faz POST JSON (Accept: application/json)
+         em /api/newsletter/descadastro e mostra a mensagem do servidor. Sem JS, o próprio
+         form posta urlencoded na mesma rota, que responde em HTML. -->
+    <section class="page-section dmc-on-paper" id="descadastro" aria-labelledby="form-titulo">
+      <div class="page-section__container np-fundamento">
+        <div class="page-section__header">
+          <p class="page-section__overline">Autoatendimento</p>
+          <h2 class="page-section__title" id="form-titulo">Sair da <em>lista</em></h2>
+          <p class="page-section__description" id="form-desc">Você pode sair a qualquer momento (art. 8º, § 5º, da LGPD). A revogação não afeta os envios já feitos; se você se inscrever de novo, a inscrição é reativada.</p>
+        </div>
+
+        <div class="np-fundamento__body">
+          <form id="descadastroForm" class="dmc-form nd-form" action="/api/newsletter/descadastro" method="post" aria-describedby="formMessage">
+            <div class="form-field">
+              <label for="nd-email">E-mail cadastrado</label>
+              <input type="email" id="nd-email" name="email" placeholder="seu@email.com" autocomplete="email" inputmode="email" required maxlength="254">
+            </div>
+
+            <!-- Isca anti-robô: fica fora da tela; quem preenche é descartado pelo servidor. -->
+            <div class="form-hp" aria-hidden="true">
+              <label for="nd-website">Não preencha este campo</label>
+              <input type="text" id="nd-website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <p id="formMessage" class="form-message" role="status" aria-live="polite"></p>
+            <button type="submit" class="submit-btn dmc-btn dmc-btn--primary" id="submitBtn">Cancelar inscrição</button>
+          </form>
+
+          <div class="nd-aside">
+            <p class="dmc-small">Se preferir, peça a saída por e-mail a <a href="mailto:administrativo@complexodmc.com.br?subject=Newsletter">administrativo@complexodmc.com.br</a>. O link no rodapé de cada envio também cancela a inscrição.</p>
+            <p class="dmc-small"><a href="politica-de-privacidade.html#newsletter">Voltar à Política de Privacidade (Newsletter)</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================== RODAPÉ (o mesmo da home) ============================== -->
+  <footer class="dmc-footer" id="rodape">
+    <div class="dmc-wrap">
+      <div class="dmc-footer__grid">
+        <div class="dmc-footer__brand">
+          <a class="dmc-brand" href="../" aria-label="Complexo DMC, página inicial">
+            <img src="../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">
+            <span aria-hidden="true">COMPLEXO <b>DMC</b></span>
+          </a>
+          <p>Consultoria em negócios para decisões que envolvem empresa, patrimônio e família.</p>
+          <p>Sede em São Paulo. Atendimento a empresas, famílias empresárias, incorporadoras e investidores.</p>
+        </div>
+
+        <nav aria-labelledby="rodape-eixos">
+          <p class="dmc-footer__title" id="rodape-eixos">Eixos</p>
+          <ul class="dmc-footer__list">
+            <li class="np-pillar-patrimonial"><a href="planejamento-sucessorio.html"><span class="dmc-footer__num">E1</span>Patrimonial e Sucessório</a></li>
+            <li class="np-pillar-fiscal"><a href="planejamento-tributario.html"><span class="dmc-footer__num">E2</span>Tributário, Fiscal e Corporativo</a></li>
+            <li class="np-pillar-imobiliario"><a href="consultoria-imobiliaria.html"><span class="dmc-footer__num">E3</span>Notarial e Imobiliário</a></li>
+            <li class="np-pillar-auditoria"><a href="contabilidade.html"><span class="dmc-footer__num">E4</span>Auditoria Empresarial e Contábil</a></li>
+            <li class="np-pillar-ativos"><a href="recuperacao-ativos.html"><span class="dmc-footer__num">E5</span>Recuperação de Ativos</a></li>
+            <li class="np-pillar-trabalhista"><a href="../solucoes/consultoria-trabalhista/ciclo-fechado.html"><span class="dmc-footer__num">E6</span>Consultoria Trabalhista</a></li>
+          </ul>
+        </nav>
+
+        <nav aria-labelledby="rodape-casa">
+          <p class="dmc-footer__title" id="rodape-casa">Sobre</p>
+          <ul class="dmc-footer__list">
+            <li><a href="sobre.html">Sobre o Complexo DMC</a></li>
+            <li><a href="../#features">Soluções</a></li>
+            <li><a href="../#treinamentos">Treinamentos</a></li>
+            <li><a href="tecnologia.html">Tecnologia</a></li>
+            <li><a href="../parcerias/">Parcerias</a></li>
+            <li><a href="por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
+            <li><a href="../plataforma-ead/login.html">DMC Business School</a></li>
+            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">ADTECH</a></li>
+          </ul>
+        </nav>
+
+        <div>
+          <p class="dmc-footer__title">Contato</p>
+          <ul class="dmc-footer__list">
+            <li><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></li>
+            <li><a href="tel:+5511915267749">+55 (11) 91526-7749</a></li>
+            <li><a href="../#contact">Formulário de contato</a></li>
+            <li><span>Rua Riachuelo, 231<br>São Paulo, SP — Brasil</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dmc-footer__legal">
+        <p>&copy; 2026 Complexo DMC. Todos os direitos reservados.</p>
+        <p>Conteúdo informativo. A atuação em atos privativos da advocacia, da contabilidade e da auditoria é realizada por profissionais e sociedades parceiras habilitadas; os atos notariais e registrais, por cartórios conveniados.</p>
+        <p><a href="politica-de-privacidade.html">Política de Privacidade</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/5511915267749?text=Ol%C3%A1%20daniel" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Conversar pelo WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</body>
+</html>

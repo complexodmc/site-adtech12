@@ -22,6 +22,9 @@ import { requireAuth, requireAdmin } from './auth.js';
 import {
   criarRotaParcerias, corpoParcerias, criarNotificadorParcerias, criarRepositorioParcerias
 } from './routes/parcerias.js';
+import {
+  criarRotaNewsletter, criarRepositorioNewsletter, assuntoEmailInscricao, corpoEmailInscricao
+} from './routes/newsletter.js';
 
 const app = express();
 
@@ -34,6 +37,9 @@ app.set('trust proxy', config.trustProxy);
 app.use('/api/contato', corpoContato());
 // Idem para as candidaturas de parceria (/api/parcerias): 16 KB, antes do global.
 app.use('/api/parcerias', corpoParcerias());
+// Newsletter: mesmo parser de 16 KB do contato (JSON + urlencoded, 413/400 tratados),
+// com o texto do 413 sem falar em "mensagem" (o form não tem esse campo).
+app.use('/api/newsletter', corpoContato({ mensagem413: 'Conteúdo grande demais. Reduza o texto dos campos e tente de novo.' }));
 app.use(express.json({ limit: '1mb' }));
 
 if (config.corsOrigins.length) {
@@ -79,6 +85,32 @@ app.get('/api/health/db', async (_req, res, next) => {
     next(err);
   }
 });
+
+// Newsletter fica ANTES do middleware de conexão abaixo: a rota chama
+// ensureConnected() dentro do próprio try, e banco fora vira 503 (não 500).
+const repoNewsletter = criarRepositorioNewsletter(() => col.newsletter());
+app.use('/api/newsletter', criarRotaNewsletter({
+  salvar: async (i) => { await ensureConnected(); return repoNewsletter.salvar(i); },
+  descadastrar: async (email, meta) => { await ensureConnected(); return repoNewsletter.descadastrar(email, meta); },
+  segredo: config.jwtSecret,
+  politicaVersao: config.newsletter.politicaVersao,
+  exigirPoliticaVersao: config.newsletter.exigirPoliticaVersao,
+  gravarIp: config.newsletter.gravarIp,
+  origensPermitidas: config.newsletter.origensPermitidas,
+  // Sem reply_to: a equipe não responde ao inscrito, e o endereço pode ter sido
+  // digitado por terceiro.
+  notificar: config.newsletter.notificar
+    ? criarNotificadorEmail({ ...config.newsletter.email, assunto: assuntoEmailInscricao, corpo: corpoEmailInscricao, replyTo: null })
+    : null
+}));
+// Avisos de configuração da newsletter no carregamento do módulo (a Vercel não
+// executa start()); o aviso de politicaVersao sai de dentro da própria rota.
+if (config.newsletter.notificar && (!config.newsletter.email.resendApiKey || !config.newsletter.email.para)) {
+  console.log('[DMC] /api/newsletter: NEWSLETTER_NOTIFICAR=true, mas RESEND_API_KEY/NEWSLETTER_EMAIL_TO vazios — só grava e loga.');
+}
+if (!config.newsletter.gravarIp) {
+  console.log('[DMC] /api/newsletter: IP truncado NÃO é gravado no consentimento (NEWSLETTER_GRAVAR_IP != "true") — coerente com a Política de Privacidade publicada.');
+}
 
 app.use('/api', async (_req, _res, next) => {
   try {
@@ -131,6 +163,11 @@ app.use((err, _req, res, _next) => {
     const mb = Math.round((err.limit || config.maxUploadBytes) / (1024 * 1024));
     return res.status(413).json({ error: `Arquivo maior que o limite de ${mb} MB.` });
   }
+  // Banco fora do ar (conexão/seleção de servidor) é indisponibilidade, não bug: 503.
+  if (err && /^Mongo(ServerSelection|Network|NetworkTimeout)Error$/.test(err.name || '')) {
+    console.error('[DMC] MongoDB indisponível:', err.message);
+    return res.status(503).json({ error: 'Serviço temporariamente indisponível. Tente novamente em instantes.' });
+  }
   console.error('[DMC] erro não tratado:', err);
   res.status(500).json({ error: 'Erro interno no servidor.' });
 });
@@ -176,6 +213,9 @@ async function start() {
     }
     if (!config.parceriasEmail.resendApiKey || !config.parceriasEmail.para) {
       console.log('[DMC] /api/parcerias: e-mail de aviso desligado (RESEND_API_KEY/PARCERIAS_EMAIL_TO vazios) — candidaturas só vão para "parcerias_candidaturas".');
+    }
+    if (!config.newsletter.notificar) {
+      console.log('[DMC] /api/newsletter: aviso interno por inscrição desligado (NEWSLETTER_NOTIFICAR != "true") — inscrições só vão para "newsletter_inscricoes".');
     }
     if (config.devSimularPagamento) {
       console.warn('[DMC] ⚠️  DEV_SIMULAR_PAGAMENTO=true — alunos podem liberar cursos pra si mesmos. Não use em produção.');

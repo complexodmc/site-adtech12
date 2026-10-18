@@ -1,0 +1,164 @@
+/* ==== 05 · VERTICAIS DE NEGÓCIOS ====
+   Spec: docs/dmc/HOME_REDESIGN.md §3·05 · prefixo verticais- · só tokens.
+   Depende de _shared.css (integrador): .home { --ratio-wide, --ratio-panel,
+   --veil, --veil-mid, --veil-off, --num-font } e .dmc-wrap--wide. Cada var()
+   abaixo traz o fallback equivalente para que o parcial leia igual sozinho.
+   Mobile-first: <768 texto fora da imagem (fundo --surface-1); 768–1023 idem
+   em 8 colunas; ≥1024 texto sobre o véu (o único degradê da home, em tokens);
+   ≥1440 painel 1 em 21:9. Sem sombra, sem literal de cor, raio --radius-2. */
+
+.verticais-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-7);
+  margin-top: var(--space-block);
+}
+.verticais-cell { min-width: 0; grid-column: 1 / -1; }
+
+.verticais-item {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius-2);
+  background: var(--surface-1);
+  color: var(--text-1);
+}
+/* stagger da revelação (80 ms × n, teto 5); reduce zera --stagger */
+.verticais-item.dmc-reveal { transition-delay: calc(var(--stagger) * min(var(--i, 0), 5)); }
+
+/* ---- mídia ---- */
+.verticais-item__media {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: var(--ratio-panel, 16 / 10);
+  background: var(--surface-2);           /* reserva de cor antes do lazy */
+}
+.verticais-item__media img,
+.verticais-item__media video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out), opacity var(--dur-reveal) var(--ease-out);
+}
+.verticais-item__media .verticais-item__loop { opacity: 0; display: none; }   /* <1024 nunca entra; [hidden] da base cobre o resto */
+.verticais-item__media .verticais-item__loop.is-playing { opacity: 1; }
+.verticais-item__veil { display: none; }                   /* só ≥1024 */
+
+/* ---- texto (fora da imagem) ---- */
+.verticais-item__body {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-5) var(--space-5) var(--space-6);
+}
+.verticais-item__num {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.6em;
+  row-gap: var(--space-1);
+  font: var(--num-font, var(--fw-medium) var(--fs-small) / 1 var(--font-text));
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--color-gold);
+}
+.verticais-item__num span {
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.01em;
+  color: var(--text-3);
+}
+.verticais-item__eyebrow {
+  max-width: 28rem;
+  font: italic var(--fw-light) var(--fs-h4) / var(--lh-snug) var(--font-display);
+  color: var(--text-2);
+}
+.verticais-item__title {
+  max-width: 16ch;
+  font: var(--fw-light) var(--fs-h3) / var(--lh-heading) var(--font-display);
+  letter-spacing: var(--tracking-heading);
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+  color: var(--text-1);
+}
+.verticais-item__title em { font-style: italic; }
+.verticais-item--wide .verticais-item__title { font-size: var(--fs-h2); letter-spacing: var(--tracking-display); }
+.verticais-item__text {
+  max-width: 32rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-2);
+}
+.verticais-item__cta {
+  width: 100%;
+  margin-top: var(--space-3);
+  justify-self: start;
+}
+.verticais-item__cta:focus-visible { outline-offset: -4px; }   /* não cortar pelo overflow:hidden */
+
+/* ---- 768–1023: 8 colunas, painel 1 inteiro, 2–5 em pares; texto ainda fora ---- */
+@media (min-width: 768px) {
+  .verticais-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: var(--space-6); }
+  .verticais-cell { grid-column: span 4; }
+  .verticais-cell--wide { grid-column: 1 / -1; }
+  .verticais-item__body { padding: var(--space-6); }
+  .verticais-item__cta { width: auto; }
+}
+
+/* ---- ≥1024: 12 colunas, texto sobre o véu, loop de vídeo, hover ---- */
+@media (min-width: 1024px) {
+  .verticais-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--grid-gap); }
+  .verticais-cell { grid-column: span 6; }
+  .verticais-cell--wide { grid-column: 1 / -1; }
+
+  .verticais-item__media .verticais-item__loop { display: block; }
+  .verticais-item__veil {
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, var(--veil, var(--hero-veil)) 0 42%, var(--veil-off, var(--hero-veil-off)) 72%),
+      linear-gradient(0deg, var(--veil-mid, var(--hero-veil-mid)) 0 30%, var(--veil-off, var(--hero-veil-off)) 60%);
+  }
+
+  /* Texto sobre o véu por empilhamento de grade (não por absoluto): a figura estica até a
+     altura do texto quando ele for mais alto que 16:10 — nada é cortado em nenhuma largura. */
+  .verticais-item__media,
+  .verticais-item__body { grid-area: 1 / 1; }
+  .verticais-item__media { aspect-ratio: auto; min-height: 0; }
+  .verticais-item__media::before { content: ''; display: block; padding-top: calc(100% / (var(--ratio-panel, 16 / 10))); }
+  .verticais-item--wide .verticais-item__media::before { padding-top: 50%; }   /* 2 / 1 */
+  .verticais-item__body {
+    position: relative;
+    z-index: 1;
+    align-self: end;
+    align-content: end;
+    max-width: 30rem;
+    padding: var(--space-7);
+  }
+  .verticais-item:not(.verticais-item--wide) .verticais-item__text { display: none; }   /* cabe de novo em 1440 */
+
+  .verticais-item:hover .verticais-item__media img,
+  .verticais-item:hover .verticais-item__media video,
+  .verticais-item:focus-within .verticais-item__media img,
+  .verticais-item:focus-within .verticais-item__media video { transform: scale(1.02); }
+}
+
+/* ---- ≥1440: painel 1 em 21:9, respiro maior, texto completo em todos ---- */
+@media (min-width: 1440px) {
+  .verticais-item--wide .verticais-item__media::before { padding-top: calc(100% / (var(--ratio-wide, 21 / 9))); max-height: min(72vh, 40rem); }
+  .verticais-item__body { max-width: 34rem; padding: var(--space-8); }
+  .verticais-item--wide .verticais-item__body { max-width: 40rem; }
+  .verticais-item:not(.verticais-item--wide) .verticais-item__text { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .verticais-item:hover .verticais-item__media img,
+  .verticais-item:focus-within .verticais-item__media img { transform: none; }
+}

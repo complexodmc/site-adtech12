@@ -132,3 +132,119 @@ riscos relevantes, alterações institucionais sensíveis.
 - Decisão: regra obrigatória em `.claude/agents/*.md` e `.codex/agents/*.toml` — nunca `pkill`/`killall`/
   `kill -9` por nome nem `kill` em PID não iniciado pelo agente; encerrar só o PID guardado em `$!`.
 - Aprovação necessária: não. CEO avisado.
+
+### T6 — "A casa" vira "Sobre"; página institucional própria (2026-10-17)
+- Decisão: o rótulo "A casa" sai do menu, da gaveta mobile, dos rodapés (26 páginas) e da seção
+  da home; entra "Sobre". A seção `#conheca` da home é redesenhada (tese + seis eixos como
+  tablist + foco do eixo + rede neural reescrita) e passa a apontar para a nova página
+  `pages/sobre.html`, que concentra o texto institucional. O id `#conheca` é preservado
+  (âncoras antigas e testes). A mensagem central aprovada pelo CEO ("O Complexo DMC integra
+  seis eixos de especialidade…") é o lead da seção e o subtítulo do herói de Sobre.
+- Justificativa: pedido do CEO (seção visualmente fraca e pouco comercial; "a casa" opaco
+  para quem chega de fora). Rede sem manchas de cor: fundo liso `surface-0`, brilho só por
+  gradiente radial no nó, satélites discretos.
+- Impacto: `index.html`, `assets/css/styles.css?v=c4`, `assets/js/rede-neural.js?v=2`,
+  `assets/js/navbar.js?v=c3` (aria-current em Sobre), rodapés de `pages/` e `solucoes/`,
+  `sitemap.xml`. A seção "Soluções" (`#features`) não muda.
+- Aprovação necessária: não (dentro de D2/D4); texto de Sobre segue para revisão do CEO.
+
+
+### D9 — Alcance de atendimento e imagens da home (2026-10-17)
+- Decisão do CEO: o atendimento do Complexo DMC é em todo o Brasil, inclusive internacional.
+  O texto público pode afirmar "atendimento em todo o Brasil e no exterior" (sede em São Paulo);
+  segue proibido inventar números (estados, países, clientes — D7).
+- Decisão do CEO: as imagens da home (verticais, mapa, publicações, metodologia) são produzidas
+  internamente por render procedural; a equipe da DMC substitui depois por fotografia licenciada
+  se houver necessidade. Não bloqueia a entrega.
+- Aprovação: CEO ✔
+
+## Pacote "DMC PRIME — Master Prompt Definitivo": header, portal e Parcerias (2026-10-17)
+
+### D10 — Header institucional e portal Acessar (decisões do CEO no briefing)
+- Decisão do CEO: barra "Eixos | Sobre | Treinamentos | Parcerias | Tecnologia" + "Acessar ▾" +
+  CTA "Converse com nossos especialistas" em ouro sólido; Acessar com DMC Business School,
+  ADTECH, Artheu IA e Bloadhound (substitui D6, que tinha Área do aluno + Ad-tech).
+- Aprovação: CEO ✔ (briefing). Divergência registrada: a sessão do redesign da home recebeu do
+  CEO o pedido de "cabeçalho da home intacto"; prevaleceu o briefing mais específico. CEO informado.
+
+### T7 — Implementação do header e destinos do portal (2026-10-17)
+- Decisão: `navbar.js?v=c4` + `components.css?v=3`. Barra completa ≥1200px; 768–1199 gaveta +
+  CTA na barra; <768 CTA na gaveta. Altura 72px desde 1024 mantida (os heróis compensam
+  `--header-h-lg`). CTA: ouro `#d6b069` + grafite `#121416` (≈9:1), seta ↗, brilho por transform.
+- Destinos reais: DMC Business School → `plataforma-ead/login.html` (200 em produção); ADTECH →
+  `https://adtech-app.complexodmc.com.br` (URL já usada no site; DNS resolve, mas a conexão deu
+  timeout no teste de 2026-10-17 — PENDENTE confirmar com o CEO). Artheu IA e Bloadhound: sem URL
+  nem ativo de marca no repositório, no Drive ou em DNS → sem login; "Em estruturação" e link para
+  a apresentação em `pages/tecnologia.html#artheu` / `#bloadhound`.
+- Grafias: as do CEO ("Artheu IA", "Bloadhound"). PENDENTE validar: `recuperacao-ativos.html`
+  escreve "ARTHEU" e descreve a IA como em uso; "Bloadhound" não tem ativo que confirme a grafia.
+- Rodapés (pages/ e solucoes/): "Área do aluno" → "DMC Business School", "Ad-tech" → "ADTECH",
+  item "Parcerias" na coluna Sobre.
+- Aprovação necessária: não (execução de D10).
+
+### T8 — Central de Parcerias: rotas, identidades e conformidade (2026-10-17)
+- Rotas: `/parcerias/`, `/parcerias/advogados-parceiros/`, `/parcerias/business-partner/` (pastas
+  com index.html); redirects 301 sem barra → com barra e `/parcerias/partner-lawyers` →
+  advogados-parceiros (a Vercel compila `^/caminho$`, sem laço).
+- Identidades: Partner Lawyers em champanhe; Business Partner em BRONZE (o azul-petróleo sugerido
+  colide com E1 `#76b7c1`). Imagens procedurais originais (D9).
+- Conformidade: texto do CEO mantido onde pediu, com alternativas neutras sinalizadas em
+  `docs/dmc/parcerias/CONFORMIDADE.md` ("Desenvolvemos oportunidades", "Excelência profissional",
+  "Agente Prospector"). Retirado o exemplo "empresas em reestruturação → E5" do Business Partner
+  (mais próximo de captação de causas). Nenhuma remuneração, comissão ou percentual publicado.
+- Campanhas: tudo PROPOSTO; nenhuma mídia paga, segmentação ou disparo sem revisão jurídica e
+  aprovação do CEO.
+- Aprovação necessária: revisão jurídica humana antes de qualquer divulgação (CONFORMIDADE.md §5).
+
+### T9 — Candidaturas: backend, funil e painel (2026-10-17)
+- Decisão: rotas separadas por programa em `/api/parcerias/*`, coleção `parcerias_candidaturas`
+  (sem IP/user-agent), funil alterado só por admin, painel em `plataforma-ead/parcerias.html`
+  (arquivo novo; nenhum arquivo da EAD alterado — D5). Sem CRM configurado: persistência no
+  MongoDB existente + aviso por e-mail opcional (Resend), sem serviço pago novo.
+- PENDENTE CEO: prazo de retenção (24 meses informativo, sem expurgo), destinatário
+  `PARCERIAS_EMAIL_TO`, `RESEND_API_KEY`/remetente verificado.
+- Aprovação necessária: não (arquitetura existente).
+
+### T10 — Documentos de status deste pacote (2026-10-17)
+- Decisão: `docs/dmc/PROJECT_STATUS.md` (painel executivo do briefing) e `docs/dmc/QA_REPORT.md`
+  (QA deste pacote). O histórico detalhado continua em PROGRESS.md e QA.md — sem duplicar.
+
+## Redesign da home (2026-10-17)
+
+### D11 — Home v2: síntese S1–S16 e sobreposições do diretor (2026-10-17)
+Numerada D11 porque D10 já identifica "Header institucional e portal Acessar" (pacote Parcerias); a
+instrução de registrar como D10 foi adaptada para não duplicar identificador.
+- Decisão (síntese da especificação `docs/dmc/HOME_REDESIGN.md` §1.2, adotada pela equipe):
+  S1 ritmo de fundo em blocos (escuro → papel → dividido → escuro → papel → vídeo → contato), vizinhas
+  do mesmo bloco separadas por fio; S2 um canvas por seção animada, com gate de IntersectionObserver,
+  `prefers-reduced-motion` e visibilidade da aba; S3 seção 03 = grade 3×2 dos seis eixos + `details`
+  com os 21 links (≥ 44 px), sem busca nem cartões; S4 voz do cliente uma única vez (eyebrow dos painéis
+  de 05), falas por eixo vão para `catalogo-cards.json`; S5 seção 04 = painel de papel com intro sticky,
+  numeração em Hanken 14; S6 seção 05 = cinco painéis grandes, texto sobre véu ≥ 1024 e fora da imagem
+  abaixo, loop WebM/MP4 ≤ 6 s/≤ 1 MB só ≥ 1024, sem reduce e sem `saveData`; S7 seção 06 com a fórmula
+  literal da D9 (sem números), mapa SVG + canvas 2D sem `perspective`; S8 seção 07 sem imagem, um
+  destaque real e "Em preparação" sem título fictício; S9 seção 08 = método em 4 etapas + programa real,
+  `id="treinamentos"` mantido; S10 newsletter em papel, sucesso só com 2xx `{ok:true}`, erros por código
+  HTTP; S11 WhatsApp flutuante visível desde o início, com `?text=` qualificado pelo eixo; S12 sem
+  numeração de ato nos overlines; S13 fórmula completa de atribuição de atos uma vez (04.3), categoria
+  pertinente nas demais seções; S14 ícones dos eixos como sprite `<symbol>` + `<use>`; S15 sem
+  rinoceronte em vídeo na seção Sobre; S16 CSS da home construído em `home.css` e fundido em `styles.css`
+  antes da publicação (executado: `home.css` removido, `styles.css?v=c7`).
+- Sobreposições do diretor do projeto (prevalecem sobre a especificação): (a) seção 02 `#conheca`
+  mantida exatamente como no HEAD b26a462 (tablist `.casa__tab`, rede neural `rede-neural.js?v=2`),
+  logo a regra "um só canvas" passa a "dois canvas, ambos com gate" e a proibição de `role=tab` vale só
+  para as seções novas; (b) cabeçalho/navbar, hero, formulário de contato e rodapé não redesenhados;
+  `navbar.js` e `components.css` pertencem a outra sessão e não foram editados; rodapé "Área do aluno"
+  → "DMC Business School", "Ad-tech" → "ADTECH", sem link "Parcerias" nesta rodada; (c) imagens das
+  verticais = renders procedurais com movimento, nomes de arquivo da §4.
+- Justificativa: resolve as contradições apontadas pelos três juízes entre as specs A/B/C
+  (`julgamento-juiz-3.md`, `juiz-2-frontend.md`) com um só critério — consistência com o BRIEF, D7 e
+  D9; o diretor manteve a seção Sobre por já estar aprovada (T6).
+- Impacto: `index.html`, `styles.css`, `main.js`, `brasil.js` + `data/brasil-capitais.js`, 30 arquivos de
+  mídia em `assets/{images,videos}/home/`, `POST /api/newsletter` + página de descadastro, suíte e2e
+  reescrita (`home.spec.js` → `eixos.spec.js`, + `home-secoes`, `newsletter`, `newsletter-descadastro`).
+  Resultado: 684/684 e2e, Lighthouse home 100/100/100/100 (LCP 1,65 s). `vercel.json`, `sitemap.xml`,
+  `navbar.js`, `components.css`, `tokens.css` inalterados.
+- Aprovação: equipe (dentro de D2/D4). Aprovação do CEO necessária para: commit/publicação desta rodada,
+  política de privacidade sem `[CONFIRMAR]` (condição da newsletter) e as pendências listadas em
+  `docs/dmc/home-redesign/RELATORIO-CEO.md` §5.

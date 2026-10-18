@@ -1,0 +1,836 @@
+{
+  "_meta": {
+    "documento": "Catálogo canônico dos eixos e soluções do Complexo DMC (home v2)",
+    "origem": "Gerado a partir de complexodmc.com.br/index.html (HEAD b26a462, working tree) + docs/dmc/home-redesign/copy.json (eixos.*). Spec: docs/dmc/HOME_REDESIGN.md §5.4.",
+    "data": "2026-10-17",
+    "gerado_por": "frontend-motion (P0 base)",
+    "uso": "Repositório canônico do catálogo depois que o HTML da home deixa de sê-lo: insumo para mega-menu, internas, details.eixos-catalogo e testes (eixos.spec). hrefs relativos a complexodmc.com.br/index.html.",
+    "convencoes": {
+      "eixo": "E1..E6 conforme BRIEF.md; slug = classe np-pillar-*.",
+      "falas_atuais": "texto hoje em .np-case (seção \"Qual é a sua situação?\", sai da home em S4).",
+      "falas_reescritas": "copy.json eixos.falas_do_cliente_para_catalogo_cards_json — prevalecem sobre as atuais para mega-menu e internas.",
+      "headlines_paineis": "h3.np-flag-title de cada article.np-flag#eixo-N; diferenciais = os 3 li de ol.np-flag-list (18 no total).",
+      "nao_linkar_no_catalogo": [
+        "pages/planejamento-sucessorio-empresarial.html (301)",
+        "card 'Auditoria Empresarial → #contact' (não é página)"
+      ],
+      "conformidade": "Provimento 205/2021 CFOAB + D7: sem número institucional, percentual, garantia, resultado, honorário, urgência. Atos privativos sempre atribuídos a parceiros habilitados/cartórios conveniados. Fórmula completa de atribuição só em porque.itens[2]."
+    },
+    "totais": {
+      "cards": 21,
+      "falas_atuais": 6,
+      "falas_reescritas": 6,
+      "headlines": 6,
+      "diferenciais": 18
+    }
+  },
+  "eixos": [
+    {
+      "codigo": "E1",
+      "id": "eixo-1",
+      "slug": "np-pillar-patrimonial",
+      "nome": "Planejamento Patrimonial e Sucessório",
+      "nome_curto": "Patrimonial e Sucessório",
+      "icone": "ico-e1",
+      "descricao_home": "Sucessão, holding e proteção do patrimônio familiar organizados em vida, com a carga tributária calculada antes de cada ato.",
+      "cta_ancora": {
+        "texto": "Explorar soluções",
+        "href": "pages/planejamento-sucessorio.html",
+        "aria_label": "Explorar soluções de Planejamento Patrimonial e Sucessório"
+      },
+      "catalogo_head": "E1 · Patrimonial e Sucessório",
+      "catalogo_links": [
+        {
+          "texto": "Planejamento Sucessório",
+          "href": "pages/planejamento-sucessorio.html"
+        },
+        {
+          "texto": "Holding Patrimonial",
+          "href": "pages/holding-patrimonial.html"
+        },
+        {
+          "texto": "Separação Patrimonial",
+          "texto_pagina": "Blindagem Patrimonial",
+          "href": "pages/blindagem-patrimonial.html",
+          "pendencia": "[CEO 2] texto do link usa a alternativa registrada; o H1 da página segue 'Blindagem Patrimonial' até decisão. Se o CEO mantiver o nome, reverter o texto."
+        },
+        {
+          "texto": "Proteção Patrimonial",
+          "href": "pages/pronto-patrimonio.html"
+        },
+        {
+          "texto": "Sucessão Testamentária",
+          "href": "pages/sucessao-testamentaria.html"
+        }
+      ],
+      "cards": [
+        "pages/planejamento-sucessorio.html",
+        "pages/holding-patrimonial.html",
+        "pages/blindagem-patrimonial.html",
+        "pages/pronto-patrimonio.html",
+        "pages/sucessao-testamentaria.html"
+      ],
+      "headline_painel": "Sucessão decidida em vida, não no inventário.",
+      "fala_atual": [
+        "Tenho imóveis no meu nome, filhos, e nada organizado para o dia em que eu faltar."
+      ],
+      "fala_reescrita": "Tenho imóveis e participações no meu nome e ninguém na família sabe o que acontece depois."
+    },
+    {
+      "codigo": "E2",
+      "id": "eixo-2",
+      "slug": "np-pillar-fiscal",
+      "nome": "Tributário, Fiscal e Corporativo",
+      "nome_curto": "Tributário e Corporativo",
+      "icone": "ico-e2",
+      "descricao_home": "Regime, créditos e estrutura societária revisados em conjunto, com programa de integridade e cada escolha registrada com fundamento legal.",
+      "cta_ancora": {
+        "texto": "Explorar soluções",
+        "href": "pages/planejamento-tributario.html",
+        "aria_label": "Explorar soluções do eixo Tributário, Fiscal e Corporativo"
+      },
+      "catalogo_head": "E2 · Tributário e Corporativo",
+      "catalogo_links": [
+        {
+          "texto": "Planejamento Tributário",
+          "href": "pages/planejamento-tributario.html"
+        },
+        {
+          "texto": "Compliance e Governança",
+          "href": "pages/compliance-governanca.html"
+        }
+      ],
+      "cards": [
+        "pages/planejamento-tributario.html",
+        "pages/compliance-governanca.html"
+      ],
+      "headline_painel": "Carga fiscal e estrutura societária decididas com fundamento.",
+      "fala_atual": [
+        "Recebi uma autuação da Receita e não sei se o meu regime tributário ainda faz sentido."
+      ],
+      "fala_reescrita": "A empresa cresceu, o regime ficou o mesmo e nunca comparamos com os nossos números."
+    },
+    {
+      "codigo": "E3",
+      "id": "eixo-3",
+      "slug": "np-pillar-imobiliario",
+      "nome": "Direito Notarial e Imobiliário",
+      "nome_curto": "Notarial e Imobiliário",
+      "icone": "ico-e3",
+      "descricao_home": "Viabilidade, incorporação, venda e registro de cada unidade tratados como processo contínuo, com os atos lavrados por cartórios conveniados.",
+      "cta_ancora": {
+        "texto": "Explorar soluções",
+        "href": "pages/consultoria-imobiliaria.html",
+        "aria_label": "Explorar soluções de Direito Notarial e Imobiliário"
+      },
+      "catalogo_head": "E3 · Notarial e Imobiliário",
+      "catalogo_links": [
+        {
+          "texto": "Consultoria Imobiliária",
+          "href": "pages/consultoria-imobiliaria.html"
+        },
+        {
+          "texto": "Jurídico Imobiliário",
+          "href": "pages/juridico-imobiliario.html",
+          "pendencia": "[CEO 12] rótulo oficial da página; alternativa sem 'Jurídico': 'Assessoria Imobiliária'"
+        },
+        {
+          "texto": "Jurídico Vendas",
+          "href": "pages/juridico-vendas.html",
+          "pendencia": "[CEO 12] rótulo oficial da página; alternativa sem 'Jurídico': 'Assessoria em Vendas'"
+        },
+        {
+          "texto": "Registro Imobiliário",
+          "href": "pages/registro-imobiliario.html"
+        },
+        {
+          "texto": "Atos Notariais",
+          "href": "pages/atos-notariais.html"
+        }
+      ],
+      "cards": [
+        "pages/consultoria-imobiliaria.html",
+        "pages/juridico-imobiliario.html",
+        "pages/juridico-vendas.html",
+        "pages/registro-imobiliario.html",
+        "pages/atos-notariais.html"
+      ],
+      "headline_painel": "Do terreno à matrícula de cada unidade.",
+      "fala_atual": [
+        "Vou comprar um terreno e não sei se a matrícula está limpa.",
+        "Alguém da família faleceu e o inventário não sai do lugar."
+      ],
+      "fala_reescrita": "Tenho um terreno e não sei se o empreendimento fecha."
+    },
+    {
+      "codigo": "E4",
+      "id": "eixo-4",
+      "slug": "np-pillar-auditoria",
+      "nome": "Auditoria Empresarial e Contábil",
+      "nome_curto": "Auditoria e Contábil",
+      "icone": "ico-e4",
+      "descricao_home": "Leitura gerencial de balanço, DRE e controles para que sócio, conselho e banco leiam o mesmo número. Escrituração e auditoria com parceiros habilitados.",
+      "cta_ancora": {
+        "texto": "Explorar soluções",
+        "href": "pages/contabilidade.html",
+        "aria_label": "Explorar soluções de Auditoria Empresarial e Contábil"
+      },
+      "catalogo_head": "E4 · Auditoria e Contábil",
+      "catalogo_links": [
+        {
+          "texto": "Auditoria Empresarial e Contábil",
+          "href": "pages/contabilidade.html"
+        }
+      ],
+      "cards": [
+        "pages/contabilidade.html",
+        "#contact"
+      ],
+      "headline_painel": "Leitura independente dos números para quem decide.",
+      "fala_atual": [
+        "O banco pediu balanço auditado e a minha contabilidade não acompanha."
+      ],
+      "fala_reescrita": "O banco pediu balanço revisado e os números da empresa não se explicam."
+    },
+    {
+      "codigo": "E5",
+      "id": "eixo-5",
+      "slug": "np-pillar-ativos",
+      "nome": "Recuperação de Ativos",
+      "nome_curto": "Recuperação de Ativos",
+      "icone": "ico-e5",
+      "descricao_home": "Análise do título, levantamento do patrimônio do devedor e coordenação de bloqueio, penhora e execução, com atos processuais de parceiros habilitados.",
+      "cta_ancora": {
+        "texto": "Explorar soluções",
+        "href": "pages/recuperacao-ativos.html",
+        "aria_label": "Explorar soluções de Recuperação de Ativos"
+      },
+      "catalogo_head": "E5 · Recuperação de Ativos",
+      "catalogo_links": [
+        {
+          "texto": "Recuperação de Ativos",
+          "href": "pages/recuperacao-ativos.html"
+        }
+      ],
+      "cards": [
+        "pages/recuperacao-ativos.html"
+      ],
+      "headline_painel": "Do título executivo ao patrimônio do devedor.",
+      "fala_atual": [
+        "Ganhei a ação, mas o devedor sumiu com o dinheiro e a execução não anda."
+      ],
+      "fala_reescrita": "Tenho uma sentença e o devedor não paga."
+    },
+    {
+      "codigo": "E6",
+      "id": "eixo-6",
+      "slug": "np-pillar-trabalhista",
+      "nome": "Consultoria Trabalhista",
+      "nome_curto": "Consultoria Trabalhista",
+      "icone": "ico-e6",
+      "descricao_home": "Passivo trabalhista tratado como ciclo: contratos revisados, demissões e acordos documentados, exercício fechado com quitação e defesa por advogados parceiros.",
+      "cta_ancora": {
+        "texto": "Explorar soluções",
+        "href": "solucoes/consultoria-trabalhista/ciclo-fechado.html",
+        "aria_label": "Explorar soluções de Consultoria Trabalhista"
+      },
+      "catalogo_head": "E6 · Consultoria Trabalhista",
+      "catalogo_links": [
+        {
+          "texto": "Ciclo Fechado (programa)",
+          "href": "solucoes/consultoria-trabalhista/ciclo-fechado.html"
+        },
+        {
+          "texto": "Arquitetura Contratual",
+          "texto_pagina": "Blindagem Contratual",
+          "href": "solucoes/consultoria-trabalhista/blindagem-contratual.html",
+          "pendencia": "[CEO 2] texto do link usa a alternativa registrada; href e H1 da página inalterados até decisão."
+        },
+        {
+          "texto": "Conformidade Psicossocial",
+          "href": "solucoes/consultoria-trabalhista/conformidade-psicossocial.html"
+        },
+        {
+          "texto": "Decisão Assistida",
+          "href": "solucoes/consultoria-trabalhista/decisao-assistida.html"
+        },
+        {
+          "texto": "Câmara de Acordos",
+          "href": "solucoes/consultoria-trabalhista/camara-de-acordos.html"
+        },
+        {
+          "texto": "Quitação Anual",
+          "href": "solucoes/consultoria-trabalhista/quitacao-anual.html"
+        },
+        {
+          "texto": "Gestão do Contencioso Trabalhista",
+          "texto_pagina": "Defesa Empresarial",
+          "href": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+          "pendencia": "[CEO 2] texto do link usa a alternativa registrada; href e H1 da página inalterados até decisão."
+        }
+      ],
+      "cards": [
+        "solucoes/consultoria-trabalhista/quitacao-anual.html",
+        "solucoes/consultoria-trabalhista/blindagem-contratual.html",
+        "solucoes/consultoria-trabalhista/conformidade-psicossocial.html",
+        "solucoes/consultoria-trabalhista/decisao-assistida.html",
+        "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+        "solucoes/consultoria-trabalhista/defesa-empresarial.html"
+      ],
+      "headline_painel": "Passivo trabalhista gerido como se fecha um balanço.",
+      "fala_atual": [],
+      "fala_reescrita": "Tenho reclamatórias repetidas com os mesmos pedidos e não sei onde o passivo começa."
+    }
+  ],
+  "cards": [
+    {
+      "eixo": "E1",
+      "slug": "np-pillar-patrimonial",
+      "href": "pages/planejamento-sucessorio.html",
+      "titulo": "Planejamento Sucessório",
+      "descricao": "Holding, doação com reserva de usufruto e testamento organizados em vida, com o custo tributário de cada ato conhecido antes da assinatura.",
+      "data-icone": "planejamento-sucessorio",
+      "data-busca": "sucessao heranca herdeiro filho partilha morte falecimento falecer espolio doacao legitima adiantamento familia inventario",
+      "tags": [
+        "Transmissão em vida",
+        "Sete etapas"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E1",
+      "slug": "np-pillar-patrimonial",
+      "href": "pages/holding-patrimonial.html",
+      "titulo": "Holding Patrimonial",
+      "descricao": "Centraliza imóveis e participações em uma estrutura societária com governança familiar definida e tributação avaliada caso a caso.",
+      "data-icone": "holding-patrimonial",
+      "data-busca": "holding empresa familiar imovel quota participacao integralizacao itbi gestao patrimonio aluguel pessoa juridica",
+      "tags": [
+        "Integralização de bens",
+        "Acordo de sócios"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E1",
+      "slug": "np-pillar-patrimonial",
+      "href": "pages/blindagem-patrimonial.html",
+      "titulo": "Blindagem Patrimonial",
+      "descricao": "Separa a pessoa física do risco empresarial e organiza a exposição dos ativos a credores e litígios.",
+      "data-icone": "blindagem-patrimonial",
+      "data-busca": "blindagem protecao credor penhora divida risco execucao separar bem socio responsabilidade processo",
+      "tags": [
+        "Análise de exposição",
+        "Reorganização societária"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E1",
+      "slug": "np-pillar-patrimonial",
+      "href": "pages/pronto-patrimonio.html",
+      "titulo": "Proteção Patrimonial",
+      "descricao": "Programa integrado para famílias empresárias — diagnóstico, holding, sucessão e governança — conduzido em etapas com entrega própria.",
+      "data-icone": "pronto-patrimonio",
+      "data-busca": "diagnostico programa completo protecao familia empresario execucao assistida pacote comecar",
+      "tags": [
+        "Diagnóstico patrimonial",
+        "Governança familiar"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E1",
+      "slug": "np-pillar-patrimonial",
+      "href": "pages/sucessao-testamentaria.html",
+      "titulo": "Sucessão Testamentária",
+      "descricao": "Testamento, doação com reserva de usufruto e cláusulas restritivas para dirigir a destinação da herança, lavrados por cartório conveniado.",
+      "data-icone": "sucessao-testamentaria",
+      "data-busca": "testamento publico cerrado legado clausula restritiva deixar bem cartorio vontade herdeiro heranca",
+      "tags": [
+        "Testamento público",
+        "Cláusulas restritivas"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E2",
+      "slug": "np-pillar-fiscal",
+      "href": "pages/planejamento-tributario.html",
+      "titulo": "Planejamento Tributário",
+      "descricao": "Comparação de regimes com os números da empresa, levantamento de créditos e desenho das operações com fundamento legal documentado.",
+      "data-icone": "planejamento-tributario",
+      "data-busca": "imposto tributo carga fiscal regime simples lucro presumido real credito autuacao malha receita economia icms iss pis cofins",
+      "tags": [
+        "Revisão de regime",
+        "Créditos recuperáveis"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E2",
+      "slug": "np-pillar-fiscal",
+      "href": "pages/compliance-governanca.html",
+      "titulo": "Compliance & Governança",
+      "descricao": "Programa de integridade — gestão de riscos, código de conduta, canal de denúncias e conselho — acompanhado por métricas de monitoramento.",
+      "data-icone": "compliance-governanca",
+      "data-busca": "compliance governanca conselho acordo socio politica controle interno risco regulatorio societario conflito saida sair",
+      "tags": [
+        "Programa de integridade",
+        "Governança familiar"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E3",
+      "slug": "np-pillar-imobiliario",
+      "href": "pages/consultoria-imobiliaria.html",
+      "titulo": "Consultoria Imobiliária",
+      "descricao": "Viabilidade e due diligence do terreno, com riscos classificados, e coordenação jurídica de cada etapa do empreendimento.",
+      "data-icone": "consultoria-imobiliaria",
+      "data-busca": "terreno incorporacao viabilidade diligence loteamento empreendimento construtora permuta comprar lote matricula",
+      "tags": [
+        "Due diligence de terreno",
+        "Viabilidade"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E3",
+      "slug": "np-pillar-imobiliario",
+      "href": "pages/juridico-imobiliario.html",
+      "titulo": "Jurídico Imobiliário",
+      "descricao": "Estruturação, incorporação, regularização e individualização das matrículas, com minutas revisadas por parceiros habilitados.",
+      "data-icone": "juridico-imobiliario",
+      "data-busca": "contrato compra venda incorporacao regularizacao imovel obra memorial condominio distrato",
+      "tags": [
+        "Incorporação",
+        "Regularização"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E3",
+      "slug": "np-pillar-imobiliario",
+      "href": "pages/juridico-vendas.html",
+      "titulo": "Jurídico Vendas",
+      "descricao": "Minutas de venda no padrão da incorporadora, análise de risco do comprador com jurimetria e procurações, revisadas por parceiros habilitados.",
+      "data-icone": "juridico-vendas",
+      "data-busca": "minuta contrato venda unidade jurimetria analise risco distrato corretor imobiliaria",
+      "tags": [
+        "Minutas de venda",
+        "Análise de risco"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E3",
+      "slug": "np-pillar-imobiliario",
+      "href": "pages/registro-imobiliario.html",
+      "titulo": "Registro Imobiliário",
+      "descricao": "Matrículas, averbações e regularização fundiária acompanhadas até o registro efetivo em cartório.",
+      "data-icone": "registro-imobiliario",
+      "data-busca": "matricula averbacao retificacao usucapiao cartorio registro certidao regularizacao fundiaria escritura area terreno",
+      "tags": [
+        "Averbações",
+        "Regularização fundiária"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E3",
+      "slug": "np-pillar-imobiliario",
+      "href": "pages/atos-notariais.html",
+      "titulo": "Atos Notariais",
+      "descricao": "Escrituras, procurações, atas notariais e inventário extrajudicial, preparados e acompanhados até a lavratura em tabelionato conveniado.",
+      "data-icone": "atos-notariais",
+      "data-busca": "escritura procuracao ata notarial inventario extrajudicial divorcio tabelionato firma reconhecimento partilha espolio falecimento",
+      "tags": [
+        "Escrituras",
+        "Procurações"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E4",
+      "slug": "np-pillar-auditoria",
+      "href": "pages/contabilidade.html",
+      "titulo": "Auditoria e Inteligência Contábil",
+      "descricao": "Leitura gerencial e revisão das demonstrações de empresas, holdings e famílias; escrituração por parceiro habilitado.",
+      "data-icone": "contabilidade",
+      "data-busca": "contabilidade balanco sped escrituracao obrigacao acessoria bpo folha imposto renda dre contador auditado banco",
+      "tags": [
+        "Revisão de demonstrações",
+        "Parceiro habilitado"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E4",
+      "slug": "np-pillar-auditoria",
+      "href": "#contact",
+      "titulo": "Auditoria Empresarial",
+      "descricao": "Exame independente de contas, controles e processos: o que os números realmente dizem sobre a sua operação.",
+      "data-icone": "auditoria-empresarial",
+      "data-busca": "auditoria balanco auditado controle interno banco credito socio diligence contabil fraude desvio",
+      "tags": [
+        "Auditoria de balanço",
+        "Controles internos"
+      ],
+      "link_texto": "Falar com a auditoria",
+      "pagina": false
+    },
+    {
+      "eixo": "E5",
+      "slug": "np-pillar-ativos",
+      "href": "pages/recuperacao-ativos.html",
+      "titulo": "Recuperação de Ativos",
+      "descricao": "Análise do título, rastreio patrimonial e coordenação de bloqueio, penhora e execução, com atos processuais de parceiros habilitados.",
+      "data-icone": "recuperacao-ativos",
+      "data-busca": "recuperacao ativo devedor execucao penhora bloqueio rastreio credito calote inadimplencia cobranca ganhei acao receber sumiu dinheiro",
+      "tags": [
+        "Rastreio patrimonial",
+        "Estratégia de cobrança"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E6",
+      "slug": "np-pillar-trabalhista",
+      "href": "solucoes/consultoria-trabalhista/quitacao-anual.html",
+      "titulo": "Quitação Anual",
+      "descricao": "Auditoria mês a mês, correção e quitação anual do exercício trabalhista, com termo firmado perante o sindicato (art. 507-B da CLT).",
+      "data-icone": "quitacao-anual",
+      "data-busca": "quitacao anual passivo trabalhista prescricao quinquenal exercicio balanco folha esocial sindicato homologacao 507b eficacia liberatoria auditoria",
+      "tags": [
+        "Art. 507-B",
+        "Eficácia liberatória"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E6",
+      "slug": "np-pillar-trabalhista",
+      "href": "solucoes/consultoria-trabalhista/blindagem-contratual.html",
+      "titulo": "Blindagem Contratual",
+      "descricao": "Estrutura o vínculo desde a admissão para que o contrato produza prova, e não passivo.",
+      "data-icone": "blindagem-contratual",
+      "data-busca": "contrato trabalho admissao enquadramento clt pejotizacao autonomo terceirizado subordinacao clausula arbitragem aditivo politica ordem de servico",
+      "tags": [
+        "Enquadramento",
+        "Cláusula arbitral"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E6",
+      "slug": "np-pillar-trabalhista",
+      "href": "solucoes/consultoria-trabalhista/conformidade-psicossocial.html",
+      "titulo": "Conformidade Psicossocial",
+      "descricao": "Converte a gestão de riscos psicossociais (NR-1, ISO 45003) em dossiê documentado para a fiscalização do trabalho.",
+      "data-icone": "conformidade-psicossocial",
+      "data-busca": "nr1 nr-1 risco psicossocial saude mental assedio burnout pgr iso 45003 fiscalizacao autuacao afastamento estabilidade acidentaria denuncia",
+      "tags": [
+        "NR-1",
+        "ISO 45003"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E6",
+      "slug": "np-pillar-trabalhista",
+      "href": "solucoes/consultoria-trabalhista/decisao-assistida.html",
+      "titulo": "Decisão Assistida",
+      "descricao": "Nenhum desligamento, advertência ou mudança de jornada sai sem análise prévia de risco.",
+      "data-icone": "decisao-assistida",
+      "data-busca": "demissao desligamento advertencia justa causa jornada estabilidade gestor rh parecer risco antes trilha auditoria prova comite",
+      "tags": [
+        "Análise pré-decisão",
+        "Trilha probatória"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E6",
+      "slug": "np-pillar-trabalhista",
+      "href": "solucoes/consultoria-trabalhista/camara-de-acordos.html",
+      "titulo": "Câmara de Acordos",
+      "descricao": "Mediação antes do processo, com acordo extrajudicial levado à homologação judicial (arts. 855-B a 855-E da CLT) e PDV assistido (art. 477-B).",
+      "data-icone": "camara-de-acordos",
+      "data-busca": "acordo mediacao conciliacao conflito reclamatoria audiencia homologacao coisa julgada pdv plano demissao voluntaria desjudicializacao sindicato",
+      "tags": [
+        "Mediação privada",
+        "PDV assistido"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    },
+    {
+      "eixo": "E6",
+      "slug": "np-pillar-trabalhista",
+      "href": "solucoes/consultoria-trabalhista/defesa-empresarial.html",
+      "titulo": "Defesa Empresarial",
+      "descricao": "Coordena a defesa da empresa no litígio trabalhista, com atuação processual por parceiros habilitados.",
+      "data-icone": "defesa-empresarial",
+      "data-busca": "defesa empresarial contencioso trabalhista litigio processo reclamatoria acao coletiva sindicato dissidio mpt inquerito civil acp tac fiscalizacao auto de infracao defesa administrativa recurso ordinario revista audiencia preposto prova calculo liquidacao execucao embargos penhora provisao deposito recursal seguro garantia fianca bancaria socio holding grupo economico desconsideracao",
+      "tags": [
+        "Contencioso",
+        "Execução"
+      ],
+      "link_texto": "Saiba mais",
+      "pagina": true
+    }
+  ],
+  "falas_atuais": [
+    {
+      "eixo": "E1",
+      "slug": "np-pillar-patrimonial",
+      "fala": "Tenho imóveis no meu nome, filhos, e nada organizado para o dia em que eu faltar.",
+      "solucao": "Holding Patrimonial",
+      "href": "pages/holding-patrimonial.html",
+      "data-busca": "holding empresa familiar imovel quota participacao integralizacao itbi gestao patrimonio aluguel pessoa juridica"
+    },
+    {
+      "eixo": "E2",
+      "slug": "np-pillar-fiscal",
+      "fala": "Recebi uma autuação da Receita e não sei se o meu regime tributário ainda faz sentido.",
+      "solucao": "Planejamento Tributário",
+      "href": "pages/planejamento-tributario.html",
+      "data-busca": "imposto tributo carga fiscal regime simples lucro presumido real credito autuacao malha receita economia icms iss pis cofins"
+    },
+    {
+      "eixo": "E3",
+      "slug": "np-pillar-imobiliario",
+      "fala": "Vou comprar um terreno e não sei se a matrícula está limpa.",
+      "solucao": "Due diligence imobiliária",
+      "href": "pages/consultoria-imobiliaria.html",
+      "data-busca": "terreno incorporacao viabilidade diligence loteamento empreendimento construtora permuta comprar lote matricula"
+    },
+    {
+      "eixo": "E3",
+      "slug": "np-pillar-imobiliario",
+      "fala": "Alguém da família faleceu e o inventário não sai do lugar.",
+      "solucao": "Inventário em cartório",
+      "href": "pages/atos-notariais.html",
+      "data-busca": "escritura procuracao ata notarial inventario extrajudicial divorcio tabelionato firma reconhecimento partilha espolio falecimento"
+    },
+    {
+      "eixo": "E4",
+      "slug": "np-pillar-auditoria",
+      "fala": "O banco pediu balanço auditado e a minha contabilidade não acompanha.",
+      "solucao": "Auditoria e inteligência contábil",
+      "href": "pages/contabilidade.html",
+      "data-busca": "contabilidade balanco sped escrituracao obrigacao acessoria bpo folha imposto renda dre contador auditado banco"
+    },
+    {
+      "eixo": "E5",
+      "slug": "np-pillar-ativos",
+      "fala": "Ganhei a ação, mas o devedor sumiu com o dinheiro e a execução não anda.",
+      "solucao": "Recuperação de Ativos",
+      "href": "pages/recuperacao-ativos.html",
+      "data-busca": "recuperacao ativo devedor execucao penhora bloqueio rastreio credito calote inadimplencia cobranca ganhei acao receber sumiu dinheiro"
+    }
+  ],
+  "falas_reescritas": [
+    {
+      "eixo": "E1",
+      "slug": "np-pillar-patrimonial",
+      "fala": "Tenho imóveis e participações no meu nome e ninguém na família sabe o que acontece depois."
+    },
+    {
+      "eixo": "E2",
+      "slug": "np-pillar-fiscal",
+      "fala": "A empresa cresceu, o regime ficou o mesmo e nunca comparamos com os nossos números."
+    },
+    {
+      "eixo": "E3",
+      "slug": "np-pillar-imobiliario",
+      "fala": "Tenho um terreno e não sei se o empreendimento fecha."
+    },
+    {
+      "eixo": "E4",
+      "slug": "np-pillar-auditoria",
+      "fala": "O banco pediu balanço revisado e os números da empresa não se explicam."
+    },
+    {
+      "eixo": "E5",
+      "slug": "np-pillar-ativos",
+      "fala": "Tenho uma sentença e o devedor não paga."
+    },
+    {
+      "eixo": "E6",
+      "slug": "np-pillar-trabalhista",
+      "fala": "Tenho reclamatórias repetidas com os mesmos pedidos e não sei onde o passivo começa."
+    }
+  ],
+  "paineis": [
+    {
+      "eixo": "E1",
+      "id": "eixo-1",
+      "slug": "np-pillar-patrimonial",
+      "tag": "E1 · Patrimonial e Sucessório",
+      "headline": "Sucessão decidida em vida, não no inventário.",
+      "descricao": "Organizamos a passagem do patrimônio e do comando entre gerações — holding, doação com reserva de usufruto, testamento e acordo de sócios —, com a carga tributária calculada antes de cada ato.",
+      "diferenciais": [
+        "ITCMD, ganho de capital e custos de transmissão calculados por cenário no diagnóstico, antes de qualquer escritura.",
+        "Método em sete etapas, cada uma com entrega própria: diagnóstico, cenários, estratégia, estruturação, implementação, validação e monitoramento.",
+        "Na empresa familiar, duas frentes tratadas juntas: quem herda as quotas e quem assume o comando (acordo de sócios e protocolo familiar)."
+      ],
+      "cta": {
+        "texto": "Conversar sobre a sucessão da família",
+        "href": "#contact",
+        "data-assunto": "E1"
+      },
+      "ver_solucoes_texto": "Ver as 5 soluções do eixo",
+      "destaque": {
+        "nome": "Planejamento Sucessório",
+        "descricao": "Holding, doação com reserva de usufruto e testamento organizados em vida, com o custo tributário de cada ato conhecido antes da assinatura.",
+        "href": "pages/planejamento-sucessorio.html",
+        "fixo": false
+      }
+    },
+    {
+      "eixo": "E2",
+      "id": "eixo-2",
+      "slug": "np-pillar-fiscal",
+      "tag": "E2 · Tributário, Fiscal e Corporativo",
+      "headline": "Carga fiscal e estrutura societária decididas com fundamento.",
+      "descricao": "Revisamos regime, créditos e estrutura societária em conjunto e montamos o programa de integridade da empresa — cada escolha registrada com fundamento legal, para sustentar a decisão diante do fisco, de sócios e de auditores.",
+      "diferenciais": [
+        "Comparação documentada entre Simples Nacional, Lucro Presumido e Lucro Real, feita com os números da própria empresa.",
+        "Achados da revisão contábil (E4) entram direto na análise de regime e de créditos.",
+        "Programa de integridade com gestão de riscos, código de conduta, treinamento e canal de denúncias, acompanhado por métricas de monitoramento."
+      ],
+      "cta": {
+        "texto": "Pedir o diagnóstico tributário",
+        "href": "#contact",
+        "data-assunto": "E2"
+      },
+      "ver_solucoes_texto": "Ver as 2 soluções do eixo",
+      "destaque": {
+        "nome": "Planejamento Tributário",
+        "descricao": "Comparação de regimes com os números da empresa, levantamento de créditos e desenho das operações com fundamento legal documentado.",
+        "href": "pages/planejamento-tributario.html",
+        "fixo": false
+      }
+    },
+    {
+      "eixo": "E3",
+      "id": "eixo-3",
+      "slug": "np-pillar-imobiliario",
+      "tag": "E3 · Direito Notarial e Imobiliário",
+      "headline": "Do terreno à matrícula de cada unidade.",
+      "descricao": "Coordenamos o ciclo jurídico e registral do empreendimento — due diligence do terreno, incorporação, venda das unidades e registro —, com atos lavrados por cartórios conveniados e revisão por parceiros habilitados.",
+      "diferenciais": [
+        "Qualificação registral prévia: documentos e minutas conferidos antes do protocolo, para tratar exigências do cartório com antecedência.",
+        "Cada protocolo acompanhado no Registro de Imóveis até a averbação final, com relatório periódico.",
+        "Minutas no padrão da incorporadora, revisadas por parceiros habilitados antes da assinatura."
+      ],
+      "cta": {
+        "texto": "Avaliar um terreno ou empreendimento",
+        "href": "#contact",
+        "data-assunto": "E3"
+      },
+      "ver_solucoes_texto": "Ver as 5 soluções do eixo",
+      "destaque": {
+        "nome": "Consultoria Imobiliária",
+        "descricao": "Viabilidade e due diligence do terreno, com riscos classificados, e coordenação jurídica de cada etapa do empreendimento.",
+        "href": "pages/consultoria-imobiliaria.html",
+        "fixo": false
+      }
+    },
+    {
+      "eixo": "E4",
+      "id": "eixo-4",
+      "slug": "np-pillar-auditoria",
+      "tag": "E4 · Auditoria Empresarial e Contábil",
+      "headline": "Leitura independente dos números para quem decide.",
+      "descricao": "Revisamos balanço, DRE e fluxo de caixa, testamos os controles internos e traduzimos os números em relatório para sócios, conselho e banco. A escrituração fica com parceiro contábil habilitado.",
+      "diferenciais": [
+        "Papéis separados: o parceiro habilitado escritura; o Complexo DMC revisa e interpreta — quem lê os números não é quem os produziu.",
+        "Conciliações, alçadas de aprovação e segregação de funções testadas e documentadas.",
+        "Achados alimentam o E2 (regime e créditos); a conferência da folha alimenta a Quitação Anual (E6)."
+      ],
+      "cta": {
+        "texto": "Solicitar a revisão das demonstrações",
+        "href": "#contact",
+        "data-assunto": "E4"
+      },
+      "ver_solucoes_texto": "Ver as 2 soluções do eixo",
+      "destaque": {
+        "nome": "Auditoria e Inteligência Contábil",
+        "descricao": "Leitura gerencial e revisão das demonstrações de empresas, holdings e famílias; escrituração por parceiro habilitado.",
+        "href": "pages/contabilidade.html",
+        "fixo": false
+      }
+    },
+    {
+      "eixo": "E5",
+      "id": "eixo-5",
+      "slug": "np-pillar-ativos",
+      "tag": "E5 · Recuperação de Ativos",
+      "headline": "Do título executivo ao patrimônio do devedor.",
+      "descricao": "Analisamos o título, levantamos o patrimônio do devedor em registros públicos e nas pesquisas aos sistemas conveniados ao Judiciário e coordenamos bloqueio, penhora e execução, com atos processuais de parceiros habilitados.",
+      "diferenciais": [
+        "Análise prévia do título: certeza, liquidez, exigibilidade, prazo restante e via cabível (cumprimento de sentença ou execução de título extrajudicial).",
+        "Pesquisas em SISBAJUD, RENAJUD, INFOJUD, CNIB e SERASAJUD, requeridas no processo e cruzadas com registros públicos.",
+        "Transferências feitas para esvaziar o patrimônio identificadas e, presentes os requisitos legais, pedido de desconsideração da personalidade jurídica formulado por advogados parceiros."
+      ],
+      "cta": {
+        "texto": "Enviar o título para análise",
+        "href": "#contact",
+        "data-assunto": "E5"
+      },
+      "ver_solucoes_texto": "Ver a solução do eixo",
+      "destaque": {
+        "nome": "Recuperação de Ativos",
+        "descricao": "Análise do título, rastreio patrimonial e coordenação de bloqueio, penhora e execução, com atos processuais de parceiros habilitados.",
+        "href": "pages/recuperacao-ativos.html",
+        "fixo": false
+      }
+    },
+    {
+      "eixo": "E6",
+      "id": "eixo-6",
+      "slug": "np-pillar-trabalhista",
+      "tag": "E6 · Consultoria Trabalhista",
+      "headline": "Passivo trabalhista gerido como se fecha um balanço.",
+      "descricao": "Seis soluções na ordem da relação de trabalho — admissão, operação, ato de risco, conflito, fechamento do exercício e contencioso — para a empresa medir, quitar e documentar o passivo trabalhista ano a ano.",
+      "diferenciais": [
+        "Fundamento normativo explícito por solução (arts. 507-A, 507-B, 855-B a 855-E e 477-B da CLT; NR-1); cada uma pode ser contratada isoladamente.",
+        "Auditoria mês a mês do exercício antes de qualquer quitação: nada se quita antes de corrigir.",
+        "Indicador próprio por solução, acompanhado pela empresa: parcela do quadro com exercício fechado, cobertura dos atos de risco analisados, acordos homologados, provisão × desembolso."
+      ],
+      "cta": {
+        "texto": "Falar com o time trabalhista",
+        "href": "#contact",
+        "data-assunto": "E6"
+      },
+      "ver_solucoes_texto": "Ver as 6 soluções do eixo",
+      "destaque": {
+        "nome": "Ciclo Fechado",
+        "descricao": "As seis soluções trabalhistas na ordem do ciclo — da admissão à quitação anual do exercício —, contratáveis em conjunto ou isoladamente.",
+        "href": "solucoes/consultoria-trabalhista/ciclo-fechado.html",
+        "fixo": true
+      }
+    }
+  ]
+}

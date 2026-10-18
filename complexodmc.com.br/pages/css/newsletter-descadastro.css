@@ -1,0 +1,76 @@
+/* ============================================
+   Descadastro da newsletter — formulário sobre papel (.dmc-form.nd-form)
+   Carregado depois de tokens.css, shared.css, eixos.css e components.css.
+   Espelho do .dmc-form da home (assets/css/styles.css 560-620), que a camada das
+   páginas internas ainda não tem. Só tokens da direção C; sem cor solta.
+   Quando .dmc-form migrar para assets/css/components.css, este arquivo encolhe.
+   ============================================ */
+
+.nd-form { display: grid; gap: var(--space-5); max-width: var(--measure); min-width: 0; }
+.nd-form .form-field { display: grid; gap: var(--space-2); min-width: 0; }
+.nd-form label { font-size: var(--fs-small); font-weight: var(--fw-medium); color: var(--text-ink-1); }
+.nd-form input:not([type="checkbox"]):not([type="hidden"]) {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3rem;
+  margin: 0;
+  padding: 0.75rem 0.875rem;
+  border: var(--border-hair) solid var(--color-control-ink);
+  border-radius: var(--radius-1);
+  background: var(--color-white);
+  color: var(--text-ink-1);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.4;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color var(--dur-fast) linear;
+}
+.nd-form ::placeholder { color: var(--text-ink-3); opacity: 1; }
+.nd-form input:hover { border-color: var(--text-ink-2); }
+.nd-form input:focus-visible {
+  border-color: var(--color-black);
+  outline: var(--focus-width) solid var(--focus-color-ink);
+  outline-offset: 2px;
+}
+.nd-form [aria-invalid="true"] { border-color: var(--color-error-ink) !important; }
+
+/* Erro por campo (main.js / newsletter-descadastro.js criam <p class="form-field__error">). */
+.nd-form .form-field__error {
+  margin: 0;
+  padding-left: 1.25em;
+  position: relative;
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--color-error-ink);
+}
+.nd-form .form-field__error::before {
+  content: "!";
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: 0.95em;
+  height: 0.95em;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  font-size: 0.85em;
+  line-height: 0.95em;
+  text-align: center;
+  font-weight: var(--fw-semibold);
+}
+
+/* Isca anti-robô: fora da tela, nunca display:none (robôs ignoram campos escondidos assim). */
+.nd-form .form-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+.nd-form .form-message { margin: 0; font-size: var(--fs-small); line-height: 1.55; color: var(--text-ink-2); }
+.nd-form .form-message:empty { display: none; }
+.nd-form .form-message.is-erro { color: var(--color-error-ink); }
+.nd-form .form-message.is-ok { color: var(--text-ink-1); font-weight: var(--fw-medium); }
+.nd-form .submit-btn { justify-self: start; min-width: 12rem; }
+.nd-form[aria-busy="true"] .submit-btn { cursor: progress; }
+@media (max-width: 639px) { .nd-form .submit-btn { justify-self: stretch; } }
+
+/* Alternativas (e-mail administrativo e volta à política), abaixo do formulário. */
+.nd-aside { display: grid; gap: var(--space-2); max-width: var(--measure); }
+.nd-aside p { margin: 0; line-height: 1.55; }
+.nd-aside a { color: var(--text-ink-1); text-decoration: underline; text-underline-offset: 0.2em; overflow-wrap: anywhere; }
