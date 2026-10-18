@@ -655,41 +655,79 @@
         </div>
       </section>
 
-      <!-- ==== 08 · MÉTODO E FORMAÇÃO · #treinamentos (id mantido: 28 rodapés + navbar.js) · copy.json › metodo_ou_treinamentos ==== -->
-      <section class="dmc-section dmc-on-paper dmc-section--rule metodo" id="treinamentos" aria-labelledby="metodo-title">
-        <div class="dmc-wrap metodo-grid">
-          <div class="dmc-sec-head dmc-reveal metodo-head">
-            <p class="dmc-overline">Método e formação</p>
-            <h2 class="dmc-h1" id="metodo-title">Como <em>conduzimos</em> uma decisão.</h2>
-            <p class="dmc-lead">A conversa inicial leva a um diagnóstico; o diagnóstico, a uma proposta com escopo, etapas e entregas.</p>
+      <!-- ==== 08 · SEGMENTOS · #segmentos (substitui #treinamentos; modelo: grade numerada de verticais)
+           Nove segmentos, cada um leva à página do eixo que o conduz; acento do card = acento do eixo
+           (.np-pillar-*). Card inteiro clicável pelo ::after do link; heading com um só <a>.
+           Textos só com o que as páginas de destino já publicam (Provimento 205/2021). -->
+      <section class="dmc-section dmc-on-paper dmc-section--rule seg" id="segmentos" aria-labelledby="seg-title">
+        <div class="dmc-wrap">
+          <div class="dmc-sec-head dmc-reveal seg-head">
+            <p class="dmc-overline">Segmentos</p>
+            <h2 class="dmc-h1" id="seg-title">Soluções para <em>cada setor</em> e cada negócio.</h2>
+            <p class="dmc-lead">Cada setor chega com uma decisão diferente. Escolha o seu e veja o eixo que conduz o caso.</p>
           </div>
 
-          <ol class="metodo-etapas">
-            <li class="metodo-etapa dmc-reveal" style="--i:0">
-              <h3 class="dmc-h4">Diagnóstico</h3>
-              <p>Leitura do caso com os documentos e os dados do cliente. Identificamos o que precisa ser decidido e os eixos envolvidos.</p>
+          <ol class="seg-grid" aria-label="Segmentos atendidos pelo Complexo DMC">
+            <li class="seg-item np-pillar-imobiliario dmc-reveal" style="--i:0">
+              <span class="seg-item__num" aria-hidden="true">01</span>
+              <h3 class="dmc-h4 seg-item__title"><a class="seg-item__link" href="pages/juridico-imobiliario.html" aria-label="Construtoras: Jurídico Imobiliário">Construtoras</a></h3>
+              <p class="seg-item__text">Contratos, incorporação e regularização do imóvel, com atos lavrados por cartórios conveniados.</p>
+              <p class="seg-item__eixo"><span>E3</span> · Imobiliário <svg class="seg-item__seta" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></p>
             </li>
-            <li class="metodo-etapa dmc-reveal" style="--i:1">
-              <h3 class="dmc-h4">Cenários e decisão</h3>
-              <p>Você recebe um relatório com dois ou três caminhos e o que cada um custa, demora e exige em documentos. A decisão é sua, com os cenários na mesa.</p>
+            <li class="seg-item np-pillar-imobiliario dmc-reveal" style="--i:1">
+              <span class="seg-item__num" aria-hidden="true">02</span>
+              <h3 class="dmc-h4 seg-item__title"><a class="seg-item__link" href="pages/juridico-vendas.html" aria-label="Incorporadoras: Jurídico Vendas">Incorporadoras</a></h3>
+              <p class="seg-item__text">Minutas de venda, distrato e procurações para corretores, com análise de risco de cada contrato.</p>
+              <p class="seg-item__eixo"><span>E3</span> · Imobiliário <svg class="seg-item__seta" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></p>
             </li>
-            <li class="metodo-etapa dmc-reveal" style="--i:2">
-              <h3 class="dmc-h4">Estruturação e implementação</h3>
-              <p>Plano de atos coordenado pela consultoria e executado com os parceiros do caso, cada um no que a lei lhe atribui.</p>
+            <li class="seg-item np-pillar-patrimonial dmc-reveal" style="--i:2">
+              <span class="seg-item__num" aria-hidden="true">03</span>
+              <h3 class="dmc-h4 seg-item__title"><a class="seg-item__link" href="pages/planejamento-sucessorio.html" aria-label="Empresas familiares: Planejamento Sucessório">Empresas familiares</a></h3>
+              <p class="seg-item__text">Holding, acordo de sócios e protocolo familiar desenhados juntos: quem herda as quotas e quem assume o comando.</p>
+              <p class="seg-item__eixo"><span>E1</span> · Patrimonial e Sucessório <svg class="seg-item__seta" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></p>
             </li>
-            <li class="metodo-etapa dmc-reveal" style="--i:3">
-              <h3 class="dmc-h4">Acompanhamento e revisão</h3>
-              <p>Reuniões periódicas com os indicadores do seu caso. Quando a lei, a empresa ou a família mudam, o plano é ajustado com você.</p>
+            <li class="seg-item np-pillar-patrimonial dmc-reveal" style="--i:3">
+              <span class="seg-item__num" aria-hidden="true">04</span>
+              <h3 class="dmc-h4 seg-item__title"><a class="seg-item__link" href="pages/holding-patrimonial.html" aria-label="Investidores e patrimônio: Holding Patrimonial">Investidores e patrimônio</a></h3>
+              <p class="seg-item__text">Imóveis e participações sob uma estrutura, com governança e tributação avaliadas caso a caso.</p>
+              <p class="seg-item__eixo"><span>E1</span> · Patrimonial e Sucessório <svg class="seg-item__seta" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></p>
+            </li>
+            <li class="seg-item np-pillar-fiscal dmc-reveal" style="--i:4">
+              <span class="seg-item__num" aria-hidden="true">05</span>
+              <h3 class="dmc-h4 seg-item__title"><a class="seg-item__link" href="pages/planejamento-tributario.html" aria-label="Grupos empresariais: Planejamento Tributário">Grupos empresariais</a></h3>
+              <p class="seg-item__text">Comparação documentada de regimes com os números da própria empresa e reorganização societária.</p>
+              <p class="seg-item__eixo"><span>E2</span> · Tributário e Corporativo <svg class="seg-item__seta" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></p>
+            </li>
+            <li class="seg-item np-pillar-auditoria dmc-reveal" style="--i:5">
+              <span class="seg-item__num" aria-hidden="true">06</span>
+              <h3 class="dmc-h4 seg-item__title"><a class="seg-item__link" href="pages/contabilidade.html" aria-label="Empresas que prestam contas: Contabilidade e Auditoria">Empresas que prestam contas</a></h3>
+              <p class="seg-item__text">Demonstrações revisadas e controles internos testados para sócios, conselho e banco.</p>
+              <p class="seg-item__eixo"><span>E4</span> · Auditoria e Contabilidade <svg class="seg-item__seta" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></p>
+            </li>
+            <li class="seg-item np-pillar-imobiliario dmc-reveal" style="--i:6">
+              <span class="seg-item__num" aria-hidden="true">07</span>
+              <h3 class="dmc-h4 seg-item__title"><a class="seg-item__link" href="pages/registro-imobiliario.html" aria-label="Famílias com imóveis e terras: Registro Imobiliário">Famílias com imóveis e terras</a></h3>
+              <p class="seg-item__text">Retificação de área, usucapião extrajudicial e regularização fundiária acompanhadas até o registro.</p>
+              <p class="seg-item__eixo"><span>E3</span> · Imobiliário <svg class="seg-item__seta" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></p>
+            </li>
+            <li class="seg-item np-pillar-ativos dmc-reveal" style="--i:7">
+              <span class="seg-item__num" aria-hidden="true">08</span>
+              <h3 class="dmc-h4 seg-item__title"><a class="seg-item__link" href="pages/recuperacao-ativos.html" aria-label="Credores: Recuperação de Ativos">Credores</a></h3>
+              <p class="seg-item__text">Diligência patrimonial do devedor e estratégia de recuperação do crédito, com execução por advogados parceiros.</p>
+              <p class="seg-item__eixo"><span>E5</span> · Recuperação de Ativos <svg class="seg-item__seta" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></p>
+            </li>
+            <li class="seg-item np-pillar-trabalhista dmc-reveal" style="--i:8">
+              <span class="seg-item__num" aria-hidden="true">09</span>
+              <h3 class="dmc-h4 seg-item__title"><a class="seg-item__link" href="solucoes/consultoria-trabalhista/ciclo-fechado.html" aria-label="Empregadores: Ciclo Fechado">Empregadores</a></h3>
+              <p class="seg-item__text">Seis soluções na ordem da relação de trabalho, do diagnóstico à quitação anual do exercício.</p>
+              <p class="seg-item__eixo"><span>E6</span> · Trabalhista <svg class="seg-item__seta" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></p>
             </li>
           </ol>
 
-          <aside class="metodo-programa dmc-reveal" style="--i:4" aria-labelledby="metodo-programa-titulo">
-            <p class="dmc-overline">Formação</p>
-            <h3 class="dmc-h4" id="metodo-programa-titulo">Arquitetura Patrimonial Estratégica</h3>
-            <p class="metodo-programa__meta dmc-small">Programa de formação institucional</p>
-            <p class="metodo-programa__text">Leitura do patrimônio como sistema: direito, administração, contabilidade e tecnologia sob a mesma governança consultiva.</p>
-            <a class="dmc-btn dmc-btn--link" href="plataforma-ead/" aria-label="Conhecer a plataforma DMC Business School">Conhecer a plataforma <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          </aside>
+          <div class="seg-foot dmc-reveal">
+            <p class="seg-foot__text">Seu setor não está na lista? A conversa começa pela decisão, não pelo segmento.</p>
+            <a class="dmc-btn dmc-btn--primary" href="#contact" aria-label="Descrever o seu caso no formulário de contato">Descrever o seu caso</a>
+          </div>
         </div>
       </section>
 
@@ -899,7 +937,7 @@
             <ul class="dmc-footer__list">
               <li><a href="pages/sobre.html">Sobre o Complexo DMC</a></li>
               <li><a href="#features">Soluções</a></li>
-              <li><a href="#treinamentos">Treinamentos</a></li>
+              <li><a href="#segmentos">Segmentos</a></li>
               <li><a href="pages/tecnologia.html">Tecnologia</a></li>
               <li><a href="parcerias/">Parcerias</a></li>
               <li><a href="pages/por-que-urgente.html">Por que planejar a sucessão em vida</a></li>

@@ -11,7 +11,7 @@
    cópias de pages/css/shared.css e consultoria-imobiliaria.css —
    ajustes de layout da home ficam no escopo #video, abaixo dele.
    Só index.html carrega styles.css. As seções novas da home v2 (eixos,
-   porque, verticais, presenca, publicacoes, metodo, newsletter) viviam em
+   porque, verticais, presenca, publicacoes, segmentos, newsletter) viviam em
    assets/css/home.css durante a construção e foram fundidas aqui em
    2026-10-17 (HOME_REDESIGN.md S16: não somar um 4.º CSS render-blocking;
    correção r1, LCP 1,96 s → meta ≤ 1,8 s). Bloco "HOME v2" no fim.
@@ -712,7 +712,7 @@ html:not(.dmc-js) .casa__foco-item { grid-area: auto; }
 /* ============================================================
    HOME v2 — bloco fundido de assets/css/home.css?v=1 (S16, 2026-10-17)
    Ordem dos parciais: _shared → eixos → porque → verticais → presenca →
-   publicacoes → metodo → newsletter (docs/dmc/home-redesign/partials/).
+   publicacoes → segmentos → newsletter (docs/dmc/home-redesign/partials/).
    ============================================================ */
 
 /* ==== 00 · _SHARED (home v2) ====================================================
@@ -1394,103 +1394,91 @@ html:not(.dmc-js) .casa__foco-item { grid-area: auto; }
   }
 }
 
-/* ==== 08 · MÉTODO E FORMAÇÃO ==== */
-/* Papel; fio tinta com 07 (mesmo bloco). Quatro etapas separadas por fio,
-   numeração Hanken 14 em ouro profundo; aside do programa sem caixa. */
-.metodo .dmc-reveal { transition-delay: calc(var(--stagger) * min(var(--i, 0), 5)); }
+/* ==== 08 · SEGMENTOS ==== */
+/* Papel; fio tinta com 07. Grade numerada de nove setores (1 → 2 → 3 colunas),
+   cada card no acento do eixo que o conduz (--np-accent-deep sobre papel).
+   Card inteiro clicável pelo ::after do link. Só tokens; sem sombra, raio ≤ 2 px. */
+.seg .dmc-reveal { transition-delay: calc(var(--stagger) * min(var(--i, 0), 5)); }
 
-.metodo-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--grid-gap);
-}
-.metodo-grid > * { min-width: 0; }
-.metodo-head { grid-column: 1 / -1; }
-
-/* Etapas */
-.metodo-etapas {
-  grid-column: 1 / -1;
+.seg-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  column-gap: var(--grid-gap);
-  row-gap: 0;
+  gap: var(--grid-gap);
   list-style: none;
-  margin: 0;
+  margin: var(--space-8) 0 0;
   padding: 0;
-  counter-reset: etapa;
 }
-.metodo-etapa {
+.seg-item {
+  --seg-cor: rgb(var(--np-accent-deep, 140, 110, 50));
+  position: relative;
   min-width: 0;
-  counter-increment: etapa;
   display: grid;
+  grid-template-rows: auto auto 1fr auto;
   gap: var(--space-3);
-  align-content: start;
-  border-top: var(--border-hair) solid var(--color-line-ink);
-  padding: var(--space-6) 0;
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  border: var(--border-hair) solid var(--color-line-ink);
+  border-top: 2px solid var(--seg-cor);
+  border-radius: var(--radius-1);
+  background: var(--color-paper);
+  transition: background-color var(--dur-base) var(--ease-standard), border-color var(--dur-base) var(--ease-standard);
 }
-.metodo-etapa::before {
-  content: counter(etapa, decimal-leading-zero);
-  font: var(--num-font, var(--fw-medium) var(--fs-small) / 1 var(--font-text));
+.seg-item__num {
+  font: var(--fw-medium) var(--fs-small) / 1 var(--font-text);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.08em;
-  color: var(--color-gold-deep);
-  margin-bottom: var(--space-3);
+  color: var(--seg-cor);
 }
-.metodo-etapa h3 { color: var(--text-ink-1); overflow-wrap: break-word; }
-.metodo-etapa p {
+.seg-item__title { margin: 0; color: var(--text-ink-1); overflow-wrap: break-word; }
+.seg-item__link { color: inherit; text-decoration: none; }
+.seg-item__link::after { content: ""; position: absolute; inset: 0; }
+.seg-item__link:focus-visible { outline: none; }
+.seg-item:focus-within { outline: 2px solid var(--focus-color); outline-offset: 3px; }
+.seg-item__text {
   margin: 0;
-  max-width: 32rem;
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   color: var(--text-ink-2);
+}
+.seg-item__eixo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0 0;
+  padding-top: var(--space-3);
+  border-top: var(--border-hair) solid var(--color-line-ink);
+  font-size: var(--fs-small);
+  color: var(--text-ink-2);
+}
+.seg-item__eixo span { font-weight: var(--fw-semibold); color: var(--seg-cor); }
+.seg-item__seta {
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  flex: none;
+  color: var(--seg-cor);
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+@media (hover: hover) {
+  .seg-item:hover { background: var(--color-paper-2); border-color: var(--seg-cor); }
+  .seg-item:hover .seg-item__seta { transform: translateX(4px); }
 }
 
-/* Programa (aside sem caixa) */
-.metodo-programa {
-  grid-column: 1 / -1;
+.seg-foot {
   display: grid;
-  gap: var(--space-3);
-  align-content: start;
+  gap: var(--space-4);
   justify-items: start;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
   border-top: var(--border-hair) solid var(--color-line-ink);
-  padding: var(--space-6) 0 0;
-  margin-top: var(--space-4);
 }
-.metodo-programa h3 { color: var(--text-ink-1); overflow-wrap: anywhere; }
-.metodo-programa__meta { margin: 0; }
-.metodo-programa__text {
-  margin: 0;
-  max-width: 28rem;
-  font-size: var(--fs-body);
-  line-height: var(--lh-body);
-  color: var(--text-ink-2);
-}
-.metodo-programa .dmc-btn--link { margin-top: var(--space-2); }
-.metodo-programa .dmc-btn--link svg { color: var(--color-gold-deep); }
+.seg-foot__text { margin: 0; max-width: 36rem; color: var(--text-ink-2); }
 
 @media (min-width: 768px) {
-  .metodo-grid { grid-template-columns: repeat(8, minmax(0, 1fr)); }
-  .metodo-etapas { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-6); }
-  .metodo-etapa { padding-bottom: 0; }
-  .metodo-programa { margin-top: var(--space-8); }
+  .seg-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .seg-foot { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
 }
 @media (min-width: 1024px) {
-  .metodo-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-  /* 1024–1439: 2×2 (4 colunas de ~137 px quebram "Acompanhamento"/"Estruturação" no meio) */
-  .metodo-etapas { grid-column: 1 / span 8; }
-  .metodo-programa {
-    grid-column: 9 / span 3;            /* 1024–1439: coluna 12 fica livre para os flutuantes (voltar ao topo / WhatsApp) */
-    align-self: start;
-    margin-top: 0;
-    border-top: 0;
-    border-left: var(--border-hair) solid var(--color-line-ink);
-    padding: 0 var(--space-4) 0 var(--space-6);
-  }
-}
-@media (min-width: 1440px) {
-  /* 4 etapas em linha: 9 colunas (≈206 px cada) para a palavra mais longa dos títulos caber inteira */
-  .metodo-etapas { grid-column: 1 / span 9; grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 0; }
-  .metodo-programa { grid-column: 10 / span 3; padding-right: 0; }
+  .seg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
 /* ==== 09 · NEWSLETTER ==== */

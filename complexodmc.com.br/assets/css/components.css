@@ -177,7 +177,7 @@ dmc-navbar { display: block; }
    NAVBAR
    Fixa, 64/72px (72 desde 1024). Transparente sobre o herói
    (.dmc-nav--over até 24px de rolagem), translúcida depois.
-   ≥1200: Eixos ▾ · Sobre · Treinamentos · Parcerias ▾ · Tecnologia,
+   ≥1200: Eixos ▾ · Sobre · Segmentos · Parcerias ▾ · Tecnologia,
    Acessar ▾ (portal) e CTA dourado. 768–1199: CTA + botão Menu.
    <768: botão Menu → gaveta (CTA dentro dela).
    ============================================================ */

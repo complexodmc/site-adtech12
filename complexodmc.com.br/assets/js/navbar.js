@@ -13,7 +13,7 @@
    "index.html": em produção /index.html é 301 → / (vercel.json). Só em
    file:// (sem servidor) o link leva a index.html, senão abriria a pasta.
 
-   Barra (≥1200): Eixos ▾ · Sobre · Treinamentos · Parcerias ▾ ·
+   Barra (≥1200): Eixos ▾ · Sobre · Segmentos · Parcerias ▾ ·
    Tecnologia | Acessar ▾ · CTA dourado. Abaixo de 1200 a gaveta assume
    (o CTA continua na barra a partir de 768). A altura de 72px segue
    valendo desde 1024 (--header-h-lg), que é o que os heróis compensam.
@@ -211,7 +211,7 @@
           '<nav class="dmc-nav__menu" aria-label="Principal"><ul class="dmc-nav__links">' +
             '<li><button class="dmc-nav__trigger" type="button" aria-expanded="false" aria-controls="dmc-mega" data-dmc="mega">Eixos ' + ICON.chevron + '</button>' + mega + '</li>' +
             '<li><a class="dmc-nav__link" href="' + r + 'pages/sobre.html"' + cur(r + 'pages/sobre.html') + '>Sobre</a></li>' +
-            '<li><a class="dmc-nav__link" href="' + h('#treinamentos') + '">Treinamentos</a></li>' +
+            '<li><a class="dmc-nav__link" href="' + h('#segmentos') + '">Segmentos</a></li>' +
             '<li class="dmc-sub"><button class="dmc-nav__trigger' + (emParcerias ? ' is-current' : '') + '" type="button" aria-expanded="false" aria-controls="dmc-sub-parcerias" data-dmc="parcerias">Parcerias ' + ICON.chevron + '</button>' +
               '<ul class="dmc-sub__menu" id="dmc-sub-parcerias" hidden>' + parcerias + '</ul></li>' +
             '<li><a class="dmc-nav__link" href="' + tecnologia + '"' + cur(tecnologia) + '>Tecnologia</a></li>' +
@@ -239,7 +239,7 @@
             '<li><button class="dmc-drawer__acc" type="button" aria-expanded="false" aria-controls="dmc-drawer-eixos">Eixos ' + ICON.chevron + '</button>' +
               '<ul class="dmc-drawer__axes" id="dmc-drawer-eixos" hidden>' + EIXOS.map(function (e) { return eixoItem(e, r, 'span'); }).join('') + '</ul></li>' +
             '<li><a href="' + r + 'pages/sobre.html"' + cur(r + 'pages/sobre.html') + '>Sobre</a></li>' +
-            '<li><a href="' + h('#treinamentos') + '">Treinamentos</a></li>' +
+            '<li><a href="' + h('#segmentos') + '">Segmentos</a></li>' +
             '<li><button class="dmc-drawer__acc" type="button" aria-expanded="' + emParcerias + '" aria-controls="dmc-drawer-parcerias">Parcerias ' + ICON.chevron + '</button>' +
               '<ul class="dmc-drawer__sub" id="dmc-drawer-parcerias"' + (emParcerias ? '' : ' hidden') + '>' + parcerias + '</ul></li>' +
             '<li><a href="' + tecnologia + '"' + cur(tecnologia) + '>Tecnologia</a></li>' +

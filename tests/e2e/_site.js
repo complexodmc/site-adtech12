@@ -74,7 +74,7 @@ export async function rolarTudo(page) {
 // ---------------------------------------------------------------------------
 
 // Ordem obrigatória dos ids de <section> na home (§1.3). `#video` precede `#contact`.
-export const SECOES_HOME = ['hero', 'conheca', 'features', 'porque', 'verticais', 'presenca', 'publicacoes', 'treinamentos', 'newsletter', 'video', 'contact'];
+export const SECOES_HOME = ['hero', 'conheca', 'features', 'porque', 'verticais', 'presenca', 'publicacoes', 'segmentos', 'newsletter', 'video', 'contact'];
 
 // Altura padrão por largura (mesma tabela de viewports.spec.js).
 export const ALTURA_VIEWPORT = { 320: 640, 375: 812, 390: 844, 768: 1024, 1024: 768, 1440: 900, 1920: 1080 };
