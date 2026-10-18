@@ -7,15 +7,18 @@
    de cópia — DECISIONS D2):
      1. .sb-hero        herói com imagem da marca, trilha e tese
      2. .sb-fatos       faixa de fatos verificáveis sobre o herói (D7)
-     3. .sb-somos       "Somos o Complexo DMC": mídia + texto (papel)
-     4. .sb-lideranca   quem conduz (papel 2)
+     3. .sb-somos       "Somos o Complexo DMC": foto da recepção + texto (papel)
+     4. .sb-lideranca   responsabilidade técnica: três retratos (papel 2)
      5. .sb-proposito   faixa escura com o propósito
-     6. .sb-eixos       os seis eixos em abas (papel) — assets/js/sobre.js
-     7. .sb-metodo      quatro etapas em sequência (papel 2)
-     8. .sb-governanca  consultoria × ato privativo (escuro)
-     9. .sb-faq         perguntas frequentes (papel)
-    10. #video          bloco de vídeo da página (escuro)
-    11. #conversa       conversa + sede (papel)
+     6. .sb-trajetoria  como a estrutura foi construída, 01–04 (papel)
+     7. .sb-instalacoes andares do edifício + galeria de fotos (escuro)
+     8. .sb-eixos       os seis eixos em abas (papel) — assets/js/sobre.js
+     9. .sb-metodo      etapas com entrega + princípios de operação (papel 2)
+    10. .sb-governanca  consultoria × ato privativo (escuro)
+    11. .sb-faq         perguntas frequentes (papel)
+    12. #video          bloco de vídeo da página (escuro)
+    13. #conversa       conversa + sede (papel)
+   Fotos: assets/images/sobre/ (tratadas, sem metadados, 2 larguras).
    Sem JS: os seis eixos aparecem empilhados e as abas são âncoras.
    ============================================================ */
 
@@ -83,7 +86,9 @@
   color: var(--text-1);
 }
 .sb-hero__media { position: absolute; inset: 0; z-index: -2; }
-.sb-hero__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 0%; }
+.sb-hero__media img,
+.sb-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.sb-hero__video { pointer-events: none; }
 /* Véu: texto sempre sobre ≥ .80 (DESIGN-SYSTEM, herói) */
 .sb-hero::after {
   content: "";
@@ -119,7 +124,8 @@
     padding-top: calc(var(--header-h) + var(--space-9));
     padding-bottom: calc(var(--space-12) + var(--space-6));
   }
-  .sb-hero__media img { object-position: 70% 50%; }
+  .sb-hero__media img,
+  .sb-hero__video { object-position: 60% 50%; }
   .sb-hero::after {
     background:
       linear-gradient(90deg, var(--hero-veil) 0%, var(--hero-veil) 38%, var(--hero-veil-mid) 62%, var(--hero-veil-off) 100%),
@@ -152,12 +158,23 @@
 }
 .sb-fatos__lista li:nth-child(odd) { border-right-width: var(--border-hair); }
 .sb-fatos__lista li:nth-child(-n + 2) { border-bottom-width: var(--border-hair); }
+/* Algarismo grande + unidade menor, na mesma linha de base */
 .sb-fatos__valor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.3em;
   font-family: var(--font-display);
   font-weight: var(--fw-light);
-  font-size: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
-  line-height: 1.05;
+  font-size: clamp(1.125rem, 1rem + 0.6vw, 1.625rem);
+  line-height: 1.1;
   color: var(--color-gold);
+}
+.sb-fatos__valor b {
+  font-weight: var(--fw-light);
+  font-size: clamp(2.75rem, 2.1rem + 2.6vw, 4.5rem);
+  line-height: 0.9;
+  font-feature-settings: var(--font-numeric);
 }
 .sb-fatos__rotulo { font-size: var(--fs-small); line-height: 1.45; color: var(--text-2); }
 @media (min-width: 768px) {
@@ -185,17 +202,18 @@
   background: var(--surface-0);
   color: var(--text-1);
 }
-.np-eixo .sb-somos__media .sol-net {
+.sb-somos__media img { width: 100%; height: 100%; object-fit: cover; }
+/* sombra só no pé da foto, atrás da legenda */
+.sb-somos__media::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  aspect-ratio: auto;
-  max-height: none;
-  border: 0;
-  border-radius: 0;
-  background-color: var(--surface-0);
+  inset: 45% 0 0;
+  background: linear-gradient(180deg, var(--hero-veil-off), var(--hero-veil));
+  pointer-events: none;
 }
 .sb-somos__legenda {
   position: absolute;
+  z-index: 1;
   left: var(--space-6);
   right: var(--space-6);
   bottom: var(--space-6);
@@ -212,41 +230,39 @@
   line-height: 1.3;
   color: var(--text-1);
 }
+.sb-citacao {
+  padding-left: var(--space-5);
+  border-left: var(--border-accent) solid var(--color-gold-deep);
+  max-width: var(--measure);
+}
+.sb-citacao p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: var(--fw-light);
+  font-size: var(--fs-h4);
+  line-height: 1.35;
+  color: var(--text-ink-1);
+}
 @media (min-width: 1024px) {
   .sb-somos__media { grid-column: 1 / span 6; grid-row: 1; }
   .sb-somos__texto { grid-column: 8 / span 5; grid-row: 1; }
 }
 
 /* ============================================================
-   4 · LIDERANÇA
+   4 · RESPONSABILIDADE TÉCNICA — retratos 4:5 em preto e branco
    ============================================================ */
-.sb-pessoas { display: grid; gap: var(--space-6); }
-.sb-pessoa {
-  display: grid;
-  grid-template-columns: minmax(0, 7rem) minmax(0, 1fr);
-  gap: var(--space-5);
-  align-items: start;
-  padding-top: var(--space-5);
-  border-top: var(--border-hair) solid var(--color-line-ink);
-}
+.sb-pessoas { display: grid; gap: var(--space-8) var(--grid-gap); }
+.sb-pessoa { display: grid; gap: var(--space-5); align-content: start; }
 .sb-pessoa__foto {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1;
-  overflow: hidden;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
   border-radius: var(--radius-2);
   background: var(--color-black);
 }
-.sb-pessoa__foto img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); }
-.sb-pessoa__inicial {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: var(--fw-light);
-  font-size: 2.5rem;
-  line-height: 1;
-  color: var(--color-gold);
-}
-.sb-pessoa__corpo { display: grid; gap: var(--space-2); }
+.sb-pessoa__corpo { display: grid; gap: var(--space-2); padding-top: var(--space-4); border-top: var(--border-hair) solid var(--color-line-ink); }
 .sb-pessoa__nome { font: var(--fw-semibold) var(--fs-h4)/1.25 var(--font-text); color: var(--text-ink-1); }
 .sb-pessoa__cargo {
   font: var(--fw-semibold) var(--fs-overline)/1.3 var(--font-text);
@@ -254,15 +270,15 @@
   text-transform: uppercase;
   color: var(--color-gold-deep);
 }
-.sb-pessoa__texto { color: var(--text-ink-2); max-width: var(--measure); }
-@media (min-width: 640px) {
-  .sb-pessoa { grid-template-columns: minmax(0, 10rem) minmax(0, 1fr); gap: var(--space-7); }
-  .sb-pessoa__inicial { font-size: 3.5rem; }
+.sb-pessoa__registro { font-size: var(--fs-small); font-feature-settings: var(--font-numeric); color: var(--text-ink-3); }
+.sb-pessoa__texto { margin-top: var(--space-2); color: var(--text-ink-2); max-width: var(--measure); }
+/* celular: retrato ao lado do texto, para os três caberem sem rolagem longa */
+@media (max-width: 639px) {
+  .sb-pessoa { grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--space-5); }
+  .sb-pessoa__corpo { padding-top: 0; border-top: 0; }
 }
-@media (min-width: 1024px) {
-  .sb-lideranca .sb-head { grid-column: 1 / span 4; margin-bottom: 0; align-content: start; }
-  .sb-pessoas { grid-column: 6 / span 7; }
-}
+@media (min-width: 640px) { .sb-pessoas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .sb-pessoas { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* ============================================================
    5 · PROPÓSITO — faixa escura
@@ -284,7 +300,126 @@
 }
 
 /* ============================================================
-   6 · OS SEIS EIXOS — abas (como uma linha do tempo) + painel
+   6 · TRAJETÓRIA — quatro etapas em sequência, fio vertical
+   ============================================================ */
+.sb-etapas { display: grid; gap: var(--space-8); counter-reset: etapa; }
+.sb-etapa {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  padding-left: var(--space-7);
+  border-left: var(--border-hair) solid var(--color-line-ink);
+}
+.sb-etapa::before {
+  content: "";
+  position: absolute;
+  top: 0.55em;
+  left: -4px;
+  width: 7px;
+  height: 7px;
+  background: var(--color-gold-deep);
+}
+.sb-etapa__num {
+  font-family: var(--font-display);
+  font-weight: var(--fw-light);
+  font-size: var(--fs-h3);
+  line-height: 1;
+  color: var(--color-gold-deep);
+  font-feature-settings: var(--font-numeric);
+}
+.sb-etapa__titulo { font: var(--fw-semibold) var(--fs-h4)/1.3 var(--font-text); color: var(--text-ink-1); }
+.sb-etapa__nota {
+  display: grid;
+  gap: var(--space-1);
+  max-width: var(--measure);
+  margin-top: var(--space-2);
+  padding: var(--space-4) var(--space-5);
+  border-left: var(--border-accent) solid var(--color-gold-deep);
+  background: var(--color-paper-2);
+  color: var(--text-ink-1);
+}
+.sb-etapa__nota span {
+  font: var(--fw-semibold) var(--fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-gold-deep);
+}
+@media (min-width: 1024px) {
+  .sb-trajetoria .sb-head { grid-column: 1 / span 4; margin-bottom: 0; align-content: start; position: sticky; top: calc(var(--header-h-lg) + var(--space-6)); }
+  .sb-etapas { grid-column: 6 / span 7; }
+}
+
+/* ============================================================
+   7 · INSTALAÇÕES — o quadro de andares do prédio + galeria
+   ============================================================ */
+.sb-andares { border-bottom: var(--border-hair) solid var(--color-line); }
+.sb-andares li {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: var(--space-5);
+  padding-block: var(--space-5);
+  border-top: var(--border-hair) solid var(--color-line);
+}
+.sb-andar__num {
+  font-family: var(--font-display);
+  font-weight: var(--fw-light);
+  font-size: var(--fs-h3);
+  line-height: 1;
+  color: var(--color-gold);
+}
+.sb-andar__num--terreo { font-size: var(--fs-h4); padding-top: 0.2em; }
+.sb-andares h3 { font: var(--fw-semibold) var(--fs-body)/1.35 var(--font-text); color: var(--text-1); }
+.sb-andares p { margin-top: var(--space-2); font-size: var(--fs-small); line-height: 1.55; color: var(--text-2); }
+.sb-galeria__grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+.sb-galeria figure { position: relative; display: grid; gap: var(--space-3); min-width: 0; margin: 0; }
+.sb-galeria__item--grande { grid-column: 1 / -1; }
+.sb-galeria img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius-2); background: var(--surface-1); }
+.sb-galeria figcaption { font-size: var(--fs-small); line-height: 1.4; color: var(--text-3); }
+.sb-galeria figcaption b { font-weight: var(--fw-semibold); color: var(--text-2); }
+
+@media (min-width: 1024px) {
+  .sb-andares { grid-column: 1 / span 5; align-self: start; }
+  /* a coluna da galeria estica até a altura da lista; a grade preenche esse espaço */
+  .sb-galeria { grid-column: 6 / span 7; position: relative; align-self: stretch; }
+  .sb-galeria__grade {
+    position: absolute;
+    inset: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 3fr) minmax(0, 2fr);
+  }
+  .sb-galeria__item--grande { grid-column: 1 / -1; grid-row: 1; }
+  .sb-galeria figure { display: block; overflow: hidden; border-radius: var(--radius-2); }
+  .sb-galeria img { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; border-radius: 0; }
+  /* faixa larga: corta o alto da estante e mantém a marca inteira no quadro;
+     a legenda vai à direita, longe do letreiro, com sombra só daquele lado */
+  .sb-galeria__item--grande img { object-position: 50% 100%; }
+  .sb-galeria__item--grande::after {
+    content: "";
+    position: absolute;
+    inset: 50% 0 0;
+    background: linear-gradient(180deg, var(--hero-veil-off), var(--hero-veil-mid));
+    pointer-events: none;
+  }
+  .sb-galeria__item--grande figcaption {
+    left: auto;
+    text-align: right;
+    background: none;
+    padding: 0 var(--space-4) var(--space-3);
+    text-shadow: 0 1px 3px var(--color-black);
+  }
+  .sb-galeria figcaption {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 1;
+    padding: var(--space-7) var(--space-4) var(--space-3);
+    background: linear-gradient(180deg, var(--hero-veil-off), var(--hero-veil));
+    color: var(--text-2);
+  }
+  .sb-galeria figcaption b { color: var(--text-1); }
+}
+
+/* ============================================================
+   8 · OS SEIS EIXOS — abas (como uma linha do tempo) + painel
    ============================================================ */
 .sb-abas { margin-bottom: var(--space-block); border-bottom: var(--border-hair) solid var(--color-line-ink); }
 .sb-abas__lista { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -414,7 +549,7 @@
 }
 
 /* ============================================================
-   7 · MÉTODO — sequência real (a ordem é informação)
+   9 · MÉTODO — sequência real (a ordem é informação)
    ============================================================ */
 .sb-passos { display: grid; gap: var(--space-7) var(--grid-gap); counter-reset: passo; }
 .sb-passo {
@@ -446,11 +581,40 @@
 .sb-passo__num::before { content: counter(passo, decimal-leading-zero); }
 .sb-passo__titulo { font: var(--fw-semibold) var(--fs-h4)/1.3 var(--font-text); color: var(--text-ink-1); }
 .sb-passo__texto { color: var(--text-ink-2); }
+.sb-passo__entrega {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: var(--border-hair) dashed var(--color-line-ink);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--text-ink-1);
+}
+.sb-passo__entrega span {
+  font: var(--fw-semibold) var(--fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-gold-deep);
+}
+.sb-principios { margin-top: var(--space-block); padding: var(--space-7) var(--space-6); border-radius: var(--radius-2); background: var(--color-black); color: var(--text-1); }
+.sb-principios__titulo { font-family: var(--font-display); font-weight: var(--fw-light); font-size: var(--fs-h3); line-height: 1.15; margin-bottom: var(--space-7); }
+.sb-principios__titulo em { font-style: italic; color: var(--color-gold); }
+.sb-principios__lista { display: grid; gap: var(--space-7) var(--grid-gap); }
+.sb-principios__lista li { display: grid; gap: var(--space-2); align-content: start; padding-top: var(--space-4); border-top: var(--border-hair) solid var(--color-line-strong); }
+.sb-principios__lista h4 { font: var(--fw-semibold) var(--fs-body)/1.35 var(--font-text); color: var(--text-1); }
+.sb-principios__lista p:not(.sb-overline) { font-size: var(--fs-small); line-height: 1.55; color: var(--text-2); }
+.sb-principios .sb-overline { color: var(--color-gold); }
+@media (min-width: 768px) { .sb-principios__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) {
+  .sb-principios { padding: var(--space-9) var(--space-8); }
+  .sb-principios__lista { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
 @media (min-width: 768px) { .sb-passos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .sb-passos { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
 /* ============================================================
-   8 · GOVERNANÇA — quem assina o quê
+   10 · GOVERNANÇA — quem assina o quê
    ============================================================ */
 .sb-governanca__texto { display: grid; gap: var(--space-6); align-content: start; }
 .sb-quem { border-bottom: var(--border-hair) solid var(--color-line); }
@@ -473,7 +637,7 @@
 }
 
 /* ============================================================
-   9 · PERGUNTAS FREQUENTES (<details name>, sem script)
+   11 · PERGUNTAS FREQUENTES (<details name>, sem script)
    ============================================================ */
 .sb-faq__lista { border-bottom: var(--border-hair) solid var(--color-line-ink); }
 .sb-faq__item { border-top: var(--border-hair) solid var(--color-line-ink); }
@@ -506,7 +670,7 @@
 }
 
 /* ============================================================
-   10 · VÍDEO (id="video": o espaço do vídeo próprio da página)
+   12 · VÍDEO (id="video": o espaço do vídeo próprio da página)
    ============================================================ */
 .sb-video__texto { display: grid; gap: var(--space-5); align-content: center; }
 .np-eixo .sb-video .page-video__frame { max-width: none; }
@@ -516,11 +680,13 @@
 }
 
 /* ============================================================
-   11 · CONVERSA + SEDE
+   13 · CONVERSA + SEDE
    ============================================================ */
 .sb-conversa__texto { display: grid; gap: var(--space-5); align-content: start; }
 .sb-conversa__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); margin-top: var(--space-2); }
 .sb-sede { display: grid; gap: var(--space-5); align-content: start; padding: var(--space-7) var(--space-6); border: var(--border-hair) solid var(--color-line-ink); border-radius: var(--radius-2); }
+.sb-sede__predio { font-size: var(--fs-small); color: var(--text-ink-3); margin-top: calc(-1 * var(--space-3)); }
+.sb-sede dd { color: var(--text-ink-1); }
 .sb-sede address { font-style: normal; font-family: var(--font-display); font-weight: var(--fw-light); font-size: var(--fs-h4); line-height: 1.35; color: var(--text-ink-1); }
 .sb-sede dl { display: grid; gap: var(--space-4); }
 .sb-sede dt { font: var(--fw-semibold) var(--fs-overline)/1.3 var(--font-text); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--text-ink-3); }

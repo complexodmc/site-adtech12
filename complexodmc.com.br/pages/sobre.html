@@ -31,8 +31,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap"></noscript>
 
-  <link rel="preload" as="image" href="../assets/images/hero-dmc-poster.webp" media="(min-width: 768px)" fetchpriority="high">
-  <link rel="preload" as="image" href="../assets/images/hero-dmc-poster-mobile.webp" media="(max-width: 767px)" fetchpriority="high">
+  <link rel="preload" as="image" href="../assets/images/sobre-paulista-poster.webp" media="(min-width: 768px)" fetchpriority="high">
+  <link rel="preload" as="image" href="../assets/images/sobre-paulista-poster-mobile.webp" media="(max-width: 767px)" fetchpriority="high">
 
   <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
   <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
@@ -40,14 +40,13 @@
   <link rel="stylesheet" href="css/shared.css?v=3">
   <link rel="stylesheet" href="css/eixos.css?v=4">
   <link rel="stylesheet" href="../assets/css/components.css?v=3">
-  <link rel="stylesheet" href="css/sobre.css?v=1">
+  <link rel="stylesheet" href="css/sobre.css?v=9">
 
   <script src="../assets/js/navbar.js?v=c4" defer></script>
-  <script src="../assets/js/solucao.js?v=3" defer></script>
   <script src="../assets/js/video.js?v=1" defer></script>
   <script src="../assets/js/sobre.js?v=1" defer></script>
 
-  <!-- Dados estruturados: só os dados que já constam do rodapé. -->
+  <!-- Dados estruturados: rodapé + documento institucional (razão social, CNPJ, CEP, fundador). -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -64,15 +63,19 @@
       "name": "Complexo DMC",
       "url": "https://www.complexodmc.com.br/",
       "description": "Consultoria em negócios para decisões que envolvem empresa, patrimônio e família, organizada em seis eixos de especialidade.",
+      "legalName": "Complexo DMC LTDA",
+      "taxID": "61.877.895/0001-31",
       "email": "administrativo@complexodmc.com.br",
       "telephone": "+55 11 91526-7749",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Rua Riachuelo, 231",
+        "streetAddress": "Rua Riachuelo, 231, sala 32 — Edifício Central Riachuelo",
         "addressLocality": "São Paulo",
         "addressRegion": "SP",
+        "postalCode": "01007-906",
         "addressCountry": "BR"
-      }
+      },
+      "founder": { "@type": "Person", "name": "Daniel Mathias Chagas", "jobTitle": "CEO" }
     }
   }
   </script>
@@ -110,7 +113,7 @@
         "name": "Atendem fora de São Paulo?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "A sede fica em São Paulo. A possibilidade de atendimento em outras praças depende do eixo, do escopo e da rede de parceiros e cartórios envolvida, e é definida na conversa inicial."
+          "text": "A sede fica em São Paulo, no Edifício Central Riachuelo. O atendimento digital, no 7º andar, acompanha clientes de outras praças. A viabilidade de cada caso depende do eixo e dos atos envolvidos, e é avaliada na conversa inicial."
         }
       },
       {
@@ -155,14 +158,22 @@
   <main id="conteudo" class="sb">
 
     <!-- ============================== 1 · HERÓI ==============================
-         Imagem da marca (o mesmo cartaz do herói da home, sem o vídeo) com véu
-         ≥ .80 atrás do texto. Faixa de fatos logo abaixo sobe sobre ele. -->
+         Vídeo da Avenida Paulista (drone, loop de 12 s, gradado em ouro
+         monocromático) sobre o cartaz do primeiro quadro (LCP). Fonte:
+         assets/videos/Trocar_AvenidaPaulista_Centro_Sp.mp4. Com
+         prefers-reduced-motion nenhum <source> casa e fica só o cartaz.
+         Véu ≥ .80 atrás do texto. Faixa de fatos logo abaixo sobe sobre ele. -->
     <section class="sb-hero" aria-labelledby="hero-titulo">
       <div class="sb-hero__media" aria-hidden="true">
         <picture>
-          <source media="(max-width: 767px)" srcset="../assets/images/hero-dmc-poster-mobile.webp" type="image/webp" width="720" height="1280">
-          <img src="../assets/images/hero-dmc-poster.webp" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+          <source media="(max-width: 767px)" srcset="../assets/images/sobre-paulista-poster-mobile.webp" type="image/webp" width="720" height="1280">
+          <img src="../assets/images/sobre-paulista-poster.webp" alt="" width="1600" height="900" fetchpriority="high" decoding="async">
         </picture>
+        <video class="sb-hero__video" autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback tabindex="-1">
+          <source src="../assets/videos/sobre-paulista.webm" type="video/webm" media="(min-width: 768px) and (prefers-reduced-motion: no-preference)">
+          <source src="../assets/videos/sobre-paulista.mp4" type="video/mp4" media="(min-width: 768px) and (prefers-reduced-motion: no-preference)">
+          <source src="../assets/videos/sobre-paulista-mobile.mp4" type="video/mp4" media="(max-width: 767px) and (prefers-reduced-motion: no-preference)">
+        </video>
       </div>
       <div class="dmc-wrap">
         <div class="sb-hero__inner">
@@ -182,59 +193,81 @@
       </div>
     </section>
 
-    <!-- ============================== 2 · FATOS (D7: só o que é verificável) ============================== -->
-    <section class="sb-fatos sb-paper dmc-on-paper" aria-label="O Complexo DMC em fatos">
+    <!-- ============================== 2 · FATOS ==============================
+         Só estrutura verificável (D7): números do documento institucional
+         aprovado pelo CEO (2026-10-17). Nenhum número de resultado. -->
+    <section class="sb-fatos sb-paper dmc-on-paper" aria-label="A estrutura do Complexo DMC">
       <div class="dmc-wrap">
         <ul class="sb-fatos__lista">
-          <li><span class="sb-fatos__valor">6 eixos</span><span class="sb-fatos__rotulo">de especialidade, sob uma só governança</span></li>
-          <li><span class="sb-fatos__valor">Parceiros</span><span class="sb-fatos__rotulo">habilitados para os atos privativos</span></li>
-          <li><span class="sb-fatos__valor">Cartórios</span><span class="sb-fatos__rotulo">conveniados para os atos notariais</span></li>
-          <li><span class="sb-fatos__valor">São Paulo</span><span class="sb-fatos__rotulo">sede na Rua Riachuelo, 231</span></li>
+          <li><span class="sb-fatos__valor"><b>3</b> andares</span><span class="sb-fatos__rotulo">de operação no Edifício Central Riachuelo</span></li>
+          <li><span class="sb-fatos__valor"><b>5</b> competências</span><span class="sb-fatos__rotulo">sob uma única direção técnica</span></li>
+          <li><span class="sb-fatos__valor"><b>6</b> eixos</span><span class="sb-fatos__rotulo">de atuação, com uma só governança</span></li>
+          <li><span class="sb-fatos__valor"><b>1</b> endereço</span><span class="sb-fatos__rotulo">no centro histórico de São Paulo</span></li>
         </ul>
       </div>
     </section>
 
     <!-- ============================== 3 · SOMOS ==============================
-         Mídia: a malha de nós no ouro da casa (assets/js/solucao.js). -->
+         Foto: recepção do 3º andar (assets/images/sobre/, tratada e sem metadados). -->
     <section class="sb-sec sb-somos sb-paper dmc-on-paper" id="quem-somos" aria-labelledby="quem-somos-titulo">
       <div class="dmc-wrap sb-grid">
         <div class="sb-somos__texto">
           <p class="sb-overline">Quem somos</p>
           <h2 class="sb-titulo" id="quem-somos-titulo"><span>Somos o</span> <em>Complexo DMC</em></h2>
           <div class="sb-texto">
-            <p>O Complexo DMC é uma consultoria em negócios com sede em São Paulo. Organizamos decisões sobre empresa, patrimônio e pessoas para empresas, grupos econômicos, famílias empresárias, incorporadoras e investidores.</p>
-            <p>Essas decisões raramente cabem em uma única área. Uma sucessão pode envolver holding, tributo e matrícula de imóvel ao mesmo tempo. Por isso o trabalho é organizado em seis eixos de especialidade, que partem de um diagnóstico comum e seguem uma só governança.</p>
-            <p>A consultoria levanta o caso, compara os cenários e coordena a execução. Os atos privativos ficam com quem a lei habilita: sociedades de advogados parceiras, contadores e auditores habilitados e cartórios conveniados.</p>
+            <p>Uma consultoria em negócios verticalmente integrada. Direito, contabilidade, tributário, prática notarial e tecnologia, competências que o mercado costuma contratar separadamente, reunidas sob uma única direção técnica no centro de São Paulo.</p>
+            <p>Uma reorganização societária, uma sucessão familiar, uma aquisição ou a revisão de um regime tributário são decisões de negócio examinadas por disciplinas diferentes. Quando cada disciplina pertence a um fornecedor distinto, a coordenação recai sobre o empresário, que passa a transportar documentos e a repetir o contexto a cada um.</p>
+            <p>Aqui, as disciplinas trabalham com processos comuns, um padrão documental único e um só responsável perante o cliente. Cada entrega tem um profissional habilitado que responde por ela, e os atos notariais e registrais são lavrados pelos cartórios.</p>
           </div>
+          <blockquote class="sb-citacao"><p>A coordenação entre as disciplinas é responsabilidade da consultoria, não do cliente.</p></blockquote>
         </div>
         <figure class="sb-somos__media">
-          <div class="sol-net" aria-hidden="true"><canvas class="sol-net__canvas"></canvas></div>
+          <img src="../assets/images/sobre/recepcao-3andar-1000.webp" srcset="../assets/images/sobre/recepcao-3andar-600.webp 600w, ../assets/images/sobre/recepcao-3andar-1000.webp 1000w" sizes="(min-width: 1024px) 46vw, 100vw" width="1000" height="1250" loading="lazy" decoding="async" alt="Recepção do Complexo DMC no 3º andar: balcão de madeira, orquídea e a marca do rinoceronte na parede azul.">
           <figcaption class="sb-somos__legenda">
-            <p class="sb-overline">Seis eixos · uma governança</p>
-            <p>Empresa, patrimônio e pessoas na mesma mesa de decisão.</p>
+            <p class="sb-overline">3º andar · Edifício Central Riachuelo</p>
+            <p>Recepção do Complexo DMC, no centro histórico de São Paulo.</p>
           </figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- ============================== 4 · LIDERANÇA ==============================
-         Para pôr a foto: troque o <span class="sb-pessoa__inicial"> por
-         <img src="../assets/images/…" alt="" width="320" height="320" loading="lazy">
-         (a foto fica em tons de cinza pelo CSS). Para outro sócio, repita o
-         <li class="sb-pessoa"> inteiro. Só nomes, cargos e textos aprovados pelo CEO. -->
-    <section class="sb-sec sb-lideranca sb-paper-2 dmc-on-paper" id="lideranca" aria-labelledby="lideranca-titulo">
-      <div class="dmc-wrap sb-grid">
+    <!-- ============================== 4 · RESPONSABILIDADE TÉCNICA ==============================
+         Nomes, cargos, registros e textos do documento institucional (CEO, 2026-10-17).
+         Retratos 4:5 em preto e branco em assets/images/sobre/. Para incluir alguém,
+         repita o <li class="sb-pessoa"> inteiro, sempre com texto aprovado pelo CEO. -->
+    <section class="sb-sec sb-lideranca sb-paper-2 dmc-on-paper" id="responsabilidade" aria-labelledby="responsabilidade-titulo">
+      <div class="dmc-wrap">
         <div class="sb-head">
-          <p class="sb-overline">Liderança</p>
-          <h2 class="sb-titulo sb-titulo--h2" id="lideranca-titulo"><span>Quem</span> <em>conduz</em></h2>
+          <p class="sb-overline">Responsabilidade técnica</p>
+          <h2 class="sb-titulo sb-titulo--h2" id="responsabilidade-titulo"><span>Quem</span> <em>responde</em></h2>
+          <div class="sb-texto"><p>A integração se sustenta em responsabilidade nominal. Cada frente da operação tem um profissional habilitado e registrado que responde tecnicamente pelo que é entregue.</p></div>
         </div>
         <ul class="sb-pessoas">
           <li class="sb-pessoa">
-            <div class="sb-pessoa__foto" aria-hidden="true"><span class="sb-pessoa__inicial">DC</span></div>
+            <img class="sb-pessoa__foto" src="../assets/images/sobre/daniel-800.webp" srcset="../assets/images/sobre/daniel-480.webp 480w, ../assets/images/sobre/daniel-800.webp 800w" sizes="(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 100vw" width="800" height="1000" loading="lazy" decoding="async" alt="Retrato de Daniel Mathias Chagas.">
             <div class="sb-pessoa__corpo">
               <h3 class="sb-pessoa__nome">Daniel Mathias Chagas</h3>
-              <p class="sb-pessoa__cargo">CEO</p>
-              <p class="sb-pessoa__texto">Responde pelo posicionamento do Complexo DMC e pela governança que integra os seis eixos de especialidade.</p>
+              <p class="sb-pessoa__cargo">CEO e fundador</p>
+              <p class="sb-pessoa__registro">CRA 159.039</p>
+              <p class="sb-pessoa__texto">Administrador e contador, estudante de Direito na Faculdade de Direito da USP, no Largo de São Francisco. Responde pela direção da empresa, pelos seis eixos de atuação e pela integração técnica entre eles.</p>
+            </div>
+          </li>
+          <li class="sb-pessoa">
+            <img class="sb-pessoa__foto" src="../assets/images/sobre/matheus-800.webp" srcset="../assets/images/sobre/matheus-480.webp 480w, ../assets/images/sobre/matheus-800.webp 800w" sizes="(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 100vw" width="800" height="1000" loading="lazy" decoding="async" alt="Retrato de Matheus Vital Gomes.">
+            <div class="sb-pessoa__corpo">
+              <h3 class="sb-pessoa__nome">Dr. Matheus Vital Gomes</h3>
+              <p class="sb-pessoa__cargo">Responsável jurídico</p>
+              <p class="sb-pessoa__registro">OAB/SP 521.104</p>
+              <p class="sb-pessoa__texto">Advogado. Conduz a frente jurídica e responde tecnicamente pelos atos jurídicos do trabalho, dos pareceres aos instrumentos levados a registro.</p>
+            </div>
+          </li>
+          <li class="sb-pessoa">
+            <img class="sb-pessoa__foto" src="../assets/images/sobre/darci-800.webp" srcset="../assets/images/sobre/darci-480.webp 480w, ../assets/images/sobre/darci-800.webp 800w" sizes="(min-width: 1024px) 30vw, (min-width: 640px) 46vw, 100vw" width="800" height="1000" loading="lazy" decoding="async" alt="Retrato de Darci Aparecida Novaes.">
+            <div class="sb-pessoa__corpo">
+              <h3 class="sb-pessoa__nome">Darci Aparecida Novaes</h3>
+              <p class="sb-pessoa__cargo">CFO</p>
+              <p class="sb-pessoa__registro">CRC 1SP 238193/O-7</p>
+              <p class="sb-pessoa__texto">Responde pela contabilidade e pelos serviços financeiros. Converte as decisões da operação em informação contábil verificável perante instituições financeiras, sócios e a administração tributária.</p>
             </div>
           </li>
         </ul>
@@ -254,7 +287,98 @@
       </div>
     </section>
 
-    <!-- ============================== 6 · OS SEIS EIXOS ==============================
+    <!-- ============================== 6 · TRAJETÓRIA ==============================
+         Do documento institucional (CEO, 2026-10-17). Sem datas: a ordem é a do
+         raciocínio que formou a empresa. -->
+    <section class="sb-sec sb-trajetoria sb-paper dmc-on-paper" id="trajetoria" aria-labelledby="trajetoria-titulo">
+      <div class="dmc-wrap sb-grid">
+        <div class="sb-head">
+          <p class="sb-overline">Trajetória</p>
+          <h2 class="sb-titulo sb-titulo--h2" id="trajetoria-titulo"><span>Como a estrutura</span> <em>foi construída</em></h2>
+          <div class="sb-texto"><p>A empresa nasceu de um diagnóstico recorrente: a fragmentação entre as disciplinas que sustentam um negócio custa caro ao cliente, e ninguém responde pelo conjunto.</p></div>
+        </div>
+        <ol class="sb-etapas">
+          <li class="sb-etapa">
+            <span class="sb-etapa__num" aria-hidden="true">01</span>
+            <h3 class="sb-etapa__titulo">O diagnóstico de origem</h3>
+            <div class="sb-texto">
+              <p>A formação do fundador percorreu Administração e Contabilidade e, hoje, a graduação em Direito no Largo de São Francisco. Daí vem a perspectiva da empresa: o negócio é tratado como um sistema, com resultado, obrigações tributárias, estrutura societária, prazos e patrimônio, e não como um conjunto de demandas isoladas.</p>
+              <p>A atuação nas duas áreas mostrou um padrão constante. Decisões judiciais chegavam à contabilidade sem orientação de escrituração; tributos eram apurados sem revisão prévia da estrutura societária; minutas voltavam do tabelionato com exigências que poderiam ter sido antecipadas.</p>
+            </div>
+          </li>
+          <li class="sb-etapa">
+            <span class="sb-etapa__num" aria-hidden="true">02</span>
+            <h3 class="sb-etapa__titulo">A decisão de integrar</h3>
+            <div class="sb-texto">
+              <p>O Complexo DMC foi constituído para responder a esse diagnóstico: as competências trabalham lado a lado, no mesmo caso e perante o mesmo cliente, e a exigência registral entra na redação dos instrumentos em vez de ser descoberta no protocolo.</p>
+              <p>A integração exigiu processos comuns, um padrão documental único e uma linha clara de responsabilidade técnica, de modo que cada entrega tenha um profissional habilitado que responde por ela.</p>
+            </div>
+          </li>
+          <li class="sb-etapa">
+            <span class="sb-etapa__num" aria-hidden="true">03</span>
+            <h3 class="sb-etapa__titulo">Tecnologia como escala do método</h3>
+            <div class="sb-texto">
+              <p>Conferir uma matrícula, reconstituir uma cadeia dominial, qualificar as partes de uma escritura ou validar o fechamento de um monte-mor são tarefas de precisão, e a margem de erro cresce com o volume.</p>
+              <p>Por isso a empresa desenvolve tecnologia própria, que converte o método em regra: sistemas que interpretam documentos de registro de imóveis e preparam minutas notariais com trilhas de conferência antes do protocolo, uma plataforma de gestão para serventias e um ERP fiscal e de folha. Veja <a href="tecnologia.html">Tecnologia aplicada aos seis eixos</a>.</p>
+            </div>
+          </li>
+          <li class="sb-etapa">
+            <span class="sb-etapa__num" aria-hidden="true">04</span>
+            <h3 class="sb-etapa__titulo">A estrutura atual</h3>
+            <div class="sb-texto">
+              <p>A operação ocupa três andares do Edifício Central Riachuelo, no centro histórico de São Paulo, perto do Fórum João Mendes e dos principais cartórios da capital.</p>
+              <p>O objetivo segue o mesmo desde a constituição da empresa: que o cliente não precise exercer o papel de integrador dos próprios assessores.</p>
+            </div>
+            <!-- Nova sede (CEO, 2026-10-17). Quando a unidade abrir, atualizar também a faixa
+                 "1 endereço", o bloco Sede, o JSON-LD, o rodapé e a seção Instalações. -->
+            <p class="sb-etapa__nota"><span>Nova sede</span> A nova sede, na Avenida Paulista, em São Paulo, está em reforma. Em breve teremos um espaço amplo, com mais de 100 m², para atender melhor os nossos clientes.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================== 7 · INSTALAÇÕES ==============================
+         Quadro de andares do prédio + fotos tratadas (assets/images/sobre/). Na
+         portaria, o rosto do porteiro foi desfocado; na sala de atendimento, os
+         porta-retratos da estante. -->
+    <section class="sb-sec sb-instalacoes sb-dark" id="instalacoes" aria-labelledby="instalacoes-titulo">
+      <div class="dmc-wrap">
+        <div class="sb-head">
+          <p class="sb-overline">Instalações</p>
+          <h2 class="sb-titulo sb-titulo--h2" id="instalacoes-titulo"><span>Como a operação</span> <em>está organizada</em></h2>
+          <div class="sb-texto"><p>Cada andar concentra uma natureza de trabalho e as condições que ela exige: jurídico e tecnologia lado a lado, ambiente reservado para a apuração contábil e estrutura de estúdio para o atendimento digital.</p></div>
+        </div>
+        <div class="sb-grid">
+          <ul class="sb-andares" aria-label="Andares do Complexo DMC no Edifício Central Riachuelo">
+            <li><span class="sb-andar__num">7º</span><div><h3>Atendimento digital, auditório e comunicação</h3><p>Atendimento remoto de clientes de outras praças, auditório para reuniões, assembleias e treinamentos e estúdio de produção institucional.</p></div></li>
+            <li><span class="sb-andar__num">4º</span><div><h3>Contabilidade e serviços financeiros</h3><p>Escrituração contábil e fiscal, apuração de tributos, folha, obrigações acessórias e revisão analítica, em regime de conferência documental.</p></div></li>
+            <li><span class="sb-andar__num">3º</span><div><h3>Núcleo de negócios</h3><p>Recepção de clientes, qualificação dos casos, diretoria e coordenação dos seis eixos. O jurídico e o desenvolvimento de software dividem o andar.</p></div></li>
+            <li><span class="sb-andar__num sb-andar__num--terreo">Térreo</span><div><h3>Recepção do edifício</h3><p>Rua Riachuelo, 231, no centro histórico, perto dos fóruns e cartórios com que a operação trabalha todos os dias.</p></div></li>
+          </ul>
+          <!-- Desktop: a grade ocupa exatamente a altura do quadro de andares (posição
+               absoluta dentro de .sb-galeria), para as duas colunas começarem e terminarem
+               juntas. Celular/tablet: fluxo normal, legenda abaixo da foto. -->
+          <div class="sb-galeria">
+            <div class="sb-galeria__grade">
+              <figure class="sb-galeria__item--grande">
+                <img src="../assets/images/sobre/atendimento-3andar-1140.webp" srcset="../assets/images/sobre/atendimento-3andar-720.webp 720w, ../assets/images/sobre/atendimento-3andar-1140.webp 1140w" sizes="(min-width: 1024px) 50vw, 100vw" width="1140" height="760" loading="lazy" decoding="async" alt="Sala de atendimento com a marca do Complexo DMC na parede azul e estante com livros de direito.">
+                <figcaption><b>3º andar</b> · Sala de atendimento e reuniões</figcaption>
+              </figure>
+              <figure>
+                <img src="../assets/images/sobre/estudio-7andar-720.webp" srcset="../assets/images/sobre/estudio-7andar-720.webp 720w, ../assets/images/sobre/estudio-7andar-1200.webp 1200w" sizes="(min-width: 1024px) 23vw, 50vw" width="720" height="480" loading="lazy" decoding="async" alt="Estúdio de gravação com câmeras em tripé, mesa e parede verde.">
+                <figcaption><b>7º andar</b> · Estúdio de captação e produção</figcaption>
+              </figure>
+              <figure>
+                <img src="../assets/images/sobre/portaria-720.webp" srcset="../assets/images/sobre/portaria-720.webp 720w, ../assets/images/sobre/portaria-1200.webp 1200w" sizes="(min-width: 1024px) 23vw, 50vw" width="720" height="480" loading="lazy" decoding="async" alt="Recepção do Edifício Central Riachuelo, com sofá e poltrona de couro e o balcão da portaria.">
+                <figcaption><b>Térreo</b> · Recepção do Edifício Central Riachuelo</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 8 · OS SEIS EIXOS ==============================
          Texto de EIXOS-COPY.md (pergunta, especialidade, para quem, quando procurar).
          assets/js/sobre.js transforma a faixa em abas. -->
     <section class="sb-sec sb-eixos sb-paper dmc-on-paper" id="eixos" aria-labelledby="eixos-titulo" data-sb-eixos>
@@ -406,40 +530,73 @@
       </div>
     </section>
 
-    <!-- ============================== 7 · MÉTODO ============================== -->
+    <!-- ============================== 9 · MÉTODO ==============================
+         Etapas com a entrega de cada uma + princípios do documento institucional.
+         "Remuneração por resultado" (honorários de êxito) fica fora: o Provimento
+         205/2021 veda divulgar honorários ou forma de pagamento. -->
     <section class="sb-sec sb-metodo sb-paper-2 dmc-on-paper" id="metodo" aria-labelledby="metodo-titulo">
       <div class="dmc-wrap">
         <div class="sb-head">
           <p class="sb-overline">Método</p>
           <h2 class="sb-titulo sb-titulo--h2" id="metodo-titulo"><span>Como</span> <em>conduzimos</em></h2>
-          <div class="sb-texto"><p>Quatro etapas comuns aos seis eixos. Cada uma tem entrega própria, para que o cliente saiba em que ponto o trabalho está.</p></div>
+          <div class="sb-texto"><p>Um mesmo caso costuma atravessar três ou quatro eixos. O método é o mesmo em todos eles, e cada etapa termina em uma entrega que o cliente pode conferir.</p></div>
         </div>
         <ol class="sb-passos">
           <li class="sb-passo">
             <span class="sb-passo__num" aria-hidden="true"></span>
             <h3 class="sb-passo__titulo">Diagnóstico</h3>
-            <p class="sb-passo__texto">Leitura do caso com os documentos e os dados do cliente. Identificamos a decisão a tomar e os eixos que ela envolve.</p>
+            <p class="sb-passo__texto">Conversa de qualificação e leitura dos documentos e dados do caso. Identificamos a decisão a tomar e os eixos que ela atravessa.</p>
+            <p class="sb-passo__entrega"><span>Entrega</span> Diagnóstico por escrito, com os eixos envolvidos e os documentos pendentes.</p>
           </li>
           <li class="sb-passo">
             <span class="sb-passo__num" aria-hidden="true"></span>
             <h3 class="sb-passo__titulo">Cenários e decisão</h3>
-            <p class="sb-passo__texto">Caminhos comparados por custo, prazo e fundamento normativo, em relatório. O cliente decide com os cenários na mesa.</p>
+            <p class="sb-passo__texto">Caminhos comparados por custo, prazo e fundamento normativo, com o efeito de cada um sobre os outros eixos.</p>
+            <p class="sb-passo__entrega"><span>Entrega</span> Relatório de cenários. A decisão é do cliente, com os caminhos na mesa.</p>
           </li>
           <li class="sb-passo">
             <span class="sb-passo__num" aria-hidden="true"></span>
-            <h3 class="sb-passo__titulo">Estruturação e implementação</h3>
-            <p class="sb-passo__texto">Plano de atos coordenado pela consultoria e executado por parceiros habilitados e cartórios conveniados, cada um no que a lei lhe atribui.</p>
+            <h3 class="sb-passo__titulo">Estruturação e execução</h3>
+            <p class="sb-passo__texto">Plano de atos com um responsável por etapa. Cada instrumento passa pela conferência documental antes da assinatura e do protocolo.</p>
+            <p class="sb-passo__entrega"><span>Entrega</span> Instrumentos conferidos, assinados por profissional habilitado e levados a protocolo.</p>
           </li>
           <li class="sb-passo">
             <span class="sb-passo__num" aria-hidden="true"></span>
             <h3 class="sb-passo__titulo">Acompanhamento e revisão</h3>
-            <p class="sb-passo__texto">Relatório periódico, indicadores que o cliente acompanha e revisão do plano quando a lei, a empresa ou a família mudam.</p>
+            <p class="sb-passo__texto">Indicadores que o cliente acompanha e revisão do plano quando a lei, a empresa ou a família mudam.</p>
+            <p class="sb-passo__entrega"><span>Entrega</span> Relatório periódico e plano revisado.</p>
           </li>
         </ol>
+
+        <div class="sb-principios">
+          <h3 class="sb-principios__titulo">Princípios de <em>operação</em></h3>
+          <ul class="sb-principios__lista">
+            <li>
+              <p class="sb-overline">Clareza</p>
+              <h4>Padrão documental próprio</h4>
+              <p>Todo instrumento segue um padrão editorial definido, escrito para ser compreendido por quem assina, e não apenas por quem redige.</p>
+            </li>
+            <li>
+              <p class="sb-overline">Verificação</p>
+              <h4>Conferência documental</h4>
+              <p>Minutas, apurações e laudos são conferidos contra a fonte. Nenhuma informação entra em um instrumento sem documento que a sustente.</p>
+            </li>
+            <li>
+              <p class="sb-overline">Responsabilidade</p>
+              <h4>Um responsável por entrega</h4>
+              <p>Cada frente tem um profissional habilitado e registrado que responde tecnicamente pelo que entrega, e o cliente tem um único interlocutor.</p>
+            </li>
+            <li>
+              <p class="sb-overline">Tecnologia</p>
+              <h4>Conferência em escala</h4>
+              <p>Sistemas próprios aplicam a mesma conferência a cada caso e retêm o instrumento antes do protocolo quando encontram divergência.</p>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
-    <!-- ============================== 8 · GOVERNANÇA E PARCEIROS ============================== -->
+    <!-- ============================== 10 · GOVERNANÇA E PARCEIROS ============================== -->
     <section class="sb-sec sb-governanca sb-dark" id="governanca" aria-labelledby="governanca-titulo">
       <div class="dmc-wrap sb-grid">
         <div class="sb-governanca__texto">
@@ -463,7 +620,7 @@
       </div>
     </section>
 
-    <!-- ============================== 9 · PERGUNTAS FREQUENTES ==============================
+    <!-- ============================== 11 · PERGUNTAS FREQUENTES ==============================
          <details name="faq">: abre sem JS, uma resposta por vez. O JSON-LD FAQPage
          no <head> repete este texto palavra por palavra. -->
     <section class="sb-sec sb-faq sb-paper dmc-on-paper" id="perguntas" aria-labelledby="perguntas-titulo">
@@ -487,7 +644,7 @@
           </details>
           <details class="sb-faq__item" name="faq">
             <summary>Atendem fora de São Paulo? <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
-            <p class="sb-faq__resposta">A sede fica em São Paulo. A possibilidade de atendimento em outras praças depende do eixo, do escopo e da rede de parceiros e cartórios envolvida, e é definida na conversa inicial.</p>
+            <p class="sb-faq__resposta">A sede fica em São Paulo, no Edifício Central Riachuelo. O atendimento digital, no 7º andar, acompanha clientes de outras praças. A viabilidade de cada caso depende do eixo e dos atos envolvidos, e é avaliada na conversa inicial.</p>
           </details>
           <details class="sb-faq__item" name="faq">
             <summary>Como começa um trabalho? <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary>
@@ -497,9 +654,8 @@
       </div>
     </section>
 
-    <!-- ============================== 10 · VÍDEO DO TEMA ==============================
-         Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
-         (ex.: data-video="13w3h_VjvGs"). Vazio, o quadro fica reservado.
+    <!-- ============================== 12 · VÍDEO DO TEMA ==============================
+         Para trocar o vídeo, escreva o ID ou a URL do YouTube em data-video.
          Quem monta o player é assets/js/video.js. -->
     <section class="sb-sec sb-video sb-dark" id="video" aria-labelledby="video-titulo">
       <div class="dmc-wrap sb-grid">
@@ -509,18 +665,21 @@
           <div class="sb-texto"><p>Quem somos, como os seis eixos se combinam e como um trabalho começa.</p></div>
         </div>
         <div class="sb-video__quadro">
-          <div class="page-video__frame" data-video="" data-video-title="Sobre o Complexo DMC">
+          <!-- Vídeo publicado (CEO, 2026-10-17): youtube.com/watch?v=hiy-LLz-Mjw.
+               video.js troca este conteúdo pela capa clicável e só carrega o player
+               (youtube-nocookie) depois do clique. Sem JS fica o link abaixo. -->
+          <div class="page-video__frame" data-video="hiy-LLz-Mjw" data-video-title="Sobre o Complexo DMC">
             <div class="page-video__empty">
               <span class="page-video__play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6L19 12z"/></svg></span>
-              <p class="page-video__empty-title">Espaço reservado para o vídeo</p>
-              <p class="page-video__empty-text">Vídeo sobre o Complexo DMC, em breve neste espaço.</p>
+              <p class="page-video__empty-title">Sobre o Complexo DMC</p>
+              <p class="page-video__empty-text"><a href="https://www.youtube.com/watch?v=hiy-LLz-Mjw" target="_blank" rel="noopener noreferrer">Assistir no YouTube</a></p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============================== 11 · CONVERSA + SEDE ============================== -->
+    <!-- ============================== 13 · CONVERSA + SEDE ============================== -->
     <section class="sb-sec sb-conversa sb-paper dmc-on-paper" id="conversa" aria-labelledby="cta-titulo">
       <div class="dmc-wrap sb-grid">
         <div class="sb-conversa__texto">
@@ -534,10 +693,12 @@
         </div>
         <div class="sb-sede">
           <p class="sb-overline">Sede</p>
-          <address>Rua Riachuelo, 231<br>São Paulo, SP</address>
+          <address>Rua Riachuelo, 231, sala 32<br>Sé, São Paulo, SP · CEP 01007-906</address>
+          <p class="sb-sede__predio">Edifício Central Riachuelo · 3º, 4º e 7º andares</p>
           <dl>
             <div><dt>E-mail</dt><dd><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></dd></div>
             <div><dt>Telefone e WhatsApp</dt><dd><a href="tel:+5511915267749">+55 (11) 91526-7749</a></dd></div>
+            <div><dt>Razão social</dt><dd>Complexo DMC LTDA · CNPJ 61.877.895/0001-31</dd></div>
           </dl>
         </div>
       </div>
