@@ -163,7 +163,7 @@ Fontes: `docs/dmc/HOME_REDESIGN.md` (especificação), `home-redesign/copy.json`
 
 ---
 
-## 3. Lista resumida de alterações (árvore de trabalho, não commitada)
+## 3. Lista resumida de alterações (commit 53a412d)
 
 `git diff --stat`: 20 arquivos rastreados alterados (+2 858 / −1 634 linhas); 255 arquivos novos (a maior parte
 evidências de QA em `docs/dmc/qa/` e documentação em `docs/dmc/home-redesign/`).
@@ -261,8 +261,8 @@ eixos embutidos como `<svg hidden>` no início de `<main>`. Pesos e comandos de 
 - **`vercel.json` inalterado** (sem diferença no `git diff`); `sitemap.xml` e `robots.txt` inalterados — a
   home mantém a mesma URL e as 25 URLs do sitemap continuam válidas; a página de descadastro é `noindex` e
   fica fora do sitemap por desenho. Teste `vercel-config` 1/1 (17 regras iguais ao `config.json` compilado).
-- **Nenhum commit, nenhum push, nenhum deploy** foi feito. A árvore de trabalho está pronta para revisão
-  final e commit por squash (T4) quando você autorizar.
+- **Commitado localmente** na branch `feat/dmc-prime` (commit `53a412d`, 2026-10-17); **nenhum push e nenhum deploy**. A
+  entrada na `main` segue por squash (T4) quando você autorizar.
 - **Condições para publicar (D3 / T3), ainda abertas:**
   1. Rotação das credenciais expostas (incluindo `server/.env.bak-atlas`) e variáveis configuradas na Vercel
      (`MONGODB_URI`, e-mail de aviso opcional) — roteiro em `docs/dmc/DEPLOY.md`.
