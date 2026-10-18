@@ -1,0 +1,181 @@
+/* =============================================================
+   COMPLEXO DMC · PLATAFORMA · css/portal-documentos.css (F4b)
+   Documentação: documentos.html (checklist e envio), contratos.html
+   (lista), contrato.html (abrir, assinar em 4 passos e comprovante
+   imprimível com QR) e as telas de backoffice de prof-documentos.js
+   (#/documentos, #/documentos/:envioId, #/documentos/tipos,
+   #/contratos, #/contratos/:id e as abas do aluno).
+   Só complementa o catálogo pf-* de portal.css (F0s). Prefixo próprio:
+   pf-doc- (índice §8.2 item 4). Só tokens --pf-* e da casa; nenhuma cor
+   nova, nenhum brilho (padrão visual DMC).
+   ============================================================= */
+
+/* Resumo "3 de 5 aprovados" ------------------------------------------- */
+.pf-doc-resumo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+  margin: 0 0 var(--space-5);
+}
+.pf-doc-resumo__texto { margin: 0; color: var(--pf-texto-1); font: 500 var(--pf-fs-ui)/1.4 var(--font-text); font-feature-settings: var(--font-numeric); }
+.pf-doc-resumo .pf-progresso { flex: 1 1 12rem; max-width: 22rem; }
+
+/* Lista de documentos (linha por tipo) -------------------------------- */
+.pf-doc-lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--pf-linha); }
+.pf-doc-item {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) minmax(9rem, auto) minmax(10rem, auto);
+  gap: var(--space-3) var(--space-4);
+  align-items: start;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-doc-sigla {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--pf-linha-forte);
+  border-radius: var(--radius-1);
+  color: var(--pf-texto-2);
+  font: 600 0.8125rem/1 var(--font-text);
+  font-feature-settings: var(--font-numeric);
+  letter-spacing: 0.02em;
+}
+.pf-doc-item__nome { margin: 0; color: var(--pf-texto-1); font: 500 var(--pf-fs-corpo)/1.4 var(--font-text); overflow-wrap: anywhere; }
+.pf-doc-item__desc { margin: var(--space-1) 0 0; color: var(--pf-texto-3); font: 400 var(--pf-fs-meta)/1.5 var(--font-text); overflow-wrap: anywhere; }
+.pf-doc-item__motivo { margin-top: var(--space-2); }
+.pf-doc-item__situacao { padding-top: var(--space-2); }
+.pf-doc-item__acoes { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); }
+.pf-doc-item__acoes .dmc-btn { min-height: var(--hit, 44px); }
+.pf-doc-item__nota { margin: 0; color: var(--pf-texto-3); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); text-align: right; }
+.pf-doc-meta { display: block; color: var(--pf-texto-3); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); font-feature-settings: var(--font-numeric); overflow-wrap: anywhere; }
+
+@container (max-width: 44em) {
+  .pf-doc-item { grid-template-columns: 3rem minmax(0, 1fr); }
+  .pf-doc-item__situacao, .pf-doc-item__acoes { grid-column: 2; padding-top: 0; }
+  .pf-doc-item__acoes { justify-content: stretch; }
+  .pf-doc-item__acoes .dmc-btn { flex: 1 1 100%; }
+  .pf-doc-item__nota { text-align: left; }
+}
+@media (max-width: 44em) {
+  .pf-doc-item { grid-template-columns: 3rem minmax(0, 1fr); }
+  .pf-doc-item__situacao, .pf-doc-item__acoes { grid-column: 2; padding-top: 0; }
+  .pf-doc-item__acoes { justify-content: stretch; }
+  .pf-doc-item__acoes .dmc-btn { flex: 1 1 100%; }
+  .pf-doc-item__nota { text-align: left; }
+}
+
+/* Reserva de espaço (CLS < 0,1): o conteúdo chega depois do esqueleto -- */
+.pf-doc-reserva { min-height: 18rem; }
+.pf-doc-segmento,
+.pf-doc-filtro { min-height: var(--hit, 44px); margin: 0 0 var(--space-4); }
+@media (max-width: 29.99em) {
+  .pf-doc-segmento,
+  .pf-doc-filtro { min-height: calc(2 * var(--hit, 44px) + var(--space-3)); }
+}
+
+/* Contratos (lista do aluno) ------------------------------------------ */
+.pf-doc-contrato {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-3) var(--space-5);
+  align-items: start;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-doc-contrato__titulo { margin: 0 0 var(--space-1); color: var(--pf-texto-1); font: 500 var(--pf-fs-corpo)/1.4 var(--font-text); overflow-wrap: anywhere; }
+.pf-doc-contrato__dados { display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-4); margin: 0; padding: 0; list-style: none; }
+.pf-doc-contrato__acoes { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-2); align-items: center; }
+@media (max-width: 44em) {
+  .pf-doc-contrato { grid-template-columns: minmax(0, 1fr); }
+  .pf-doc-contrato__acoes { justify-content: stretch; }
+  .pf-doc-contrato__acoes .dmc-btn { flex: 1 1 100%; }
+}
+
+/* Contrato: documento e assinatura em 4 passos ------------------------ */
+.pf-doc-subtitulo { margin: 0 0 var(--space-4); }
+@media (max-width: 44em) { .pf-doc-titulo { min-height: 2.5em; } }
+.pf-doc-secao { margin: var(--space-6) 0 0; max-width: 46rem; }
+.pf-doc-secao > h2 { margin: 0 0 var(--space-3); color: var(--pf-texto-1); font: 300 var(--pf-fs-secao)/1.2 var(--font-display); }
+.pf-doc-dados { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--space-3) var(--space-5); margin: 0 0 var(--space-4); }
+.pf-doc-dados div { margin: 0; }
+.pf-doc-dados dt { color: var(--pf-texto-3); font: 400 var(--pf-fs-meta)/1.4 var(--font-text); }
+.pf-doc-dados dd { margin: var(--space-1) 0 0; color: var(--pf-texto-1); font: 400 var(--pf-fs-ui)/1.45 var(--font-text); font-feature-settings: var(--font-numeric); overflow-wrap: anywhere; }
+.pf-doc-hash .pf-codigo__valor { overflow-wrap: anywhere; word-break: break-all; }
+
+.pf-doc-assinatura { list-style: none; margin: 0; padding: 0; counter-reset: pf-doc-passo; }
+.pf-doc-passo {
+  position: relative;
+  margin: 0;
+  padding: var(--space-4) 0 var(--space-4) 3rem;
+  border-top: 1px solid var(--pf-linha);
+  counter-increment: pf-doc-passo;
+}
+.pf-doc-passo::before {
+  content: counter(pf-doc-passo);
+  position: absolute;
+  left: 0;
+  top: var(--space-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--pf-linha-forte);
+  border-radius: var(--radius-1);
+  color: var(--pf-texto-2);
+  font: 600 0.8125rem/1 var(--font-text);
+  font-feature-settings: var(--font-numeric);
+}
+.pf-doc-passo.is-feito::before { border-color: var(--pf-sucesso); color: var(--pf-sucesso); }
+.pf-doc-passo.is-bloqueado { color: var(--pf-texto-3); }
+.pf-doc-passo__titulo { margin: 0 0 var(--space-2); color: var(--pf-texto-1); font: 500 var(--pf-fs-ui)/1.4 var(--font-text); }
+.pf-doc-passo.is-bloqueado .pf-doc-passo__titulo { color: var(--pf-texto-3); }
+.pf-doc-passo .pf-leitura { margin: 0 0 var(--space-3); }
+.pf-doc-passo .pf-campo { max-width: 22rem; }
+.pf-doc-passo fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.pf-doc-passo fieldset:disabled { opacity: 1; }
+
+.pf-doc-resultado { margin: var(--space-5) 0 0; }
+.pf-doc-acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: var(--space-4) 0; }
+.pf-doc-acoes .dmc-btn { min-height: var(--hit, 44px); }
+
+/* Comprovante de assinatura (folha em papel, §8.4) -------------------- */
+.pf-doc-comprovante { margin: var(--space-5) 0 0; }
+.pf-doc-comprovante h1 { margin: 0; color: var(--pf-texto-1); font: 300 1.75rem/1.2 var(--font-display); }
+.pf-doc-marca { display: inline-flex; align-items: center; gap: var(--space-3); min-height: 44px; color: var(--pf-texto-1); font: 600 var(--pf-fs-ui)/1 var(--font-text); letter-spacing: 0.14em; text-transform: uppercase; }
+.pf-doc-marca b { color: var(--color-gold-deep); font-weight: 600; }
+/* Sempre em papel: o rinoceronte branco da marca vira grafite (como no documento da F3b, UX §8.1). */
+.pf-doc-marca img { width: 40px; height: 40px; object-fit: contain; filter: brightness(0); opacity: 0.82; }
+.pf-doc-acoes + .pf-ajuda { margin-top: var(--space-2); }
+.pf-doc-comprovante .pf-doc-dados dd { color: var(--pf-texto-1); }
+.pf-doc-comprovante__aceite { margin: var(--space-4) 0 0; color: var(--pf-texto-2); font: 400 var(--pf-fs-ui)/1.6 var(--font-text); }
+.pf-doc-comprovante__url { margin: var(--space-2) 0 0; color: var(--pf-texto-3); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); overflow-wrap: anywhere; }
+/* QR de 29 mm: folga sobre o mínimo de 28 mm do rodapé impresso (arredondamento de px, D-68). */
+.pf-doc-comprovante .pf-qr { width: 29mm; height: 29mm; flex: none; }
+
+/* Backoffice ---------------------------------------------------------- */
+.pf-doc-link { display: inline-flex; align-items: center; min-height: var(--hit, 44px); color: var(--pf-texto-1); overflow-wrap: anywhere; }
+.pf-doc-link + .pf-doc-meta { margin-top: calc(-1 * var(--space-2)); }
+.pf-doc-bo-filtros { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--space-3) var(--space-4); align-items: end; margin: var(--space-4) 0; }
+.pf-doc-bo-filtros .pf-campo { margin: 0; }
+.pf-doc-bo-grade { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem); gap: var(--space-5); align-items: start; }
+@media (max-width: 64em) { .pf-doc-bo-grade { grid-template-columns: minmax(0, 1fr); } }
+.pf-doc-previa { max-width: 100%; border: 1px solid var(--pf-linha); border-radius: var(--radius-1); background: var(--pf-painel-2); }
+.pf-doc-previa img { display: block; max-width: 100%; height: auto; }
+.pf-doc-bo-grade aside .pf-secao-titulo { margin: var(--space-5) 0 var(--space-2); }
+.pf-doc-bo-grade aside .pf-secao-titulo:first-child { margin-top: 0; }
+.pf-doc-historico { list-style: none; margin: 0; padding: 0; }
+.pf-doc-historico li { padding: var(--space-2) 0; border-bottom: 1px solid var(--pf-linha); }
+.pf-doc-bo-form { display: grid; gap: var(--space-3); max-width: 40rem; }
+.pf-doc-bo-form .pf-campo { margin: 0; }
+.pf-doc-bo-cursos { display: grid; gap: var(--space-2); max-height: 16rem; overflow: auto; padding: var(--space-2); border: 1px solid var(--pf-linha); border-radius: var(--radius-1); }
+
+@media print {
+  .pf-doc-acoes, .pf-doc-assinatura, .pf-doc-filtro { display: none !important; }
+  .pf-doc-comprovante { margin: 0; }
+  .pf-doc-comprovante .pf-qr { width: 29mm; height: 29mm; }
+}

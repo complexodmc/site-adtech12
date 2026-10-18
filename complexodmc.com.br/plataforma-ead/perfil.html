@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
+  <meta charset="UTF-8">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Meu perfil · Plataforma Complexo DMC</title>
+  <meta name="description" content="Plataforma Complexo DMC — seus dados cadastrais, segurança da conta e preferências.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+</head>
+<body data-shell="" data-pagina="perfil">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <header class="pf-cabecalho">
+      <h1 class="pf-cabecalho__titulo" id="pf-perfil-titulo" tabindex="-1">Meu <em>perfil</em></h1>
+      <p class="pf-cabecalho__desc" id="pf-perfil-desc">Seus dados cadastrais. Alterações ficam registradas com data e hora.</p>
+    </header>
+
+    <div id="pf-perfil-raiz" class="pf-perfil" aria-busy="true">
+      <p class="pf-ajuda">Carregando seu cadastro…</p>
+      <noscript>
+        <p class="pf-alerta pf-alerta--aviso">O perfil precisa de JavaScript ativo no navegador. Ative-o e recarregue a página.</p>
+      </noscript>
+    </div>
+
+    <p class="dmc-sr-only" id="pf-perfil-anuncio" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/perfil.js?v=dev"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+/* =============================================================
+   COMPLEXO DMC · PLATAFORMA · css/portal-comunicacao.css (F7)
+   Publicações (aluno e equipe), banners, relatórios e auditoria.
+   Spec: PORTAL-UX §6.13, §7.12, §7.13, §7.23, §7.24; catálogo pf-*
+   de portal.css (F0s). Só tokens --pf-* · --space-* · --radius-*; prefixo
+   pf-com-. A mídia do card usa .pf-publicacao__midia do catálogo
+   (escopo escuro: a mídia não inverte no tema claro).
+   ============================================================= */
+
+/* ---------- filtros da lista ---------- */
+.pf-com-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  align-items: flex-end;
+  margin-bottom: var(--space-5);
+}
+.pf-com-filtros .pf-campo { margin: 0; min-width: 14rem; }
+
+/* ---------- grade de cards (3 · 2 · 1 colunas) ---------- */
+.pf-com-grade {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+@media (max-width: 63.99em) { .pf-com-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 47.99em) { .pf-com-grade { grid-template-columns: minmax(0, 1fr); } }
+
+.pf-com-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-2);
+  background: var(--pf-painel);
+  overflow: hidden;
+}
+.pf-com-card:hover { border-color: var(--pf-linha-forte); }
+.pf-com-card:focus-within { outline: var(--focus-width) solid var(--pf-foco); outline-offset: 2px; }
+
+.pf-com-card .pf-publicacao__midia {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--pf-painel-2);
+}
+.pf-com-card .pf-publicacao__midia > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pf-com-card__tipo {
+  position: absolute;
+  left: var(--space-4);
+  bottom: var(--space-3);
+  margin: 0;
+  color: var(--pf-texto-2);
+  font-size: var(--pf-fs-overline);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.pf-com-card__play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--pf-veu);
+  color: var(--pf-texto-1);
+}
+.pf-com-card__play svg { width: 48px; height: 48px; }
+
+.pf-com-card__corpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+.pf-com-card__titulo {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: var(--fw-semibold, 600);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pf-com-card__link { color: var(--pf-texto-1); text-decoration: none; }
+.pf-com-card__link::after { content: ""; position: absolute; inset: 0; }
+.pf-com-card__link:focus-visible { outline: none; }
+.pf-com-card__resumo { margin: 0; color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+.pf-com-card__meta { margin: auto 0 0; color: var(--pf-texto-3); font-size: var(--pf-fs-meta); }
+.pf-com-nova {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--pf-texto-1);
+  font-size: var(--pf-fs-meta);
+  font-weight: var(--fw-semibold, 600);
+}
+.pf-com-nova::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--pf-texto-1);
+}
+.pf-com-fixada { color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+
+/* ---------- detalhe ---------- */
+.pf-com-detalhe { max-width: 46rem; }
+.pf-com-detalhe__meta { margin: 0 0 var(--space-5); color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+.pf-com-detalhe__midia { margin-bottom: var(--space-5); }
+.pf-com-detalhe__acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; margin: var(--space-5) 0; }
+.pf-com-dominio { color: var(--pf-texto-3); font-size: var(--pf-fs-meta); overflow-wrap: anywhere; }
+.pf-com-texto { white-space: pre-line; }
+
+/* ---------- editor (formulário 7 · prévia 5) ---------- */
+.pf-com-editor { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--space-6); align-items: start; }
+@media (max-width: 63.99em) { .pf-com-editor { grid-template-columns: minmax(0, 1fr); } }
+.pf-com-editor__previa { position: sticky; top: calc(var(--pf-topo-h, 4rem) + var(--space-4)); }
+.pf-com-editor__previa .pf-com-card { max-width: 24rem; }
+.pf-com-form { display: grid; gap: var(--space-4); }
+.pf-com-form fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.pf-com-form legend { padding: 0; margin-bottom: var(--space-2); font-weight: var(--fw-semibold, 600); }
+.pf-com-opcoes { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); }
+.pf-com-opcoes label { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; }
+.pf-com-acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.pf-com-contador { color: var(--pf-texto-3); font-size: var(--pf-fs-meta); }
+.pf-com-ok { color: var(--pf-sucesso); font-size: var(--pf-fs-meta); }
+
+/* ---------- banners: prévia nos dois temas ---------- */
+.pf-com-previas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); }
+@media (max-width: 63.99em) { .pf-com-previas { grid-template-columns: minmax(0, 1fr); } }
+.pf-com-previa {
+  padding: var(--space-4);
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-2);
+  background: var(--pf-fundo);
+  color: var(--pf-texto-1);
+}
+.pf-com-previa__rotulo { margin: 0 0 var(--space-2); color: var(--pf-texto-3); font-size: var(--pf-fs-overline); text-transform: uppercase; letter-spacing: 0.12em; }
+.pf-com-previa__titulo { margin: 0 0 var(--space-1); font-weight: var(--fw-semibold, 600); }
+.pf-com-previa__texto { margin: 0; color: var(--pf-texto-2); }
+.pf-com-ordem { display: inline-flex; gap: var(--space-1); }
+.pf-com-ordem .pf-btn-icone { min-width: 44px; min-height: 44px; }
+.pf-com-miniatura { width: 4.5rem; aspect-ratio: 16 / 9; border-radius: var(--radius-1, 4px); object-fit: cover; background: var(--pf-painel-2); }
+
+/* ---------- relatórios ---------- */
+.pf-com-indice { display: grid; gap: var(--space-6); }
+.pf-com-indice h2 { margin: 0 0 var(--space-3); font-size: var(--pf-fs-secao); }
+/* A coluna única do painel não cresce com a tabela (minmax(0, 1fr) e
+   min-width: 0): filtros, KPIs e séries ficam na largura da vista. A tabela
+   larga (até 12 colunas) rola só dentro de [data-rel-tabela], nunca a
+   página; o cabeçalho fixo passa a ter o próprio bloco como referência
+   (top: 0), senão desceria sobre a primeira linha. O bloco é região
+   rotulada e focável (prof-relatorios.js) para rolar pelo teclado. */
+.pf-com-painel { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); min-width: 0; max-width: 100%; }
+.pf-com-painel > * { min-width: 0; }
+.pf-com-painel [data-rel-tabela] { max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; }
+.pf-com-painel [data-rel-tabela] .pf-tabela thead th { top: 0; }
+@container pf-main (min-width: 44em) {
+  /* com rolagem no bloco, e-mail e nº de matrícula não quebram letra a letra */
+  .pf-com-painel [data-rel-tabela] .pf-tabela td { overflow-wrap: break-word; }
+}
+.pf-com-painel [data-rel-tabela]:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: 2px; }
+.pf-com-series { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
+@media (max-width: 63.99em) { .pf-com-series { grid-template-columns: minmax(0, 1fr); } }
+.pf-com-barras-legenda { margin: 0 0 var(--space-2); font-weight: var(--fw-semibold, 600); }
+.pf-com-mais { display: flex; justify-content: center; margin-top: var(--space-4); }
+
+/* ---------- auditoria ---------- */
+.pf-com-detalhes > summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; color: var(--pf-texto-2); }
+.pf-com-detalhes > summary:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: 2px; }
+.pf-com-mudancas { margin: var(--space-2) 0 0; padding-left: var(--space-5); color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+.pf-com-quando { white-space: nowrap; }

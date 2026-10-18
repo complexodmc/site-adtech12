@@ -151,10 +151,16 @@
     anunciar(err.message || 'Erro inesperado.', 'erro');
   }
 
+  // A tela fica reservada até aqui (parcerias-admin.css, CLS): lista com o shell, aviso de
+  // acesso restrito ou erro. Idempotente.
+  function marcarPronto() { if (document.body) document.body.classList.add('pa-pronto'); }
+
   function mostrarRestrito() {
     estado.restrito = true;
+    marcarPronto();
     $('pa-app').hidden = true;
-    $('pa-link-admin').hidden = true;
+    const linkAdmin = $('pa-link-admin');
+    if (linkAdmin) linkAdmin.hidden = true;
     const box = $('pa-restrito');
     box.hidden = false;
     anunciar('Acesso restrito a administradores.', 'erro');
@@ -555,18 +561,44 @@
     });
   }
 
-  async function iniciar() {
+  /**
+   * Shell do backoffice (D-48, D-75): montado SÓ para a coordenação, depois de o
+   * servidor confirmar o acesso (a guarda continua sendo a própria: #pa-restrito e
+   * login.html?next=parcerias.html). Ninguém é redirecionado por esta chamada.
+   */
+  async function montarShell() {
+    try {
+      const shell = window.DMC_Shell;
+      const prof = window.DMC_Professor;
+      if (!shell || typeof shell.montar !== 'function' || !prof) return;
+      if (window.DMC_Auth && typeof window.DMC_Auth.init === 'function' && !window.DMC_Auth.user()) await window.DMC_Auth.init();
+      shell.montar('parcerias', { area: 'backoffice', papel: 'admin', itens: prof.itensDoMenu('admin') });
+    } catch (err) {
+      console.error('[DMC]', err);
+    }
+  }
+
+  function iniciar() {
+    return iniciarPagina().catch((err) => { console.error('[DMC]', err); }).finally(marcarPronto);
+  }
+
+  async function iniciarPagina() {
     lerUrl();
-    $('pa-sair').addEventListener('click', () => {
-      if (window.DMC_Api) window.DMC_Api.setToken(null);
-      window.location.href = 'login.html';
-    });
+    const sair = $('pa-sair');
+    if (sair) {
+      sair.addEventListener('click', () => {
+        if (window.DMC_Api) window.DMC_Api.setToken(null);
+        window.location.href = 'login.html';
+      });
+    }
     if (!window.DMC_Api || !window.DMC_Api.token()) { irParaLogin(); return; }
 
     try {
       const { user } = await chamar('GET', '/auth/me');
-      $('pa-user-nome').textContent = (user && user.nome) || '';
-      $('pa-user-iniciais').textContent = (user && user.iniciais) || '';
+      const nome = $('pa-user-nome');
+      const iniciais = $('pa-user-iniciais');
+      if (nome) nome.textContent = (user && user.nome) || '';
+      if (iniciais) iniciais.textContent = (user && user.iniciais) || '';
     } catch (err) {
       tratarErro(err);
       return;
@@ -577,7 +609,9 @@
     // O servidor decide quem é admin: um aluno recebe 403 aqui.
     await carregarLista();
     if (estado.restrito) return;
+    await montarShell();
     $('pa-app').hidden = false;
+    marcarPronto();
     if (estado.protocolo) await abrirDetalhe(estado.protocolo, { focar: false });
   }
 

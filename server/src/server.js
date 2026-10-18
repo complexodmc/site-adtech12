@@ -30,6 +30,7 @@ import { criarRotaVitrine, criarListagemVitrine } from './routes/vitrine.js';
 import {
   criarRotaBolsas, corpoBolsas, criarNotificadorBolsas, criarRepositorioBolsas
 } from './routes/bolsas.js';
+import { montarPortal, tratarErroGlobal } from './portal/montar.js';
 
 const app = express();
 
@@ -155,6 +156,9 @@ app.use('/api/bolsas', criarRotaBolsas({
   notificar: criarNotificadorBolsas(config.bolsasEmail),
   exigirAdmin: [requireAuth, requireAdmin]
 }));
+// Portal do Aluno/Professor (docs/dmc/PORTAL-API.md §5.3): ponto único de montagem.
+// Cada módulo é isolado — um que falhe fica de fora sem derrubar login nem LMS.
+app.use('/api', montarPortal());
 app.use('/api/liberacoes', liberacoesRoutes);
 app.use('/api/progresso', progressoRoutes);
 app.use('/api/lives', livesRoutes);
@@ -174,22 +178,9 @@ app.use('/api', (_req, res) => res.status(404).json({ error: 'Rota não encontra
 app.use(express.static(config.staticRoot, { extensions: ['html'] }));
 
 // ============ Erros ============
-app.use((err, _req, res, _next) => {
-  if (res.headersSent) return;
-  // Upload maior que o teto do express.raw/json.
-  if (err && err.type === 'entity.too.large') {
-    // err.limit vem do body-parser: a capa tem teto próprio, menor que o do PDF.
-    const mb = Math.round((err.limit || config.maxUploadBytes) / (1024 * 1024));
-    return res.status(413).json({ error: `Arquivo maior que o limite de ${mb} MB.` });
-  }
-  // Banco fora do ar (conexão/seleção de servidor) é indisponibilidade, não bug: 503.
-  if (err && /^Mongo(ServerSelection|Network|NetworkTimeout)Error$/.test(err.name || '')) {
-    console.error('[DMC] MongoDB indisponível:', err.message);
-    return res.status(503).json({ error: 'Serviço temporariamente indisponível. Tente novamente em instantes.' });
-  }
-  console.error('[DMC] erro não tratado:', err);
-  res.status(500).json({ error: 'Erro interno no servidor.' });
-});
+// 413 (com o teto em MB), Mongo fora → 503, JSON quebrado → 400 e o resto → 500,
+// com log resumido (sem corpo nem cabeçalhos) — server/src/portal/erros.js.
+app.use(tratarErroGlobal);
 
 let connectPromise = null;
 

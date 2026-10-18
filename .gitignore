@@ -38,7 +38,16 @@ build/
 *.pem
 *.key
 credentials*
-secret*
+# Segredos por nome: "secret"/"secrets" isolados ou seguidos de . _ -
+# (secret.json, secrets/, secret_key, secrets-prod.env, app.secret).
+# NAO usar "secret*": pegaria "secretaria" (dominio da Secretaria academica,
+# server/src/portal/secretaria/ e server/test/secretaria-*.test.js).
+secret
+secrets
+secret[._-]*
+secrets[._-]*
+*.secret
+*.secrets
 .vercel
 .env*
 

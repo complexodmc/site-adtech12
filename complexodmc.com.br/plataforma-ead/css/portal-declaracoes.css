@@ -1,0 +1,153 @@
+/* =============================================================
+   COMPLEXO DMC · PLATAFORMA · portal-declaracoes.css
+   Fatia F3b (certificação): certificados.html ("Declarações e
+   certificados"), certificado.html, declaracao.html, validar.html e as
+   telas de backoffice #/configuracoes/cursos e #/documentos/declaracoes.
+   Spec: docs/dmc/PORTAL-UX.md §6.9, §7.15, §7.22, §8.1–§8.3, §12.
+   Regras: só tokens (--pf-* e neutros de tokens.css), prefixo pf-dec-,
+   movimento só em transform/opacity. Componentes do catálogo (pf-lista,
+   pf-tabela, pf-estado, pf-alerta, pf-documento, pf-qr, pf-codigo) vêm
+   de portal.css; aqui só o arranjo do domínio.
+   ============================================================= */
+
+/* Seções da página do aluno ------------------------------------------- */
+.pf-dec-secao { margin-top: var(--space-8); }
+.pf-dec-secao:first-of-type { margin-top: var(--space-6); }
+.pf-dec-secao > .pf-secao-titulo { margin-bottom: var(--space-4); }
+.pf-dec-secao__intro { max-width: 46rem; margin: 0 0 var(--space-4); color: var(--pf-texto-2); }
+/* Enquanto a lista de certificados carrega, as seções de baixo ficam fora do layout: as três
+   são pintadas no mesmo quadro (declaracoes.js) e nada já visível é empurrado (CLS < 0,1). */
+.pf-main:has(#certificados-lista[aria-busy="true"]) > :is(#solicitar, #historico) { display: none; }
+
+/* Linha de certificado (lista sem caixa) -------------------------------- */
+.pf-dec-lista { margin: 0; padding: 0; list-style: none; }
+.pf-dec-cert {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-3) var(--space-5);
+  align-items: start;
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-dec-cert:first-child { border-top: 1px solid var(--pf-linha); }
+.pf-dec-cert__titulo {
+  margin: 0 0 var(--space-1);
+  color: var(--pf-texto-1);
+  font: var(--fw-light, 300) var(--pf-fs-h3)/1.25 var(--font-display);
+}
+.pf-dec-cert__meta { margin: 0; color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+.pf-dec-cert__meta + .pf-dec-cert__meta { margin-top: var(--space-1); }
+.pf-dec-cert__codigo { font-variant-numeric: tabular-nums; letter-spacing: 0.02em; color: var(--pf-texto-1); }
+.pf-dec-cert__acoes { display: flex; flex-wrap: wrap; gap: var(--space-2); justify-content: flex-end; }
+.pf-dec-cert__regra { margin: var(--space-3) 0 0; color: var(--pf-texto-2); }
+.pf-dec-cert__estado { margin-bottom: var(--space-2); }
+.pf-dec-falta { margin: var(--space-3) 0 0; padding: 0; list-style: none; }
+.pf-dec-falta__item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+  align-items: center;
+  padding: var(--space-2) 0;
+  color: var(--pf-texto-1);
+}
+.pf-dec-falta__glifo { flex: none; width: 14px; height: 14px; color: var(--pf-texto-3); }
+.pf-dec-falta__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--pf-acento);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+@media (max-width: 47.99em) {
+  .pf-dec-cert { grid-template-columns: minmax(0, 1fr); }
+  .pf-dec-cert__acoes { justify-content: flex-start; }
+}
+
+/* Formulário de solicitação -------------------------------------------- */
+.pf-dec-form { display: grid; gap: var(--space-4); max-width: 34rem; }
+.pf-dec-form__acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.pf-dec-motivo { margin: 0; color: var(--pf-texto-2); }
+
+/* Documento (certificado e declaração; sempre papel) -------------------- */
+.pf-dec-pagina { max-width: 56rem; margin: 0 auto; padding: var(--space-6) var(--pf-gutter, var(--space-4)) var(--space-8); }
+.pf-dec-barra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+}
+/* [Imprimir] nasce hidden e só aparece com o documento desenhado: o .dmc-btn não pode reexibi-lo
+   no carregamento nem no estado de erro (CTA sem documento). */
+.pf-dec-barra [hidden] { display: none; }
+.pf-dec-marca { display: inline-flex; align-items: center; gap: var(--space-3); min-height: 44px; color: var(--pf-texto-1); text-decoration: none; }
+.pf-dec-marca img { width: 40px; height: 40px; object-fit: contain; }
+/* Sempre em papel: o rinoceronte branco da marca vira grafite (UX §8.1). */
+.pf-dec-pagina .pf-dec-marca img { filter: brightness(0); opacity: 0.82; }
+.pf-dec-marca__nome { font: 600 var(--pf-fs-ui)/1 var(--font-text); letter-spacing: 0.14em; text-transform: uppercase; }
+.pf-dec-marca__nome b { color: var(--color-gold-deep); font-weight: 600; }
+.pf-dec-doc__titulo {
+  margin: 0;
+  color: var(--pf-texto-1);
+  font: var(--fw-light, 300) var(--pf-fs-titulo)/1.15 var(--font-display);
+}
+.pf-dec-doc__nome {
+  margin: var(--space-3) 0;
+  color: var(--pf-texto-1);
+  font: var(--fw-light, 300) var(--pf-fs-secao)/1.2 var(--font-display);
+}
+.pf-dec-doc__texto { margin: 0 0 var(--space-4); }
+.pf-dec-doc__local { margin: var(--space-6) 0 0; color: var(--pf-texto-2); }
+.pf-dec-doc__rotulo { display: block; color: var(--pf-texto-3); font-size: var(--pf-fs-overline); letter-spacing: 0.12em; text-transform: uppercase; }
+.pf-dec-doc__valor { display: block; color: var(--pf-texto-1); font-variant-numeric: tabular-nums; }
+.pf-dec-doc__campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--space-3) var(--space-5); margin: 0 0 var(--space-3); }
+.pf-dec-doc__url { margin: var(--space-2) 0 0; overflow-wrap: anywhere; }
+.pf-dec-doc__marcadagua { margin: 0 0 var(--space-4); }
+/* QR de 29 mm: folga sobre o mínimo de 28 mm na impressão (arredondamento de px, D-68), como a F4b. */
+.pf-dec-qr { width: 29mm; height: 29mm; }
+.pf-dec-tabela-itens { width: 100%; border-collapse: collapse; margin: var(--space-3) 0; }
+.pf-dec-tabela-itens th,
+.pf-dec-tabela-itens td { padding: var(--space-2); border-bottom: 1px solid var(--pf-linha); text-align: left; }
+.pf-dec-tabela-itens .pf-tabela__num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Validação pública ------------------------------------------------------ */
+.pf-dec-validar { display: grid; gap: var(--space-6); }
+.pf-dec-validar__form { display: grid; gap: var(--space-3); max-width: 30rem; }
+.pf-dec-validar__linha { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: flex-end; }
+.pf-dec-validar__linha .pf-campo { flex: 1 1 14rem; }
+.pf-dec-resultado { padding: var(--space-5); border: 1px solid var(--pf-linha); border-radius: var(--radius-2); }
+.pf-dec-resultado__dados { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--space-2) var(--space-5); margin: var(--space-4) 0; }
+.pf-dec-resultado__dados dt { color: var(--pf-texto-3); }
+.pf-dec-resultado__dados dd { margin: 0; color: var(--pf-texto-1); overflow-wrap: anywhere; }
+.pf-dec-rodape { margin-top: var(--space-8); padding-top: var(--space-4); border-top: 1px solid var(--pf-linha); color: var(--pf-texto-3); font-size: var(--pf-fs-meta); }
+/* Link no meio do texto: sublinhado, não só a cor (axe link-in-text-block, nos dois papéis). */
+.pf-dec-rodape a { color: var(--pf-texto-2); text-decoration: underline; text-underline-offset: 0.2em; }
+
+/* Backoffice --------------------------------------------------------------- */
+.pf-dec-subnav { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); margin: 0 0 var(--space-5); }
+.pf-dec-subnav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--pf-texto-2); }
+.pf-dec-subnav a[aria-current="page"] { color: var(--pf-texto-1); text-decoration: underline; text-underline-offset: 0.3em; }
+.pf-dec-filtros { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: flex-end; margin-bottom: var(--space-4); }
+.pf-dec-filtros .pf-campo { min-width: 10rem; }
+.pf-dec-editor { display: grid; gap: var(--space-4); max-width: 40rem; }
+.pf-dec-editor__linha { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: var(--space-4); }
+.pf-dec-avisos { display: grid; gap: var(--space-2); margin: var(--space-2) 0; }
+/* Tabela de critérios (9 colunas): rola dentro do próprio contêiner quando não cabe; a página
+   não ganha rolagem horizontal (768 px, texto ampliado). */
+.pf-dec-rolavel { max-width: 100%; overflow-x: auto; }
+.pf-dec-rolavel:focus-visible { outline-offset: 2px; }
+/* Enquanto os cursos carregam, a seção de IES fica fora do layout (pintadas juntas, CLS). */
+section:has(> #pf-dec-cursos[aria-busy="true"]) ~ .pf-dec-secao { display: none; }
+
+/* Impressão (UX §12) -------------------------------------------------------- */
+@media print {
+  @page { size: A4; margin: 18mm; }
+  .pf-dec-barra,
+  .pf-dec-rodape,
+  .pf-dec-pagina .pf-nao-imprimir { display: none; }
+  .pf-dec-pagina { max-width: none; padding: 0; }
+  .pf-documento { border: 0; padding: 0; max-width: none; }
+  .pf-dec-qr { width: 29mm; height: 29mm; }
+}

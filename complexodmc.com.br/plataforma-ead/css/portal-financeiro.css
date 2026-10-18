@@ -1,0 +1,90 @@
+/* =============================================================
+   COMPLEXO DMC · PLATAFORMA · css/portal-financeiro.css (F5)
+   Financeiro do aluno (financeiro.html, UX §6.7) e da coordenação
+   (professor.html #/financeiro, UX §7.18). Só complementa o catálogo
+   pf-* de portal.css (F0s): KPIs, segmentado, tabela, alerta, vazio,
+   detalhe e diálogo vêm de lá. Prefixo próprio: pf-fin- (índice §8.2
+   item 4). Só tokens --pf-* e da casa; nenhuma cor nova, nenhum brilho.
+   ============================================================= */
+
+/* Resumo e filtro ------------------------------------------------------- */
+.pf-fin-resumo { margin: var(--space-5) 0 0; }
+.pf-fin-resumo .pf-kpis,
+.pf-fin-kpis .pf-kpis { margin-bottom: var(--space-5); }
+.pf-fin-resumo .pf-kpi[data-tom="erro"] .pf-kpi__valor,
+.pf-fin-kpis .pf-kpi[data-tom="erro"] .pf-kpi__valor { color: var(--pf-erro); }
+.pf-fin-carregando { display: grid; gap: var(--space-3); }
+.pf-fin-filtro { margin: 0 0 var(--space-4); }
+.pf-fin-lista { margin: 0 0 var(--space-6); }
+.pf-fin-impressao { margin: var(--space-3) 0 0; color: var(--pf-texto-2); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); }
+
+/* Tabela ----------------------------------------------------------------- */
+.pf-fin-tabela .pf-fin-lanc { min-width: 10rem; }
+.pf-fin-lanc__tipo { display: block; color: var(--pf-texto-1); font-weight: var(--fw-semibold); }
+.pf-fin-meta { display: block; margin-top: 2px; color: var(--pf-texto-2); font: 400 var(--pf-fs-meta)/1.4 var(--font-text); overflow-wrap: anywhere; }
+.pf-fin-nowrap { white-space: nowrap; }
+.pf-fin-traco { color: var(--pf-texto-3); }
+.pf-fin-acao { min-height: 44px; white-space: nowrap; }
+.pf-fin-acao svg { width: 16px; height: 16px; }
+.pf-fin-tabela tbody tr[data-pf-fin-abrir] { cursor: pointer; }
+.pf-fin-aluno { display: block; color: var(--pf-texto-1); font-weight: var(--fw-semibold); }
+.pf-fin-link-linha {
+  color: var(--pf-texto-1);
+  text-decoration: underline;
+  text-decoration-color: var(--pf-linha-forte);
+  text-underline-offset: 0.25em;
+}
+.pf-fin-link-linha:hover { text-decoration-color: currentColor; }
+
+/* Atalhos (lista de links, sem cards) ----------------------------------- */
+.pf-fin-atalhos { margin: var(--space-6) 0 0; padding: var(--space-5) 0 0; border-top: 1px solid var(--pf-linha); }
+.pf-fin-atalhos__lista { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); margin: var(--space-3) 0 0; padding: 0; list-style: none; }
+.pf-fin-atalhos__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--pf-texto-1);
+  font: var(--fw-medium) var(--pf-fs-ui)/1.35 var(--font-text);
+  text-decoration: underline;
+  text-decoration-color: var(--pf-linha-forte);
+  text-underline-offset: 0.3em;
+  transition: var(--transition-state);
+}
+.pf-fin-atalhos__link::after { content: "\2192" / ""; margin-left: var(--space-2); color: var(--pf-texto-2); }
+.pf-fin-atalhos__link:hover { text-decoration-color: currentColor; }
+
+/* Coordenação (#/financeiro) -------------------------------------------- */
+.pf-fin-info { margin: 0 0 var(--space-4); }
+.pf-fin-filtros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-3) var(--space-4);
+  align-items: end;
+  margin: 0 0 var(--space-4);
+}
+.pf-fin-filtros .pf-campo { margin: 0; }
+.pf-fin-barra { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3); margin: 0 0 var(--space-3); }
+.pf-fin-contagem { margin: 0; color: var(--pf-texto-2); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); }
+.pf-fin-mais { margin: var(--space-4) 0 0; }
+.pf-fin-reserva { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: 0 0 var(--space-4); }
+
+.pf-fin-dl { display: grid; grid-template-columns: minmax(8rem, max-content) minmax(0, 1fr); gap: var(--space-2) var(--space-4); margin: 0 0 var(--space-5); }
+.pf-fin-dl dt { color: var(--pf-texto-2); font: var(--fw-medium) var(--pf-fs-meta)/1.45 var(--font-text); }
+.pf-fin-dl dd { margin: 0; color: var(--pf-texto-1); font-feature-settings: var(--font-numeric); overflow-wrap: anywhere; }
+.pf-fin-acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: 0 0 var(--space-5); }
+.pf-fin-historico { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--pf-linha); }
+.pf-fin-historico li { padding: var(--space-3) 0; border-bottom: 1px solid var(--pf-linha); }
+.pf-fin-historico__quando { display: block; color: var(--pf-texto-2); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); }
+.pf-fin-previa { margin: var(--space-3) 0 0; }
+.pf-fin-modo { margin: 0 0 var(--space-4); }
+
+@container pf-main (max-width: 29.99em) {
+  .pf-fin-atalhos__lista { flex-direction: column; gap: 0; }
+  .pf-fin-acao { width: 100%; justify-content: center; }
+  .pf-fin-dl { grid-template-columns: minmax(0, 1fr); gap: 0 0; }
+  .pf-fin-dl dd { margin-bottom: var(--space-3); }
+}
+
+@media print {
+  .pf-fin-atalhos { display: none; }
+}

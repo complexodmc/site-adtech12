@@ -6,6 +6,9 @@
 //
 // Se o e-mail já existir, só promove a admin (e troca a senha
 // quando --senha for informado). Rodar de novo é seguro.
+//
+// Portal (PORTAL-API §3.2, §5.3 item 6 · F0m): grava `papel:'admin'`
+// junto de `isAdmin:true`, no MESMO $set (invariante papel ⇔ isAdmin).
 // =============================================================
 import { connect, close, col } from '../src/db.js';
 import { hashSenha } from '../src/auth.js';
@@ -39,7 +42,8 @@ try {
   const existente = await col.users().findOne({ email });
 
   if (existente) {
-    const set = { isAdmin: true, updatedAt: new Date() };
+    const agora = new Date();
+    const set = { isAdmin: true, papel: 'admin', papelAtualizadoEm: agora, updatedAt: agora };
     if (senha) {
       if (senha.length < 6) throw new Error('A senha precisa ter pelo menos 6 caracteres.');
       set.senhaHash = await hashSenha(senha);
@@ -55,6 +59,7 @@ try {
       senhaHash: await hashSenha(senha),
       nome: nome || email.split('@')[0],
       isAdmin: true,
+      papel: 'admin',
       createdAt: new Date()
     });
     console.log(`[admin] conta ${email} criada como administrador.`);

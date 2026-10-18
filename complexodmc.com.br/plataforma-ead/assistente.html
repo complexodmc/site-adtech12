@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
+  <meta charset="UTF-8">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Assistente acadêmico · Plataforma Complexo DMC</title>
+  <meta name="description" content="Plataforma Complexo DMC — Assistente acadêmico: perguntas sobre os seus cursos, notas, frequência, documentos e prazos.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-assistente.css?v=dev">
+</head>
+<body data-shell="atendimento" data-pagina="assistente">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <main id="conteudo" class="pf-main pf-ia" tabindex="-1">
+    <nav class="pf-subnav" aria-label="Atendimento">
+      <a class="pf-subnav__link" href="assistente.html" aria-current="page">Assistente</a>
+      <a class="pf-subnav__link" href="atendimentos.html">Seus atendimentos</a>
+      <a class="pf-subnav__link" href="ouvidoria.html">Ouvidoria</a>
+    </nav>
+
+    <div class="pf-ia-layout" data-ia="layout">
+      <aside class="pf-ia-lateral" id="pf-ia-lateral" aria-labelledby="pf-ia-lateral-titulo">
+        <div class="pf-ia-lateral__topo">
+          <h2 class="pf-ia-lateral__titulo" id="pf-ia-lateral-titulo">Conversas</h2>
+          <button type="button" class="dmc-btn dmc-btn--secondary pf-ia-btn" data-ia="nova">Nova conversa</button>
+        </div>
+        <div class="pf-ia-historico" data-ia="historico" aria-live="polite">
+          <p class="pf-ia-nota">Carregando conversas…</p>
+        </div>
+        <button type="button" class="pf-ia-link pf-ia-link--perigo" data-ia="apagar-tudo" hidden>Apagar todo o histórico</button>
+      </aside>
+
+      <section class="pf-ia-chat" aria-labelledby="pf-ia-titulo">
+        <header class="pf-ia-cabecalho">
+          <button type="button" class="dmc-btn dmc-btn--secondary pf-ia-btn pf-ia-cabecalho__conversas" data-ia="alternar-lateral" aria-controls="pf-ia-lateral" aria-expanded="false">Conversas</button>
+          <h1 class="pf-ia-cabecalho__titulo" id="pf-ia-titulo">Assistente acadêmico <span class="pf-ia-cabecalho__selo">· Em fase de testes</span></h1>
+          <button type="button" class="dmc-btn dmc-btn--secondary pf-ia-btn" data-ia="equipe">Falar com a equipe</button>
+        </header>
+
+        <div class="pf-ia-corpo" data-ia="corpo" aria-busy="true">
+          <p class="pf-ia-nota">Carregando o assistente…</p>
+          <noscript>
+            <p class="pf-ia-nota">O assistente precisa de JavaScript. Você pode falar com a equipe em <a href="atendimentos.html">Seus atendimentos</a>.</p>
+          </noscript>
+        </div>
+      </section>
+    </div>
+
+    <p class="pf-ia-anuncio" data-ia="anuncio" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/assistente.js?v=dev"></script>
+</body>
+</html>

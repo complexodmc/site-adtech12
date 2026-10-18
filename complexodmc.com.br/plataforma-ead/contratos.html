@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
+  <meta charset="UTF-8">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Contratos · Plataforma Complexo DMC</title>
+  <meta name="description" content="Plataforma Complexo DMC — contratos da sua matrícula, com leitura e assinatura eletrônica pela plataforma.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-documentos.css?v=dev">
+</head>
+<body data-shell="contratos" data-pagina="contratos">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <header class="pf-cabecalho">
+      <p class="pf-cabecalho__contexto">Documentação</p>
+      <h1 class="pf-cabecalho__titulo">Contratos</h1>
+      <p class="pf-cabecalho__desc">Contratos da sua matrícula disponibilizados pela coordenação. Abra, leia e assine pela plataforma.</p>
+    </header>
+
+    <div id="pf-doc-filtro" class="pf-doc-filtro"></div>
+
+    <section id="pf-doc-contratos" class="pf-doc-reserva" aria-busy="true" aria-label="Lista de contratos">
+      <div class="pf-esqueleto-grupo" aria-hidden="true">
+        <span class="pf-esqueleto pf-esqueleto--linha"></span>
+        <span class="pf-esqueleto pf-esqueleto--linha"></span>
+      </div>
+      <noscript><p class="pf-ajuda">Esta tela precisa de JavaScript para listar os seus contratos.</p></noscript>
+    </section>
+
+    <p class="pf-ajuda">Assinatura eletrônica simples, com o seu acesso pessoal à plataforma. Cada assinatura recebe um código de verificação que pode ser conferido em <a href="validar.html">Validar documento</a>.</p>
+  </main>
+
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/contratos.js?v=dev"></script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+/* =============================================================
+   COMPLEXO DMC · PLATAFORMA · css/portal-assistente.css (F6b)
+   Assistente acadêmico (assistente.html) e a configuração do
+   Assistente no portal do professor (#/configuracoes/ia, prof-ia.js).
+   Spec: PORTAL-UX.md §6.12 e §7.22. Só tokens (--pf-*, --space-*,
+   --fs-*, --radius-*); prefixo pf-ia- (índice §8.2 item 4). A
+   subnavegação do Atendimento (pf-subnav) é do portal.css (D-65).
+   ============================================================= */
+
+.pf-ia { color: var(--pf-texto-1); }
+
+/* ---------- layout: lateral 18rem + chat ---------- */
+.pf-ia-layout {
+  display: grid;
+  grid-template-columns: 18rem minmax(0, 1fr);
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+  align-items: start;
+}
+
+.pf-ia-lateral {
+  position: sticky;
+  top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  background: var(--pf-painel);
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-2);
+  max-height: calc(100vh - var(--space-9));
+  overflow: auto;
+}
+.pf-ia-lateral__topo { display: flex; flex-direction: column; gap: var(--space-3); }
+.pf-ia-lateral__titulo {
+  margin: 0;
+  font-family: var(--font-text);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pf-texto-2);
+}
+
+.pf-ia-grupo + .pf-ia-grupo { margin-top: var(--space-4); }
+.pf-ia-grupo__titulo {
+  margin: 0 0 var(--space-2);
+  font-size: var(--fs-overline);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pf-texto-3);
+}
+.pf-ia-grupo__lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-1); }
+.pf-ia-item { display: flex; align-items: stretch; }
+.pf-ia-item.is-atual { box-shadow: inset 2px 0 0 var(--pf-acento); background: var(--pf-painel-2); }
+.pf-ia-item__abrir {
+  flex: 1;
+  min-height: var(--hit);
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  background: none;
+  border: 0;
+  color: var(--pf-texto-1);
+  font: inherit;
+  font-size: var(--fs-small);
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pf-ia-item__abrir:hover { color: var(--pf-acento); }
+.pf-ia-item__apagar {
+  min-width: var(--hit);
+  min-height: var(--hit);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 0;
+  color: var(--pf-texto-3);
+  cursor: pointer;
+}
+.pf-ia-item__apagar:hover { color: var(--pf-erro); }
+.pf-ia-item__apagar svg { width: 1rem; height: 1rem; }
+
+/* ---------- chat ---------- */
+.pf-ia-chat {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--space-5);
+  background: var(--pf-painel);
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-2);
+}
+.pf-ia-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  justify-content: space-between;
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--pf-linha);
+}
+/* H1 da página: Newsreader 300 como todo H1 do portal (UX §4; portal-qualidade); quebra
+   dentro do cabeçalho em flex até 320 px no nível 2 de texto. O selo segue em Hanken. */
+.pf-ia-cabecalho__titulo {
+  flex: 1 1 12rem;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--pf-texto-1);
+  overflow-wrap: break-word;
+}
+.pf-ia-cabecalho__selo { font-family: var(--font-text); font-weight: 400; color: var(--pf-texto-3); font-size: var(--fs-small); }
+.pf-ia-cabecalho__conversas { display: none; }
+
+.pf-ia-corpo { display: flex; flex-direction: column; gap: var(--space-4); padding-top: var(--space-5); }
+
+.pf-ia-saudacao {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  color: var(--pf-texto-1);
+}
+.pf-ia-intro { margin: var(--space-2) 0 var(--space-4); color: var(--pf-texto-2); }
+.pf-ia-sugestoes { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+.pf-ia-btn { min-height: var(--hit); }
+.pf-ia-btn--perigo { background: var(--pf-erro); color: var(--pf-fundo); border-color: var(--pf-erro); }
+
+.pf-ia-log { display: flex; flex-direction: column; gap: var(--space-5); }
+.pf-ia-log:empty { display: none; }
+
+.pf-ia-msg { max-width: 48rem; }
+.pf-ia-msg__texto p { margin: 0 0 var(--space-2); line-height: 1.6; }
+.pf-ia-msg__texto p:last-child { margin-bottom: 0; }
+.pf-ia-msg--aluno {
+  align-self: flex-end;
+  max-width: 36rem;
+  padding: var(--space-3) var(--space-4);
+  background: var(--pf-painel-2);
+  border-radius: var(--radius-2);
+  overflow-wrap: anywhere;
+}
+.pf-ia-msg--assistente {
+  align-self: flex-start;
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--pf-linha-forte);
+  overflow-wrap: anywhere;
+}
+.pf-ia-msg--assistente.is-bloqueada { border-left-color: var(--pf-aviso); }
+.pf-ia-msg__rotulo {
+  margin: 0 0 var(--space-1);
+  font-size: 0.8125rem;
+  color: var(--pf-texto-3);
+}
+.pf-ia-msg__hora { margin-left: var(--space-2); }
+.pf-ia-lista { margin: 0 0 var(--space-2); padding-left: var(--space-5); line-height: 1.6; }
+
+.pf-ia-fontes { margin-top: var(--space-3); }
+.pf-ia-fontes__rotulo { margin: 0; font-size: 0.8125rem; color: var(--pf-texto-3); }
+.pf-ia-fontes ul, .pf-ia-acoes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 var(--space-4); }
+.pf-ia-acoes { margin-top: var(--space-2); }
+
+.pf-ia-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hit);
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--pf-acento);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+.pf-ia-link:hover { color: var(--pf-acento-hover); }
+.pf-ia-link--perigo { color: var(--pf-erro); }
+.pf-ia-fonte { font-size: var(--fs-small); }
+
+.pf-ia-escrevendo { margin: 0; min-height: 1.5em; color: var(--pf-texto-3); font-size: var(--fs-small); }
+.pf-ia-erro:empty { display: none; }
+
+/* ---------- compositor ---------- */
+.pf-ia-compositor { display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-2); }
+.pf-ia-compositor__rotulo,
+.pf-ia-visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.pf-ia-compositor__linha { display: flex; gap: var(--space-3); align-items: flex-end; }
+.pf-ia-compositor__campo {
+  flex: 1;
+  min-height: var(--hit);
+  max-height: 12rem;
+  padding: var(--space-3);
+  resize: none;
+  font: inherit;
+  line-height: 1.5;
+  color: var(--pf-texto-1);
+  background: var(--pf-campo);
+  border: 1px solid var(--pf-controle);
+  border-radius: var(--radius-1);
+}
+.pf-ia-compositor__campo:focus-visible { outline: 2px solid var(--pf-foco); outline-offset: 2px; }
+.pf-ia-compositor__dica { margin: 0; display: flex; justify-content: space-between; gap: var(--space-3); font-size: 0.8125rem; color: var(--pf-texto-3); }
+.pf-ia-aviso {
+  margin: 0;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--pf-linha);
+  font-size: 0.8125rem;
+  color: var(--pf-texto-3);
+}
+
+/* ---------- estados, consentimento, alertas ---------- */
+.pf-ia-nota { margin: 0; color: var(--pf-texto-2); font-size: var(--fs-small); }
+.pf-ia-estado { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); padding: var(--space-5) 0; }
+.pf-ia-estado__texto { margin: 0; font-size: var(--fs-lead); color: var(--pf-texto-1); }
+
+.pf-ia-consentimento { display: flex; flex-direction: column; gap: var(--space-3); max-width: 44rem; }
+.pf-ia-consentimento:focus { outline: none; }
+.pf-ia-consentimento__titulo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 1.75rem;
+}
+.pf-ia-consentimento__texto p { margin: 0 0 var(--space-3); line-height: 1.65; color: var(--pf-texto-1); }
+.pf-ia-consentimento__versao { margin: 0; font-size: 0.8125rem; color: var(--pf-texto-3); }
+.pf-ia-consentimento__acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+
+.pf-ia-alerta {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-left: 2px solid var(--pf-info);
+  background: var(--pf-info-destaque);
+  border-radius: var(--radius-1);
+  color: var(--pf-texto-1);
+}
+.pf-ia-alerta--erro { border-left-color: var(--pf-erro); background: var(--pf-erro-destaque); }
+.pf-ia-alerta--aviso { border-left-color: var(--pf-aviso); background: var(--pf-aviso-destaque); }
+.pf-ia-alerta--sucesso { border-left-color: var(--pf-sucesso); background: var(--pf-sucesso-destaque); }
+
+.pf-ia-anuncio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}
+
+/* ---------- diálogo próprio (até o DMC_UI.dialogo do S3) ---------- */
+.pf-ia-dialogo {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  max-height: min(92vh, 52rem);
+  overflow: auto;
+  padding: 0;
+  border: 1px solid var(--pf-linha-forte);
+  border-radius: var(--radius-3);
+  background: var(--pf-painel);
+  color: var(--pf-texto-1);
+  box-shadow: var(--pf-sombra);
+  width: min(92vw, 36rem);
+}
+.pf-ia-dialogo--p { width: min(92vw, 28rem); }
+.pf-ia-dialogo--g { width: min(94vw, 48rem); }
+.pf-ia-dialogo::backdrop { background: var(--pf-veu); }
+.pf-ia-dialogo__caixa { padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-4); }
+.pf-ia-dialogo__titulo { margin: 0; font-family: var(--font-text); font-size: var(--fs-h4); font-weight: 600; }
+.pf-ia-dialogo__conteudo { display: flex; flex-direction: column; gap: var(--space-3); }
+.pf-ia-dialogo__acoes { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+.pf-ia-dialogo .pf-ia-dialogo__acoes {
+  position: sticky;
+  bottom: 0;
+  padding: var(--space-3) 0 var(--space-1);
+  background: var(--pf-painel);
+  border-top: 1px solid var(--pf-linha);
+}
+
+.pf-ia-form { display: flex; flex-direction: column; gap: var(--space-3); }
+.pf-ia-campo { display: flex; flex-direction: column; gap: var(--space-1); }
+.pf-ia-campo label { font-size: var(--fs-small); font-weight: 600; color: var(--pf-texto-2); }
+.pf-ia-campo input,
+.pf-ia-campo select,
+.pf-ia-campo textarea {
+  min-height: var(--hit);
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  color: var(--pf-texto-1);
+  background: var(--pf-campo);
+  border: 1px solid var(--pf-controle);
+  border-radius: var(--radius-1);
+}
+.pf-ia-campo input:focus-visible,
+.pf-ia-campo select:focus-visible,
+.pf-ia-campo textarea:focus-visible { outline: 2px solid var(--pf-foco); outline-offset: 2px; }
+.pf-ia-campo input:disabled { opacity: 0.6; }
+.pf-ia-campo__ajuda { margin: 0; font-size: 0.8125rem; color: var(--pf-texto-3); }
+.pf-ia-campo__erro { margin: 0; font-size: 0.8125rem; color: var(--pf-erro); }
+.pf-ia-campo__erro:empty { display: none; }
+.pf-ia-check { display: grid; grid-template-columns: auto 1fr; gap: var(--space-1) var(--space-3); align-items: center; }
+.pf-ia-check input { width: 1.25rem; height: 1.25rem; accent-color: var(--pf-acento); }
+.pf-ia-check .pf-ia-campo__ajuda { grid-column: 2; }
+.pf-ia-quem { margin: 0; color: var(--pf-texto-2); }
+
+/* ---------- backoffice: #/configuracoes/ia (prof-ia.js) ---------- */
+.pf-ia-adm { display: flex; flex-direction: column; gap: var(--space-5); max-width: 52rem; }
+.pf-ia-adm__abas { display: flex; flex-wrap: wrap; gap: var(--space-1); border-bottom: 1px solid var(--pf-linha); }
+.pf-ia-adm__aba {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hit);
+  padding: 0 var(--space-4);
+  color: var(--pf-texto-2);
+  text-decoration: none;
+}
+.pf-ia-adm__aba[aria-current="page"] { color: var(--pf-texto-1); box-shadow: inset 0 -2px 0 var(--pf-acento); }
+.pf-ia-adm__secao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: var(--pf-painel);
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-2);
+}
+.pf-ia-adm__secao > summary { min-height: var(--hit); padding-block: var(--space-2); box-sizing: border-box; cursor: pointer; }
+.pf-ia-adm__secao h2 { margin: 0; font-family: var(--font-text); font-size: var(--fs-h4); font-weight: 600; }
+.pf-ia-adm__linha { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+.pf-ia-adm__linha > input { flex: 1 1 20rem; min-width: 0; }
+.pf-ia-adm__situacao { margin: 0; color: var(--pf-texto-2); }
+/* min(…, 100%): no nível 2 de texto 14rem passa da coluna a 320 px (rolagem horizontal). */
+.pf-ia-adm__limites { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); gap: var(--space-3); }
+.pf-ia-adm__limites .pf-ia-campo { min-width: 0; }
+.pf-ia-adm__limites .pf-ia-campo input { min-width: 0; }
+.pf-ia-adm__status { margin: 0; min-height: 1.5em; color: var(--pf-texto-2); }
+.pf-ia-switch { display: flex; align-items: center; gap: var(--space-3); min-height: var(--hit); }
+.pf-ia-switch input { width: 2.5rem; height: 1.25rem; accent-color: var(--pf-acento); }
+.pf-ia-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr)); gap: var(--space-3); margin: 0; }
+.pf-ia-kpi { padding: var(--space-4); background: var(--pf-painel-2); border-radius: var(--radius-2); }
+.pf-ia-kpi dt { font-size: var(--fs-small); color: var(--pf-texto-3); }
+.pf-ia-kpi dd { margin: var(--space-1) 0 0; font-size: var(--fs-h4); font-variant-numeric: tabular-nums; }
+.pf-ia-tabela { width: 100%; border-collapse: collapse; font-size: var(--fs-small); }
+.pf-ia-tabela caption { text-align: left; padding-bottom: var(--space-2); color: var(--pf-texto-2); }
+.pf-ia-tabela th, .pf-ia-tabela td { padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--pf-linha); text-align: left; vertical-align: top; }
+.pf-ia-tabela td.pf-ia-num { text-align: right; font-variant-numeric: tabular-nums; }
+.pf-ia-hash { font-family: var(--font-numeric, monospace); font-size: 0.8125rem; overflow-wrap: anywhere; }
+
+/* ---------- responsivo ---------- */
+@media (max-width: 64em) {
+  .pf-ia-layout { grid-template-columns: minmax(0, 1fr); }
+  .pf-ia-lateral {
+    display: none;
+    position: static;
+    max-height: none;
+  }
+  .pf-ia-layout.is-lateral-aberta .pf-ia-lateral { display: flex; }
+  .pf-ia-cabecalho__conversas { display: inline-flex; }
+  .pf-ia-cabecalho { flex-wrap: wrap; }
+}
+@media (max-width: 30em) {
+  .pf-ia-chat { padding: var(--space-4); }
+  .pf-ia-compositor__linha { flex-direction: column; align-items: stretch; }
+  .pf-ia-msg--aluno { max-width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-ia * { scroll-behavior: auto; }
+}

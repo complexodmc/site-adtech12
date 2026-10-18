@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
+  <meta charset="UTF-8">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Portal do Professor · Plataforma Complexo DMC</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <!-- CSS de domínio: o backoffice hospeda as telas de todas as fatias (índice §6.2) -->
+  <link rel="stylesheet" href="css/portal-estudos.css?v=dev">
+  <link rel="stylesheet" href="css/portal-avaliacao.css?v=dev">
+  <link rel="stylesheet" href="css/portal-academico.css?v=dev">
+  <link rel="stylesheet" href="css/portal-declaracoes.css?v=dev">
+  <link rel="stylesheet" href="css/portal-secretaria.css?v=dev">
+  <link rel="stylesheet" href="css/portal-documentos.css?v=dev">
+  <link rel="stylesheet" href="css/portal-financeiro.css?v=dev">
+  <link rel="stylesheet" href="css/portal-atendimento.css?v=dev">
+  <link rel="stylesheet" href="css/portal-assistente.css?v=dev">
+  <link rel="stylesheet" href="css/portal-comunicacao.css?v=dev">
+  <link rel="stylesheet" href="css/portal-professor.css?v=dev">
+</head>
+<body data-shell="backoffice" data-pagina="professor">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+  <main id="conteudo" class="pf-main pf-prof" tabindex="-1">
+    <div id="pf-prof-vista" class="pf-prof-vista">
+      <section id="pf-prof-sem-js" class="pf-sem-js pf-prof-sem-js">
+        <h1 class="pf-prof-cabecalho__titulo">Portal do Professor</h1>
+        <p>O Portal do Professor e da coordenação precisa de JavaScript ativado no navegador.</p>
+        <p><a href="dashboard.html">Ir para a área do aluno</a> · <a href="login.html?next=professor.html">Entrar</a></p>
+      </section>
+    </div>
+  </main>
+
+  <!-- núcleo -->
+  <script src="js/api-client.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js"></script>
+  <script src="js/portal/qr.js?v=dev"></script>
+  <script src="js/portal/video.js?v=dev"></script>
+  <!-- hospedeiro (F8): precisa vir antes dos prof-*.js, que chamam DMC_Professor.registrar ao carregar -->
+  <script src="js/portal/professor.js?v=dev"></script>
+  <!-- telas da F8 -->
+  <script src="js/portal/prof-visao.js?v=dev"></script>
+  <script src="js/portal/prof-turmas.js?v=dev"></script>
+  <script src="js/portal/prof-alunos.js?v=dev"></script>
+  <script src="js/portal/prof-duvidas.js?v=dev"></script>
+  <script src="js/portal/prof-equipe.js?v=dev"></script>
+  <!-- telas das outras fatias (índice §6.3; arquivo ainda ausente = 404 só em desenvolvimento, R13) -->
+  <script src="js/portal/prof-conteudo.js?v=dev"></script>
+  <script src="js/portal/avaliacao.js?v=dev"></script>
+  <script src="js/portal/prof-avaliacoes.js?v=dev"></script>
+  <script src="js/portal/prof-academico.js?v=dev"></script>
+  <script src="js/portal/prof-certificacao.js?v=dev"></script>
+  <script src="js/portal/prof-secretaria.js?v=dev"></script>
+  <script src="js/portal/prof-documentos.js?v=dev"></script>
+  <script src="js/portal/prof-financeiro.js?v=dev"></script>
+  <script src="js/portal/prof-atendimento.js?v=dev"></script>
+  <script src="js/portal/prof-configuracoes.js?v=dev"></script>
+  <script src="js/portal/prof-ia.js?v=dev"></script>
+  <script src="js/portal/prof-comunicacao.js?v=dev"></script>
+  <script src="js/portal/prof-relatorios.js?v=dev"></script>
+  <script src="js/portal/notificacoes.js?v=dev"></script>
+  <script src="js/portal/tutoriais.js?v=dev"></script>
+</body>
+</html>

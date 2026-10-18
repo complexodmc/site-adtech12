@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
+  <meta charset="UTF-8">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Financeiro · Plataforma Complexo DMC</title>
+  <meta name="description" content="Plataforma Complexo DMC — lançamentos financeiros registrados pela coordenação.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-financeiro.css?v=dev">
+</head>
+<body data-shell="financeiro" data-pagina="financeiro">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <header class="pf-cabecalho">
+      <h1 class="pf-cabecalho__titulo">Financeiro</h1>
+      <p class="pf-cabecalho__desc">Lançamentos registrados pela coordenação do Complexo DMC.</p>
+      <div class="pf-cabecalho__acoes pf-nao-imprimir">
+        <button type="button" class="dmc-btn dmc-btn--secondary" id="fin-imprimir">Imprimir</button>
+      </div>
+    </header>
+
+    <div id="fin-aviso">
+      <div class="pf-alerta pf-alerta--info">
+        <p>O pagamento on-line ainda não está disponível no portal. Para pagar, use a 2ª via de cada lançamento ou fale com o atendimento.</p>
+      </div>
+    </div>
+
+    <p class="pf-so-impressao pf-fin-impressao" id="fin-impressao"></p>
+
+    <section class="pf-fin-resumo" id="fin-resumo" aria-label="Resumo financeiro" aria-busy="true">
+      <div class="pf-fin-carregando" aria-hidden="true">
+        <div class="pf-esqueleto pf-esqueleto--bloco"></div>
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+      </div>
+      <noscript><p class="pf-ajuda">Esta tela precisa de JavaScript para mostrar seus lançamentos. Para falar com a equipe, use o <a href="atendimentos.html?novo=1&amp;categoria=financeiro">Atendimento</a>.</p></noscript>
+    </section>
+
+    <div class="pf-fin-filtro pf-nao-imprimir" id="fin-filtro"></div>
+
+    <section class="pf-fin-lista" id="fin-lista" aria-label="Lançamentos"></section>
+
+    <nav class="pf-fin-atalhos pf-nao-imprimir" id="fin-atalhos" aria-labelledby="fin-atalhos-titulo" hidden>
+      <h2 class="pf-secao-titulo" id="fin-atalhos-titulo">Atalhos</h2>
+      <ul class="pf-fin-atalhos__lista">
+        <li><a class="pf-fin-atalhos__link" href="atendimentos.html?novo=1&amp;categoria=financeiro">Abrir atendimento financeiro</a></li>
+        <li><a class="pf-fin-atalhos__link" href="atendimentos.html?categoria=financeiro">Seus atendimentos</a></li>
+        <li><a class="pf-fin-atalhos__link" href="certificados.html?tipo=quitacao#solicitar">Declaração anual de quitação</a></li>
+      </ul>
+    </nav>
+
+    <p class="dmc-sr-only" id="fin-anuncio" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/financeiro.js?v=dev"></script>
+</body>
+</html>

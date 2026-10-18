@@ -17,6 +17,18 @@
 // - /__qa/estado: rota só deste servidor (não existe na Vercel).
 // - Cabeçalho `x-qa-cliente: <ip>`: só aqui, vira o X-Forwarded-For da função
 //   (simula clientes distintos para o throttle por IP).
+// - Portal (PORTAL-ACADEMICO §9.1, D-41): define QA_SERVIDOR=1 e sobe em
+//   127.0.0.1 os provedores falsos (tests/server/provedores-falsos.mjs:
+//   Gemini, ViaCEP e Resend), com PORTAL_GEMINI_URL, PORTAL_VIACEP_URL e
+//   PORTAL_RESEND_URL apontando para eles, RESEND_API_KEY='qa-falsa',
+//   PORTAL_EMAIL_FROM de QA e PORTAL_BASE_URL=http://127.0.0.1:<QA_PORT>.
+//   E-mails aceitos: GET /__qa/emails; roteiros e chamadas: /__qa/<provedor>/…
+//   (rotas só deste servidor). fetch do processo para os hosts reais dos
+//   provedores falha e fica em /__qa/estado → externasBloqueadas.
+//   GEMINI_API_KEY só vem de QA_GEMINI_API_KEY (a chave do shell nunca entra);
+//   PORTAL_MODULOS, PORTAL_MODULOS_IGNORAR e PORTAL_2FA passam do ambiente.
+// - CSP: os cabeçalhos são os do vercel.json (inclusive a CSP estrita
+//   report-only de /plataforma-ead/, D-43), pela mesma regra de rotas.
 // =============================================================
 import http from 'node:http';
 import net from 'node:net';
@@ -28,6 +40,7 @@ import crypto from 'node:crypto';
 import { spawn, execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import { carregarVercel, rotear, RAIZ_REPO } from './vercel-rotas.mjs';
+import { criarProvedoresFalsos, bloquearHostsReais } from './provedores-falsos.mjs';
 
 const PORTA = Number(process.env.QA_PORT || 4590);
 const vc = carregarVercel();
@@ -90,6 +103,19 @@ const uriMongo = await subirMongo();
 const DB = 'dmc_qa_e2e';
 if (uriMongo) estado.mongo = { uri: uriMongo, db: DB };
 
+// ---------------- Provedores falsos (D-41) ----------------
+const CHAVE_RESEND_QA = 'qa-falsa';
+const provedores = criarProvedoresFalsos({ chaveResend: CHAVE_RESEND_QA, log });
+let baseProvedores = null;
+try {
+  baseProvedores = await provedores.iniciar();
+} catch (e) {
+  estado.motivoProvedores = 'provedores falsos não subiram: ' + (e.code || '') + ' ' + e.message;
+  log(estado.motivoProvedores);
+}
+estado.provedores = baseProvedores ? provedores.resumo().urls : null;
+estado.externasBloqueadas = [];
+
 // Ambiente da função — definido ANTES de importar o server.js.
 process.env.DOTENV_CONFIG_PATH = '/dev/null';   // nunca lê server/.env nem .env da raiz
 process.env.DOTENV_CONFIG_QUIET = 'true';
@@ -97,13 +123,27 @@ process.env.VERCEL = '1';                       // não abre a porta 3000; trust
 process.env.MONGODB_URI = uriMongo || 'mongodb://127.0.0.1:9/?serverSelectionTimeoutMS=1000';
 process.env.MONGODB_DB = DB;
 process.env.JWT_SECRET = crypto.randomBytes(24).toString('hex');
-process.env.RESEND_API_KEY = '';                // nenhum e-mail sai do teste
+// Avisos internos legados (contato, parcerias, bolsas, newsletter) chamam o Resend
+// real por endereço fixo: ficam desligados sem destinatário, mesmo com a chave de QA.
 process.env.LEADS_EMAIL_TO = '';
+process.env.PARCERIAS_EMAIL_TO = '';
+process.env.BOLSAS_EMAIL_TO = '';
+process.env.NEWSLETTER_EMAIL_TO = '';
 process.env.LEADS_EMAIL_FROM = '';
 process.env.NEWSLETTER_NOTIFICAR = '';          // nenhum aviso interno sai do teste
 process.env.NEWSLETTER_POLITICA_VERSAO = 'qa';
 process.env.DEV_SIMULAR_PAGAMENTO = 'false';
 process.env.CORS_ORIGINS = '';
+// Portal (D-41): regra QA_SERVIDOR + provedores falsos. A Vercel real define
+// VERCEL_ENV; sem ele e fora de NODE_ENV=production o config-portal honra as URLs.
+process.env.QA_SERVIDOR = '1';
+process.env.RESEND_API_KEY = CHAVE_RESEND_QA;   // só o Resend falso aceita esta chave
+process.env.PORTAL_EMAIL_FROM = 'Plataforma QA <qa@exemplo.invalid>';
+process.env.PORTAL_BASE_URL = `http://127.0.0.1:${PORTA}`;
+process.env.GEMINI_API_KEY = process.env.QA_GEMINI_API_KEY || '';
+for (const nome of ['PORTAL_GEMINI_URL', 'PORTAL_VIACEP_URL', 'PORTAL_RESEND_URL']) {
+  if (baseProvedores) process.env[nome] = baseProvedores; else delete process.env[nome];
+}
 
 // Trava: a URI efetiva só pode ser loopback.
 if (!/^mongodb:\/\/127\.0\.0\.1:\d+(\/|$|\?)/.test(process.env.MONGODB_URI)) {
@@ -111,12 +151,35 @@ if (!/^mongodb:\/\/127\.0\.0\.1:\d+(\/|$|\?)/.test(process.env.MONGODB_URI)) {
   process.exit(2);
 }
 
+// Nenhuma chamada aos hosts reais dos provedores sai deste processo (A10, R21).
+bloquearHostsReais((t) => {
+  if (estado.externasBloqueadas.length < 100) estado.externasBloqueadas.push(t);
+  log(`fetch para ${t.host}${t.caminho} bloqueado (use o provedor falso)`);
+});
+
 let funcao = null;
 try {
   funcao = (await import(pathToFileURL(path.join(RAIZ_REPO, 'api', '[...path].js')).href)).default;
 } catch (e) {
   estado.funcao = 'falhou ao importar: ' + (e.code || '') + ' ' + e.message.split('\n')[0];
   log(estado.funcao);
+}
+
+// Conferência da regra QA_SERVIDOR pelo próprio config-portal (F0a), sem valores secretos.
+const arquivoConfigPortal = path.join(RAIZ_REPO, 'server', 'src', 'portal', 'config-portal.js');
+if (fs.existsSync(arquivoConfigPortal)) {
+  try {
+    const { lerConfigPortal } = await import(pathToFileURL(arquivoConfigPortal).href);
+    const cfg = lerConfigPortal(process.env);
+    const falsos = !!baseProvedores && Object.values(cfg.urlsProvedor || {}).every((u) => u === baseProvedores);
+    estado.portal = { regraQa: cfg.qa, provedoresFalsos: falsos, urlsProvedor: cfg.urlsProvedor, baseUrl: cfg.baseUrl, modulosFiltro: cfg.modulosFiltro, ignoradas: cfg.ignoradas };
+    if (!falsos) log('ATENÇÃO: o config-portal não aponta para os provedores falsos (regra QA_SERVIDOR ' + (cfg.qa ? 'ativa' : 'inativa: VERCEL_ENV ou NODE_ENV=production no ambiente?') + ').');
+  } catch (e) {
+    estado.portal = { erro: 'config-portal não carregou: ' + (e.code || '') + ' ' + e.message.split('\n')[0] };
+    log(estado.portal.erro);
+  }
+} else {
+  estado.portal = { erro: 'server/src/portal/config-portal.js ausente' };
 }
 
 // ---------------- Estático ----------------
@@ -196,7 +259,13 @@ const servidor = http.createServer((req, res) => {
 
   if (pathnameCru === '/__qa/estado') {
     res.writeHead(200, { 'content-type': 'application/json' });
-    return res.end(JSON.stringify(estado));
+    return res.end(JSON.stringify({ ...estado, provedoresResumo: baseProvedores ? provedores.resumo() : null }));
+  }
+  if (baseProvedores && provedores.atende(pathnameCru)) {
+    return provedores.tratarRotaQa(req, res, pathnameCru, busca).catch((e) => {
+      log('/__qa: erro inesperado', e && e.message);
+      if (!res.headersSent) { res.writeHead(500, { 'content-type': 'application/json' }); res.end('{"erro":"erro interno do servidor de QA"}'); }
+    });
   }
 
   const r = rotear(vc, pathnameCru, existeArquivo);
@@ -232,6 +301,7 @@ async function encerrar(sinal) {
   saindo = true;
   log(`${sinal}: encerrando`);
   servidor.close();
+  await provedores.encerrar().catch(() => {});
   if (mongod && mongod.exitCode === null) {
     mongod.kill('SIGTERM');
     await new Promise((ok) => { mongod.once('exit', ok); setTimeout(ok, 4000); });
@@ -243,5 +313,5 @@ for (const s of ['SIGINT', 'SIGTERM', 'SIGHUP']) process.on(s, () => encerrar(s)
 process.on('exit', () => { if (mongod && mongod.exitCode === null) try { mongod.kill('SIGKILL'); } catch { /* já saiu */ } });
 
 servidor.listen(PORTA, '127.0.0.1', () => {
-  log(`http://127.0.0.1:${PORTA}  (estático: ${estado.outputDir}; mongo: ${uriMongo ? uriMongo + '/' + DB + ' descartável' : 'indisponível — ' + estado.motivo})`);
+  log(`http://127.0.0.1:${PORTA}  (estático: ${estado.outputDir}; mongo: ${uriMongo ? uriMongo + '/' + DB + ' descartável' : 'indisponível — ' + estado.motivo}; provedores falsos: ${baseProvedores || 'indisponíveis — ' + estado.motivoProvedores})`);
 });

@@ -248,3 +248,130 @@ instrução de registrar como D10 foi adaptada para não duplicar identificador.
 - Aprovação: equipe (dentro de D2/D4). Aprovação do CEO necessária para: commit/publicação desta rodada,
   política de privacidade sem `[CONFIRMAR]` (condição da newsletter) e as pendências listadas em
   `docs/dmc/home-redesign/RELATORIO-CEO.md` §5.
+
+## Portal acadêmico (2026-10-18)
+
+Portal do Aluno + Portal do Professor sobre a EAD existente. Fonte única: `docs/dmc/PORTAL-ACADEMICO.md` (índice;
+prevalece, §0), `PORTAL-API.md` (rotas e dados) e `PORTAL-UX.md` (telas). Aqui fica só o registro; o detalhe está
+na seção do índice citada. Numeração local `PA-n` (não colide com D/T de sessões paralelas nem com os D-nn do
+índice §11).
+
+### PA-1 — Decisões do CEO de 18/10/2026 (índice §2.1, §3.2)
+- CEO-0: escopo = blueprint integral; matriz de cobertura com uma linha por item (§4); o que não fechar vira
+  lacuna (§12) ou pendência (§13), nunca tela falsa.
+- CEO-1 (E1): financeiro com lançamentos manuais da coordenação, auditados; gateway depois. Modelo pronto
+  (`origem manual|gateway`, webhook previsto e não montado); sem "Meus cartões", cobrança/NFS-e automáticas nem botão falso.
+- CEO-2: assistente de IA com Google Gemini; a coordenação cola a chave no painel (Configurações › Assistente). Chave
+  só no servidor (`GEMINI_API_KEY` tem precedência; senão cifrada AES-256-GCM, HKDF de `JWT_SECRET`), nunca devolvida;
+  ferramentas somente leitura do próprio aluno + RAG no regulamento; consentimento antes do 1º uso.
+- CEO-3 (E2): Libras retirada; nenhum VLibras nem script de terceiro em página autenticada.
+- CEO-4: nota mínima 7 (0–10) = melhor tentativa da avaliação modular publicada (prévia não conta); certificado passa
+  a exigir aprovação (curso sem modular publicada: regra antiga de 100% das aulas); emitidos seguem válidos; nova
+  tentativa e mudança de nota mínima auditadas.
+- CEO-5: padrão visual DMC em toda a plataforma (`tokens.css` + `components.css` + `css/portal.css`). **Revoga a parte
+  de D8 que mantinha o rinoceronte turquesa/limão (neon) na EAD**; o neon sai. Exceção temporária: `login-classico.html`
+  (2d), com proposta de aposentá-la (D-44, §13).
+- CEO-6 (E3): assinatura eletrônica simples nativa; provedor externo e vídeo Mux/Bunny só previstos no modelo.
+- Aprovação: CEO ✔ (18/10/2026). Fase 0 autorizada pelo CEO no mesmo dia ("execute com máxima qualidade").
+
+### PA-2 — Posse exclusiva de arquivos (índice §8.1, §8.2; D-33)
+- Decisão: cada arquivo tem um único dono durante todo o trabalho, sem transferência entre fases; arquivo alheio só
+  muda por pedido escrito ao dono via principal. Operações mecânicas da principal (`cabecalho-ead.mjs` no S2,
+  `versionar-ead.mjs` e `PENDENTES_FASE_1` no G2) são scripts idempotentes com dry-run e não mudam a posse (D-33).
+- Proibidos a todas as fatias: `server.js` (fora os três pontos da principal, PA-4), `db.js`, `config.js`,
+  `login.html`, `login-classico.html`, `business-school.{css,js}`. Agentes não commitam; a principal commita por fatia,
+  com caminhos explícitos. Justificativa: várias sessões no mesmo working tree; conferência por `conferir-posse.mjs`.
+
+### PA-3 — Divisão em 19 fatias (índice §8.1; D-37, D-59, D-78)
+- 1ª revisão (D-37): F0a → F0a + F0t; F0b → F0b + F0r; F3 → F3a + F3b; F6 → F6a + F6b. 2ª (D-59): F0a → F0a + F0m;
+  F0b → F0b + F0s + F0p; F1 → F1a + F1b. 3ª (D-78): F4 → F4a (turmas, matrículas, liberações) + F4b (documentos,
+  contratos). Nenhuma divisão muda contrato de rota; na API e na UX o nome antigo vale como o grupo (§0).
+
+### PA-4 — Agregador em ponto único e três pontos de `server.js` (API §5.3, DC-30; D-42, D-70, D-82)
+- Decisão: rotas novas (`/api/portal/*` e o `/api/auth/*` ampliado, 27 módulos) entram só por `montarPortal()` de
+  `server/src/portal/montar.js` (F0m), com isolamento por módulo. Em `server.js`, só a principal e só três pontos:
+  (1) `import { montarPortal, tratarErroGlobal } from './portal/montar.js';` (2) `app.use('/api', montarPortal())`;
+  (3) `app.use(tratarErroGlobal)` no lugar do tratamento de erro anônimo. Prova: `servidor-erros.test.js` (principal).
+- Plano B (D-70): sem liberação de `server.js` pela 2d, o portão se divide: G0-a abre a fase 1 com o agregador montado
+  só nos testes; G0-b (três pontos + `servidor-erros` verde + `/api/portal/saude` 200 no `serve.mjs`) abre E2E e G1.
+
+### PA-5 — CSP da plataforma (índice §9.6; D-43)
+- Política estrita para `/plataforma-ead/*` no `vercel.json` (exceto `login.html` e `login-classico.html`):
+  report-only desde o G0, aplicada no G2 com 0 violação. Nenhum `<script>` inline nem `on*=`; boots inline vão para
+  `js/portal/boot-<pagina>.js`; o `serve.mjs` reproduz o cabeçalho (o servidor manual não).
+
+### PA-6 — Ordem da fase 0 com pontos de sincronização (índice §8.3; D-60, D-64, D-74)
+- F0a → F0m (a partir do P0a) ∥ F0b ∥ F0s ∥ F0r + principal. S0: regressão D5 e capturas "antes" (F0b), antes de
+  editar qualquer arquivo existente; S1: `portal.css` fase A, `pre-pintura.js`, `ui.js` mínimo e `cabecalho-ead.mjs`;
+  S2: a principal aplica o cabeçalho; S3: contratos JS publicados. Fases B/C do reskin e shell v2 só depois do S2.
+- A fase 1 começa pelos mini-portões P1 "contrato puro" (D-64) e P1f "hospedeiros de tela" (F8 e F1b, D-74).
+
+### PA-7 — Isolamento das verificações por fatia (índice §9.1, §8.6; D-62, D-73)
+- Unidade com `QA_FATIA` (testes estáveis + os da fatia + `front-estatico`); E2E com `PORTAL_MODULOS` da fatia e das
+  dependências, F0t pulada por `PORTAL_MODULOS_IGNORAR`, D5 só nos casos da fatia, tolerâncias fechadas de
+  `monitorarConsoleERede` por `QA_INTEGRADAS` (lista em `PROGRESS.md`); cada G1 integrado num `git worktree` fora do
+  repositório; G2 com `QA_ESTRITO=1`. Portas 4630–4659 por fase, bancos `complexodmc_portal_<fatia>_qa`;
+  `complexodmc_local` e as portas 4611/4612/3000/8090/4671–4691 intocados.
+
+### PA-8 — Divergências que alteram contrato (índice §11; prevalecem sobre API e UX até a propagação, §14 item 1)
+- D-01: códigos de erro em kebab (`segundo-fator`, `email-indisponivel`, `troca-de-senha-obrigatoria`); aviso à 2d.
+- D-02: valem os caminhos da API (`/api/portal/me/notificacoes/resumo`, `/api/portal/busca`, `/api/portal/admin/equipe`…).
+- D-03: códigos `DMC/DEC/FRQ/AVL/CTR` e despacho único `GET /portal/validar/:codigo` (F3b), sem nome completo; o
+  legado `/api/certificados/validar/:codigo` e `certificado.html` não mudam.
+- D-08: backoffice em grupos ensino · secretaria · relacionamento · gestão; menu estático `DMC_Professor.MENU_ESTATICO`.
+- D-10: pedido LGPD do titular = protocolo `privacidade` com `pedidoTitular`, prazo de 15 dias.
+- D-11: `DMC_Avaliacao.resumo` sai; o player conta a seção 4 por `Conteudo.secoes`; `montar` recebe `avaliacaoId`.
+- D-21: professor no editor legado edita só plano, materiais, categoria e rótulo do encontro; o resto em leitura.
+- D-24: CPF nunca vai em CSV (`incluirCpf` não é implementado).
+- D-34: acréscimos de `DMC_UI` (`alerta`, `barras`, `codigo`, `upload`, `fmt.*`), `DMC_Shell.definirPendencia`,
+  `cabecalhos` em `DMC_Api` e `DMC_PlanoEnsino`.
+- D-38: módulos novos `routes/portal-declaracoes.js` e `routes/portal-cursos.js` (F3b); agregador com 27 módulos.
+- D-39: configuração do assistente em `routes/portal/ia.js` (F6b); `ia/rag.js` é da F6a; serviço `ia.disponivel()`.
+- D-41: variáveis de QA (`PORTAL_MODULOS*`, URLs de provedores falsos) só com `QA_SERVIDOR=1`, sem `VERCEL_ENV`, fora de
+  produção e em `http://127.0.0.1`.
+- D-42: log por `resumirErro` (sem corpo, `keyValue` nem cabeçalhos); E11000 não previsto → 409 `registro-duplicado`;
+  JSON inválido → 400 `formato-invalido`.
+- D-44: proposta de aposentar `login-classico.html` (redirecionamento no `vercel.json` preservando `?next=`); enquanto
+  existir, `DMC_bootLogin` aceita CPF, destino por papel e desvia o 2FA para `login.html?next=`.
+- D-45: D5 = invariantes de efeito com `SELETORES_D5`; mudar asserção só por pedido escrito ao dono (F0b).
+- D-52: DC-61…DC-68 da API registradas (plano de ensino estruturado, dissertativa com limites, correção em rascunho,
+  nome no certificado, selo, critérios MEC/TCC, isolamento transacional por módulo).
+- D-53: pedidos da API à UX valem até a propagação (gabarito com pontos e devolutiva, TCC em PDF ≤ 4 MB, bibliografia
+  em dois campos, correção com `publicar:false`, tipo de módulo TCC).
+- D-54: pedidos da UX à API (escalonamento com `?categoria=&cursoId=`, `ouvidoriaSemParecer`,
+  `sistema.instituicaoPendente`, `motivo`, endereço em texto, 409 no 2º parecer, `textoSha256` opcional).
+- D-55: textos v1 literais de consentimento de gênero e etnia em `consentimentos-textos.js` (F0t); revisão jurídica pendente.
+- D-56: capa vertical do curso e capa do módulo como acréscimo da F1a (≤ 1 MB, só admin, imagem pública imutável),
+  sem tocar em `capas.js`; recorte central, sem `capaFoco`.
+- D-57: `DMC_UI.reautenticar` e `DMC_UI.consentimento` (F0b), CSS `pf-reautenticacao`/`pf-consentimento` (F0s).
+- D-63: modo restrito (`precisaTrocarSenha`) conferido logo após `DMC_Auth.init()`; `DMC_init` resolve sem carregar
+  nada; boots legados levam a `perfil.html#seguranca`.
+- D-64: import entre fatias irmãs só depois do P1 "contrato puro" anunciado pela principal.
+- D-65: moldura do backoffice (`pai`, `aba`, `ctx`) é da F8; subnavegação do Atendimento por `pf-subnav` com markup fixo (§7.10).
+- D-66: roteador só em `professor.html`; `itensDoMenu(papel)` da F8; o shell só desenha o que recebe.
+- D-71: pedir link e criar nova senha em `acesso-link.html#pedir-link`/`#esqueci` (F0p); da 2d só entrada por CPF,
+  passo do 2FA, destino por papel e os dois links; aceite por `login-portal.spec.js`; até lá `PORTAL_2FA` desligado.
+- D-73: `monitorarConsoleERede` com tolerâncias fechadas por fase; `POSSE` em `tests/tools/posse-ead.mjs` (F0r).
+- D-74: mini-portão P1f; `paginasDoPortal()` = `PAGINAS_BASE` + `portal-<x>.paginas.js` de cada fatia.
+- D-75: `DMC_Portal.iniciar` ganha a opção `itens`; o contrato do `DMC_Shell` não muda.
+- D-76: na D5, efeitos com diálogo são conferidos pela API; `confirmarNaTela` + gancho `data-pf-acao`.
+- D-78: F4a/F4b; serviços `secretaria.matriculaPorId`, `secretaria.vincularContrato` (único escritor de
+  `matriculas.contratoId`) e `contratos.situacaoPorMatricula`.
+- D-79: pedido da loja com os nomes da API: 409 `ja-liberado`, `reaproveitado` (+ `&existente=1`),
+  `POST /portal/me/pedidos` (F5, 5/h), fila `?pedido=1`; `liberarAcesso` booleano.
+- D-80: `notaMinima` no GET do certificado não emitido (F3b) e no `ResumoMatricula` (F3a).
+- D-81: página `regulamento.html` (F6a) com âncora `r-<regulamentoId>-<trechoId>`; `fontes[].regulamentoId` (F6b).
+- D-82: DC-69…DC-78 da API registradas; `tratarErroGlobal` em `erros.js` é o 3º ponto de `server.js`.
+- Aprovação: equipe (arquiteto, dentro de D4). O que está em §13 do índice continua pendente do CEO.
+
+### PA-9 — Sessão 2d encerrada sem commit; plano B em vigor (2026-10-18)
+- Constatado: a sessão 2d encerrou às 01:12 sem commitar o próprio trabalho. Seguem fora do git no working tree:
+  `login.html` (modificado), `login-classico.html`, `css/business-school.css`, `js/business-school.js`,
+  `server/src/routes/{vitrine,bolsas}.js` e testes (novos), e acréscimos em `server.js`, `db.js` e `config.js`.
+- Decisão: sem quem libere `server.js`, vale o plano B (D-70). A principal aplica os três pontos de PA-4 como
+  acréscimo sobre o arquivo em disco, sem desfazer nem reescrever as linhas da 2d, e não commita trabalho alheio sem
+  decisão do CEO. Impacto: um commit de `server.js` levaria junto as linhas da 2d, então ele também depende dessa decisão.
+- Aprovação: CEO pendente (destino do trabalho não commitado da 2d e do commit de `server.js`). Também pendente do CEO,
+  e bloqueante do G0-a (índice §8.3, "contrato da 2d entregue"): indicar quem responde pela 2d para receber o aviso da
+  §5.5 (itens 1–10 e 7a) ou aceitar por escrito o plano B (D-70) e abrir a fase 1 sem o aviso. O lado do código foi
+  conferido às 10:41 (`docs/dmc/qa/2026-10-18-g0a-r4-principal/`); a equipe não decide no lugar do CEO.

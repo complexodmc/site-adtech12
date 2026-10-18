@@ -1,84 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Plataforma Complexo DMC — Painel do aluno: módulos, aulas e progresso.">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Painel · Plataforma Complexo DMC</title>
-
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Início · Plataforma Complexo DMC</title>
+  <meta name="description" content="Plataforma Complexo DMC — Início do aluno: curso ativo, pendências, cursos e trilha.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/plataforma.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-estudos.css?v=dev">
 </head>
-<body class="bg-grid" data-shell="conteudos">
-  <div class="glow-corner"></div>
+<body data-shell="inicio" data-pagina="inicio">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
 
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <div class="pf-est-inicio">
+      <p class="dmc-sr-only" role="status" data-inicio-anuncio></p>
+      <p class="pf-alerta pf-alerta--erro pf-est-aviso" role="alert" data-inicio-erro hidden></p>
 
-  <main class="dash-shell">
-    <div class="dash-inner">
-
-      <section class="catalog-section">
-        <div class="section-title-row">
-          <div>
-            <span class="overline">Catálogo</span>
-            <h2>Escolha seu curso</h2>
+      <div id="inicio-heroi">
+        <div class="pf-est-esqueleto pf-est-esqueleto--heroi" aria-hidden="true"><span></span><span></span><span></span></div>
+        <noscript>
+          <div class="pf-vazio pf-est-vazio">
+            <h1 class="pf-est-vazio__titulo">Início</h1>
+            <p>Para ver seus cursos e o seu progresso, ative o JavaScript do navegador.</p>
+            <div class="pf-est-vazio__acoes"><a class="dmc-btn dmc-btn--secondary" href="meus-cursos.html">Meus cursos</a> <a class="dmc-btn dmc-btn--secondary" href="loja.html">Cursos disponíveis</a></div>
           </div>
-          <span>Selecione o programa que você vai cursar</span>
+        </noscript>
+      </div>
+
+      <div class="pf-est-agora">
+        <section class="pf-est-cartao" id="inicio-pendencias" aria-label="Pendências" hidden></section>
+        <section class="pf-est-cartao" id="inicio-ao-vivo" aria-label="Próxima aula ao vivo" hidden></section>
+      </div>
+
+      <section id="inicio-meus-cursos" aria-labelledby="inicio-meus-cursos-titulo" hidden>
+        <div class="pf-est-bloco-cab">
+          <h2 id="inicio-meus-cursos-titulo">Meus cursos</h2>
+          <a class="pf-est-link" href="meus-cursos.html">Ver todos</a>
         </div>
-        <div class="catalog-track-wrap">
-          <button class="catalog-arrow" data-catalog-prev aria-label="Anterior">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <div class="catalog-track" id="catalog-track"></div>
-          <button class="catalog-arrow" data-catalog-next aria-label="Próximo">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-        </div>
+        <ul class="pf-est-capas" role="list" data-inicio-capas></ul>
       </section>
 
-      <section class="dash-hero">
-        <span class="overline">Curso selecionado</span>
-        <h1><span data-curso-titulo>—</span></h1>
-        <p>Bem-vindo, <strong data-user-nome></strong>. Acompanhe o progresso da trilha do curso selecionado abaixo. Trocar de curso é simples: basta clicar em outro card no catálogo acima.</p>
+      <section id="inicio-destaques" aria-label="Destaques" hidden></section>
 
-        <div class="progress-summary">
-          <div class="summary-stat">
-            <div class="summary-stat__label">Progresso</div>
-            <div class="summary-stat__num" data-stat-pct>0%</div>
-            <div class="progress-bar"><div class="progress-bar__fill" data-progress-fill></div></div>
-          </div>
-          <div class="summary-stat">
-            <div class="summary-stat__label">Aulas concluídas</div>
-            <div class="summary-stat__num"><span data-stat-done>0</span><small>/<span data-stat-total>0</span></small></div>
-          </div>
-          <div class="summary-stat">
-            <div class="summary-stat__label">Módulos</div>
-            <div class="summary-stat__num" data-stat-modulos>10</div>
-          </div>
-          <div class="summary-stat">
-            <div class="summary-stat__label">Carga horária</div>
-            <div class="summary-stat__num" data-curso-carga>—</div>
-          </div>
+      <section id="inicio-trilha" class="modules-section" aria-labelledby="inicio-trilha-titulo" hidden>
+        <div class="pf-est-bloco-cab">
+          <h2 id="inicio-trilha-titulo">Trilha do curso</h2>
+          <a class="pf-est-link" href="aula.html" data-trilha-player>Abrir no player</a>
         </div>
+        <ol id="modules-list" class="pf-est-trilha" role="list"></ol>
       </section>
 
-      <section class="modules-section">
-        <div class="section-title-row">
-          <h2>Trilha do programa</h2>
-          <span>Clique no módulo para expandir e acessar as aulas</span>
+      <section id="inicio-outros" class="catalog-section" aria-labelledby="inicio-outros-titulo" hidden>
+        <div class="pf-est-bloco-cab">
+          <h2 id="inicio-outros-titulo">Outros cursos</h2>
+          <a class="pf-est-link" href="loja.html">Ver todos os cursos</a>
         </div>
-        <div id="modules-list" class="modules-list"></div>
+        <ul id="catalog-track" class="pf-est-outros" role="list"></ul>
       </section>
-
     </div>
   </main>
 
-  <script src="js/api-client.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/shell.js"></script>
-  <script>DMC_bootDashboard();</script>
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/estudos-dados.js?v=dev"></script>
+  <script src="js/portal/inicio.js?v=dev"></script>
 </body>
 </html>

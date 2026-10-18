@@ -1,0 +1,134 @@
+/* =============================================================
+   COMPLEXO DMC · PLATAFORMA · css/portal-atendimento.css (F6a)
+   Spec: docs/dmc/PORTAL-UX.md §6.12 (Seus atendimentos, Ouvidoria),
+   §6.20 (Regulamento), §7.10–§7.11 e §7.22 (backoffice).
+   Só tokens (--pf-*, --space-*, --radius-*, --font-*); prefixo
+   pf-at-. A subnavegação (pf-subnav) é do catálogo (portal.css, F0s)
+   e não é estilizada aqui (D-65). Sem cor literal, sem neon.
+   ============================================================= */
+
+/* ---------- barra de filtros e busca ---------- */
+.pf-at-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3) var(--space-4);
+  margin: 0 0 var(--space-5);
+}
+.pf-at-filtros .pf-campo { margin: 0; min-width: 12rem; }
+.pf-at-filtros .pf-at-busca { flex: 1 1 16rem; }
+
+.pf-at-status { margin: 0 0 var(--space-4); color: var(--pf-texto-2); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); }
+.pf-at-aguardando { display: block; margin-top: 2px; color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+.pf-at-codigo { font-feature-settings: var(--font-numeric); white-space: nowrap; }
+a.pf-at-codigo { color: var(--pf-texto-1); text-decoration: underline; text-decoration-color: var(--pf-acento); text-underline-offset: 0.2em; }
+a.pf-at-codigo:hover { text-decoration-thickness: 2px; }
+.pf-at-nota { margin: 0 0 var(--space-4); }
+.pf-at-mais { margin-top: var(--space-4); }
+
+/* ---------- conversa ---------- */
+.pf-at-voltar { margin: 0 0 var(--space-3); }
+.pf-at-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-3) var(--space-5);
+  margin: 0 0 var(--space-5);
+  padding: 0 0 var(--space-4);
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-at-meta div { min-width: 0; }
+.pf-at-meta dt { margin: 0; color: var(--pf-texto-3); font: var(--fw-medium) var(--pf-fs-meta)/1.4 var(--font-text); }
+.pf-at-meta dd { margin: 2px 0 0; color: var(--pf-texto-1); font: 400 var(--pf-fs-ui)/1.45 var(--font-text); overflow-wrap: anywhere; }
+
+.pf-at-conversa { max-width: var(--container-text); }
+.pf-at-msg {
+  max-width: 36rem;
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-2);
+  background: var(--pf-painel);
+}
+.pf-at-msg--equipe { margin-left: auto; background: var(--pf-painel-2); }
+.pf-at-msg__autor { margin: 0 0 var(--space-1); color: var(--pf-texto-2); font: var(--fw-medium) var(--pf-fs-meta)/1.4 var(--font-text); }
+.pf-at-msg__texto { margin: 0; white-space: pre-line; overflow-wrap: anywhere; }
+.pf-linha-tempo__item.pf-at-item--equipe { text-align: left; }
+
+.pf-at-anexo { margin: 0 0 var(--space-5); }
+.pf-at-anexo > summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; color: var(--pf-texto-1); font: var(--fw-medium) var(--pf-fs-ui)/1.4 var(--font-text); }
+.pf-at-anexo__lista { margin: var(--space-2) 0 0; padding: 0; list-style: none; }
+.pf-at-anexo__lista li { margin: 0 0 var(--space-2); padding: var(--space-2) var(--space-3); border-left: 2px solid var(--pf-linha-forte); white-space: pre-line; }
+
+.pf-at-pedido { margin: 0 0 var(--space-5); }
+.pf-at-pedido__total { margin: var(--space-2) 0 0; font-weight: var(--fw-semibold); }
+.pf-at-pedido__nota { margin: var(--space-2) 0 0; color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+
+.pf-at-compositor {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--container-text);
+  margin: var(--space-5) 0 0;
+  padding: var(--space-4) 0 0;
+  border-top: 1px solid var(--pf-linha);
+}
+.pf-at-compositor textarea { min-height: 7rem; resize: vertical; }
+.pf-at-compositor__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.pf-at-contador { margin: 0; color: var(--pf-texto-3); font-size: var(--pf-fs-meta); font-feature-settings: var(--font-numeric); }
+
+/* ---------- ouvidoria: tipos em rádios grandes (56 px) ---------- */
+.pf-at-tipos .pf-radio { min-height: 56px; padding: var(--space-2) var(--space-3); border: 1px solid var(--pf-linha); border-radius: var(--radius-2); }
+.pf-at-tipos .pf-radio + .pf-radio { margin-top: var(--space-2); }
+.pf-at-tipos .pf-radio:has(input:checked) { border-color: var(--pf-acento); }
+.pf-at-tipo__nome { display: block; font-weight: var(--fw-semibold); }
+.pf-at-tipo__frase { display: block; color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+.pf-at-form { max-width: var(--container-text); margin: 0 0 var(--space-7); }
+.pf-at-form textarea { min-height: 9rem; resize: vertical; }
+
+/* ---------- regulamento ---------- */
+.pf-at-regulamento { display: grid; gap: var(--space-6); align-items: start; }
+@media (min-width: 64em) {
+  .pf-at-regulamento { grid-template-columns: 14rem minmax(0, 1fr); }
+  .pf-at-indice { position: sticky; top: calc(var(--pf-topo-h, 0px) + var(--space-4)); max-height: calc(100vh - var(--pf-topo-h, 0px) - var(--space-6)); overflow-y: auto; }
+}
+.pf-at-indice__grupo { margin: 0 0 var(--space-4); }
+.pf-at-indice__titulo { margin: 0 0 var(--space-2); color: var(--pf-texto-3); font: var(--fw-semibold) var(--pf-fs-overline)/1.4 var(--font-text); letter-spacing: 0.08em; text-transform: uppercase; }
+.pf-at-indice__lista { margin: 0; padding: 0; list-style: none; }
+.pf-at-indice__link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  border-left: 2px solid transparent;
+  color: var(--pf-texto-2);
+  font: 400 var(--pf-fs-ui)/1.35 var(--font-text);
+  text-decoration: none;
+}
+.pf-at-indice__link:hover { color: var(--pf-texto-1); }
+.pf-at-indice__link[aria-current="location"] { border-left-color: var(--pf-acento); color: var(--pf-texto-1); }
+.pf-at-indice__link:focus-visible { outline: var(--focus-width, 2px) solid var(--pf-foco); outline-offset: 2px; }
+.pf-at-indice > details > summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: var(--fw-semibold); }
+@media (min-width: 64em) { .pf-at-indice > details > summary { display: none; } }
+
+.pf-at-reg + .pf-at-reg { margin-top: var(--space-7); }
+.pf-at-reg__titulo { margin: 0 0 var(--space-3); font: var(--fw-light) var(--pf-fs-secao)/1.2 var(--font-display); font-synthesis-weight: none; overflow-wrap: anywhere; }
+.pf-at-reg__titulo:focus { outline: none; }
+.pf-at-reg .pf-at-reg__titulo { margin-bottom: var(--space-1); }
+.pf-at-reg__meta { margin: 0 0 var(--space-4); color: var(--pf-texto-3); font-size: var(--pf-fs-meta); }
+.pf-at-trecho { scroll-margin-top: calc(var(--pf-topo-h, 0px) + var(--space-4)); }
+.pf-at-trecho h3:focus { outline: none; }
+.pf-at-trecho p { white-space: pre-line; }
+
+/* ---------- backoffice (professor.html) ---------- */
+.pf-at-config { display: grid; gap: var(--space-6); }
+@media (min-width: 64em) { .pf-at-config { grid-template-columns: 14rem minmax(0, 1fr); } }
+.pf-at-config__nav { margin: 0; padding: 0; list-style: none; }
+.pf-at-config__link { display: flex; align-items: center; min-height: 44px; padding: 0 var(--space-2); border-left: 2px solid transparent; color: var(--pf-texto-2); text-decoration: none; }
+.pf-at-config__link[aria-current="page"] { border-left-color: var(--pf-acento); color: var(--pf-texto-1); }
+.pf-at-config__link:focus-visible { outline: var(--focus-width, 2px) solid var(--pf-foco); outline-offset: 2px; }
+.pf-at-editor { width: 100%; min-height: 24rem; font: 400 var(--pf-fs-corpo)/1.6 var(--font-text); }
+.pf-at-historico { margin-top: var(--space-6); }
+.pf-at-identidade { margin: var(--space-4) 0; }
+
+@media print {
+  .pf-at-indice, .pf-at-filtros, .pf-at-compositor, .pf-subnav, .pf-cabecalho__acoes { display: none; }
+  .pf-at-regulamento { display: block; }
+}

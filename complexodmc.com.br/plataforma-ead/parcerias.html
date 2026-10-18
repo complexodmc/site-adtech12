@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Candidaturas de parceria · Coordenação · Plataforma Complexo DMC</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
   <meta name="referrer" content="no-referrer">
-  <title>Candidaturas de parceria · Painel</title>
-
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
   <!-- Só leitura: herda o visual do painel. Sem fontes nem scripts de terceiros. -->
-  <link rel="stylesheet" href="css/plataforma.css">
-  <link rel="stylesheet" href="css/parcerias-admin.css">
+  <link rel="stylesheet" href="css/parcerias-admin.css?v=dev">
 </head>
-<body class="bg-grid pa-page">
-  <a class="pa-skip" href="#pa-lista-titulo">Pular para a lista de candidaturas</a>
-  <div class="glow-corner" aria-hidden="true"></div>
-
-  <header class="app-nav">
-    <div class="app-nav__inner">
-      <a class="app-brand" href="admin.html">
-        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
-        <span class="app-brand__label">Complexo DMC</span>
-        <span class="app-brand__sub">Parcerias</span>
-      </a>
-      <nav class="app-user" aria-label="Sessão">
-        <a class="btn-ghost" href="admin.html" id="pa-link-admin">Painel admin</a>
-        <span id="pa-user-nome"></span>
-        <span class="user-avatar" id="pa-user-iniciais" aria-hidden="true"></span>
-        <button class="btn-ghost" type="button" id="pa-sair">Sair</button>
-      </nav>
-    </div>
-  </header>
+<body class="pa-page" data-shell="backoffice" data-shell-ativo="parcerias">
+  <a class="dmc-skip pa-skip" href="#pa-lista-titulo">Pular para a lista de candidaturas</a>
 
   <main class="admin-shell" id="pa-main">
     <div class="admin-inner">
@@ -48,9 +42,9 @@
 
       <!-- Sem permissão (403): substitui o conteúdo. -->
       <section class="pa-restrito" id="pa-restrito" hidden aria-labelledby="pa-restrito-titulo">
-        <h2 id="pa-restrito-titulo">Acesso restrito a administradores</h2>
-        <p>Sua conta não tem permissão para ver as candidaturas de parceria. Se precisar de acesso, peça a um administrador da plataforma.</p>
-        <a class="btn-ghost" href="dashboard.html">Ir para o painel do aluno</a>
+        <h2 id="pa-restrito-titulo">Acesso restrito à coordenação</h2>
+        <p>Sua conta não tem permissão para ver as candidaturas de parceria. Se precisar de acesso, fale com a coordenação da plataforma.</p>
+        <a class="btn-ghost" href="dashboard.html">Ir para a área do aluno</a>
       </section>
 
       <div id="pa-app" hidden>
@@ -152,6 +146,10 @@
   </main>
 
   <script src="js/api-client.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js"></script>
+  <script src="js/portal/professor.js?v=dev"></script>
   <script src="js/parcerias-admin.js"></script>
 </body>
 </html>

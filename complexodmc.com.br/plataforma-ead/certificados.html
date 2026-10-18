@@ -1,36 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Certificados de conclusão dos seus cursos.">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Certificados · Plataforma Complexo DMC</title>
-
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Declarações e certificados · Plataforma Complexo DMC</title>
+  <meta name="description" content="Certificados de conclusão e declarações dos seus cursos.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/plataforma.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-declaracoes.css?v=dev">
 </head>
-<body class="bg-grid" data-shell="certificados">
-  <div class="glow-corner"></div>
+<body data-shell="certificados" data-pagina="certificados">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
 
-  <main class="dash-shell">
-    <div class="dash-inner">
-      <section class="pagina-hero">
-        <span class="overline">Certificados</span>
-        <h1>Seus certificados de <span class="gradient-text">conclusão</span></h1>
-        <p>O certificado é emitido quando você conclui todas as aulas disponíveis de um curso. Cada documento recebe um código único de validação, que qualquer pessoa pode conferir sem precisar de conta na plataforma.</p>
-      </section>
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <header class="pf-cabecalho">
+      <p class="pf-cabecalho__contexto">Documentação</p>
+      <h1 class="pf-cabecalho__titulo">Declarações e <em>certificados</em></h1>
+      <p class="pf-cabecalho__desc">Emita o certificado dos cursos concluídos, solicite declarações e consulte o que já foi emitido. Cada documento traz um código de validação que qualquer pessoa pode conferir, sem precisar de conta na plataforma.</p>
+    </header>
 
-      <section id="certificados-lista" class="certificados-lista"></section>
-    </div>
+    <section class="pf-dec-secao" id="certificados" aria-labelledby="pf-dec-t-certificados">
+      <h2 class="pf-secao-titulo" id="pf-dec-t-certificados">Certificados</h2>
+      <p class="pf-dec-secao__intro">Certificados já emitidos continuam válidos. Para cada curso, a regra de emissão e o que falta vêm do registro acadêmico.</p>
+      <div id="certificados-lista" class="certificados-lista" aria-busy="true">
+        <p class="pf-ajuda">Carregando certificados…</p>
+      </div>
+    </section>
+
+    <section class="pf-dec-secao" id="solicitar" aria-labelledby="pf-dec-t-solicitar">
+      <h2 class="pf-secao-titulo" id="pf-dec-t-solicitar">Solicitar declaração</h2>
+      <p class="pf-dec-secao__intro">A declaração é gerada na hora, com os dados registrados na data da emissão. Só aparecem as opções disponíveis para você.</p>
+      <div id="pf-dec-solicitar"><p class="pf-ajuda">Carregando…</p></div>
+    </section>
+
+    <section class="pf-dec-secao" id="historico" aria-labelledby="pf-dec-t-historico">
+      <h2 class="pf-secao-titulo" id="pf-dec-t-historico">Histórico de solicitações</h2>
+      <div id="pf-dec-historico"><p class="pf-ajuda">Carregando…</p></div>
+    </section>
+
+    <noscript>
+      <p class="pf-alerta pf-alerta--aviso">Esta página precisa de JavaScript ativo no navegador. Ative-o e recarregue a página.</p>
+    </noscript>
+    <p class="dmc-sr-only" id="pf-dec-anuncio" role="status" aria-live="polite"></p>
   </main>
 
-  <script src="js/api-client.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/shell.js"></script>
-  <script>DMC_bootCertificados();</script>
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/declaracoes.js?v=dev"></script>
 </body>
 </html>

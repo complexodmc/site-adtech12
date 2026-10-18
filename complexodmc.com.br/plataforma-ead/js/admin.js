@@ -5,26 +5,49 @@
 (function () {
   'use strict';
 
-  async function bootAdmin() {
-    await DMC_init();
-    if (!DMC_Auth.requireAdminOrRedirect()) return;
-    DMC_bindHeader();
+  async function bootAdmin(ctx) {
+    // Chamado por js/portal/boot-admin.js dentro do DMC_Portal.iniciar (sessão, guarda e
+    // shell do backoffice já resolvidos). Sem ctx (chamada legada): o caminho antigo.
+    if (!ctx) {
+      await DMC_init();
+      if (!DMC_Auth.requireAdminOrRedirect()) return;
+      if (typeof DMC_bindHeader === 'function') DMC_bindHeader();
+    }
 
     const I = DMC_Icons;
     const esc = DMC_escapeHtml;
     const Data = DMC_Data;
     const Liberacoes = DMC_Liberacoes;
 
+    // Avisos e confirmações do portal (DMC_UI; reservas do professor.js). Nada de
+    // alert/confirm/prompt (índice §7.0): a confirmação é um <dialog> com
+    // data-pf-acao="confirmar|cancelar" e a ação só roda depois do aceite.
+    const PUI = () => (window.DMC_Professor && window.DMC_Professor.ui) || window.DMC_UI || null;
+    function avisar(msg) {
+      const u = PUI();
+      if (u && typeof u.toast === 'function') { u.toast(msg, { tipo: 'erro' }); return; }
+      try { toast(msg); } catch (_e) { console.error('[DMC]', msg); }
+    }
+    async function confirmar(opcoes) {
+      const u = PUI();
+      if (u && typeof u.confirmar === 'function') return !!(await u.confirmar({ perigo: true, rotuloCancelar: 'Cancelar', ...opcoes }));
+      avisar('Não foi possível abrir a confirmação. Recarregue a página e tente de novo.');
+      return false;
+    }
+
+    // Deep link admin.html?curso=<id> (destino de "Editar conteúdo" e da busca).
+    const cursoDoEndereco = new URLSearchParams(window.location.search).get('curso');
+
     let snapshot = Data.get();
     if (!snapshot.cursos.length) {
       const novo = makeNovoCurso();
       try { await Data.upsertCurso(novo); }
-      catch (err) { alert('Erro ao criar curso inicial: ' + err.message); return; }
+      catch (err) { avisar('Erro ao criar curso inicial: ' + err.message); return; }
       await Data.refresh();
       snapshot = Data.get();
     }
 
-    let selectedCursoId = snapshot.cursos[0].id;
+    let selectedCursoId = (cursoDoEndereco && snapshot.cursos.some(c => c.id === cursoDoEndereco)) ? cursoDoEndereco : snapshot.cursos[0].id;
 
     // Teto da capa no servidor (capas.js) — repetido aqui só pra avisar
     // antes de subir 12 MB e tomar 413.
@@ -39,17 +62,69 @@
     // estava trabalhando no módulo 7 era devolvido ao topo da lista.
     const modulosAbertos = new Set();
 
+    // Campos acadêmicos e capas novas (D-53, D-56): o catálogo legado não traz o tipo do
+    // módulo nem as capas novas; vêm da trilha (F1a, GET /portal/cursos/:id/trilha), lida
+    // uma vez por curso aberto. Capa vertical: a prévia aparece depois do envio (o
+    // catálogo da coordenação ainda não devolve a URL atual — pedido à F1a).
+    const extrasModulos = new Map();      // moduloId → { tipo, capaUrl }
+    const capaVerticalEnviada = new Map(); // cursoId → url
+    // Plano de ensino do módulo: componente DMC_PlanoEnsino da F1b (UX DC-24), montado sob demanda.
+    const planosAbertos = new Set();
+    const temPlano = () => !!(window.DMC_PlanoEnsino && typeof window.DMC_PlanoEnsino.montar === 'function');
+    function montarPlano(root, moduloId, curso) {
+      const corpo = root.querySelector(`[data-plano-corpo="${moduloId}"]`);
+      if (!corpo || corpo.dataset.montado === '1' || !temPlano()) return;
+      corpo.dataset.montado = '1';
+      Promise.resolve(window.DMC_PlanoEnsino.montar(corpo, { cursoId: curso.id, moduloId })).catch(err => {
+        corpo.dataset.montado = '';
+        toastErr(err);
+      });
+    }
+    let extrasProntos = false;              // a trilha respondeu: módulo sem entrada = regular
+    const IMAGEM_MAX = 1024 * 1024;
+    const TIPOS_IMAGEM = ['image/jpeg', 'image/png', 'image/webp'];
+    function erroImagem(arquivo) {
+      if (!arquivo) return null;
+      if (TIPOS_IMAGEM.indexOf(arquivo.type) < 0) return 'Formato não aceito. Envie JPG, PNG ou WebP.';
+      if (arquivo.size > IMAGEM_MAX) return 'Arquivo maior que 1 MB.';
+      return null;
+    }
+    async function carregarExtras(cursoId) {
+      try {
+        const t = await DMC_Api.get(`/portal/cursos/${encodeURIComponent(cursoId)}/trilha`);
+        (t && Array.isArray(t.modulos) ? t.modulos : []).forEach(m => {
+          extrasModulos.set(m.id, { tipo: m.tipo === 'tcc' ? 'tcc' : 'regular', capaUrl: m.capaUrl || null });
+        });
+        extrasProntos = true;
+      } catch (err) {
+        // Trilha indisponível (módulo de estudos ausente): o tipo fica sem marcação e as capas sem prévia.
+        console.warn('[DMC] trilha indisponível no editor:', err && err.message);
+      }
+      aplicarExtras(document.querySelector('#modules-edit'));
+    }
+    function aplicarExtras(root) {
+      if (!root) return;
+      root.querySelectorAll('[data-modulo-tipo]').forEach(b => {
+        const ex = extrasModulos.get(b.dataset.moduloId) || (extrasProntos ? { tipo: 'regular' } : null);
+        b.setAttribute('aria-pressed', String(!!ex && ex.tipo === b.dataset.moduloTipo));
+      });
+      root.querySelectorAll('[data-modulo-capa-previa]').forEach(el => {
+        const ex = extrasModulos.get(el.dataset.moduloCapaPrevia);
+        const del = root.querySelector(`[data-modulo-capa-del="${el.dataset.moduloCapaPrevia}"]`);
+        if (ex && ex.capaUrl) {
+          el.innerHTML = `<img src="${esc(ex.capaUrl)}" alt="" loading="lazy" width="80" height="80">`;
+          if (del) del.hidden = false;
+        } else if (del) del.hidden = true;
+      });
+    }
+
     // Botões de cabeçalho
     const btnAddCurso = document.querySelector('#btn-add-curso');
     if (btnAddCurso) btnAddCurso.innerHTML = `${I.plus} Novo curso`;
-    // Export/import/reset eram localStorage — não fazem mais sentido.
-    // Deixo Export como "exportar JSON do estado atual" (útil pra backup).
+    // Exportar estrutura (JSON do estado atual, só leitura — backup). Importar e
+    // redefinir saíram (eram do tempo do localStorage; o banco é a fonte de verdade).
     const btnExport = document.querySelector('#btn-export');
-    const btnImport = document.querySelector('#btn-import');
-    const btnReset = document.querySelector('#btn-reset');
-    if (btnExport) btnExport.innerHTML = `${I.download} Exportar JSON`;
-    if (btnImport) btnImport.style.display = 'none';   // import desativado (precisaria bulk-insert)
-    if (btnReset) btnReset.style.display = 'none';     // reset desativado (rodar seed.sql se quiser)
+    if (btnExport) btnExport.innerHTML = `${I.download} Exportar estrutura (JSON)`;
 
     // ============ TOAST ============
     const toastEl = document.querySelector('#toast');
@@ -62,8 +137,8 @@
       toastTimer = setTimeout(() => toastEl.classList.remove('is-show'), 1600);
     }
     function toastErr(err) {
-      console.error(err);
-      toast('Erro: ' + (err && err.message ? err.message : 'salvar'));
+      console.error('[DMC]', err);
+      avisar('Erro: ' + (err && err.message ? err.message : 'não foi possível salvar.'));
     }
 
     // ============ HELPERS ============
@@ -90,9 +165,14 @@
     }
 
     // ============ RENDER ============
+    let extrasCarregadosDe = null;
     function render() {
       renderSidebar();
       renderEditor();
+      if (selectedCursoId && extrasCarregadosDe !== selectedCursoId) {
+        extrasCarregadosDe = selectedCursoId;
+        carregarExtras(selectedCursoId);
+      }
       renderLiberacoesUI();
       renderLivesUI();
       renderDuvidasUI();
@@ -140,43 +220,43 @@
           <div class="editor-section__head">
             <div>
               <span class="overline">Curso</span>
-              <h2 style="margin-top:0.4rem">Identidade do programa</h2>
+              <h2 class="pf-prof-editor-subtitulo">Identidade do programa</h2>
             </div>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+            <div class="pf-prof-editor-acoes">
               <button class="btn-ghost danger" id="btn-delete-curso">${I.trash} Excluir curso</button>
             </div>
           </div>
 
           <div class="field-row cols-2">
             <div>
-              <label class="field-label">Título</label>
-              <input class="input" data-curso-field="titulo" value="${esc(curso.titulo)}" placeholder="Nome do programa">
+              <label class="field-label" for="curso-titulo">Título</label>
+              <input class="input" id="curso-titulo" data-curso-field="titulo" value="${esc(curso.titulo)}" placeholder="Nome do programa">
             </div>
             <div>
-              <label class="field-label">Carga horária</label>
-              <input class="input" data-curso-field="cargaHoraria" value="${esc(curso.cargaHoraria || '')}" placeholder="Ex.: 42h">
+              <label class="field-label" for="curso-cargaHoraria">Carga horária</label>
+              <input class="input" id="curso-cargaHoraria" data-curso-field="cargaHoraria" value="${esc(curso.cargaHoraria || '')}" placeholder="Ex.: 42h">
             </div>
           </div>
           <div class="field-row cols-2">
             <div>
-              <label class="field-label">Modalidade</label>
-              <input class="input" data-curso-field="modalidade" value="${esc(curso.modalidade || 'Online')}" placeholder="Online / Presencial / Híbrido">
+              <label class="field-label" for="curso-modalidade">Modalidade</label>
+              <input class="input" id="curso-modalidade" data-curso-field="modalidade" value="${esc(curso.modalidade || 'Online')}" placeholder="Online / Presencial / Híbrido">
             </div>
             <div>
-              <label class="field-label">Preço (R$)</label>
-              <input class="input" type="number" min="0" step="0.01" data-curso-field="preco" value="${Number(curso.preco) || 0}" placeholder="0.00">
-            </div>
-          </div>
-          <div class="field-row">
-            <div>
-              <label class="field-label">Subtítulo</label>
-              <input class="input" data-curso-field="subtitulo" value="${esc(curso.subtitulo || '')}" placeholder="Linha de apoio do programa">
+              <label class="field-label" for="curso-preco">Preço (R$)</label>
+              <input class="input" id="curso-preco" type="number" min="0" step="0.01" data-curso-field="preco" value="${Number(curso.preco) || 0}" placeholder="0.00">
             </div>
           </div>
           <div class="field-row">
             <div>
-              <label class="field-label">Descrição</label>
-              <textarea class="input" data-curso-field="descricao" placeholder="Descrição completa do programa">${esc(curso.descricao || '')}</textarea>
+              <label class="field-label" for="curso-subtitulo">Subtítulo</label>
+              <input class="input" id="curso-subtitulo" data-curso-field="subtitulo" value="${esc(curso.subtitulo || '')}" placeholder="Linha de apoio do programa">
+            </div>
+          </div>
+          <div class="field-row">
+            <div>
+              <label class="field-label" for="curso-descricao">Descrição</label>
+              <textarea class="input" id="curso-descricao" data-curso-field="descricao" placeholder="Descrição completa do programa">${esc(curso.descricao || '')}</textarea>
             </div>
           </div>
 
@@ -186,15 +266,31 @@
               <div class="capa-box" data-capa-wrap>${capaHtml(curso)}</div>
             </div>
           </div>
+          <div class="field-row">
+            <div>
+              <span class="field-label" id="capa-vertical-rotulo">Capa vertical (2:3)</span>
+              <div class="pf-prof-editor-capa" data-capa-vertical-wrap aria-labelledby="capa-vertical-rotulo" role="group">
+                <div class="pf-prof-editor-capa__previa pf-prof-editor-capa__previa--vertical" data-capa-vertical-previa>${capaVerticalEnviada.get(curso.id) ? `<img src="${esc(capaVerticalEnviada.get(curso.id))}" alt="Capa vertical de ${esc(curso.titulo)}" width="80" height="120">` : '<span>Prévia depois do envio</span>'}</div>
+                <div class="pf-prof-editor-capa__acoes">
+                  <p class="capa-dica">Usada na grade de Meus cursos. Sem ela, o portal recorta o centro da capa larga. JPG, PNG ou WebP até 1 MB.</p>
+                  <div class="pf-prof-editor-acoes">
+                    <label class="btn-mini">${I.upload} Enviar capa vertical<input type="file" accept="image/jpeg,image/png,image/webp" hidden data-capa-vertical-file></label>
+                    <button type="button" class="btn-mini danger" data-capa-vertical-del>${I.trash} Remover capa vertical</button>
+                  </div>
+                  <p class="pf-prof-campo__erro" data-capa-vertical-erro role="alert" hidden></p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section class="editor-section">
           <div class="editor-section__head">
             <div>
               <span class="overline">Estrutura</span>
-              <h2 style="margin-top:0.4rem">Módulos e aulas</h2>
+              <h2 class="pf-prof-editor-subtitulo">Módulos e aulas</h2>
             </div>
-            <div style="font-size:0.78rem;color:var(--ink-3);letter-spacing:0.06em">
+            <div class="pf-prof-editor-contagem">
               ${(curso.modulos || []).length} módulos · ${(curso.modulos || []).reduce((s,m) => s + m.aulas.length, 0)} aulas
             </div>
           </div>
@@ -205,6 +301,7 @@
           <div class="modulos-barra">
             <div class="modulos-busca">
               ${I.search || ''}
+              <label class="dmc-sr-only" for="filtro-modulos">Filtrar módulos e aulas</label>
               <input type="search" id="filtro-modulos" class="input"
                      placeholder="Buscar módulo ou aula…" autocomplete="off"
                      aria-label="Filtrar módulos e aulas">
@@ -232,10 +329,14 @@
             <button data-aula-up="${a.id}" ${ai === 0 ? 'disabled' : ''} title="Mover para cima">${I.chevronUp}</button>
             <button data-aula-down="${a.id}" ${ai === m.aulas.length - 1 ? 'disabled' : ''} title="Mover para baixo">${I.chevronDownSmall}</button>
           </div>
-          <input class="input aula-num-input" value="${esc(m.numero)}.${String(ai + 1).padStart(2, '0')}" disabled title="Numeração automática">
-          <input class="input" data-aula-field="titulo" data-aula-id="${a.id}" value="${esc(a.titulo)}" placeholder="Título da aula">
-          <input class="input" data-aula-field="duracao" data-aula-id="${a.id}" value="${esc(a.duracao || '')}" placeholder="Ex.: 32min">
-          <input class="input" data-aula-field="videoUrl" data-aula-id="${a.id}" value="${esc(a.videoUrl || '')}" placeholder="https://vimeo.com/... ou MP4 direto">
+          <label class="dmc-sr-only" for="aula-num-${a.id}">Numeração automática da aula</label>
+          <input class="input aula-num-input" id="aula-num-${a.id}" value="${esc(m.numero)}.${String(ai + 1).padStart(2, '0')}" disabled title="Numeração automática">
+          <label class="dmc-sr-only" for="aula-titulo-${a.id}">Título da aula</label>
+          <input class="input" id="aula-titulo-${a.id}" data-aula-field="titulo" data-aula-id="${a.id}" value="${esc(a.titulo)}" placeholder="Título da aula">
+          <label class="dmc-sr-only" for="aula-duracao-${a.id}">Duração da aula</label>
+          <input class="input" id="aula-duracao-${a.id}" data-aula-field="duracao" data-aula-id="${a.id}" value="${esc(a.duracao || '')}" placeholder="Ex.: 32min">
+          <label class="dmc-sr-only" for="aula-video-${a.id}">Endereço do vídeo da aula</label>
+          <input class="input" id="aula-video-${a.id}" data-aula-field="videoUrl" data-aula-id="${a.id}" value="${esc(a.videoUrl || '')}" placeholder="https://vimeo.com/... ou MP4 direto">
           ${disponibilidadeHtml(a)}
           <button class="btn-icon danger" data-aula-delete="${a.id}" title="Excluir aula">${I.trash}</button>
           <div class="aula-mats" data-mat-wrap="${a.id}">${materiaisHtml(a)}</div>
@@ -262,9 +363,12 @@
                 <span class="handle__pega" aria-hidden="true">${I.grip}</span>
                 <button data-modulo-down="${m.id}" ${idx === total - 1 ? 'disabled' : ''} aria-label="Mover módulo para baixo">${I.chevronDownSmall}</button>
               </div>
-              <input class="input" data-modulo-field="numero" data-modulo-id="${m.id}" value="${esc(m.numero)}" placeholder="01" style="text-align:center;font-family:'Playfair Display',serif;font-weight:600;font-size:1rem">
-              <input class="input" data-modulo-field="titulo" data-modulo-id="${m.id}" value="${esc(m.titulo)}" placeholder="Título do módulo">
-              <input class="input" data-modulo-field="duracao" data-modulo-id="${m.id}" value="${esc(m.duracao || '')}" placeholder="Ex.: 4h 20min">
+              <label class="dmc-sr-only" for="mod-numero-${m.id}">Número do módulo</label>
+              <input class="input pf-prof-editor-numero" id="mod-numero-${m.id}" data-modulo-field="numero" data-modulo-id="${m.id}" value="${esc(m.numero)}" placeholder="01">
+              <label class="dmc-sr-only" for="mod-titulo-${m.id}">Título do módulo</label>
+              <input class="input" id="mod-titulo-${m.id}" data-modulo-field="titulo" data-modulo-id="${m.id}" value="${esc(m.titulo)}" placeholder="Título do módulo">
+              <label class="dmc-sr-only" for="mod-duracao-${m.id}">Duração do módulo</label>
+              <input class="input" id="mod-duracao-${m.id}" data-modulo-field="duracao" data-modulo-id="${m.id}" value="${esc(m.duracao || '')}" placeholder="Ex.: 4h 20min">
               <button class="mod-acao mod-acao--abrir" data-modulo-toggle="${m.id}" aria-expanded="false">
                 <span class="mod-acao__n" data-contagem-aulas>${nAulas}</span>
                 <span class="mod-acao__rot">${nAulas === 1 ? 'aula' : 'aulas'}</span>
@@ -276,7 +380,7 @@
             </div>
           </div>
 
-          <!-- Confirmação no lugar do confirm() do navegador: aqui dá
+          <!-- Confirmação no próprio card (sem a caixa nativa do navegador): aqui dá
                para dizer QUANTAS aulas somem junto, que é a informação
                que evita o clique arrependido. -->
           <div class="mod-confirma" data-modulo-confirma="${m.id}" hidden>
@@ -288,9 +392,38 @@
           </div>
 
           <div class="admin-module__body">
-            <label class="field-label">Resumo</label>
-            <textarea class="input" data-modulo-field="resumo" data-modulo-id="${m.id}" placeholder="Breve descrição do módulo">${esc(m.resumo || '')}</textarea>
-            <span class="overline" style="font-size:0.62rem;display:block;margin-top:1.25rem">Aulas (${nAulas})</span>
+            <div class="pf-prof-editor-modulo-extra">
+              <div class="pf-prof-editor-tipo">
+                <span class="field-label" id="mod-tipo-rotulo-${m.id}">Tipo do módulo</span>
+                <div class="pf-segmento pf-prof-segmento" role="group" aria-labelledby="mod-tipo-rotulo-${m.id}">
+                  <button type="button" class="pf-segmento__opcao pf-prof-segmento__opcao" data-modulo-tipo="regular" data-modulo-id="${m.id}" aria-pressed="false">Regular</button>
+                  <button type="button" class="pf-segmento__opcao pf-prof-segmento__opcao" data-modulo-tipo="tcc" data-modulo-id="${m.id}" aria-pressed="false">TCC</button>
+                </div>
+                <p class="capa-dica">Num módulo de TCC, a avaliação pode ter a questão de envio de PDF.</p>
+              </div>
+              <div class="pf-prof-editor-capa">
+                <div class="pf-prof-editor-capa__previa" data-modulo-capa-previa="${m.id}"><span>${esc(m.numero)}</span></div>
+                <div class="pf-prof-editor-capa__acoes">
+                  <span class="field-label">Capa do módulo</span>
+                  <p class="capa-dica">Aparece na miniatura do módulo no player. Sem ela, o número. JPG, PNG ou WebP até 1 MB.</p>
+                  <div class="pf-prof-editor-acoes">
+                    <label class="btn-mini">${I.upload} Enviar capa do módulo<input type="file" accept="image/jpeg,image/png,image/webp" hidden data-modulo-capa-file="${m.id}"></label>
+                    <button type="button" class="btn-mini danger" data-modulo-capa-del="${m.id}" hidden>${I.trash} Remover</button>
+                  </div>
+                  <p class="pf-prof-campo__erro" data-modulo-capa-erro="${m.id}" role="alert" hidden></p>
+                </div>
+              </div>
+            </div>
+            ${temPlano() ? `<div class="pf-prof-editor-plano">
+              <button type="button" class="roteiro-head" data-plano-toggle="${m.id}" aria-expanded="${planosAbertos.has(m.id)}" aria-controls="plano-${m.id}">
+                <span class="roteiro-head__label">Plano de ensino</span>
+                <span class="roteiro-head__seta" aria-hidden="true">${I.chevronDownSmall}</span>
+              </button>
+              <div class="pf-prof-editor-plano__corpo" id="plano-${m.id}" data-plano-corpo="${m.id}" ${planosAbertos.has(m.id) ? '' : 'hidden'}></div>
+            </div>` : ''}
+            <label class="field-label" for="mod-resumo-${m.id}">Resumo</label>
+            <textarea class="input" id="mod-resumo-${m.id}" data-modulo-field="resumo" data-modulo-id="${m.id}" placeholder="Breve descrição do módulo">${esc(m.resumo || '')}</textarea>
+            <span class="overline pf-prof-editor-aulas">Aulas (${nAulas})</span>
             <div class="admin-aulas">${aulasHtml}</div>
             <button class="btn-add-aula" data-aula-add="${m.id}">${I.plus} Adicionar aula</button>
           </div>
@@ -386,9 +519,9 @@
         const arquivo = (fileInput.files || [])[0];
         fileInput.value = '';
         if (!arquivo) return;
-        if (!/^image\//.test(arquivo.type)) { alert(`"${arquivo.name}" não é uma imagem.`); return; }
+        if (!/^image\//.test(arquivo.type)) { avisar(`"${arquivo.name}" não é uma imagem.`); return; }
         if (arquivo.size > CAPA_MAX_MB * 1024 * 1024) {
-          alert(`A imagem tem ${DMC_formatBytes(arquivo.size)} — o limite é ${CAPA_MAX_MB} MB.`);
+          avisar(`A imagem tem ${DMC_formatBytes(arquivo.size)} — o limite é ${CAPA_MAX_MB} MB.`);
           return;
         }
         setStatus(`Enviando ${arquivo.name}…`);
@@ -401,12 +534,47 @@
 
       const delBtn = wrap.querySelector('[data-capa-del]');
       if (delBtn) delBtn.addEventListener('click', async () => {
-        if (!confirm('Remover a capa deste curso? O card volta a mostrar o ícone.')) return;
+        if (!(await confirmar({ titulo: 'Remover a capa?', texto: 'O card volta a mostrar o ícone.', rotuloConfirmar: 'Remover capa' }))) return;
         try { await Data.removerCapa(curso.id); }
         catch (err) { toastErr(err); return; }
         curso.capaUrl = '';
         refreshCapa(curso);
         toast('Capa removida');
+      });
+    }
+
+    // ============ CAPA VERTICAL DO CURSO (2:3, D-56, rota da F1a) ============
+    function bindCapaVertical(curso) {
+      const wrap = document.querySelector('[data-capa-vertical-wrap]');
+      if (!wrap) return;
+      const erro = wrap.querySelector('[data-capa-vertical-erro]');
+      const previa = wrap.querySelector('[data-capa-vertical-previa]');
+      const mostrarErro = (msg) => { if (erro) { erro.hidden = !msg; erro.textContent = msg || ''; } };
+      const input = wrap.querySelector('[data-capa-vertical-file]');
+      if (input) input.addEventListener('change', async () => {
+        const arquivo = (input.files || [])[0];
+        input.value = '';
+        const msg = erroImagem(arquivo);
+        mostrarErro(msg);
+        if (!arquivo || msg) return;
+        try {
+          const r = await DMC_Api.upload(`/portal/admin/cursos/${encodeURIComponent(curso.id)}/capa-vertical`, arquivo, arquivo.type);
+          if (r && r.capaVerticalUrl) {
+            capaVerticalEnviada.set(curso.id, r.capaVerticalUrl);
+            if (previa) previa.innerHTML = `<img src="${esc(r.capaVerticalUrl)}" alt="Capa vertical de ${esc(curso.titulo)}" width="80" height="120">`;
+          }
+          toast('Capa vertical atualizada');
+        } catch (err) { mostrarErro(err.message); }
+      });
+      const del = wrap.querySelector('[data-capa-vertical-del]');
+      if (del) del.addEventListener('click', async () => {
+        if (!(await confirmar({ titulo: 'Remover a capa vertical?', texto: 'A grade de Meus cursos volta a recortar o centro da capa larga.', rotuloConfirmar: 'Remover' }))) return;
+        try {
+          await DMC_Api.del(`/portal/admin/cursos/${encodeURIComponent(curso.id)}/capa-vertical`);
+          capaVerticalEnviada.delete(curso.id);
+          if (previa) previa.innerHTML = '<span>Sem capa vertical</span>';
+          toast('Capa vertical removida');
+        } catch (err) { toastErr(err); }
       });
     }
 
@@ -433,7 +601,8 @@
         </button>
         <div class="roteiro-body" data-roteiro-body ${aberto ? '' : 'hidden'}>
           <p class="roteiro-hint">${I.lock} Visível só aqui no painel administrativo — não aparece para o aluno.</p>
-          <textarea class="input roteiro-txt" data-roteiro-txt rows="6" maxlength="20000"
+          <label class="dmc-sr-only" for="roteiro-${aula.id}">Roteiro de gravação</label>
+          <textarea class="input roteiro-txt" id="roteiro-${aula.id}" data-roteiro-txt rows="6" maxlength="20000"
             placeholder="Resumo do vídeo: tópicos na ordem de gravação, deixas, exemplos a citar, o que mostrar na tela…">${esc(texto)}</textarea>
           <div class="roteiro-foot">
             <span class="roteiro-status" data-roteiro-status>Salva sozinho ao sair do campo.</span>
@@ -529,7 +698,8 @@
         ? mats.map(m => `
             <div class="mat-row" data-mat-id="${esc(m.id)}">
               <span class="mat-row__badge ${m.tipo === 'link' ? 'is-link' : ''}">${m.tipo === 'link' ? 'LINK' : 'PDF'}</span>
-              <input class="input mat-row__nome" data-mat-nome value="${esc(m.nome)}" placeholder="Nome exibido para o aluno">
+              <label class="dmc-sr-only" for="mat-nome-${esc(m.id)}">Nome do material exibido para o aluno</label>
+              <input class="input mat-row__nome" id="mat-nome-${esc(m.id)}" data-mat-nome value="${esc(m.nome)}" placeholder="Nome exibido para o aluno">
               <span class="mat-row__meta" title="${esc(m.tipo === 'link' ? m.url : m.nome)}">${m.tipo === 'link' ? esc(hostDe(m.url)) : DMC_formatBytes(m.tamanho)}</span>
               <button class="btn-icon" data-mat-open title="Abrir material">${I.download}</button>
               <button class="btn-icon danger" data-mat-del title="Remover material">${I.trash}</button>
@@ -544,9 +714,24 @@
               ${I.upload} Anexar PDF
               <input type="file" accept="application/pdf,.pdf" multiple hidden data-mat-file>
             </label>
-            <button type="button" class="btn-mini" data-mat-link>${I.plus} Link externo</button>
+            <button type="button" class="btn-mini" data-mat-link aria-expanded="false" aria-controls="mat-link-${esc(aula.id)}">${I.plus} Link externo</button>
           </div>
         </div>
+        <form class="pf-prof-editor-link" id="mat-link-${esc(aula.id)}" data-mat-link-form hidden novalidate>
+          <div class="pf-prof-editor-link__campo">
+            <label class="field-label" for="mat-url-${esc(aula.id)}">Link do material (https)</label>
+            <input class="input" id="mat-url-${esc(aula.id)}" name="url" type="url" maxlength="2000" placeholder="https://…" required>
+          </div>
+          <div class="pf-prof-editor-link__campo">
+            <label class="field-label" for="mat-titulo-${esc(aula.id)}">Nome que o aluno vai ver</label>
+            <input class="input" id="mat-titulo-${esc(aula.id)}" name="nome" maxlength="160">
+          </div>
+          <p class="pf-prof-campo__erro" data-mat-link-erro role="alert" hidden></p>
+          <div class="pf-prof-editor-acoes">
+            <button type="submit" class="btn-mini">Adicionar link</button>
+            <button type="button" class="btn-mini" data-mat-link-cancelar>Cancelar</button>
+          </div>
+        </form>
         <div class="mat-list">${itens}</div>`;
     }
 
@@ -574,7 +759,7 @@
         let enviados = 0;
         for (const arquivo of arquivos) {
           if (!/pdf$/i.test(arquivo.type) && !/\.pdf$/i.test(arquivo.name)) {
-            alert(`"${arquivo.name}" não é um PDF.`);
+            avisar(`"${arquivo.name}" não é um PDF.`);
             continue;
           }
           setStatus(`${I.upload} Enviando ${arquivo.name}… (${enviados + 1}/${arquivos.length})`);
@@ -590,19 +775,46 @@
 
       // ----- Link externo -----
       const linkBtn = wrap.querySelector('[data-mat-link]');
-      if (linkBtn) linkBtn.addEventListener('click', async () => {
-        const url = (prompt('Cole o link do material (Drive, Dropbox, PDF hospedado…):') || '').trim();
-        if (!url) return;
-        const padrao = decodeURIComponent((url.split('?')[0].split('/').pop() || 'Material externo'));
-        const nome = (prompt('Nome que o aluno vai ver:', padrao) || padrao).trim();
-        try {
-          const material = await Data.addMaterialLink(aula.id, nome, url);
-          aula.materiais = aula.materiais || [];
-          aula.materiais.push(material);
-        } catch (err) { toastErr(err); return; }
-        refreshMateriais(aula);
-        toast('Link adicionado');
-      });
+      const linkForm = wrap.querySelector('[data-mat-link-form]');
+      const abrirLink = (abrir) => {
+        if (!linkForm || !linkBtn) return;
+        linkForm.hidden = !abrir;
+        linkBtn.setAttribute('aria-expanded', String(abrir));
+        if (abrir) linkForm.querySelector('[name="url"]').focus();
+        else { linkForm.reset(); linkBtn.focus(); }
+      };
+      if (linkBtn) linkBtn.addEventListener('click', () => abrirLink(linkForm ? linkForm.hidden : false));
+      if (linkForm) {
+        const cancelar = linkForm.querySelector('[data-mat-link-cancelar]');
+        if (cancelar) cancelar.addEventListener('click', () => abrirLink(false));
+        linkForm.addEventListener('submit', async (ev) => {
+          ev.preventDefault();
+          const campoUrl = linkForm.querySelector('[name="url"]');
+          const erro = linkForm.querySelector('[data-mat-link-erro]');
+          const url = String(campoUrl.value || '').trim();
+          if (!/^https:\/\/\S+$/i.test(url)) {
+            erro.textContent = 'Informe um endereço completo que comece com https://';
+            erro.hidden = false;
+            campoUrl.setAttribute('aria-invalid', 'true');
+            campoUrl.focus();
+            return;
+          }
+          erro.hidden = true;
+          campoUrl.removeAttribute('aria-invalid');
+          let padrao = 'Material externo';
+          try { padrao = decodeURIComponent(url.split('?')[0].split('/').pop() || padrao); } catch (_e) { /* fica o padrão */ }
+          const nome = String(linkForm.querySelector('[name="nome"]').value || '').trim() || padrao;
+          const botao = linkForm.querySelector('button[type="submit"]');
+          botao.disabled = true;
+          try {
+            const material = await Data.addMaterialLink(aula.id, nome, url);
+            aula.materiais = aula.materiais || [];
+            aula.materiais.push(material);
+          } catch (err) { botao.disabled = false; toastErr(err); return; }
+          refreshMateriais(aula);
+          toast('Link adicionado');
+        });
+      }
 
       // ----- Renomear / abrir / remover -----
       wrap.querySelectorAll('.mat-row').forEach(row => {
@@ -628,7 +840,7 @@
 
         const delBtn = row.querySelector('[data-mat-del]');
         if (delBtn) delBtn.addEventListener('click', async () => {
-          if (!confirm(`Remover o material "${material.nome}"?`)) return;
+          if (!(await confirmar({ titulo: 'Remover material?', texto: `Remover o material "${material.nome}"? O aluno deixa de vê-lo na aula.`, rotuloConfirmar: 'Remover' }))) return;
           try { await Data.deleteMaterial(aula.id, matId); }
           catch (err) { toastErr(err); return; }
           aula.materiais = (aula.materiais || []).filter(m => m.id !== matId);
@@ -639,6 +851,32 @@
     }
 
     // ============ EVENT BINDING ============
+    // Correção (defeito mapeado da F8): o redesenho da lista de módulos depois de
+    // reordenar chamava de novo o ligador do editor INTEIRO e duplicava os ouvintes
+    // de quem fica fora da lista ("Adicionar módulo", campos do curso, capa, busca,
+    // arrastar) — após N reordenações, um clique criava N+1 módulos. Agora:
+    // bindEditorEvents liga o editor uma vez por render(); bindModulos(root) liga
+    // só o que mora dentro da lista e é o único chamado por redesenharModulos.
+    let arrastando = null;
+
+    function fecharConfirmacoes() {
+      const main = document.querySelector('#curso-editor');
+      if (!main) return;
+      main.querySelectorAll('[data-modulo-confirma]').forEach(c => { c.hidden = true; });
+      main.querySelectorAll('.admin-module').forEach(n => n.classList.remove('is-em-risco'));
+    }
+
+    function alternar(node, abrir) {
+      const fechado = abrir == null ? !node.classList.contains('is-recolhido') : !abrir;
+      node.classList.toggle('is-recolhido', fechado);
+      const bt = node.querySelector('[data-modulo-toggle]');
+      if (bt) bt.setAttribute('aria-expanded', String(!fechado));
+      // Registrado aqui e lido no render: é o que faz o módulo
+      // continuar aberto depois de adicionar uma aula.
+      if (fechado) modulosAbertos.delete(node.dataset.moduloId);
+      else modulosAbertos.add(node.dataset.moduloId);
+    }
+
     function bindEditorEvents() {
       const main = document.querySelector('#curso-editor');
       const curso = getCurso();
@@ -661,7 +899,7 @@
       // ----- Delete curso -----
       const delCurso = main.querySelector('#btn-delete-curso');
       if (delCurso) delCurso.addEventListener('click', async () => {
-        if (!confirm(`Excluir o curso "${curso.titulo}"? Essa ação não pode ser desfeita.`)) return;
+        if (!(await confirmar({ titulo: 'Excluir curso?', texto: `Excluir o curso "${curso.titulo}" com ${(curso.modulos || []).length} módulos e ${(curso.modulos || []).reduce((n, m) => n + (m.aulas || []).length, 0)} aulas? Não dá para desfazer.`, rotuloConfirmar: 'Excluir curso' }))) return;
         try { await Data.deleteCurso(curso.id); }
         catch (err) { toastErr(err); return; }
         await Data.refresh();
@@ -692,104 +930,9 @@
         render();
       });
 
-      // ----- Módulo fields: salva no blur -----
-      main.querySelectorAll('[data-modulo-field]').forEach(el => {
-        el.addEventListener('blur', async () => {
-          const m = curso.modulos.find(x => x.id === el.dataset.moduloId);
-          if (!m) return;
-          const field = el.dataset.moduloField;
-          if (m[field] === el.value) return;
-          m[field] = el.value;
-          try { await Data.upsertModulo(m, curso.id); toast('Salvo'); }
-          catch (err) { toastErr(err); return; }
-          renderSidebar();
-        });
-      });
-
-      // ----- Módulo: up/down/delete -----
-      main.querySelectorAll('[data-modulo-up]').forEach(b => b.addEventListener('click', async () => {
-        const id = b.dataset.moduloUp;
-        const idx = curso.modulos.findIndex(m => m.id === id);
-        if (idx <= 0) return;
-        await swapModulos(curso, idx - 1, idx);
-      }));
-      main.querySelectorAll('[data-modulo-down]').forEach(b => b.addEventListener('click', async () => {
-        const id = b.dataset.moduloDown;
-        const idx = curso.modulos.findIndex(m => m.id === id);
-        if (idx < 0 || idx >= curso.modulos.length - 1) return;
-        await swapModulos(curso, idx, idx + 1);
-      }));
-      // ----- Excluir módulo: pede confirmação no próprio card -----
-      function fecharConfirmacoes() {
-        main.querySelectorAll('[data-modulo-confirma]').forEach(c => { c.hidden = true; });
-        main.querySelectorAll('.admin-module').forEach(n => n.classList.remove('is-em-risco'));
-      }
-      main.querySelectorAll('[data-modulo-delete]').forEach(b => b.addEventListener('click', () => {
-        const id = b.dataset.moduloDelete;
-        const caixa = main.querySelector(`[data-modulo-confirma="${id}"]`);
-        const jaAberta = caixa && !caixa.hidden;
-        fecharConfirmacoes();
-        if (caixa && !jaAberta) {
-          caixa.hidden = false;
-          b.closest('.admin-module').classList.add('is-em-risco');
-          const sim = caixa.querySelector('[data-modulo-confirm]');
-          if (sim) sim.focus();
-        }
-      }));
-      main.querySelectorAll('[data-modulo-cancel]').forEach(b => b.addEventListener('click', fecharConfirmacoes));
-      main.querySelectorAll('[data-modulo-confirm]').forEach(b => b.addEventListener('click', async () => {
-        const id = b.dataset.moduloConfirm;
-        b.disabled = true;
-        try { await Data.deleteModulo(id); }
-        catch (err) { b.disabled = false; toastErr(err); return; }
-        await Data.refresh();
-        refreshSnapshot();
-        toast('Módulo excluído');
-        render();
-      }));
-
-      // ----- Abrir/recolher -----
-      function alternar(node, abrir) {
-        const fechado = abrir == null ? !node.classList.contains('is-recolhido') : !abrir;
-        node.classList.toggle('is-recolhido', fechado);
-        const bt = node.querySelector('[data-modulo-toggle]');
-        if (bt) bt.setAttribute('aria-expanded', String(!fechado));
-        // Registrado aqui e lido no render: é o que faz o módulo
-        // continuar aberto depois de adicionar uma aula.
-        if (fechado) modulosAbertos.delete(node.dataset.moduloId);
-        else modulosAbertos.add(node.dataset.moduloId);
-      }
-      main.querySelectorAll('[data-modulo-toggle]').forEach(b => {
-        b.addEventListener('click', () => alternar(b.closest('.admin-module')));
-      });
-      // Clicar no cabeçalho também abre — alvo grande, menos mira.
-      main.querySelectorAll('.admin-module__head').forEach(head => {
-        head.addEventListener('click', ev => {
-          if (ev.target.closest('input, textarea, button')) return;
-          alternar(head.closest('.admin-module'));
-        });
-      });
-      // ----- Arrastar para reordenar -----
-      // Levar o módulo 10 ao topo custava 9 cliques; aqui é um gesto só.
-      // O drop calcula a posição pela metade do card sob o cursor.
+      // ----- Arrastar: o contêiner da lista persiste entre redesenhos — liga UMA vez -----
       const listaModulos = main.querySelector('#modules-edit');
       if (listaModulos) {
-        let arrastando = null;
-        listaModulos.querySelectorAll('[data-arrasta]').forEach(pega => {
-          pega.addEventListener('dragstart', ev => {
-            arrastando = pega.closest('.admin-module');
-            arrastando.classList.add('is-arrastando');
-            ev.dataTransfer.effectAllowed = 'move';
-            // Firefox só inicia o arrasto se algo for escrito aqui.
-            ev.dataTransfer.setData('text/plain', arrastando.dataset.moduloId);
-          });
-          pega.addEventListener('dragend', () => {
-            if (arrastando) arrastando.classList.remove('is-arrastando');
-            listaModulos.querySelectorAll('.admin-module').forEach(n => n.classList.remove('is-alvo'));
-            arrastando = null;
-          });
-        });
-
         listaModulos.addEventListener('dragover', ev => {
           if (!arrastando) return;
           ev.preventDefault();
@@ -814,6 +957,7 @@
           moverModulo(curso, de, para);
         });
       }
+
 
       const btAbrir = main.querySelector('#btn-expandir-tudo');
       const btFechar = main.querySelector('#btn-recolher-tudo');
@@ -853,8 +997,99 @@
         });
       }
 
+      // ----- Capa do curso -----
+      bindCapa(curso);
+      bindCapaVertical(curso);
+
+      // ----- Lista de módulos -----
+      bindModulos(main.querySelector('#modules-edit') || main, curso);
+    }
+
+    function bindModulos(root, curso) {
+      if (!root || !curso) return;
+      // ----- Módulo fields: salva no blur -----
+      root.querySelectorAll('[data-modulo-field]').forEach(el => {
+        el.addEventListener('blur', async () => {
+          const m = curso.modulos.find(x => x.id === el.dataset.moduloId);
+          if (!m) return;
+          const field = el.dataset.moduloField;
+          if (m[field] === el.value) return;
+          m[field] = el.value;
+          try { await Data.upsertModulo(m, curso.id); toast('Salvo'); }
+          catch (err) { toastErr(err); return; }
+          renderSidebar();
+        });
+      });
+
+      // ----- Módulo: up/down/delete -----
+      root.querySelectorAll('[data-modulo-up]').forEach(b => b.addEventListener('click', async () => {
+        const id = b.dataset.moduloUp;
+        const idx = curso.modulos.findIndex(m => m.id === id);
+        if (idx <= 0) return;
+        await swapModulos(curso, idx - 1, idx);
+      }));
+      root.querySelectorAll('[data-modulo-down]').forEach(b => b.addEventListener('click', async () => {
+        const id = b.dataset.moduloDown;
+        const idx = curso.modulos.findIndex(m => m.id === id);
+        if (idx < 0 || idx >= curso.modulos.length - 1) return;
+        await swapModulos(curso, idx, idx + 1);
+      }));
+      // ----- Excluir módulo: pede confirmação no próprio card -----
+      root.querySelectorAll('[data-modulo-delete]').forEach(b => b.addEventListener('click', () => {
+        const id = b.dataset.moduloDelete;
+        const caixa = root.querySelector(`[data-modulo-confirma="${id}"]`);
+        const jaAberta = caixa && !caixa.hidden;
+        fecharConfirmacoes();
+        if (caixa && !jaAberta) {
+          caixa.hidden = false;
+          b.closest('.admin-module').classList.add('is-em-risco');
+          const sim = caixa.querySelector('[data-modulo-confirm]');
+          if (sim) sim.focus();
+        }
+      }));
+      root.querySelectorAll('[data-modulo-cancel]').forEach(b => b.addEventListener('click', fecharConfirmacoes));
+      root.querySelectorAll('[data-modulo-confirm]').forEach(b => b.addEventListener('click', async () => {
+        const id = b.dataset.moduloConfirm;
+        b.disabled = true;
+        try { await Data.deleteModulo(id); }
+        catch (err) { b.disabled = false; toastErr(err); return; }
+        await Data.refresh();
+        refreshSnapshot();
+        toast('Módulo excluído');
+        render();
+      }));
+
+      // ----- Abrir/recolher -----
+      root.querySelectorAll('[data-modulo-toggle]').forEach(b => {
+        b.addEventListener('click', () => alternar(b.closest('.admin-module')));
+      });
+      // Clicar no cabeçalho também abre — alvo grande, menos mira.
+      root.querySelectorAll('.admin-module__head').forEach(head => {
+        head.addEventListener('click', ev => {
+          if (ev.target.closest('input, textarea, button')) return;
+          alternar(head.closest('.admin-module'));
+        });
+      });
+      // ----- Arrastar para reordenar -----
+      // Levar o módulo 10 ao topo custava 9 cliques; aqui é um gesto só.
+      // O drop calcula a posição pela metade do card sob o cursor.
+      root.querySelectorAll('[data-arrasta]').forEach(pega => {
+        pega.addEventListener('dragstart', ev => {
+          arrastando = pega.closest('.admin-module');
+          arrastando.classList.add('is-arrastando');
+          ev.dataTransfer.effectAllowed = 'move';
+          // Firefox só inicia o arrasto se algo for escrito aqui.
+          ev.dataTransfer.setData('text/plain', arrastando.dataset.moduloId);
+        });
+        pega.addEventListener('dragend', () => {
+          if (arrastando) arrastando.classList.remove('is-arrastando');
+          root.querySelectorAll('.admin-module').forEach(n => n.classList.remove('is-alvo'));
+          arrastando = null;
+        });
+      });
+
       // ----- Aula: add -----
-      main.querySelectorAll('[data-aula-add]').forEach(b => b.addEventListener('click', async () => {
+      root.querySelectorAll('[data-aula-add]').forEach(b => b.addEventListener('click', async () => {
         const m = curso.modulos.find(x => x.id === b.dataset.aulaAdd);
         if (!m) return;
         const ordem = (m.aulas || []).length + 1;
@@ -877,7 +1112,7 @@
       }));
 
       // ----- Aula fields: salva no blur -----
-      main.querySelectorAll('[data-aula-field]').forEach(el => {
+      root.querySelectorAll('[data-aula-field]').forEach(el => {
         el.addEventListener('blur', async () => {
           const found = findAulaWithModulo(curso, el.dataset.aulaId);
           if (!found) return;
@@ -890,17 +1125,17 @@
       });
 
       // ----- Aula: up/down/delete -----
-      main.querySelectorAll('[data-aula-up]').forEach(b => b.addEventListener('click', async () => {
+      root.querySelectorAll('[data-aula-up]').forEach(b => b.addEventListener('click', async () => {
         await swapAulas(curso, b.dataset.aulaUp, -1);
       }));
-      main.querySelectorAll('[data-aula-down]').forEach(b => b.addEventListener('click', async () => {
+      root.querySelectorAll('[data-aula-down]').forEach(b => b.addEventListener('click', async () => {
         await swapAulas(curso, b.dataset.aulaDown, 1);
       }));
-      main.querySelectorAll('[data-aula-delete]').forEach(b => b.addEventListener('click', async () => {
+      root.querySelectorAll('[data-aula-delete]').forEach(b => b.addEventListener('click', async () => {
         const id = b.dataset.aulaDelete;
         const found = findAulaWithModulo(curso, id);
         if (!found) return;
-        if (!confirm(`Excluir a aula "${found.aula.titulo}"?`)) return;
+        if (!(await confirmar({ titulo: 'Excluir aula?', texto: `Excluir a aula "${found.aula.titulo}"? Use Em breve para tirá-la do ar sem apagar o histórico.`, rotuloConfirmar: 'Excluir aula' }))) return;
         try { await Data.deleteAula(id); }
         catch (err) { toastErr(err); return; }
         await Data.refresh();
@@ -909,11 +1144,68 @@
         render();
       }));
 
-      // ----- Disponibilidade de cada aula -----
-      bindDisponibilidade(main, curso);
+      // ----- Tipo do módulo (Regular · TCC, F3b) e capa do módulo (F1a) -----
+      root.querySelectorAll('[data-modulo-tipo]').forEach(b => b.addEventListener('click', async () => {
+        if (b.getAttribute('aria-pressed') === 'true') return;
+        const id = b.dataset.moduloId;
+        const tipo = b.dataset.moduloTipo;
+        const grupo = root.querySelectorAll(`[data-modulo-tipo][data-modulo-id="${id}"]`);
+        grupo.forEach(x => { x.disabled = true; });
+        try {
+          const r = await DMC_Api.put(`/portal/admin/modulos/${encodeURIComponent(id)}/academico`, { tipo });
+          const atual = extrasModulos.get(id) || { capaUrl: null };
+          extrasModulos.set(id, { ...atual, tipo: (r && r.modulo && r.modulo.tipo) || tipo });
+          toast(tipo === 'tcc' ? 'Módulo marcado como TCC' : 'Módulo marcado como regular');
+        } catch (err) { toastErr(err); }
+        grupo.forEach(x => { x.disabled = false; });
+        aplicarExtras(root);
+      }));
+      root.querySelectorAll('[data-modulo-capa-file]').forEach(input => input.addEventListener('change', async () => {
+        const id = input.dataset.moduloCapaFile;
+        const arquivo = (input.files || [])[0];
+        input.value = '';
+        const erro = root.querySelector(`[data-modulo-capa-erro="${id}"]`);
+        const msg = erroImagem(arquivo);
+        if (erro) { erro.hidden = !msg; erro.textContent = msg || ''; }
+        if (!arquivo || msg) return;
+        try {
+          const r = await DMC_Api.upload(`/portal/admin/modulos/${encodeURIComponent(id)}/capa`, arquivo, arquivo.type);
+          const atual = extrasModulos.get(id) || { tipo: null };
+          extrasModulos.set(id, { ...atual, capaUrl: (r && r.capaUrl) || null });
+          toast('Capa do módulo atualizada');
+        } catch (err) { if (erro) { erro.hidden = false; erro.textContent = err.message; } }
+        aplicarExtras(root);
+      }));
+      root.querySelectorAll('[data-modulo-capa-del]').forEach(b => b.addEventListener('click', async () => {
+        const id = b.dataset.moduloCapaDel;
+        if (!(await confirmar({ titulo: 'Remover a capa do módulo?', texto: 'A miniatura volta a mostrar o número do módulo.', rotuloConfirmar: 'Remover' }))) return;
+        try {
+          await DMC_Api.del(`/portal/admin/modulos/${encodeURIComponent(id)}/capa`);
+          const atual = extrasModulos.get(id) || { tipo: null };
+          extrasModulos.set(id, { ...atual, capaUrl: null });
+          const previa = root.querySelector(`[data-modulo-capa-previa="${id}"]`);
+          const mod = curso.modulos.find(x => x.id === id);
+          if (previa) previa.innerHTML = `<span>${esc(mod ? mod.numero : '')}</span>`;
+          toast('Capa do módulo removida');
+        } catch (err) { toastErr(err); }
+        aplicarExtras(root);
+      }));
+      aplicarExtras(root);
 
-      // ----- Capa do curso -----
-      bindCapa(curso);
+      // ----- Plano de ensino (DMC_PlanoEnsino, F1b) -----
+      root.querySelectorAll('[data-plano-toggle]').forEach(b => b.addEventListener('click', () => {
+        const id = b.dataset.planoToggle;
+        const corpo = root.querySelector(`[data-plano-corpo="${id}"]`);
+        if (!corpo) return;
+        const abrir = corpo.hidden;
+        corpo.hidden = !abrir;
+        b.setAttribute('aria-expanded', String(abrir));
+        if (abrir) { planosAbertos.add(id); montarPlano(root, id, curso); } else planosAbertos.delete(id);
+      }));
+      planosAbertos.forEach(id => montarPlano(root, id, curso));
+
+      // ----- Disponibilidade de cada aula -----
+      bindDisponibilidade(root, curso);
 
       // ----- Materiais de apoio e roteiro de cada aula -----
       (curso.modulos || []).forEach(m => (m.aulas || []).forEach(a => {
@@ -960,7 +1252,7 @@
       if (!alvo) return;
       alvo.innerHTML = (curso.modulos || [])
         .map((m, i) => renderModulo(m, i, curso.modulos.length)).join('');
-      bindEditorEvents();
+      bindModulos(alvo, curso);
     }
 
     async function swapModulos(curso, i, j) {
@@ -1108,7 +1400,7 @@
       }));
       list.querySelectorAll('[data-revoke-all]').forEach(b => b.addEventListener('click', async () => {
         const email = b.dataset.revokeAll;
-        if (!confirm(`Revogar TODOS os acessos de ${email}?`)) return;
+        if (!(await confirmar({ titulo: 'Revogar acessos?', texto: `Revogar TODOS os acessos de ${email}?`, rotuloConfirmar: 'Revogar' }))) return;
         try { await Liberacoes.revokeAllByEmail(email); }
         catch (err) { toastErr(err); return; }
         await Liberacoes.loadAll();
@@ -1126,10 +1418,8 @@
         const ids = Array.from(document.querySelectorAll('#lib-cursos input:checked')).map(i => i.value);
         if (!ids.length) { toast('Selecione ao menos um curso'); return; }
         try { await Liberacoes.grantByEmail(email, ids); }
-        catch (err) { alert(err.message); return; }
+        catch (err) { avisar(err.message); return; }
         document.querySelector('#lib-email').value = '';
-        const libNome = document.querySelector('#lib-nome');
-        if (libNome) libNome.value = '';
         document.querySelectorAll('#lib-cursos input:checked').forEach(i => i.checked = false);
         await Liberacoes.loadAll();
         renderLibList();
@@ -1191,12 +1481,12 @@
               <strong>${esc(l.titulo)}</strong>
               <span class="lib-row__n">${esc(rotulo[l.status] || l.status)}</span>
             </span>
-            <span style="display:flex;gap:0.4rem">
+            <span class="pf-prof-editor-acoes">
               <button class="lib-row__tudo" data-live-editar="${esc(l.id)}">Editar</button>
               <button class="lib-row__tudo" data-live-apagar="${esc(l.id)}">Remover</button>
             </span>
           </div>
-          <div class="lib-row__chips" style="flex-direction:column;align-items:flex-start;gap:0.2rem">
+          <div class="lib-row__chips pf-prof-editor-coluna">
             <span class="lib-curso__meta">${esc(l.cursoTitulo)}</span>
             <span class="lib-curso__meta">${esc(quandoData(l.inicioEm))} · ${l.duracaoMin} min · ${esc(l.plataforma)}</span>
           </div>
@@ -1217,7 +1507,7 @@
       }));
 
       list.querySelectorAll('[data-live-apagar]').forEach(b => b.addEventListener('click', async () => {
-        if (!confirm('Remover este encontro da agenda?')) return;
+        if (!(await confirmar({ titulo: 'Remover encontro?', texto: 'Remover este encontro da agenda?', rotuloConfirmar: 'Remover' }))) return;
         try { await Lives.apagar(b.dataset.liveApagar); }
         catch (err) { toastErr(err); return; }
         toast('Encontro removido');
@@ -1310,8 +1600,9 @@
           </div>
           <p class="duvida__texto">${esc(d.texto)}</p>
           <form class="resposta-form" data-dv-responder="${esc(d.id)}">
-            <textarea class="input" rows="2" maxlength="8000" placeholder="Responder como instrutor…"></textarea>
-            <button class="btn-primary" type="submit" style="width:auto;margin-top:0;gap:0.5rem">${I.reply} Responder</button>
+            <label class="dmc-sr-only" for="dv-resp-${esc(d.id)}">Responder à dúvida de ${esc(d.autorNome)}</label>
+            <textarea class="input" id="dv-resp-${esc(d.id)}" rows="2" maxlength="8000" placeholder="Responder como instrutor…"></textarea>
+            <button class="btn-primary pf-prof-btn-auto" type="submit">${I.reply} Responder</button>
           </form>
         </article>`).join('');
 
@@ -1345,8 +1636,6 @@
     const libClear = document.querySelector('#lib-clear');
     if (libClear) libClear.addEventListener('click', () => {
       document.querySelector('#lib-email').value = '';
-      const libNome = document.querySelector('#lib-nome');
-      if (libNome) libNome.value = '';
       document.querySelectorAll('#lib-cursos input:checked').forEach(i => i.checked = false);
     });
 

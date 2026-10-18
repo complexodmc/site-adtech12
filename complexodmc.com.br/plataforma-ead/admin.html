@@ -1,76 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Painel administrativo · Plataforma Complexo DMC.">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Painel Administrativo · Complexo DMC</title>
-
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Conteúdo dos cursos · Coordenação · Plataforma Complexo DMC</title>
+  <meta name="description" content="Editor de cursos, módulos e aulas · Plataforma Complexo DMC.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/plataforma.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-estudos.css?v=dev">
+  <link rel="stylesheet" href="css/portal-professor.css?v=dev">
 </head>
-<body class="bg-grid">
-  <div class="glow-corner"></div>
+<body data-shell="backoffice" data-shell-ativo="conteudo" data-pagina="admin">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
 
-  <header class="app-nav">
-    <div class="app-nav__inner">
-      <a class="app-brand" href="dashboard.html">
-        <img src="../assets/images/RINO_logo.png" alt="Complexo DMC">
-        <span class="app-brand__label">Complexo DMC</span>
-        <span class="app-brand__sub">Admin</span>
-      </a>
-      <div class="app-user">
-        <a class="btn-ghost" href="loja.html">Loja</a>
-        <a class="btn-ghost" href="dashboard.html">Painel do aluno</a>
-        <span data-user-nome></span>
-        <span class="user-avatar" data-user-iniciais></span>
-        <button class="btn-ghost" data-logout>Sair</button>
-      </div>
-    </div>
-  </header>
-
-  <main class="admin-shell">
+  <main id="conteudo" class="admin-shell pf-prof-editor" tabindex="-1">
     <div class="admin-inner">
 
-      <section class="admin-hero">
+      <section class="admin-hero pf-cabecalho pf-prof-cabecalho">
         <div class="admin-hero__title">
-          <span class="overline">Painel Administrativo</span>
-          <h1>Edição de cursos, módulos e aulas</h1>
-          <p>Edite tudo direto na tela. Cada alteração é salva automaticamente. Use <strong>Exportar JSON</strong> ao final para gerar a versão definitiva e <strong>Importar JSON</strong> para colar uma estrutura pronta.</p>
+          <span class="overline pf-cabecalho__contexto pf-prof-cabecalho__contexto">Ensino</span>
+          <h1 class="pf-cabecalho__titulo pf-prof-cabecalho__titulo">Conteúdo dos cursos</h1>
+          <p class="pf-cabecalho__descricao pf-prof-cabecalho__descricao">Edite direto na tela: cada campo é salvo ao sair dele.</p>
         </div>
         <div class="admin-hero__actions">
-          <button class="btn-ghost" id="btn-export"></button>
-          <button class="btn-ghost" id="btn-import"></button>
-          <button class="btn-ghost danger" id="btn-reset"></button>
+          <button type="button" class="btn-ghost" id="btn-export"></button>
         </div>
       </section>
 
       <div class="admin-grid">
-        <aside class="admin-sidebar">
+        <aside class="admin-sidebar" aria-labelledby="admin-cursos-titulo">
           <div class="admin-sidebar__head">
             <span class="overline">Cursos</span>
-            <h3>Programas cadastrados</h3>
+            <h2 class="pf-prof-editor-lateral" id="admin-cursos-titulo">Programas cadastrados</h2>
           </div>
           <div id="curso-list"></div>
-          <button class="btn-add-curso" id="btn-add-curso"></button>
+          <button type="button" class="btn-add-curso" id="btn-add-curso"></button>
         </aside>
 
-        <section class="admin-main" id="curso-editor"></section>
+        <section class="admin-main" id="curso-editor" aria-label="Editor do curso"></section>
       </div>
 
       <!-- ============ AULAS AO VIVO — agenda de encontros ============ -->
-      <section class="duvidas-pane" id="lives-pane">
+      <section class="duvidas-pane" id="lives-pane" aria-labelledby="lives-titulo">
         <div class="editor-section__head">
           <div>
             <span class="overline">Encontros</span>
-            <h2 style="margin-top:0.4rem">Aulas ao vivo</h2>
+            <h2 class="pf-prof-editor-subtitulo" id="lives-titulo">Aulas ao vivo</h2>
             <p class="duvidas-pane__help">Encontros agendados por curso. O aluno só vê os encontros dos cursos que ele tem liberados, e o botão de entrar na sala aparece 15 minutos antes do horário marcado — até lá o link não é entregue ao navegador dele.</p>
           </div>
-          <button class="btn-ghost" id="btn-lives-refresh"></button>
+          <button type="button" class="btn-ghost" id="btn-lives-refresh"></button>
         </div>
 
         <div class="lib-grid">
@@ -78,49 +69,49 @@
             <input type="hidden" id="live-id">
             <div class="field-row">
               <div>
-                <label class="field-label">Curso</label>
+                <label class="field-label" for="live-curso">Curso</label>
                 <select class="input" id="live-curso" required></select>
               </div>
             </div>
             <div class="field-row">
               <div>
-                <label class="field-label">Título do encontro</label>
+                <label class="field-label" for="live-titulo">Título do encontro</label>
                 <input class="input" id="live-titulo" required maxlength="180" placeholder="Ex.: Plantão de dúvidas — Módulo 02">
               </div>
             </div>
             <div class="field-row cols-3">
               <div>
-                <label class="field-label">Data e hora</label>
+                <label class="field-label" for="live-inicio">Data e hora</label>
                 <input class="input" id="live-inicio" type="datetime-local" required>
               </div>
               <div>
-                <label class="field-label">Plataforma</label>
+                <label class="field-label" for="live-plataforma">Plataforma</label>
                 <input class="input" id="live-plataforma" placeholder="Zoom, Meet, YouTube…">
               </div>
               <div>
-                <label class="field-label">Duração (min)</label>
+                <label class="field-label" for="live-duracao">Duração (min)</label>
                 <input class="input" id="live-duracao" type="number" min="10" max="600" step="5" value="90">
               </div>
             </div>
             <div class="field-row">
               <div>
-                <label class="field-label">Link da sala</label>
+                <label class="field-label" for="live-url">Link da sala</label>
                 <input class="input" id="live-url" type="url" placeholder="https://…">
               </div>
             </div>
             <div class="field-row">
               <div>
-                <label class="field-label">Descrição (opcional)</label>
+                <label class="field-label" for="live-descricao">Descrição (opcional)</label>
                 <textarea class="input" id="live-descricao" rows="2" maxlength="2000" placeholder="O que será tratado neste encontro"></textarea>
               </div>
             </div>
             <div class="lib-form__actions">
-              <button class="btn-primary" type="submit" style="width:auto;margin-top:0">Salvar encontro</button>
+              <button class="btn-primary pf-prof-btn-auto" type="submit">Salvar encontro</button>
               <button class="btn-ghost" type="button" id="live-clear">Limpar</button>
             </div>
           </form>
 
-          <aside class="lib-list-wrap">
+          <aside class="lib-list-wrap" aria-label="Agenda de encontros">
             <div class="lib-list-head">
               <span class="overline">Agenda</span>
               <span class="lib-list-count" id="lives-count">0</span>
@@ -131,55 +122,51 @@
       </section>
 
       <!-- ============ DÚVIDAS — fila de perguntas feitas nas aulas ============ -->
-      <section class="duvidas-pane" id="duvidas-pane">
+      <section class="duvidas-pane" id="duvidas-pane" aria-labelledby="duvidas-titulo">
         <div class="editor-section__head">
           <div>
             <span class="overline">Suporte ao aluno</span>
-            <h2 style="margin-top:0.4rem">Dúvidas das aulas</h2>
-            <p class="duvidas-pane__help">Perguntas enviadas pelos alunos na página de cada aula. Só o instrutor responde, e a resposta aparece na aula para todos os alunos com acesso ao curso. Responder marca a dúvida como resolvida e a tira desta fila.</p>
+            <h2 class="pf-prof-editor-subtitulo" id="duvidas-titulo">Dúvidas das aulas</h2>
+            <p class="duvidas-pane__help">Perguntas enviadas pelos alunos na página de cada aula. A resposta aparece na aula para todos os alunos com acesso ao curso, marca a dúvida como resolvida e a tira desta fila. Os professores respondem as dúvidas dos seus cursos no Portal do Professor.</p>
           </div>
-          <button class="btn-ghost" id="btn-duvidas-refresh"></button>
+          <button type="button" class="btn-ghost" id="btn-duvidas-refresh"></button>
         </div>
         <div class="duvidas-admin" id="duvidas-admin"></div>
       </section>
 
       <!-- ============ LIBERAÇÕES — gerenciamento de acesso por aluno ============ -->
-      <section class="lib-section" id="liberacoes-pane">
+      <section class="lib-section" id="liberacoes-pane" aria-labelledby="liberacoes-titulo">
         <div class="editor-section__head">
           <div>
             <span class="overline">Acesso</span>
-            <h2 style="margin-top:0.4rem">Liberar cursos para alunos</h2>
-            <p class="lib-help">Use esta seção quando precisar liberar manualmente o acesso de um aluno (cortesia, conferência ou ajuste pós-pagamento). Em compras concluídas pela Loja, a liberação é automática após o checkout.</p>
+            <h2 class="pf-prof-editor-subtitulo" id="liberacoes-titulo">Liberar cursos para alunos</h2>
+            <p class="lib-help">Use esta seção quando precisar liberar manualmente o acesso de um aluno (cortesia, conferência ou ajuste depois do pagamento). O aluno precisa ter conta na plataforma com este e-mail.</p>
           </div>
         </div>
 
         <div class="lib-grid">
           <form class="lib-form" id="lib-form" autocomplete="off">
-            <div class="field-row cols-2">
+            <div class="field-row">
               <div>
-                <label class="field-label">Nome do aluno (opcional)</label>
-                <input class="input" id="lib-nome" placeholder="Ex.: Maria de Souza">
-              </div>
-              <div>
-                <label class="field-label">E-mail do aluno</label>
+                <label class="field-label" for="lib-email">E-mail do aluno</label>
                 <input class="input" id="lib-email" type="email" required placeholder="aluno@dominio.com">
               </div>
             </div>
 
             <div class="field-row">
-              <div>
-                <label class="field-label">Cursos a liberar</label>
+              <fieldset class="pf-prof-editor-fieldset">
+                <legend class="field-label">Cursos a liberar</legend>
                 <div class="lib-cursos" id="lib-cursos"></div>
-              </div>
+              </fieldset>
             </div>
 
             <div class="lib-form__actions">
-              <button class="btn-primary" type="submit" style="width:auto;margin-top:0">Liberar acesso</button>
+              <button class="btn-primary pf-prof-btn-auto" type="submit">Liberar acesso</button>
               <button class="btn-ghost" type="button" id="lib-clear">Limpar</button>
             </div>
           </form>
 
-          <aside class="lib-list-wrap">
+          <aside class="lib-list-wrap" aria-label="Alunos com acesso">
             <div class="lib-list-head">
               <span class="overline">Alunos com acesso</span>
               <span class="lib-list-count" id="lib-list-count">0</span>
@@ -192,35 +179,28 @@
     </div>
   </main>
 
-  <div class="toast" id="toast">Salvo</div>
-
-  <div class="modal-overlay" id="modal-import">
-    <div class="modal">
-      <h3>Importar JSON</h3>
-      <p>Cole abaixo o JSON com a estrutura de cursos. Esse conteúdo substitui tudo o que existe hoje na plataforma.</p>
-      <textarea id="import-json" placeholder='{"cursos": [...], "cursoAtivoId": "..."}'></textarea>
-      <div class="modal-actions">
-        <button class="btn-ghost" data-modal-close>Cancelar</button>
-        <button class="btn-primary" id="btn-import-confirm" style="width:auto;margin-top:0">Substituir conteúdo</button>
-      </div>
-    </div>
-  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite">Salvo</div>
 
   <div class="modal-overlay" id="modal-export">
-    <div class="modal">
-      <h3>Exportar JSON</h3>
-      <p>Estrutura atual da plataforma (snapshot do banco). Útil para backup. A fonte de verdade é o MongoDB.</p>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-export-titulo">
+      <h3 id="modal-export-titulo">Exportar estrutura (JSON)</h3>
+      <p>Estrutura atual da plataforma (cópia do banco, só leitura). Útil para backup. A fonte de verdade é o banco de dados.</p>
+      <label class="dmc-sr-only" for="export-json">Estrutura em JSON</label>
       <textarea id="export-json" readonly></textarea>
       <div class="modal-actions">
-        <button class="btn-ghost" data-modal-close>Fechar</button>
-        <button class="btn-primary" id="btn-copy-json" style="width:auto;margin-top:0">Copiar para área de transferência</button>
+        <button type="button" class="btn-ghost" data-modal-close>Fechar</button>
+        <button type="button" class="btn-primary pf-prof-btn-auto" id="btn-copy-json">Copiar para a área de transferência</button>
       </div>
     </div>
   </div>
 
   <script src="js/api-client.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js"></script>
+  <script src="js/portal/professor.js?v=dev"></script>
+  <script src="js/portal/prof-conteudo.js?v=dev"></script>
   <script src="js/admin.js"></script>
-  <script>DMC_bootAdmin();</script>
+  <script src="js/portal/boot-admin.js?v=dev"></script>
 </body>
 </html>

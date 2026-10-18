@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
+  <meta charset="UTF-8">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Validar documento · Complexo DMC</title>
+  <meta name="description" content="Validação pública de certificados, declarações e comprovantes emitidos pelo Complexo DMC.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-declaracoes.css?v=dev">
+</head>
+<body data-pagina="validar">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <main id="conteudo" class="pf-dec-pagina" tabindex="-1">
+    <div class="pf-dec-barra">
+      <a class="pf-dec-marca" href="../index.html">
+        <img src="../assets/images/rino-marca.webp" alt="" width="40" height="40" decoding="async">
+        <span class="pf-dec-marca__nome">Complexo <b>DMC</b></span>
+      </a>
+      <span class="pf-cabecalho__contexto">Validação de documentos</span>
+    </div>
+    <header class="pf-cabecalho">
+      <h1 class="pf-cabecalho__titulo">Validar <em>documento</em></h1>
+      <p class="pf-cabecalho__desc">Digite ou cole o código impresso no documento (por exemplo, no rodapé de um certificado ou de uma declaração). Espaços e letras minúsculas são aceitos.</p>
+    </header>
+
+    <div class="pf-dec-validar">
+      <form class="pf-dec-validar__form" id="pf-dec-validar-form" action="validar.html" method="get" novalidate>
+        <div class="pf-dec-validar__linha">
+          <div class="pf-campo">
+            <label class="pf-rotulo" for="pf-dec-codigo">Código de validação</label>
+            <input class="pf-input" id="pf-dec-codigo" name="codigo" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" placeholder="DEC-XXXX-XXXX-XXXX">
+          </div>
+          <button type="submit" class="dmc-btn dmc-btn--primary">Validar</button>
+        </div>
+      </form>
+      <div id="pf-dec-resultado" aria-live="polite"></div>
+    </div>
+    <footer class="pf-dec-rodape">
+      <p>Complexo DMC · <a href="../index.html" data-alvo-excecao>complexodmc.com.br</a> · A validação mostra só o necessário para conferir o documento; dados pessoais não são exibidos.</p>
+    </footer>
+  </main>
+
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/portal/validar.js?v=dev"></script>
+</body>
+</html>

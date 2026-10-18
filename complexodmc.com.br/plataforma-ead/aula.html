@@ -1,71 +1,96 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Plataforma Complexo DMC — Aula em curso.">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
   <title>Aula · Plataforma Complexo DMC</title>
-
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <meta name="description" content="Plataforma Complexo DMC — Aula em curso.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/plataforma.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-estudos.css?v=dev">
+  <link rel="stylesheet" href="css/portal-avaliacao.css?v=dev">
 </head>
-<body class="bg-grid" data-shell="conteudos">
-  <div class="glow-corner"></div>
+<body data-shell="inicio" data-pagina="aula">
+  <a class="dmc-skip" href="#player-stage">Pular para o conteúdo</a>
 
-
-  <main class="player-shell">
-    <div class="dash-inner" id="player-root">
-      <a class="player-back" href="dashboard.html">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        Voltar ao painel
-      </a>
-
-      <div class="player-grid">
-        <div>
-          <div class="player-stage" id="player-stage"></div>
-
-          <div class="player-meta">
-            <span class="overline" data-aula-modulo>—</span>
-            <h1 data-aula-titulo>—</h1>
-            <div class="player-meta__row">
-              <span data-aula-num></span>
-              <span data-aula-dur></span>
-            </div>
-            <div class="player-actions">
-              <button class="btn-ghost" id="btn-prev">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                Aula anterior
-              </button>
-              <button class="btn-primary" id="btn-done" style="width:auto; margin-top:0; gap:0.5rem;"></button>
-              <button class="btn-ghost" id="btn-next">
-                Próxima aula
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
+  <main id="conteudo" class="pf-est-player" tabindex="-1">
+    <div id="player-root" class="pf-est-player__raiz">
+      <header class="pf-est-topo">
+        <a class="pf-est-topo__voltar" href="dashboard.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"/></svg>
+          <span class="pf-est-topo__voltar-rotulo">Início</span>
+        </a>
+        <a class="pf-est-topo__curso" href="dashboard.html" data-curso-titulo>Aula</a>
+        <div class="pf-est-topo__progresso" data-player-progresso></div>
+        <div class="pf-est-topo__acoes">
+          <button type="button" class="pf-est-topo__botao" data-player-aparencia aria-expanded="false" aria-controls="pf-est-aparencia" aria-label="Aparência" hidden><span class="pf-est-rotulo-longo">Aparência</span><span class="pf-est-rotulo-curto" aria-hidden="true">Aa</span></button>
+          <div class="pf-est-aparencia" id="pf-est-aparencia" role="group" aria-label="Aparência" hidden>
+            <button type="button" class="pf-est-topo__botao" data-aparencia="tema">Alternar tema</button>
+            <button type="button" class="pf-est-topo__botao" data-aparencia="menos" aria-label="Diminuir o texto">A−</button>
+            <button type="button" class="pf-est-topo__botao" data-aparencia="mais" aria-label="Aumentar o texto">A+</button>
           </div>
-
-          <!-- Q&A da aula: preenchido por renderDuvidasDaAula() -->
-          <section class="player-duvidas" id="player-duvidas"></section>
+          <button type="button" class="pf-est-topo__botao pf-est-topo__modulos" data-player-abrir-modulos aria-expanded="false" aria-controls="player-modulos" hidden>Módulos</button>
         </div>
+      </header>
 
-        <aside class="player-aside">
-          <div class="player-aside__head">
-            <span class="overline">Trilha do programa</span>
-            <h3 data-curso-titulo>—</h3>
-          </div>
-          <div id="player-aside-list"></div>
-        </aside>
+      <nav id="player-modulos" class="pf-est-modulos" aria-label="Módulos do curso" data-aberto="false">
+        <div class="pf-est-modulos__cab">
+          <p class="pf-est-overline" data-player-qtd>Módulos</p>
+          <button type="button" class="pf-est-topo__botao pf-est-modulos__fechar" data-fechar-modulos>Fechar</button>
+        </div>
+        <ol class="pf-est-modulos__lista" data-player-lista role="list"></ol>
+      </nav>
+
+      <div class="pf-est-principal">
+        <p class="pf-alerta pf-alerta--info pf-est-aviso" data-player-equipe hidden>Você está vendo este curso como equipe. Seu progresso não entra em notas nem relatórios.</p>
+        <div class="pf-est-meta" data-player-meta>
+          <p class="pf-est-overline" data-aula-modulo>Carregando…</p>
+          <h1 class="pf-est-meta__titulo" id="player-titulo" tabindex="-1" data-aula-titulo>Aula</h1>
+          <div class="pf-est-meta__linha"></div>
+        </div>
+        <div id="player-stage" class="pf-est-palco pf-palco pf-est-palco--video" tabindex="-1"><div class="pf-est-esqueleto pf-est-esqueleto--video" aria-hidden="true"></div></div>
+        <p class="pf-est-assistido" data-player-assistido hidden></p>
+        <section id="player-materiais" class="pf-est-bloco" aria-label="Material de apoio desta aula" hidden></section>
+        <section id="player-duvidas" class="pf-est-bloco pf-est-duvidas" aria-label="Dúvidas desta aula" hidden></section>
+        <noscript><p class="pf-est-noscript">Para assistir às aulas, ative o JavaScript do navegador. <a href="dashboard.html">Voltar ao início</a></p></noscript>
       </div>
+
+      <nav class="pf-est-rodape" aria-label="Navegação do módulo">
+        <button type="button" class="pf-est-rodape__botao" id="btn-prev" aria-label="Conteúdo anterior" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"/></svg>
+          <span class="pf-est-rodape__rotulo">Anterior</span>
+        </button>
+        <p class="pf-est-rodape__posicao" aria-live="polite" data-player-posicao></p>
+        <p class="pf-est-aviso-rodape" data-player-aviso hidden></p>
+        <button type="button" class="pf-est-rodape__botao pf-est-rodape__concluir" id="btn-done" hidden>Marcar como concluído</button>
+        <button type="button" class="dmc-btn dmc-btn--primary pf-est-rodape__proximo" id="btn-next">
+          <span data-rotulo>Próximo conteúdo</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </nav>
     </div>
   </main>
 
-  <script src="js/api-client.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/shell.js"></script>
-  <script>DMC_bootPlayer();</script>
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/estudos-dados.js?v=dev"></script>
+  <script src="js/portal/video.js?v=dev"></script>
+  <script src="js/portal/avaliacao.js?v=dev"></script>
+  <script src="js/portal/player.js?v=dev"></script>
 </body>
 </html>

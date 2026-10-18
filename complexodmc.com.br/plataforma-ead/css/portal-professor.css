@@ -1,0 +1,399 @@
+/* =============================================================
+   COMPLEXO DMC · PLATAFORMA · css/portal-professor.css (F8)
+   Portal do Professor e da coordenação (professor.html) e o editor
+   de conteúdo (admin.html) dentro do shell do backoffice.
+   Spec: PORTAL-UX.md §7 (tela de trabalho: densidade média, fio no
+   lugar de caixa, ouro só na ação principal, na linha ativa e no foco).
+
+   Regras: só tokens (--pf-* de portal.css e os neutros de tokens.css),
+   nenhuma cor literal; prefixo pf-prof-; as classes do catálogo
+   (pf-cabecalho, pf-kpis, pf-abas…) são da F0s e NÃO são definidas
+   aqui — o markup usa as duas (catálogo + pf-prof-) e este arquivo só
+   garante o arranjo mínimo enquanto o catálogo não cobre o caso.
+   Movimento: só opacity/transform; sem transição com movimento reduzido.
+   ============================================================= */
+
+/* ---------- casca ---------- */
+.pf-prof { max-width: var(--pf-conteudo-largo, 80rem); }
+.pf-prof-vista { transition: opacity 160ms var(--ease-standard, ease); }
+.pf-prof-vista--entrando { opacity: 0; }
+.pf-prof-sem-js { padding: var(--space-6) 0; color: var(--pf-texto-2); }
+
+/* ---------- cabeçalho de página (arranjo mínimo) ---------- */
+.pf-prof-cabecalho {
+  display: grid;
+  gap: var(--space-2);
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-prof-cabecalho__titulo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: var(--pf-fs-titulo, var(--fs-h2));
+  line-height: 1.1;
+  color: var(--pf-texto-1);
+}
+.pf-prof-cabecalho__titulo em { font-style: italic; color: var(--pf-acento); }
+.pf-prof-cabecalho__titulo:focus { outline: none; }
+.pf-prof-cabecalho__titulo:focus-visible { outline: 2px solid var(--pf-foco); outline-offset: 4px; }
+.pf-prof-cabecalho__descricao { margin: 0; max-width: 38rem; color: var(--pf-texto-2); }
+.pf-prof-cabecalho__contexto { margin: 0; font-size: var(--pf-fs-overline, var(--fs-overline)); letter-spacing: .08em; text-transform: uppercase; color: var(--pf-texto-3); }
+.pf-prof-cabecalho__voltar {
+  display: inline-flex; align-items: center; min-height: var(--hit, 44px);
+  color: var(--pf-texto-2); text-decoration: none; justify-self: start;
+}
+.pf-prof-cabecalho__voltar:hover { color: var(--pf-texto-1); }
+.pf-prof-cabecalho__acoes:empty { display: none; }
+
+/* ---------- textos utilitários ---------- */
+.pf-prof-nota { color: var(--pf-texto-3); font-size: var(--pf-fs-meta, var(--fs-small)); }
+.pf-prof-ajuda { margin: var(--space-2) 0 var(--space-5); }
+.pf-prof-tnum { font-variant-numeric: tabular-nums; }
+.pf-prof-texto { white-space: pre-wrap; overflow-wrap: anywhere; margin: var(--space-2) 0; color: var(--pf-texto-1); }
+.pf-prof-overline {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-text);
+  font-size: var(--pf-fs-overline, var(--fs-overline));
+  font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--pf-texto-3);
+}
+.pf-prof-h2 { margin: 0 0 var(--space-3); font-family: var(--font-text); font-weight: 600; font-size: var(--fs-h4, 1.125rem); color: var(--pf-texto-1); }
+.pf-prof-link, .pf-prof-link-botao {
+  color: var(--pf-texto-1); text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: var(--pf-linha-forte);
+}
+.pf-prof-link-botao {
+  background: none; border: 0; padding: 0 var(--space-1); min-height: var(--hit, 44px);
+  font: inherit; cursor: pointer;
+}
+.pf-prof-link:hover, .pf-prof-link-botao:hover { text-decoration-color: var(--pf-acento); }
+.pf-prof-link:focus-visible, .pf-prof-link-botao:focus-visible,
+.pf-prof-kpi__link:focus-visible, .pf-prof-abas__aba:focus-visible, .pf-prof-lista__link:focus-visible {
+  outline: 2px solid var(--pf-foco); outline-offset: 2px;
+}
+
+/* ---------- KPIs ---------- */
+.pf-prof-bloco { margin-bottom: var(--space-6); }
+.pf-prof-kpis {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  border-top: 1px solid var(--pf-linha);
+}
+.pf-prof-kpi { border-bottom: 1px solid var(--pf-linha); min-width: 0; }
+.pf-prof-kpi > .pf-prof-kpi__rotulo, .pf-prof-kpi__link { padding: var(--space-4) var(--space-3) var(--space-4) 0; }
+.pf-prof-kpi { display: grid; align-content: start; }
+.pf-prof-kpi__link { display: grid; gap: var(--space-1); color: inherit; text-decoration: none; min-height: var(--hit, 44px); }
+.pf-prof-kpi__link:hover .pf-prof-kpi__valor { color: var(--pf-acento); }
+.pf-prof-kpi__rotulo { color: var(--pf-texto-2); font-size: var(--pf-fs-meta, var(--fs-small)); }
+.pf-prof-kpi__valor {
+  font-family: var(--font-display); font-weight: 300; font-size: var(--pf-fs-kpi, var(--fs-h2));
+  line-height: 1.1; color: var(--pf-texto-1); font-variant-numeric: tabular-nums;
+}
+.pf-prof-kpi__nota { color: var(--pf-texto-3); font-size: var(--pf-fs-meta, var(--fs-small)); }
+@media (max-width: 47.99em) {
+  .pf-prof-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Janela estreita com texto ampliado (nível 2 em 320 px): uma coluna, e o valor quebra
+   em vez de empurrar a página para o lado. */
+@container pf-main (max-width: 17.99em) {
+  .pf-prof-kpis { grid-template-columns: minmax(0, 1fr); }
+}
+.pf-prof-kpi__link { min-width: 0; }
+.pf-prof-kpi__rotulo, .pf-prof-kpi__valor { min-width: 0; overflow-wrap: break-word; }
+.pf-prof-kpi__valor { white-space: normal; }
+
+/* ---------- grade 7/5 da visão geral ---------- */
+.pf-prof-grade { display: grid; gap: var(--space-6); }
+@media (min-width: 64em) {
+  .pf-prof-grade { grid-template-columns: 7fr 5fr; }
+  .pf-prof-grade__estreita { border-left: 1px solid var(--pf-linha); padding-left: var(--space-6); }
+}
+@media (max-width: 63.99em) {
+  .pf-prof-grade__estreita { order: -1; }
+}
+.pf-prof-coluna__bloco { margin-bottom: var(--space-6); }
+
+/* ---------- listas com fio ---------- */
+.pf-prof-lista { list-style: none; margin: 0; padding: 0; }
+.pf-prof-lista__item {
+  display: flex; flex-wrap: wrap; gap: var(--space-1) var(--space-3); align-items: baseline;
+  padding: var(--space-3) 0; border-bottom: 1px solid var(--pf-linha); min-width: 0;
+}
+.pf-prof-lista__link { color: var(--pf-texto-1); font-weight: 600; text-decoration: none; min-height: var(--hit, 44px); display: inline-flex; align-items: center; }
+.pf-prof-lista__link:hover { text-decoration: underline; }
+.pf-prof-lista__meta { color: var(--pf-texto-3); font-size: var(--pf-fs-meta, var(--fs-small)); }
+
+/* ---------- estados (glifo + texto, sem neon) ---------- */
+.pf-prof-estado {
+  display: inline-flex; align-items: center; gap: var(--space-1);
+  font-size: var(--pf-fs-meta, var(--fs-small)); font-weight: 500; color: var(--pf-texto-2);
+}
+.pf-prof-estado::before { content: ""; inline-size: .5rem; block-size: .5rem; border: 1px solid currentColor; border-radius: 50%; }
+.pf-prof-estado--sucesso { color: var(--pf-sucesso); }
+.pf-prof-estado--sucesso::before { background: currentColor; }
+.pf-prof-estado--aviso { color: var(--pf-aviso); }
+.pf-prof-estado--aviso::before { border-radius: 0; transform: rotate(45deg); }
+.pf-prof-estado--erro { color: var(--pf-erro); }
+.pf-prof-estado--info { color: var(--pf-info); }
+
+/* ---------- filtros e segmento ---------- */
+.pf-prof-filtros { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5); align-items: end; margin-bottom: var(--space-3); }
+.pf-prof-segmento { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--pf-linha-forte); border-radius: var(--radius-1, 2px); }
+.pf-prof-segmento__opcao {
+  min-height: var(--hit, 44px); padding: 0 var(--space-4);
+  background: transparent; color: var(--pf-texto-2); border: 0; font: inherit; cursor: pointer;
+}
+.pf-prof-segmento__opcao + .pf-prof-segmento__opcao { border-left: 1px solid var(--pf-linha); }
+.pf-prof-segmento__opcao[aria-pressed="true"] { color: var(--pf-texto-1); background: var(--pf-painel-2); box-shadow: inset 0 -2px 0 var(--pf-acento); }
+.pf-prof-segmento__opcao:focus-visible { outline: 2px solid var(--pf-foco); outline-offset: -2px; }
+
+/* ---------- campos ---------- */
+.pf-prof-campo { display: grid; gap: var(--space-1); min-width: 0; }
+.pf-prof-campo .pf-campo__rotulo { color: var(--pf-texto-2); font-size: var(--pf-fs-meta, var(--fs-small)); font-weight: 500; }
+.pf-prof-campo .pf-input, .pf-prof-campo select, .pf-prof-campo textarea, .pf-prof-campo input {
+  min-height: var(--hit, 44px); max-width: 100%; box-sizing: border-box;
+  background: var(--pf-campo, var(--pf-painel)); color: var(--pf-texto-1);
+  border: 1px solid var(--pf-controle, var(--pf-linha-forte)); border-radius: var(--radius-1, 2px);
+  padding: var(--space-2) var(--space-3); font: inherit;
+}
+.pf-prof-campo textarea { min-height: 5.5rem; resize: vertical; width: 100%; }
+.pf-prof-campo :focus-visible { outline: 2px solid var(--pf-foco); outline-offset: 1px; }
+.pf-prof-campo [aria-invalid="true"] { border-color: var(--pf-erro); }
+.pf-prof-campo__erro { margin: var(--space-1) 0 0; color: var(--pf-erro); font-size: var(--pf-fs-meta, var(--fs-small)); }
+.pf-prof-campo--linha { grid-auto-flow: row; }
+.pf-prof-btn--p { min-height: var(--hit, 44px); }
+
+/* ---------- abas da moldura ---------- */
+.pf-prof-abas { margin: 0 0 var(--space-5); border-bottom: 1px solid var(--pf-linha); }
+.pf-prof-abas__lista { display: flex; flex-wrap: wrap; gap: 0 var(--space-1); }
+.pf-prof-abas__aba {
+  display: inline-flex; align-items: center; min-height: var(--hit, 44px);
+  padding: 0 var(--space-3); color: var(--pf-texto-2); text-decoration: none;
+  box-shadow: inset 0 -2px 0 transparent;
+}
+.pf-prof-abas__aba:hover { color: var(--pf-texto-1); }
+.pf-prof-abas__aba[aria-selected="true"] { color: var(--pf-texto-1); box-shadow: inset 0 -2px 0 var(--pf-acento); }
+.pf-prof-painel:focus { outline: none; }
+
+/* ---------- cabeçalho do aluno ---------- */
+.pf-prof-aluno__identidade { display: flex; gap: var(--space-4); align-items: center; min-width: 0; }
+.pf-prof-aluno__textos { min-width: 0; }
+.pf-prof-aluno__linha { margin: var(--space-1) 0 0; color: var(--pf-texto-2); overflow-wrap: anywhere; }
+.pf-prof-aluno__seletor { max-width: 28rem; }
+.pf-prof-avatar {
+  flex: none; display: inline-grid; place-items: center;
+  inline-size: 2rem; block-size: 2rem; border-radius: 50%;
+  background: var(--pf-painel-2); color: var(--pf-texto-1);
+  font-size: var(--pf-fs-meta, var(--fs-small)); font-weight: 600;
+  border: 1px solid var(--pf-linha);
+}
+.pf-prof-avatar--g { inline-size: 3.5rem; block-size: 3.5rem; font-size: var(--fs-h4, 1.125rem); }
+
+/* ---------- tabela (empilha no estreito; nunca rola na horizontal) ---------- */
+.pf-prof-tabela { inline-size: 100%; border-collapse: collapse; }
+.pf-prof-tabela caption { text-align: left; padding: 0 0 var(--space-2); color: var(--pf-texto-3); font-size: var(--pf-fs-meta, var(--fs-small)); }
+.pf-prof-tabela th, .pf-prof-tabela td { text-align: left; padding: var(--space-3) var(--space-3) var(--space-3) 0; border-bottom: 1px solid var(--pf-linha); vertical-align: top; overflow-wrap: anywhere; }
+.pf-prof-tabela th { color: var(--pf-texto-3); font-weight: 500; font-size: var(--pf-fs-meta, var(--fs-small)); }
+.pf-prof-tabela td.pf-prof-num, .pf-prof-tabela th.pf-prof-num { font-variant-numeric: tabular-nums; }
+@container pf-main (max-width: 44em) {
+  .pf-prof-tabela thead { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+  .pf-prof-tabela, .pf-prof-tabela tbody, .pf-prof-tabela tr, .pf-prof-tabela td { display: block; }
+  .pf-prof-tabela tr { padding: var(--space-3) 0; border-bottom: 1px solid var(--pf-linha); }
+  .pf-prof-tabela td { border: 0; padding: var(--space-1) 0; }
+  .pf-prof-tabela td[data-rotulo]::before { content: attr(data-rotulo) ": "; color: var(--pf-texto-3); }
+}
+
+/* ---------- dúvidas ---------- */
+.pf-prof-duvidas { list-style: none; margin: 0; padding: 0; }
+.pf-prof-duvida { padding: var(--space-5) 0; border-bottom: 1px solid var(--pf-linha); min-width: 0; }
+.pf-prof-duvida__cabeca { display: flex; gap: var(--space-3); align-items: flex-start; flex-wrap: wrap; }
+.pf-prof-duvida__cabeca > div { flex: 1 1 12rem; min-width: 0; }
+.pf-prof-duvida__autor { margin: 0; color: var(--pf-texto-1); }
+.pf-prof-respostas { list-style: none; margin: var(--space-3) 0; padding: 0 0 0 var(--space-4); border-left: 1px solid var(--pf-linha-forte); }
+.pf-prof-resposta { padding: var(--space-2) 0; }
+.pf-prof-resposta__autor { margin: 0; color: var(--pf-texto-2); font-size: var(--pf-fs-meta, var(--fs-small)); }
+.pf-prof-responder { margin-top: var(--space-3); display: grid; gap: var(--space-2); max-width: 46rem; }
+.pf-prof-responder__acoes { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); align-items: center; }
+.pf-prof-mais { margin: var(--space-5) 0; }
+
+/* ---------- vazio, alerta e esqueleto de reserva (até o catálogo do núcleo) ---------- */
+.pf-prof-vazio { padding: var(--space-6) 0; color: var(--pf-texto-2); }
+.pf-prof-vazio__titulo { margin: 0 0 var(--space-2); color: var(--pf-texto-1); font-weight: 600; }
+.pf-prof-alerta { border-left: 2px solid var(--pf-info); padding: var(--space-3) var(--space-4); background: var(--pf-painel); margin: 0 0 var(--space-4); }
+.pf-prof-alerta--erro { border-left-color: var(--pf-erro); }
+.pf-prof-alerta--aviso { border-left-color: var(--pf-aviso); }
+.pf-prof-alerta--sucesso { border-left-color: var(--pf-sucesso); }
+.pf-prof-alerta p { margin: 0; }
+.pf-prof-alerta__titulo { font-weight: 600; color: var(--pf-texto-1); }
+.pf-prof-esqueleto { display: grid; gap: var(--space-3); padding: var(--space-4) 0; }
+.pf-prof-esqueleto__linha { display: block; block-size: 1rem; background: var(--pf-painel-2); border-radius: var(--radius-1, 2px); animation: pf-prof-pulso 1.2s ease-in-out infinite alternate; }
+.pf-prof-esqueleto__linha:nth-child(2n) { inline-size: 70%; }
+@keyframes pf-prof-pulso { from { opacity: .45; } to { opacity: 1; } }
+
+/* ---------- toast e diálogo de reserva ---------- */
+.pf-prof-toasts {
+  position: fixed; z-index: var(--z-toast, 90); inset-inline-end: var(--space-4); inset-block-end: var(--space-4);
+  display: grid; gap: var(--space-2); max-inline-size: min(26rem, calc(100vw - 2rem));
+}
+.pf-prof-toast {
+  display: flex; gap: var(--space-3); align-items: flex-start;
+  background: var(--pf-painel-3, var(--pf-painel-2)); color: var(--pf-texto-1);
+  border: 1px solid var(--pf-linha-forte); border-left: 2px solid var(--pf-info);
+  padding: var(--space-3) var(--space-4); box-shadow: var(--pf-sombra);
+}
+.pf-prof-toast--sucesso { border-left-color: var(--pf-sucesso); }
+.pf-prof-toast--aviso { border-left-color: var(--pf-aviso); }
+.pf-prof-toast--erro { border-left-color: var(--pf-erro); }
+.pf-prof-toast__texto { margin: 0; flex: 1; }
+.pf-prof-toast__fechar { background: none; border: 0; color: var(--pf-texto-2); min-inline-size: var(--hit, 44px); min-block-size: var(--hit, 44px); font: inherit; cursor: pointer; }
+.pf-prof-dialogo {
+  border: 1px solid var(--pf-linha-forte); border-radius: var(--radius-2, 4px);
+  background: var(--pf-painel); color: var(--pf-texto-1);
+  padding: var(--space-6); max-inline-size: min(34rem, calc(100vw - 2rem)); box-shadow: var(--pf-sombra);
+}
+.pf-prof-dialogo::backdrop { background: var(--pf-veu); }
+.pf-prof-dialogo__titulo { margin: 0 0 var(--space-3); font-family: var(--font-display); font-weight: 300; font-size: var(--fs-h3, 1.5rem); }
+.pf-prof-dialogo__corpo { display: grid; gap: var(--space-3); margin-bottom: var(--space-5); }
+.pf-prof-dialogo__acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: flex-end; }
+.pf-prof-segredo { font-family: var(--font-numeric, monospace); font-variant-numeric: tabular-nums; letter-spacing: .04em; padding: var(--space-3); background: var(--pf-painel-2); overflow-wrap: anywhere; }
+
+/* ---------- formulário em linha (equipe) ---------- */
+.pf-prof-form { display: grid; gap: var(--space-4); max-width: 40rem; padding: var(--space-5) 0; border-bottom: 1px solid var(--pf-linha); margin-bottom: var(--space-5); }
+.pf-prof-form fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+.pf-prof-form legend { color: var(--pf-texto-2); font-size: var(--pf-fs-meta, var(--fs-small)); font-weight: 500; padding: 0; margin-bottom: var(--space-1); }
+.pf-prof-opcao { display: flex; gap: var(--space-2); align-items: center; min-height: var(--hit, 44px); }
+.pf-prof-opcao input { inline-size: 1.25rem; block-size: 1.25rem; accent-color: var(--pf-acento); }
+.pf-prof-acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+
+/* ---------- admin.html dentro do shell do backoffice ---------- */
+.pf-prof-editor .admin-hero { padding-top: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-prof-vista { transition: none; }
+  .pf-prof-esqueleto__linha { animation: none; }
+}
+
+/* ---------- lista de definição (detalhe de equipe e cadastro) ---------- */
+.pf-prof-dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: var(--space-3) var(--space-5); margin: 0 0 var(--space-5); }
+.pf-prof-dl > div { min-width: 0; border-bottom: 1px solid var(--pf-linha); padding-bottom: var(--space-2); }
+.pf-prof-dl dt { color: var(--pf-texto-3); font-size: var(--pf-fs-meta, var(--fs-small)); }
+.pf-prof-dl dd { margin: var(--space-1) 0 0; color: var(--pf-texto-1); overflow-wrap: anywhere; }
+
+/* O H1 recebe foco programático a cada troca de rota (anúncio ao leitor de tela); sem anel visual. */
+[data-pf-prof-h1]:focus, [data-pf-prof-h1]:focus-visible { outline: none; }
+
+/* ---------- editor de cursos (admin.html) — classes que substituem os estilos inline ---------- */
+.pf-prof-editor { max-width: none; }
+.pf-prof-editor .admin-hero { margin-bottom: var(--space-6); }
+.pf-prof-editor-subtitulo { margin: var(--space-2) 0 0; }
+.pf-prof-editor-lateral { margin: var(--space-2) 0 0; font-size: var(--fs-h4, 1.125rem); font-weight: 600; font-family: var(--font-text); }
+.pf-prof-editor-acoes { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.pf-prof-editor-contagem { font-size: var(--pf-fs-meta, var(--fs-small)); color: var(--pf-texto-3); letter-spacing: .06em; font-variant-numeric: tabular-nums; }
+.pf-prof-editor-numero { text-align: center; font-family: var(--font-display); font-weight: 300; font-variant-numeric: tabular-nums; }
+.pf-prof-editor-aulas { display: block; margin-top: var(--space-5); font-size: var(--pf-fs-overline, var(--fs-overline)); }
+.pf-prof-editor-coluna { flex-direction: column; align-items: flex-start; gap: var(--space-1); }
+.pf-prof-editor-fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.pf-prof-editor-link { display: grid; gap: var(--space-3); padding: var(--space-3) 0; border-top: 1px solid var(--pf-linha); margin-top: var(--space-2); }
+.pf-prof-editor-link__campo { display: grid; gap: var(--space-1); min-width: 0; }
+.pf-prof-btn-auto { width: auto; margin-top: 0; }
+
+/* ---------- editor (admin.html): superfícies do legado religadas aos tokens (D-67) ----------
+   Os blocos de liberação, agenda, capa e lista vinham com fundos escuros fixos do tema
+   antigo; no tema claro viravam cinza e reprovavam o contraste. Aqui passam a ler as
+   superfícies e os textos do tema atual. */
+.pf-prof-editor :is(.lib-list-wrap, .lib-form, .capa-preview, .admin-sidebar, .admin-main, .duvidas-pane, .lib-section) {
+  background: var(--pf-painel);
+  border-color: var(--pf-linha);
+}
+.pf-prof-editor :is(.lib-curso, .lib-row, .admin-aula, .dv-row, .admin-module) {
+  background: var(--pf-painel-2);
+  border-color: var(--pf-linha);
+}
+.pf-prof-editor .lib-chip {
+  background: var(--pf-painel);
+  color: var(--pf-texto-1);
+  border-color: var(--pf-linha-forte);
+}
+.pf-prof-editor :is(.lib-row__quem strong, .lib-curso__title) { color: var(--pf-texto-1); }
+.pf-prof-editor :is(.lib-curso__meta, .lib-row__n, .lib-empty, .lib-row__tudo, .capa-preview__vazio, .capa-dica, .lib-list-head .overline, .lib-list-count, .mat-empty) {
+  color: var(--pf-texto-2);
+}
+.pf-prof-editor :is(.btn-ghost.danger, .btn-mini.danger, .btn-icon.danger) {
+  color: var(--pf-erro);
+  border-color: currentColor;
+  background: transparent;
+}
+.pf-prof-editor :is(.input, select.input, textarea.input) {
+  background: var(--pf-campo, var(--pf-painel));
+  color: var(--pf-texto-1);
+  border-color: var(--pf-controle, var(--pf-linha-forte));
+}
+.pf-prof-editor .input::placeholder { color: var(--pf-texto-3); opacity: 1; }
+.pf-prof-editor .input:disabled { color: var(--pf-texto-2); }
+.pf-prof-editor :is(.mod-acao, .btn-linha, .btn-mini, .roteiro-head, .aula-status) {
+  background: var(--pf-painel);
+  color: var(--pf-texto-2);
+  border-color: var(--pf-linha-forte);
+}
+.pf-prof-editor :is(.mod-acao__n, .roteiro-head__label) { color: var(--pf-texto-1); }
+.pf-prof-editor .aula-status.is-on { color: var(--pf-sucesso); }
+.pf-prof-editor .admin-module__head { background: var(--pf-painel-2); }
+.pf-prof-editor .admin-module.is-recolhido .admin-module__head { background: transparent; }
+.pf-prof-editor .curso-item.is-selected { background: rgba(var(--pf-acento-rgb), .08); box-shadow: inset 2px 0 0 var(--pf-acento); }
+.pf-prof-editor .curso-item__thumb { background: var(--pf-painel-2); border-color: var(--pf-linha); color: var(--pf-texto-2); }
+.pf-prof-editor :is(.btn-add-curso, .btn-add-modulo, .btn-add-aula) {
+  background: transparent;
+  color: var(--pf-texto-2);
+  border-color: var(--pf-linha-forte);
+}
+.pf-prof-editor :is(.btn-add-curso, .btn-add-modulo, .btn-add-aula):hover { color: var(--pf-texto-1); border-color: var(--pf-acento); }
+
+/* ---------- editor: capa vertical, capa e tipo do módulo (D-53, D-56) ---------- */
+.pf-prof-editor-capa { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: flex-start; }
+.pf-prof-editor-capa__previa {
+  flex: none; display: grid; place-items: center; overflow: hidden;
+  inline-size: 5rem; block-size: 5rem;
+  border: 1px dashed var(--pf-linha-forte); border-radius: var(--radius-2, 4px);
+  background: var(--pf-painel-2); color: var(--pf-texto-2);
+  font-size: var(--pf-fs-meta, var(--fs-small)); text-align: center; padding: var(--space-1);
+}
+.pf-prof-editor-capa__previa--vertical { block-size: 7.5rem; }
+.pf-prof-editor-capa__previa img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+.pf-prof-editor-capa__acoes { display: grid; gap: var(--space-2); min-width: 0; flex: 1 1 14rem; }
+.pf-prof-editor-modulo-extra { display: grid; gap: var(--space-5); margin-bottom: var(--space-5); padding-bottom: var(--space-5); border-bottom: 1px solid var(--pf-linha); }
+@media (min-width: 64em) { .pf-prof-editor-modulo-extra { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.pf-prof-editor-tipo { display: grid; gap: var(--space-2); align-content: start; }
+.pf-prof-editor-tipo .pf-prof-segmento { justify-self: start; }
+.pf-prof-editor [hidden] { display: none !important; }
+.pf-prof-editor-plano { margin-bottom: var(--space-5); }
+.pf-prof-editor-plano__corpo { padding: var(--space-4) 0; }
+
+/* ---------- alvos de toque ≥ 44 px abaixo de 1024 (UX §3 E.2; WCAG 2.5.8) ----------
+   Link de lista (o item é flex, então o link deixa de ser "link na frase"), campos,
+   ações do módulo, setas de ordem e as ações de liberação do editor (admin.html).
+   O checkbox real da liberação cobre o cartão inteiro (continua invisível e focável;
+   o quadrado desenhado segue sendo só a representação). */
+@media (max-width: 63.99em) {
+  :is(.pf-prof-lista__item, .pf-prof-responder__acoes) > .pf-prof-link { display: inline-flex; align-items: center; min-height: var(--hit, 44px); }
+  .pf-prof-editor :is(.input, select.input) { min-height: var(--hit, 44px); }
+  .pf-prof-editor .mod-acao { block-size: auto; min-block-size: var(--hit, 44px); }
+  .pf-prof-editor .handle button { inline-size: var(--hit, 44px); block-size: var(--hit, 44px); }
+  .pf-prof-editor .lib-row__tudo { block-size: auto; min-block-size: var(--hit, 44px); min-inline-size: var(--hit, 44px); }
+  .pf-prof-editor .lib-chip { padding-block: 0; }
+  .pf-prof-editor .lib-chip__x { inline-size: var(--hit, 44px); block-size: var(--hit, 44px); border-radius: var(--radius-1, 2px); }
+  .pf-prof-editor .lib-curso { min-block-size: var(--hit, 44px); }
+  .pf-prof-editor .lib-curso input { inset: 0; inline-size: 100%; block-size: 100%; }
+}
+
+/* ---------- sem salto quando o shell monta (CLS < 0,1) ----------
+   O admin.html usa o .admin-shell legado, que só ganha o recuo do topo, da faixa de avisos
+   e da lateral quando o shell monta (body.pf-app); a altura da faixa só o shell conhece.
+   Até lá o conteúdo fica reservado e invisível, e aparece já no lugar final. Sem JS
+   (sem html.pf-js) nada muda; se o shell não montar, boot-admin.js marca
+   body.pf-prof-pronto, e a animação de 2,5 s é a última rede (sem movimento). */
+html.pf-js body[data-pagina="admin"]:not(.pf-app):not(.pf-prof-pronto) .admin-shell {
+  visibility: hidden;
+  animation: pf-prof-revelar 0s linear 2.5s forwards;
+}
+@keyframes pf-prof-revelar { to { visibility: visible; } }

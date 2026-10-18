@@ -1,0 +1,257 @@
+/* =============================================================
+   COMPLEXO DMC · PLATAFORMA · portal-academico.css (F3a)
+   Acadêmico (academico.html), Aulas ao vivo (ao-vivo.html) e
+   Comprovantes (comprovantes.html). Spec: PORTAL-UX.md §6.5, §6.6,
+   §6.11, §4.7 (tabela), §4.9 (KPIs), §12 (impressão).
+   Regras: só tokens (--pf-* e os neutros de tokens.css), nenhuma cor
+   literal; prefixo pf-ac-; os componentes do catálogo (pf-abas,
+   pf-kpis, pf-tabela, pf-estado, pf-segmento, pf-vazio, pf-alerta) são
+   da F0s — aqui só o arranjo do domínio. Movimento só transform/opacity.
+   ============================================================= */
+
+/* ---------- Comuns ---------- */
+.pf-ac-meta { margin: 0; color: var(--pf-texto-2); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); }
+.pf-ac-num { font-feature-settings: var(--font-numeric); white-space: nowrap; }
+.pf-ac-carregando { display: grid; gap: var(--space-3); }
+.pf-ac-carregando .pf-esqueleto--bloco { height: 6rem; }
+.pf-ac-status { min-height: 1.5em; margin: var(--space-2) 0 0; color: var(--pf-texto-2); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); }
+.pf-ac-status--sucesso { color: var(--pf-sucesso); }
+.pf-ac-links { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); margin: var(--space-3) 0 0; padding: 0; list-style: none; }
+.pf-ac-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--pf-texto-1); text-underline-offset: 0.3em; }
+
+/* ---------- Acadêmico: cartão da matrícula ---------- */
+.pf-ac-matricula {
+  margin: 0 0 var(--space-6);
+  padding: var(--space-5);
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-2, 4px);
+  background: var(--pf-painel);
+}
+.pf-ac-matricula__topo { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-2) var(--space-4); }
+.pf-ac-matricula__titulo {
+  margin: 0;
+  color: var(--pf-texto-1);
+  font: var(--fw-light) var(--pf-fs-secao)/1.2 var(--font-display);
+  font-synthesis-weight: none;
+}
+.pf-ac-matricula__dados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-3) var(--space-5);
+  margin: var(--space-4) 0 0;
+}
+.pf-ac-matricula__dados div { min-width: 0; }
+.pf-ac-matricula__dados dt {
+  margin: 0;
+  color: var(--pf-texto-3);
+  font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline, 0.08em);
+  text-transform: uppercase;
+}
+.pf-ac-matricula__dados dd { margin: var(--space-1) 0 0; color: var(--pf-texto-1); font: 400 var(--pf-fs-ui)/1.4 var(--font-text); overflow-wrap: anywhere; }
+.pf-ac-matricula__alternar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pf-texto-1);
+  font: var(--fw-semibold) var(--pf-fs-botao)/1.2 var(--font-text);
+  text-decoration: underline;
+  text-decoration-color: var(--pf-linha-forte);
+  text-underline-offset: 0.35em;
+  cursor: pointer;
+}
+.pf-ac-matricula__alternar svg { width: 1rem; height: 1rem; transition: transform var(--dur-fast, 160ms) var(--ease-out, ease-out); }
+.pf-ac-matricula__alternar[aria-expanded="true"] svg { transform: rotate(180deg); }
+.pf-ac-desempenho { margin: var(--space-5) 0 0; }
+.pf-ac-desempenho .pf-kpi:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@container pf-main (min-width: 44em) {
+  .pf-ac-desempenho .pf-kpis { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .pf-ac-desempenho .pf-kpi:last-child:nth-child(odd) { grid-column: auto; }
+}
+.pf-ac-freq { display: grid; gap: 2px; }
+.pf-ac-freq__geral { font-weight: var(--fw-semibold); }
+.pf-ac-freq__partes { color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+.pf-ac-regra { max-width: var(--measure, 68ch); margin: var(--space-4) 0 0; color: var(--pf-texto-2); font: 400 var(--pf-fs-meta)/1.55 var(--font-text); }
+.pf-ac-tabela-modulo:target { scroll-margin-top: calc(var(--shell-top-h, 68px) + var(--space-4)); }
+.pf-ac-tabela-modulo:target th { color: var(--pf-acento); }
+
+/* ---------- Acadêmico: histórico ---------- */
+.pf-ac-historico { display: grid; gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
+.pf-ac-historico__item { padding: var(--space-4) 0; border-bottom: 1px solid var(--pf-linha); }
+.pf-ac-historico__titulo { margin: 0 0 var(--space-2); color: var(--pf-texto-1); font: var(--fw-semibold) var(--pf-fs-ui)/1.35 var(--font-text); }
+.pf-ac-historico__acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: var(--space-3) 0 0; }
+
+/* ---------- Aulas ao vivo: barra de período e controles ---------- */
+.pf-ac-agenda-barra { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3) var(--space-5); margin: 0 0 var(--space-4); }
+/* CLS: a barra nasce com data-ac-espera e o ao-vivo.js o retira no boot; até lá ela ocupa o
+   lugar invisível (fora da árvore de acessibilidade e do foco), sem empurrar a agenda depois. */
+.pf-ac-agenda-barra[data-ac-espera] { visibility: hidden; }
+/* Layout da barra fixo antes e depois dos dados (CLS): período numa linha própria e, abaixo de
+   40em, o título do período na sua; a largura do select não depende dos cursos carregados. */
+.pf-ac-periodo { display: flex; flex: 1 1 100%; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.pf-ac-periodo__titulo { margin: 0 0 0 var(--space-2); color: var(--pf-texto-1); font: var(--fw-semibold) var(--pf-fs-ui)/1.35 var(--font-text); }
+.pf-ac-periodo button { min-width: 44px; min-height: 44px; }
+.pf-ac-controles { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.pf-ac-controles label { display: inline-flex; align-items: center; gap: var(--space-2); color: var(--pf-texto-2); font: var(--fw-medium) var(--pf-fs-ui)/1.35 var(--font-text); }
+.pf-ac-controles select { min-height: 44px; width: 18rem; max-width: 100%; }
+.pf-ac-periodo__titulo:empty::before { content: "\00a0"; }
+@media (max-width: 40em) {
+  .pf-ac-periodo__titulo { flex: 1 1 100%; margin-left: 0; }
+  .pf-ac-controles, .pf-ac-controles label { width: 100%; }
+  .pf-ac-controles select { flex: 1 1 auto; width: auto; min-width: 0; }
+}
+.pf-ac-agenda { min-height: 8rem; }
+/* Nota de fuso e presença ACIMA da agenda: a lista cresce depois dos dados sem empurrar nada (CLS). */
+.pf-ac-nota { margin: 0 0 var(--space-4); }
+
+/* ---------- Encontro (pf-encontro do domínio) ---------- */
+.pf-ac-dia { margin: 0 0 var(--space-5); }
+.pf-ac-dia__titulo {
+  margin: 0 0 var(--space-2);
+  padding: 0 0 var(--space-2);
+  border-bottom: 1px solid var(--pf-linha);
+  color: var(--pf-texto-2);
+  font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline, 0.08em);
+  text-transform: uppercase;
+}
+.pf-ac-encontro {
+  display: grid;
+  grid-template-columns: minmax(7rem, auto) minmax(0, 1fr) auto;
+  gap: var(--space-2) var(--space-4);
+  align-items: start;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-ac-encontro__hora { margin: 0; color: var(--pf-texto-1); font: var(--fw-semibold) var(--pf-fs-ui)/1.35 var(--font-text); font-feature-settings: var(--font-numeric); }
+.pf-ac-encontro__titulo { margin: 0; color: var(--pf-texto-1); font: var(--fw-semibold) var(--pf-fs-corpo)/1.35 var(--font-text); }
+.pf-ac-encontro__acao { display: grid; justify-items: end; gap: var(--space-1); }
+.pf-ac-encontro--cancelado .pf-ac-encontro__titulo,
+.pf-ac-encontro--cancelado .pf-ac-encontro__hora { text-decoration: line-through; color: var(--pf-texto-3); }
+.pf-ac-encontro__acao .dmc-btn { min-height: 44px; }
+@container pf-main (max-width: 43.99em) {
+  .pf-ac-encontro { grid-template-columns: minmax(0, 1fr); }
+  .pf-ac-encontro__acao { justify-items: stretch; }
+  .pf-ac-encontro__acao .dmc-btn { width: 100%; justify-content: center; }
+}
+
+/* ---------- Semana e Mês (grade própria, sem biblioteca) ---------- */
+.pf-ac-semana { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--pf-linha); border-left: 1px solid var(--pf-linha); }
+.pf-ac-semana__dia { min-width: 0; min-height: 10rem; padding: var(--space-2); border-right: 1px solid var(--pf-linha); border-bottom: 1px solid var(--pf-linha); }
+.pf-ac-semana__cabeca { margin: 0 0 var(--space-2); color: var(--pf-texto-2); font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text); letter-spacing: var(--tracking-overline, 0.08em); text-transform: uppercase; }
+.pf-ac-semana__dia--hoje .pf-ac-semana__cabeca { color: var(--pf-acento); }
+.pf-ac-evento {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  min-height: 44px;
+  margin: 0 0 var(--space-2);
+  padding: var(--space-2);
+  border: 1px solid var(--pf-linha-forte);
+  border-radius: var(--radius-1);
+  background: var(--pf-painel-2);
+  color: var(--pf-texto-1);
+  font: 400 var(--pf-fs-meta)/1.35 var(--font-text);
+  text-align: left;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.pf-ac-evento:hover { border-color: var(--pf-acento); }
+.pf-ac-evento__hora { font-weight: var(--fw-semibold); font-feature-settings: var(--font-numeric); }
+.pf-ac-evento--cancelado { color: var(--pf-texto-3); text-decoration: line-through; }
+@container pf-main (max-width: 47.99em) {
+  .pf-ac-semana { grid-template-columns: minmax(0, 1fr); }
+  .pf-ac-semana__dia { min-height: 0; }
+}
+
+.pf-ac-mes { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--pf-linha); border-left: 1px solid var(--pf-linha); }
+.pf-ac-mes__semana { display: contents; }
+.pf-ac-mes__nome { padding: var(--space-2); border-right: 1px solid var(--pf-linha); border-bottom: 1px solid var(--pf-linha); color: var(--pf-texto-3); font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text); text-align: center; text-transform: uppercase; }
+.pf-ac-mes__dia {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+  min-width: 0;
+  min-height: 5.5rem;
+  padding: var(--space-2);
+  border: 0;
+  border-right: 1px solid var(--pf-linha);
+  border-bottom: 1px solid var(--pf-linha);
+  background: transparent;
+  color: var(--pf-texto-1);
+  font: 400 var(--pf-fs-meta)/1.3 var(--font-text);
+  text-align: left;
+  cursor: pointer;
+}
+.pf-ac-mes__dia:focus-visible { outline: var(--focus-width, 2px) solid var(--pf-foco); outline-offset: -2px; }
+.pf-ac-mes__dia--fora { color: var(--pf-texto-3); }
+.pf-ac-mes__dia--hoje .pf-ac-mes__numero { color: var(--pf-acento); font-weight: var(--fw-semibold); }
+.pf-ac-mes__dia[aria-pressed="true"] { background: var(--pf-painel-2); }
+.pf-ac-mes__numero { font-feature-settings: var(--font-numeric); }
+.pf-ac-mes__item { display: block; overflow: hidden; color: var(--pf-texto-2); white-space: nowrap; text-overflow: ellipsis; }
+.pf-ac-mes__ponto { display: none; width: 6px; height: 6px; border-radius: 50%; background: var(--pf-acento); }
+.pf-ac-mes-dia { margin: var(--space-5) 0 0; }
+@container pf-main (max-width: 47.99em) {
+  .pf-ac-mes__dia { min-height: 44px; padding: var(--space-1); justify-items: center; text-align: center; }
+  .pf-ac-mes__item { display: none; }
+  .pf-ac-mes__ponto { display: block; }
+}
+
+/* ---------- Diálogo do encontro (native <dialog>) ---------- */
+.pf-ac-dialogo { width: min(36rem, calc(100vw - 2 * var(--space-4))); max-height: calc(100vh - 2 * var(--space-6)); padding: 0; border: 1px solid var(--pf-linha-forte); border-radius: var(--radius-2, 4px); background: var(--pf-painel); color: var(--pf-texto-1); box-shadow: var(--pf-sombra); }
+.pf-ac-dialogo::backdrop { background: var(--pf-veu); }
+.pf-ac-dialogo__corpo { padding: var(--space-5); }
+.pf-ac-dialogo__titulo { margin: 0 0 var(--space-3); font: var(--fw-light) var(--pf-fs-secao)/1.2 var(--font-display); font-synthesis-weight: none; }
+.pf-ac-dialogo dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--space-2) var(--space-4); margin: 0 0 var(--space-4); }
+.pf-ac-dialogo dt { color: var(--pf-texto-3); font: var(--fw-semibold) var(--pf-fs-meta)/1.4 var(--font-text); }
+.pf-ac-dialogo dd { margin: 0; overflow-wrap: anywhere; }
+.pf-ac-dialogo__acoes { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-3); padding: var(--space-4) var(--space-5); border-top: 1px solid var(--pf-linha); }
+
+/* ---------- Comprovantes ---------- */
+.pf-ac-filtros { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3) var(--space-4); margin: 0 0 var(--space-5); }
+/* minmax(0, 1fr) e min(…, 100%): o datetime-local no nível 2 de texto não alarga a coluna além de 320 px. */
+.pf-ac-filtros .pf-campo { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-1); min-width: min(10rem, 100%); }
+.pf-ac-filtros select,
+.pf-ac-filtros input { min-height: 44px; }
+.pf-ac-codigo { display: grid; gap: 2px; }
+.pf-ac-codigo__valor { font-family: var(--font-mono, ui-monospace, monospace); font-size: var(--pf-fs-meta); letter-spacing: 0.02em; }
+.pf-ac-codigo__hash { color: var(--pf-texto-3); font-family: var(--font-mono, ui-monospace, monospace); font-size: var(--pf-fs-meta); }
+.pf-ac-codigo__acoes { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.pf-ac-codigo__acoes :is(a, button) { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-2); border: 0; background: transparent; color: var(--pf-texto-1); font: var(--fw-medium) var(--pf-fs-meta)/1.2 var(--font-text); text-decoration: underline; text-underline-offset: 0.3em; cursor: pointer; }
+.pf-ac-anulada { color: var(--pf-texto-3); }
+.pf-ac-mais { margin: var(--space-4) 0 0; }
+.pf-ac-impressao { margin: 0 0 var(--space-5); }
+.pf-ac-impressao dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: var(--space-1) var(--space-4); margin: 0; }
+.pf-ac-impressao dt { font-weight: var(--fw-semibold); }
+.pf-ac-impressao dd { margin: 0; }
+
+/* ---------- Matriz da turma e boletim (backoffice): rolagem contida no quadro ---------- */
+.pf-ac-matriz { position: relative; width: 100%; max-width: 100%; overflow-x: auto; overscroll-behavior-x: contain; contain: inline-size; }
+.pf-ac-matriz:focus-visible { outline: var(--focus-width, 2px) solid var(--pf-foco); outline-offset: 2px; }
+.pf-ac-matriz .pf-tabela thead th { position: static; }
+.pf-ac-matriz .pf-tabela :is(th[scope="row"], thead th:first-child) { position: sticky; left: 0; z-index: 1; background: var(--pf-painel-2); }
+.pf-ac-form { max-width: 64rem; }
+.pf-ac-form .pf-ac-filtros .pf-campo { flex: 1 1 14rem; }
+.pf-ac-form .pf-input { width: 100%; min-width: 0; box-sizing: border-box; }
+.pf-ac-secao { margin: var(--space-7) 0 var(--space-3); }
+.pf-ac-form textarea { width: 100%; }
+
+/* ---------- Impressão (UX §12): Acadêmico com todas as matrículas abertas;
+   Comprovantes com cabeçalho, código e hash por linha e a URL de validação ---------- */
+@media print {
+  .pf-ac-desempenho[hidden] { display: block !important; }
+  .pf-ac-matricula__alternar,
+  .pf-ac-agenda-barra,
+  .pf-ac-filtros,
+  .pf-ac-mais,
+  .pf-ac-codigo__acoes,
+  .pf-ac-links { display: none !important; }
+  .pf-ac-matricula { break-inside: avoid; border-color: currentColor; }
+  .pf-ac-codigo__hash { color: inherit; }
+}

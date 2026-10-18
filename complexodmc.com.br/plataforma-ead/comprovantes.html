@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
+  <meta charset="UTF-8">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Comprovantes · Plataforma Complexo DMC</title>
+  <meta name="description" content="Plataforma Complexo DMC — registro das suas avaliações e da sua frequência, com código verificável.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-academico.css?v=dev">
+</head>
+<body data-shell="comprovantes" data-pagina="comprovantes">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <header class="pf-cabecalho">
+      <p class="pf-cabecalho__contexto">Documentação</p>
+      <h1 class="pf-cabecalho__titulo">Comprovantes</h1>
+      <p class="pf-cabecalho__desc">Registro das suas avaliações e da sua frequência, com código verificável.</p>
+      <div class="pf-cabecalho__acoes pf-nao-imprimir">
+        <button type="button" class="dmc-btn dmc-btn--secondary" id="ac-imprimir" disabled>Imprimir comprovantes</button>
+      </div>
+    </header>
+
+    <section class="pf-so-impressao pf-ac-impressao" id="ac-impressao-cabecalho" aria-hidden="true"></section>
+
+    <form class="pf-ac-filtros pf-nao-imprimir" id="ac-filtros" role="search" aria-label="Filtrar comprovantes">
+      <div class="pf-campo">
+        <label class="pf-rotulo" for="ac-f-curso">Curso</label>
+        <select class="pf-input" id="ac-f-curso" name="curso"><option value="">Todos os cursos</option></select>
+      </div>
+      <div class="pf-segmento" role="group" aria-label="Tipo de registro">
+        <button type="button" class="pf-segmento__opcao" data-ac-tipo="todos" aria-pressed="true">Tudo</button>
+        <button type="button" class="pf-segmento__opcao" data-ac-tipo="avaliacoes" aria-pressed="false">Avaliações</button>
+        <button type="button" class="pf-segmento__opcao" data-ac-tipo="frequencia" aria-pressed="false">Frequência</button>
+      </div>
+      <div class="pf-campo">
+        <label class="pf-rotulo" for="ac-f-de">De</label>
+        <input class="pf-input" type="date" id="ac-f-de" name="de">
+      </div>
+      <div class="pf-campo">
+        <label class="pf-rotulo" for="ac-f-ate">Até</label>
+        <input class="pf-input" type="date" id="ac-f-ate" name="ate">
+      </div>
+    </form>
+
+    <section id="ac-comprovantes" aria-busy="true" aria-label="Registros">
+      <div class="pf-ac-carregando" aria-hidden="true">
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+      </div>
+      <noscript><p class="pf-ajuda">Esta tela precisa de JavaScript para listar seus comprovantes.</p></noscript>
+    </section>
+
+    <p class="pf-ajuda">Horário de Brasília. Copie o código de uma linha ou use “Verificar” para conferir o registro na página pública de validação.</p>
+    <section class="pf-so-impressao pf-ac-impressao" id="ac-impressao-rodape" aria-hidden="true"></section>
+    <p class="dmc-sr-only" id="ac-anuncio" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/comprovantes.js?v=dev"></script>
+</body>
+</html>

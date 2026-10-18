@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
+  <meta charset="UTF-8">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Ouvidoria · Plataforma Complexo DMC</title>
+  <meta name="description" content="Plataforma Complexo DMC — ouvidoria: elogios, sugestões, reclamações e denúncias.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-atendimento.css?v=dev">
+</head>
+<body data-shell="atendimento" data-pagina="ouvidoria">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <nav class="pf-subnav" aria-label="Atendimento">
+      <a class="pf-subnav__link" href="assistente.html">Assistente</a>
+      <a class="pf-subnav__link" href="atendimentos.html">Seus atendimentos</a>
+      <a class="pf-subnav__link" href="ouvidoria.html" aria-current="page">Ouvidoria</a>
+    </nav>
+
+    <header class="pf-cabecalho">
+      <p class="pf-cabecalho__contexto">Atendimento</p>
+      <h1 class="pf-cabecalho__titulo" tabindex="-1" data-ouv-titulo><em>Ouvidoria</em></h1>
+      <p class="pf-cabecalho__desc">Canal para elogios, sugestões, reclamações e denúncias sobre a plataforma, os cursos e o atendimento. A coordenação responde por aqui.</p>
+    </header>
+
+    <p class="dmc-sr-only" role="status" aria-live="polite" data-ouv-anuncio></p>
+    <div data-ouv-aviso></div>
+
+    <section id="ouv-registrar" aria-labelledby="ouv-registrar-titulo">
+      <h2 class="pf-secao-titulo" id="ouv-registrar-titulo">Registrar manifestação</h2>
+      <div data-ouv-form>
+        <noscript>
+          <div class="pf-vazio">
+            <p class="pf-vazio__texto">Para registrar uma manifestação, ative o JavaScript do navegador.</p>
+          </div>
+        </noscript>
+      </div>
+    </section>
+
+    <section id="ouv-lista" aria-labelledby="ouv-lista-titulo">
+      <h2 class="pf-secao-titulo" id="ouv-lista-titulo">Minhas manifestações</h2>
+      <div data-ouv-tabela aria-busy="true"></div>
+    </section>
+
+    <section id="ouv-detalhe" aria-live="polite" hidden></section>
+  </main>
+
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/ouvidoria.js?v=dev"></script>
+</body>
+</html>

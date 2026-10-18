@@ -404,3 +404,20 @@ liberação. Apagar curso, módulo ou aula também apaga os arquivos.
    do IP da máquina que roda a API).
 5. Rotacione a senha do usuário do Atlas se ela já tiver circulado fora do
    cofre de segredos.
+
+## Portal acadêmico · Assistente de IA (Google Gemini)
+
+Especificação: `docs/dmc/PORTAL-ACADEMICO.md`, `PORTAL-API.md` e `PORTAL-UX.md`.
+
+- **Chave:** a coordenação cola a chave em `professor.html#/configuracoes/ia` (só admin,
+  com reautenticação). Ela é guardada cifrada (AES-256-GCM, derivada do `JWT_SECRET`) no
+  documento `configuracoes.assistente_ia` e nunca volta ao navegador — só "configurada",
+  a origem e os 4 últimos caracteres. `GEMINI_API_KEY` no ambiente tem precedência e
+  trava a troca pelo painel.
+- **Antes de colar a chave em produção:** trocar o `JWT_SECRET` (incidente T3 em
+  `docs/dmc/DECISIONS.md`) — trocar depois invalida a chave cifrada e as sessões.
+- **Chamada:** só pelo servidor, com o cabeçalho `x-goog-api-key` (nunca `?key=`), prazo
+  `PORTAL_IA_TIMEOUT_MS`, limites por aluno e teto diário global.
+- **Dados:** ferramentas só de leitura dos dados do próprio aluno; CPF, e-mail e números
+  longos são mascarados antes de sair; consentimento LGPD antes do primeiro uso.
+- **Desligado ou sem chave:** a tela do aluno mostra estado honesto e leva ao atendimento.

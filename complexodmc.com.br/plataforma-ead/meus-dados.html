@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
+  <meta charset="UTF-8">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Meus dados · Plataforma Complexo DMC</title>
+  <meta name="description" content="Plataforma Complexo DMC — como seus dados são tratados, autorizações, exportação e pedidos do titular.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+</head>
+<body data-shell="" data-pagina="meus-dados">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <header class="pf-cabecalho">
+      <h1 class="pf-cabecalho__titulo">Meus <em>dados</em></h1>
+      <p class="pf-cabecalho__desc">Como a plataforma trata os seus dados pessoais, as autorizações que você deu e os seus pedidos sobre eles.</p>
+    </header>
+
+    <section class="pf-meus-dados-secao" id="dados" aria-labelledby="dados-titulo">
+      <h2 class="dmc-overline" id="dados-titulo">Seus dados no Complexo DMC</h2>
+      <div class="pf-meus-dados-corpo" data-pf-meus-dados="resumo" aria-busy="true"><p class="pf-ajuda">Carregando…</p></div>
+    </section>
+
+    <!-- Com JS, as seções abaixo ficam fora do layout (catálogo: html.pf-js .pf-sem-js) até a primeira
+         carga terminar e aparecem juntas: o "Carregando…" de cima vira conteúdo sem empurrar nada (CLS).
+         Sem JS, aparecem normalmente. -->
+    <section class="pf-meus-dados-secao pf-sem-js" id="autorizacoes" aria-labelledby="autorizacoes-titulo" data-pf-meus-dados-revelar>
+      <h2 class="dmc-overline" id="autorizacoes-titulo">Autorizações (consentimentos)</h2>
+      <div class="pf-meus-dados-corpo" data-pf-meus-dados="consentimentos" aria-busy="true"><p class="pf-ajuda">Carregando…</p></div>
+    </section>
+
+    <section class="pf-meus-dados-secao pf-sem-js" id="exportar" aria-labelledby="exportar-titulo" data-pf-meus-dados-revelar>
+      <h2 class="dmc-overline" id="exportar-titulo">Exportar meus dados</h2>
+      <p>O arquivo reúne o seu cadastro, matrículas, progresso, notas, frequência, lançamentos, a lista de documentos enviados (sem os arquivos), contratos, atendimentos e conversas com o assistente, quando houver.</p>
+      <div class="pf-meus-dados-corpo" data-pf-meus-dados="exportar">
+        <button type="button" class="dmc-btn dmc-btn--secondary" data-pf-meus-dados-acao="exportar" disabled>Gerar arquivo (JSON)</button>
+        <p class="pf-meus-dados-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="pf-meus-dados-secao pf-sem-js" id="pedidos" aria-labelledby="pedidos-titulo" data-pf-meus-dados-revelar>
+      <h2 class="dmc-overline" id="pedidos-titulo">Pedidos sobre os seus dados</h2>
+      <p>Você pode pedir acesso, correção, eliminação, informação sobre compartilhamento ou a revogação de uma autorização. Alguns registros precisam ser mantidos por obrigação legal ou para a defesa de direitos (ex.: registros acadêmicos e financeiros).</p>
+      <div class="pf-meus-dados-corpo" data-pf-meus-dados="pedidos" aria-busy="true"><p class="pf-ajuda">Carregando…</p></div>
+    </section>
+
+    <section class="pf-meus-dados-secao pf-sem-js" id="encarregado" aria-labelledby="encarregado-titulo" data-pf-meus-dados-revelar>
+      <h2 class="dmc-overline" id="encarregado-titulo">Encarregado de dados</h2>
+      <div class="pf-meus-dados-corpo" data-pf-meus-dados="encarregado"><p class="pf-ajuda">Carregando…</p></div>
+      <p><a href="../pages/politica-de-privacidade.html">Política de privacidade</a></p>
+    </section>
+
+    <p class="dmc-sr-only" id="pf-meus-dados-anuncio" role="status" aria-live="polite"></p>
+  </main>
+
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/meus-dados.js?v=dev"></script>
+</body>
+</html>

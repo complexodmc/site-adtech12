@@ -1,36 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Cursos que você já adquiriu na Plataforma Complexo DMC.">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Meus Cursos · Plataforma Complexo DMC</title>
-
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Meus cursos · Plataforma Complexo DMC</title>
+  <meta name="description" content="Cursos que você já adquiriu na Plataforma Complexo DMC.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/plataforma.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-estudos.css?v=dev">
 </head>
-<body class="bg-grid" data-shell="meus-cursos">
-  <div class="glow-corner"></div>
+<body data-shell="meus-cursos" data-pagina="meus-cursos">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
 
-  <main class="dash-shell">
-    <div class="dash-inner">
-      <section class="pagina-hero">
-        <span class="overline">Meus Cursos</span>
-        <h1>Seus programas <span class="gradient-text">liberados</span></h1>
-        <p>Todo curso que você adquiriu aparece aqui, com o progresso da trilha. Continue de onde parou ou reveja uma aula já concluída.</p>
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <div class="pf-est-pagina">
+      <header class="pf-est-pagina__cab">
+        <h1>Meus cursos</h1>
+        <p>Cursos liberados na sua conta.</p>
+      </header>
+      <div class="pf-est-filtros" data-meus-filtros></div>
+      <section id="meus-cursos-lista" aria-label="Cursos liberados">
+        <ul class="pf-est-capas pf-est-esqueleto-lista" aria-hidden="true"><li class="pf-est-esqueleto pf-est-esqueleto--capa"></li><li class="pf-est-esqueleto pf-est-esqueleto--capa"></li><li class="pf-est-esqueleto pf-est-esqueleto--capa"></li></ul>
+        <noscript><p>Para ver seus cursos, ative o JavaScript do navegador. <a href="loja.html">Ver cursos disponíveis</a></p></noscript>
       </section>
-
-      <section id="meus-cursos-lista" class="meus-cursos-grid"></section>
     </div>
   </main>
 
-  <script src="js/api-client.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/shell.js"></script>
-  <script>DMC_bootMeusCursos();</script>
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/estudos-dados.js?v=dev"></script>
+  <script src="js/portal/meus-cursos.js?v=dev"></script>
 </body>
 </html>

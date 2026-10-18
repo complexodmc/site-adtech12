@@ -1,0 +1,2619 @@
+/* =============================================================
+   COMPLEXO DMC · PLATAFORMA · portal.css
+   Camada --pf-* do Portal do Aluno e do Portal do Professor.
+   Dona: fatia F0s. Spec: docs/dmc/PORTAL-UX.md §2.2–§2.8 e §3
+   (fase A); cascata e posse: docs/dmc/PORTAL-ACADEMICO.md §6.4, §8.1.
+
+   CASCATA (fixa)
+     tokens.css → components.css → plataforma.css → portal.css
+     → portal-<dominio>.css
+   Vem depois de plataforma.css de propósito: a camada 2 vence o
+   :root legado sem tocar nele (login-classico.html lê aquele :root
+   e não carrega este arquivo).
+
+   REGRAS
+   - Única morada de cor literal da plataforma. Fora daqui o CSS lê
+     só --pf-* e os tokens neutros de tokens.css.
+   - O valor aponta para o token da casa quando ele existe. Exceção:
+     os tokens que esta camada religa (--text-1/2/3, --color-line,
+     --color-line-strong, --np-accent) levam no escuro o literal
+     idêntico ao de tokens.css, porque apontar para eles criaria
+     ciclo. O teste estático confere a igualdade.
+   - Três camadas (§2.2): 1 base por tema · 2 derivados e apelidos
+     legados, recalculados em cada escopo · 3 superfícies que
+     invertem, nas mesmas listas de seletor das camadas 1 e 2.
+     Uma propriedade que usa var() é resolvida no elemento onde é
+     declarada e herdada já calculada: por isso cada escopo
+     redeclara as duas camadas.
+   - O trecho marcado no item 6 sai na limpeza final; o teste
+     estático ignora só o que está entre os dois marcadores.
+
+   SEÇÕES
+     1 Fontes · 2 Camada 1 (temas) · 3 Escala e medidas
+     4 Camada 2 (derivados e compatibilidade) · 5 Camada 3 (cor de
+     cada escopo) · 6 Neutralização sem tocar HTML · 7 Base
+     tipográfica · 8 .btn-primary
+     ── catálogo (UX §4.3, §5; F0s, depois do S2) ──
+     9 Utilitários e aplicação (pf-app, pf-main, deslocamentos)
+     10 Botões religados · 11 Topo · 12 Busca global · 13 Faixa
+     14 Sino e notificações · 15 Conta · 16 Lateral e menu
+     17 Gaveta · 18 Popover e dica · 19 Tour · 20 Rodapé e mapa
+     21 Cabeçalho de página · 22 Subnavegação · 23 Abas, segmento
+     e filtros · 24 Estado, alerta, toast e vazio · 25 Diálogo,
+     reautenticação e detalhe · 26 Campos · 27 Tabela e lista
+     28 KPIs, progresso, donut e barras · 29 Esqueleto · 30 Leitura,
+     consentimento, código, upload, linha do tempo e paginação
+     31 Capa, documento e QR · 32 Overlays legados · 33 Movimento
+     reduzido · 34 Alto contraste · 35 Impressão
+
+   MARKUP ESPERADO (comportamento em DMC_UI, F0b; nomes da UX §4.3)
+     Cada bloco abaixo traz, no comentário, a estrutura que o CSS
+     espera. Classe nova fora do catálogo: pf-<dominio>-… na fatia
+     dona (DC-01); promoção ao catálogo é pedido à F0s via principal.
+   ============================================================= */
+
+
+/* 1 · Fontes ---------------------------------------------------
+   Fallback local com a largura das fontes da web (o mesmo da tela
+   de entrada): se a fonte da web atrasa, a troca não muda a quebra
+   de linha. Entram em --font-text (item 3) e --font-display
+   (item 4). */
+@font-face { font-family: "DMC Serif Iowan"; src: local("Iowan Old Style Roman"), local("IowanOldStyle-Roman"); size-adjust: 91.8%; }
+@font-face { font-family: "DMC Serif Iowan"; src: local("Iowan Old Style Italic"), local("IowanOldStyle-Italic"); font-style: italic; size-adjust: 96.7%; }
+@font-face { font-family: "DMC Serif Georgia"; src: local("Georgia"); size-adjust: 93.1%; }
+@font-face { font-family: "DMC Serif Georgia"; src: local("Georgia Italic"), local("Georgia-Italic"); font-style: italic; size-adjust: 83.5%; }
+@font-face { font-family: "DMC Sans Arial"; src: local("Arial"), local("ArialMT"); size-adjust: 100.3%; }
+@font-face { font-family: "DMC Sans Arial"; src: local("Arial Bold"), local("Arial-BoldMT"); font-weight: 600 700; size-adjust: 94.2%; }
+
+
+/* 2 · Camada 1 — base por tema (§2.2, §2.3, §2.7) ---------------
+   Escuro é o padrão (DC-07) e o que vale sem JS. pre-pintura.js
+   grava data-pf-tema no <html> antes da primeira pintura.
+   Superfícies que invertem (camada 3): sempre escuras .pf-heroi,
+   .pf-palco, .pf-capa e .pf-publicacao__midia (mídia não inverte);
+   sempre claras .pf-documento e, no tema escuro, .pf-leitura.
+   .pf-escopo-escuro / .pf-escopo-claro: uso explícito (prévia de
+   banner nos dois temas). Contrastes medidos na UX §2.2 e §2.3. */
+:root,
+html[data-pf-tema="escuro"],
+.pf-escopo-escuro,
+.pf-heroi,
+.pf-palco,
+.pf-capa,
+.pf-publicacao__midia {
+  /* Superfícies e linhas */
+  --pf-fundo: var(--surface-0);
+  --pf-topo-fundo: var(--surface-glass);
+  --pf-painel: var(--surface-1);
+  --pf-painel-2: var(--surface-2);
+  --pf-painel-3: var(--surface-3);                 /* sem texto fino */
+  --pf-campo: var(--surface-0);
+  --pf-veu: rgba(11, 12, 14, 0.72);
+  --pf-linha: rgba(255, 255, 255, 0.1);            /* = --color-line de tokens.css (religado) */
+  --pf-linha-forte: rgba(255, 255, 255, 0.18);     /* = --color-line-strong de tokens.css (religado) */
+  --pf-controle: var(--color-control);
+  --pf-controle-forte: #7d7f83;                    /* campo sobre painel-2/painel-3 */
+  --pf-trilha: var(--color-graphite-600);
+  --pf-sombra: var(--shadow-overlay);
+
+  /* Texto, acento e ação */
+  --pf-texto-1: #f5f3f0;                           /* = --text-1 de tokens.css (religado) */
+  --pf-texto-2: #bfbdb9;                           /* = --text-2 de tokens.css (religado) */
+  --pf-texto-3: #9a9893;                           /* = --text-3 de tokens.css (religado) */
+  --pf-acento: var(--color-gold);
+  --pf-acento-rgb: 214, 176, 105;                  /* = --np-accent de tokens.css (religado) */
+  --pf-acento-hover: var(--color-gold-soft);
+  --pf-acao: var(--color-gold);
+  --pf-acao-hover: var(--color-gold-soft);
+  --pf-acao-texto: var(--text-on-gold);
+  --pf-foco: var(--color-gold);
+
+  /* Estados (ouro nunca é estado). -rgb para os alfas;
+     -destaque = fundo de destaque da UX §2.3 (proibido dentro de
+     pf-tabela, pf-lista e pf-linha-tempo). */
+  --pf-sucesso: var(--color-success);
+  --pf-sucesso-rgb: 142, 200, 153;
+  --pf-sucesso-destaque: rgba(var(--pf-sucesso-rgb), 0.12);
+  --pf-aviso: #dd881b;
+  --pf-aviso-rgb: 221, 136, 27;
+  --pf-aviso-destaque: rgba(var(--pf-aviso-rgb), 0.12);
+  --pf-erro: var(--color-error);
+  --pf-erro-rgb: 232, 143, 132;
+  --pf-erro-destaque: rgba(var(--pf-erro-rgb), 0.12);
+  --pf-info: #8caed7;
+  --pf-info-rgb: 140, 174, 215;
+  --pf-info-destaque: rgba(var(--pf-info-rgb), 0.12);
+  --pf-neutro-rgb: 191, 189, 185;
+  --pf-neutro-destaque: rgba(255, 255, 255, 0.06);
+
+  color-scheme: dark;
+}
+
+html[data-pf-tema="claro"],
+.pf-escopo-claro,
+.pf-documento,
+html[data-pf-tema="escuro"] .pf-leitura {
+  /* Superfícies e linhas */
+  --pf-fundo: var(--color-paper);
+  --pf-topo-fundo: rgba(245, 243, 239, 0.92);
+  --pf-painel: var(--color-white);
+  --pf-painel-2: var(--color-paper-2);
+  --pf-painel-3: #dedad3;                          /* só esqueleto, avatar de iniciais, miniatura vazia */
+  --pf-campo: var(--color-white);
+  --pf-veu: rgba(11, 12, 14, 0.48);
+  --pf-linha: var(--color-line-ink);
+  --pf-linha-forte: rgba(11, 12, 14, 0.24);
+  --pf-controle: var(--color-control-ink);
+  --pf-controle-forte: #6e7175;
+  --pf-trilha: #d9d5cd;
+  --pf-sombra: 0 24px 48px -28px rgba(11, 12, 14, 0.28);
+
+  /* Texto, acento e ação (sobre papel, primário preto) */
+  --pf-texto-1: var(--text-ink-1);
+  --pf-texto-2: var(--text-ink-2);
+  --pf-texto-3: var(--text-ink-3);
+  --pf-acento: var(--color-gold-deep);
+  --pf-acento-rgb: 130, 96, 46;
+  --pf-acento-hover: #6b4e24;
+  --pf-acao: var(--color-black);
+  --pf-acao-hover: var(--color-graphite-700);
+  --pf-acao-texto: var(--color-paper);
+  --pf-foco: var(--color-gold-deep);
+
+  /* Estados. Aviso no papel (DC-04): só com triângulo + texto,
+     nunca vizinho de --pf-acento no mesmo componente. */
+  --pf-sucesso: #466e59;
+  --pf-sucesso-rgb: 70, 110, 89;
+  --pf-sucesso-destaque: rgba(var(--pf-sucesso-rgb), 0.08);
+  --pf-aviso: #9a5518;
+  --pf-aviso-rgb: 154, 85, 24;
+  --pf-aviso-destaque: rgba(var(--pf-aviso-rgb), 0.08);
+  --pf-erro: #9b463e;
+  --pf-erro-rgb: 155, 70, 62;
+  --pf-erro-destaque: rgba(var(--pf-erro-rgb), 0.08);
+  --pf-info: #4d688a;
+  --pf-info-rgb: 77, 104, 138;
+  --pf-info-destaque: rgba(var(--pf-info-rgb), 0.08);
+  --pf-neutro-rgb: 74, 77, 82;
+  --pf-neutro-destaque: rgba(11, 12, 14, 0.05);
+
+  color-scheme: light;
+}
+
+
+/* 3 · Escala e medidas (não dependem do tema; §2.4) ------------
+   Em rem: o nível de texto (data-pf-fonte, item 7) escala tudo. */
+:root {
+  --font-text: "Hanken Grotesk", "DMC Sans Arial", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+
+  --pf-fs-titulo: clamp(1.75rem, 1.5rem + 1.1vw, 2.5rem);      /* 28 → 40 · H1, título do herói */
+  --pf-fs-secao: clamp(1.375rem, 1.25rem + 0.55vw, 1.75rem);    /* 22 → 28 · H2 de seção */
+  --pf-fs-kpi: clamp(2rem, 1.75rem + 1.1vw, 2.75rem);           /* 32 → 44 · KPI, nota, donut */
+  --pf-fs-h3: 1.125rem;                                         /* 18 */
+  --pf-fs-corpo: 1rem;                                          /* 16 */
+  --pf-fs-ui: 0.9375rem;                                        /* 15 · menu, tabela, rótulo */
+  --pf-fs-botao: 0.875rem;                                      /* 14 · botão, aba, segmentado */
+  --pf-fs-meta: 0.8125rem;                                      /* 13 · piso */
+  --pf-fs-overline: 0.75rem;                                    /* 12 · caixa-alta */
+
+  --pf-lateral-w: 16.5rem;                                      /* 264 */
+  --pf-lateral-w-min: 4.5rem;                                   /*  72 */
+  --pf-conteudo-max: 72rem;                                     /* 1152 */
+  --pf-conteudo-largo: 90rem;                                   /* 1440 */
+  --pf-gutter: var(--gutter);                                   /* 16 → 48 */
+}
+
+
+/* 4 · Camada 2 — derivados e compatibilidade (§2.2, §3 fase A) --
+   Vence o :root legado de plataforma.css porque vem depois. O
+   mapa neon → ouro mora aqui (não no trecho marcado do item 6):
+   o legado continua lendo estes nomes até as fases B e C. */
+:root,
+.pf-escopo-claro,
+.pf-escopo-escuro,
+.pf-documento,
+html[data-pf-tema="escuro"] .pf-leitura,
+.pf-heroi,
+.pf-palco,
+.pf-capa,
+.pf-publicacao__midia {
+  --cyan: var(--pf-acento);   --cyan-deep: var(--pf-acento);   --cyan-soft: var(--pf-acento-hover);
+  --green: var(--pf-sucesso); --green-soft: var(--pf-sucesso);              /* era "feito/ok" */
+  --bg: var(--pf-fundo);      --bg-elev: var(--pf-painel);     --bg-card: var(--pf-painel);
+  --line: var(--pf-linha);    --line-soft: var(--pf-linha);    --line-strong: var(--pf-linha-forte);
+  --ink: var(--pf-texto-1);   --ink-2: var(--pf-texto-2);      --ink-3: var(--pf-texto-3);
+  --gradient: linear-gradient(var(--pf-acento), var(--pf-acento));          /* sólido, tipo válido */
+  --gradient-soft: linear-gradient(var(--pf-painel-2), var(--pf-painel-2));
+  --shadow: var(--pf-sombra);
+  --glow-cyan: 0 0 0 transparent;  --glow-green: 0 0 0 transparent;
+  --radius: var(--radius-2);
+  /* valor da casa + o fallback local do item 1 */
+  --font-display: "Newsreader", "DMC Serif Iowan", "DMC Serif Georgia", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: var(--font-text);
+  /* tokens da casa lidos por components.css (§4.2) */
+  --text-1: var(--pf-texto-1); --text-2: var(--pf-texto-2); --text-3: var(--pf-texto-3);
+  --color-line: var(--pf-linha); --color-line-strong: var(--pf-linha-forte);
+  --focus-color: var(--pf-foco); --np-accent: var(--pf-acento-rgb);
+  /* derivado da plataforma */
+  --pf-neutro: var(--pf-texto-2);
+}
+
+
+/* 5 · Camada 3 — cor de cada escopo (§2.2, §2.7) ----------------
+   Cada escopo declara texto e fundo do seu tema; mídia (sempre
+   escura) só o texto, porque tem imagem. */
+:root,
+.pf-escopo-escuro,
+.pf-escopo-claro,
+.pf-documento,
+html[data-pf-tema="escuro"] .pf-leitura {
+  color: var(--pf-texto-1);
+  background-color: var(--pf-fundo);
+}
+.pf-heroi,
+.pf-palco,
+.pf-capa,
+.pf-publicacao__midia {
+  color: var(--pf-texto-1);
+}
+
+
+/* 6 · Neutralização sem tocar HTML (§3 fase A) ------------------
+   Fundo decorativo e texto em degradê do legado, até o cabeçalho
+   novo tirar essas classes das páginas. O trecho entre os
+   marcadores sai na limpeza final, com prova por grep. */
+/* @dmc-compat:inicio */
+.bg-grid::before,
+.glow-corner,
+.glow-corner--alt { display: none; }
+.gradient-text {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--pf-acento);
+  font-style: italic;
+  font-weight: inherit;
+}
+/* @dmc-compat:fim */
+
+/* Fora do trecho marcado (não contém termo barrado): some até a
+   fatia dona remover o elemento. */
+.eixo-stage__halo,
+.loja-card__shine { display: none; }
+
+
+/* 7 · Base tipográfica (§2.4, §2.7, §2.8) ----------------------- */
+
+/* Tamanho do texto A−/A+ (DC-06): −1 · 0 · 1 · 2, em porcentagem
+   para somar à preferência do navegador. Newsreader só tem 300 e
+   Hanken vai de 400 a 600: nada de negrito falso. */
+html { font-size: 100%; font-synthesis-weight: none; }
+html[data-pf-fonte="-1"] { font-size: 93.75%; }
+html[data-pf-fonte="1"] { font-size: 112.5%; }
+html[data-pf-fonte="2"] { font-size: 125%; }
+
+body { font-family: var(--font-text); }
+
+/* Pesos do navegador: teto 600. */
+b,
+strong,
+th,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+legend { font-weight: var(--fw-semibold); }
+
+/* Foco por outline (sobrevive ao alto contraste). */
+:focus-visible {
+  outline: var(--focus-width) solid var(--pf-foco);
+  outline-offset: var(--focus-offset);
+}
+
+/* Controles nativos seguem o tema escolhido (color-scheme no item 2). */
+input[type="checkbox"],
+input[type="radio"],
+progress { accent-color: var(--pf-acento); }
+
+/* Impressão: sempre papel; o nível A± não vai ao papel. */
+@media print {
+  :root,
+  html[data-pf-tema],
+  .pf-escopo-escuro,
+  .pf-heroi,
+  .pf-palco,
+  .pf-capa,
+  .pf-publicacao__midia { color-scheme: light; }
+  html,
+  html[data-pf-fonte] { font-size: 100%; }
+}
+
+
+/* 8 · .btn-primary (§3 fase C, aplicada já no S1) ---------------
+   A regra legada mora no trecho congelado de plataforma.css e é
+   usada fora dele (player, admin, loja, obrigado, app.js, admin.js).
+   Sobreposição completa com o visual de dmc-btn--primary; o
+   login-classico.html não carrega este arquivo. Onde o legado
+   precisa de largura total, a classe de contexto da página define
+   width: 100%. */
+.btn-primary {
+  background: var(--pf-acao);
+  color: var(--pf-acao-texto);
+  box-shadow: none;
+  transform: none;
+  filter: none;
+  font: 600 var(--pf-fs-botao)/1.2 var(--font-text);
+  text-transform: none;
+  letter-spacing: .01em;
+  width: auto;
+  margin-top: 0;
+  min-height: 3rem;
+  border-radius: var(--radius-1);
+  transition: var(--transition-state);
+}
+.btn-primary:hover {
+  background: var(--pf-acao-hover);
+  box-shadow: none;
+  transform: none;
+  filter: none;
+}
+.btn-primary:focus-visible {
+  outline: var(--focus-width) solid var(--pf-foco);
+  outline-offset: var(--focus-offset);
+  box-shadow: none;
+}
+.btn-primary:disabled,
+.btn-primary[aria-disabled="true"] {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+
+/* =============================================================
+   CATÁLOGO pf-* (UX §4.3) E SHELL (UX §5) — F0s, depois do S2
+   ============================================================= */
+
+/* 9 · Utilitários e aplicação --------------------------------------
+   shell.js grava <html data-pf-larg="p|m|g|x"> (janela ÷ escala do
+   texto: p < 768 ≤ m < 1024 ≤ g < 1280 ≤ x) e --pf-faixa-h no <html>;
+   no <body>: has-shell pf-app (+ pf-app--foco · pf-app--restrito ·
+   pf-app--anonimo · pf-app--backoffice), menu-recolhido e menu-aberto (apelidos legados
+   mantidos, §7.6). Abaixo de 1024 a lateral vira gaveta. */
+[class*="pf-"][hidden] { display: none !important; }
+
+:root {
+  --pf-topo-h: var(--header-h);                 /* 64 · < 1024 */
+  --pf-faixa-h: 0px;                            /* medido pelo shell */
+  --pf-lateral-atual: 0px;
+}
+html[data-pf-larg="g"],
+html[data-pf-larg="x"] { --pf-topo-h: var(--header-h-lg); }   /* 72 · ≥ 1024 */
+html.pf-shell { scroll-padding-top: calc(var(--pf-topo-h) + var(--pf-faixa-h) + 1rem); }
+
+body.pf-app {
+  --pf-lateral-atual: var(--pf-lateral-w);
+  --pf-tabela-topo: calc(var(--pf-topo-h) + var(--pf-faixa-h));
+  /* valores novos para o deslocamento das páginas legadas (UX §3 fase D) */
+  --shell-top-h: calc(var(--pf-topo-h) + var(--pf-faixa-h));
+  --shell-side-w: var(--pf-lateral-w);
+  --shell-side-w-min: var(--pf-lateral-w-min);
+}
+body.pf-app.menu-recolhido { --pf-lateral-atual: var(--pf-lateral-w-min); }
+html[data-pf-larg="p"] body.pf-app,
+html[data-pf-larg="m"] body.pf-app,
+body.pf-app.pf-app--foco,
+body.pf-app.pf-app--restrito,
+body.pf-app.pf-app--anonimo { --pf-lateral-atual: 0px; }
+body.pf-app.pf-app--foco { --pf-tabela-topo: 0px; --shell-top-h: 0px; }
+
+/* Só para quem está sem JS (cabeçalho mínimo estático das páginas). */
+html.pf-js .pf-sem-js { display: none !important; }
+.pf-so-impressao { display: none; }
+
+/* Contêiner da página: as regras internas usam @container pf-main (em). */
+.pf-main {
+  container: pf-main / inline-size;
+  display: block;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--space-6) var(--pf-gutter) var(--space-8);
+}
+.pf-main:focus { outline: none; }
+/* Reserva do topo e da lateral antes de o shell montar (sem salto). */
+html.pf-js body[data-shell]:not(.pf-app):not(.pf-app--foco) .pf-main { padding-top: calc(var(--header-h) + var(--space-6)); }
+@media (min-width: 1024px) {
+  html.pf-js body[data-shell]:not(.pf-app):not(.pf-app--foco) .pf-main {
+    padding-top: calc(var(--header-h-lg) + var(--space-6));
+    margin-left: var(--pf-lateral-w-min);
+  }
+}
+@media (min-width: 1280px) {
+  html.pf-js body[data-shell]:not(.pf-app):not(.pf-app--foco) .pf-main { margin-left: var(--pf-lateral-w); }
+}
+body.pf-app:not(.pf-app--foco) .pf-main {
+  min-height: 100vh;
+  margin-left: var(--pf-lateral-atual);
+  padding-top: calc(var(--pf-topo-h) + var(--pf-faixa-h) + var(--space-6));
+  /* 100% = largura do <body>: o conteúdo fica com no máximo 72rem, centrado no espaço restante */
+  padding-inline: max(var(--pf-gutter), calc((100% - var(--pf-lateral-atual) - var(--pf-conteudo-max)) / 2));
+}
+body.pf-app:not(.pf-app--foco) .pf-main--largo {
+  padding-inline: max(var(--pf-gutter), calc((100% - var(--pf-lateral-atual) - var(--pf-conteudo-largo)) / 2));
+}
+/* Páginas legadas dentro do shell v2: o deslocamento acompanha a gaveta
+   pela largura ÷ escala (a regra legada usa só a mídia de 1024 px). */
+body.has-shell.pf-app :is(.dash-shell, .player-shell, .loja-shell, .cert-shell, .admin-shell) {
+  padding-top: calc(var(--pf-topo-h) + var(--pf-faixa-h) + var(--space-6));
+  padding-left: calc(var(--pf-lateral-atual) + var(--pf-gutter));
+  padding-right: var(--pf-gutter);
+  transition: none;
+}
+
+
+/* 10 · Botões religados (UX §4.2) ------------------------------------
+   dmc-btn (+ --primary · --secondary · --link) de components.css,
+   religado aos temas; pf-btn--perigo (modificador); pf-btn-icone (44×44,
+   ícone 20, sem borda). Marcação: <button class="dmc-btn
+   dmc-btn--secondary pf-btn--perigo">…</button>. */
+.dmc-btn--primary { background: var(--pf-acao); color: var(--pf-acao-texto); }
+.dmc-btn--primary:hover { background: var(--pf-acao-hover); }
+.dmc-btn[aria-busy="true"] { cursor: progress; }
+.pf-btn--perigo { color: var(--pf-erro); border-color: rgba(var(--pf-erro-rgb), 0.5); }
+.pf-btn--perigo:hover { border-color: var(--pf-erro); }
+.dmc-overline { color: var(--pf-texto-3); }
+.dmc-brand b { color: var(--pf-acento); }
+
+.pf-btn-icone {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--pf-texto-2);
+  cursor: pointer;
+  transition: var(--transition-state);
+  -webkit-tap-highlight-color: transparent;
+}
+.pf-btn-icone:hover,
+.pf-btn-icone[aria-expanded="true"] { background: var(--pf-painel-2); color: var(--pf-texto-1); }
+.pf-btn-icone svg { width: 20px; height: 20px; }
+.pf-btn-icone[aria-disabled="true"] { opacity: 0.4; cursor: not-allowed; }
+
+
+/* 11 · Topo (pf-topo · UX §5.1, §5.2, §4.13) --------------------------
+   <header class="pf-topo"> Menu (< 1024) · pf-marca · pf-busca ·
+   pf-topo__acoes (Tutoriais · pf-fonte · pf-tema · [carrinho na loja]
+   · pf-sino · pf-conta). Alvos do topo em px (não escalam com A+):
+   5 × 44 + 4 × 4 = 236 px cabem em 320 px no nível 2. O vidro (blur)
+   mora no ::before: no próprio topo ele viraria bloco de contenção dos
+   painéis fixos (busca e sino em tela cheia no celular). A classe
+   shell-top é apelido legado; as regras dela ficam inertes aqui. */
+.pf-topo {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  z-index: var(--z-menu);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  box-sizing: border-box;
+  height: var(--pf-topo-h);
+  padding: 0 var(--pf-gutter);
+  background: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-bottom: 1px solid var(--pf-linha);
+  color: var(--pf-texto-1);
+  font-family: var(--font-text);
+}
+.pf-topo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--pf-topo-fundo);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+html[data-pf-larg="p"] .pf-topo { gap: 4px; }
+
+.pf-topo__menu { display: none; }
+html[data-pf-larg="p"] .pf-topo__menu,
+html[data-pf-larg="m"] .pf-topo__menu { display: inline-flex; }
+
+.pf-marca { flex: none; min-width: 44px; color: var(--pf-texto-1); }
+.pf-marca .pf-marca__nome { color: var(--pf-texto-1); }
+.pf-marca .pf-marca__contexto {
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--pf-linha-forte);
+  color: var(--pf-texto-2);
+  font: var(--fw-medium) var(--pf-fs-ui)/1 var(--font-text);
+  letter-spacing: 0;
+}
+html[data-pf-tema="claro"] .pf-marca__rino { filter: brightness(0); }
+html[data-pf-larg="p"] .pf-topo .pf-marca { justify-content: center; }
+html[data-pf-larg="p"] .pf-topo .pf-marca__nome,
+html[data-pf-larg="p"] .pf-topo .pf-marca__contexto { display: none; }
+
+.pf-topo__espaco { flex: 1 1 auto; }
+.pf-topo__acoes {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-1);
+  margin-left: auto;
+}
+html[data-pf-larg="p"] .pf-topo__acoes { gap: 4px; }
+
+.pf-topo__ajuda {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-1);
+  color: var(--pf-texto-2);
+  font: var(--fw-medium) var(--pf-fs-ui)/1 var(--font-text);
+  text-decoration: none;
+  transition: var(--transition-state);
+}
+.pf-topo__ajuda:hover { background: var(--pf-painel-2); color: var(--pf-texto-1); }
+.pf-topo__ajuda svg { width: 20px; height: 20px; flex: none; }
+html[data-pf-larg="m"] .pf-topo__ajuda { justify-content: center; padding: 0; }
+html[data-pf-larg="m"] .pf-topo__ajuda-rotulo {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+html[data-pf-larg="p"] .pf-topo__ajuda { display: none; }
+
+/* A− A+ (pf-fonte) e tema (pf-tema): no topo a partir de 1024; antes, na conta. */
+.pf-fonte { display: inline-flex; align-items: center; }
+.pf-fonte__botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--pf-texto-2);
+  font-family: var(--font-text);
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+  cursor: pointer;
+  transition: var(--transition-state);
+}
+.pf-fonte__botao--menos { font-size: 14px; }
+.pf-fonte__botao--mais { font-size: 18px; }
+.pf-fonte__botao:hover { background: var(--pf-painel-2); color: var(--pf-texto-1); }
+.pf-fonte__botao[aria-disabled="true"] { opacity: 0.4; cursor: not-allowed; }
+.pf-fonte__botao[aria-disabled="true"]:hover { background: transparent; color: var(--pf-texto-2); }
+html[data-pf-larg="p"] .pf-topo__acoes > .pf-fonte,
+html[data-pf-larg="m"] .pf-topo__acoes > .pf-fonte,
+html[data-pf-larg="p"] .pf-topo__acoes > .pf-tema,
+html[data-pf-larg="m"] .pf-topo__acoes > .pf-tema { display: none; }
+html .pf-topo.pf-topo--restrito .pf-topo__acoes > .pf-fonte,
+html .pf-topo.pf-topo--restrito .pf-topo__acoes > .pf-tema,
+html .pf-topo.pf-topo--anonimo .pf-topo__acoes > .pf-fonte,
+html .pf-topo.pf-topo--anonimo .pf-topo__acoes > .pf-tema { display: inline-flex; }
+.pf-tema__icone { display: inline-flex; }
+
+/* Carrinho (só na loja; ids e data-* da D5 R10). */
+.pf-carrinho { position: relative; }
+.pf-carrinho__contador {
+  position: absolute;
+  top: 5px;
+  right: 3px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: var(--radius-1);
+  background: var(--pf-texto-1);
+  color: var(--pf-fundo);
+  font: var(--fw-semibold) 12px/18px var(--font-text);
+  font-feature-settings: var(--font-numeric);
+  text-align: center;
+}
+.pf-carrinho__contador.is-empty { display: none; }
+
+.pf-topo__avatar { margin-left: var(--space-1); }
+.pf-topo__sair,
+.pf-topo__entrar { min-height: 44px; padding: 0 var(--space-4); margin-left: var(--space-1); }
+
+
+/* 12 · Busca global (pf-busca · combobox ARIA 1.2) ---------------------
+   Campo (≥ 768) com painel de 35rem; < 768 o ícone abre diálogo de tela
+   cheia (.pf-busca__caixa.is-dialogo). Opção ativa = aria-selected
+   (o foco fica no campo: aria-activedescendant). */
+.pf-busca {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  margin-left: var(--space-3);
+}
+html[data-pf-larg="p"] .pf-busca { justify-content: flex-end; margin-left: 0; }
+.pf-busca__abrir { display: none; }
+html[data-pf-larg="p"] .pf-busca__abrir { display: inline-flex; }
+html[data-pf-larg="p"] .pf-busca__caixa:not(.is-dialogo) { display: none; }
+
+.pf-busca__caixa { position: relative; flex: 1 1 auto; min-width: 0; max-width: 30rem; }
+.pf-busca__linha { position: relative; display: flex; align-items: center; gap: var(--space-2); }
+.pf-busca__lupa {
+  position: absolute;
+  left: 12px;
+  display: inline-flex;
+  color: var(--pf-texto-3);
+  pointer-events: none;
+}
+.pf-busca__lupa svg { width: 18px; height: 18px; }
+.pf-busca__campo {
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 4.25rem 0 40px;
+  border: 1px solid var(--pf-controle);
+  border-radius: var(--radius-1);
+  background: var(--pf-campo);
+  color: var(--pf-texto-1);
+  font: 400 var(--pf-fs-corpo)/1.2 var(--font-text);
+  transition: var(--transition-state);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.pf-busca__campo::placeholder { color: var(--pf-texto-3); }
+.pf-busca__campo::-webkit-search-cancel-button,
+.pf-busca__campo::-webkit-search-decoration { -webkit-appearance: none; appearance: none; }
+.pf-busca__campo:hover { border-color: var(--pf-texto-2); }
+.pf-busca__campo:focus-visible { border-color: var(--pf-acento); outline: var(--focus-width) solid var(--pf-foco); outline-offset: 2px; }
+.pf-busca__atalho {
+  position: absolute;
+  right: 10px;
+  padding: 2px 6px;
+  border: 1px solid var(--pf-linha-forte);
+  border-radius: var(--radius-1);
+  color: var(--pf-texto-3);
+  font: var(--fw-medium) var(--pf-fs-meta)/1.3 var(--font-text);
+  pointer-events: none;
+}
+html[data-pf-larg="p"] .pf-busca__atalho,
+html[data-pf-larg="m"] .pf-busca__atalho { display: none; }
+html[data-pf-larg="p"] .pf-busca__campo,
+html[data-pf-larg="m"] .pf-busca__campo { padding-right: 12px; }
+.pf-busca__cancelar { display: none; flex: none; }
+
+.pf-busca__painel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: var(--z-menu);
+  box-sizing: border-box;
+  width: min(35rem, calc(100vw - 16px));
+  max-height: min(70vh, 38rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-3);
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-3);
+  background: var(--pf-painel);
+  color: var(--pf-texto-1);
+  box-shadow: var(--pf-sombra);
+}
+.pf-busca__painel:not([hidden]) { animation: dmc-drop var(--dur-base) var(--ease-out) both; }
+.pf-busca__filtros { flex-wrap: wrap; margin-bottom: var(--space-3); }
+.pf-busca__mostrar { display: none; gap: var(--space-2); align-items: center; margin-bottom: var(--space-3); }
+.pf-busca__mostrar-rotulo { font: var(--fw-medium) var(--pf-fs-ui)/1.2 var(--font-text); color: var(--pf-texto-1); }
+.pf-busca__mostrar .pf-input { min-height: 44px; }
+html[data-pf-larg="p"] .pf-busca__filtros { display: none; }
+html[data-pf-larg="p"] .pf-busca__mostrar { display: grid; grid-template-columns: auto minmax(0, 1fr); }
+
+.pf-busca__lista { display: grid; gap: var(--space-3); }
+.pf-busca__grupo-titulo {
+  margin: 0 0 var(--space-1);
+  padding: 0 var(--space-2);
+  font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--pf-texto-3);
+}
+.pf-busca__opcao {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 52px;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-1);
+  cursor: pointer;
+}
+.pf-busca__opcao:hover { background: var(--pf-painel-2); }
+.pf-busca__opcao[aria-selected="true"] {
+  background: var(--pf-painel-2);
+  outline: var(--focus-width) solid var(--pf-foco);
+  outline-offset: -2px;
+}
+.pf-busca__opcao--todos { grid-template-columns: minmax(0, 1fr) auto; color: var(--pf-texto-2); }
+.pf-busca__opcao-icone { display: inline-flex; color: var(--pf-texto-3); }
+.pf-busca__opcao-icone svg,
+.pf-busca__opcao svg { width: 18px; height: 18px; }
+.pf-busca__opcao-texto { display: grid; gap: 2px; min-width: 0; }
+.pf-busca__opcao-titulo { font: var(--fw-medium) var(--pf-fs-ui)/1.35 var(--font-text); color: var(--pf-texto-1); overflow-wrap: anywhere; }
+.pf-busca__opcao-contexto { font: 400 var(--pf-fs-meta)/1.35 var(--font-text); color: var(--pf-texto-3); overflow-wrap: anywhere; }
+.pf-busca__opcao-cadeado { display: inline-flex; color: var(--pf-texto-3); }
+.pf-busca__marca { background: rgba(var(--pf-acento-rgb), 0.18); color: var(--pf-texto-1); border-radius: 1px; }
+.pf-busca__estado { padding: var(--space-2); }
+.pf-busca__vazio,
+.pf-busca__erro p { margin: 0; color: var(--pf-texto-2); font: 400 var(--pf-fs-ui)/1.5 var(--font-text); overflow-wrap: anywhere; }
+
+/* Diálogo de tela cheia (< 768). */
+.pf-busca__caixa.is-dialogo {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  display: flex;
+  flex-direction: column;
+  max-width: none;
+  box-sizing: border-box;
+  padding: var(--space-3) var(--pf-gutter) calc(var(--space-3) + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--pf-fundo);
+}
+.pf-busca__caixa.is-dialogo .pf-busca__cancelar { display: inline-flex; }
+.pf-busca__caixa.is-dialogo .pf-busca__painel {
+  position: static;
+  width: auto;
+  max-height: none;
+  margin-top: var(--space-3);
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  animation: none;
+}
+
+
+/* 13 · Faixa do topo (pf-faixa · UX §5.2) -------------------------------
+   Uma por vez, sem rotação: pendência (não dispensável) > "Conheça o
+   novo portal" > banners de local topo. Logo abaixo do topo; a altura
+   vai para --pf-faixa-h (deslocamento da lateral, do conteúdo e do
+   scroll-padding). <div class="pf-faixa pf-faixa--pendencia"
+   role="region" aria-label="Avisos"> > .pf-faixa__conteudo >
+   .pf-faixa__glifo · p.pf-faixa__texto (+ a.pf-faixa__link) ·
+   button.pf-faixa__fechar. */
+.pf-faixa {
+  position: fixed;
+  top: var(--pf-topo-h);
+  right: 0;
+  left: 0;
+  z-index: var(--z-header);
+  min-height: 44px;
+  border-bottom: 1px solid var(--pf-linha);
+  background: var(--pf-painel);
+  color: var(--pf-texto-1);
+}
+.pf-faixa--pendencia { border-left: 2px solid var(--pf-aviso); }
+.pf-faixa__conteudo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  min-height: 44px;
+  padding: 0 calc(var(--pf-gutter) - 8px) 0 var(--pf-gutter);
+}
+.pf-faixa__glifo { display: inline-flex; flex: none; color: var(--pf-aviso); }
+.pf-faixa__glifo svg { width: 16px; height: 16px; }
+.pf-faixa__texto {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding-block: var(--space-2);
+  font: 400 0.875rem/1.45 var(--font-text);
+  overflow-wrap: anywhere;
+}
+.pf-faixa__link {
+  color: var(--pf-texto-1);
+  text-decoration: underline;
+  text-decoration-color: var(--pf-linha-forte);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+.pf-faixa__link:hover { text-decoration-color: var(--pf-acento); }
+.pf-faixa__fechar { flex: none; }
+
+
+/* 14 · Sino e notificações (pf-sino · pf-notificacoes · pf-notificacao) -
+   Contador neutro (DC-17): marca retangular, fundo --pf-texto-1, número
+   --pf-fundo, "9+". Painel: role=dialog não modal de 25rem; tela cheia
+   abaixo de 768. */
+.pf-sino-envoltorio { position: relative; display: inline-flex; }
+.pf-sino { position: relative; }
+.pf-sino__contador {
+  position: absolute;
+  top: 5px;
+  right: 3px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: var(--radius-1);
+  background: var(--pf-texto-1);
+  color: var(--pf-fundo);
+  font: var(--fw-semibold) 12px/18px var(--font-text);
+  font-feature-settings: var(--font-numeric);
+  text-align: center;
+}
+.pf-notificacoes {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -52px;
+  box-sizing: border-box;
+  width: min(25rem, calc(100vw - 16px));
+  max-height: min(75vh, 40rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+html[data-pf-larg="p"] .pf-notificacoes {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-drawer);
+  width: auto;
+  max-height: none;
+  border: 0;
+  border-radius: 0;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.pf-notificacoes__cabeca {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-notificacoes__titulo { flex: 1 1 auto; margin: 0; font: var(--fw-semibold) var(--pf-fs-h3)/1.3 var(--font-text); }
+.pf-notificacoes__titulo:focus { outline: none; }
+.pf-notificacoes__titulo:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: 2px; }
+.pf-notificacoes__todas { min-height: 44px; font-size: var(--pf-fs-meta); }
+.pf-notificacoes__fechar { display: none; }
+html[data-pf-larg="p"] .pf-notificacoes__fechar { display: inline-flex; }
+.pf-notificacoes__lista { margin: 0; padding: 0; list-style: none; }
+.pf-notificacao {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-6);
+  border: 0;
+  border-bottom: 1px solid var(--pf-linha);
+  background: transparent;
+  color: var(--pf-texto-2);
+  font: 400 var(--pf-fs-ui)/1.4 var(--font-text);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-state);
+}
+.pf-notificacao:hover { background: var(--pf-painel-2); }
+.pf-notificacao:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: -2px; }
+.pf-notificacao__titulo { color: var(--pf-texto-1); font-weight: var(--fw-medium); overflow-wrap: anywhere; }
+.pf-notificacao--nao-lida .pf-notificacao__titulo { font-weight: var(--fw-semibold); }
+.pf-notificacao--nao-lida::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--space-3) + 0.45em);
+  left: var(--space-3);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pf-texto-1);
+}
+.pf-notificacao__texto { overflow-wrap: anywhere; }
+.pf-notificacao__quando { color: var(--pf-texto-3); font-size: var(--pf-fs-meta); }
+.pf-notificacoes__vazio,
+.pf-notificacoes__erro { margin: 0; padding: var(--space-5) var(--space-4); color: var(--pf-texto-2); font: 400 var(--pf-fs-ui)/1.5 var(--font-text); }
+.pf-notificacoes__erro p { margin: 0; }
+.pf-notificacoes__corpo { min-height: 4rem; }
+.pf-notificacoes__corpo .pf-shell-esqueleto { padding: var(--space-3) var(--space-4); }
+.pf-notificacoes__rodape {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-top: 1px solid var(--pf-linha);
+  color: var(--pf-texto-1);
+  font: var(--fw-semibold) var(--pf-fs-botao)/1.2 var(--font-text);
+  text-decoration: underline;
+  text-decoration-color: var(--pf-linha-forte);
+  text-underline-offset: 0.35em;
+}
+.pf-notificacoes__rodape:focus-visible { outline-offset: -2px; }
+.pf-shell-esqueleto { display: grid; gap: var(--space-2); }
+
+
+/* 15 · Conta (pf-conta · disclosure, não role=menu) ----------------------
+   Avatar 36 px (iniciais sobre --pf-painel-3) em alvo de 44 + chevron.
+   Painel de 18rem: nome e e-mail · Meu perfil · Meus dados · (< 1024)
+   Aparência e leitura · (< 768) Tutoriais/Ajuda · Rever o tour · troca
+   de área · Sair. */
+.pf-conta { position: relative; display: inline-flex; }
+.pf-conta__botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 4px;
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--pf-texto-2);
+  cursor: pointer;
+  transition: var(--transition-state);
+}
+.pf-conta__botao:hover,
+.pf-conta__botao[aria-expanded="true"] { background: var(--pf-painel-2); color: var(--pf-texto-1); }
+.pf-conta__chevron { display: inline-flex; }
+.pf-conta__chevron svg { width: 16px; height: 16px; transition: transform var(--dur-base) var(--ease-out); }
+.pf-conta__botao[aria-expanded="true"] .pf-conta__chevron svg { transform: rotate(180deg); }
+html[data-pf-larg="p"] .pf-conta__chevron { display: none; }
+html[data-pf-larg="p"] .pf-conta__botao { justify-content: center; padding: 0; }
+.pf-conta__avatar {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--pf-painel-3);
+  color: var(--pf-texto-1);
+  font: var(--fw-semibold) 13px/1 var(--font-text);
+  letter-spacing: 0.02em;
+}
+.pf-conta__painel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  box-sizing: border-box;
+  width: min(18rem, calc(100vw - 16px));
+  max-height: calc(100vh - var(--pf-topo-h) - 16px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-2) 0;
+}
+.pf-conta__cabeca { padding: var(--space-2) var(--space-4) var(--space-3); border-bottom: 1px solid var(--pf-linha); }
+.pf-conta__nome { margin: 0; color: var(--pf-texto-1); font: var(--fw-semibold) var(--pf-fs-ui)/1.35 var(--font-text); overflow-wrap: anywhere; }
+.pf-conta__email { margin: 2px 0 0; color: var(--pf-texto-3); font: 400 var(--pf-fs-meta)/1.35 var(--font-text); overflow-wrap: anywhere; }
+.pf-conta__lista { margin: 0; padding: var(--space-1) 0; list-style: none; }
+.pf-conta__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 var(--space-4);
+  border: 0;
+  background: transparent;
+  color: var(--pf-texto-1);
+  font: var(--fw-medium) var(--pf-fs-ui)/1.3 var(--font-text);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-state);
+}
+.pf-conta__link:hover { background: var(--pf-painel-2); }
+.pf-conta__link:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: -2px; }
+.pf-conta__link svg { width: 18px; height: 18px; color: var(--pf-texto-3); }
+.pf-conta__aparencia { display: none; padding: var(--space-3) var(--space-4); border-top: 1px solid var(--pf-linha); border-bottom: 1px solid var(--pf-linha); }
+html[data-pf-larg="p"] .pf-conta__aparencia,
+html[data-pf-larg="m"] .pf-conta__aparencia { display: block; }
+.pf-conta__secao {
+  margin: 0 0 var(--space-2);
+  color: var(--pf-texto-3);
+  font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+.pf-conta__temas { margin-bottom: var(--space-2); }
+.pf-conta__legenda { margin-bottom: var(--space-1); color: var(--pf-texto-2); font: var(--fw-medium) var(--pf-fs-meta)/1.3 var(--font-text); }
+.pf-conta__aparencia .pf-fonte { margin-left: -12px; }
+.pf-conta__so-pequena { display: none; }
+html[data-pf-larg="p"] .pf-conta__so-pequena { display: block; }
+.pf-conta__sair-linha { padding-top: var(--space-1); border-top: 1px solid var(--pf-linha); }
+
+
+/* 16 · Lateral e menu (pf-lateral · pf-menu · UX §5.3–§5.5) -------------
+   <aside class="pf-lateral"> > <nav class="pf-menu" aria-label="Menu
+   principal"> > .pf-menu__secao (p.pf-menu__titulo + ul.pf-menu__lista)
+   > li > a.pf-menu__item[aria-current] (__icone · __rotulo · __ponto ·
+   __contagem) | button.pf-menu__grupo[aria-expanded] + ul.pf-menu__sub.
+   Recolhida (72): só ícone, rótulo fica para o leitor de tela, dica no
+   hover/foco, Documentação vira flyout (.pf-menu__sub.is-flyout). */
+.pf-lateral {
+  position: fixed;
+  top: calc(var(--pf-topo-h) + var(--pf-faixa-h));
+  bottom: 0;
+  left: 0;
+  z-index: var(--z-header);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-4);
+  box-sizing: border-box;
+  width: var(--pf-lateral-w);
+  padding: var(--space-4) var(--space-2) var(--space-3);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-right: 1px solid var(--pf-linha);
+  background: var(--pf-fundo);
+  color: var(--pf-texto-2);
+  font-family: var(--font-text);
+  scrollbar-width: thin;
+  scrollbar-color: var(--pf-linha-forte) transparent;
+}
+.pf-lateral.is-recolhido { width: var(--pf-lateral-w-min); }
+html[data-pf-larg="p"] .pf-lateral,
+html[data-pf-larg="m"] .pf-lateral { display: none; }
+
+.pf-menu { display: flex; flex-direction: column; gap: var(--space-4); }
+.pf-menu__lista { display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.pf-menu__no { margin: 0; }
+.pf-menu__titulo {
+  margin: 0 0 var(--space-1);
+  padding: 0 var(--space-3);
+  color: var(--pf-texto-3);
+  font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+.pf-menu__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--pf-texto-2);
+  font: var(--fw-medium) var(--pf-fs-ui)/1.25 var(--font-text);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-state);
+}
+.pf-menu__item::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 0;
+  width: 2px;
+  background: var(--pf-acento);
+  transform: scaleY(0);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.pf-menu__item:hover { background: var(--pf-painel-2); color: var(--pf-texto-1); }
+.pf-menu__item:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: -2px; }
+.pf-menu__item[aria-current="page"] { background: rgba(var(--pf-acento-rgb), 0.08); color: var(--pf-texto-1); }
+.pf-menu__item[aria-current="page"]::before { transform: scaleY(1); }
+.pf-menu__icone { display: inline-flex; flex: none; color: var(--pf-texto-3); }
+.pf-menu__icone svg { width: 20px; height: 20px; }
+.pf-menu__item[aria-current="page"] .pf-menu__icone,
+.pf-menu__grupo.is-atual .pf-menu__icone { color: var(--pf-acento); }
+.pf-menu__rotulo { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+.pf-menu__ponto { display: inline-flex; flex: none; color: var(--pf-aviso); }
+.pf-menu__ponto svg { width: 12px; height: 12px; }
+.pf-menu__grupo[aria-expanded="true"] > .pf-menu__ponto { display: none; }
+.pf-menu__contagem { flex: none; color: var(--pf-texto-2); font: var(--fw-semibold) var(--pf-fs-meta)/1 var(--font-text); font-feature-settings: var(--font-numeric); }
+.pf-menu__seta { display: inline-flex; flex: none; color: var(--pf-texto-3); }
+.pf-menu__seta svg { width: 16px; height: 16px; transition: transform var(--dur-base) var(--ease-out); }
+.pf-menu__grupo[aria-expanded="true"] .pf-menu__seta svg { transform: rotate(180deg); }
+.pf-menu__sub {
+  margin: 2px 0 0 22px;
+  padding: 0 0 0 14px;
+  border-left: 1px solid var(--pf-linha);
+  list-style: none;
+}
+.pf-menu__sub .pf-menu__item { font-size: var(--pf-fs-ui); }
+
+.pf-lateral__rodape { padding-top: var(--space-3); border-top: 1px solid var(--pf-linha); }
+.pf-lateral__recolher { color: var(--pf-texto-3); }
+
+/* Recolhida: o rótulo continua no nome acessível (sr-only). */
+.pf-lateral.is-recolhido { padding-inline: var(--space-2); }
+.pf-lateral.is-recolhido .pf-menu__item { justify-content: center; padding: 0; }
+.pf-lateral.is-recolhido .pf-menu__rotulo,
+.pf-lateral.is-recolhido .pf-menu__seta,
+.pf-lateral.is-recolhido .pf-menu__contagem,
+.pf-lateral.is-recolhido .pf-menu__titulo-texto {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+.pf-lateral.is-recolhido .pf-menu__titulo {
+  width: 24px;
+  height: 1px;
+  margin: var(--space-2) auto;
+  padding: 0;
+  background: var(--pf-linha);
+}
+.pf-lateral.is-recolhido .pf-menu__ponto { position: absolute; top: 6px; right: 8px; }
+.pf-lateral.is-recolhido .pf-menu__grupo[aria-expanded="true"] > .pf-menu__ponto { display: inline-flex; }
+.pf-lateral.is-recolhido .pf-menu__sub:not(.is-flyout) { display: none; }
+/* Flyout do submenu com a lateral recolhida (pf-popover à direita do ícone, 15rem). */
+.pf-menu__sub.is-flyout {
+  position: fixed;
+  left: calc(var(--pf-lateral-w-min) + 6px);
+  z-index: var(--z-menu);
+  box-sizing: border-box;
+  width: 15rem;
+  margin: 0;
+  padding: var(--space-2);
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-3);
+  background: var(--pf-painel);
+  box-shadow: var(--pf-sombra);
+  animation: dmc-drop var(--dur-base) var(--ease-out) both;
+}
+.pf-lateral .pf-menu__sub.is-flyout .pf-menu__item { justify-content: flex-start; padding: 0 var(--space-3); }
+.pf-lateral .pf-menu__sub.is-flyout .pf-menu__rotulo {
+  position: static; width: auto; height: auto; overflow: visible; clip: auto; white-space: normal;
+}
+.pf-lateral .pf-menu__sub.is-flyout .pf-menu__ponto { position: static; }
+
+
+/* 17 · Gaveta (pf-gaveta · < 1024) -----------------------------------
+   role=dialog modal pela esquerda, min(22rem, 88vw), foco preso,
+   html.dmc-lock; o mesmo pf-menu com grupos e submenu em sanfona. */
+.pf-gaveta { position: fixed; inset: 0; z-index: var(--z-drawer); }
+.pf-gaveta__veu {
+  position: absolute;
+  inset: 0;
+  background: var(--pf-veu);
+  opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+.pf-gaveta__painel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: min(22rem, 88vw);
+  padding-bottom: env(safe-area-inset-bottom);
+  border-right: 1px solid var(--pf-linha);
+  background: var(--pf-fundo);
+  color: var(--pf-texto-1);
+  box-shadow: var(--pf-sombra);
+  transform: translateX(-100%);
+  transition: transform var(--dur-base) var(--ease-exit);
+  overscroll-behavior: contain;
+}
+.pf-gaveta.is-aberta .pf-gaveta__veu { opacity: 1; }
+.pf-gaveta.is-aberta .pf-gaveta__painel { transform: none; transition-timing-function: var(--ease-out); }
+.pf-gaveta__cabeca {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: var(--pf-topo-h);
+  padding: 0 var(--space-2) 0 var(--space-4);
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-gaveta__cabeca .pf-marca { flex: 1 1 auto; min-width: 0; overflow: hidden; }
+.pf-gaveta__cabeca .pf-marca__nome,
+.pf-gaveta__cabeca .pf-marca__contexto { white-space: nowrap; }
+.pf-gaveta__cabeca .pf-gaveta__fechar { flex: none; }
+html[data-pf-larg="p"] .pf-gaveta__cabeca .pf-marca__contexto { display: none; }
+.pf-gaveta__corpo { flex: 1 1 auto; overflow-y: auto; padding: var(--space-3) var(--space-2); }
+.pf-gaveta .pf-menu { gap: var(--space-2); }
+.pf-gaveta .pf-menu__item { min-height: 48px; }
+.pf-menu__titulo--botao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  cursor: pointer;
+}
+.pf-menu__titulo--botao:hover { color: var(--pf-texto-1); }
+.pf-menu__titulo--botao:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: -2px; }
+.pf-menu__titulo--botao svg { width: 16px; height: 16px; transition: transform var(--dur-base) var(--ease-out); }
+.pf-menu__titulo--botao[aria-expanded="true"] svg { transform: rotate(180deg); }
+.pf-gaveta__rodape { flex: none; padding: var(--space-2); border-top: 1px solid var(--pf-linha); }
+.pf-gaveta__links { margin: 0; padding: 0; list-style: none; }
+.pf-gaveta__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 48px;
+  margin: 0;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--pf-texto-2);
+  font: var(--fw-medium) var(--pf-fs-ui)/1.3 var(--font-text);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.pf-gaveta__link:hover { background: var(--pf-painel-2); color: var(--pf-texto-1); }
+.pf-gaveta__link:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: -2px; }
+.pf-gaveta__link svg { width: 18px; height: 18px; }
+
+
+/* 18 · Popover e dica (pf-popover · pf-dica) --------------------------
+   pf-popover: raio 8, --pf-sombra, --pf-painel; fecha com Esc, clique
+   fora e saída do foco (comportamento de quem abre). pf-dica: role=
+   tooltip, só no menu recolhido e em botão de ícone. */
+.pf-popover {
+  z-index: var(--z-menu);
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-3);
+  background: var(--pf-painel);
+  color: var(--pf-texto-1);
+  box-shadow: var(--pf-sombra);
+}
+.pf-popover:not([hidden]) { animation: dmc-drop var(--dur-base) var(--ease-out) both; }
+.pf-dica {
+  position: fixed;
+  left: calc(var(--pf-lateral-w-min) + 8px);
+  z-index: var(--z-menu);
+  max-width: 16rem;
+  padding: 6px 10px;
+  border-radius: var(--radius-1);
+  background: var(--pf-texto-1);
+  color: var(--pf-fundo);
+  font: var(--fw-medium) var(--pf-fs-meta)/1.3 var(--font-text);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+
+/* 19 · Tour (pf-tour · UX §5.7) --------------------------------------
+   pf-popover role=dialog não modal, SEM véu; o alvo ganha só o contorno
+   (pf-tour__alvo). < 30em: largura total acima ou abaixo do alvo. */
+.pf-tour {
+  position: fixed;
+  z-index: var(--z-drawer);
+  box-sizing: border-box;
+  width: min(22rem, calc(100vw - 24px));
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--pf-linha-forte);
+  border-radius: var(--radius-3);
+  background: var(--pf-painel);
+  color: var(--pf-texto-1);
+  box-shadow: var(--pf-sombra);
+  transition: opacity var(--dur-fast) linear;
+}
+.pf-tour--larga { width: calc(100vw - 24px); }
+.pf-tour.is-trocando { opacity: 0; }
+.pf-tour__passo {
+  margin: 0 0 var(--space-1);
+  color: var(--pf-texto-3);
+  font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+.pf-tour__titulo { margin: 0; font: var(--fw-semibold) var(--pf-fs-h3)/1.3 var(--font-text); }
+.pf-tour__titulo:focus { outline: none; }
+.pf-tour__titulo:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: 2px; }
+.pf-tour__texto { margin: var(--space-2) 0 var(--space-4); color: var(--pf-texto-2); font: 400 var(--pf-fs-corpo)/1.55 var(--font-text); }
+.pf-tour__acoes { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); }
+.pf-tour__navegacao { display: flex; gap: var(--space-2); margin-left: auto; }
+.pf-tour .dmc-btn { min-height: 44px; padding: 0 var(--space-4); }
+.pf-tour .dmc-btn--link { padding: 0; }
+.pf-tour__alvo { outline: var(--focus-width) solid var(--pf-foco) !important; outline-offset: 4px !important; }
+
+
+/* 20 · Rodapé e mapa (pf-rodape · #pf-mapa · UX §5.6) -------------------
+   No fluxo, não fixo. ≥ 1024: uma linha 13 px com "·"; abaixo: lista
+   vertical (alvo de 44). #pf-mapa (links do menu, no HTML estático da
+   página): visualmente oculto com JS, exceto no foco. */
+.pf-rodape {
+  box-sizing: border-box;
+  margin-left: var(--pf-lateral-atual);
+  padding: var(--space-5) var(--pf-gutter) calc(var(--space-5) + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--pf-linha);
+  color: var(--pf-texto-3);
+  font: 400 var(--pf-fs-meta)/1.5 var(--font-text);
+}
+.pf-rodape__lista { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.pf-rodape__marca { display: flex; align-items: center; min-height: var(--hit); color: var(--pf-texto-2); }
+.pf-rodape__link {
+  display: inline-flex;
+  align-items: center;
+  min-width: var(--hit);   /* "Ajuda" mede 34 px de texto: o alvo fica com 44 (≤ 1023) */
+  min-height: var(--hit);
+  color: var(--pf-texto-2);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.pf-rodape__link:hover { color: var(--pf-texto-1); text-decoration: underline; text-underline-offset: 0.35em; text-decoration-color: var(--pf-linha-forte); }
+html[data-pf-larg="g"] .pf-rodape__lista,
+html[data-pf-larg="x"] .pf-rodape__lista { flex-direction: row; flex-wrap: wrap; align-items: center; }
+html[data-pf-larg="g"] .pf-rodape__lista > li + li::before,
+html[data-pf-larg="x"] .pf-rodape__lista > li + li::before { content: "·"; margin: 0 var(--space-2); color: var(--pf-texto-3); }
+html[data-pf-larg="g"] .pf-rodape__lista > li,
+html[data-pf-larg="x"] .pf-rodape__lista > li { display: inline-flex; align-items: center; }
+html[data-pf-larg="g"] .pf-rodape__link,
+html[data-pf-larg="x"] .pf-rodape__link { min-width: 0; color: var(--pf-texto-3); }
+html.pf-js #pf-mapa:not(:focus-within) {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+
+/* 21 · Cabeçalho de página (pf-cabecalho · UX §4.4, DC-13) ---------------
+   <header class="pf-cabecalho"> p.pf-cabecalho__contexto (overline do
+   grupo) | a.pf-cabecalho__contexto.pf-cabecalho__voltar ("← Turmas") ·
+   h1.pf-cabecalho__titulo (até 1 <em>) · p.pf-cabecalho__desc ·
+   div.pf-cabecalho__acoes (1 primário + 1 secundário + __mais "⋯"). */
+.pf-cabecalho {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-6);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-cabecalho__contexto {
+  margin: 0;
+  color: var(--pf-texto-3);
+  font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+a.pf-cabecalho__contexto,
+.pf-cabecalho__voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-self: start;
+  min-height: var(--hit);
+  color: var(--pf-texto-2);
+  font: var(--fw-medium) var(--pf-fs-ui)/1.2 var(--font-text);
+  letter-spacing: 0;
+  text-transform: none;
+  text-decoration: none;
+}
+a.pf-cabecalho__contexto:hover { color: var(--pf-texto-1); }
+.pf-cabecalho__titulo {
+  margin: 0;
+  color: var(--pf-texto-1);
+  font-family: var(--font-display);
+  font-size: var(--pf-fs-titulo);
+  font-weight: var(--fw-light);
+  font-synthesis-weight: none;
+  line-height: 1.15;
+  letter-spacing: var(--tracking-heading);
+  overflow-wrap: anywhere;
+}
+.pf-cabecalho__titulo em { color: var(--pf-acento); font-style: italic; }
+.pf-cabecalho__titulo:focus { outline: none; }
+.pf-cabecalho__desc { max-width: var(--measure); margin: 0; color: var(--pf-texto-2); font: 400 var(--pf-fs-corpo)/1.6 var(--font-text); }
+.pf-cabecalho__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+@container pf-main (min-width: 48em) {
+  .pf-cabecalho { grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-6); }
+  .pf-cabecalho > :not(.pf-cabecalho__acoes) { grid-column: 1; }
+  .pf-cabecalho__acoes { grid-column: 2; grid-row: 1 / span 4; align-self: end; justify-content: flex-end; }
+}
+@container pf-main (max-width: 29.99em) {
+  .pf-cabecalho__acoes > .dmc-btn--primary { width: 100%; justify-content: center; }
+}
+/* Títulos de seção do portal (H2): Newsreader 300. */
+.pf-secao-titulo {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--pf-fs-secao);
+  font-weight: var(--fw-light);
+  font-synthesis-weight: none;
+  line-height: 1.2;
+}
+
+
+/* 22 · Subnavegação (pf-subnav · links, não abas ARIA) -------------------
+   Markup fixo do Atendimento no índice §7.10 (D-65): nav.pf-subnav >
+   a.pf-subnav__link[aria-current="page"]. Nenhum CSS de domínio a
+   estiliza. */
+.pf-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-5);
+  margin: 0 0 var(--space-6);
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-subnav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--pf-texto-2);
+  font: var(--fw-semibold) var(--pf-fs-botao)/1.2 var(--font-text);
+  text-decoration: none;
+  transition: var(--transition-state);
+}
+.pf-subnav__link::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--pf-acento);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.pf-subnav__link:hover,
+.pf-subnav__link[aria-current="page"] { color: var(--pf-texto-1); }
+.pf-subnav__link[aria-current="page"]::after { transform: scaleX(1); }
+
+
+/* 23 · Abas, segmentado e filtros (UX §4.6, DC-12) ------------------------
+   Abas (troca de painel): div.pf-abas[role=tablist] >
+   button.pf-abas__aba[role=tab][aria-selected] (+ span.pf-abas__contador
+   "(6)"); section.pf-abas__painel[role=tabpanel]. < 30em: colunas iguais.
+   Segmentado (filtra): div.pf-segmento[role=group][aria-label] >
+   button.pf-segmento__opcao[aria-pressed] (+ __contagem). < 30em: 2×2.
+   Filtros: .pf-filtros > .pf-filtros__linha (≥ 48em) | button
+   .pf-filtros__botao "Filtros (n)" (< 48em) + .pf-filtros__painel. */
+.pf-abas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-5);
+  margin: 0 0 var(--space-5);
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-abas__aba {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pf-texto-2);
+  font: var(--fw-semibold) var(--pf-fs-botao)/1.2 var(--font-text);
+  cursor: pointer;
+  transition: var(--transition-state);
+}
+.pf-abas__aba::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--pf-acento);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.pf-abas__aba:hover,
+.pf-abas__aba[aria-selected="true"] { color: var(--pf-texto-1); }
+.pf-abas__aba[aria-selected="true"]::after { transform: scaleX(1); }
+.pf-abas__contador { font-weight: var(--fw-medium); font-feature-settings: var(--font-numeric); }
+.pf-abas__painel { animation: dmc-fade var(--dur-fast) linear both; }
+.pf-abas__painel:focus { outline: none; }
+.pf-abas__painel:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: 4px; }
+@container pf-main (max-width: 29.99em) {
+  .pf-abas { display: grid; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; gap: 0; }
+  .pf-abas__aba { justify-content: center; padding: 0 var(--space-1); text-align: center; }
+}
+
+.pf-segmento {
+  display: inline-flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  border: 1px solid var(--pf-linha-forte);
+  border-radius: var(--radius-1);
+  overflow: hidden;
+}
+.pf-segmento__opcao {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  margin: 0;
+  padding: 0 var(--space-4);
+  border: 0;
+  border-right: 1px solid var(--pf-linha);
+  background: transparent;
+  color: var(--pf-texto-2);
+  font: var(--fw-medium) var(--pf-fs-botao)/1.2 var(--font-text);
+  cursor: pointer;
+  transition: var(--transition-state);
+}
+.pf-segmento__opcao:last-child { border-right: 0; }
+.pf-segmento__opcao:hover { color: var(--pf-texto-1); }
+.pf-segmento__opcao:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: -2px; }
+.pf-segmento__opcao[aria-pressed="true"] { background: var(--pf-painel-2); color: var(--pf-texto-1); }
+.pf-segmento__opcao::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--pf-acento);
+  transform: scaleX(0);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.pf-segmento__opcao[aria-pressed="true"]::after { transform: scaleX(1); }
+.pf-segmento__opcao:disabled,
+.pf-segmento__opcao[aria-disabled="true"] { opacity: 0.4; cursor: not-allowed; }
+.pf-segmento__contagem { font-feature-settings: var(--font-numeric); }
+@container pf-main (max-width: 29.99em) {
+  .pf-segmento { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  .pf-segmento__opcao { min-height: 48px; border-bottom: 1px solid var(--pf-linha); }
+}
+
+.pf-filtros { margin: 0 0 var(--space-5); }
+.pf-filtros__linha { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--space-3); }
+.pf-filtros__linha .pf-campo { flex: 1 1 12rem; min-width: 0; }
+.pf-filtros__linha .pf-input { min-height: 44px; }
+.pf-filtros__botao { display: none; }
+@container pf-main (max-width: 47.99em) {
+  .pf-filtros__linha { display: none; }
+  .pf-filtros__botao { display: inline-flex; }
+}
+.pf-filtros__painel { display: grid; gap: var(--space-4); }
+
+
+/* 24 · Estado, alerta, toast e vazio (UX §2.3, §4.10, DC-10) -------------
+   Estado: span.pf-estado.pf-estado--<tom> (+ --destaque) > svg
+   .pf-estado__glifo (14 px) + texto. --destaque nunca dentro de
+   pf-tabela, pf-lista nem pf-linha-tempo.
+   Alerta: div.pf-alerta.pf-alerta--<tom> > svg (glifo) · p.pf-alerta__titulo
+   · p · .pf-alerta__acao · details.pf-alerta__detalhe (= DMC_UI.erroCarga).
+   Toast: div.pf-toasts (pilha, máx. 3) > div.pf-toast(.pf-toast--erro) >
+   svg · p · button.pf-toast__acao · button.pf-toast__fechar.
+   Vazio: div.pf-vazio > svg (32 px) · p.pf-vazio__titulo · p.pf-vazio__texto
+   · div.pf-vazio__acoes. */
+.pf-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--pf-neutro);
+  font: var(--fw-semibold) var(--pf-fs-meta)/1.3 var(--font-text);
+}
+.pf-estado > svg,
+.pf-estado__glifo { flex: none; width: 14px; height: 14px; }
+.pf-estado--sucesso { color: var(--pf-sucesso); }
+.pf-estado--aviso { color: var(--pf-aviso); }
+.pf-estado--erro { color: var(--pf-erro); }
+.pf-estado--info { color: var(--pf-info); }
+.pf-estado--neutro { color: var(--pf-neutro); }
+.pf-estado--destaque { padding: 2px var(--space-2); border-radius: var(--radius-1); background: var(--pf-neutro-destaque); }
+.pf-estado--destaque.pf-estado--sucesso { background: var(--pf-sucesso-destaque); }
+.pf-estado--destaque.pf-estado--aviso { background: var(--pf-aviso-destaque); }
+.pf-estado--destaque.pf-estado--erro { background: var(--pf-erro-destaque); }
+.pf-estado--destaque.pf-estado--info { background: var(--pf-info-destaque); }
+:is(.pf-tabela, .pf-lista, .pf-linha-tempo) .pf-estado--destaque { padding: 0; background: none; }
+
+.pf-alerta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-2) var(--space-3);
+  box-sizing: border-box;
+  margin: 0 0 var(--space-4);
+  padding: var(--space-4);
+  border-left: 2px solid var(--pf-info);
+  border-radius: var(--radius-1);
+  background: var(--pf-info-destaque);
+  color: var(--pf-texto-1);
+  font: 400 var(--pf-fs-ui)/1.5 var(--font-text);
+}
+.pf-alerta > svg,
+.pf-alerta__glifo { grid-row: 1 / span 4; grid-column: 1; width: 20px; height: 20px; margin-top: 1px; color: var(--pf-info); }
+.pf-alerta > :not(svg):not(.pf-alerta__glifo) { grid-column: 2; min-width: 0; margin: 0; overflow-wrap: anywhere; }
+.pf-alerta__titulo { font-weight: var(--fw-semibold); }
+.pf-alerta__acao { justify-self: start; }
+.pf-alerta__detalhe { color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+.pf-alerta__detalhe summary { display: inline-flex; align-items: center; min-height: var(--hit); cursor: pointer; }
+.pf-alerta__detalhe p { margin: 0; }
+.pf-alerta--sucesso { border-left-color: var(--pf-sucesso); background: var(--pf-sucesso-destaque); }
+.pf-alerta--sucesso > svg { color: var(--pf-sucesso); }
+.pf-alerta--aviso { border-left-color: var(--pf-aviso); background: var(--pf-aviso-destaque); }
+.pf-alerta--aviso > svg { color: var(--pf-aviso); }
+.pf-alerta--erro { border-left-color: var(--pf-erro); background: var(--pf-erro-destaque); }
+.pf-alerta--erro > svg { color: var(--pf-erro); }
+.pf-alerta--compacto { gap: 0 var(--space-2); padding: var(--space-2) var(--space-3); font-size: var(--pf-fs-meta); }
+.pf-alerta--compacto > svg { width: 16px; height: 16px; }
+
+.pf-toasts {
+  position: fixed;
+  right: var(--pf-gutter);
+  bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: min(24rem, calc(100vw - 2 * var(--pf-gutter)));
+  pointer-events: none;
+}
+@media (max-width: 47.99em) {
+  .pf-toasts { right: var(--space-3); left: var(--space-3); width: auto; }
+}
+.pf-toast {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  padding: var(--space-2) var(--space-1) var(--space-2) var(--space-4);
+  border: 1px solid var(--pf-linha-forte);
+  border-radius: var(--radius-2);
+  background: var(--pf-painel-2);
+  color: var(--pf-texto-1);
+  box-shadow: var(--pf-sombra);
+  font: var(--fw-medium) var(--pf-fs-ui)/1.4 var(--font-text);
+  pointer-events: auto;
+  animation: pf-toast-entra var(--dur-base) var(--ease-out) both;
+}
+.pf-toast > p { margin: 0; overflow-wrap: anywhere; }
+.pf-toast > svg { width: 18px; height: 18px; color: var(--pf-info); }
+.pf-toast--sucesso > svg { color: var(--pf-sucesso); }
+.pf-toast--aviso > svg { color: var(--pf-aviso); }
+.pf-toast--erro { border-left: 2px solid var(--pf-erro); }
+.pf-toast--erro > svg { color: var(--pf-erro); }
+.pf-toast__acoes { display: flex; align-items: center; gap: var(--space-1); }
+.pf-toast__acao {
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  border: 0;
+  background: transparent;
+  color: var(--pf-texto-1);
+  font: var(--fw-semibold) var(--pf-fs-botao)/1.2 var(--font-text);
+  text-decoration: underline;
+  text-decoration-color: var(--pf-linha-forte);
+  text-underline-offset: 0.35em;
+  cursor: pointer;
+}
+.pf-toast__fechar { width: 44px; height: 44px; }
+.pf-toast.is-saindo { opacity: 0; transform: translateY(8px); transition: opacity var(--dur-fast) linear, transform var(--dur-fast) var(--ease-exit); }
+@keyframes pf-toast-entra {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+.pf-vazio { display: grid; justify-items: start; gap: var(--space-2); padding: var(--space-6) 0; color: var(--pf-texto-2); }
+.pf-vazio > svg,
+.pf-vazio__icone { width: 32px; height: 32px; color: var(--pf-texto-3); }
+.pf-vazio__titulo { margin: 0; color: var(--pf-texto-1); font: var(--fw-semibold) var(--pf-fs-h3)/1.35 var(--font-text); }
+.pf-vazio__texto { max-width: var(--measure); margin: 0; font: 400 var(--pf-fs-corpo)/1.6 var(--font-text); }
+.pf-vazio__acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); }
+
+
+/* 25 · Diálogo, reautenticação e painel de detalhe (UX §4.8) -------------
+   <dialog class="pf-dialogo pf-dialogo--m"> > .pf-dialogo__cabeca (h2
+   .pf-dialogo__titulo) · .pf-dialogo__corpo · .pf-dialogo__acoes
+   (botões com data-pf-acao="confirmar"|"cancelar", D-76). < 30em: folha
+   inferior. Reautenticação (DC-38): fieldset.pf-reautenticacao > legend
+   "Confirme sua identidade" · p · .pf-campo.pf-reautenticacao__senha
+   (pf-senha) · .pf-campo.pf-reautenticacao__codigo. Detalhe:
+   .pf-detalhe-grade (lista + coluna, ≥ 1024) > … + section.pf-detalhe
+   (__cabeca · __corpo · __acoes). */
+dialog.pf-dialogo {
+  box-sizing: border-box;
+  width: min(36rem, calc(100vw - 2 * var(--space-4)));
+  max-width: none;
+  max-height: min(88vh, 60rem);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-3);
+  background: var(--pf-painel);
+  color: var(--pf-texto-1);
+  box-shadow: var(--pf-sombra);
+  font: 400 var(--pf-fs-corpo)/1.55 var(--font-text);
+}
+dialog.pf-dialogo[open] { display: flex; flex-direction: column; animation: dmc-drop var(--dur-base) var(--ease-out) both; }
+dialog.pf-dialogo::backdrop { background: var(--pf-veu); }
+dialog.pf-dialogo--p { width: min(28rem, calc(100vw - 2 * var(--space-4))); }
+dialog.pf-dialogo--g { width: min(48rem, calc(100vw - 2 * var(--space-4))); }
+.pf-dialogo__cabeca {
+  display: flex;
+  flex: none;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-3) var(--space-3) var(--space-5);
+}
+.pf-dialogo__cabeca :is(h1, h2, h3),
+.pf-dialogo__titulo {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--pf-fs-secao);
+  font-weight: var(--fw-light);
+  font-synthesis-weight: none;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+.pf-dialogo__titulo:focus,
+.pf-dialogo__cabeca :is(h1, h2, h3):focus { outline: none; }
+.pf-dialogo__corpo { flex: 1 1 auto; min-height: 0; padding: 0 var(--space-5) var(--space-4); overflow-y: auto; overscroll-behavior: contain; }
+.pf-dialogo__corpo > p { max-width: var(--measure); margin: 0 0 var(--space-3); color: var(--pf-texto-2); }
+.pf-dialogo__acoes {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  border-top: 1px solid var(--pf-linha);
+}
+dialog.pf-dialogo[aria-busy="true"] .pf-dialogo__acoes { cursor: progress; }
+@media (max-width: 29.99em) {
+  dialog.pf-dialogo,
+  dialog.pf-dialogo--p,
+  dialog.pf-dialogo--g {
+    width: 100%;
+    max-height: 92vh;
+    margin: auto 0 0;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: var(--radius-3) var(--radius-3) 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pf-dialogo__acoes > * { flex: 1 1 100%; justify-content: center; }
+}
+
+.pf-reautenticacao {
+  min-width: 0;
+  margin: var(--space-5) 0 0;
+  padding: var(--space-4) 0 0;
+  border: 0;
+  border-top: 1px solid var(--pf-linha);
+}
+.pf-reautenticacao > legend {
+  float: left;
+  width: 100%;
+  margin: 0 0 var(--space-2);
+  padding: 0;
+  color: var(--pf-texto-1);
+  font: var(--fw-semibold) var(--pf-fs-ui)/1.35 var(--font-text);
+}
+.pf-reautenticacao > legend + * { clear: both; }
+.pf-reautenticacao > p { margin: 0 0 var(--space-3); color: var(--pf-texto-2); font-size: var(--pf-fs-ui); }
+.pf-reautenticacao .pf-campo + .pf-campo { margin-top: var(--space-3); }
+.pf-reautenticacao__codigo .pf-input { max-width: 12rem; letter-spacing: 0.12em; font-feature-settings: var(--font-numeric); }
+.pf-reautenticacao[aria-busy="true"] { cursor: progress; }
+.pf-reautenticacao:disabled { opacity: 0.55; }
+
+.pf-detalhe-grade { display: grid; align-items: start; gap: var(--space-5); }
+html[data-pf-larg="g"] .pf-detalhe-grade,
+html[data-pf-larg="x"] .pf-detalhe-grade { grid-template-columns: minmax(0, 1fr) min(32rem, 45%); }
+html[data-pf-larg="g"] .pf-detalhe-grade--largo,
+html[data-pf-larg="x"] .pf-detalhe-grade--largo { grid-template-columns: minmax(0, 1fr) min(40rem, 45%); }
+.pf-detalhe {
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--space-5);
+  border-left: 1px solid var(--pf-linha-forte);
+  background: var(--pf-painel);
+  animation: pf-detalhe-entra var(--dur-base) var(--ease-out) both;
+}
+.pf-detalhe__cabeca { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-4); }
+.pf-detalhe__cabeca :is(h2, h3) { margin: 0; font: var(--fw-light) var(--pf-fs-secao)/1.2 var(--font-display); font-synthesis-weight: none; overflow-wrap: anywhere; }
+.pf-detalhe__cabeca :is(h2, h3):focus { outline: none; }
+.pf-detalhe__corpo { min-width: 0; }
+.pf-detalhe__acoes {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--pf-linha);
+  background: var(--pf-painel);
+}
+html[data-pf-larg="p"] .pf-detalhe__acoes > *,
+html[data-pf-larg="m"] .pf-detalhe__acoes > * { min-height: 48px; }
+@keyframes pf-detalhe-entra {
+  from { opacity: 0; transform: translateX(24px); }
+}
+
+
+/* 26 · Campos (pf-campo · UX §4.5) ----------------------------------------
+   .pf-campo > label.pf-rotulo (+ span[aria-hidden] "*") · .pf-input
+   (input · select · textarea) · p.pf-ajuda · p.pf-erro-campo (svg +
+   texto, ligado por aria-describedby). fieldset.pf-grupo. label.pf-check
+   > input[type=checkbox] + span · label.pf-radio > input[type=radio] +
+   span · button.pf-switch[role=switch][aria-checked] > span
+   .pf-switch__trilho > span.pf-switch__botao + span.pf-switch__rotulo ·
+   .pf-senha > .pf-input + button.pf-senha__ver · .pf-erros (resumo). */
+.pf-campo { display: grid; gap: var(--space-2); min-width: 0; margin: 0 0 var(--space-4); }
+.pf-rotulo { color: var(--pf-texto-1); font: var(--fw-medium) var(--pf-fs-ui)/1.35 var(--font-text); }
+.pf-rotulo [aria-hidden="true"] { color: var(--pf-texto-2); }
+.pf-input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 3rem;
+  margin: 0;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--pf-controle);
+  border-radius: var(--radius-1);
+  background-color: var(--pf-campo);
+  color: var(--pf-texto-1);
+  font: 400 var(--pf-fs-corpo)/1.4 var(--font-text);
+  transition: var(--transition-state);
+  -webkit-appearance: none;
+  appearance: none;
+}
+textarea.pf-input { min-height: 7.5rem; padding: var(--space-3) var(--space-4); line-height: 1.6; resize: vertical; }
+select.pf-input {
+  padding-right: 2.75rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--pf-texto-2) 50%),
+    linear-gradient(135deg, var(--pf-texto-2) 50%, transparent 50%);
+  background-position: calc(100% - 21px) 52%, calc(100% - 16px) 52%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+.pf-input::placeholder { color: var(--pf-texto-3); }
+.pf-input:hover { border-color: var(--pf-texto-2); }
+.pf-input:focus-visible { border-color: var(--pf-acento); outline: var(--focus-width) solid var(--pf-foco); outline-offset: 2px; }
+.pf-input[aria-invalid="true"] { border-color: var(--pf-erro); }
+.pf-input:disabled { opacity: 0.55; cursor: not-allowed; }
+.pf-input[readonly] { border-color: transparent; background-color: var(--pf-painel-2); }
+.pf-input--forte { border-color: var(--pf-controle-forte); }
+.pf-ajuda { margin: 0; color: var(--pf-texto-2); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); }
+.pf-erro-campo { display: flex; align-items: flex-start; gap: 6px; margin: 0; color: var(--pf-erro); font: var(--fw-medium) var(--pf-fs-meta)/1.45 var(--font-text); }
+.pf-erro-campo > svg { flex: none; width: 14px; height: 14px; margin-top: 2px; }
+.pf-campo--travado { position: relative; }
+.pf-campo--travado .pf-input { padding-right: 2.75rem; }
+.pf-campo__cadeado { position: absolute; right: 14px; bottom: 15px; display: inline-flex; color: var(--pf-texto-3); pointer-events: none; }
+.pf-campo__cadeado svg { width: 16px; height: 16px; }
+.pf-campo[aria-busy="true"] .pf-input { cursor: progress; opacity: 0.8; }
+
+.pf-grupo { display: grid; gap: var(--space-1); min-width: 0; margin: 0 0 var(--space-4); padding: 0; border: 0; }
+.pf-grupo > legend { margin: 0 0 var(--space-2); padding: 0; color: var(--pf-texto-1); font: var(--fw-medium) var(--pf-fs-ui)/1.35 var(--font-text); }
+
+.pf-check,
+.pf-radio {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  color: var(--pf-texto-1);
+  font: 400 var(--pf-fs-ui)/1.4 var(--font-text);
+  cursor: pointer;
+}
+.pf-check > input,
+.pf-radio > input {
+  display: inline-grid;
+  flex: none;
+  place-content: center;
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 1px solid var(--pf-controle);
+  background: var(--pf-campo);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: var(--transition-state);
+}
+.pf-check > input { border-radius: var(--radius-1); }
+.pf-radio > input { border-radius: 50%; }
+.pf-check > input:checked,
+.pf-check > input:indeterminate { border-color: var(--pf-acento); background: var(--pf-acento); }
+.pf-check > input:checked::after {
+  content: "";
+  width: 10px;
+  height: 5px;
+  border-bottom: 2px solid var(--pf-acao-texto);
+  border-left: 2px solid var(--pf-acao-texto);
+  transform: translateY(-1px) rotate(-45deg);
+}
+.pf-check > input:indeterminate::after { content: ""; width: 10px; height: 2px; background: var(--pf-acao-texto); }
+.pf-radio > input:checked { border-color: var(--pf-acento); }
+.pf-radio > input:checked::after { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--pf-acento); }
+.pf-check > input:focus-visible,
+.pf-radio > input:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: 2px; }
+.pf-check > input:disabled,
+.pf-radio > input:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.pf-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--pf-texto-1);
+  font: var(--fw-medium) var(--pf-fs-ui)/1.3 var(--font-text);
+  cursor: pointer;
+}
+.pf-switch__trilho {
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  width: 36px;
+  height: 20px;
+  border: 1px solid var(--pf-controle-forte);
+  border-radius: var(--radius-1);
+  background: transparent;
+  transition: var(--transition-state);
+}
+.pf-switch__botao {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 1px;
+  background: var(--pf-texto-2);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.pf-switch[aria-checked="true"] .pf-switch__trilho { border-color: var(--pf-acento); background: var(--pf-acento); }
+.pf-switch[aria-checked="true"] .pf-switch__botao { background: var(--pf-fundo); transform: translateX(16px); }
+.pf-switch:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: 2px; }
+.pf-switch:disabled,
+.pf-switch[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
+
+.pf-senha { position: relative; }
+.pf-senha > .pf-input { padding-right: 52px; }
+.pf-senha__ver {
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--pf-texto-2);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.pf-senha__ver:hover { color: var(--pf-texto-1); }
+.pf-senha__ver:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: -2px; }
+.pf-senha__ver svg { width: 20px; height: 20px; }
+
+.pf-erros {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-4);
+  border-left: 2px solid var(--pf-erro);
+  border-radius: var(--radius-1);
+  background: var(--pf-erro-destaque);
+  color: var(--pf-texto-1);
+  font: 400 var(--pf-fs-ui)/1.5 var(--font-text);
+}
+.pf-erros:focus { outline: none; }
+.pf-erros:focus-visible { outline: var(--focus-width) solid var(--pf-foco); outline-offset: 2px; }
+.pf-erros__titulo { margin: 0 0 var(--space-2); font-weight: var(--fw-semibold); }
+.pf-erros ul { margin: 0; padding-left: var(--space-5); }
+.pf-erros a { color: var(--pf-texto-1); text-decoration: underline; text-underline-offset: 0.25em; }
+.pf-obrigatorios { margin: 0 0 var(--space-4); color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+
+
+/* 27 · Tabela e lista (UX §4.7, DC-09) -------------------------------------
+   table.pf-tabela > caption · thead th[scope] (ordenável: button + aria-
+   sort) · tbody td[data-rotulo]; colunas .pf-tabela__num · __acoes ·
+   __secundaria · __selecao. Empilhada quando o contêiner pf-main < 44em
+   (secundárias somem entre 44em e 64em); só na tela — no papel é sempre
+   tabela (§12). Nunca rola na horizontal.
+   Lista: ul.pf-lista > li.pf-lista__linha > a.pf-lista__titulo (link
+   inteiro) · p.pf-lista__meta · div.pf-lista__acao. */
+.pf-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--pf-texto-1);
+  font: 400 var(--pf-fs-ui)/1.45 var(--font-text);
+  font-feature-settings: var(--font-numeric);
+}
+.pf-tabela caption { padding: 0 0 var(--space-3); color: var(--pf-texto-1); font: var(--fw-semibold) var(--pf-fs-ui)/1.35 var(--font-text); text-align: left; caption-side: top; }
+.pf-tabela thead th {
+  position: sticky;
+  top: var(--pf-tabela-topo, 0px);
+  z-index: 1;
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--pf-linha);
+  background: var(--pf-painel-2);
+  color: var(--pf-texto-2);
+  font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline);
+  text-align: left;
+  text-transform: uppercase;
+}
+.pf-tabela th[aria-sort] button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 44px;
+  margin: calc(-1 * var(--space-3)) 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}
+.pf-tabela td { height: 3.5rem; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--pf-linha); vertical-align: middle; overflow-wrap: anywhere; }
+.pf-tabela tbody tr:hover { background: var(--pf-painel-2); }
+.pf-tabela tbody th { padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--pf-linha); font-weight: var(--fw-semibold); text-align: left; }
+.pf-tabela :is(td, th).pf-tabela__num { text-align: right; white-space: nowrap; }
+.pf-tabela .pf-tabela__acoes { text-align: right; white-space: nowrap; }
+.pf-tabela .pf-tabela__selecao { width: 44px; }
+.pf-tabela td a { color: var(--pf-texto-1); }
+.pf-tabela td a:focus-visible { outline-offset: 2px; }
+@media screen {
+  @container pf-main (min-width: 44em) and (max-width: 63.99em) {
+    .pf-tabela .pf-tabela__secundaria { display: none; }
+  }
+  @container pf-main (max-width: 43.99em) {
+    .pf-tabela:not(.pf-tabela--nunca-empilhar),
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) tbody,
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) tr,
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) td,
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) tbody th { display: block; width: 100%; box-sizing: border-box; }
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) caption { display: block; }
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) tr {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-2) var(--space-4);
+      padding: var(--space-3) 0;
+      border-top: 1px solid var(--pf-linha);
+    }
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) :is(td, tbody th) { height: auto; padding: 0; border: 0; text-align: left; white-space: normal; }
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) :is(td, tbody th):first-child { grid-column: 1 / -1; font-weight: var(--fw-semibold); }
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) td[data-rotulo]::before {
+      content: attr(data-rotulo);
+      display: block;
+      color: var(--pf-texto-3);
+      font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text);
+      letter-spacing: var(--tracking-overline);
+      text-transform: uppercase;
+    }
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) td:first-child::before { content: none; }
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) .pf-tabela__acoes { grid-column: 1 / -1; }
+    .pf-tabela:not(.pf-tabela--nunca-empilhar) .pf-tabela__acoes > * { width: 100%; justify-content: center; }
+    .pf-tabela .pf-tabela__secundaria { display: block; }
+  }
+  .pf-tabela--empilhar,
+  .pf-tabela--empilhar tbody,
+  .pf-tabela--empilhar tr,
+  .pf-tabela--empilhar td { display: block; width: 100%; box-sizing: border-box; }
+  .pf-tabela--empilhar thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .pf-tabela--empilhar tr { padding: var(--space-3) 0; border-top: 1px solid var(--pf-linha); }
+  .pf-tabela--empilhar td { height: auto; padding: var(--space-1) 0; border: 0; }
+}
+
+.pf-lista { margin: 0; padding: 0; border-top: 1px solid var(--pf-linha); list-style: none; }
+.pf-lista__linha {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-1) var(--space-4);
+  min-height: 56px;
+  box-sizing: border-box;
+  padding: var(--space-3) var(--space-2);
+  border-bottom: 1px solid var(--pf-linha);
+  transition: var(--transition-state);
+}
+.pf-lista__linha:hover { background: var(--pf-painel-2); }
+.pf-lista__titulo { grid-column: 1; margin: 0; color: var(--pf-texto-1); font: var(--fw-semibold) var(--pf-fs-ui)/1.4 var(--font-text); text-decoration: none; overflow-wrap: anywhere; }
+a.pf-lista__titulo::after { content: ""; position: absolute; inset: 0; }
+a.pf-lista__titulo:focus-visible { outline: none; }
+.pf-lista__linha:has(a.pf-lista__titulo:focus-visible) { outline: var(--focus-width) solid var(--pf-foco); outline-offset: -2px; }
+.pf-lista__meta { grid-column: 1; margin: 0; color: var(--pf-texto-2); font: 400 var(--pf-fs-meta)/1.45 var(--font-text); overflow-wrap: anywhere; }
+.pf-lista__acao { position: relative; z-index: 1; grid-row: 1 / span 2; grid-column: 2; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+@container pf-main (max-width: 29.99em) {
+  .pf-lista__linha { grid-template-columns: minmax(0, 1fr); min-height: 48px; }
+  .pf-lista__acao { grid-row: auto; grid-column: 1; }
+}
+
+
+/* 28 · KPIs, progresso, donut e barras (UX §4.9) -------------------------
+   KPIs: dl.pf-kpis > div.pf-kpi(.pf-kpi--link) > dt.pf-kpi__rotulo ·
+   dd.pf-kpi__valor ("—" sem dado) · dd.pf-kpi__nota. Progresso: div
+   .pf-progresso > span.pf-progresso__barra[role=progressbar][aria-
+   valuenow] com --pf-pct (0..1) + span.pf-progresso__texto "38%".
+   Donut: figure.pf-donut > svg[role=img] (circle.pf-donut__trilho +
+   circle.pf-donut__arco) + span.pf-donut__valor. Barras: figure
+   .pf-barras > table (dado real) com span.pf-barras__barra (--pf-pct,
+   aria-hidden) + span.pf-barras__texto. */
+.pf-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  border-top: 1px solid var(--pf-linha);
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-kpi {
+  container-type: inline-size;
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-4);
+  border-right: 1px solid var(--pf-linha);
+  border-bottom: 1px solid var(--pf-linha);
+}
+.pf-kpi__rotulo {
+  margin: 0;
+  color: var(--pf-texto-3);
+  font: var(--fw-semibold) var(--pf-fs-overline)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+.pf-kpi__valor {
+  margin: var(--space-2) 0 0;
+  color: var(--pf-texto-1);
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 14cqi, var(--pf-fs-kpi));
+  font-weight: var(--fw-light);
+  font-synthesis-weight: none;
+  font-feature-settings: var(--font-numeric);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+.pf-kpi__nota { margin: var(--space-1) 0 0; color: var(--pf-texto-3); font: 400 var(--pf-fs-meta)/1.4 var(--font-text); }
+.pf-kpi--link a { display: block; margin: calc(-1 * var(--space-4)); padding: var(--space-4); color: inherit; text-decoration: none; }
+.pf-kpi--link a:hover .pf-kpi__rotulo { text-decoration: underline; text-underline-offset: 0.3em; }
+.pf-kpi--link a:focus-visible { outline-offset: -2px; }
+@container pf-main (min-width: 48em) {
+  .pf-kpis { grid-template-columns: none; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; }
+  .pf-kpi { border-bottom: 0; }
+  .pf-kpi:last-child { border-right: 0; }
+}
+@container pf-main (max-width: 47.99em) {
+  .pf-kpi:nth-child(2n) { border-right: 0; }
+  .pf-kpi:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; }
+  .pf-kpi:nth-last-child(-n + 2):nth-child(odd),
+  .pf-kpi:last-child { border-bottom: 0; }
+}
+@container pf-main (max-width: 17.99em) {
+  .pf-kpis { grid-template-columns: minmax(0, 1fr); }
+  .pf-kpi { border-right: 0; border-bottom: 1px solid var(--pf-linha); }
+  .pf-kpi:last-child { border-bottom: 0; }
+}
+
+.pf-progresso { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
+.pf-progresso__barra {
+  position: relative;
+  flex: 1 1 auto;
+  display: block;
+  min-width: 3rem;
+  height: 4px;
+  overflow: hidden;
+  background: var(--pf-trilha);
+}
+.pf-progresso__barra::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--pf-acento);
+  transform: scaleX(var(--pf-pct, 0));
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.pf-progresso--completo .pf-progresso__barra::after,
+.pf-progresso__barra[aria-valuenow="100"]::after { background: var(--pf-sucesso); }
+.pf-progresso__texto { flex: none; color: var(--pf-texto-2); font: var(--fw-medium) var(--pf-fs-meta)/1.3 var(--font-text); font-feature-settings: var(--font-numeric); }
+:is(.pf-tabela, .pf-lista) .pf-progresso__barra { height: 2px; }
+
+.pf-donut { position: relative; display: inline-grid; place-items: center; width: 160px; height: 160px; margin: 0; }
+.pf-donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.pf-donut__trilho { fill: none; stroke: var(--pf-trilha); }
+.pf-donut__arco { fill: none; stroke: var(--pf-acento); }
+.pf-donut__valor {
+  position: absolute;
+  color: var(--pf-texto-1);
+  font-family: var(--font-display);
+  font-size: var(--pf-fs-kpi);
+  font-weight: var(--fw-light);
+  font-feature-settings: var(--font-numeric);
+  line-height: 1;
+}
+@media (max-width: 47.99em) {
+  .pf-donut { width: 120px; height: 120px; }
+}
+
+.pf-barras { margin: 0; }
+.pf-barras table { width: 100%; border-collapse: collapse; font: 400 var(--pf-fs-ui)/1.4 var(--font-text); font-feature-settings: var(--font-numeric); }
+.pf-barras :is(th, td) { padding: var(--space-2) var(--space-3) var(--space-2) 0; border-bottom: 1px solid var(--pf-linha); text-align: left; vertical-align: middle; overflow-wrap: anywhere; }
+.pf-barras__barra { position: relative; display: block; min-width: 4rem; height: 8px; overflow: hidden; background: var(--pf-trilha); }
+.pf-barras__barra::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--pf-texto-2);
+  transform: scaleX(var(--pf-pct, 0));
+  transform-origin: left;
+}
+.pf-barras__barra.is-selecionada::after { background: var(--pf-acento); }
+.pf-barras__texto { color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+
+
+/* 29 · Esqueleto (pf-esqueleto · DC-19) ------------------------------------
+   Pulso de opacidade de 0,6 a 1 em 1,2 s (marca carregamento; some quando o
+   dado chega); estático com movimento reduzido. --pf-painel-3 sem texto. */
+.pf-esqueleto {
+  display: block;
+  border-radius: var(--radius-1);
+  background: var(--pf-painel-3);
+  animation: pf-pulso 1.2s ease-in-out infinite alternate;
+}
+.pf-esqueleto--texto { width: 70%; height: 1em; margin: 0.35em 0; }
+.pf-esqueleto--linha { height: 2.5rem; }
+.pf-esqueleto--bloco { height: 8rem; }
+.pf-esqueleto--capa { width: 100%; aspect-ratio: 2 / 3; border-radius: var(--radius-2); }
+@keyframes pf-pulso {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+
+/* 30 · Leitura, consentimento, código, upload, linha do tempo, mais -------
+   pf-leitura: escopo claro no tema escuro (camadas 1 e 5); no claro vira
+   --pf-painel com fio. Consentimento (DC-39; texto literal do servidor):
+   div.pf-consentimento > div.pf-consentimento__texto.pf-leitura ·
+   p.pf-consentimento__versao · label.pf-check.pf-consentimento__check
+   (modo caixa) | div.pf-consentimento__acoes (modo botões) ·
+   p.pf-consentimento__registro ("Autorizado em …"). Estados: aria-busy,
+   .is-registrado, .is-exigido (428), .is-retirado. Código: span.pf-codigo
+   > span.pf-codigo__valor + button.pf-codigo__copiar (.is-copiado).
+   Upload: .pf-upload > .pf-upload__alvo (.is-arrastando) · __arquivo ·
+   progress.pf-upload__progresso. Linha do tempo: ol.pf-linha-tempo >
+   li.pf-linha-tempo__item(--sistema). Paginação: .pf-mais. */
+.pf-leitura {
+  box-sizing: border-box;
+  max-width: var(--container-text);
+  padding: var(--space-5);
+  border-radius: var(--radius-2);
+  font: 400 var(--pf-fs-corpo)/1.65 var(--font-text);
+  overflow-wrap: anywhere;
+}
+html[data-pf-tema="claro"] .pf-leitura { border: 1px solid var(--pf-linha); background: var(--pf-painel); }
+.pf-leitura > :first-child { margin-top: 0; }
+.pf-leitura > :last-child { margin-bottom: 0; }
+.pf-leitura :is(p, ul, ol) { margin: 0 0 var(--space-3); }
+.pf-leitura :is(h2, h3) { margin: var(--space-5) 0 var(--space-2); font: var(--fw-semibold) var(--pf-fs-h3)/1.35 var(--font-text); }
+.pf-leitura a { color: var(--pf-texto-1); text-decoration: underline; text-decoration-color: var(--pf-acento); text-underline-offset: 0.2em; }
+
+.pf-consentimento { display: grid; gap: var(--space-3); margin: 0 0 var(--space-4); padding: var(--space-4) 0 0; border-top: 1px solid var(--pf-linha); }
+.pf-consentimento__texto { margin: 0; padding: var(--space-4); white-space: pre-line; }
+.pf-consentimento__versao { margin: 0; color: var(--pf-texto-3); font: 400 var(--pf-fs-meta)/1.4 var(--font-text); }
+.pf-consentimento__acoes { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.pf-consentimento__registro { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--pf-sucesso); font: var(--fw-medium) var(--pf-fs-meta)/1.4 var(--font-text); }
+.pf-consentimento__registro > svg { width: 14px; height: 14px; flex: none; }
+.pf-consentimento[aria-busy="true"] { cursor: progress; }
+.pf-consentimento[aria-busy="true"] .pf-consentimento__acoes,
+.pf-consentimento[aria-busy="true"] .pf-consentimento__check { opacity: 0.6; }
+.pf-consentimento.is-exigido { padding-left: var(--space-4); border-top-color: var(--pf-aviso); border-left: 2px solid var(--pf-aviso); }
+.pf-consentimento.is-retirado .pf-consentimento__registro { color: var(--pf-texto-2); }
+
+.pf-codigo { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); max-width: 100%; }
+.pf-codigo__valor {
+  min-width: 0;
+  color: var(--pf-texto-1);
+  font: var(--fw-medium) var(--pf-fs-ui)/1.35 var(--font-text);
+  font-feature-settings: var(--font-numeric);
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+.pf-codigo__copiar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--pf-texto-2);
+  font: var(--fw-semibold) var(--pf-fs-meta)/1.2 var(--font-text);
+  cursor: pointer;
+}
+.pf-codigo__copiar:hover { background: var(--pf-painel-2); color: var(--pf-texto-1); }
+.pf-codigo__copiar svg { width: 16px; height: 16px; }
+.pf-codigo.is-copiado .pf-codigo__copiar { color: var(--pf-sucesso); }
+
+.pf-upload { display: grid; gap: var(--space-3); }
+.pf-upload__alvo {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border: 1px dashed var(--pf-linha-forte);
+  border-radius: var(--radius-2);
+  color: var(--pf-texto-2);
+  text-align: center;
+  transition: var(--transition-state);
+}
+.pf-upload__alvo.is-arrastando,
+.pf-upload.is-arrastando .pf-upload__alvo { border-color: var(--pf-acento); background: rgba(var(--pf-acento-rgb), 0.06); }
+.pf-upload__arquivo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-1);
+  background: var(--pf-painel-2);
+  overflow-wrap: anywhere;
+}
+.pf-upload__progresso { width: 100%; height: 6px; }
+.pf-upload.is-erro .pf-upload__alvo { border-color: var(--pf-erro); }
+
+.pf-linha-tempo { margin: 0; padding: 0; border-left: 1px solid var(--pf-linha); list-style: none; }
+.pf-linha-tempo__item { position: relative; padding: 0 0 var(--space-5) var(--space-5); overflow-wrap: anywhere; }
+.pf-linha-tempo__item::before {
+  content: "";
+  position: absolute;
+  top: 0.5em;
+  left: -4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pf-texto-3);
+}
+.pf-linha-tempo__item--sistema { color: var(--pf-texto-2); font-size: var(--pf-fs-meta); }
+.pf-linha-tempo__item--sistema::before { box-sizing: border-box; border: 1px solid var(--pf-texto-3); background: var(--pf-fundo); }
+
+.pf-mais {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+  color: var(--pf-texto-2);
+  font: 400 var(--pf-fs-meta)/1.4 var(--font-text);
+}
+.pf-mais p { margin: 0; }
+
+
+/* 31 · Capa, documento e QR (UX §4.11, §8, §12) ---------------------------
+   Capa (escopo escuro): div.pf-capa.pf-capa--vertical|--larga > img
+   (alt="" quando o título está ao lado). Sem imagem: div.pf-capa
+   .pf-capa--tipografica[data-sigla="APE"] (+ svg.pf-capa__rede, SVG estático,
+   aria-hidden): a sigla a 12% é decorativa e vem do atributo por
+   ::before (texto decorativo fora da conferência de contraste; o título
+   do curso fica ao lado). Documento (sempre papel): .pf-documento > __cabeca ·
+   __corpo · __rodape; .pf-qr (SVG de DMC_QR com fundo branco próprio). */
+.pf-capa { position: relative; overflow: hidden; aspect-ratio: 16 / 9; border-radius: var(--radius-2); background: var(--pf-painel-2); }
+.pf-capa--vertical { aspect-ratio: 2 / 3; }
+.pf-capa--larga { aspect-ratio: 16 / 9; }
+.pf-capa > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.pf-capa--tipografica { container-type: inline-size; background: var(--pf-painel-2); }
+.pf-capa--tipografica[data-sigla]::before {
+  content: attr(data-sigla);
+  position: absolute;
+  right: var(--space-3);
+  bottom: var(--space-2);
+  left: var(--space-3);
+  color: var(--pf-texto-1);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 34cqi, 6rem);
+  font-style: italic;
+  font-weight: var(--fw-light);
+  line-height: 1;
+  opacity: 0.12;
+  overflow-wrap: anywhere;
+}
+.pf-capa__rede { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--pf-texto-1); opacity: 0.06; pointer-events: none; }
+
+.pf-documento {
+  box-sizing: border-box;
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-7);
+  border: 1px solid var(--pf-linha);
+  border-radius: var(--radius-2);
+  font: 400 var(--pf-fs-corpo)/1.6 var(--font-text);
+  overflow-wrap: anywhere;
+}
+@media (max-width: 47.99em) {
+  .pf-documento { padding: var(--space-6) var(--space-4); }
+}
+.pf-documento__cabeca { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-4); padding-bottom: var(--space-5); border-bottom: 1px solid var(--pf-linha); }
+.pf-documento__corpo { padding: var(--space-6) 0; }
+.pf-documento__rodape {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--pf-linha);
+  color: var(--pf-texto-2);
+  font: 400 var(--pf-fs-meta)/1.5 var(--font-text);
+}
+.pf-qr { display: inline-block; width: 128px; height: 128px; line-height: 0; }
+.pf-qr svg { display: block; width: 100%; height: 100%; }
+
+
+/* 32 · Overlays legados acima do shell -------------------------------------
+   Até a fase C da F0r trocar os z-index literais por tokens (UX §3 fase C):
+   a gaveta do carrinho, o modal do editor e o toast legado ficam acima do
+   topo e da lateral do shell v2. Sai na limpeza final. */
+.cart-drawer { z-index: var(--z-drawer); }
+.modal-overlay { z-index: var(--z-modal); }
+.toast { z-index: var(--z-toast); }
+
+
+/* 33 · Movimento reduzido (UX §2.6) ---------------------------------------
+   tokens.css já leva as durações a 1 ms; aqui só o que não usa token. */
+@media (prefers-reduced-motion: reduce) {
+  .pf-esqueleto { animation: none; opacity: 0.8; }
+  .pf-popover:not([hidden]),
+  .pf-busca__painel:not([hidden]),
+  .pf-menu__sub.is-flyout,
+  dialog.pf-dialogo[open],
+  .pf-detalhe,
+  .pf-toast,
+  .pf-abas__painel { animation: none; }
+  .pf-tour { transition: none; }
+}
+
+
+/* 34 · Alto contraste do Windows (UX §11) ---------------------------------
+   O modo apaga fundo de bloco e de pseudo-elemento: todo indicador
+   desenhado por fundo ganha equivalente em borda ou cor do sistema. */
+@media (forced-colors: active) {
+  .pf-menu__item::before,
+  .pf-abas__aba::after,
+  .pf-segmento__opcao::after,
+  .pf-subnav__link::after { display: none; }
+  .pf-menu__item[aria-current="page"] { border-left: 2px solid Highlight; }
+  .pf-abas__aba[aria-selected="true"],
+  .pf-segmento__opcao[aria-pressed="true"],
+  .pf-subnav__link[aria-current="page"] { border-bottom: 2px solid Highlight; }
+  .pf-progresso__barra,
+  .pf-barras__barra { forced-color-adjust: none; border: 1px solid CanvasText; background: Canvas; }
+  .pf-progresso__barra::after,
+  .pf-barras__barra::after { background: Highlight; }
+  .pf-donut { forced-color-adjust: none; }
+  .pf-donut__trilho { stroke: CanvasText; }
+  .pf-donut__arco { stroke: Highlight; }
+  .pf-donut__valor { color: CanvasText; }
+  .pf-switch__trilho { forced-color-adjust: none; border-color: CanvasText; background: Canvas; }
+  .pf-switch__botao { forced-color-adjust: none; background: CanvasText; }
+  .pf-switch[aria-checked="true"] .pf-switch__trilho { border-color: Highlight; background: Highlight; }
+  .pf-switch[aria-checked="true"] .pf-switch__botao { background: Canvas; }
+  .pf-check > input,
+  .pf-radio > input { forced-color-adjust: none; border-color: CanvasText; background: Canvas; }
+  .pf-check > input:checked,
+  .pf-check > input:indeterminate { border-color: Highlight; background: Highlight; }
+  .pf-check > input:checked::after { border-color: Canvas; }
+  .pf-check > input:indeterminate::after { background: Canvas; }
+  .pf-radio > input:checked { border-color: Highlight; }
+  .pf-radio > input:checked::after { background: Highlight; }
+  .pf-sino__contador,
+  .pf-carrinho__contador { forced-color-adjust: none; background: CanvasText; color: Canvas; }
+  .pf-notificacao--nao-lida::before { forced-color-adjust: none; background: CanvasText; }
+  .pf-busca__opcao[aria-selected="true"] { outline-color: Highlight; }
+  .pf-tour__alvo { outline-color: Highlight !important; }
+  .pf-esqueleto { border: 1px solid CanvasText; }
+  .pf-faixa--pendencia { border-left-color: CanvasText; }
+  .pf-alerta,
+  .pf-erros { border: 1px solid CanvasText; }
+  .pf-linha-tempo__item::before { forced-color-adjust: none; background: CanvasText; }
+}
+
+
+/* 35 · Impressão (UX §12; DC-33) ------------------------------------------
+   Sempre papel, inclusive dentro dos escopos escuros; A4 com 18 mm;
+   tabela sempre como tabela (o modo empilhado mora em @media screen). */
+@page { size: A4; margin: 18mm; }
+@media print {
+  :root,
+  html[data-pf-tema],
+  .pf-escopo-escuro,
+  .pf-escopo-claro,
+  .pf-heroi,
+  .pf-palco,
+  .pf-capa,
+  .pf-publicacao__midia,
+  .pf-documento,
+  .pf-leitura {
+    --pf-fundo: var(--color-white);
+    --pf-painel: var(--color-white);
+    --pf-painel-2: var(--color-white);
+    --pf-painel-3: var(--color-paper-2);
+    --pf-campo: var(--color-white);
+    --pf-linha: var(--color-line-ink);
+    --pf-linha-forte: rgba(11, 12, 14, 0.24);
+    --pf-texto-1: var(--text-ink-1);
+    --pf-texto-2: var(--text-ink-2);
+    --pf-texto-3: var(--text-ink-3);
+    --pf-acento: var(--color-gold-deep);
+    --pf-acento-rgb: 130, 96, 46;
+    --pf-trilha: #d9d5cd;
+    --pf-sucesso: #466e59;
+    --pf-aviso: #9a5518;
+    --pf-erro: #9b463e;
+    --pf-info: #4d688a;
+    color-scheme: light;
+  }
+  body { background: var(--color-white); color: var(--text-ink-1); font-size: 10.5pt; }
+  .pf-topo,
+  .pf-lateral,
+  .pf-faixa,
+  .pf-gaveta,
+  .pf-rodape,
+  .pf-dica,
+  .pf-tour,
+  .pf-toasts,
+  .pf-player__rodape,
+  .pf-filtros,
+  .pf-segmento,
+  .pf-nao-imprimir,
+  .dmc-skip,
+  .pf-main .dmc-btn,
+  .pf-main .pf-btn-icone { display: none !important; }
+  .pf-so-impressao { display: block !important; }
+  body.pf-app .pf-main,
+  body.has-shell.pf-app :is(.dash-shell, .player-shell, .loja-shell, .cert-shell, .admin-shell) {
+    min-height: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .pf-tabela thead { display: table-header-group; }
+  .pf-tabela thead th { position: static; }
+  .pf-tabela tr,
+  .pf-lista__linha,
+  .pf-kpi,
+  .pf-linha-tempo__item { break-inside: avoid; }
+  .pf-documento { max-width: none; padding: 0; border: 0; border-radius: 0; }
+  .pf-qr { width: 28mm; height: 28mm; }
+  .pf-esqueleto { animation: none; }
+}

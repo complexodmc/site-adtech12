@@ -1,36 +1,73 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Agenda de encontros ao vivo dos seus cursos.">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
   <title>Aulas ao Vivo · Plataforma Complexo DMC</title>
-
-  <link rel="icon" type="image/png" href="../assets/images/LOGO_RINOCERONTE.png">
+  <meta name="description" content="Agenda de encontros ao vivo dos seus cursos.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Raleway:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/plataforma.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+  <link rel="stylesheet" href="css/portal-academico.css?v=dev">
 </head>
-<body class="bg-grid" data-shell="ao-vivo">
-  <div class="glow-corner"></div>
+<body data-shell="ao-vivo" data-pagina="ao-vivo">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
 
-  <main class="dash-shell">
-    <div class="dash-inner">
-      <section class="pagina-hero">
-        <span class="overline">Aulas ao Vivo</span>
-        <h1>Encontros <span class="gradient-text">ao vivo</span></h1>
-        <p>Os encontros ao vivo dos cursos que você tem acesso. O botão de entrar na sala é liberado 15 minutos antes do horário marcado.</p>
-      </section>
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <header class="pf-cabecalho">
+      <h1 class="pf-cabecalho__titulo">Encontros <em>ao vivo</em></h1>
+      <p class="pf-cabecalho__desc">Sua presença é registrada quando você entra na sala pelo portal. A sala abre 15 minutos antes do horário marcado.</p>
+    </header>
 
-      <section id="lives-lista" class="lives-lista"></section>
+    <div class="pf-ac-agenda-barra" id="ac-barra" data-ac-espera>
+      <div class="pf-ac-periodo">
+        <button type="button" class="dmc-btn dmc-btn--secondary" data-ac-periodo="-1" aria-label="Período anterior">‹</button>
+        <button type="button" class="dmc-btn dmc-btn--secondary" data-ac-periodo="0">Hoje</button>
+        <button type="button" class="dmc-btn dmc-btn--secondary" data-ac-periodo="1" aria-label="Próximo período">›</button>
+        <h2 class="pf-ac-periodo__titulo" id="ac-periodo-titulo" aria-live="polite"></h2>
+      </div>
+      <div class="pf-ac-controles">
+        <label for="ac-filtro-curso">Curso
+          <select id="ac-filtro-curso" class="pf-input"><option value="">Todos</option></select>
+        </label>
+        <div class="pf-segmento" role="group" aria-label="Visão da agenda">
+          <button type="button" class="pf-segmento__opcao" data-ac-visao="hoje" aria-pressed="false">Hoje</button>
+          <button type="button" class="pf-segmento__opcao" data-ac-visao="semana" aria-pressed="false">Semana</button>
+          <button type="button" class="pf-segmento__opcao" data-ac-visao="mes" aria-pressed="false">Mês</button>
+          <button type="button" class="pf-segmento__opcao" data-ac-visao="lista" aria-pressed="true">Lista</button>
+        </div>
+      </div>
     </div>
+
+    <p class="pf-ajuda pf-ac-nota">Horário de Brasília. A presença é registrada ao entrar na sala pelo portal; o tempo de permanência não é medido.</p>
+    <p class="dmc-sr-only" id="ac-anuncio" role="status" aria-live="polite"></p>
+
+    <section id="lives-lista" class="pf-ac-agenda" aria-labelledby="ac-periodo-titulo" aria-busy="true">
+      <div class="pf-ac-carregando" aria-hidden="true">
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+        <div class="pf-esqueleto pf-esqueleto--linha"></div>
+      </div>
+      <noscript><p class="pf-ajuda">A agenda precisa de JavaScript para mostrar os encontros e o link da sala.</p></noscript>
+    </section>
   </main>
 
-  <script src="js/api-client.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/shell.js"></script>
-  <script>DMC_bootAoVivo();</script>
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/ao-vivo.js?v=dev"></script>
 </body>
 </html>

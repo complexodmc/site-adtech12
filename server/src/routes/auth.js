@@ -1,11 +1,16 @@
 // =============================================================
 // COMPLEXO DMC · /api/auth — cadastro, login e sessão
+// Portal (PORTAL-API §6.1, §6.13, §10 · F0t): fábrica criarRotaAuth(deps)
+// com o `default` de sempre (dependências reais). O signin DELEGA a
+// autenticarCredenciais() de routes/portal/auth-extra.js (e-mail OU CPF,
+// tempo constante, limites persistentes, 2FA), que não depende do
+// agregador. O signup grava papel 'aluno' e emailVerificadoEm null; /me
+// inalterado (publicUser só ganhou campos — contrato com a sessão 2d).
 // =============================================================
 import { Router } from 'express';
 import { col } from '../db.js';
-import { hashSenha, checkSenha, signToken, publicUser, requireAuth } from '../auth.js';
-
-const router = Router();
+import { hashSenha as hashSenhaPadrao, signToken as signTokenPadrao, publicUser as publicUserPadrao, requireAuth } from '../auth.js';
+import { criarHandlerSignin, idDaRequisicao } from './portal/auth-extra.js';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -13,53 +18,58 @@ function normalizeEmail(v) {
   return String(v || '').trim().toLowerCase();
 }
 
-router.post('/signup', async (req, res) => {
-  const email = normalizeEmail(req.body.email);
-  const senha = String(req.body.senha || '');
-  const nome = String(req.body.nome || '').trim();
+/**
+ * @param {{ users?: () => object, hashSenha?, signToken?, publicUser?, signin?, exigirLogin? }} deps
+ */
+export function criarRotaAuth({
+  users = () => col.users(), hashSenha = hashSenhaPadrao, signToken = signTokenPadrao, publicUser = publicUserPadrao,
+  signin = criarHandlerSignin(), exigirLogin = requireAuth
+} = {}) {
+  const router = Router();
 
-  if (!EMAIL_RE.test(email)) return res.status(400).json({ error: 'Informe um e-mail válido.' });
-  if (senha.length < 6) return res.status(400).json({ error: 'A senha precisa ter pelo menos 6 caracteres.' });
+  router.post('/signup', async (req, res) => {
+    const email = normalizeEmail(req.body.email);
+    const senha = String(req.body.senha || '');
+    const nome = String(req.body.nome || '').trim();
 
-  const existente = await col.users().findOne({ email });
-  if (existente) return res.status(409).json({ error: 'Já existe uma conta com esse e-mail.' });
+    if (!EMAIL_RE.test(email)) return res.status(400).json({ error: 'Informe um e-mail válido.' });
+    if (senha.length < 6) return res.status(400).json({ error: 'A senha precisa ter pelo menos 6 caracteres.' });
 
-  const doc = {
-    email,
-    senhaHash: await hashSenha(senha),
-    nome: nome || email.split('@')[0],
-    isAdmin: false,
-    createdAt: new Date()
-  };
+    const existente = await users().findOne({ email });
+    if (existente) return res.status(409).json({ error: 'Já existe uma conta com esse e-mail.' });
 
-  try {
-    const { insertedId } = await col.users().insertOne(doc);
-    doc._id = insertedId;
-  } catch (err) {
-    // corrida no índice único
-    if (err && err.code === 11000) return res.status(409).json({ error: 'Já existe uma conta com esse e-mail.' });
-    throw err;
-  }
+    const doc = {
+      email,
+      senhaHash: await hashSenha(senha),
+      nome: nome || email.split('@')[0],
+      isAdmin: false,
+      papel: 'aluno',
+      emailVerificadoEm: null,
+      senhaOrigem: 'titular',
+      createdAt: new Date()
+    };
 
-  const user = publicUser(doc);
-  res.status(201).json({ token: signToken(doc), user });
-});
+    try {
+      const { insertedId } = await users().insertOne(doc);
+      doc._id = insertedId;
+    } catch (err) {
+      // corrida no índice único
+      if (err && err.code === 11000) return res.status(409).json({ error: 'Já existe uma conta com esse e-mail.' });
+      throw err;
+    }
 
-router.post('/signin', async (req, res) => {
-  const email = normalizeEmail(req.body.email);
-  const senha = String(req.body.senha || '');
+    const user = publicUser(doc);
+    res.status(201).json({ token: signToken(doc), user });
+  });
 
-  const user = await col.users().findOne({ email });
-  // Mensagem genérica de propósito: não revela se o e-mail existe.
-  if (!user || !(await checkSenha(senha, user.senhaHash || ''))) {
-    return res.status(401).json({ error: 'E-mail ou senha inválidos.' });
-  }
+  // E-mail OU CPF + senha (PORTAL-API §6.1). Mensagem genérica: não revela se a conta existe.
+  router.post('/signin', idDaRequisicao, signin);
 
-  res.json({ token: signToken(user), user: publicUser(user) });
-});
+  router.get('/me', exigirLogin, (req, res) => {
+    res.json({ user: publicUser(req.user) });
+  });
 
-router.get('/me', requireAuth, (req, res) => {
-  res.json({ user: publicUser(req.user) });
-});
+  return router;
+}
 
-export default router;
+export default criarRotaAuth();

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- @dmc-cabecalho:inicio · gerado por tests/tools/cabecalho-ead.mjs; o que fica fora dos marcadores é da página -->
+  <meta charset="UTF-8">
+  <script src="js/portal/pre-pintura.js?v=dev"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0b0c0e">
+  <title>Tutoriais · Plataforma Complexo DMC</title>
+  <meta name="description" content="Plataforma Complexo DMC: guias de uso de cada área do portal.">
+  <link rel="icon" type="image/png" sizes="64x64" href="../assets/images/favicon-dmc.png">
+  <link rel="apple-touch-icon" href="../assets/images/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&amp;family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css?v=1">
+  <link rel="stylesheet" href="../assets/css/components.css?v=3">
+  <link rel="stylesheet" href="css/plataforma.css?v=dev">
+  <link rel="stylesheet" href="css/portal.css?v=dev">
+  <!-- @dmc-cabecalho:fim -->
+</head>
+<body data-shell="tutoriais" data-pagina="tutoriais">
+  <a class="dmc-skip" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- Guias escritos sobre as telas que já estão no ar (PORTAL-UX §6.17). Guia de tela
+       que ainda não existe não é publicado aqui; a F0r confere cada guia com a tela final. -->
+  <main id="conteudo" class="pf-main" tabindex="-1">
+    <header class="pf-cabecalho">
+      <p class="pf-cabecalho__contexto">Ajuda</p>
+      <h1 class="pf-cabecalho__titulo" tabindex="-1" data-tut-titulo>Tutoriais</h1>
+      <p class="pf-cabecalho__desc">Guias de uso de cada área do portal, passo a passo. As regras acadêmicas ficam no regulamento; aqui está como usar as telas.</p>
+      <div class="pf-cabecalho__acoes">
+        <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+      </div>
+    </header>
+
+    <div class="pf-tut">
+      <nav class="pf-tut-indice" aria-label="Categorias dos tutoriais">
+        <div class="pf-campo pf-tut-busca" data-tut-busca>
+          <label class="pf-rotulo" for="pf-tut-busca-campo">Buscar nos tutoriais</label>
+          <input class="pf-input" id="pf-tut-busca-campo" type="search" autocomplete="off" spellcheck="false" maxlength="80" aria-describedby="pf-tut-busca-status">
+          <p class="pf-ajuda" id="pf-tut-busca-status" role="status" aria-live="polite" data-tut-status></p>
+        </div>
+        <details class="pf-tut-indice__detalhes" data-tut-detalhes>
+          <summary class="pf-tut-indice__resumo">Categorias</summary>
+          <div class="pf-tut-indice__grupo" data-tut-indice="primeiros-passos">
+            <p class="pf-tut-indice__titulo">Primeiros passos</p>
+            <ul class="pf-tut-indice__lista">
+              <li><a class="pf-tut-indice__link" href="#novo-portal">Conheça o novo portal</a></li>
+            </ul>
+          </div>
+          <div class="pf-tut-indice__grupo" data-tut-indice="aulas">
+            <p class="pf-tut-indice__titulo">Aulas e player</p>
+            <ul class="pf-tut-indice__lista">
+              <li><a class="pf-tut-indice__link" href="#aula">Assistir a uma aula e marcar como concluída</a></li>
+            </ul>
+          </div>
+          <div class="pf-tut-indice__grupo" data-tut-indice="avaliacoes">
+            <p class="pf-tut-indice__titulo">Avaliações e notas</p>
+            <ul class="pf-tut-indice__lista">
+              <li><a class="pf-tut-indice__link" href="#avaliacao">Fazer uma avaliação, melhorar a nota e ver o gabarito</a></li>
+            </ul>
+          </div>
+          <div class="pf-tut-indice__grupo" data-tut-indice="academico">
+            <p class="pf-tut-indice__titulo">Acadêmico e frequência</p>
+            <ul class="pf-tut-indice__lista">
+              <li><a class="pf-tut-indice__link" href="#academico">Entender notas e frequência no Acadêmico</a></li>
+              <li><a class="pf-tut-indice__link" href="#regulamento">Consultar o regulamento acadêmico</a></li>
+            </ul>
+          </div>
+          <div class="pf-tut-indice__grupo" data-tut-indice="ao-vivo">
+            <p class="pf-tut-indice__titulo">Aulas ao vivo e presença</p>
+            <ul class="pf-tut-indice__lista">
+              <li><a class="pf-tut-indice__link" href="#ao-vivo">Entrar numa aula ao vivo e registrar presença</a></li>
+            </ul>
+          </div>
+          <div class="pf-tut-indice__grupo" data-tut-indice="documentacao">
+            <p class="pf-tut-indice__titulo">Documentos, declarações e contratos</p>
+            <ul class="pf-tut-indice__lista">
+              <li><a class="pf-tut-indice__link" href="#certificados">Emitir certificado e declarações</a></li>
+              <li><a class="pf-tut-indice__link" href="#validar">Imprimir comprovantes e validar um documento</a></li>
+            </ul>
+          </div>
+          <div class="pf-tut-indice__grupo" data-tut-indice="atendimento">
+            <p class="pf-tut-indice__titulo">Atendimento e assistente</p>
+            <ul class="pf-tut-indice__lista">
+              <li><a class="pf-tut-indice__link" href="#atendimento">Falar com a equipe e usar o assistente</a></li>
+              <li><a class="pf-tut-indice__link" href="#ouvidoria">Registrar uma manifestação na Ouvidoria</a></li>
+            </ul>
+          </div>
+          <div class="pf-tut-indice__grupo" data-tut-indice="conta">
+            <p class="pf-tut-indice__titulo">Conta, segurança e privacidade</p>
+            <ul class="pf-tut-indice__lista">
+              <li><a class="pf-tut-indice__link" href="#perfil">Completar o perfil e usar Meus dados</a></li>
+              <li><a class="pf-tut-indice__link" href="#seguranca">Senha, link de acesso e verificação em duas etapas</a></li>
+            </ul>
+          </div>
+          <div class="pf-tut-indice__grupo" data-tut-indice="acessibilidade">
+            <p class="pf-tut-indice__titulo">Acessibilidade</p>
+            <ul class="pf-tut-indice__lista">
+              <li><a class="pf-tut-indice__link" href="#aparencia">Tema, tamanho do texto e navegação por teclado</a></li>
+            </ul>
+          </div>
+        </details>
+        <p class="pf-tut-indice__extra"><a href="regulamento.html">Regulamento acadêmico</a></p>
+      </nav>
+
+      <div class="pf-tut-artigos">
+        <div class="pf-vazio" data-tut-vazio hidden>
+          <p class="pf-vazio__titulo">Nenhum guia encontrado.</p>
+          <p class="pf-vazio__texto">Tente outra palavra ou fale com a equipe pelo <a href="atendimentos.html?novo=1">Atendimento</a>.</p>
+        </div>
+
+        <!-- Primeiros passos -->
+        <section class="pf-tut-categoria" data-tut-categoria="primeiros-passos" aria-labelledby="pf-tut-c-primeiros-passos">
+          <h2 class="pf-tut-categoria__titulo" id="pf-tut-c-primeiros-passos">Primeiros passos</h2>
+          <article class="pf-tut-artigo" id="novo-portal" aria-labelledby="novo-portal-t">
+            <h3 class="pf-tut-artigo__titulo" id="novo-portal-t" tabindex="-1">Conheça o novo portal: o que mudou e onde ficou cada coisa</h3>
+            <ol class="pf-tut-passos">
+              <li>O menu da lateral (no celular, o botão <strong>Menu</strong> no topo) reúne as áreas em três grupos: <strong>Estudos</strong> (Início, Meus cursos, Aulas ao vivo, Acadêmico), <strong>Secretaria</strong> e <strong>Ajuda</strong> (Atendimento, Tutoriais e Cursos disponíveis).</li>
+              <li>Declarações, certificados e comprovantes ficam em <strong>Secretaria › Documentação</strong>. Os certificados estão em <strong>Declarações e certificados</strong>.</li>
+              <li>A busca do topo encontra cursos, aulas, publicações e atendimentos. No computador, o atalho é Ctrl K (no Mac, Command K).</li>
+              <li>O sino do topo mostra as notificações: correções, respostas e avisos da equipe.</li>
+              <li>No menu da sua conta (suas iniciais, no canto superior direito) estão <strong>Meu perfil</strong>, <strong>Meus dados</strong>, a aparência do portal, <strong>Rever o tour</strong> e <strong>Sair</strong>.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+        </section>
+
+        <!-- Aulas e player -->
+        <section class="pf-tut-categoria" data-tut-categoria="aulas" aria-labelledby="pf-tut-c-aulas">
+          <h2 class="pf-tut-categoria__titulo" id="pf-tut-c-aulas">Aulas e player</h2>
+          <article class="pf-tut-artigo" id="aula" aria-labelledby="aula-t">
+            <h3 class="pf-tut-artigo__titulo" id="aula-t" tabindex="-1">Assistir a uma aula e marcar como concluída</h3>
+            <ol class="pf-tut-passos">
+              <li>Abra <a href="meus-cursos.html">Meus cursos</a> e escolha o curso. A trilha mostra os módulos e as aulas na ordem de estudo.</li>
+              <li>Escolha a aula. O player abre em modo foco, com a lista de aulas ao lado.</li>
+              <li>Assista ao vídeo. Quando o vídeo informa o quanto foi assistido, a aula é concluída sozinha e o portal avisa "Aula concluída automaticamente".</li>
+              <li>Nos demais casos, ao terminar, use <strong>Marcar como concluído</strong> no rodapé da aula. Para desfazer, use <strong>Desmarcar conclusão</strong>.</li>
+              <li>Dúvida sobre a aula? Escreva no campo de dúvidas e use <strong>Enviar dúvida</strong>. A resposta do professor aparece na própria aula.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+        </section>
+
+        <!-- Avaliações e notas -->
+        <section class="pf-tut-categoria" data-tut-categoria="avaliacoes" aria-labelledby="pf-tut-c-avaliacoes">
+          <h2 class="pf-tut-categoria__titulo" id="pf-tut-c-avaliacoes">Avaliações e notas</h2>
+          <article class="pf-tut-artigo" id="avaliacao" aria-labelledby="avaliacao-t">
+            <h3 class="pf-tut-artigo__titulo" id="avaliacao-t" tabindex="-1">Fazer uma avaliação, melhorar a nota e ver o gabarito</h3>
+            <ol class="pf-tut-passos">
+              <li>A avaliação fica dentro do módulo, no player. Leia as instruções da apresentação e use <strong>Iniciar tentativa</strong>.</li>
+              <li>Responda as questões. Use <strong>Próxima ›</strong> e <strong>‹ Anterior</strong> para navegar ou <strong>Questões</strong> para ver o mapa.</li>
+              <li>Ao terminar, use <strong>Revisar e enviar</strong>, confira as respostas e confirme com <strong>Enviar respostas</strong>.</li>
+              <li>Se ainda houver tentativas, <strong>Melhorar nota</strong> abre uma nova. Questões dissertativas aguardam a correção do professor, que chega pelo sino.</li>
+              <li>Quando o gabarito estiver liberado, use <strong>Ver gabarito</strong>. A nota de cada avaliação fica também no Acadêmico.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+        </section>
+
+        <!-- Acadêmico e frequência -->
+        <section class="pf-tut-categoria" data-tut-categoria="academico" aria-labelledby="pf-tut-c-academico">
+          <h2 class="pf-tut-categoria__titulo" id="pf-tut-c-academico">Acadêmico e frequência</h2>
+          <article class="pf-tut-artigo" id="academico" aria-labelledby="academico-t">
+            <h3 class="pf-tut-artigo__titulo" id="academico-t" tabindex="-1">Entender notas e frequência no Acadêmico</h3>
+            <ol class="pf-tut-passos">
+              <li>Abra <a href="academico.html">Acadêmico</a> no menu. Cada matrícula aparece com o curso, a situação, as notas por módulo e a frequência.</li>
+              <li>A frequência aparece separada em ao vivo e gravado: presença nos encontros e aulas gravadas concluídas.</li>
+              <li>Para ver de onde vem cada presença, use <strong>Ver comprovantes</strong>.</li>
+              <li>Com o curso concluído, o próprio Acadêmico leva a <strong>Ver certificado</strong> ou à <strong>Declaração de conclusão</strong>.</li>
+              <li>As regras de aprovação estão no <strong>Regulamento acadêmico</strong>, com link na própria página.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+          <article class="pf-tut-artigo" id="regulamento" aria-labelledby="regulamento-t">
+            <h3 class="pf-tut-artigo__titulo" id="regulamento-t" tabindex="-1">Consultar o regulamento acadêmico</h3>
+            <ol class="pf-tut-passos">
+              <li>Abra o <a href="regulamento.html">Regulamento acadêmico</a> pelo link desta página, do Acadêmico ou do rodapé do portal.</li>
+              <li>O índice de seções leva direto ao trecho. No celular, abra <strong>Seções</strong> para ver o índice.</li>
+              <li>Use <strong>Imprimir</strong> para guardar uma cópia do texto em vigor.</li>
+              <li>Quando o assistente citar uma regra, o link da fonte abre o trecho exato do regulamento.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+        </section>
+
+        <!-- Aulas ao vivo e presença -->
+        <section class="pf-tut-categoria" data-tut-categoria="ao-vivo" aria-labelledby="pf-tut-c-ao-vivo">
+          <h2 class="pf-tut-categoria__titulo" id="pf-tut-c-ao-vivo">Aulas ao vivo e presença</h2>
+          <article class="pf-tut-artigo" id="ao-vivo" aria-labelledby="ao-vivo-t">
+            <h3 class="pf-tut-artigo__titulo" id="ao-vivo-t" tabindex="-1">Entrar numa aula ao vivo e registrar presença</h3>
+            <ol class="pf-tut-passos">
+              <li>Abra <a href="ao-vivo.html">Aulas ao vivo</a>. O calendário mostra os encontros das suas turmas nas visões Hoje, Semana, Mês e Lista.</li>
+              <li>Para lembrar do encontro, use <strong>Baixar convite (.ics)</strong> e abra o arquivo no seu calendário.</li>
+              <li>No horário, use <strong>Entrar na sala</strong>. A sala abre em outra aba e a sua presença é registrada nesse momento.</li>
+              <li>Depois de entrar, o encontro mostra "Sua presença já está registrada." Quando houver gravação, aparece <strong>Assistir gravação</strong>.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+        </section>
+
+        <!-- Documentos, declarações e contratos -->
+        <section class="pf-tut-categoria" data-tut-categoria="documentacao" aria-labelledby="pf-tut-c-documentacao">
+          <h2 class="pf-tut-categoria__titulo" id="pf-tut-c-documentacao">Documentos, declarações e contratos</h2>
+          <article class="pf-tut-artigo" id="certificados" aria-labelledby="certificados-t">
+            <h3 class="pf-tut-artigo__titulo" id="certificados-t" tabindex="-1">Emitir certificado e declarações</h3>
+            <ol class="pf-tut-passos">
+              <li>Abra <strong>Documentação › Declarações e certificados</strong>.</li>
+              <li>Em <strong>Certificados</strong>, o curso concluído com aprovação mostra <strong>Emitir certificado</strong>. Antes de emitir, confira o nome que vai no documento.</li>
+              <li>Na parte <strong>Solicitar declaração</strong>, escolha o tipo e confirme com o botão <strong>Solicitar declaração</strong>. O pedido aparece em <strong>Histórico de solicitações</strong>.</li>
+              <li>Com o documento pronto, use <strong>Ver e imprimir</strong>. Para enviar a alguém, use <strong>Copiar link de validação</strong>.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+          <article class="pf-tut-artigo" id="validar" aria-labelledby="validar-t">
+            <h3 class="pf-tut-artigo__titulo" id="validar-t" tabindex="-1">Imprimir comprovantes e validar um documento</h3>
+            <ol class="pf-tut-passos">
+              <li>Abra <strong>Documentação › Comprovantes</strong>. Cada linha traz o código e o endereço de validação do comprovante.</li>
+              <li>Use <strong>Copiar</strong> para levar o código ou <strong>Verificar</strong> para abrir a validação.</li>
+              <li>Quem recebeu um documento pode conferir a autenticidade em <a href="validar.html">Validar documento</a>: digite o código e use <strong>Conferir</strong>. A validação não pede login.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+        </section>
+
+        <!-- Atendimento e assistente -->
+        <section class="pf-tut-categoria" data-tut-categoria="atendimento" aria-labelledby="pf-tut-c-atendimento">
+          <h2 class="pf-tut-categoria__titulo" id="pf-tut-c-atendimento">Atendimento e assistente</h2>
+          <article class="pf-tut-artigo" id="atendimento" aria-labelledby="atendimento-t">
+            <h3 class="pf-tut-artigo__titulo" id="atendimento-t" tabindex="-1">Falar com a equipe e usar o assistente</h3>
+            <ol class="pf-tut-passos">
+              <li>Abra <strong>Atendimento</strong> no menu. A página tem três partes: <strong>Assistente</strong>, <strong>Seus atendimentos</strong> e <strong>Ouvidoria</strong>.</li>
+              <li>O <strong>Assistente acadêmico</strong> está em fase de testes e responde com base no regulamento publicado, citando as fontes. No primeiro uso, leia o aviso e use <strong>Concordo e quero usar</strong>. Se preferir, use <strong>Agora não, falar com a equipe</strong>.</li>
+              <li>Para falar com uma pessoa, abra <a href="atendimentos.html">Seus atendimentos</a> e use <strong>Iniciar atendimento</strong>. Cada atendimento recebe um protocolo.</li>
+              <li>A resposta da equipe chega no próprio atendimento e no sino. Para continuar a conversa, escreva e use <strong>Enviar mensagem</strong>.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+          <article class="pf-tut-artigo" id="ouvidoria" aria-labelledby="ouvidoria-t">
+            <h3 class="pf-tut-artigo__titulo" id="ouvidoria-t" tabindex="-1">Registrar uma manifestação na Ouvidoria</h3>
+            <ol class="pf-tut-passos">
+              <li>A Ouvidoria é o canal para elogios, sugestões, reclamações e denúncias sobre a plataforma, os cursos e o atendimento. A coordenação responde por lá.</li>
+              <li>Abra <a href="ouvidoria.html">Ouvidoria</a>, escreva a manifestação e use <strong>Registrar manifestação</strong>.</li>
+              <li>A manifestação recebe um protocolo. As respostas aparecem nela e no sino; para acrescentar algo, use <strong>Enviar mensagem</strong>.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+        </section>
+
+        <!-- Conta, segurança e privacidade -->
+        <section class="pf-tut-categoria" data-tut-categoria="conta" aria-labelledby="pf-tut-c-conta">
+          <h2 class="pf-tut-categoria__titulo" id="pf-tut-c-conta">Conta, segurança e privacidade</h2>
+          <article class="pf-tut-artigo" id="perfil" aria-labelledby="perfil-t">
+            <h3 class="pf-tut-artigo__titulo" id="perfil-t" tabindex="-1">Completar o perfil e usar Meus dados</h3>
+            <ol class="pf-tut-passos">
+              <li>No menu da sua conta, abra <a href="perfil.html">Meu perfil</a>. As seções são Identificação, Documentos, Dados pessoais, Contato e redes, Endereço, Foto, Senha e segurança e Preferências.</li>
+              <li>Cada seção diz quem vê aquele dado e por quê. Alguns campos, como nome social e redes, pedem a sua autorização no próprio formulário.</li>
+              <li>Em <a href="meus-dados.html">Meus dados</a> você vê os seus dados no Complexo DMC, as autorizações que deu (e pode usar <strong>Retirar autorização</strong>), exporta os seus dados e faz pedidos sobre eles com <strong>Enviar pedido</strong>.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+          <article class="pf-tut-artigo" id="seguranca" aria-labelledby="seguranca-t">
+            <h3 class="pf-tut-artigo__titulo" id="seguranca-t" tabindex="-1">Senha, link de acesso e verificação em duas etapas</h3>
+            <ol class="pf-tut-passos">
+              <li>A troca de senha fica em <a href="perfil.html#seguranca">Meu perfil › Senha e segurança</a>. Ao trocar a senha, as sessões abertas em outros aparelhos são encerradas.</li>
+              <li>Para encerrar as sessões sem trocar a senha, use <strong>Sair dos outros aparelhos</strong> na mesma seção.</li>
+              <li data-recurso="recuperacaoSenha" hidden>Esqueceu a senha? Em <a href="acesso-link.html#esqueci">Criar nova senha</a>, informe o seu e-mail e use <strong>Enviar link para criar nova senha</strong>. O link chega por e-mail.</li>
+              <li data-recurso="linkMagico" hidden>Para entrar sem digitar a senha, use <a href="acesso-link.html#pedir-link">Receber link de acesso</a>: o link chega por e-mail e vale por pouco tempo.</li>
+              <li data-recurso="doisFatores" hidden>Para proteger mais a conta, ative a verificação em duas etapas em Senha e segurança com <strong>Ativar</strong>: leia o código QR no aplicativo autenticador, confirme com <strong>Confirmar e ativar</strong> e guarde os códigos de recuperação antes de usar <strong>Já guardei os códigos</strong>.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+        </section>
+
+        <!-- Acessibilidade -->
+        <section class="pf-tut-categoria" data-tut-categoria="acessibilidade" aria-labelledby="pf-tut-c-acessibilidade">
+          <h2 class="pf-tut-categoria__titulo" id="pf-tut-c-acessibilidade">Acessibilidade</h2>
+          <article class="pf-tut-artigo" id="aparencia" aria-labelledby="aparencia-t">
+            <h3 class="pf-tut-artigo__titulo" id="aparencia-t" tabindex="-1">Tema, tamanho do texto e navegação por teclado</h3>
+            <ol class="pf-tut-passos">
+              <li>O botão de tema no topo alterna entre claro e escuro. No menu da sua conta, em <strong>Aparência e leitura</strong>, escolha também <strong>Automático</strong>, que segue o seu aparelho.</li>
+              <li>Os botões <strong>A−</strong> e <strong>A+</strong> diminuem e aumentam o tamanho do texto. A escolha fica salva neste navegador.</li>
+              <li>Pelo teclado, a tecla Tab percorre os links e botões; a primeira parada é <strong>Pular para o conteúdo</strong>. Esc fecha menus, painéis e diálogos.</li>
+              <li>A busca abre com Ctrl K (no Mac, Command K); as setas percorrem os resultados e Enter abre o escolhido.</li>
+            </ol>
+            <footer class="pf-tut-artigo__rodape">
+              <button type="button" class="dmc-btn dmc-btn--secondary" data-tut-tour>Rever o tour do portal</button>
+              <p class="pf-tut-artigo__ajuda">Ainda com dúvida? <a href="atendimentos.html?novo=1">Iniciar atendimento</a></p>
+            </footer>
+          </article>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/api-client.js?v=dev"></script>
+  <script src="js/app.js?v=dev"></script>
+  <script src="js/portal/ui.js?v=dev"></script>
+  <script src="js/shell.js?v=dev"></script>
+  <script src="js/portal/tutoriais.js?v=dev"></script>
+</body>
+</html>
