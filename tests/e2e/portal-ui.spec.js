@@ -16,6 +16,9 @@
 // reautenticar, consentimento, confirmar com data-pf-acao, formulário, upload, tabela,
 // abas, filtros, fmt/valida/mascara), DMC_QR + vendor, boot-index.js, DMC_bootLogin,
 // loja e obrigado (D-69) e o pedido da loja por page.route (D-79).
+// Parte F0b-final (no fim do arquivo, fase 2, §7.3 e §8.5): prova por grep de que os boots
+// mortos saíram de app.js e de que ninguém chama os nomes antigos, e os apelidos que levam
+// ao boot novo de cada página.
 // =============================================================
 import fs from 'node:fs';
 import path from 'node:path';
@@ -104,6 +107,24 @@ test('S0 · monitor com QA_ESTRITO não tolera nada; esperar() libera só o decl
   expect(c.declaradas.filter((i) => i.tipo === 'resposta').map((i) => i.status)).toEqual([429]);
 });
 
+test('S0 · monitor com QA_ESTRITO: falha de rede sem resposta conta como \'rede\' (esperar({ url }) declara) e o filtro tipos não vale; fora do G2, nada muda', { tag: ['@F0b'] }, async ({ page }) => {
+  await page.route('**/api/portal/qa-rede/falha', (r) => r.abort('failed'));
+  await page.route('**/api/portal/qa-rede/declarada', (r) => r.abort('connectionrefused'));
+  const estrito = P.monitorarConsoleERede(page, { fatia: 'F0b', estrito: true });
+  const solto = P.monitorarConsoleERede(page, { fatia: 'F0b', estrito: false });
+  estrito.esperar({ url: '/api/portal/qa-rede/declarada' });
+  await paginaComFetches(page, ['/api/portal/qa-rede/falha', '/api/portal/qa-rede/declarada']);
+  await expect.poll(() => estrito.registro.falhas.length).toBe(2);
+  const c = await estrito.verificar({ lancar: false });
+  expect(c.inesperadas.filter((i) => i.tipo === 'rede').map((i) => new URL(i.url).pathname)).toEqual(['/api/portal/qa-rede/falha']);
+  expect(c.declaradas.filter((i) => i.tipo === 'rede').map((i) => new URL(i.url).pathname)).toEqual(['/api/portal/qa-rede/declarada']);
+  await expect(estrito.verificar({ tipos: ['pageerror'] })).rejects.toThrow(/\[rede\]/);
+  // Fora do G2 a falha de rede só é registrada (falhasDeRede) e o filtro tipos vale.
+  const s = await solto.verificar({ tipos: ['pageerror', 'resposta'] });
+  expect(s.inesperadas.some((i) => i.tipo === 'rede')).toBe(false);
+  expect(s.falhasDeRede).toHaveLength(2);
+});
+
 test('S0 · monitor reprova pageerror e tolera o de origem em asset de fatia não integrada', { tag: ['@F0b'] }, async ({ page }) => {
   await page.route('**/plataforma-ead/js/portal/financeiro.js', (r) => r.fulfill({ status: 200, contentType: 'text/javascript', body: 'setTimeout(function(){ throw new Error("falha F5 em obra"); }, 0);' }));
   await page.route('**/plataforma-ead/js/portal/ui.js', (r) => r.fulfill({ status: 200, contentType: 'text/javascript', body: 'setTimeout(function(){ throw new Error("falha F0b"); }, 0);' }));
@@ -142,10 +163,14 @@ test('S0 · monitor: "Refused to apply style/execute script from <url>" vale com
   await expect.poll(() => mon.registro.console.filter((c) => P.RECUSA_MIME_RE.test(c.texto)).length).toBe(4);
   const c = await mon.verificar({ lancar: false });
   const recusas = (l) => l.filter((i) => i.tipo === 'console' && P.RECUSA_MIME_RE.test(i.texto)).map((i) => new URL(i.url).pathname).sort();
+  // A folha recusada não gera 'response' no Chromium: o monitor confere a URL no servidor (o
+  // page.route acima não vale para esse GET). Com o arquivo da F5 no disco, não há 404: reprova.
+  const css = '/plataforma-ead/css/portal-financeiro.css';
+  const cssNoDisco = fs.existsSync(path.join(P.EAD_DISCO, 'css', 'portal-financeiro.css'));
   if (!P.fatiasIntegradas().has('F5')) {
-    expect(recusas(c.toleradas)).toEqual(['/plataforma-ead/css/portal-financeiro.css', '/plataforma-ead/js/portal/financeiro.js']);
+    expect(recusas(c.toleradas)).toEqual(cssNoDisco ? ['/plataforma-ead/js/portal/financeiro.js'] : [css, '/plataforma-ead/js/portal/financeiro.js']);
   }
-  expect(recusas(c.inesperadas)).toEqual(expect.arrayContaining(['/plataforma-ead/js/portal/prof-financeiro.js', '/plataforma-ead/js/portal/ui.js']));
+  expect(recusas(c.inesperadas)).toEqual(expect.arrayContaining(['/plataforma-ead/js/portal/prof-financeiro.js', '/plataforma-ead/js/portal/ui.js', ...(cssNoDisco ? [css] : [])]));
   // QA_ESTRITO: nada tolerado
   const estrito = P.monitorarConsoleERede(page, { fatia: 'F1b', estrito: true });
   await page.evaluate(() => { const el = document.createElement('script'); el.src = '/plataforma-ead/js/portal/financeiro.js?v=qa2'; document.head.appendChild(el); });
@@ -181,7 +206,7 @@ test('S0 · PAGINAS_BASE tem as 34 páginas, cada uma com dono, e paginasDoPorta
   for (const e of P.PAGINAS_BASE) expect([...P.FATIAS, '2d']).toContain(e.fatia);
   expect(P.PAGINAS_BASE.filter((e) => e.fatia === '2d').map((e) => e.pagina).sort()).toEqual(['login-classico.html', 'login.html']);
   expect(P.PAGINAS_BASE.filter((e) => e.legado).length).toBe(13);
-  const todas = await P.paginasDoPortal({ dir: dirCom(testInfo, {}) });
+  const todas = await P.paginasDoPortal({ dir: dirCom(testInfo, {}), estrito: false });
   expect(todas).toHaveLength(34);
   expect(P.urlDaPagina(todas.find((e) => e.pagina === 'aula.html'))).toBe('/plataforma-ead/aula.html');
 });
@@ -191,29 +216,50 @@ test('S0 · paginasDoPortal junta as entradas da fatia (própria substitui a bas
     'portal-avaliacoes.paginas.js': "export const PAGINAS = [{ pagina: 'aula.html', fatia: 'F2', hospedeira: true, url: () => 'aula.html?item=avaliacao:x' }, { pagina: 'professor.html', fatia: 'F2', hospedeira: true, url: () => 'professor.html#/avaliacoes' }];",
     'portal-documentos.paginas.js': "export const PAGINAS = [{ pagina: 'contrato.html', fatia: 'F4b', url: (c) => 'contrato.html?id=' + (c.id || 'x') }];"
   });
-  const todas = await P.paginasDoPortal({ dir });
+  const todas = await P.paginasDoPortal({ dir, estrito: false });
   expect(todas.filter((e) => e.pagina === 'contrato.html')).toHaveLength(1);
   expect(P.urlDaPagina(todas.find((e) => e.pagina === 'contrato.html'), { id: '42' })).toBe('/plataforma-ead/contrato.html?id=42');
   expect(todas.filter((e) => e.pagina === 'aula.html')).toHaveLength(2);
-  expect((await P.paginasDoPortal({ dir, fatia: 'F2' })).map((e) => e.pagina).sort()).toEqual(['aula.html', 'professor.html']);
+  expect((await P.paginasDoPortal({ dir, fatia: 'F2', estrito: false })).map((e) => e.pagina).sort()).toEqual(['aula.html', 'professor.html']);
 });
 
 test('S0 · paginasDoPortal recusa entrada com fatia de outra dona', { tag: ['@F0b'] }, async ({}, testInfo) => {
   const dir = dirCom(testInfo, { 'portal-financeiro.paginas.js': "export const PAGINAS = [{ pagina: 'financeiro.html', fatia: 'F6a', url: () => 'financeiro.html' }];" });
-  await expect(P.paginasDoPortal({ dir })).rejects.toThrow(/fatia "F6a"/);
+  await expect(P.paginasDoPortal({ dir, estrito: false })).rejects.toThrow(/fatia "F6a"/);
 });
 
 test('S0 · paginasDoPortal recusa página própria repetida e página alheia sem hospedeira', { tag: ['@F0b'] }, async ({}, testInfo) => {
   const repetida = dirCom(testInfo, { 'portal-financeiro.paginas.js': "export const PAGINAS = [{ pagina: 'financeiro.html', fatia: 'F5', url: () => 'financeiro.html' }, { pagina: 'financeiro.html', fatia: 'F5', url: () => 'financeiro.html?aba=2' }];" });
-  await expect(P.paginasDoPortal({ dir: repetida })).rejects.toThrow(/repetida/);
+  await expect(P.paginasDoPortal({ dir: repetida, estrito: false })).rejects.toThrow(/repetida/);
   const alheia = path.join(testInfo.outputPath('alheia'));
   fs.mkdirSync(alheia, { recursive: true });
   fs.writeFileSync(path.join(alheia, 'portal-comunicacao.paginas.js'), "export const PAGINAS = [{ pagina: 'aula.html', fatia: 'F7', url: () => 'aula.html' }];");
-  await expect(P.paginasDoPortal({ dir: alheia })).rejects.toThrow(/dona é F1b/);
+  await expect(P.paginasDoPortal({ dir: alheia, estrito: false })).rejects.toThrow(/dona é F1b/);
   const fora = path.join(testInfo.outputPath('fora'));
   fs.mkdirSync(fora, { recursive: true });
   fs.writeFileSync(path.join(fora, 'portal-inventado.paginas.js'), 'export const PAGINAS = [];');
-  await expect(P.paginasDoPortal({ dir: fora })).rejects.toThrow(/não está na lista/);
+  await expect(P.paginasDoPortal({ dir: fora, estrito: false })).rejects.toThrow(/não está na lista/);
+});
+
+test('S0 · paginasDoPortal com QA_ESTRITO (G2) não tolera ausência: os 12 arquivos de páginas e toda página no disco; os arquivos reais passam', { tag: ['@F0b'] }, async ({}, testInfo) => {
+  const nomes = Object.keys(P.ARQUIVOS_DE_PAGINAS);
+  expect(nomes).toHaveLength(12);
+  // Falta um arquivo: recusa e diz qual (e de quem); sem estrito, a mesma pasta passa.
+  const parcial = dirCom(testInfo, Object.fromEntries(nomes.slice(1).map((n) => [n, 'export const PAGINAS = [];'])));
+  await expect(P.paginasDoPortal({ dir: parcial, estrito: true })).rejects.toThrow(new RegExp(`ausente: ${nomes[0].replace(/\./g, '\\.')} \\(${P.ARQUIVOS_DE_PAGINAS[nomes[0]]}\\)`));
+  expect(await P.paginasDoPortal({ dir: parcial, estrito: false })).toHaveLength(34);
+  // Os 12 presentes, mas a página não existe no disco (ead vazio): recusa listando as páginas.
+  const completa = testInfo.outputPath('completa');
+  fs.mkdirSync(completa, { recursive: true });
+  for (const n of nomes) fs.writeFileSync(path.join(completa, n), 'export const PAGINAS = [];');
+  const eadVazio = testInfo.outputPath('ead-vazio');
+  fs.mkdirSync(eadVazio, { recursive: true });
+  await expect(P.paginasDoPortal({ dir: completa, estrito: true, ead: eadVazio })).rejects.toThrow(/não existe no disco: .*dashboard\.html/);
+  expect(await P.paginasDoPortal({ dir: completa, estrito: true })).toHaveLength(34);
+  // Os portal-<x>.paginas.js reais do repositório e as 34 páginas passam no modo estrito.
+  const reais = await P.paginasDoPortal({ estrito: true });
+  for (const b of P.PAGINAS_BASE) expect(reais.some((e) => e.pagina === b.pagina), b.pagina).toBe(true);
+  expect(P.PAGINAS_BASE.filter((b) => !b.existe).map((b) => b.pagina)).toEqual([]);
 });
 
 // ---------------------------------------------------------------------------
@@ -1046,8 +1092,11 @@ test('S3 · DMC_init: {catalogo:false} só valida a sessão; memo por parte; res
   expect(api).toEqual(['/api/auth/me']);
 });
 
+// Os cinco primeiros são apelidos desde a F0b-final (§7.3): carregam o boot novo da página
+// (js/portal/*.js), que aplica o modo restrito pelo DMC_Portal.iniciar. Loja e obrigado
+// continuam em app.js.
 const BOOTS_LEGADOS = ['DMC_bootDashboard', 'DMC_bootPlayer', 'DMC_bootMeusCursos', 'DMC_bootAoVivo', 'DMC_bootCertificados', 'DMC_bootLoja', 'DMC_bootObrigado'];
-test('S3 · boots legados de app.js no modo restrito (D-63, page.route): perfil.html#seguranca sem catálogo, liberações nem progresso', { tag: ['@F0b'] }, async ({ page }) => {
+test('S3 · boots legados de app.js (apelidos e os que ficam) no modo restrito (D-63, page.route): perfil.html#seguranca sem catálogo, liberações nem progresso', { tag: ['@F0b'] }, async ({ page }) => {
   const api = [];
   page.on('request', (q) => { const p = new URL(q.url()).pathname; if (p.startsWith('/api/')) api.push(p); });
   await meSimulado(page, USER_RESTRITO);
@@ -1872,7 +1921,7 @@ test('S3 · DMC_bootLogin: 2FA desvia para login.html?next= com dmc:aviso e sem 
 // ---------------------------------------------------------------------------
 // Loja e obrigado (D-69) e pedido da loja (D-79) — page.route no lugar da F5/F6a
 // ---------------------------------------------------------------------------
-test('S3 · D-69: markup de DMC_bootLoja/DMC_bootObrigado sem data-tilt, loja-card__shine, style= nem .style.* de cor; aside do player sem onclick', { tag: ['@F0b'] }, async ({ page, request }) => {
+test('S3 · D-69: markup de DMC_bootLoja/DMC_bootObrigado sem data-tilt, loja-card__shine, style= nem .style.* de cor; app.js sem on*= inline', { tag: ['@F0b'] }, async ({ page, request }) => {
   const app = APP_JS_S3();
   for (const nome of ['bootLoja', 'bootObrigado']) {
     const t = trechoDe(app, nome);
@@ -2025,24 +2074,91 @@ test('S3 · D-79 checkout 404 (F5 ausente): caminho legado; obrigado sem protoco
   await expect(page.locator('#obrigado-sem-pedido')).toBeVisible();
 });
 
-test('S3 · player legado: aside por delegação (clique e Enter abrem a aula), sem onclick inline', { tag: ['@F0b'] }, async ({ page, request }) => {
-  const aluno = await P.criarUsuario(request, { papel: 'aluno' });
-  const C = await P.semearCurso(request, { aulas: [{}, {}] });
-  await P.liberarCurso(request, aluno.id, C.cursoId);
-  const AULA = `<main id="conteudo"><div id="player-root"><div id="player-stage"></div><span data-aula-modulo></span><h1 data-aula-titulo></h1><span data-aula-num></span><span data-aula-dur></span>
-    <button id="btn-prev" type="button">Anterior</button><button id="btn-done" type="button">Concluir</button><button id="btn-next" type="button">Próxima</button>
-    <span data-curso-titulo></span><div id="player-aside-list"></div></div></main>`;
-  await P.entrarComToken(page, aluno.token);
-  await servirS1(page, '__qa-s3-player.html', paginaS3({ corpo: AULA, fim: '<script>DMC_bootPlayer();</script>' }));
-  await page.goto(`/plataforma-ead/__qa-s3-player.html?id=${C.aulas[0].id}`);
-  const item = page.locator(`#player-aside-list [data-aside-aula="${C.aulas[1].id}"]`);
-  await expect(item).toHaveAttribute('role', 'link');
-  expect(await page.locator('#player-aside-list [onclick]').count()).toBe(0);
-  await stubsS1(page, ['aula.html']);
-  await item.click();
-  await page.waitForURL(new RegExp(`/plataforma-ead/aula\\.html\\?id=${C.aulas[1].id}$`));
-  await page.goto(`/plataforma-ead/__qa-s3-player.html?id=${C.aulas[1].id}`);
-  await page.locator(`#player-aside-list [data-aside-aula="${C.aulas[0].id}"]`).focus();
-  await page.keyboard.press('Enter');
-  await page.waitForURL(new RegExp(`/plataforma-ead/aula\\.html\\?id=${C.aulas[0].id}$`));
+// ---------------------------------------------------------------------------
+// F0b-final (§7.3, §8.5): boots mortos removidos de app.js, com prova por grep, e os
+// cinco nomes antigos como apelidos dos boots novos (js/portal/*.js).
+// ---------------------------------------------------------------------------
+const APELIDOS_F0B_FINAL = {
+  DMC_bootDashboard: 'dashboard.html',
+  DMC_bootPlayer: 'aula.html',
+  DMC_bootMeusCursos: 'meus-cursos.html',
+  DMC_bootAoVivo: 'ao-vivo.html',
+  DMC_bootCertificados: 'certificados.html'
+};
+/** Caminhos (pathname) dos <script src> locais da página real que vêm DEPOIS de js/app.js, na ordem. */
+function scriptsDepoisDoApp(pagina) {
+  const html = fs.readFileSync(path.join(P.EAD_DISCO, pagina), 'utf8').replace(/<!--[\s\S]*?-->/g, '');
+  const srcs = [...html.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"'?#]+)/gi)].map((m) => m[1]);
+  const i = srcs.indexOf('js/app.js');
+  expect(i, `${pagina} carrega js/app.js`).toBeGreaterThan(-1);
+  return srcs.slice(i + 1).map((s) => `/plataforma-ead/${s}`);
+}
+/** Arquivos da EAD (páginas da raiz e js/**, sem vendor) — a base da prova por grep. */
+function arquivosDaEad() {
+  const saida = fs.readdirSync(P.EAD_DISCO).filter((n) => n.endsWith('.html'));
+  const andar = (rel) => {
+    for (const e of fs.readdirSync(path.join(P.EAD_DISCO, rel), { withFileTypes: true })) {
+      const r = `${rel}/${e.name}`;
+      if (e.isDirectory()) { if (r !== 'js/vendor') andar(r); } else if (e.name.endsWith('.js')) saida.push(r);
+    }
+  };
+  andar('js');
+  return saida.sort();
+}
+
+test('F0b-final · prova por grep: app.js sem os boots mortos; nenhuma página nem script chama os cinco nomes antigos; ficam os contratos da 2d e os boots de §7.3', { tag: ['@F0b'] }, async () => {
+  const app = APP_JS_S3();
+  for (const nome of ['bootDashboard', 'bootPlayer', 'bootMeusCursos', 'bootAoVivo', 'bootCertificados']) {
+    expect(app, nome).not.toMatch(new RegExp(`function ${nome}\\s*\\(`));
+  }
+  expect(app).not.toMatch(/renderDuvidasDaAula|renderMateriaisDaAula|player-aside-list|data-aside-aula|\balert\(|\bconfirm\(|\bprompt\(/);
+  for (const nome of ['bootLogin', 'bootLoja', 'bootObrigado', 'bootCertificadoPublico']) expect(app, nome).toMatch(new RegExp(`async function ${nome}\\(`));
+  expect(app).toMatch(/function bindHeader\(/);
+  for (const g of ['DMC_Auth', 'DMC_init', 'DMC_capaSrc', 'DMC_bootLogin', 'DMC_bootLoja', 'DMC_bootObrigado', 'DMC_bootCertificadoPublico', 'DMC_bindHeader',
+    'DMC_Data', 'DMC_Liberacoes', 'DMC_Progress', 'DMC_Carrinho', 'DMC_Helpers', 'DMC_Icons', 'DMC_escapeHtml']) {
+    expect(app, g).toContain(`window.${g} = `);
+  }
+  // Chamada = nome seguido de "(" fora de linha de comentário (falso positivo reprova; nunca o contrário).
+  const chamadas = [];
+  for (const rel of arquivosDaEad()) {
+    if (rel === 'js/app.js') continue;
+    const linhas = fs.readFileSync(path.join(P.EAD_DISCO, rel), 'utf8').split('\n');
+    linhas.forEach((l, i) => {
+      if (/^\s*(?:\/\/|\/?\*)/.test(l)) return;
+      for (const m of l.matchAll(/\bDMC_boot(?:Dashboard|Player|MeusCursos|AoVivo|Certificados)\s*\(/g)) chamadas.push(`${rel}:${i + 1}: ${m[0]}`);
+    });
+  }
+  expect(chamadas).toEqual([]);
+});
+
+test('F0b-final · apelidos: cada nome antigo carrega, na ordem da página real, os scripts que faltam e roda o boot novo (DMC_Portal.iniciar); duas chamadas = uma carga', { tag: ['@F0b'] }, async ({ page }) => {
+  await preferenciasS1(page, { 'dmc:token': null });
+  await stubsS1(page, ['login.html']);
+  const pedidos = [];
+  page.on('request', (q) => { const u = new URL(q.url()); if (q.resourceType() === 'script' && u.pathname.startsWith('/plataforma-ead/js/')) pedidos.push(u.pathname); });
+  const mon = P.monitorarConsoleERede(page, { fatia: 'F0b' });
+  const PROPRIOS = ['/plataforma-ead/js/portal/pre-pintura.js', '/plataforma-ead/js/api-client.js', '/plataforma-ead/js/app.js'];
+  for (const [boot, pagina] of Object.entries(APELIDOS_F0B_FINAL)) {
+    const esperados = scriptsDepoisDoApp(pagina);
+    expect(esperados.length, `${pagina}: scripts depois de app.js`).toBeGreaterThan(1);
+    // Página com SÓ o cliente e app.js (sem ui.js): o apelido carrega a cadeia inteira.
+    pedidos.length = 0;
+    await servirS1(page, `__qa-f0b-${boot}.html`, htmlS1({ scripts: ['js/api-client.js', 'js/app.js'] }));
+    await page.goto(`/plataforma-ead/__qa-f0b-${boot}.html`);
+    const mesma = await page.evaluate((b) => { const x = window[b](); const y = window[b](); return typeof x.then === 'function' && x === y; }, boot);
+    expect(mesma, `${boot}: duas chamadas devolvem a mesma carga`).toBe(true);
+    // Sem sessão, o DMC_Portal.iniciar do boot novo leva ao login com next: prova de que o boot rodou.
+    await page.waitForURL(new RegExp(`/plataforma-ead/login\\.html\\?next=__qa-f0b-${boot}\\.html$`));
+    expect(pedidos.filter((p) => !PROPRIOS.includes(p)), `${boot} → ${pagina}`).toEqual(esperados);
+  }
+  // Script que a página já tem não é carregado de novo (mesmo caminho, qualquer ?v=).
+  pedidos.length = 0;
+  await servirS1(page, '__qa-f0b-ja-carregado.html', paginaS3({ scripts: ['js/shell.js'] }));
+  await page.goto('/plataforma-ead/__qa-f0b-ja-carregado.html');
+  await page.evaluate(() => { window.DMC_bootAoVivo(); });
+  await page.waitForURL(/\/plataforma-ead\/login\.html\?next=__qa-f0b-ja-carregado\.html$/);
+  expect(pedidos.filter((p) => p.endsWith('/js/portal/ui.js'))).toHaveLength(1);
+  expect(pedidos.filter((p) => p.endsWith('/js/shell.js'))).toHaveLength(1);
+  expect(pedidos.filter((p) => p.endsWith('/js/portal/ao-vivo.js'))).toHaveLength(1);
+  await mon.verificar();
 });

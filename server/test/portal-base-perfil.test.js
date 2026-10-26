@@ -30,7 +30,7 @@ const ENV_EMAIL = { RESEND_API_KEY: 'chave-falsa', PORTAL_EMAIL_FROM: 'Plataform
 const sha = s => createHash('sha256').update(s, 'utf8').digest('hex');
 const esperar = ms => new Promise(r => setTimeout(r, ms));
 
-async function subirPortal({ env = ENV_EMAIL, prep = async () => {}, falsos = {}, grupos = {} } = {}) {
+async function subirPortal({ env = ENV_EMAIL, prep = async () => {}, falsos = {}, grupos = {}, agora = null } = {}) {
   const banco = criarBancoMemoria({ indices: especificacoesRegistradas() });
   await semear(banco);
   await prep(banco);
@@ -40,7 +40,7 @@ async function subirPortal({ env = ENV_EMAIL, prep = async () => {}, falsos = {}
   const portal = montarPortal({
     getDb: () => banco, jwtSecret: 'segredo-de-teste', exigirLogin: requireAuth, exigirAdmin: [requireAuth, requireAdmin],
     servicos, modulos: MODULOS_F0T, configPortal: lerConfigPortal({ NODE_ENV: 'test', JWT_SECRET: 'segredo-de-teste', ...env }),
-    falharCedo: true, log: silencioso, fetchImpl
+    falharCedo: true, log: silencioso, fetchImpl, ...(agora ? { agora } : {})
   });
   const app = express();
   app.use(express.json({ limit: '1mb' }));
@@ -519,6 +519,160 @@ describe('relatório diversidade (grupo relatorio)', () => {
     assert.equal(e.Parda, 6);
     assert.equal(e.Branca, '<5', 'etnia sem consentimento vigente não conta');
     assert.ok(linhas.every(l => !Object.hasOwn(l, 'userId')));
+  });
+});
+
+// Achado G2 (LGPD art. 11, revisão de segurança §9.8): o relatório era contado na hora e a trilha
+// dizia quem consentiu em perfil_genero/perfil_etnia e que o campo 'genero'/'etnia' mudou. Duas
+// leituras do relatório + o horário do evento revelavam o gênero ou a etnia de uma pessoa nomeada.
+describe('diversidade sem inferência individual (achado G2)', () => {
+  let ctx;
+  let relogio = new Date('2026-10-05T15:00:00Z');
+  const em = iso => { relogio = new Date(iso); };
+  const hex = i => (0xb000 + i).toString(16).padStart(24, '0');
+  const SIM = { aceito: true, versaoTexto: 'v1', em: new Date('2026-09-01T12:00:00Z') };
+  const CONSENTE_GENERO = { genero: { aceito: true, versaoTexto: 'v1' } };
+  const VAZA = /perfil_genero|perfil_etnia|"campo":"genero"|"campo":"etnia"|genero:|etnia:/;
+
+  before(async () => {
+    ctx = await subirPortal({
+      agora: () => new Date(relogio),
+      prep: async banco => {
+        const users = [];
+        const perfis = [];
+        for (let i = 0; i < 10; i++) {
+          users.push({ _id: oid(hex(i)), email: `div${i}@exemplo.invalid`, nome: `Pessoa ${i} de Teste`, papel: 'aluno', isAdmin: false, createdAt: new Date('2026-08-01T12:00:00Z') });
+          if (i < 5) {
+            perfis.push({
+              userId: hex(i), nomeRegistro: `Pessoa ${i} de Teste`, genero: 'feminino', etnia: 'parda', redes: { instagram: null, facebook: null },
+              consentimentos: { genero: SIM, etnia: SIM, nomeSocial: null, redes: null, foto: null }, menorDeIdade: false, versao: 1
+            });
+          }
+        }
+        await banco.collection('users').insertMany(users);
+        await banco.collection('perfis').insertMany(perfis);
+      }
+    });
+  });
+  after(() => fechar(ctx.server));
+
+  const definicao = () => [...new Set(ctx.servicos.todos('relatorio'))].find(d => d.id === 'diversidade');
+  async function ler() {
+    const linhas = await definicao().consultar({ user: { _id: oid('u-admin'), papel: 'admin' } }, {}, { limite: 20000 });
+    const de = dim => Object.fromEntries(linhas.filter(l => l.dimensao === dim).map(l => [l.categoria, l.pessoas]));
+    return { genero: de('Gênero'), etnia: de('Cor ou etnia (IBGE)'), retratoDe: linhas[0]?.retratoDe ?? null, linhas };
+  }
+  const putGenero = (usuario, versao, genero, consentimentos = CONSENTE_GENERO) =>
+    ctx.api.put('/api/portal/me/perfil', { versao, genero, ...(consentimentos ? { consentimentos } : {}) }, { usuario });
+
+  test('um cadastro novo NÃO muda a contagem na leitura seguinte (retrato mensal, não tempo real)', async () => {
+    const antes = await ler();
+    assert.equal(antes.genero.Feminino, 5);
+    em('2026-10-05T16:00:00Z');
+    const put = await putGenero('u-aluno2', 0, 'feminino');
+    assert.equal(put.status, 200, JSON.stringify(put.corpo));
+    em('2026-10-05T17:00:00Z');
+    const depois = await ler();
+    assert.equal(depois.genero.Feminino, 5, 'Feminino 5 → 6 logo depois do cadastro revelaria o gênero de u-aluno2');
+    assert.equal(String(depois.retratoDe).slice(0, 10), '2026-10-05');
+    assert.ok(definicao().colunas.some(c => c.chave === 'retratoDe' && c.tipo === 'data'));
+    assert.match(definicao().descricao, /^Retrato mensal, não em tempo real: .*pelo menos 5 pessoas/);
+  });
+
+  test('a trilha não diz qual dado de diversidade mudou nem a finalidade (gênero × etnia); a prova do aceite segue em consentimentos', async () => {
+    const auds = await ctx.banco.collection('auditoria').find({ 'ator.userId': IDS['u-aluno2'] }).toArray();
+    assert.doesNotMatch(JSON.stringify(auds), VAZA);
+    const cons = auds.find(a => a.acao === 'consentimento.registrado');
+    assert.equal(cons.extra.finalidade, 'diversidade');
+    assert.equal(cons.entidade.id, `${IDS['u-aluno2']}:diversidade`);
+    const alt = auds.find(a => a.acao === 'perfil.alterado');
+    assert.deepEqual(alt.mudancas, [{ campo: 'diversidade', de: '(alterado)', para: '(alterado)' }]);
+    const tela = await ctx.api.get(`/api/portal/admin/auditoria?alvoUserId=${IDS['u-aluno2']}`, { usuario: 'u-admin' });
+    assert.equal(tela.status, 200);
+    assert.ok(tela.corpo.total >= 2);
+    assert.doesNotMatch(JSON.stringify(tela.corpo), VAZA);
+    const prova = await ctx.banco.collection('consentimentos').findOne({ userId: IDS['u-aluno2'], finalidade: 'perfil_genero' });
+    assert.equal(prova.aceito, true);
+    assert.equal(prova.textoSha256, sha(TEXTOS.perfil_genero.v1));
+  });
+
+  test('registros antigos saem generalizados na tela e no CSV; o filtro por entidade não separa gênero de etnia', async () => {
+    const uid = hex(0);
+    const base = { ator: { userId: uid, papel: 'aluno', ipTruncado: null }, alvoUserId: uid, cursoId: null, motivo: null, estado: 'concluido', erro: null };
+    await ctx.banco.collection('auditoria').insertMany([
+      { ...base, em: new Date('2026-09-01T12:00:00Z'), concluidoEm: new Date('2026-09-01T12:00:00Z'), acao: 'consentimento.registrado', entidade: { tipo: 'consentimento', id: `${uid}:perfil_genero` }, mudancas: null, extra: { finalidade: 'perfil_genero', versaoTexto: 'v1', via: 'perfil' } },
+      { ...base, em: new Date('2026-09-01T12:00:01Z'), concluidoEm: new Date('2026-09-01T12:00:01Z'), acao: 'perfil.alterado', entidade: { tipo: 'perfil', id: uid }, extra: null,
+        mudancas: [{ campo: 'genero', de: '(alterado)', para: '(alterado)' }, { campo: 'etnia', de: '(alterado)', para: '(alterado)' }, { campo: 'estadoCivil', de: null, para: 'solteiro' }] }
+    ]);
+    const tela = await ctx.api.get(`/api/portal/admin/auditoria?alvoUserId=${uid}`, { usuario: 'u-admin' });
+    assert.equal(tela.status, 200);
+    assert.doesNotMatch(JSON.stringify(tela.corpo), VAZA);
+    assert.deepEqual(tela.corpo.itens.find(i => i.acao === 'perfil.alterado').mudancas.map(m => m.campo), ['diversidade', 'estadoCivil']);
+    assert.equal(tela.corpo.itens.find(i => i.acao === 'consentimento.registrado').entidade.id, `${uid}:diversidade`);
+    const csv = await ctx.api.get(`/api/portal/admin/auditoria?alvoUserId=${uid}&formato=csv`, { usuario: 'u-admin' });
+    assert.equal(csv.status, 200);
+    assert.doesNotMatch(String(csv.corpo), VAZA);
+    const totais = [];
+    for (const f of ['perfil_genero', 'perfil_etnia', 'diversidade']) {
+      const r = await ctx.api.get(`/api/portal/admin/auditoria?entidadeId=${uid}:${f}`, { usuario: 'u-admin' });
+      assert.equal(r.status, 200);
+      totais.push(r.corpo.total);
+    }
+    assert.deepEqual(totais, [1, 1, 1], 'o filtro devolve o mesmo conjunto para gênero, etnia e diversidade');
+  });
+
+  test('o retrato só é refeito no mês seguinte E com 5+ pessoas cuja mudança afeta a contagem; revogação no mês não aparece', async () => {
+    em('2026-11-02T15:00:00Z');
+    let r = await ler();
+    assert.equal(r.genero.Feminino, 5, 'só 1 pessoa mudou desde o retrato de outubro: não renova');
+    assert.equal(String(r.retratoDe).slice(0, 10), '2026-10-05');
+    const pni = await putGenero(hex(9), 0, 'prefiro_nao_informar', null);
+    assert.equal(pni.status, 200, JSON.stringify(pni.corpo));
+    for (const i of [5, 6, 7]) assert.equal((await putGenero(hex(i), 0, 'feminino')).status, 200);
+    r = await ler();
+    assert.equal(r.genero.Feminino, 5, '4 pessoas com mudança que conta ("prefiro não informar" não conta): ainda não renova');
+    assert.equal((await putGenero(hex(8), 0, 'feminino')).status, 200);
+    r = await ler();
+    assert.equal(r.genero.Feminino, 10, '5 pessoas: renova');
+    assert.equal(String(r.retratoDe).slice(0, 10), '2026-11-02');
+    assert.equal(r.etnia.Parda, 5, 'a etnia não teve 5 mudanças: segue o retrato de outubro');
+    const rev = await ctx.api.post('/api/portal/me/dados/consentimentos/perfil_genero/revogar', {}, { usuario: 'u-aluno2' });
+    assert.equal(rev.status, 200);
+    assert.equal((await ler()).genero.Feminino, 10, 'a revogação não aparece no mesmo mês');
+    const audRev = await ctx.banco.collection('auditoria').findOne({ acao: 'consentimento.revogado', 'ator.userId': IDS['u-aluno2'] });
+    assert.equal(audRev.extra.finalidade, 'diversidade');
+    assert.equal((await ctx.banco.collection('perfis').findOne({ userId: IDS['u-aluno2'] })).genero, null, 'o valor continua apagado na hora');
+    assert.equal((await ctx.banco.collection('perfis').findOne({ userId: IDS['u-aluno2'] })).diversidadeAlteradaEm.genero.toISOString(), '2026-11-02T15:00:00.000Z', 'a revogação conta como mudança para o próximo retrato');
+    assert.equal((await ctx.banco.collection('perfis').findOne({ userId: hex(9) })).diversidadeAlteradaEm, undefined, '"prefiro não informar" sem autorização não marca');
+    em('2026-12-03T15:00:00Z');
+    r = await ler();
+    assert.equal(r.genero.Feminino, 10, 'dezembro com 1 mudança: segue o retrato de novembro');
+    assert.equal(String(r.retratoDe).slice(0, 10), '2026-11-02');
+    const retratos = await ctx.banco.collection('diversidade_retratos').find({}, { projection: { _id: 0 } }).toArray();
+    assert.ok(retratos.length >= 3);
+    assert.doesNotMatch(JSON.stringify(retratos), /userId|[a-f0-9]{24}/, 'o retrato guarda só os totais publicados');
+  });
+
+  test('pela rota de relatórios (F7): JSON com a coluna "Retrato de" e a descrição; CSV continua recusado', async () => {
+    const { criarRotasRelatorios } = await import('../src/routes/portal/relatorios.js');
+    const rotas = criarRotasRelatorios({ servicos: ctx.servicos, acesso: {}, auditoria: { registrar: async () => null } });
+    const app = express();
+    app.use(express.json());
+    app.use('/api', usuarioDeTeste({ banco: ctx.banco }));
+    app.use('/api/portal/professor', rotas.professor);
+    app.use(criarTratarErroGlobal({ log: silencioso }));
+    const { server, base } = await subir(app);
+    try {
+      const api = cliente(base);
+      const j = await api.get('/api/portal/professor/relatorios/diversidade', { usuario: 'u-admin' });
+      assert.equal(j.status, 200, JSON.stringify(j.corpo));
+      assert.ok(j.corpo.relatorio.colunas.some(c => c.chave === 'retratoDe' && c.tipo === 'data'));
+      const datas = Object.fromEntries(j.corpo.itens.map(i => [i.dimensao, i.retratoDe]));
+      assert.deepEqual(datas, { 'Gênero': '2026-11-02T15:00:00.000Z', 'Cor ou etnia (IBGE)': '2026-10-05T15:00:00.000Z' }, 'cada dimensão com o seu retrato');
+      assert.equal((await api.get('/api/portal/professor/relatorios/diversidade?formato=csv', { usuario: 'u-admin' })).status, 400);
+      const cat = await api.get('/api/portal/professor/relatorios', { usuario: 'u-admin' });
+      assert.match(cat.corpo.itens.find(i => i.id === 'diversidade').descricao, /^Retrato mensal/);
+    } finally { await fechar(server); }
   });
 });
 

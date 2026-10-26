@@ -421,3 +421,71 @@ Especificação: `docs/dmc/PORTAL-ACADEMICO.md`, `PORTAL-API.md` e `PORTAL-UX.md
 - **Dados:** ferramentas só de leitura dos dados do próprio aluno; CPF, e-mail e números
   longos são mascarados antes de sair; consentimento LGPD antes do primeiro uso.
 - **Desligado ou sem chave:** a tela do aluno mostra estado honesto e leva ao atendimento.
+
+## Portal acadêmico · variáveis de ambiente
+
+Todas lidas em `server/src/portal/config-portal.js` (único módulo do portal que lê o ambiente;
+`config.js` não muda). Os avisos do boot e do bloco `sistema` do painel citam o nome e o estado,
+nunca o valor. Modelo comentado em `server/.env.example`; contrato em `docs/dmc/PORTAL-API.md` §11.
+
+| Variável | Produção | Efeito no portal |
+|---|---|---|
+| `JWT_SECRET` | obrigatória (já existe) | também é o material do HKDF: cifra da chave do Gemini e do 2FA, selo HMAC (declarações, frequência, avaliações, contratos), HMAC de identificadores. Sem ela: cifra e selo indisponíveis |
+| `PORTAL_BASE_URL` | obrigatória, `https://` | base dos links de e-mail e do QR (`https://complexodmc.com.br`); nunca vem do `Host`. Na Vercel sem ela os fluxos por link ficam indisponíveis; fora dela, `http://localhost:<PORT>` |
+| `RESEND_API_KEY` | para e-mail (já existe) | a mesma chave do contato; sem ela, link de acesso, recuperação e troca de e-mail → 503 `email-indisponivel` |
+| `PORTAL_EMAIL_FROM` | para e-mail | remetente de domínio verificado no Resend; vazio = `LEADS_EMAIL_FROM`; sem remetente = e-mail indisponível |
+| `GEMINI_API_KEY` | opcional | vale sobre a chave colada no painel (`origem:'env'`) e trava a troca pelo painel (409) |
+| `PORTAL_IA_TIMEOUT_MS` | opcional | prazo total de uma resposta do assistente, 1000–120000; padrão 8000 na Vercel e 20000 fora |
+| `PORTAL_MAX_ARQUIVO_MB` | opcional | teto dos PDFs de material e de publicação e dos documentos e contratos (estes dois nunca acima de 4); padrão 4, máximo 4 com `VERCEL=1`. Fixos: foto 2 MB, capa/banner 1 MB, 2ª via e TCC 4 MB |
+| `PORTAL_2FA` | ausente até o aceite da 2d | `1` libera a ativação do 2FA e o exige da coordenação em `/portal/admin` e `/portal/professor`; só depois de `tests/e2e/login-portal.spec.js` verde (índice §9.9 item 1a) |
+| `PORTAL_MATERIAL_ANTERIOR` | só na janela de rotação | `JWT_SECRET` anterior, aceito só para decifrar e verificar selo (o decifrado é regravado com o atual); tirar depois de 90 dias. **Não usar na troca do incidente T3** |
+| `PORTAL_MODULOS_ESTRITO` | — | `1` liga o modo estrito fora de produção; com `VERCEL=1` ou `NODE_ENV=production` já é estrito |
+| `QA_SERVIDOR` | **nunca** (só QA) | `1` (só o `tests/server/serve.mjs`) liga a regra D-41; com `VERCEL_ENV` presente ou `NODE_ENV=production`, nada abaixo vale |
+| `PORTAL_MODULOS` · `PORTAL_MODULOS_IGNORAR` | **nunca** (só QA) | módulos a montar/pular no E2E por fatia; fora da regra QA, ignoradas com aviso |
+| `PORTAL_GEMINI_URL` · `PORTAL_VIACEP_URL` · `PORTAL_RESEND_URL` | **nunca** (só QA) | provedores falsos do `serve.mjs`, só `http://127.0.0.1`; fora da regra, ignoradas com aviso e o servidor usa os hosts fixos (`generativelanguage.googleapis.com`, `viacep.com.br`, `api.resend.com`) |
+| `PORTAL_TESTE_MONGO_URI` · `PORTAL_TESTE_MONGO_DB` | **nunca** (só testes) | habilitam `server/test/portal-base-integracao.test.js` (loopback e banco `_qa`) |
+
+Também lidas, sem mudança de sentido: `VERCEL`, `VERCEL_ENV`, `NODE_ENV` e `PORT` (definidas pela
+plataforma ou pelo processo). Os scripts `seed-portal-qa.js`, `migrar-materiais.js` e
+`matriculas-de-liberacoes.js` leem `MONGODB_URI`/`MONGODB_DB` (e `UPLOADS_DIR`): o primeiro recusa
+banco sem `_qa` ou URI fora de `127.0.0.1`; os outros dois são dry-run por padrão.
+
+## Antes de publicar o portal
+
+Publicar é decisão explícita do CEO na rodada (D3). Lista completa e evidências: índice
+`docs/dmc/PORTAL-ACADEMICO.md` §9.9.
+
+1. **Incidente T3 — bloqueante** (`docs/dmc/DECISIONS.md`):
+   - trocar a senha de **todos** os usuários do MongoDB Atlas citados em `server/.env` e
+     `server/.env.bak-atlas` e restringir o Network Access do Atlas (sem `0.0.0.0/0`);
+   - rotacionar o `JWT_SECRET` na Vercel **antes** de colar a chave do Gemini, ligar o 2FA ou emitir
+     o primeiro selo — sem `PORTAL_MATERIAL_ANTERIOR`;
+   - apagar o build antigo `.vercel/output/` e `server/.env.bak-atlas` (e a cópia por hardlink fora do
+     repositório), com autorização do Daniel;
+   - avaliação do incidente pelo CEO e pelo jurídico à luz do art. 48 da LGPD, registrada em
+     `DECISIONS.md`;
+   - conferir por requisição que `server/.env`, `server/.env.bak-atlas`, `server/src/*` e
+     `server/uploads/*` respondem 404 (ou redirecionamento) em produção.
+   Enquanto isso não fecha, o portal não coleta CPF, RG, documentos pessoais, gênero, etnia,
+   contratos nem lançamentos em produção.
+2. **E-mail:** domínio do remetente verificado no Resend (SPF e DKIM); `RESEND_API_KEY`,
+   `PORTAL_EMAIL_FROM` e `PORTAL_BASE_URL=https://complexodmc.com.br` na Vercel; link de acesso e
+   nova senha testados em homologação.
+3. **Política de privacidade** (`complexodmc.com.br/pages/politica-de-privacidade.html`) cobrindo a
+   plataforma: Google Gemini (assistente, chamado só pelo servidor, dados mascarados, com
+   consentimento), ViaCEP (consulta de CEP pelo servidor) e Resend (e-mails do portal), com
+   finalidade, base legal e retenção, e o encarregado configurado no painel. Hoje a política cita o
+   Resend só para os formulários do site e não cita Gemini nem ViaCEP.
+4. **Cache:** `node tests/tools/versionar-ead.mjs --aplicar` e depois `--verificar` sem pendência;
+   avisar a sessão 2d dos novos `?v=` de `js/api-client.js` e `js/app.js`.
+5. **CSP aplicada:** no `vercel.json`, a política estrita de `/plataforma-ead/` passa de
+   `Content-Security-Policy-Report-Only` para `Content-Security-Policy` (fora `login.html` e
+   `login-classico.html`), com 0 violação no `portal-qualidade.spec.js` (`QA_ESTRITO=1`) e o
+   `vercel-config.spec.js` conferindo o cabeçalho; depois, conferir no cabeçalho de produção.
+6. **Variáveis na Vercel:** as da tabela acima marcadas para produção; `PORTAL_2FA` só depois do
+   aceite do login da 2d; `DEV_SIMULAR_PAGAMENTO` ausente; nenhuma variável "só QA"; `maxDuration`
+   da função decidido para o assistente.
+7. **Testes no mesmo commit:** `npm test`, E2E do portal e do site com `QA_ESTRITO=1`,
+   `node tests/tools/conferir-posse.mjs` e `node tests/tools/conferir-matriz.mjs` limpos.
+8. **Dados:** nenhuma migração destrutiva; `migrar-materiais.js` e `matriculas-de-liberacoes.js` só
+   com autorização do Daniel (dry-run primeiro); `complexodmc_local` intocado.

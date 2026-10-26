@@ -177,7 +177,7 @@ dmc-navbar { display: block; }
    NAVBAR
    Fixa, 64/72px (72 desde 1024). Transparente sobre o herói
    (.dmc-nav--over até 24px de rolagem), translúcida depois.
-   ≥1200: Eixos ▾ · Sobre · Treinamentos · Parcerias ▾ · Tecnologia,
+   ≥1200: Eixos ▾ · Sobre · Segmentos ▾ · Parcerias ▾ · Tecnologia,
    Acessar ▾ (portal) e CTA dourado. 768–1199: CTA + botão Menu.
    <768: botão Menu → gaveta (CTA dentro dela).
    ============================================================ */
@@ -397,6 +397,11 @@ dmc-navbar { display: block; }
 .dmc-sub__text { display: grid; gap: 2px; }
 .dmc-sub__text b { font-size: var(--fs-small); font-weight: var(--fw-semibold); }
 .dmc-sub__text small { font-size: 0.8125rem; color: var(--text-3); }
+/* Segmentos (Verticais de Negócio): 1 + 9 itens em duas colunas no desktop.
+   O primeiro (visão geral) atravessa as duas colunas. */
+.dmc-sub__menu--segmentos { left: calc(-1 * var(--space-6)); min-width: 36rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-2); }
+.dmc-sub__menu--segmentos[hidden] { display: none; }
+.dmc-sub__menu--segmentos .dmc-sub__all { grid-column: 1 / -1; margin-bottom: var(--space-1); padding-bottom: var(--space-1); border-bottom: var(--border-hair) solid var(--color-line); }
 
 /* ---------- Mega-menu dos seis eixos ---------- */
 .dmc-mega {

@@ -9,6 +9,11 @@
 // A ouvidoria não é anônima (a conta fica ligada para a coordenação
 // responder), mas a identidade nunca chega a professor, em nenhum tipo.
 // Denúncia não se encaminha a professor (409 encaminhamento-nao-permitido).
+// Trilha de auditoria (achado G2, LGPD): nenhum evento `ouvidoria.*` grava
+// quem se manifestou — sem `alvoUserId` = manifestante e, nas ações do
+// próprio manifestante (criar, encerrar), ator sem id, papel real nem rede
+// (`extra.identidade:'resguardada'`). O vínculo pessoa ↔ protocolo fica só em
+// `manifestacoes.userId`, lido pelo caminho auditado (?identidade=1).
 // Serviço registrado: atendimento.ouvidoriaSemParecer (F8). Grupos:
 // painel (bloco ouvidoria), exportador (ouvidoria), relatorio (ouvidoria).
 // =============================================================
@@ -32,6 +37,10 @@ export const LIMITES_OUVIDORIA = Object.freeze({
   criarDia: { janelaMs: DIA, max: 10 },
   mensagemHora: { janelaMs: HORA, max: 30 }
 });
+
+/** Identidade do manifestante fora da trilha: o registro sai com ator { userId:null, papel:'anonimo', ipTruncado:null }. */
+const IDENTIDADE_RESGUARDADA = 'resguardada';
+const reqResguardado = () => ({ user: null, ip: null });
 
 const naoEncontrada = () => new ErroPortal(404, null, 'Não encontramos esta manifestação.');
 
@@ -122,7 +131,7 @@ export function criarRotasOuvidoria({
     await srv.esperarIndices();
     const { codigo } = await inserirComCodigo((c) => col().insertOne({ ...doc, protocolo: c }), () => codigoAnual('OUV', t), { indice: 'uq_ouv_protocolo', campo: 'protocolo' });
     doc.protocolo = codigo;
-    await auditoria.registrar({ acao: 'ouvidoria.criada', entidade: { tipo: 'manifestacao', id: codigo }, alvoUserId: userId, cursoId: doc.cursoId, extra: { tipo } }, req);
+    await auditoria.registrar({ acao: 'ouvidoria.criada', entidade: { tipo: 'manifestacao', id: codigo }, cursoId: doc.cursoId, extra: { tipo, identidade: IDENTIDADE_RESGUARDADA } }, reqResguardado());
     res.status(201).json(detalheOuvidoriaDoTitular(doc, { curso }));
   });
 
@@ -174,7 +183,7 @@ export function criarRotasOuvidoria({
     if (doc.status !== 'encerrado') {
       const t = agora();
       await col().updateOne({ _id: doc._id, status: { $ne: 'encerrado' } }, { $set: { status: 'encerrado', encerradoEm: t, ultimaAtividadeEm: t }, $inc: { versao: 1 } });
-      await auditoria.registrar({ acao: 'ouvidoria.encerrada', entidade: { tipo: 'manifestacao', id: protocolo }, alvoUserId: userId, cursoId: doc.cursoId ?? null, extra: { por: 'manifestante' } }, req);
+      await auditoria.registrar({ acao: 'ouvidoria.encerrada', entidade: { tipo: 'manifestacao', id: protocolo }, cursoId: doc.cursoId ?? null, extra: { por: 'manifestante', identidade: IDENTIDADE_RESGUARDADA } }, reqResguardado());
     }
     res.json({ protocolo });
   });
@@ -234,7 +243,8 @@ export function criarRotasOuvidoria({
     const saida = await detalheDaCoordenacao(doc);
     if (req.query.identidade === '1') {
       saida.identidade = await auditoria.executar({
-        acao: 'ouvidoria.identidade_acessada', entidade: { tipo: 'manifestacao', id: protocolo }, alvoUserId: doc.userId, cursoId: doc.cursoId ?? null, extra: { tipo: doc.tipo }
+        // Sem alvoUserId: quem consulta a trilha não descobre a identidade que outro membro da coordenação abriu.
+        acao: 'ouvidoria.identidade_acessada', entidade: { tipo: 'manifestacao', id: protocolo }, cursoId: doc.cursoId ?? null, extra: { tipo: doc.tipo }
       }, req, async () => {
         const mapa = await nomes([doc.userId]);
         const p = mapa.get(doc.userId);
@@ -263,7 +273,7 @@ export function criarRotasOuvidoria({
       mensagem: { id: novoIdMensagem(), autorPapel: 'ouvidoria', autorId: eu, texto, em: t },
       set: { status: 'respondido', ultimaAtividadeEm: t, ...(d.primeiraRespostaEm ? {} : { primeiraRespostaEm: t }) }
     }));
-    await auditoria.registrar({ acao: 'ouvidoria.respondida', entidade: { tipo: 'manifestacao', id: protocolo }, alvoUserId: doc.userId, cursoId: doc.cursoId ?? null }, req);
+    await auditoria.registrar({ acao: 'ouvidoria.respondida', entidade: { tipo: 'manifestacao', id: protocolo }, cursoId: doc.cursoId ?? null }, req);
     await notificar({
       userIds: [doc.userId], tipo: 'ouvidoria.respondida', titulo: 'Ouvidoria respondeu',
       texto: `A Ouvidoria respondeu à manifestação ${protocolo}.`, link: `ouvidoria.html?protocolo=${protocolo}`,
@@ -276,12 +286,12 @@ export function criarRotasOuvidoria({
     const protocolo = lerProtocolo(req);
     if (!protocolo) throw naoEncontrada();
     const motivo = lerTexto(req.body || {}, 'motivo', { max: 500, multilinha: true });
-    const doc = await col().findOne({ protocolo }, { projection: { status: 1, userId: 1, cursoId: 1 } });
+    const doc = await col().findOne({ protocolo }, { projection: { status: 1, cursoId: 1 } });
     if (!doc) throw naoEncontrada();
     if (doc.status !== 'encerrado') {
       const t = agora();
       await col().updateOne({ _id: doc._id, status: { $ne: 'encerrado' } }, { $set: { status: 'encerrado', encerradoEm: t, ultimaAtividadeEm: t }, $inc: { versao: 1 } });
-      await auditoria.registrar({ acao: 'ouvidoria.encerrada', entidade: { tipo: 'manifestacao', id: protocolo }, alvoUserId: doc.userId, cursoId: doc.cursoId ?? null, motivo, extra: { por: 'coordenacao' } }, req);
+      await auditoria.registrar({ acao: 'ouvidoria.encerrada', entidade: { tipo: 'manifestacao', id: protocolo }, cursoId: doc.cursoId ?? null, motivo, extra: { por: 'coordenacao' } }, req);
     }
     res.json({ protocolo });
   });

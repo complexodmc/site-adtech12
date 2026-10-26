@@ -41,11 +41,11 @@
   <link rel="stylesheet" href="../pages/css/shared.css?v=3">
   <link rel="stylesheet" href="../pages/css/eixos.css?v=4">
   <link rel="stylesheet" href="../assets/css/components.css?v=3">
-  <link rel="stylesheet" href="../assets/css/parcerias.css?v=1">
+  <link rel="stylesheet" href="../assets/css/parcerias.css?v=3">
 
-  <script src="../assets/js/navbar.js?v=c4" defer></script>
+  <script src="../assets/js/navbar.js?v=c5" defer></script>
   <script src="../assets/js/video.js?v=1" defer></script>
-  <script src="../assets/js/parcerias.js?v=1" defer></script>
+  <script src="../assets/js/parcerias.js?v=2" defer></script>
 
   <!-- FAQPage: o mesmo texto das perguntas visíveis, palavra por palavra. -->
   <script type="application/ld+json">
@@ -108,8 +108,15 @@
 
     <!-- ============================== 1 · HERÓI ============================== -->
     <section class="pp-hero" id="hero" aria-labelledby="hero-titulo">
+      <!-- Cartaz (LCP) + filme da mesma cena com a câmera em órbita lenta, gerado por
+           tools/media/parcerias/render-video.mjs. O laço fecha sem corte. Sem som, sem
+           controles; com prefers-reduced-motion nenhum <source> casa e fica só o cartaz. -->
       <div class="pp-hero__media" aria-hidden="true">
         <img src="../assets/images/parcerias/hub-hero.webp" srcset="../assets/images/parcerias/hub-hero-960.webp 960w, ../assets/images/parcerias/hub-hero.webp 1920w" sizes="100vw" width="1920" height="1080" alt="" fetchpriority="high" decoding="async">
+        <video class="pp-hero__filme" autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback tabindex="-1" width="1600" height="900">
+          <source src="../assets/videos/parcerias-hub-hero.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
+          <source src="../assets/videos/parcerias-hub-hero.mp4" type="video/mp4" media="(prefers-reduced-motion: no-preference)">
+        </video>
       </div>
       <div class="dmc-wrap">
         <div class="pp-hero__inner">
@@ -189,52 +196,114 @@
     </section>
 
     <!-- ============================== 3 · COMPARATIVO (escuro) ==============================
-         Tabela real (caption + cabeçalhos de linha). Abaixo de 768px vira blocos
-         empilhados; os roles explícitos mantêm a semântica de tabela quando o CSS
-         troca o display (Safari descarta a semântica nativa nesse caso). -->
-    <section class="pp-sec pp-sec--1" id="comparativo" aria-labelledby="comparativo-titulo">
+         Painel de decisão: tabela real (caption + cabeçalhos de linha) dentro de um cartão.
+         Cada coluna leva a cor da submarca (.pp-pl/.pp-bp redefinem o acento por célula).
+         Texto = COPY.md §1.3, só quebrado em partes (selo, chips, etapas, exclusões).
+         A lente "Destacar programa" nasce do parcerias.js (sem JS não aparece): no
+         desktop esmaece a outra coluna; abaixo de 768px mostra só o programa escolhido.
+         Abaixo de 768px a tabela vira blocos empilhados; os roles explícitos mantêm a
+         semântica quando o CSS troca o display (Safari a descarta nesse caso). -->
+    <section class="pp-sec pp-sec--1 pp-sec--cmp" id="comparativo" aria-labelledby="comparativo-titulo">
       <div class="dmc-wrap">
-        <header class="pp-head">
-          <p class="dmc-overline">Comparativo</p>
-          <h2 class="pp-h2" id="comparativo-titulo">Os dois programas <em>lado a lado</em></h2>
-        </header>
-        <table class="pp-tabela" role="table">
-          <caption class="dmc-sr-only">Comparativo entre os programas Partner Lawyers e Business Partner</caption>
-          <thead role="rowgroup">
-            <tr role="row">
-              <td role="cell"></td>
-              <th scope="col" role="columnheader" class="pp-pl">Partner Lawyers</th>
-              <th scope="col" role="columnheader" class="pp-bp">Business Partner</th>
-            </tr>
-          </thead>
-          <tbody role="rowgroup">
-            <tr role="row">
-              <th scope="row" role="rowheader">Para quem é</th>
-              <td role="cell" class="pp-pl" data-rotulo="Partner Lawyers">Advogados e sociedades de advocacia regularmente inscritos na OAB.</td>
-              <td role="cell" class="pp-bp" data-rotulo="Business Partner">Profissionais e organizações que atuam com relacionamento empresarial B2B.</td>
-            </tr>
-            <tr role="row">
-              <th scope="row" role="rowheader">Natureza da cooperação</th>
-              <td role="cell" class="pp-pl" data-rotulo="Partner Lawyers">Técnica e institucional: atuação em frentes que exigem ato privativo da advocacia e troca técnica entre profissionais.</td>
-              <td role="cell" class="pp-bp" data-rotulo="Business Partner">Comercial: apresentação de oportunidades de consultoria em negócios compatíveis com o portfólio do Complexo DMC.</td>
-            </tr>
-            <tr role="row">
-              <th scope="row" role="rowheader">Pré-requisito</th>
-              <td role="cell" class="pp-pl" data-rotulo="Partner Lawyers">Inscrição regular na OAB e atuação compatível com os seis eixos.</td>
-              <td role="cell" class="pp-bp" data-rotulo="Business Partner">Experiência em relacionamento empresarial e rede compatível com o público dos seis eixos.</td>
-            </tr>
-            <tr role="row">
-              <th scope="row" role="rowheader">Como começa</th>
-              <td role="cell" class="pp-pl" data-rotulo="Partner Lawyers">Candidatura pelo formulário, seguida de validação profissional e reunião institucional.</td>
-              <td role="cell" class="pp-bp" data-rotulo="Business Partner">Cadastro pelo formulário, seguido de análise do perfil e reunião comercial.</td>
-            </tr>
-            <tr role="row">
-              <th scope="row" role="rowheader">O que NÃO faz parte</th>
-              <td role="cell" class="pp-pl" data-rotulo="Partner Lawyers">Captação de causas, remuneração por indicação e qualquer interferência na autonomia técnica do advogado.</td>
-              <td role="cell" class="pp-bp" data-rotulo="Business Partner">Captação de clientela para serviços jurídicos, atuação em nome do Complexo DMC sem contrato e promessa de resultado a empresas.</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="pp-cmp__topo">
+          <header class="pp-head pp-head--sem-margem">
+            <p class="dmc-overline">Comparativo</p>
+            <h2 class="pp-h2" id="comparativo-titulo">Os dois programas <em>lado a lado</em></h2>
+            <p class="pp-lead">Cinco critérios para identificar o programa que corresponde à sua atuação.</p>
+          </header>
+          <div class="pp-lente" data-pp-lente-slot></div>
+        </div>
+
+        <div class="pp-cmp" data-pp-cmp>
+          <table class="pp-tabela pp-cmp__tabela" role="table">
+            <caption class="dmc-sr-only">Comparativo entre os programas Partner Lawyers e Business Partner</caption>
+            <thead role="rowgroup">
+              <tr role="row">
+                <td role="cell" class="pp-cmp__canto"><span aria-hidden="true"><img src="../assets/images/rino-marca.webp" alt="" width="50" height="22" loading="lazy">Ecossistema<br>de Parcerias</span></td>
+                <th scope="col" role="columnheader" class="pp-pl pp-cmp__col">
+                  <span class="pp-cmp__num" aria-hidden="true">01</span>
+                  <span class="pp-cmp__ico" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M3 9.5 12 4l9 5.5M4.5 20h15M6 10v8M10 10v8M14 10v8M18 10v8"/></svg></span>
+                  <span class="pp-cmp__nome">Partner Lawyers</span>
+                  <span class="pp-cmp__sub">Advogados Parceiros</span>
+                </th>
+                <th scope="col" role="columnheader" class="pp-bp pp-cmp__col">
+                  <span class="pp-cmp__num" aria-hidden="true">02</span>
+                  <span class="pp-cmp__ico" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="5.5" cy="12" r="2.5"/><circle cx="18.5" cy="5.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="m7.8 10.8 8.4-4.2M7.8 13.2l8.4 4.2M18.5 8v8"/></svg></span>
+                  <span class="pp-cmp__nome">Business Partner</span>
+                  <span class="pp-cmp__sub">Agente Prospector de Negócios</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody role="rowgroup">
+              <tr role="row">
+                <th scope="row" role="rowheader"><span class="pp-cmp__crit"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>Para quem é</span></th>
+                <td role="cell" class="pp-pl" data-rotulo="Partner Lawyers"><p class="pp-cmp__destaque">Advogados e sociedades de advocacia regularmente inscritos na OAB.</p></td>
+                <td role="cell" class="pp-bp" data-rotulo="Business Partner"><p class="pp-cmp__destaque">Profissionais e organizações que atuam com relacionamento empresarial B2B.</p></td>
+              </tr>
+              <tr role="row">
+                <th scope="row" role="rowheader"><span class="pp-cmp__crit"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Natureza da cooperação</span></th>
+                <td role="cell" class="pp-pl" data-rotulo="Partner Lawyers"><p><span class="pp-cmp__selo">Técnica e institucional</span><span class="dmc-sr-only">: </span>Atuação em frentes que exigem ato privativo da advocacia e troca técnica entre profissionais.</p></td>
+                <td role="cell" class="pp-bp" data-rotulo="Business Partner"><p><span class="pp-cmp__selo">Comercial</span><span class="dmc-sr-only">: </span>Apresentação de oportunidades de consultoria em negócios compatíveis com o portfólio do Complexo DMC.</p></td>
+              </tr>
+              <tr role="row">
+                <th scope="row" role="rowheader"><span class="pp-cmp__crit"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.5 19 6v5.5c0 4.4-3 7.6-7 9-4-1.4-7-4.6-7-9V6z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>Pré-requisito</span></th>
+                <td role="cell" class="pp-pl" data-rotulo="Partner Lawyers">
+                  <ul class="pp-chips">
+                    <li>Inscrição regular na OAB</li>
+                    <li>Atuação compatível com os seis eixos</li>
+                  </ul>
+                </td>
+                <td role="cell" class="pp-bp" data-rotulo="Business Partner">
+                  <ul class="pp-chips">
+                    <li>Experiência em relacionamento empresarial</li>
+                    <li>Rede compatível com o público dos seis eixos</li>
+                  </ul>
+                </td>
+              </tr>
+              <tr role="row">
+                <th scope="row" role="rowheader"><span class="pp-cmp__crit"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="5" cy="18" r="2"/><circle cx="19" cy="6" r="2"/><path d="M7 18h7.5a3.5 3.5 0 0 0 0-7h-5a3.5 3.5 0 0 1 0-7H17"/></svg>Como começa</span></th>
+                <td role="cell" class="pp-pl" data-rotulo="Partner Lawyers">
+                  <ol class="pp-passos">
+                    <li>Candidatura pelo formulário</li>
+                    <li>Validação profissional</li>
+                    <li>Reunião institucional</li>
+                  </ol>
+                </td>
+                <td role="cell" class="pp-bp" data-rotulo="Business Partner">
+                  <ol class="pp-passos">
+                    <li>Cadastro pelo formulário</li>
+                    <li>Análise do perfil</li>
+                    <li>Reunião comercial</li>
+                  </ol>
+                </td>
+              </tr>
+              <tr role="row" class="pp-cmp__limite">
+                <th scope="row" role="rowheader"><span class="pp-cmp__crit"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8.5"/><path d="m6 6 12 12"/></svg>O que NÃO faz parte</span></th>
+                <td role="cell" class="pp-pl" data-rotulo="Partner Lawyers">
+                  <ul class="pp-cmp__fora">
+                    <li>Captação de causas</li>
+                    <li>Remuneração por indicação</li>
+                    <li>Qualquer interferência na autonomia técnica do advogado</li>
+                  </ul>
+                </td>
+                <td role="cell" class="pp-bp" data-rotulo="Business Partner">
+                  <ul class="pp-cmp__fora">
+                    <li>Captação de clientela para serviços jurídicos</li>
+                    <li>Atuação em nome do Complexo DMC sem contrato</li>
+                    <li>Promessa de resultado a empresas</li>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot role="rowgroup">
+              <tr role="row">
+                <td role="cell" class="pp-cmp__canto"><span>Próximo passo</span></td>
+                <td role="cell" class="pp-pl"><a class="dmc-btn dmc-btn--primary" href="advogados-parceiros/">Conhecer o Partner Lawyers <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></td>
+                <td role="cell" class="pp-bp"><a class="dmc-btn dmc-btn--primary" href="business-partner/">Conhecer o Business Partner <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
         <p class="pp-nota">Nenhum dos programas tem aprovação automática. A participação depende de avaliação individual e, quando cabível, de formalização por escrito.</p>
       </div>
     </section>
@@ -347,12 +416,11 @@
           <ul class="dmc-footer__list">
             <li><a href="../pages/sobre.html">Sobre o Complexo DMC</a></li>
             <li><a href="../#features">Soluções</a></li>
-            <li><a href="../#treinamentos">Treinamentos</a></li>
+            <li><a href="../verticais-de-negocio/">Segmentos</a></li>
             <li><a href="../pages/tecnologia.html">Tecnologia</a></li>
             <li><a href="../parcerias/" aria-current="page">Parcerias</a></li>
             <li><a href="../pages/por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
             <li><a href="../plataforma-ead/login.html">DMC Business School</a></li>
-            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">ADTECH</a></li>
           </ul>
         </nav>
 

@@ -73,8 +73,10 @@ export async function rolarTudo(page) {
 // Nova home (docs/dmc/HOME_REDESIGN.md §2–§3, §6; home-redesign/contratos-qa.md)
 // ---------------------------------------------------------------------------
 
-// Ordem obrigatória dos ids de <section> na home (§1.3). `#video` precede `#contact`.
-export const SECOES_HOME = ['hero', 'conheca', 'features', 'porque', 'verticais', 'presenca', 'publicacoes', 'treinamentos', 'newsletter', 'video', 'contact'];
+// Ordem obrigatória dos ids de <section> na home (§1.3). Desde 2026-10-25 a home não tem mais
+// #publicacoes, #treinamentos nem #newsletter; no lugar entram #como-funciona (antes do mapa) e #leituras (depois do
+// mapa, antes do vídeo). `#video` precede `#contact`.
+export const SECOES_HOME = ['hero', 'conheca', 'features', 'porque', 'verticais', 'como-funciona', 'presenca', 'leituras', 'video', 'contact'];
 
 // Altura padrão por largura (mesma tabela de viewports.spec.js).
 export const ALTURA_VIEWPORT = { 320: 640, 375: 812, 390: 844, 768: 1024, 1024: 768, 1440: 900, 1920: 1080 };

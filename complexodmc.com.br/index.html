@@ -105,9 +105,9 @@
     <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
     <link rel="stylesheet" href="assets/css/tokens.css?v=1" />
     <link rel="stylesheet" href="assets/css/components.css?v=3" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=c7" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=c12" />
 
-    <script src="assets/js/navbar.js?v=c4" defer></script>
+    <script src="assets/js/navbar.js?v=c5" defer></script>
     <script src="assets/js/main.js?v=c4" defer></script>
     <script src="assets/js/video.js?v=1" defer></script>
   </head>
@@ -166,86 +166,91 @@
       </section>
 
       <!-- ============================== SOBRE ==============================
-           Esquerda: tese da casa, os seis eixos (tablist) e o foco do eixo
-           selecionado; direita: a rede (assets/js/rede-neural.js, canvas 2D)
-           que liga os seis eixos ao centro. Passar o cursor num eixo realça o
-           nó; escolher um eixo (clique, teclado ou nó) troca o foco. Sem JS a
-           rede é o SVG estático e os seis focos ficam empilhados. O id
-           #conheca é mantido: âncoras antigas e testes apontam para ele. -->
+           Uma tela só (≥1024px): à esquerda a tese, a mensagem central e os seis
+           eixos (tablist) com as ações; à direita a rede (assets/js/rede-neural.js,
+           canvas 2D) com o rinoceronte dourado no centro e, logo abaixo, o foco do
+           eixo selecionado. Passar o cursor num eixo realça o nó; escolher um eixo
+           (clique, teclado ou nó) troca o foco. Sem JS: SVG estático + pôster do
+           rinoceronte e os seis focos empilhados. Com reduce: pôster parado e a
+           rede num quadro só. O id #conheca é mantido: âncoras antigas e testes
+           apontam para ele. -->
       <section class="dmc-section casa" id="conheca" aria-labelledby="casa-title">
         <div class="dmc-wrap casa__grid">
           <div class="casa__text">
-            <p class="dmc-overline">Sobre</p>
             <h2 class="dmc-h1" id="casa-title">Decisões complexas pedem <em>visão integrada</em>.</h2>
             <p class="dmc-lead">
               O Complexo DMC integra seis eixos de especialidade para decisões empresariais, patrimoniais e operacionais de alta complexidade.
             </p>
           </div>
 
-          <div class="casa__rede" data-rede="casa" aria-hidden="true">
+          <ol class="casa__eixos" role="tablist" aria-label="Os seis eixos">
+            <li class="np-pillar-patrimonial" data-hub="1" data-curto="Patrimonial e Sucessório" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-1" aria-selected="true" aria-controls="casa-foco-1"><span class="casa__num">E1</span><span class="casa__nome">Planejamento Patrimonial e Sucessório</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+            <li class="np-pillar-fiscal" data-hub="2" data-curto="Tributário e Corporativo" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-2" aria-selected="false" aria-controls="casa-foco-2" tabindex="-1"><span class="casa__num">E2</span><span class="casa__nome">Tributário, Fiscal e Corporativo</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+            <li class="np-pillar-imobiliario" data-hub="3" data-curto="Notarial e Imobiliário" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-3" aria-selected="false" aria-controls="casa-foco-3" tabindex="-1"><span class="casa__num">E3</span><span class="casa__nome">Direito Notarial e Imobiliário</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+            <li class="np-pillar-auditoria" data-hub="4" data-curto="Auditoria e Contábil" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-4" aria-selected="false" aria-controls="casa-foco-4" tabindex="-1"><span class="casa__num">E4</span><span class="casa__nome">Auditoria Empresarial e Contábil</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+            <li class="np-pillar-ativos" data-hub="5" data-curto="Recuperação de Ativos" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-5" aria-selected="false" aria-controls="casa-foco-5" tabindex="-1"><span class="casa__num">E5</span><span class="casa__nome">Recuperação de Ativos</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+            <li class="np-pillar-trabalhista" data-hub="6" data-curto="Consultoria Trabalhista" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-6" aria-selected="false" aria-controls="casa-foco-6" tabindex="-1"><span class="casa__num">E6</span><span class="casa__nome">Consultoria Trabalhista</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
+          </ol>
+
+          <!-- Foco do eixo selecionado, logo abaixo da rede: os seis empilhados na mesma
+               célula, só o ativo visível (opacidade + 8px). Sem JS ficam todos abertos. -->
+          <div class="casa__foco">
+            <article class="casa__foco-item np-pillar-patrimonial is-active" id="casa-foco-1" role="tabpanel" aria-labelledby="casa-tab-1" tabindex="0">
+              <p class="casa__foco-tag"><span>E1</span>Patrimonial e Sucessório</p>
+              <p class="casa__foco-txt">Transmissão e proteção do patrimônio familiar: quem recebe, quando, sob quais regras e com qual custo tributário.</p>
+              <a class="dmc-btn dmc-btn--link" href="pages/planejamento-sucessorio.html">Conhecer o eixo E1 <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </article>
+            <article class="casa__foco-item np-pillar-fiscal" id="casa-foco-2" role="tabpanel" aria-labelledby="casa-tab-2" tabindex="0">
+              <p class="casa__foco-tag"><span>E2</span>Tributário e Corporativo</p>
+              <p class="casa__foco-txt">Carga tributária e arquitetura societária da empresa em operação, com governança e integridade.</p>
+              <a class="dmc-btn dmc-btn--link" href="pages/planejamento-tributario.html">Conhecer o eixo E2 <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </article>
+            <article class="casa__foco-item np-pillar-imobiliario" id="casa-foco-3" role="tabpanel" aria-labelledby="casa-tab-3" tabindex="0">
+              <p class="casa__foco-tag"><span>E3</span>Notarial e Imobiliário</p>
+              <p class="casa__foco-txt">O imóvel como ativo jurídico-registral: do terreno à matrícula de cada unidade, para quem incorpora, constrói e vende.</p>
+              <a class="dmc-btn dmc-btn--link" href="pages/consultoria-imobiliaria.html">Conhecer o eixo E3 <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </article>
+            <article class="casa__foco-item np-pillar-auditoria" id="casa-foco-4" role="tabpanel" aria-labelledby="casa-tab-4" tabindex="0">
+              <p class="casa__foco-tag"><span>E4</span>Auditoria e Contábil</p>
+              <p class="casa__foco-txt">Leitura independente dos números: demonstrações revisadas e controles internos testados para quem decide.</p>
+              <a class="dmc-btn dmc-btn--link" href="pages/contabilidade.html">Conhecer o eixo E4 <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </article>
+            <article class="casa__foco-item np-pillar-ativos" id="casa-foco-5" role="tabpanel" aria-labelledby="casa-tab-5" tabindex="0">
+              <p class="casa__foco-tag"><span>E5</span>Recuperação de Ativos</p>
+              <p class="casa__foco-txt">Levar um crédito reconhecido até o patrimônio do devedor, pelas vias de execução previstas em lei.</p>
+              <a class="dmc-btn dmc-btn--link" href="pages/recuperacao-ativos.html">Conhecer o eixo E5 <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </article>
+            <article class="casa__foco-item np-pillar-trabalhista" id="casa-foco-6" role="tabpanel" aria-labelledby="casa-tab-6" tabindex="0">
+              <p class="casa__foco-tag"><span>E6</span>Consultoria Trabalhista</p>
+              <p class="casa__foco-txt">O passivo trabalhista gerido como um ciclo: prevenir na admissão, decidir com registro, resolver fora do processo e fechar o exercício.</p>
+              <a class="dmc-btn dmc-btn--link" href="solucoes/consultoria-trabalhista/ciclo-fechado.html">Conhecer o eixo E6 <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            </article>
+          </div>
+
+          <div class="casa__acoes">
+            <a class="dmc-btn dmc-btn--primary" href="#contact">Converse com nossos especialistas <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+            <a class="dmc-btn dmc-btn--secondary" href="pages/sobre.html">Sobre o Complexo DMC <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          </div>
+
+          <!-- Rede: SVG estático (sem JS) por baixo do canvas; por cima, a camada de links das
+               soluções (.casa__subs, montada por rede-neural.js a partir de
+               assets/js/data/eixos-servicos.js). Canvas, SVG e vídeo são aria-hidden; os links não.
+               O rinoceronte (vídeo com alfa:
+               WebM VP9 / HEVC no Safari) fica no centro. O JS escolhe a fonte e só toca com a
+               rede visível e sem reduce; sem JS ou com reduce fica o pôster (quadro 0). -->
+          <div class="casa__rede" data-rede="casa">
             <svg class="casa__fallback" viewBox="0 0 600 600" aria-hidden="true" focusable="false" font-family="Hanken Grotesk, system-ui, sans-serif">
               <circle cx="300" cy="300" r="204" fill="none" stroke="#ffffff" stroke-opacity=".08"/>
-              <g fill="none" stroke="#d6b069" stroke-opacity=".28"><path d="M300 300L300 96"/><path d="M300 300L477 198"/><path d="M300 300L477 402"/><path d="M300 300L300 504"/><path d="M300 300L123 402"/><path d="M300 300L123 198"/></g>
+              <g fill="none" stroke="#d6b069" stroke-opacity=".28"><path d="M300 190L300 96"/><path d="M395.3 245L477 198"/><path d="M395.3 355L477 402"/><path d="M300 410L300 504"/><path d="M204.7 355L123 402"/><path d="M204.7 245L123 198"/></g>
               <g class="np-pillar-patrimonial" style="color:rgb(var(--np-accent))"><circle cx="300" cy="96" r="4" fill="currentColor"/><circle cx="300" cy="96" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="300" y="64" fill="#bfbdb9" font-size="12" text-anchor="middle">E1</text></g>
               <g class="np-pillar-fiscal" style="color:rgb(var(--np-accent))"><circle cx="477" cy="198" r="4" fill="currentColor"/><circle cx="477" cy="198" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="505" y="186" fill="#bfbdb9" font-size="12">E2</text></g>
               <g class="np-pillar-imobiliario" style="color:rgb(var(--np-accent))"><circle cx="477" cy="402" r="4" fill="currentColor"/><circle cx="477" cy="402" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="505" y="418" fill="#bfbdb9" font-size="12">E3</text></g>
               <g class="np-pillar-auditoria" style="color:rgb(var(--np-accent))"><circle cx="300" cy="504" r="4" fill="currentColor"/><circle cx="300" cy="504" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="300" y="544" fill="#bfbdb9" font-size="12" text-anchor="middle">E4</text></g>
               <g class="np-pillar-ativos" style="color:rgb(var(--np-accent))"><circle cx="123" cy="402" r="4" fill="currentColor"/><circle cx="123" cy="402" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="95" y="418" fill="#bfbdb9" font-size="12" text-anchor="end">E5</text></g>
               <g class="np-pillar-trabalhista" style="color:rgb(var(--np-accent))"><circle cx="123" cy="198" r="4" fill="currentColor"/><circle cx="123" cy="198" r="11" fill="none" stroke="currentColor" stroke-opacity=".35"/><text x="95" y="186" fill="#bfbdb9" font-size="12" text-anchor="end">E6</text></g>
-              <circle cx="300" cy="300" r="5" fill="#d6b069"/><circle cx="300" cy="300" r="16" fill="none" stroke="#d6b069" stroke-opacity=".35"/>
-              <text x="300" y="336" fill="#d6b069" font-size="11" font-weight="600" letter-spacing="2" text-anchor="middle">DMC</text>
+              <circle cx="300" cy="300" r="110" fill="none" stroke="#d6b069" stroke-opacity=".3"/>
             </svg>
-          </div>
-
-          <div class="casa__nav">
-            <ol class="casa__eixos" role="tablist" aria-label="Os seis eixos">
-              <li class="np-pillar-patrimonial" data-hub="1" data-curto="Patrimonial e Sucessório" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-1" aria-selected="true" aria-controls="casa-foco-1"><span class="casa__num">E1</span><span class="casa__nome">Planejamento Patrimonial e Sucessório</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
-              <li class="np-pillar-fiscal" data-hub="2" data-curto="Tributário e Corporativo" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-2" aria-selected="false" aria-controls="casa-foco-2" tabindex="-1"><span class="casa__num">E2</span><span class="casa__nome">Tributário, Fiscal e Corporativo</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
-              <li class="np-pillar-imobiliario" data-hub="3" data-curto="Notarial e Imobiliário" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-3" aria-selected="false" aria-controls="casa-foco-3" tabindex="-1"><span class="casa__num">E3</span><span class="casa__nome">Direito Notarial e Imobiliário</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
-              <li class="np-pillar-auditoria" data-hub="4" data-curto="Auditoria e Contábil" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-4" aria-selected="false" aria-controls="casa-foco-4" tabindex="-1"><span class="casa__num">E4</span><span class="casa__nome">Auditoria Empresarial e Contábil</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
-              <li class="np-pillar-ativos" data-hub="5" data-curto="Recuperação de Ativos" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-5" aria-selected="false" aria-controls="casa-foco-5" tabindex="-1"><span class="casa__num">E5</span><span class="casa__nome">Recuperação de Ativos</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
-              <li class="np-pillar-trabalhista" data-hub="6" data-curto="Consultoria Trabalhista" role="presentation"><button class="casa__tab" type="button" role="tab" id="casa-tab-6" aria-selected="false" aria-controls="casa-foco-6" tabindex="-1"><span class="casa__num">E6</span><span class="casa__nome">Consultoria Trabalhista</span><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></li>
-            </ol>
-
-            <!-- Foco do eixo selecionado: os seis empilhados na mesma célula, só o ativo visível
-                 (opacidade + 8px). Sem JS ficam todos abertos, um abaixo do outro. -->
-            <div class="casa__foco" aria-live="polite">
-              <article class="casa__foco-item np-pillar-patrimonial is-active" id="casa-foco-1" role="tabpanel" aria-labelledby="casa-tab-1" tabindex="0">
-                <p class="casa__foco-tag">Especialidade</p>
-                <p class="casa__foco-txt">Transmissão e proteção do patrimônio familiar: quem recebe, quando, sob quais regras e com qual custo tributário.</p>
-                <a class="dmc-btn dmc-btn--link" href="pages/planejamento-sucessorio.html">Conhecer o eixo E1</a>
-              </article>
-              <article class="casa__foco-item np-pillar-fiscal" id="casa-foco-2" role="tabpanel" aria-labelledby="casa-tab-2" tabindex="0">
-                <p class="casa__foco-tag">Especialidade</p>
-                <p class="casa__foco-txt">Carga tributária e arquitetura societária da empresa em operação, com governança e integridade.</p>
-                <a class="dmc-btn dmc-btn--link" href="pages/planejamento-tributario.html">Conhecer o eixo E2</a>
-              </article>
-              <article class="casa__foco-item np-pillar-imobiliario" id="casa-foco-3" role="tabpanel" aria-labelledby="casa-tab-3" tabindex="0">
-                <p class="casa__foco-tag">Especialidade</p>
-                <p class="casa__foco-txt">O imóvel como ativo jurídico-registral: do terreno à matrícula de cada unidade, para quem incorpora, constrói e vende.</p>
-                <a class="dmc-btn dmc-btn--link" href="pages/consultoria-imobiliaria.html">Conhecer o eixo E3</a>
-              </article>
-              <article class="casa__foco-item np-pillar-auditoria" id="casa-foco-4" role="tabpanel" aria-labelledby="casa-tab-4" tabindex="0">
-                <p class="casa__foco-tag">Especialidade</p>
-                <p class="casa__foco-txt">Leitura independente dos números: demonstrações revisadas e controles internos testados para quem decide.</p>
-                <a class="dmc-btn dmc-btn--link" href="pages/contabilidade.html">Conhecer o eixo E4</a>
-              </article>
-              <article class="casa__foco-item np-pillar-ativos" id="casa-foco-5" role="tabpanel" aria-labelledby="casa-tab-5" tabindex="0">
-                <p class="casa__foco-tag">Especialidade</p>
-                <p class="casa__foco-txt">Levar um crédito reconhecido até o patrimônio do devedor, pelas vias de execução previstas em lei.</p>
-                <a class="dmc-btn dmc-btn--link" href="pages/recuperacao-ativos.html">Conhecer o eixo E5</a>
-              </article>
-              <article class="casa__foco-item np-pillar-trabalhista" id="casa-foco-6" role="tabpanel" aria-labelledby="casa-tab-6" tabindex="0">
-                <p class="casa__foco-tag">Especialidade</p>
-                <p class="casa__foco-txt">O passivo trabalhista gerido como um ciclo: prevenir na admissão, decidir com registro, resolver fora do processo e fechar o exercício.</p>
-                <a class="dmc-btn dmc-btn--link" href="solucoes/consultoria-trabalhista/ciclo-fechado.html">Conhecer o eixo E6</a>
-              </article>
-            </div>
-
-            <div class="casa__acoes">
-              <a class="dmc-btn dmc-btn--primary" href="#contact">Converse com nossos especialistas <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-              <a class="dmc-btn dmc-btn--secondary" href="pages/sobre.html">Sobre o Complexo DMC <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-            </div>
+            <video class="casa__marca" muted loop playsinline preload="none" width="480" height="480" poster="assets/images/rino-alpha-gold-poster.webp" data-webm="assets/videos/rino-alpha-gold.webm" data-hevc="assets/videos/rino-alpha-gold.mov" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback></video>
           </div>
         </div>
       </section>
@@ -553,8 +558,46 @@
         </ol>
       </section>
 
-      <!-- ==== 06 · PRESENÇA NACIONAL (#presenca) · copy.json › presenca · D9 ==== -->
-      <section class="dmc-section dmc-section--rule presenca" id="presenca" aria-labelledby="presenca-title">
+      <!-- ==== 06 · COMO FUNCIONA · #como-funciona ====
+           Papel; cinco etapas numeradas em círculo de ouro profundo ligadas por fio.
+           Copy sob o Provimento 205/2021: descreve método, sem prazo, preço nem resultado. -->
+      <section class="dmc-section dmc-on-paper fluxo" id="como-funciona" aria-labelledby="fluxo-title">
+        <div class="dmc-wrap">
+          <div class="fluxo-head">
+            <div class="dmc-sec-head dmc-reveal">
+              <p class="dmc-overline">Como funciona</p>
+              <h2 class="dmc-h1" id="fluxo-title">Da primeira conversa à estrutura: <em>um caminho claro</em>.</h2>
+            </div>
+            <p class="dmc-lead dmc-reveal" style="--i:1">Você sabe o que acontece em cada etapa, quem é o responsável e o que recebe ao final.</p>
+          </div>
+
+          <ol class="fluxo-etapas">
+            <li class="fluxo-etapa dmc-reveal" style="--i:0">
+              <h3 class="dmc-h4">Diagnóstico</h3>
+              <p>Leitura do caso com os documentos e os dados do cliente. Identificamos o que precisa ser decidido e os eixos envolvidos.</p>
+            </li>
+            <li class="fluxo-etapa dmc-reveal" style="--i:1">
+              <h3 class="dmc-h4">Proposta sob medida</h3>
+              <p>Escopo, etapas, entregas e responsáveis definidos pela complexidade do caso, não por pacote fechado.</p>
+            </li>
+            <li class="fluxo-etapa dmc-reveal" style="--i:2">
+              <h3 class="dmc-h4">Cenários e decisão</h3>
+              <p>Relatório com dois ou três caminhos e o que cada um custa, demora e exige em documentos. A decisão é sua.</p>
+            </li>
+            <li class="fluxo-etapa dmc-reveal" style="--i:3">
+              <h3 class="dmc-h4">Estruturação e implementação</h3>
+              <p>Plano de atos coordenado pela consultoria e executado com os parceiros do caso, cada um no que a lei lhe atribui.</p>
+            </li>
+            <li class="fluxo-etapa dmc-reveal" style="--i:4">
+              <h3 class="dmc-h4">Acompanhamento e revisão</h3>
+              <p>Reuniões periódicas com os indicadores do caso. Quando a lei, a empresa ou a família mudam, o plano é ajustado com você.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ==== 07 · PRESENÇA NACIONAL (#presenca) · copy.json › presenca · D9 ==== -->
+      <section class="dmc-section presenca" id="presenca" aria-labelledby="presenca-title">
         <div class="dmc-wrap presenca-grid">
           <div class="presenca-text dmc-sec-head dmc-reveal">
             <p class="dmc-overline">Presença</p>
@@ -629,129 +672,55 @@
         </div>
       </section>
 
-      <!-- ==== 07 · PUBLICAÇÕES · #publicacoes · copy.json › publicacoes ==== -->
-      <section class="dmc-section dmc-on-paper publi" id="publicacoes" aria-labelledby="publi-title">
-        <div class="dmc-wrap publi-grid">
-          <div class="dmc-sec-head dmc-reveal publi-head">
-            <p class="dmc-overline">Inteligência</p>
-            <h2 class="dmc-h1" id="publi-title">O que escrevemos sobre <em>o que fazemos</em>.</h2>
+      <!-- ==== 08 · CONTEÚDO · #leituras ====
+           Papel; corte com o preto do mapa. Três leituras que já existem no site. Sem data até o CEO
+           confirmar revisão editorial ([CEO 7]). Imagens: heróis das próprias páginas. -->
+      <section class="dmc-section dmc-on-paper conteudo" id="leituras" aria-labelledby="leituras-title">
+        <div class="dmc-wrap">
+          <div class="fluxo-head">
+            <div class="dmc-sec-head dmc-reveal">
+              <p class="dmc-overline">Conteúdo</p>
+              <h2 class="dmc-h1" id="leituras-title">Inteligência patrimonial <em>para decidir</em>.</h2>
+            </div>
+            <p class="dmc-lead dmc-reveal" style="--i:1">Leituras sobre sucessão, tributos e estrutura societária, escritas para quem toma a decisão.</p>
           </div>
 
-          <article class="publi-destaque publicacao np-pillar-patrimonial dmc-reveal" style="--i:1" aria-labelledby="publi-1-titulo">
-            <p class="publi-destaque__meta">
-              <span class="publi-destaque__eixo"><span class="publi-destaque__eixo-num">E1</span> · Patrimonial e Sucessório</span>
-              <!-- [CEO 7] <time> de revisão editorial removido até o CEO confirmar data e revisor habilitado (copy.json: publicacoes.destaque.time.exibir=false) -->
-            </p>
-            <h3 class="publi-destaque__title" id="publi-1-titulo">Por que planejar a sucessão em vida</h3>
-            <p class="publi-destaque__text">Legítima, inventário e ITCMD: o que muda quando a família decide antes, com doação, holding e testamento — e o que fica com advogados parceiros e cartórios conveniados.</p>
-            <a class="dmc-btn dmc-btn--link" href="pages/por-que-urgente.html" aria-label="Ler a análise: Por que planejar a sucessão em vida">Ler a análise <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          </article>
+          <ul class="conteudo-lista">
+            <li class="conteudo-card dmc-reveal" style="--i:0">
+              <a class="conteudo-card__link" href="pages/por-que-urgente.html">
+                <img class="conteudo-card__img" src="assets/images/planejamento-sucessorio-hero.webp" alt="" width="960" height="540" loading="lazy" decoding="async">
+                <span class="conteudo-card__eixo"><span class="conteudo-card__eixo-num">E1</span> · Sucessão</span>
+                <h3 class="conteudo-card__title">Por que planejar a sucessão em vida</h3>
+                <p class="conteudo-card__text">Legítima, inventário e ITCMD: o que muda quando a família decide antes, com doação, holding e testamento — e o que fica com advogados parceiros e cartórios conveniados.</p>
+              </a>
+            </li>
+            <li class="conteudo-card dmc-reveal" style="--i:1">
+              <a class="conteudo-card__link" href="pages/planejamento-tributario.html">
+                <img class="conteudo-card__img" src="assets/images/planejamento-tributario-hero.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+                <span class="conteudo-card__eixo"><span class="conteudo-card__eixo-num">E2</span> · Tributário</span>
+                <h3 class="conteudo-card__title">Planejamento tributário dentro da lei</h3>
+                <p class="conteudo-card__text">Revisão de regime, créditos e estrutura societária para organizar a carga fiscal com fundamento documentado.</p>
+              </a>
+            </li>
+            <li class="conteudo-card dmc-reveal" style="--i:2">
+              <a class="conteudo-card__link" href="pages/holding-patrimonial.html">
+                <img class="conteudo-card__img" src="assets/images/holding-patrimonial-hero.webp" alt="" width="1280" height="720" loading="lazy" decoding="async">
+                <span class="conteudo-card__eixo"><span class="conteudo-card__eixo-num">E1</span> · Societário</span>
+                <h3 class="conteudo-card__title">Holding patrimonial: quando faz sentido</h3>
+                <p class="conteudo-card__text">Imóveis e participações sob governança familiar, com regras de sucessão e tributação avaliada caso a caso.</p>
+              </a>
+            </li>
+          </ul>
 
-          <aside class="publi-proximas publicacoes__vazio dmc-reveal" style="--i:2" aria-labelledby="publi-proximas-titulo">
-            <p class="dmc-overline" id="publi-proximas-titulo">Em preparação</p>
-            <p class="publi-proximas__text dmc-small">Novas análises sobre os seis eixos entram aqui à medida que forem revisadas. Quem assina a newsletter recebe o aviso.</p>
-            <a class="dmc-btn dmc-btn--link" href="#newsletter" aria-label="Receber quando sair: ir para a newsletter">Receber quando sair <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          </aside>
+          <a class="dmc-btn dmc-btn--secondary conteudo-todos dmc-reveal" href="#features">Ver todas as soluções</a>
         </div>
       </section>
 
-      <!-- ==== 08 · MÉTODO E FORMAÇÃO · #treinamentos (id mantido: 28 rodapés + navbar.js) · copy.json › metodo_ou_treinamentos ==== -->
-      <section class="dmc-section dmc-on-paper dmc-section--rule metodo" id="treinamentos" aria-labelledby="metodo-title">
-        <div class="dmc-wrap metodo-grid">
-          <div class="dmc-sec-head dmc-reveal metodo-head">
-            <p class="dmc-overline">Método e formação</p>
-            <h2 class="dmc-h1" id="metodo-title">Como <em>conduzimos</em> uma decisão.</h2>
-            <p class="dmc-lead">A conversa inicial leva a um diagnóstico; o diagnóstico, a uma proposta com escopo, etapas e entregas.</p>
-          </div>
-
-          <ol class="metodo-etapas">
-            <li class="metodo-etapa dmc-reveal" style="--i:0">
-              <h3 class="dmc-h4">Diagnóstico</h3>
-              <p>Leitura do caso com os documentos e os dados do cliente. Identificamos o que precisa ser decidido e os eixos envolvidos.</p>
-            </li>
-            <li class="metodo-etapa dmc-reveal" style="--i:1">
-              <h3 class="dmc-h4">Cenários e decisão</h3>
-              <p>Você recebe um relatório com dois ou três caminhos e o que cada um custa, demora e exige em documentos. A decisão é sua, com os cenários na mesa.</p>
-            </li>
-            <li class="metodo-etapa dmc-reveal" style="--i:2">
-              <h3 class="dmc-h4">Estruturação e implementação</h3>
-              <p>Plano de atos coordenado pela consultoria e executado com os parceiros do caso, cada um no que a lei lhe atribui.</p>
-            </li>
-            <li class="metodo-etapa dmc-reveal" style="--i:3">
-              <h3 class="dmc-h4">Acompanhamento e revisão</h3>
-              <p>Reuniões periódicas com os indicadores do seu caso. Quando a lei, a empresa ou a família mudam, o plano é ajustado com você.</p>
-            </li>
-          </ol>
-
-          <aside class="metodo-programa dmc-reveal" style="--i:4" aria-labelledby="metodo-programa-titulo">
-            <p class="dmc-overline">Formação</p>
-            <h3 class="dmc-h4" id="metodo-programa-titulo">Arquitetura Patrimonial Estratégica</h3>
-            <p class="metodo-programa__meta dmc-small">Programa de formação institucional</p>
-            <p class="metodo-programa__text">Leitura do patrimônio como sistema: direito, administração, contabilidade e tecnologia sob a mesma governança consultiva.</p>
-            <a class="dmc-btn dmc-btn--link" href="plataforma-ead/" aria-label="Conhecer a plataforma DMC Business School">Conhecer a plataforma <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          </aside>
-        </div>
-      </section>
-
-      <!-- ==== 09 · NEWSLETTER ==== (fragmento; integrador cola em index.html antes de #video)
-           Copy: docs/dmc/home-redesign/copy.json → newsletter. Contrato: blueprint-newsletter.md.
-           [CEO 9] Enquanto pages/politica-de-privacidade.html tiver marcadores [CONFIRMAR],
-           a seção entra com o atributo `hidden` (decisão do integrador/CEO, não deste parcial).
-           Sem JS: POST nativo urlencoded para /api/newsletter (resposta JSON crua é o fallback). -->
-      <section class="dmc-section dmc-on-paper dmc-section--rule news" id="newsletter" aria-labelledby="news-title">
-        <div class="dmc-wrap news-grid">
-          <div class="dmc-sec-head news-head">
-            <p class="dmc-overline">Newsletter</p>
-            <h2 class="dmc-h1" id="news-title">Receba as <em>próximas análises</em>.</h2>
-            <p class="dmc-lead">Textos curtos, só quando houver algo a dizer: sucessão, tributos, imóveis, auditoria, crédito e passivo trabalhista.</p>
-            <p class="dmc-small news-head__legal">Você pode se descadastrar a qualquer momento pelo link de cada e-mail ou escrevendo para <a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a>.</p>
-          </div>
-
-          <form class="dmc-form news-form" id="newsletterForm" action="/api/newsletter" method="post"
-                data-origem="home" aria-label="Inscrição na newsletter do Complexo DMC" aria-describedby="nlMessage">
-            <div class="news-form__row">
-              <div class="form-field">
-                <label for="nl-nome">Nome</label>
-                <input type="text" id="nl-nome" name="nome" autocomplete="name" required minlength="2" maxlength="120">
-              </div>
-              <div class="form-field">
-                <label for="nl-email">E-mail</label>
-                <input type="email" id="nl-email" name="email" autocomplete="email" inputmode="email" required maxlength="254">
-              </div>
-            </div>
-
-            <div class="news-form__row">
-              <div class="form-field">
-                <label for="nl-empresa">Empresa <span class="form-opcional">(opcional)</span></label>
-                <input type="text" id="nl-empresa" name="empresa" autocomplete="organization" maxlength="120">
-              </div>
-              <div class="news-form__submit">
-                <button type="submit" class="dmc-btn dmc-btn--primary news-form__btn">Quero receber análises</button>
-              </div>
-            </div>
-
-            <!-- Isca anti-robô: fora da tela; quem preenche recebe 200 neutro e nada é gravado. -->
-            <div class="form-hp" aria-hidden="true">
-              <label for="nl-website">Não preencha este campo</label>
-              <input type="text" id="nl-website" name="website" tabindex="-1" autocomplete="off">
-            </div>
-
-            <div class="form-consent">
-              <input type="checkbox" id="nl-consentimento" name="consentimento" value="true" required>
-              <label for="nl-consentimento">Autorizo o Complexo DMC a usar meu nome e e-mail para enviar análises e conteúdos institucionais, nos termos da LGPD e da <a href="pages/politica-de-privacidade.html">Política de Privacidade</a>. Posso cancelar a qualquer momento.</label>
-            </div>
-
-            <input type="hidden" name="origem" value="home">
-            <p class="form-message" id="nlMessage" role="status" aria-live="polite"></p>
-          </form>
-        </div>
-      </section>
-
-      <!-- ============================== VÍDEO ==============================
+      <!-- ============================== 09 · VÍDEO ==============================
            Para publicar o vídeo, escreva o ID ou a URL do YouTube em data-video
            (ex.: data-video="13w3h_VjvGs"). Enquanto estiver vazio, o quadro fica
            reservado. Quem monta o player é assets/js/video.js. -->
-      <section class="dmc-section dmc-section--rule page-section" id="video" aria-labelledby="video-titulo">
+      <section class="dmc-section page-section" id="video" aria-labelledby="video-titulo">
         <div class="dmc-wrap">
           <div class="dmc-sec-head video__head">
             <p class="dmc-overline">Em vídeo</p>
@@ -789,7 +758,7 @@
             <ul class="contato__canais">
               <li><span>E-mail</span><a href="mailto:administrativo@complexodmc.com.br">administrativo@complexodmc.com.br</a></li>
               <li><span>Telefone</span><a href="tel:+5511915267749">+55 (11) 91526-7749</a></li>
-              <li><span>WhatsApp</span><a href="https://wa.me/5511915267749" target="_blank" rel="noopener">Conversar pelo WhatsApp</a></li>
+              <li><span>WhatsApp</span><a href="https://wa.me/5511915267749?text=Ol%C3%A1%21%20Gostaria%20de%20uma%20conversa%20inicial%20com%20o%20Complexo%20DMC." target="_blank" rel="noopener">Conversar pelo WhatsApp</a></li>
             </ul>
           </div>
 
@@ -899,13 +868,11 @@
             <ul class="dmc-footer__list">
               <li><a href="pages/sobre.html">Sobre o Complexo DMC</a></li>
               <li><a href="#features">Soluções</a></li>
-              <li><a href="#treinamentos">Treinamentos</a></li>
+              <li><a href="verticais-de-negocio/">Segmentos</a></li>
               <li><a href="pages/tecnologia.html">Tecnologia</a></li>
               <li><a href="parcerias/">Parcerias</a></li>
               <li><a href="pages/por-que-urgente.html">Por que planejar a sucessão em vida</a></li>
-              <li><a href="#newsletter">Newsletter</a></li>
               <li><a href="plataforma-ead/login.html">DMC Business School</a></li>
-              <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">ADTECH</a></li>
             </ul>
           </nav>
 
@@ -940,7 +907,7 @@
     </button>
     <!-- Módulos das cenas (02 rede neural · 06 Brasil): no fim do body para que o cartaz do herói (LCP)
          seja requisitado antes deles; módulos já são adiados por natureza, nada muda na execução. -->
-    <script type="module" src="assets/js/rede-neural.js?v=2"></script>
+    <script type="module" src="assets/js/rede-neural.js?v=5"></script>
     <script type="module" src="assets/js/brasil.js?v=1"></script>
   </body>
 </html>

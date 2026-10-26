@@ -1288,16 +1288,24 @@
     }
 
     // ============ HEADER ACTIONS ============
-    if (btnAddCurso) btnAddCurso.addEventListener('click', async () => {
-      const novo = makeNovoCurso();
-      try { await Data.upsertCurso(novo); }
-      catch (err) { toastErr(err); return; }
-      await Data.refresh();
-      refreshSnapshot();
-      selectedCursoId = novo.id;
-      toast('Curso criado');
-      render();
-    });
+    // "Novo curso" e "Exportar" nascem `disabled` no admin.html e só habilitam aqui, logo
+    // depois de o ouvinte estar ligado. A tela fica visível antes do fim do boot (shell
+    // montado ou a rede de 2,5 s do portal-professor.css com o catálogo lento) e o clique
+    // antecipado se perdia (corrida da D5 R11). Se o boot parar antes daqui, continuam
+    // desabilitados: clicar não faria nada.
+    if (btnAddCurso) {
+      btnAddCurso.addEventListener('click', async () => {
+        const novo = makeNovoCurso();
+        try { await Data.upsertCurso(novo); }
+        catch (err) { toastErr(err); return; }
+        await Data.refresh();
+        refreshSnapshot();
+        selectedCursoId = novo.id;
+        toast('Curso criado');
+        render();
+      });
+      btnAddCurso.disabled = false;
+    }
 
     // Export JSON do estado atual (read-only — backup)
     const modalExport = document.querySelector('#modal-export');
@@ -1308,6 +1316,7 @@
         modalExport.classList.add('is-open');
         setTimeout(() => ta.select(), 50);
       });
+      btnExport.disabled = false;
       const btnCopy = document.querySelector('#btn-copy-json');
       if (btnCopy) btnCopy.addEventListener('click', async () => {
         const ta = document.querySelector('#export-json');

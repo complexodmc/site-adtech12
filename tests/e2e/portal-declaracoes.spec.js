@@ -347,3 +347,107 @@ test('F3b · backoffice: critérios dos cursos e declarações emitidas abrem pa
   await mon.anexar('console-e-rede');
   await mon.verificar({ tipos: ['pageerror'], rotulo: 'pageerror' });
 });
+
+// ---------------------------------------------------------------
+// Selo (A08, achado do G2): registro editado direto no banco nunca aparece como
+// "Documento válido". Antes, trocar o kid ou apagar hash/kid dava integro:null e a
+// tela mostrava "Documento válido" sem alerta; com integro:false, o marcador verde
+// ficava ao lado do alerta vermelho.
+// ---------------------------------------------------------------
+const ALFABETO_CODIGO = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+const blocoCodigo = () => Array.from({ length: 4 }, () => ALFABETO_CODIGO[Math.floor(Math.random() * ALFABETO_CODIGO.length)]).join('');
+
+test('F3b · selo: certificado adulterado, kid trocado ou selo pela metade e declaração sem selo → "Não confere" (validação e impressão); legado avisa', async ({ page, request }) => {
+  await P.exigirMongo(request);
+  const { admin } = await P.criarPapeis(request);
+  await exigirF3b(request, admin);
+  const aluno = await P.criarUsuario(request, { papel: 'aluno', rotulo: 'f3b-selo' });
+  await perfilComNome(request, aluno.id, `Selo Registro ${Date.now().toString(36)} Quintela`);
+  const C = await P.semearCurso(request, { aulas: [{}] });
+  await P.liberarCurso(request, aluno.id, C.cursoId);
+  await P.concluirAulas(request, aluno.id, C.aulas.map((a) => a.id));
+  const em = await P.api(request, aluno.token).post(`/api/cursos/${C.cursoId}/certificado`, {});
+  expect(em.status, JSON.stringify(em.json)).toBe(201);
+  const cert = em.json.certificado;
+  expect(cert.hashPrefixo).toMatch(HASH_RE);
+  const certs = (fn) => P.comBanco(request, (db) => fn(db.collection('certificados')));
+
+  const mon = toleraQrAusente(P.monitorarConsoleERede(page));
+  await P.simularCliente(page);
+  const res = page.locator('#pf-dec-resultado');
+  const titulo = res.locator('h2');
+  const abrir = async (codigo) => {
+    await page.goto(`${EAD}validar.html?codigo=${encodeURIComponent(codigo)}`);
+    await expect(titulo).toBeVisible();
+  };
+  const naoConfere = async (rotulo) => {
+    await expect(titulo, rotulo).toHaveText('Não confere');
+    await expect(res.locator('[data-selo="nao-confere"]'), rotulo).toContainText('não confere com o selo de emissão');
+    await expect(res, rotulo).not.toContainText('Documento válido');
+  };
+
+  // íntegro: marcador verde, sem alerta
+  await abrir(cert.codigo);
+  await expect(titulo).toHaveText('Documento válido');
+  await expect(res.locator('[data-selo]')).toHaveCount(0);
+
+  // dados adulterados → "Não confere" (antes: "Documento válido" ao lado do alerta)
+  await certs((c) => c.updateOne({ codigo: cert.codigo }, { $set: { tituloCurso: 'Curso FALSO QA' } }));
+  await abrir(cert.codigo);
+  await naoConfere('dados adulterados');
+  // + kid trocado → continua "Não confere" (antes: integro null, nenhum alerta)
+  await certs((c) => c.updateOne({ codigo: cert.codigo }, { $set: { kid: 'deadbeef' } }));
+  await abrir(cert.codigo);
+  await naoConfere('kid trocado');
+  // + kid apagado (selo pela metade)
+  await certs((c) => c.updateOne({ codigo: cert.codigo }, { $unset: { kid: '' } }));
+  await abrir(cert.codigo);
+  await naoConfere('hash sem kid');
+  // impressão pública do certificado: alerta no documento, na tela e no papel
+  await page.goto(`${EAD}certificado.html?codigo=${encodeURIComponent(cert.codigo)}`);
+  const alertaCert = page.locator('#cert-root [data-selo="nao-confere"]');
+  await expect(alertaCert).toContainText('não vale como documento');
+  await page.emulateMedia({ media: 'print' });
+  await expect(alertaCert).toBeVisible();
+  await page.emulateMedia({ media: 'screen' });
+
+  // declaração sem selo: nenhuma emissão legítima produz (declaracoes.emitir sempre sela)
+  const codigoDec = `DEC-${blocoCodigo()}-${blocoCodigo()}-${blocoCodigo()}`;
+  await P.comBanco(request, (db) => db.collection('declaracoes').insertOne({
+    codigo: codigoDec, tipo: 'matricula', userId: aluno.id, matriculaId: null, cursoId: C.cursoId, ano: null,
+    solicitadaEm: new Date(), emitidaEm: new Date(), dados: { nomeTitular: 'Titular Forjado', cursoTitulo: 'Curso FALSO QA' },
+    iniciaisTitular: 'T. F.', revogada: null
+  }));
+  const vDec = await P.api(request).get(`/api/portal/validar/${codigoDec}`);
+  expect(vDec.json).toMatchObject({ valido: true, tipo: 'declaracao', integro: false, hashPrefixo: null });
+  await abrir(codigoDec);
+  await naoConfere('declaração sem selo');
+  await expect(res.locator('dl')).toContainText('Ausente');
+
+  // sem hash E sem kid = forma do certificado legado (DC-65): segue null, e a tela diz que não confere pelo selo
+  await certs((c) => c.updateOne({ codigo: cert.codigo }, { $unset: { hash: '', kid: '' } }));
+  await abrir(cert.codigo);
+  await expect(titulo).toHaveText('Documento válido');
+  await expect(res.locator('[data-selo="anterior"]')).toContainText('não podem ser conferidos');
+  await expect(res.locator('dl')).toContainText('Emitido antes da verificação por selo');
+  await fechar(mon);
+});
+
+test('F3b · selo não verificável (integro:null fora do legado): aviso explícito e marcador "Selo não verificado", nunca "Documento válido"', async ({ page }) => {
+  const codigo = `DEC-${blocoCodigo()}-${blocoCodigo()}-${blocoCodigo()}`;
+  const corpo = {
+    valido: true, codigo, tipo: 'declaracao', rotulo: 'Declaração de matrícula', emitidoEm: '2026-10-01T12:00:00.000Z', emissor: 'Complexo DMC',
+    iniciais: 'A. S.', integro: null, situacao: 'valido', hashPrefixo: '9C1E-07AB-12CD-34EF', detalhes: { curso: 'Curso de Teste', ano: null, nivelRotulo: null }
+  };
+  // resposta do despacho para um selo de kid aposentado (PORTAL_SELO_KIDS_APOSENTADOS) ou servidor sem assinador
+  await page.route((u) => u.pathname === `/api/portal/validar/${codigo}`, (r) => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(corpo) }));
+  const mon = P.monitorarConsoleERede(page);
+  await page.goto(`${EAD}validar.html?codigo=${codigo}`);
+  const res = page.locator('#pf-dec-resultado');
+  await expect(res.locator('h2')).toHaveText('Selo não verificado');
+  await expect(res.locator('[data-selo="nao-verificado"]')).toContainText('Não foi possível verificar o selo de emissão');
+  await expect(res).not.toContainText('Documento válido');
+  await expect(res).toContainText('9C1E-07AB-12CD-34EF');
+  await mon.anexar('console-e-rede');
+  await mon.verificar({ tipos: ['pageerror'], rotulo: 'pageerror' });
+});

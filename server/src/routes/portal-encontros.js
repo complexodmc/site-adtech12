@@ -139,11 +139,27 @@ export function criarRotaEncontros(deps = {}) {
     return { cursos: [...ctx.cursosDocente], ctx };
   }
 
+  /** LEITURA (agenda, GET /:id, entrar): docente da turma vê os da turma + os sem turma do curso (§8.6). */
   async function visivelAEquipe(req, e) {
     const a = acesso();
     if (!(await a.contexto(req)).cursosDocente.has(String(e.cursoId)) && papelDe(req.user) !== 'admin') return false;
     if (e.turmaId == null) return true;
     return a.podeGerirTurma(req, e.cursoId, hex(e.turmaId));
+  }
+
+  /**
+   * GESTÃO (PUT, cancelar, DELETE, presenças): docência pelo cursoId e turmaId GRAVADOS (§6.7.2, §4.2).
+   * Encontro de curso inteiro (turmaId nulo) só a docência GERAL do curso ou o admin; docente só de
+   * turma não edita, não cancela, não exclui e não lista nem lança presença de aluno de outra turma.
+   */
+  const gerivelPelaEquipe = (req, e) => acesso().podeGerirTurma(req, e.cursoId, e.turmaId == null ? null : hex(e.turmaId));
+
+  /** Matrículas visíveis ao docente no curso (null = todas: admin ou docência geral), §4.2. */
+  async function filtroDeTurmas(req, cursoId) {
+    const vis = await acesso().turmasVisiveis(req, cursoId);
+    if (vis === null) return () => true;
+    const s = new Set(vis.map(String));
+    return m => m.turmaId != null && s.has(hex(m.turmaId));
   }
 
   // ---------------- Routers ----------------
@@ -203,13 +219,17 @@ export function criarRotaEncontros(deps = {}) {
       if (await visivelAEquipe(req, e)) vis.push(e);
     }
     const apoio = await mapasDeApoio(vis);
-    // presentes/esperados por encontro encerrado (mesma regra de esperados da matriz, §8.6).
+    // presentes/esperados por encontro encerrado (mesma regra de esperados da matriz, §8.6),
+    // contados só sobre as turmas visíveis ao docente (§4.2): o docente só de turma não vê a
+    // contagem de outras turmas num encontro de curso inteiro.
     const contagens = new Map();
     const encerrados = vis.filter(e => !e.cancelado && statusDoEncontro(e, momento) === 'encerrada');
     if (encerrados.length) {
       const porCurso = new Map();
       for (const e of encerrados) {
-        if (!porCurso.has(String(e.cursoId))) porCurso.set(String(e.cursoId), (await svc.alunosDoCurso({ cursoId: e.cursoId })).filter(m => m.status === 'ativa' || m.status === 'trancada'));
+        if (porCurso.has(String(e.cursoId))) continue;
+        const daDocencia = await filtroDeTurmas(req, e.cursoId);
+        porCurso.set(String(e.cursoId), (await svc.alunosDoCurso({ cursoId: e.cursoId })).filter(m => (m.status === 'ativa' || m.status === 'trancada') && daDocencia(m)));
       }
       const freqs = await repo('frequencias').find({ encontroId: { $in: encerrados.map(e => String(e._id)) }, origem: 'ao_vivo', anulada: null }, { projection: { encontroId: 1, matriculaId: 1 } }).toArray();
       for (const e of encerrados) {
@@ -301,9 +321,17 @@ export function criarRotaEncontros(deps = {}) {
     return oidDe(t._id);
   }
 
+  /** Leitura pela equipe (GET /:id). */
   async function encontroDaEquipe(req) {
     const e = await R.encontro(req.params.id);
     if (!e || !(await visivelAEquipe(req, e))) throw erro(404, 'nao-encontrado');
+    return e;
+  }
+
+  /** Gestão pela equipe: fora da docência pelo gravado → 404 (§6.7.2 "404 inexistente ou fora da docência"). */
+  async function encontroGerivel(req) {
+    const e = await R.encontro(req.params.id);
+    if (!e || !(await gerivelPelaEquipe(req, e))) throw erro(404, 'nao-encontrado');
     return e;
   }
 
@@ -329,13 +357,14 @@ export function criarRotaEncontros(deps = {}) {
   /** Acréscimo (F3a): um encontro para a tela de edição do backoffice (#/ao-vivo/:encontroId). */
   professor.get('/encontros/:id', assincrono(async (req, res) => {
     const e = await encontroDaEquipe(req);
-    const apoio = await mapasDeApoio([e]);
+    const [apoio, podeGerir] = await Promise.all([mapasDeApoio([e]), gerivelPelaEquipe(req, e)]);
     const momento = agora();
-    res.json({ encontro: { ...encontroPublico(e, apoio, { momento, url: e.url || null, podeEntrar: statusDoEncontro(e, momento) === 'ao-vivo' && !!e.url, presenca: null }), moduloId: e.moduloId ?? null, aulaGravadaId: e.aulaGravadaId ?? null } });
+    // podeGerir (acréscimo): a tela abre só leitura quando a gestão é da docência geral (§6.7.2).
+    res.json({ encontro: { ...encontroPublico(e, apoio, { momento, url: e.url || null, podeEntrar: statusDoEncontro(e, momento) === 'ao-vivo' && !!e.url, presenca: null }), moduloId: e.moduloId ?? null, aulaGravadaId: e.aulaGravadaId ?? null, podeGerir: !!podeGerir } });
   }));
 
   professor.put('/encontros/:id', assincrono(async (req, res) => {
-    const e = await encontroDaEquipe(req);
+    const e = await encontroGerivel(req);
     const b = req.body && typeof req.body === 'object' ? req.body : {};
     if (b.cursoId !== undefined && String(b.cursoId) !== String(e.cursoId)) throw invalido('cursoId', 'O curso do encontro não muda.');
     const versao = lerInteiro(b.versao, { min: 1, max: 1e9, obrigatorio: true }, 'versao');
@@ -353,7 +382,7 @@ export function criarRotaEncontros(deps = {}) {
   }));
 
   professor.post('/encontros/:id/cancelar', assincrono(async (req, res) => {
-    const e = await encontroDaEquipe(req);
+    const e = await encontroGerivel(req);
     const motivo = lerTexto(req.body || {}, 'motivo', { min: 5, max: 500, obrigatorio: true, multilinha: true });
     const aud = auditoria();
     const mutacao = async () => {
@@ -368,7 +397,7 @@ export function criarRotaEncontros(deps = {}) {
   }));
 
   professor.delete('/encontros/:id', assincrono(async (req, res) => {
-    const e = await encontroDaEquipe(req);
+    const e = await encontroGerivel(req);
     const alvo = { tipo: 'encontro', id: String(e._id) };
     const b = await bloqueiosEmCascata(servicos, alvo, { log });
     if (b.total > 0 || b.falhas.length) throw erro(409, 'tem-registros', 'Há presenças registradas neste encontro. Cancele em vez de excluir.');
@@ -377,15 +406,21 @@ export function criarRotaEncontros(deps = {}) {
     res.json({ ok: true });
   }));
 
-  /** Matrículas ESPERADAS no encontro (§8.6): mesmo curso, turma visível, vigentes. */
-  async function esperados(e) {
-    const mats = await svc.alunosDoCurso({ cursoId: e.cursoId, turmaIds: e.turmaId ? [hex(e.turmaId)] : null });
-    return mats.filter(m => (m.status === 'ativa' || m.status === 'trancada') && encontroVisivel(e, m));
+  /**
+   * Matrículas ESPERADAS no encontro (§8.6): mesmo curso, turma visível, vigentes — e, por defesa em
+   * profundidade, só as das turmas visíveis a quem pede (§4.2; para quem passa em encontroGerivel, nada sai).
+   */
+  async function esperados(req, e) {
+    const [mats, daDocencia] = await Promise.all([
+      svc.alunosDoCurso({ cursoId: e.cursoId, turmaIds: e.turmaId ? [hex(e.turmaId)] : null }),
+      filtroDeTurmas(req, e.cursoId)
+    ]);
+    return mats.filter(m => (m.status === 'ativa' || m.status === 'trancada') && encontroVisivel(e, m) && daDocencia(m));
   }
 
   professor.get('/encontros/:id/presencas', assincrono(async (req, res) => {
-    const e = await encontroDaEquipe(req);
-    const lista = await esperados(e);
+    const e = await encontroGerivel(req);
+    const lista = await esperados(req, e);
     const freqs = await R.frequenciasDasMatriculas(lista.map(m => m._id));
     const usuarios = await R.usuarios(lista.map(m => m.userId));
     const itens = lista.map((m) => {
@@ -404,12 +439,12 @@ export function criarRotaEncontros(deps = {}) {
   }));
 
   professor.post('/encontros/:id/presencas', assincrono(async (req, res) => {
-    const e = await encontroDaEquipe(req);
+    const e = await encontroGerivel(req);
     const b = req.body && typeof req.body === 'object' ? req.body : {};
     if (!lerId(String(b.matriculaId || ''))) throw erro(404, 'nao-encontrado');
     if (typeof b.presente !== 'boolean') throw invalido('presente', 'Informe presente ou ausente.');
     const motivo = lerTexto(b, 'motivo', { min: 10, max: 500, obrigatorio: true, multilinha: true });
-    const lista = await esperados(e);
+    const lista = await esperados(req, e);
     const m0 = lista.find(m => hex(m._id) === String(b.matriculaId));
     if (!m0) throw erro(404, 'nao-encontrado');
     const m = (await svc.matriculaPorId(m0._id)) || m0;

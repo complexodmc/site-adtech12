@@ -10,6 +10,9 @@
 // Só inserção em `consentimentos` (histórico completo); o espelho
 // `perfis.consentimentos` (só perfil_*) acompanha o último registro.
 // Auditoria `executar` em registrar e revogar: falha → 503 e nada grava.
+// perfil_genero/perfil_etnia vão para a trilha só como 'diversidade' e o
+// aceite/revogação que muda a contagem marca `perfis.diversidadeAlteradaEm`
+// (retrato do relatório, perfil.js — achado G2, §9.8).
 //
 // Rotas (aluno, /api/portal/me/dados/*): resumo (categorias, base legal,
 // operadores, encarregado — nunca inventado), consentimentos (as 6
@@ -24,7 +27,8 @@ import { registrarIndices } from '../../portal/indices.js';
 import { exportarDoTitular } from '../../portal/servicos.js';
 import { papelDe } from '../../portal/papeis.js';
 import {
-  FINALIDADES, FINALIDADES_PERFIL, CHAVE_ESPELHO, ROTULOS, EFEITO_REVOGACAO, textoConsentimento, VERSAO_TEXTO_ATUAL
+  FINALIDADES, FINALIDADES_PERFIL, CHAVE_ESPELHO, ROTULOS, EFEITO_REVOGACAO, textoConsentimento, VERSAO_TEXTO_ATUAL,
+  FINALIDADES_DIVERSIDADE, DIVERSIDADE_NA_TRILHA
 } from '../../portal/consentimentos-textos.js';
 
 export const INDICES_CONSENTIMENTOS = Object.freeze([
@@ -35,6 +39,8 @@ registrarIndices(INDICES_CONSENTIMENTOS);
 const VIAS = Object.freeze(['perfil', 'meus_dados', 'ia']);
 const SHA256_RE = /^[a-f0-9]{64}$/;
 const iso = d => (d instanceof Date && !Number.isNaN(d.getTime()) ? d.toISOString() : null);
+/** Finalidade como aparece na trilha da coordenação: gênero e etnia viram só 'diversidade' (achado G2). */
+const naTrilha = finalidade => (FINALIDADES_DIVERSIDADE.includes(finalidade) ? DIVERSIDADE_NA_TRILHA : finalidade);
 export const LIMITE_EXPORTACAO = Object.freeze({ janelaMs: 24 * 60 * 60 * 1000, max: 3 });
 
 /**
@@ -72,6 +78,17 @@ export function criarConsentimentos({ repo, auditoria, agora = () => new Date() 
   async function atualizarEspelho(userId, finalidade, valor) {
     const chave = CHAVE_ESPELHO[finalidade];
     if (!chave) return;
+    if (FINALIDADES_DIVERSIDADE.includes(finalidade)) {
+      // Aceite ou revogação que muda a contagem do relatório (valor contável e `aceito` mudando):
+      // marca a pessoa para a regra de renovação do retrato (perfil.js, criarRelatorioDiversidade).
+      await repo('perfis').updateOne(
+        {
+          userId: String(userId), consentimentos: { $type: 'object' }, [chave]: { $type: 'string', $ne: 'prefiro_nao_informar' },
+          [`consentimentos.${chave}.aceito`]: valor.aceito === true ? { $ne: true } : true
+        },
+        { $set: { [`diversidadeAlteradaEm.${chave}`]: valor.em } }
+      );
+    }
     // Sem perfil ainda: o espelho nasce junto do perfil (perfil.js lê o histórico).
     await repo('perfis').updateOne({ userId: String(userId), consentimentos: { $type: 'object' } }, { $set: { [`consentimentos.${chave}`]: valor } });
   }
@@ -100,8 +117,8 @@ export function criarConsentimentos({ repo, auditoria, agora = () => new Date() 
     const uid = String(userId);
     const em = agora();
     await auditoria.executar({
-      acao: 'consentimento.registrado', entidade: { tipo: 'consentimento', id: `${uid}:${finalidade}` }, alvoUserId: uid,
-      extra: { finalidade, versaoTexto, via }
+      acao: 'consentimento.registrado', entidade: { tipo: 'consentimento', id: `${uid}:${naTrilha(finalidade)}` }, alvoUserId: uid,
+      extra: { finalidade: naTrilha(finalidade), versaoTexto, via }
     }, req, async () => {
       await repo('consentimentos').insertOne({
         userId: uid, finalidade, aceito: true, versaoTexto, textoSha256, em, ipTruncado: truncarIp(req?.ip) ?? null, via
@@ -121,8 +138,8 @@ export function criarConsentimentos({ repo, auditoria, agora = () => new Date() 
     if (!v) throw new ErroPortal(404, null, 'Não há autorização vigente para esta finalidade.');
     const em = agora();
     await auditoria.executar({
-      acao: 'consentimento.revogado', entidade: { tipo: 'consentimento', id: `${uid}:${finalidade}` }, alvoUserId: uid,
-      extra: { finalidade, versaoTexto: v.versaoTexto, via }
+      acao: 'consentimento.revogado', entidade: { tipo: 'consentimento', id: `${uid}:${naTrilha(finalidade)}` }, alvoUserId: uid,
+      extra: { finalidade: naTrilha(finalidade), versaoTexto: v.versaoTexto, via }
     }, req, async () => {
       await repo('consentimentos').insertOne({
         userId: uid, finalidade, aceito: false, versaoTexto: v.versaoTexto, textoSha256: v.textoSha256, em, ipTruncado: truncarIp(req?.ip) ?? null, via

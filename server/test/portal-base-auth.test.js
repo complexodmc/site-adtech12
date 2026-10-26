@@ -320,6 +320,63 @@ describe('verificação em duas etapas', () => {
   });
 });
 
+describe('segundo fator de quem já está logado (A07: sem força bruta do código)', () => {
+  test('2fa/codigos e 2fa/desativar com a senha certa e código errado contam no MESMO 2fa:<userId> do login: 11ª falha → 429, nada muda, o login também trava, auditoria e aviso', async () => {
+    const ctx = await subirAuth();
+    try {
+      const u = { usuario: 'u-2fa' };
+      const k = `2fa:${IDS['u-2fa']}`;
+      const antes = await ctx.banco.collection('auth_2fa').findOne({ userId: IDS['u-2fa'] });
+      const sv0 = (await ctx.banco.collection('users').findOne({ _id: oid('u-2fa') })).sessaoVersao || 0;
+      // Sem código não há palpite: 400 campos.codigo e nada é contado.
+      const sem = await ctx.api.post('/api/auth/2fa/codigos', { senha: SENHA_FIXTURE }, u);
+      assert.equal(sem.status, 400);
+      assert.ok(sem.corpo.campos?.codigo);
+      assert.equal(await ctx.banco.collection('limites').findOne({ chave: k }), null);
+      const st = [];
+      let ultimo;
+      for (let i = 0; i < 11; i++) {
+        const rota = i % 2 ? '/api/auth/2fa/desativar' : '/api/auth/2fa/codigos';
+        ultimo = await ctx.api.post(rota, { senha: SENHA_FIXTURE, codigo: '000000' }, u);
+        st.push(ultimo.status);
+      }
+      assert.deepEqual(st, [...Array(10).fill(400), 429], st.join(','));
+      assert.equal(ultimo.corpo.codigo, 'muitas-tentativas');
+      // Bloqueio de 1 h: nem o código certo passa, aqui nem no login.
+      const certo = codigoTotp(SEGREDO_TOTP_FIXTURE, passoAtual(Date.now()));
+      assert.equal((await ctx.api.post('/api/auth/2fa/codigos', { senha: SENHA_FIXTURE, codigo: certo }, u)).status, 429);
+      assert.equal((await ctx.api.post('/api/auth/2fa/desativar', { senha: SENHA_FIXTURE, codigo: CODIGOS_RECUPERACAO_FIXTURE[2] }, u)).status, 429);
+      const s = await entrar(ctx.api, '2fa@exemplo.invalid');
+      assert.equal(s.corpo.segundoFator, true);
+      assert.equal((await ctx.api.post('/api/auth/2fa/verificar', { desafio: s.corpo.desafio, codigo: certo }, { headers: { 'x-forwarded-for': '10.70.0.1' } })).status, 429);
+      // Nada mudou no 2FA: continua ativo, mesmos códigos de recuperação, nenhum usado.
+      const depois = await ctx.banco.collection('auth_2fa').findOne({ userId: IDS['u-2fa'] });
+      assert.equal(depois.ativo, true);
+      assert.deepEqual(depois.codigos.map(c => [c.hash, c.usadoEm]), antes.codigos.map(c => [c.hash, null]));
+      // Detecção: cada falha auditada, 1 bloqueio, sessões derrubadas e aviso ao titular.
+      const falhas = await ctx.banco.collection('auditoria').find({ acao: 'auth.2fa_falha', alvoUserId: IDS['u-2fa'] }).toArray();
+      assert.equal(falhas.length, 11);
+      assert.ok(falhas.every(f => f.extra?.contexto === 'logado'), JSON.stringify(falhas.map(f => f.extra)));
+      assert.equal(await ctx.banco.collection('auditoria').countDocuments({ acao: 'auth.2fa_bloqueado', alvoUserId: IDS['u-2fa'] }), 1);
+      assert.equal((await ctx.banco.collection('users').findOne({ _id: oid('u-2fa') })).sessaoVersao || 0, sv0 + 1);
+      await esperar(20);
+      assert.equal(ctx.fetchImpl.chamadas.filter(c => c.corpo?.to?.[0] === '2fa@exemplo.invalid' && /Tentativas de código bloqueadas/.test(c.corpo?.subject || '')).length, 1);
+    } finally { await fechar(ctx.server); }
+  });
+
+  test('2fa/codigos com o código certo continua funcionando (e falha de senha não conta no 2fa:<userId>)', async () => {
+    const ctx = await subirAuth();
+    try {
+      const u = { usuario: 'u-2fa' };
+      assert.equal((await ctx.api.post('/api/auth/2fa/codigos', { senha: 'errada-123', codigo: '000000' }, u)).status, 400);
+      assert.equal(await ctx.banco.collection('limites').findOne({ chave: `2fa:${IDS['u-2fa']}` }), null);
+      const r = await ctx.api.post('/api/auth/2fa/codigos', { senha: SENHA_FIXTURE, codigo: codigoTotp(SEGREDO_TOTP_FIXTURE, passoAtual(Date.now())) }, u);
+      assert.equal(r.status, 200, JSON.stringify(r.corpo));
+      assert.equal(r.corpo.codigosRecuperacao.length, 10);
+    } finally { await fechar(ctx.server); }
+  });
+});
+
 describe('link mágico, recuperação e e-mail', () => {
   test('sem e-mail configurado → 503 email-indisponivel ANTES de consultar a conta; recursos refletem e-mail e baseUrl', async () => {
     const ctx = await subirAuth({ env: {} });

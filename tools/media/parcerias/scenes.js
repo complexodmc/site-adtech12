@@ -530,7 +530,9 @@ vec2 screen(vec3 p, vec3 c, float a, vec3 hs, float s, float bw){
     // brise em pé à direita; a luz só entra pelas células dele
     const Ls = { c: [2.5, 0, -0.55], a: -1.0, hs: [0.028, 0.45, 0.96], s: 0.14, bw: 0.008 };
     Ls.c[1] = T + Ls.hs[1];
-    const lightPos = [14, 6.2, -6.5];
+    // Posição da luz: exposta no preset para o filme do herói poder movê-la
+    // (render-video.mjs). O valor padrão é o das imagens estáticas.
+    const lightPos = P0.lightPos || [14, 6.2, -6.5];
     // parede invisível (só sombra) no plano do brise, com o vão do tamanho dele
     const wallAt = (lz0, lz1, y0, y1) => { const lc = [0, (y0 + y1) / 2, (lz0 + lz1) / 2]; const wc = toWorld({ c: Ls.c, a: Ls.a }, [0.06, lc[1] - Ls.c[1], lc[2]]); return { c: [wc[0], lc[1], wc[2]], h: [0.06, (y1 - y0) / 2, (lz1 - lz0) / 2], a: Ls.a }; };
     const top = Ls.c[1] + Ls.hs[1], hz = Ls.hs[2];

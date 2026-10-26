@@ -26,14 +26,14 @@ const OUV = /^OUV-\d{4}-[2-9A-HJ-NP-Z]{6}$/;
 const CHAVES_PROFESSOR = ['criadoEm', 'curso', 'encaminhadaEm', 'meuParecer', 'observacao', 'protocolo', 'texto', 'tipo', 'assunto'].sort();
 const PROIBIDAS = ['userId', 'nome', 'email', 'mensagens', 'autorId', 'matricula', 'turma', 'turmaId', 'status', 'encaminhamentos', 'identidade', 'senhaHash'];
 
-async function subirPortal() {
+async function subirPortal(modulos = MODULOS_F6A) {
   const banco = criarBancoMemoria({ indices: especificacoesRegistradas() });
   await semear(banco);
   const servicos = criarServicos();
   servicos.registrar('secretaria.matriculasDoAluno', async (userId) => banco.collection('matriculas').find({ userId }).toArray());
   const portal = M.montarPortal({
     getDb: () => banco, jwtSecret: 'segredo-de-teste', exigirLogin: requireAuth, exigirAdmin: [requireAuth, requireAdmin],
-    servicos, modulos: MODULOS_F6A, configPortal: CFG, falharCedo: true, log: silencioso
+    servicos, modulos, configPortal: CFG, falharCedo: true, log: silencioso
   });
   await portal.carregar();
   const app = express();
@@ -217,5 +217,118 @@ describe('ouvidoria', () => {
     assert.equal(extra.status, 429);
     assert.equal(extra.corpo.codigo, 'limite');
     assert.ok(Number(extra.headers.get('retry-after')) > 0);
+  });
+});
+
+// Achado G2 (LGPD, identidade na ouvidoria): a trilha de auditoria não pode
+// identificar quem se manifestou. A identidade só chega à coordenação pelo
+// GET …/:protocolo?identidade=1 (auditado). Varredura nos 4 tipos, com o
+// módulo real da auditoria (F0t) montado ao lado dos da F6a.
+describe('ouvidoria × trilha de auditoria: identidade resguardada nos 4 tipos', () => {
+  const MODULO_AUDITORIA = M.MODULOS_PADRAO.filter(m => m.caminho === 'routes/portal/auditoria.js');
+  const MANIFESTANTES = ['u-aluno1', 'u-aluno2', 'u-prof-t1'];
+  const NOMES = ['Aluna Um de Teste', 'Aluno Dois de Teste', 'Professor da Turma Um'];
+  const EMAILS = ['aluno1@exemplo.invalid', 'aluno2@exemplo.invalid', 'prof-t1@exemplo.invalid'];
+  const ATOR_RESGUARDADO = { userId: null, nome: null, papel: 'anonimo', ipTruncado: null };
+  let ctx;
+  const prot = {};
+
+  function semIdentidade(texto, onde) {
+    for (const k of MANIFESTANTES) assert.ok(!texto.includes(IDS[k]), `${onde}: id de ${k}`);
+    for (const n of NOMES) assert.ok(!texto.includes(n), `${onde}: nome ${n}`);
+    for (const e of EMAILS) assert.ok(!texto.includes(e), `${onde}: e-mail ${e}`);
+  }
+
+  before(async () => {
+    assert.equal(MODULO_AUDITORIA.length, 1);
+    ctx = await subirPortal([...MODULOS_F6A, ...MODULO_AUDITORIA]);
+    const autores = { elogio: 'u-aluno1', sugestao: 'u-aluno1', reclamacao: 'u-prof-t1', denuncia: 'u-aluno2' };
+    for (const [tipo, usuario] of Object.entries(autores)) {
+      const corpo = usuario === 'u-prof-t1' ? manifestacao(tipo, { cursoId: undefined }) : manifestacao(tipo);
+      const r = await ctx.api.post('/api/portal/me/ouvidoria', corpo, { usuario });
+      assert.equal(r.status, 201, tipo);
+      prot[tipo] = r.corpo.protocolo;
+    }
+    for (const tipo of Object.keys(autores)) {
+      const r = await ctx.api.post(`/api/portal/admin/ouvidoria/${prot[tipo]}/mensagens`, { texto: 'Recebemos a sua manifestação.' }, { usuario: 'u-admin' });
+      assert.equal(r.status, 201, tipo);
+    }
+    const enc = await ctx.api.post(`/api/portal/admin/ouvidoria/${prot.elogio}/encaminhar`, { professorId: IDS['u-prof'], observacao: 'Peço o seu parecer sobre o caso.' }, { usuario: 'u-admin' });
+    assert.equal(enc.status, 201);
+    const par = await ctx.api.post(`/api/portal/professor/ouvidoria/${prot.elogio}/parecer`, { texto: 'Parecer do professor sobre o elogio.' }, { usuario: 'u-prof' });
+    assert.equal(par.status, 201);
+    assert.equal((await ctx.api.post(`/api/portal/me/ouvidoria/${prot.elogio}/encerrar`, {}, { usuario: 'u-aluno1' })).status, 200);
+    assert.equal((await ctx.api.post(`/api/portal/me/ouvidoria/${prot.reclamacao}/encerrar`, {}, { usuario: 'u-prof-t1' })).status, 200);
+    assert.equal((await ctx.api.post(`/api/portal/admin/ouvidoria/${prot.denuncia}/encerrar`, { motivo: 'Apuração concluída.' }, { usuario: 'u-admin' })).status, 200);
+    const id = await ctx.api.get(`/api/portal/admin/ouvidoria/${prot.denuncia}?identidade=1`, { usuario: 'u-admin' });
+    assert.equal(id.corpo.identidade.nome, 'Aluno Dois de Teste');
+  });
+  after(() => fechar(ctx.server));
+
+  test('GET /admin/auditoria (JSON): nenhum evento ouvidoria.* identifica o manifestante', async () => {
+    const r = await ctx.api.get('/api/portal/admin/auditoria?acao=ouvidoria.&porPagina=100', { usuario: 'u-admin' });
+    assert.equal(r.status, 200);
+    const acoes = new Set(r.corpo.itens.map(i => i.acao));
+    for (const a of ['ouvidoria.criada', 'ouvidoria.respondida', 'ouvidoria.encaminhada', 'ouvidoria.parecer', 'ouvidoria.encerrada', 'ouvidoria.identidade_acessada']) {
+      assert.ok(acoes.has(a), `varredura sem ${a}`);
+    }
+    const criadas = r.corpo.itens.filter(i => i.acao === 'ouvidoria.criada');
+    assert.deepEqual(criadas.map(i => i.extra.tipo).sort(), ['denuncia', 'elogio', 'reclamacao', 'sugestao']);
+    semIdentidade(JSON.stringify(r.corpo), 'JSON da auditoria');
+    // Ações do próprio manifestante: ator resguardado (sem id, nome, papel real nem rede).
+    const doManifestante = r.corpo.itens.filter(i => i.acao === 'ouvidoria.criada' || (i.acao === 'ouvidoria.encerrada' && i.extra?.por === 'manifestante'));
+    assert.equal(doManifestante.length, 6);
+    for (const i of doManifestante) {
+      assert.deepEqual(i.ator, ATOR_RESGUARDADO, i.acao);
+      assert.equal(i.alvo, null, i.acao);
+      assert.equal(i.extra.identidade, 'resguardada', i.acao);
+    }
+    // Ações da equipe: a equipe continua identificada (responsabilização); o manifestante, não.
+    for (const i of r.corpo.itens.filter(x => !doManifestante.includes(x))) {
+      assert.ok(['admin', 'professor'].includes(i.ator.papel), i.acao);
+      assert.ok(i.ator.userId === IDS['u-admin'] || i.ator.userId === IDS['u-prof'], i.acao);
+    }
+    const encaminhada = r.corpo.itens.find(i => i.acao === 'ouvidoria.encaminhada');
+    assert.equal(encaminhada.alvo.userId, IDS['u-prof']);
+    const acessada = r.corpo.itens.find(i => i.acao === 'ouvidoria.identidade_acessada');
+    assert.equal(acessada.ator.userId, IDS['u-admin']);
+    assert.equal(acessada.entidade.id, prot.denuncia);
+    assert.equal(acessada.alvo, null);
+  });
+
+  test('por protocolo (entidadeId), por pessoa (atorId, alvoUserId, e-mail) e no CSV: sem identidade', async () => {
+    for (const tipo of Object.keys(prot)) {
+      const r = await ctx.api.get(`/api/portal/admin/auditoria?entidadeId=${prot[tipo]}`, { usuario: 'u-admin' });
+      assert.equal(r.status, 200);
+      assert.ok(r.corpo.total >= 2, tipo);
+      semIdentidade(JSON.stringify(r.corpo), `entidadeId ${tipo}`);
+    }
+    for (const k of MANIFESTANTES) {
+      for (const q of [`atorId=${IDS[k]}`, `alvoUserId=${IDS[k]}`]) {
+        const r = await ctx.api.get(`/api/portal/admin/auditoria?acao=ouvidoria.&${q}`, { usuario: 'u-admin' });
+        assert.equal(r.status, 200);
+        assert.equal(r.corpo.total, 0, `${k} ${q}`);
+      }
+    }
+    const porEmail = await ctx.api.get('/api/portal/admin/auditoria?acao=ouvidoria.&objeto=aluno2%40exemplo.invalid', { usuario: 'u-admin' });
+    assert.equal(porEmail.corpo.total, 0);
+    const csv = await ctx.api.get('/api/portal/admin/auditoria?acao=ouvidoria.&formato=csv', { usuario: 'u-admin' });
+    assert.equal(csv.status, 200);
+    const texto = csv.texto;
+    assert.ok(texto.includes(prot.denuncia));
+    semIdentidade(texto, 'CSV da auditoria');
+  });
+
+  test('banco: nenhum registro ouvidoria.* guarda id ou rede do manifestante; identidade segue acessível pelo caminho auditado', async () => {
+    const docs = await ctx.banco.collection('auditoria').find({ acao: { $regex: '^ouvidoria\\.' } }).toArray();
+    assert.ok(docs.length >= 12);
+    semIdentidade(JSON.stringify(docs), 'coleção auditoria');
+    for (const d of docs.filter(x => x.ator.papel === 'anonimo')) assert.equal(d.ator.ipTruncado, null, d.acao);
+    const antes = await ctx.banco.collection('auditoria').countDocuments({ acao: 'ouvidoria.identidade_acessada' });
+    const com = await ctx.api.get(`/api/portal/admin/ouvidoria/${prot.reclamacao}?identidade=1`, { usuario: 'u-admin' });
+    assert.equal(com.corpo.identidade.nome, 'Professor da Turma Um');
+    assert.equal(await ctx.banco.collection('auditoria').countDocuments({ acao: 'ouvidoria.identidade_acessada' }), antes + 1);
+    const m = await ctx.banco.collection('manifestacoes').findOne({ protocolo: prot.denuncia });
+    assert.equal(m.userId, IDS['u-aluno2']);
   });
 });

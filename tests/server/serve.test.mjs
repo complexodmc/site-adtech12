@@ -83,27 +83,66 @@ test('estado: chaves de antes mantidas, provedores falsos no ar e regra QA_SERVI
   }
 });
 
-test('CSP: estrita report-only em /plataforma-ead/*, igual à §9.6 e ao vercel.json; login e login-classico seguem a do site', async () => {
+// Diretivas de busca: sem elas na política, vale o default-src (CSP3 §6.1). As demais
+// (base-uri, form-action, frame-ancestors) não herdam: ausentes, não restringem nada.
+const DIRETIVAS_DE_BUSCA = new Set(['script-src', 'style-src', 'font-src', 'img-src', 'media-src', 'frame-src', 'connect-src', 'object-src', 'worker-src', 'manifest-src', 'child-src']);
+const lerPolitica = (valor) => Object.fromEntries(valor.split(';').map((d) => d.trim()).filter(Boolean).map((d) => {
+  const [nome, ...fontes] = d.split(/\s+/);
+  return [nome, new Set(fontes.filter((f) => f !== "'none'"))];
+}));
+/** Fontes que a `estrita` libera e a `larga` não (diretiva a diretiva). Vazio = a larga cobre a estrita. */
+function maisRestritaQue(larga, estrita) {
+  const L = lerPolitica(larga); const E = lerPolitica(estrita);
+  const faltas = [];
+  for (const [nome, fontes] of Object.entries(E)) {
+    const daLarga = L[nome] ?? (DIRETIVAS_DE_BUSCA.has(nome) ? L['default-src'] : null);
+    if (!daLarga) continue;
+    for (const f of fontes) if (!daLarga.has(f)) faltas.push(`${nome} ${f}`);
+  }
+  return faltas;
+}
+
+// G2 (PORTAL-ACADEMICO §8.3 linha "2 · Integração", §9.6, §9.8 A05, §9.9 item 7, D-43): a CSP
+// estrita sai APLICADA (Content-Security-Policy) em toda /plataforma-ead/*, fora login(.html) e
+// login-classico(.html) da 2d, que seguem com a report-only do site (script inline).
+test('CSP: estrita APLICADA em /plataforma-ead/* (G2), igual à §9.6 e ao vercel.json; login e login-classico seguem a report-only do site', async () => {
   const vercel = JSON.parse(fs.readFileSync(path.join(RAIZ_REPO, 'vercel.json'), 'utf8'));
+  const global = vercel.headers.find((h) => h.source === '/(.*)');
   const regra = vercel.headers.find((h) => h.source.startsWith('/plataforma-ead/'));
   assert.ok(regra, 'regra de /plataforma-ead/ no vercel.json');
-  assert.ok(vercel.headers.indexOf(regra) > vercel.headers.findIndex((h) => h.source === '/(.*)'), 'a regra vem depois da global');
-  assert.equal(regra.headers.find((h) => h.key === 'Content-Security-Policy-Report-Only').value, CSP_ESTRITA);
+  assert.ok(vercel.headers.indexOf(regra) > vercel.headers.indexOf(global), 'a regra vem depois da global');
+  assert.deepEqual(regra.headers, [{ key: 'Content-Security-Policy', value: CSP_ESTRITA }],
+    'G2: a regra da plataforma APLICA a política de §9.6 (Content-Security-Policy), não só report-only');
   assert.equal(vercel.functions['api/[...path].js'].includeFiles, 'server/src/**');
 
-  const doSite = vercel.headers.find((h) => h.source === '/(.*)').headers.find((h) => h.key === 'Content-Security-Policy-Report-Only').value;
-  for (const p of ['/plataforma-ead/', '/plataforma-ead/dashboard.html', '/plataforma-ead/aula.html?id=x', '/plataforma-ead/loja.html', '/plataforma-ead/js/app.js', '/plataforma-ead/nao-existe.html']) {
+  const doSite = global.headers.find((h) => h.key === 'Content-Security-Policy-Report-Only').value;
+  assert.equal(global.headers.find((h) => h.key === 'Content-Security-Policy'), undefined, 'a regra global (site institucional) segue em report-only');
+  // A report-only do site continua chegando às páginas da plataforma (chave diferente: a Vercel
+  // envia as duas). Ela é mais larga que a estrita em toda diretiva → nunca reporta o que a
+  // aplicada deixa passar (sem ruído no console nem no __csp do E2E).
+  assert.deepEqual(maisRestritaQue(doSite, CSP_ESTRITA), [], 'a report-only do site cobre tudo o que a estrita libera');
+
+  for (const p of ['/plataforma-ead/', '/plataforma-ead', '/plataforma-ead/dashboard.html', '/plataforma-ead/aula.html?id=x', '/plataforma-ead/loja.html',
+    '/plataforma-ead/admin.html', '/plataforma-ead/professor.html', '/plataforma-ead/js/app.js', '/plataforma-ead/nao-existe.html', '/plataforma-ead/loginx.html']) {
     const r = await qa(p, { redirect: 'manual' });
     await r.arrayBuffer();
-    assert.equal(r.headers.get('content-security-policy-report-only'), CSP_ESTRITA, p);
-    assert.equal(r.headers.get('content-security-policy'), null, `${p}: nada aplicado antes do G2`);
+    assert.equal(r.headers.get('content-security-policy'), CSP_ESTRITA, `${p}: CSP aplicada (G2)`);
+    assert.equal(r.headers.get('content-security-policy-report-only'), doSite, `${p}: report-only do site, inerte`);
     assert.equal(r.headers.get('x-content-type-options'), 'nosniff', p);
   }
-  for (const p of ['/plataforma-ead/login.html', '/plataforma-ead/login.html?next=parcerias.html', '/plataforma-ead/login-classico.html', '/', '/pages/sobre.html']) {
+  for (const p of ['/plataforma-ead/login.html', '/plataforma-ead/login.html?next=parcerias.html', '/plataforma-ead/login-classico.html',
+    '/plataforma-ead/login', '/plataforma-ead/login-classico', '/', '/pages/sobre.html']) {
     const r = await qa(p, { redirect: 'manual' });
     await r.arrayBuffer();
     assert.equal(r.headers.get('content-security-policy-report-only'), doSite, p);
+    assert.equal(r.headers.get('content-security-policy'), null, `${p}: a CSP aplicada não vale fora da plataforma nem nas páginas da 2d`);
   }
+});
+
+test('CSP: o comparador de políticas acusa o que a estrita libera e a larga não', () => {
+  assert.deepEqual(maisRestritaQue("default-src 'self'", "script-src 'self'; frame-ancestors 'none'"), []);
+  assert.deepEqual(maisRestritaQue("default-src 'self'; img-src 'self'", "img-src 'self' https://i.ytimg.com; object-src 'none'"), ['img-src https://i.ytimg.com']);
+  assert.deepEqual(maisRestritaQue("default-src 'none'", "connect-src 'self'"), ["connect-src 'self'"]);
 });
 
 test('Gemini falso: GET do modelo exige x-goog-api-key, recusa ?key= e distingue modelo inexistente e sem generateContent', async () => {

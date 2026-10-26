@@ -72,7 +72,7 @@ const ragFalso = {
 // ---------- app ----------
 async function subirIa({
   roteiro = [{ texto: 'Resposta de teste.' }], fetchImpl = null, env = {}, extras = {}, comDominio = true,
-  semConsentimentoSrv = false, semAtendimento = false, carregarRag = async () => ragFalso
+  semConsentimentoSrv = false, semAtendimento = false, carregarRag = async () => ragFalso, retencao = null
 } = {}) {
   const banco = criarBancoMemoria({ indices: especificacoesRegistradas() });
   await semear(banco);
@@ -82,6 +82,7 @@ async function subirIa({
   const mapa = {
     ...(semConsentimentoSrv ? {} : cons.mapa),
     ...(comDominio ? servicosDeDominio() : {}),
+    ...(retencao ? { 'configuracoes.retencao': retencao } : {}),
     ...(semAtendimento ? {} : {
       'atendimento.abrirProtocolo': async (dados) => { abertos.push(dados); return { id: 'p1', protocolo: `ATD-2026-00000${abertos.length}` }; }
     })
@@ -565,6 +566,93 @@ describe('escalonamento, apagar e revogar', () => {
       assert.equal(ctx.cons.reg.has(IDS['u-aluno1']), false);
       assert.equal((await ctx.api.post('/api/portal/me/ia/consentimento/revogar', {}, { usuario: 'u-aluno1' })).status, 404);
       assert.equal(await ctx.servicos.obter('ia.disponivel')(), true);
+    } finally { await fechar(ctx.server); }
+  });
+});
+
+describe('consentimento acompanha os prazos de guarda do texto aceito (LGPD art. 8º §6º e art. 9º II)', () => {
+  const DIA = 24 * 60 * 60 * 1000;
+  const diasEntre = (a, b) => Math.round((b.getTime() - a.getTime()) / DIA);
+  const estado = (api, usuario = 'u-aluno1') => api.get('/api/portal/me/ia/estado', { usuario });
+
+  test('prazo aumentado depois do aceite → aceite antigo não vale: necessario, textoAlterado, 428 sem ir ao Google; novo aceite → prazos novos', async () => {
+    const prazos = { conversasIaDias: 180, notificacoesDias: 90, trilhaIaDias: 730 };
+    const ctx = await subirIa({ retencao: async () => ({ ...prazos }) });
+    try {
+      await configurar(ctx.banco);
+      await aceitar(ctx.api);
+      const antes = await estado(ctx.api);
+      assert.equal(antes.corpo.consentimento.necessario, false);
+      assert.equal(antes.corpo.consentimento.textoAlterado, undefined);
+      const shaAceito = ctx.cons.reg.get(IDS['u-aluno1']).textoSha256;
+
+      Object.assign(prazos, { conversasIaDias: 730, trilhaIaDias: 1825 });
+      const e = await estado(ctx.api);
+      assert.equal(e.corpo.retencaoDias, 730);
+      assert.match(e.corpo.consentimento.texto, /guardadas por 730 dias/);
+      assert.notEqual(T.sha256Texto(e.corpo.consentimento.texto), shaAceito);
+      assert.equal(e.corpo.consentimento.necessario, true, 'texto com prazo maior que o aceito exige novo aceite');
+      assert.equal(e.corpo.consentimento.textoAlterado, true, 'a tela avisa que o texto mudou desde o aceite');
+      assert.equal(e.corpo.consentimento.em, undefined);
+
+      const m = await ctx.api.post('/api/portal/me/ia/conversas', { mensagem: 'Como está o meu desempenho?' }, { usuario: 'u-aluno1' });
+      assert.equal(m.status, 428, JSON.stringify(m.corpo));
+      assert.equal(m.corpo.codigo, 'consentimento-necessario');
+      assert.equal(m.corpo.finalidade, 'assistente_ia');
+      assert.equal(chamadasGerar(ctx.gemini).length, 0, 'nada vai ao provedor com aceite de outro texto');
+      assert.equal(await ctx.banco.collection('conversas_ia').countDocuments({}), 0);
+      assert.equal(await ctx.banco.collection('ia_trilha').countDocuments({}), 0);
+
+      await aceitar(ctx.api);
+      const depois = await estado(ctx.api);
+      assert.equal(depois.corpo.consentimento.necessario, false);
+      assert.equal(depois.corpo.consentimento.textoAlterado, undefined);
+      const ok = await ctx.api.post('/api/portal/me/ia/conversas', { mensagem: 'Como está o meu desempenho?' }, { usuario: 'u-aluno1' });
+      assert.equal(ok.status, 201, JSON.stringify(ok.corpo));
+      const conv = await ctx.banco.collection('conversas_ia').findOne({ userId: IDS['u-aluno1'] });
+      assert.equal(diasEntre(conv.atualizadaEm, conv.expiraEm), 730);
+      const tr = await ctx.banco.collection('ia_trilha').findOne({ userId: IDS['u-aluno1'] });
+      assert.equal(diasEntre(tr.em, tr.expiraEm), 1825);
+    } finally { await fechar(ctx.server); }
+  });
+
+  test('prazo reduzido também muda o texto → novo aceite; aceite gravado sem sha não vale; revogar segue possível', async () => {
+    const prazos = { conversasIaDias: 180, notificacoesDias: 90, trilhaIaDias: 730 };
+    const ctx = await subirIa({ retencao: async () => ({ ...prazos }) });
+    try {
+      await configurar(ctx.banco);
+      await aceitar(ctx.api);
+      Object.assign(prazos, { conversasIaDias: 90, trilhaIaDias: 365 });
+      const e = await estado(ctx.api);
+      assert.equal(e.corpo.consentimento.necessario, true);
+      assert.equal(e.corpo.consentimento.textoAlterado, true);
+      ctx.cons.reg.set(IDS['u-aluno2'], { versaoTexto: 'v1', textoSha256: null, em: new Date() });
+      const semSha = await estado(ctx.api, 'u-aluno2');
+      assert.equal(semSha.corpo.consentimento.necessario, true, 'aceite sem o sha do texto lido não comprova o que foi aceito');
+      ctx.cons.reg.set(IDS['u-aluno2'], { versaoTexto: 'v0', textoSha256: T.sha256Texto(e.corpo.consentimento.texto), em: new Date() });
+      assert.equal((await estado(ctx.api, 'u-aluno2')).corpo.consentimento.necessario, true, 'versão diferente continua exigindo aceite');
+      const rv = await ctx.api.post('/api/portal/me/ia/consentimento/revogar', { apagarHistorico: true }, { usuario: 'u-aluno1' });
+      assert.equal(rv.status, 200, 'aceite desatualizado ainda pode ser retirado');
+    } finally { await fechar(ctx.server); }
+  });
+
+  test('prazo alterado durante a resposta do provedor → conversa e trilha gravadas com o prazo do texto conferido', async () => {
+    const prazos = { conversasIaDias: 180, notificacoesDias: 90, trilhaIaDias: 730 };
+    const gem = provedorGeminiFalso([{ texto: 'Resposta de teste.' }]);
+    const fetchImpl = async (url, init) => {
+      if (/:generateContent$/.test(String(url))) Object.assign(prazos, { conversasIaDias: 730, trilhaIaDias: 1825 });
+      return gem(url, init);
+    };
+    const ctx = await subirIa({ fetchImpl, retencao: async () => ({ ...prazos }) });
+    try {
+      await configurar(ctx.banco);
+      await aceitar(ctx.api);
+      const r = await ctx.api.post('/api/portal/me/ia/conversas', { mensagem: 'Tenho documentos pendentes?' }, { usuario: 'u-aluno1' });
+      assert.equal(r.status, 201, JSON.stringify(r.corpo));
+      const conv = await ctx.banco.collection('conversas_ia').findOne({ userId: IDS['u-aluno1'] });
+      assert.equal(diasEntre(conv.atualizadaEm, conv.expiraEm), 180);
+      const tr = await ctx.banco.collection('ia_trilha').findOne({ userId: IDS['u-aluno1'] });
+      assert.equal(diasEntre(tr.em, tr.expiraEm), 730);
     } finally { await fechar(ctx.server); }
   });
 });

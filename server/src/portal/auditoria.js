@@ -10,11 +10,18 @@
 //   Para as ações COM asterisco de §3.4.
 // - mudancas(antes, depois, campos): [{ campo, de, para }] só do que
 //   mudou, com o mascaramento de §3.3 (CPF, passaporte, RG, gênero,
-//   etnia, foto, senhas, chaves e segredos → '(alterado)').
+//   etnia, foto, senhas, chaves e segredos → '(alterado)') e também
+//   nome social e redes sociais: dependem de consentimento e são
+//   apagados na revogação (§6.3.1), então a trilha — só de inserção e
+//   sem TTL — nunca guarda o valor (LGPD art. 6º III, art. 16, art. 18 VI).
+// - mascararMudancasLegadas({ repo, aplicar }): migração idempotente
+//   que mascara registros gravados antes da regra (scripts/mascarar-auditoria.js).
 //
 // Só inserção: nenhuma rota altera ou apaga registro (só estado,
-// concluidoEm e erro mudam, uma vez). Ator vem do req (papelDe e IP
-// truncado); req null = sistema.
+// concluidoEm e erro mudam, uma vez). A única exceção é a migração
+// acima, que só troca valores sensíveis de `mudancas` por '(alterado)'
+// e deixa o rastro `auditoria.registros_mascarados`. Ator vem do req
+// (papelDe e IP truncado); req null = sistema.
 // =============================================================
 import { ObjectId } from 'mongodb';
 import { papelDe } from './papeis.js';
@@ -25,8 +32,15 @@ export const MASCARA = '(alterado)';
 export const ACAO_RE = /^[a-z][a-z0-9_]*\.[a-z0-9][a-z0-9_]*$/;
 export const ESTADOS_AUDITORIA = Object.freeze(['registrado', 'concluido', 'falhou']);
 
-// Campo sensível em qualquer nível do caminho ('perfil.cpf', 'rg.numero', 'passaporte', 'segredo2fa'…).
-const SENSIVEL_RE = /^(cpf|passaporte.*|rg.*|genero|etnia|foto.*|.*senha.*|.*segredo.*|chave.*|apikey|.*token.*|codigos)$/i;
+// Campo sensível em qualquer nível do caminho ('perfil.cpf', 'rg.numero', 'passaporte', 'segredo2fa',
+// 'redes.instagram'…). `nomeSocial` e `redes*`: dado por consentimento, apagado na revogação.
+const PARTES_SENSIVEIS = Object.freeze([
+  'cpf', 'passaporte.*', 'rg.*', 'genero', 'etnia', 'foto.*', '.*senha.*', '.*segredo.*', 'chave.*', 'apikey', '.*token.*', 'codigos',
+  'nomesocial', 'redes.*'
+]);
+const SENSIVEL_RE = new RegExp(`^(${PARTES_SENSIVEIS.join('|')})$`, 'i');
+// Mesmo critério sobre o caminho inteiro, para o filtro do Mongo na migração (superconjunto; o JS confere).
+const SENSIVEL_NO_CAMINHO = `(^|\\.)(${PARTES_SENSIVEIS.map(p => p.replace(/\.\*/g, '[^.]*')).join('|')})(\\.|$)`;
 
 /** O campo grava '(alterado)' em vez do valor (API §3.3). */
 export function campoSensivel(campo) {
@@ -185,4 +199,45 @@ export function criarAuditoria({ repo, agora = () => new Date(), log = console }
   }
 
   return Object.freeze({ registrar, executar, mudancas: calcularMudancas });
+}
+
+/** A entrada de `mudancas` guarda valor de campo sensível (gravada antes da regra atual)? */
+function entradaExposta(m) {
+  return !!m && typeof m.campo === 'string' && campoSensivel(m.campo) && (m.de !== MASCARA || m.para !== MASCARA);
+}
+
+/**
+ * Migração dos registros antigos (achado G2, LGPD): troca por '(alterado)' o `de`/`para` de toda
+ * entrada de campo sensível que ainda guarda valor — na prática `nomeSocial` e `redes.*`, gravados
+ * em claro antes da regra. Só `mudancas` muda; as demais entradas ficam idênticas. Idempotente.
+ * Simulação por padrão (só lê). Com `aplicar` e algo mascarado, deixa o rastro
+ * `auditoria.registros_mascarados` (ator sistema, `extra:{ registros, entradas }`).
+ * @param {{ repo: (nome: string) => object, aplicar?: boolean, agora?: () => Date, log?: Console }} deps
+ * @returns {Promise<{ aplicar: boolean, candidatos: number, entradas: number, mascarados: number }>}
+ */
+export async function mascararMudancasLegadas({ repo, aplicar = false, agora = () => new Date(), log = console } = {}) {
+  if (typeof repo !== 'function') throw new TypeError('mascararMudancasLegadas: informe repo(nome).');
+  const r = { aplicar: !!aplicar, candidatos: 0, entradas: 0, mascarados: 0 };
+  const cursor = repo('auditoria').find(
+    { 'mudancas.campo': { $regex: SENSIVEL_NO_CAMINHO, $options: 'i' } },
+    { projection: { _id: 1, mudancas: 1 } }
+  );
+  for await (const d of cursor) {
+    if (!Array.isArray(d.mudancas)) continue;
+    const expostas = d.mudancas.filter(entradaExposta).length;
+    if (!expostas) continue;
+    r.candidatos++;
+    r.entradas += expostas;
+    if (!aplicar) continue;
+    const novas = d.mudancas.map(m => (entradaExposta(m) ? { campo: m.campo, de: MASCARA, para: MASCARA } : m));
+    const u = await repo('auditoria').updateOne({ _id: d._id }, { $set: { mudancas: novas } });
+    if (u && u.matchedCount) r.mascarados++;
+  }
+  if (aplicar && r.mascarados) {
+    await criarAuditoria({ repo, agora, log }).registrar({
+      acao: 'auditoria.registros_mascarados', entidade: { tipo: 'auditoria', id: 'mascaramento-legado' },
+      extra: { registros: r.mascarados, entradas: r.entradas }
+    }, null);
+  }
+  return r;
 }

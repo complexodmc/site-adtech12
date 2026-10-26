@@ -125,14 +125,21 @@ export const ARQUIVOS_DE_PAGINAS = Object.freeze({
  * declarada como de outra fatia, página própria repetida e URL repetida.
  * Entrada própria (hospedeira falsa) de uma página que já está em PAGINAS_BASE com a mesma
  * fatia SUBSTITUI a da base (é como a fatia ensina a abrir uma página que exige id).
- * Opções: `{ dir }` (testes do próprio helper), `{ fatia }` (filtra por QA_FATIA).
+ * QA_ESTRITO=1 (G2) não tolera ausência: os 12 arquivos de ARQUIVOS_DE_PAGINAS presentes em
+ * `dir` (com `arquivos` explícito, só os citados) e toda página das entradas no disco (`ead`).
+ * Opções: `{ dir, ead }` (testes do próprio helper), `{ fatia }` (filtra por QA_FATIA),
+ * `{ estrito }` (padrão: QA_ESTRITO=1).
  */
-export async function paginasDoPortal({ dir = path.dirname(fileURLToPath(import.meta.url)), fatia = null, arquivos = null } = {}) {
+export async function paginasDoPortal({ dir = path.dirname(fileURLToPath(import.meta.url)), fatia = null, arquivos = null, estrito = process.env.QA_ESTRITO === '1', ead = EAD_DISCO } = {}) {
   const base = new Map(PAGINAS_BASE.map((e) => [e.pagina, { ...e, origem: 'PAGINAS_BASE', hospedeira: false }]));
   const extras = [];
   const proprias = new Map(); // pagina → arquivo que a declarou
   const urls = new Map();
   const nomes = arquivos || fs.readdirSync(dir).filter((n) => /^portal-.+\.paginas\.js$/.test(n)).sort();
+  if (estrito && !arquivos) {
+    const faltam = Object.keys(ARQUIVOS_DE_PAGINAS).filter((n) => !nomes.includes(n));
+    if (faltam.length) throw new Error(`paginasDoPortal (QA_ESTRITO): arquivo de páginas ausente: ${faltam.map((n) => `${n} (${ARQUIVOS_DE_PAGINAS[n]})`).join(', ')}.`);
+  }
   for (const nome of nomes) {
     const dona = ARQUIVOS_DE_PAGINAS[nome];
     if (!dona) throw new Error(`paginasDoPortal: ${nome} não está na lista de arquivos de páginas (D-74).`);
@@ -164,6 +171,10 @@ export async function paginasDoPortal({ dir = path.dirname(fileURLToPath(import.
     }
   }
   const todas = [...base.values(), ...extras];
+  if (estrito) {
+    const ausentes = [...new Set(todas.map((e) => e.pagina))].filter((pg) => !fs.existsSync(path.join(ead, pg)));
+    if (ausentes.length) throw new Error(`paginasDoPortal (QA_ESTRITO): página que não existe no disco: ${ausentes.join(', ')}.`);
+  }
   return fatia ? todas.filter((e) => e.fatia === fatia) : todas;
 }
 
@@ -360,8 +371,11 @@ export async function donoDoAsset(url) {
 // corpo do 404 pelo MIME): vale como o 404 da URL citada, SÓ se essa URL de fato
 // respondeu 404 nesta página (pedido via principal, integração 18/10);
 // (d) pageerror/console.error com origem (URL do script) num asset dessas fatias;
-// e o que o caso declara com esperar(page, { status, url }). QA_ESTRITO=1 → não
-// tolera nada além do declarado. 3xx/2xx nunca contam.
+// e o que o caso declara com esperar(page, { status, url }). QA_ESTRITO=1 (G2, §8.6
+// item 3) → não tolera nada além do declarado: ignora QA_INTEGRADAS, confere todos os
+// tipos (o filtro `tipos` de verificar() não vale) e conta como 'rede' a requisição que
+// falhou sem resposta (exceto ERR_ABORTED de navegação), que esperar({ url }) sem
+// status também declara. 3xx/2xx nunca contam.
 // ---------------------------------------------------------------------------
 const _monitores = new WeakMap();
 /** Mensagem do Chromium quando um <link>/<script> recebe corpo com MIME errado (ex.: o 404 em text/plain). */
@@ -433,8 +447,10 @@ export function monitorarConsoleERede(page, { fatia = process.env.QA_FATIA || nu
       const recusa = String(c.texto).match(RECUSA_MIME_RE);
       if (recusa) {
         const alvo = recusa[1];
-        // O Chromium nem sempre emite 'response' para a folha de estilo recusada: sem
-        // status registrado, confere a própria URL (GET, mesma sessão do contexto).
+        // Para a folha de estilo recusada o Chromium não emite 'response' (nem pelo CDP:
+        // a carga termina em ERR_ABORTED e o Resource Timing dá responseStatus 0): sem
+        // status registrado, confere a própria URL (GET, mesma sessão do contexto). Esse
+        // GET não passa pelo page.route do caso: vale o que o servidor responde de fato.
         let st = statusPorUrl.has(alvo) ? statusPorUrl.get(alvo) : null;
         if (st == null) {
           try { st = (await page.request.get(alvo, { maxRedirects: 0, timeout: 5_000 })).status(); } catch { st = null; }
@@ -469,6 +485,13 @@ export function monitorarConsoleERede(page, { fatia = process.env.QA_FATIA || nu
       }
       inesperadas.push({ tipo: 'pageerror', ...p, origem });
     }
+    // Falha de rede sem resposta (DNS, conexão, CORS, bloqueio): só conta no G2 (QA_ESTRITO).
+    if (estrito) {
+      for (const f of reg.falhas) {
+        const e = ehEsperada({ url: f.url, status: null, metodo: f.metodo });
+        if (e) declaradas.push({ tipo: 'rede', ...f }); else inesperadas.push({ tipo: 'rede', ...f });
+      }
+    }
     return { inesperadas, toleradas, declaradas, falhasDeRede: reg.falhas.slice() };
   }
 
@@ -480,14 +503,15 @@ export function monitorarConsoleERede(page, { fatia = process.env.QA_FATIA || nu
     classificar,
     /**
      * Confere. `tipos` limita a verificação (ex.: ['pageerror']); padrão = tudo (D-73).
+     * Com QA_ESTRITO (G2) o filtro não vale: confere tudo, inclusive 'console' e 'rede'.
      * Devolve a classificação; com `lancar` (padrão) reprova se houver inesperadas.
      */
     async verificar({ tipos = null, lancar = true, rotulo = 'console e rede' } = {}) {
       const c = await classificar();
-      const alvo = tipos ? c.inesperadas.filter((i) => tipos.includes(i.tipo)) : c.inesperadas;
+      const alvo = tipos && !estrito ? c.inesperadas.filter((i) => tipos.includes(i.tipo)) : c.inesperadas;
       if (lancar) {
         expect(alvo, `${rotulo}: ocorrências inesperadas (fatia ${fatia || '—'}, integradas ${[...integradas].join(',') || '—'}${estrito ? ', QA_ESTRITO' : ''}):\n` +
-          alvo.map((i) => `  [${i.tipo}] ${i.status || ''} ${i.metodo || ''} ${i.url || i.origem || ''} ${i.texto || i.mensagem || ''}`.replace(/\s+/g, ' ')).join('\n')).toEqual([]);
+          alvo.map((i) => `  [${i.tipo}] ${i.status || ''} ${i.metodo || ''} ${i.url || i.origem || ''} ${i.texto || i.mensagem || i.erro || ''}`.replace(/\s+/g, ' ')).join('\n')).toEqual([]);
       }
       return c;
     },

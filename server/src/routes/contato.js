@@ -28,6 +28,35 @@ export const EIXOS = Object.freeze({
   'nao-sei': 'Ainda não sei'
 });
 
+// Verticais de Negócio (/verticais-de-negocio/**): o formulário qualifica
+// pelo segmento, pelo porte e pelo evento. Listas = tools/verticais/dados.mjs.
+export const SEGMENTOS = Object.freeze({
+  'familias-empresarias-holdings': { nome: 'Famílias Empresárias, Holdings e Grandes Patrimônios', eixo: 'E1', perfil: 'familia-empresaria' },
+  'agronegocio-patrimonio-rural': { nome: 'Agronegócio e Patrimônio Rural', eixo: 'E1', perfil: 'produtor-rural' },
+  'incorporacao-construcao-imobiliario': { nome: 'Incorporação, Construção Civil e Mercado Imobiliário', eixo: 'E3', perfil: 'incorporadora-construtora' },
+  'cartorios-servicos-registrais': { nome: 'Cartórios e Serviços Notariais e Registrais', eixo: 'E3', perfil: 'outro' },
+  'infraestrutura-saneamento-energia': { nome: 'Infraestrutura, Saneamento e Energia', eixo: 'E3', perfil: 'empresario' },
+  'industria-comercio-distribuicao': { nome: 'Indústria, Comércio e Distribuição', eixo: 'E2', perfil: 'empresario' },
+  'saude-profissionais-liberais': { nome: 'Saúde e Profissionais Liberais de Alta Renda', eixo: 'E4', perfil: 'empresario' },
+  'educacao-terceiro-setor': { nome: 'Educação e Terceiro Setor', eixo: 'E4', perfil: 'outro' },
+  'credito-garantias-instituicoes-financeiras': { nome: 'Crédito, Garantias e Instituições Financeiras', eixo: 'E5', perfil: 'investidor' },
+  'outro': { nome: 'Outro segmento', eixo: 'nao-sei', perfil: 'outro' }
+});
+export const FATURAMENTOS = Object.freeze({
+  'ate-5mi': 'Até R$ 5 mi', '5-20mi': 'R$ 5–20 mi', '20-50mi': 'R$ 20–50 mi', '50-300mi': 'R$ 50–300 mi',
+  'acima-300mi': 'Acima de R$ 300 mi', 'pessoa-fisica': 'Pessoa física / família'
+});
+export const PATRIMONIOS = Object.freeze({
+  'ate-10mi': 'Até R$ 10 mi', '10-50mi': 'R$ 10–50 mi', '50-200mi': 'R$ 50–200 mi', 'acima-200mi': 'Acima de R$ 200 mi',
+  'nao-informar': 'Prefiro não informar'
+});
+export const MOTIVOS = Object.freeze({
+  'sucessao-inventario': 'Sucessão ou inventário', 'planejamento-patrimonial': 'Planejamento patrimonial',
+  'fiscalizacao-passivo': 'Fiscalização ou passivo tributário', 'regularizacao-imovel': 'Regularização de imóvel ou estoque',
+  'bloqueio-recuperacao': 'Bloqueio judicial ou recuperação de ativos', 'auditoria-contas': 'Auditoria ou prestação de contas',
+  'trabalhista': 'Questão trabalhista', 'tecnologia-cartorio': 'Tecnologia para cartório', 'outro': 'Outro'
+});
+
 export const LIMITES = Object.freeze({
   nome: 120,
   email: 254,
@@ -86,6 +115,9 @@ export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 //   eixo e mensagem — obrigatórios, exceto quando `curso` vem preenchido
 //   (cadastro de interesse em treinamento)
 //   telefone, empresa, curso, origem — opcionais
+//   segmento, faturamento, patrimonio, motivo — opcionais (Verticais de
+//   Negócio); com `segmento` válido, perfil e eixo são derivados dele
+//   quando não vêm, e a mensagem passa a ser opcional (vai um resumo).
 export function validarContato(corpo) {
   const c = corpo && typeof corpo === 'object' && !Array.isArray(corpo) ? corpo : {};
   const erros = {};
@@ -131,15 +163,33 @@ export function validarContato(corpo) {
   else if (curso) dados.curso = curso;
   const interesseEmCurso = Boolean(dados.curso);
 
-  // perfil
-  const perfil = texto(c.perfil);
+  // segmento (opcional) — Verticais de Negócio
+  const segmento = texto(c.segmento);
+  if (segmento === null) erros.segmento = ERRO_TIPO;
+  else if (segmento && !Object.hasOwn(SEGMENTOS, chave(segmento))) erros.segmento = 'Segmento inválido. Escolha uma das opções da lista.';
+  else if (segmento) dados.segmento = chave(segmento);
+  const vertical = dados.segmento ? SEGMENTOS[dados.segmento] : null;
+
+  // faturamento, patrimonio, motivo (opcionais; só valores das listas)
+  const lista = (nome, tabela, rotulo) => {
+    const v = texto(c[nome]);
+    if (v === null) erros[nome] = ERRO_TIPO;
+    else if (v && !Object.hasOwn(tabela, chave(v))) erros[nome] = `${rotulo} inválido. Escolha uma das opções da lista.`;
+    else if (v) dados[nome] = chave(v);
+  };
+  lista('faturamento', FATURAMENTOS, 'Faturamento');
+  lista('patrimonio', PATRIMONIOS, 'Patrimônio');
+  lista('motivo', MOTIVOS, 'Motivo');
+
+  // perfil (derivado do segmento quando não vem)
+  const perfil = texto(c.perfil) || (vertical ? vertical.perfil : '');
   if (perfil === null) erros.perfil = ERRO_TIPO;
   else if (!perfil) erros.perfil = 'Selecione o seu perfil.';
   else if (!Object.hasOwn(PERFIS, chave(perfil))) erros.perfil = 'Perfil inválido. Escolha uma das opções da lista.';
   else dados.perfil = chave(perfil);
 
-  // eixo
-  const eixo = texto(c.eixo);
+  // eixo (derivado do segmento quando não vem)
+  const eixo = texto(c.eixo) || (vertical ? vertical.eixo : '');
   if (eixo === null) erros.eixo = ERRO_TIPO;
   else if (!eixo) {
     if (!interesseEmCurso) erros.eixo = 'Selecione o assunto do contato (ou "Ainda não sei").';
@@ -153,7 +203,7 @@ export function validarContato(corpo) {
   const mensagem = texto(c.mensagem, { multilinha: true });
   if (mensagem === null) erros.mensagem = ERRO_TIPO;
   else if (!mensagem) {
-    if (!interesseEmCurso) erros.mensagem = 'Escreva sua mensagem.';
+    if (!interesseEmCurso && !vertical) erros.mensagem = 'Escreva sua mensagem.';
   } else if (mensagem.length < MENSAGEM_MIN) {
     erros.mensagem = `Mensagem muito curta (mínimo de ${MENSAGEM_MIN} caracteres).`;
   } else if (mensagem.length > LIMITES.mensagem) {
@@ -237,7 +287,9 @@ export function criarNotificadorEmail({
 }
 
 export function assuntoEmail(lead) {
-  const tipo = lead.curso ? 'Interesse em treinamento' : 'Novo contato pelo site';
+  const tipo = lead.curso ? 'Interesse em treinamento'
+    : lead.segmento ? `Lead de vertical — ${(SEGMENTOS[lead.segmento] || {}).nome || lead.segmento}`
+    : 'Novo contato pelo site';
   return `${tipo} — ${lead.nome}`.replace(/[\r\n]+/g, ' ').slice(0, 180);
 }
 
@@ -251,6 +303,12 @@ export function corpoEmail(lead) {
     `Assunto: ${lead.eixo ? EIXOS[lead.eixo] : '—'}`
   ];
   if (lead.curso) linhas.push(`Treinamento: ${lead.curso}`);
+  if (lead.segmento) {
+    linhas.push(`Segmento: ${(SEGMENTOS[lead.segmento] || {}).nome || lead.segmento} (${lead.segmento})`);
+    linhas.push(`Faturamento anual: ${FATURAMENTOS[lead.faturamento] || '—'}`);
+    linhas.push(`Patrimônio envolvido: ${PATRIMONIOS[lead.patrimonio] || '—'}`);
+    linhas.push(`Motivo do contato: ${MOTIVOS[lead.motivo] || '—'}`);
+  }
   linhas.push(`Origem: ${lead.origem}`, `Recebido em: ${lead.createdAt.toISOString()}`, '', 'Mensagem:', lead.mensagem || '—');
   return linhas.join('\n');
 }

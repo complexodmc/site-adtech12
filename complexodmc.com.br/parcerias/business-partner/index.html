@@ -41,11 +41,11 @@
   <link rel="stylesheet" href="../../pages/css/shared.css?v=3">
   <link rel="stylesheet" href="../../pages/css/eixos.css?v=4">
   <link rel="stylesheet" href="../../assets/css/components.css?v=3">
-  <link rel="stylesheet" href="../../assets/css/parcerias.css?v=1">
+  <link rel="stylesheet" href="../../assets/css/parcerias.css?v=3">
 
-  <script src="../../assets/js/navbar.js?v=c4" defer></script>
+  <script src="../../assets/js/navbar.js?v=c5" defer></script>
   <script src="../../assets/js/video.js?v=1" defer></script>
-  <script src="../../assets/js/parcerias.js?v=1" defer></script>
+  <script src="../../assets/js/parcerias.js?v=2" defer></script>
 
   <!-- FAQPage: o mesmo texto das perguntas visíveis, palavra por palavra. -->
   <script type="application/ld+json">
@@ -118,8 +118,16 @@
     <!-- ============================== 1 · HERÓI ==============================
          ≥1024px: véu com corte diagonal e fio em bronze (::before/::after, parcerias.css). -->
     <section class="pp-hero" id="hero" aria-labelledby="hero-titulo">
+      <!-- Cartaz (LCP) + filme da mesma cena com a câmera em arco curto, gerado por
+           tools/media/parcerias/render-video.mjs --scene bp. O laço fecha sem corte e o
+           cartaz é o quadro 0. Sem som, sem controles; com prefers-reduced-motion nenhum
+           <source> casa e fica só o cartaz. A grade decorativa de .pp-bp fica por cima. -->
       <div class="pp-hero__media" aria-hidden="true">
         <img src="../../assets/images/parcerias/bp-hero.webp" srcset="../../assets/images/parcerias/bp-hero-960.webp 960w, ../../assets/images/parcerias/bp-hero.webp 1920w" sizes="100vw" width="1920" height="1080" alt="" fetchpriority="high" decoding="async">
+        <video class="pp-hero__filme" autoplay muted loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback tabindex="-1" width="1600" height="900">
+          <source src="../../assets/videos/parcerias-bp-hero.webm" type="video/webm" media="(prefers-reduced-motion: no-preference)">
+          <source src="../../assets/videos/parcerias-bp-hero.mp4" type="video/mp4" media="(prefers-reduced-motion: no-preference)">
+        </video>
       </div>
       <div class="dmc-wrap">
         <div class="pp-hero__inner">
@@ -514,12 +522,11 @@
           <ul class="dmc-footer__list">
             <li><a href="../../pages/sobre.html">Sobre o Complexo DMC</a></li>
             <li><a href="../../#features">Soluções</a></li>
-            <li><a href="../../#treinamentos">Treinamentos</a></li>
+            <li><a href="../../verticais-de-negocio/">Segmentos</a></li>
             <li><a href="../../pages/tecnologia.html">Tecnologia</a></li>
             <li><a href="../../parcerias/">Parcerias</a></li>
             <li><a href="../../pages/por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
             <li><a href="../../plataforma-ead/login.html">DMC Business School</a></li>
-            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">ADTECH</a></li>
           </ul>
         </nav>
 

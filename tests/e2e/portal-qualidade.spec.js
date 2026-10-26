@@ -14,7 +14,13 @@
 // Por página: rolagem horizontal em 320, 375, 390, 768, 1024, 1440 e 1920, níveis 0 e 2 de texto,
 // com a gaveta do menu e os diálogos da página abertos; alto contraste (forced-colors) capturado.
 // Impressão (onde houver documento): shell oculto, tinta escura e o QR conferido por _qr.js.
-// Só no G2 (QA_ESTRITO=1): links internos 200 e `?v=` igual ao hash (versionar-ead.mjs).
+// Só no G2 (QA_ESTRITO=1): toda entrada de paginasDoPortal() com caso (fora a 2d), CSP aplicada
+// (Content-Security-Policy, não só report-only), links internos 200 e `?v=` igual ao hash.
+//
+// Casos e rótulos: um caso por entrada de paginasDoPortal() × estado, sem descartar nenhuma. O
+// rótulo é o modelo da URL que o caso abre, com `:chave` no lugar do valor semeado (ex.:
+// "professor.html#/avaliacoes/:avaliacaoId/previa (portal-avaliacoes.paginas.js, hospedeira)"):
+// a mesma página hospedeira com URLs diferentes nunca repete título (montarCasos, modeloDaUrl).
 //
 // Escopo (D-62, D-67, D-74):
 //   QA_FATIA=<fatia> → só as entradas com fatia === QA_FATIA (páginas próprias e hospedeiras);
@@ -24,13 +30,15 @@
 //   QA_ESTRITO=1     → tudo, sem tolerância (G2).
 // Páginas da sessão 2d (login.html, login-classico.html) ficam fora: não são desta rodada.
 //
-// Comandos (portas da F0r na fase 0: 4634 manual / 4648 Playwright, §9.1):
+// Comandos (portas da F0r na fase 0: 4634 manual / 4648 Playwright; na fase 2, 4636 / 4650, §9.1):
 //   QA_PORT=4648 QA_WORKERS=2 QA_DATA=<data>-f0r npx playwright test tests/e2e/portal-qualidade.spec.js
 //   QA_PORT=4648 QA_FATIA=F0r QA_DATA=<data>-f0r npx playwright test tests/e2e/portal-qualidade.spec.js
+//   QA_PORT=4650 QA_WORKERS=3 QA_ESTRITO=1 QA_DATA=<data>-g2 npx playwright test tests/e2e/portal-qualidade.spec.js
 // Evidências: docs/dmc/qa/<QA_DATA>/qualidade/ (fora do git, T4).
 // =============================================================
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import * as P from './_portal.js';
@@ -61,7 +69,11 @@ const PUBLICAS_EM_PAPEL = ['certificado.html', 'validar.html', 'declaracao.html'
 const ARQ_ESTATICO = path.join(P.RAIZ, 'server', 'test', 'front-estatico.test.js');
 export function lerPendentesFase1(texto = fs.readFileSync(ARQ_ESTATICO, 'utf8')) {
   const m = texto.match(/const PENDENTES_FASE_1 = Object\.freeze\(\{([\s\S]*?)\}\);/);
-  if (!m) throw new Error('PENDENTES_FASE_1 não encontrada em server/test/front-estatico.test.js');
+  // No G2 a lista fica vazia e a principal pode apagar a constante (§8.2 item 3): nada pendente.
+  if (!m) {
+    if (!/PENDENTES_FASE_1/.test(texto)) return {};
+    throw new Error('PENDENTES_FASE_1 em formato inesperado em server/test/front-estatico.test.js');
+  }
   return Object.fromEntries([...m[1].matchAll(/['"]([^'"]+)['"]\s*:\s*['"](F\w+)['"]/g)].map((x) => [x[1], x[2]]));
 }
 const COR_BARRADA = /#(?:00e7fc|00ff4d|00b8cc|00cfb6|00f5b4|0a7d8c)\b|rgba?\(\s*0\s*,\s*(?:231|255)\b|\bstyle\s*=\s*["'][^"']*\b(?:color|background|border)|\.style\.(?:color|background|backgroundColor|borderColor)\s*=/i;
@@ -125,30 +137,71 @@ const URL_DA_BASE = {
   'obrigado.html': (c) => `obrigado.html?cursos=${encodeURIComponent(c.cursoCarrinhoId)}&email=${encodeURIComponent(c.email)}&total=${c.precoCarrinho}`,
 };
 /** Estados extras das páginas da F0r (UX §6.19). */
+const PROTOCOLO_QA = 'ATD-2026-QAPRTB';
+/** Estado com `url` abre a própria URL (e é ela que vai ao rótulo do caso). */
 const ESTADOS = {
   'loja.html': [{ nome: 'padrao' }, { nome: 'carrinho', carrinho: true }],
-  'obrigado.html': [{ nome: 'sem-pedido' }, { nome: 'registrado', registrado: true }],
+  'obrigado.html': [{ nome: 'sem-pedido' }, { nome: 'registrado', registrado: true, url: () => `obrigado.html?protocolo=${PROTOCOLO_QA}` }],
 };
-const PROTOCOLO_QA = 'ATD-2026-QAPRTB';
 const PAGINAS_DE_DOCUMENTO = new Set(['certificado.html', 'declaracao.html', 'comprovantes.html', 'contrato.html', 'academico.html', 'financeiro.html', 'regulamento.html']);
 
-const CASOS = [];
-const vistos = new Set();
-for (const e of ENTRADAS) {
-  const modo = modoDa(e);
-  if (!modo) continue;
-  const id = `${e.pagina}${e.origem && e.origem !== 'PAGINAS_BASE' ? ` (${e.origem}${e.hospedeira ? ', hospedeira' : ''})` : ''}`;
-  for (const est of ESTADOS[e.pagina] && e.origem === 'PAGINAS_BASE' ? ESTADOS[e.pagina] : [{ nome: 'padrao' }]) {
-    const chave = `${id}#${est.nome}#${typeof e.url === 'function' ? e.url({}) : e.url}`;
-    if (vistos.has(chave)) continue;
-    vistos.add(chave);
-    CASOS.push({ entrada: e, modo, estado: est, rotulo: `${id}${est.nome !== 'padrao' ? ` · ${est.nome}` : ''}`, urlRotulo: chave.split('#').slice(2).join('#') });
+/**
+ * Chaves que o beforeAll põe em S.ctx (conferidas lá). O rótulo do caso mostra o modelo da URL
+ * com `:chave` no lugar de cada valor semeado; entrada com `preparar` semeia as próprias chaves.
+ */
+const CHAVES_CTX = Object.freeze(['cursoId', 'moduloId', 'aulaId', 'codigo', 'matriculaId', 'avaliacaoId', 'cursoCarrinhoId', 'precoCarrinho', 'tituloCarrinho', 'email']);
+
+/**
+ * Modelo da URL que o caso abre, calculado antes das sementes: a url(ctx) da entrada (ou a
+ * URL_DA_BASE) recebe um ctx em que cada chave conhecida vale ":chave". Devolve o caminho
+ * relativo à plataforma, já decodificado (ex.: professor.html#/avaliacoes/:avaliacaoId/previa).
+ */
+export function modeloDaUrl(e, { chaves = CHAVES_CTX } = {}) {
+  const todas = typeof e.preparar === 'function';
+  const conhecida = (k) => typeof k === 'string' && (todas || chaves.includes(k));
+  const ctx = new Proxy({}, { get: (_, k) => (conhecida(k) ? `:${k}` : undefined), has: (_, k) => conhecida(k) });
+  let u;
+  try {
+    u = e.origem === 'PAGINAS_BASE' && URL_DA_BASE[e.pagina] ? URL_DA_BASE[e.pagina](ctx)
+      : typeof e.url === 'function' ? e.url(ctx) : (e.url || e.pagina);
+  } catch (err) {
+    u = `${e.pagina}?url-invalida=${String(err && err.message).slice(0, 40)}`;
   }
+  u = String(u);
+  try { u = decodeURIComponent(u); } catch { /* fica como veio */ }
+  return u.replace(/^(?:https?:\/\/[^/]+)?\/?(?:plataforma-ead\/)?/, '');
 }
-// Rótulo único: uma fatia pode hospedar várias telas na mesma página (professor.html#/…), e o
-// Playwright recusa título repetido. Só o rótulo repetido ganha a URL; os demais não mudam.
-const REPETIDOS = new Set(CASOS.map((c) => c.rotulo).filter((r, i, a) => a.indexOf(r) !== i));
-for (const c of CASOS) if (REPETIDOS.has(c.rotulo)) c.rotulo += ` · ${c.urlRotulo}`;
+
+/**
+ * Um caso por entrada × estado, SEM descartar nenhuma (antes, duas entradas cujo url({}) caía
+ * no mesmo fallback viravam uma só e a outra sumia do G2). O rótulo é o modelo da URL + a origem:
+ * a mesma página hospedeira com URLs diferentes ganha rótulos diferentes. Rótulo que ainda assim
+ * repetir (a fatia declarou a mesma URL duas vezes) ganha " (n)" para o Playwright carregar, e o
+ * caso "rótulos únicos" reprova apontando o arquivo.
+ */
+export function montarCasos(entradas, { modo = modoDa } = {}) {
+  const casos = [];
+  for (const e of entradas) {
+    const m = modo(e);
+    if (!m) continue;
+    const url = modeloDaUrl(e);
+    const origem = e.origem && e.origem !== 'PAGINAS_BASE' ? ` (${e.origem}${e.hospedeira ? ', hospedeira' : ''})` : '';
+    for (const est of ESTADOS[e.pagina] && e.origem === 'PAGINAS_BASE' ? ESTADOS[e.pagina] : [{ nome: 'padrao' }]) {
+      const u = est.url ? est.url() : url;
+      casos.push({ entrada: e, modo: m, estado: est, urlModelo: u, rotulo: `${u}${origem}${est.nome !== 'padrao' ? ` · ${est.nome}` : ''}` });
+    }
+  }
+  const contagem = new Map();
+  const colisoes = [];
+  for (const c of casos) {
+    const n = (contagem.get(c.rotulo) || 0) + 1;
+    contagem.set(c.rotulo, n);
+    if (n > 1) { colisoes.push(`${c.rotulo} (${c.entrada.origem || 'PAGINAS_BASE'})`); c.rotulo = `${c.rotulo} (${n})`; }
+  }
+  return { casos, colisoes };
+}
+
+const { casos: CASOS, colisoes: COLISOES } = montarCasos(ENTRADAS);
 
 // ---------------------------------------------------------------------------
 // Sementes (por worker): aluno com curso liberado, curso para o carrinho, certificado emitido,
@@ -166,14 +219,46 @@ test.beforeAll(async ({ request }) => {
   const cert = await P.api(request, r9b.aluno.token).post(`/api/cursos/${r9b.curso.cursoId}/certificado`, {});
   const codigo = cert.json && (cert.json.codigo || (cert.json.certificado && cert.json.certificado.codigo)) || null;
   const [professor, admin] = await Promise.all([P.criarUsuario(request, { papel: 'professor' }), P.criarUsuario(request, { papel: 'admin' })]);
+  // Matrícula do aluno no curso, docência do professor e uma avaliação modular publicada: as
+  // URLs hospedeiras da F2 (player e professor.html#/avaliacoes/:avaliacaoId/…) e o
+  // academico.html?m= da F3a abrem a tela real, não o fallback (D-74).
+  const matriculaId = await P.comBanco(request, async (db) => {
+    const agora = new Date();
+    await db.collection('docencias').insertOne({ userId: professor.id, cursoId: curso.cursoId, turmaId: null, criadoEm: agora, criadoPor: 'qa-qualidade' });
+    const r = await db.collection('matriculas').insertOne({
+      numero: `MAT-2026-${crypto.randomBytes(3).toString('hex').toUpperCase()}`, userId: r9b.aluno.id, cursoId: curso.cursoId, turmaId: null,
+      status: 'ativa', vigente: true, inicioEm: agora, origem: 'liberacao', contratoId: null, enturmacoes: [],
+      historico: [{ status: 'ativa', em: agora, por: 'qa-qualidade' }], versao: 1, criadoEm: agora, atualizadoEm: agora,
+    });
+    return String(r.insertedId);
+  });
+  const avaliacaoId = await semearAvaliacao(request, professor, curso.moduloId);
   S = {
     aluno: r9b.aluno, professor, admin,
     ctx: {
-      cursoId: curso.cursoId, moduloId: curso.moduloId, aulaId: curso.aulas[0].id, codigo,
+      cursoId: curso.cursoId, moduloId: curso.moduloId, aulaId: curso.aulas[0].id, codigo, matriculaId, avaliacaoId,
       cursoCarrinhoId: carrinho.cursoId, precoCarrinho: '890.00', tituloCarrinho: carrinho.titulo, email: r9b.aluno.email,
     },
   };
+  expect(Object.keys(S.ctx).sort(), 'CHAVES_CTX descreve o que o beforeAll semeia').toEqual([...CHAVES_CTX].sort());
 });
+
+/** Avaliação modular publicada pela API do professor (F2). Sem a F2 montada: null (a URL cai no fallback da fatia). */
+async function semearAvaliacao(request, professor, moduloId) {
+  const api = P.api(request, professor.token);
+  const r = await api.post(`/api/portal/professor/modulos/${moduloId}/avaliacoes`, {
+    tipo: 'modular', titulo: 'Atividade modular de QA (qualidade)', instrucoes: 'Responda com atenção.',
+    sorteio: { objetivas: 1, dissertativas: 0 }, tentativasMax: 2, tempoLimiteMin: null, embaralharAlternativas: false,
+  });
+  if (r.status !== 201) return null;
+  const id = r.json.avaliacao.id;
+  const q = await api.post(`/api/portal/professor/avaliacoes/${id}/questoes`, {
+    tipo: 'objetiva', enunciado: 'Pergunta objetiva de QA', alternativas: [{ texto: 'Alternativa A' }, { texto: 'Alternativa B' }], corretaId: 'b', explicacao: 'Comentário do gabarito.',
+  });
+  if (q.status !== 201) return id;
+  await api.post(`/api/portal/professor/avaliacoes/${id}/publicar`, {});
+  return id;
+}
 
 function tokenDo(papel) {
   if (!S || papel === 'anonimo' || papel == null) return null;
@@ -182,7 +267,7 @@ function tokenDo(papel) {
 
 function urlDoCaso(c, ctx) {
   const e = c.entrada;
-  if (c.estado.registrado) return `${EAD}obrigado.html?protocolo=${PROTOCOLO_QA}`;
+  if (c.estado.url) return EAD + c.estado.url();
   if (e.origem === 'PAGINAS_BASE' && URL_DA_BASE[e.pagina]) return EAD + URL_DA_BASE[e.pagina](ctx);
   return P.urlDaPagina(e, ctx);
 }
@@ -394,7 +479,12 @@ function gravar(nome, dados) {
   fs.mkdirSync(SAIDA, { recursive: true });
   fs.writeFileSync(path.join(SAIDA, `${nome}.json`), JSON.stringify(dados, null, 2));
 }
-const arquivoSeguro = (s) => s.replace(/[^a-z0-9.-]+/gi, '_').replace(/_+/g, '_').slice(0, 120);
+/** Nome de arquivo da evidência: rótulo longo é cortado e ganha um hash curto (dois rótulos
+ *  com o mesmo começo não sobrescrevem a captura um do outro). */
+const arquivoSeguro = (s) => {
+  const base = s.replace(/[^a-z0-9.-]+/gi, '_').replace(/_+/g, '_');
+  return base.length <= 120 ? base : `${base.slice(0, 110)}_${crypto.createHash('sha1').update(s).digest('hex').slice(0, 8)}`;
+};
 
 // ---------------------------------------------------------------------------
 // Testes
@@ -423,6 +513,39 @@ test.describe('qualidade · entradas', () => {
     const faltando = esperadas.filter((pg) => !medidas.has(pg));
     gravar('_escopo-legadas', { legadas: LEGADAS, paginasPendentesG0: PAGINAS_PENDENTES_G0, esperadas, medidas: [...medidas].filter((pg) => LEGADAS.includes(pg)), faltando });
     expect(faltando, `páginas legadas sem neon e axe de cor no ${QA_ESTRITO ? 'G2' : 'G0'}`).toEqual([]);
+  });
+  test('rótulos únicos: a mesma página hospedeira com URLs diferentes vira casos diferentes, com a URL no rótulo', async () => {
+    expect(COLISOES, 'URL declarada duas vezes pela mesma origem: a dona corrige o portal-<x>.paginas.js').toEqual([]);
+    // Regressão do bug: três entradas da F2 em professor.html cujo url({}) caía no mesmo
+    // fallback (#/avaliacoes) viravam um caso só; agora cada uma tem o seu, com a rota no rótulo.
+    const hosp = (url) => ({ pagina: 'professor.html', fatia: 'F2', origem: 'portal-avaliacoes.paginas.js', hospedeira: true, url });
+    const { casos, colisoes } = montarCasos([
+      hosp(() => 'professor.html#/avaliacoes'),
+      hosp((ctx = {}) => (ctx.avaliacaoId ? `professor.html#/avaliacoes/${ctx.avaliacaoId}/questoes` : 'professor.html#/avaliacoes')),
+      hosp((ctx = {}) => (ctx.avaliacaoId ? `professor.html#/avaliacoes/${ctx.avaliacaoId}/previa` : 'professor.html#/avaliacoes')),
+      { pagina: 'aula.html', fatia: 'F2', origem: 'portal-avaliacoes.paginas.js', hospedeira: true, url: (ctx = {}) => (ctx.cursoId && ctx.avaliacaoId ? `aula.html?curso=${encodeURIComponent(ctx.cursoId)}&item=${encodeURIComponent(`avaliacao:${ctx.avaliacaoId}`)}` : 'aula.html') },
+      { pagina: 'contrato.html', fatia: 'F4b', origem: 'portal-documentos.paginas.js', hospedeira: false, preparar: async () => ({}), url: (ctx) => `contrato.html?id=${(ctx && ctx.contratoId) || '0'}` },
+    ], { modo: () => 'completo' });
+    expect(colisoes).toEqual([]);
+    expect(casos.map((c) => c.rotulo)).toEqual([
+      'professor.html#/avaliacoes (portal-avaliacoes.paginas.js, hospedeira)',
+      'professor.html#/avaliacoes/:avaliacaoId/questoes (portal-avaliacoes.paginas.js, hospedeira)',
+      'professor.html#/avaliacoes/:avaliacaoId/previa (portal-avaliacoes.paginas.js, hospedeira)',
+      'aula.html?curso=:cursoId&item=avaliacao::avaliacaoId (portal-avaliacoes.paginas.js, hospedeira)',
+      'contrato.html?id=:contratoId (portal-documentos.paginas.js)',
+    ]);
+    // A mesma URL declarada duas vezes não derruba o carregamento: ganha " (2)" e é apontada.
+    const dup = montarCasos([hosp(() => 'professor.html#/correcao'), hosp(() => 'professor.html#/correcao')], { modo: () => 'completo' });
+    expect(dup.casos.map((c) => c.rotulo)).toEqual(['professor.html#/correcao (portal-avaliacoes.paginas.js, hospedeira)', 'professor.html#/correcao (portal-avaliacoes.paginas.js, hospedeira) (2)']);
+    expect(dup.colisoes).toHaveLength(1);
+  });
+  test('QA_ESTRITO=1: toda entrada de paginasDoPortal() tem caso (só as páginas da 2d ficam fora)', async () => {
+    test.skip(!QA_ESTRITO, 'só no G2 (QA_ESTRITO=1)');
+    const comCaso = new Set(CASOS.map((c) => c.entrada));
+    const semCaso = ENTRADAS.filter((e) => !comCaso.has(e) && !PAGINAS_2D.includes(e.pagina)).map((e) => `${modeloDaUrl(e)} (${e.origem || 'PAGINAS_BASE'})`);
+    gravar('_escopo-estrito', { entradas: ENTRADAS.length, casos: CASOS.length, fora2d: ENTRADAS.filter((e) => PAGINAS_2D.includes(e.pagina)).map((e) => e.pagina), semCaso });
+    expect(semCaso, 'entrada sem caso no G2 (página ausente do disco?)').toEqual([]);
+    expect(ENTRADAS.length - comCaso.size, 'fora do G2 só login.html e login-classico.html (sessão 2d)').toBe(PAGINAS_2D.length);
   });
   test('modoDa(): página legada que a dona ensina em portal-<x>.paginas.js continua \'cor\' (D-67, D-74)', async () => {
     const g0 = { estrito: false, fatia: null, integradas: new Set(P.FASE0) };
@@ -499,7 +622,7 @@ for (const c of CASOS) {
               expect.soft(res.alvos, 'alvos ≥ 44 px abaixo de 1024').toEqual([]);
             }
             res.csp = csp;
-            expect.soft(res.csp, 'CSP estrita (report-only) sem violação').toEqual([]);
+            expect.soft(res.csp, `CSP estrita sem violação (${QA_ESTRITO ? 'G2: aplicada' : 'report-only'})`).toEqual([]);
             res.cls = cls;
             expect.soft(res.cls, 'CLS < 0,1').toBeLessThan(0.1);
             res.rede = await redeLimpa(page, urls);
@@ -631,6 +754,20 @@ test.describe('qualidade · G2 (QA_ESTRITO=1)', () => {
     const { mudancas, erros } = planejarVersoes();
     expect(erros, 'referências a arquivos inexistentes').toEqual([]);
     expect(mudancas.map((m) => `${m.arquivo}: ${m.de} → ${m.para}`), 'rode tests/tools/versionar-ead.mjs --aplicar (principal)').toEqual([]);
+  });
+
+  test('CSP aplicada: /plataforma-ead/ responde Content-Security-Policy (não só report-only), fora as páginas da 2d', { tag: ['@integracao'] }, async ({ request }) => {
+    test.skip(!QA_ESTRITO, 'só no G2 (QA_ESTRITO=1): até lá a CSP estrita fica em report-only (D-43)');
+    const diretivas = ["default-src 'self'", "script-src 'self'", "object-src 'none'", "base-uri 'none'", "frame-ancestors 'none'"];
+    const falhas = [];
+    for (const pg of [...new Set(CASOS.map((c) => c.entrada.pagina))]) {
+      const r = await request.get(`${EAD}${pg}`, { maxRedirects: 0, failOnStatusCode: false });
+      const csp = r.headers()['content-security-policy'] || '';
+      const faltam = diretivas.filter((d) => !csp.includes(d));
+      if (!csp) falhas.push(`${pg}: sem Content-Security-Policy aplicada`);
+      else if (faltam.length) falhas.push(`${pg}: CSP sem ${faltam.join(', ')}`);
+    }
+    expect(falhas, 'CSP de §9.6 aplicada no vercel.json (principal)').toEqual([]);
   });
 
   test('links: todo href interno estático e dos menus renderizados responde 200', { tag: ['@integracao'] }, async ({ page, request }) => {

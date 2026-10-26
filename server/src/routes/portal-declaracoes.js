@@ -60,6 +60,50 @@ export function normalizarCodigo(bruto) {
   return String(bruto ?? '').replace(/\s+/g, '').toUpperCase();
 }
 
+// ---------- selo: integridade sem atalho para null (A08) ----------
+/** Formato do kid gravado pelo assinador (cripto.kidDe: 8 hex minúsculos). */
+const KID_RE = /^[a-f0-9]{8}$/;
+const HASH_PREFIXO_RE = /^[0-9A-F]{4}(-[0-9A-F]{4}){3}$/;
+/** Prefixos que SEMPRE nascem selados (a emissão chama `assinar` ou falha): DEC (declaracoes.js),
+ *  FRQ (servico-academico.js) e CTR (contratos.js). AVL pode nascer sem selo se o assinador falhar
+ *  (portal-avaliacoes.js) e DMC tem o legado sem selo (DC-65): nesses, sem selo segue null. */
+const PREFIXOS_SELO_OBRIGATORIO = new Set(['DEC', 'FRQ', 'CTR']);
+
+/**
+ * Kids de material aposentado (rotação concluída, sem `PORTAL_MATERIAL_ANTERIOR`), em
+ * `PORTAL_SELO_KIDS_APOSENTADOS` (lista separada por vírgula, ponto e vírgula ou espaço).
+ * Só eles distinguem "selo antigo, não verificável" (null) de "kid forjado" (false).
+ * O kid não é segredo: é o campo `kid` dos documentos emitidos com o material antigo.
+ * @returns {{ kids: Set<string>, ignorados: number }}
+ */
+export function lerKidsAposentados(env = process.env) {
+  const itens = String(env?.PORTAL_SELO_KIDS_APOSENTADOS ?? '').toLowerCase().split(/[\s,;]+/).filter(Boolean);
+  const kids = new Set(itens.filter(k => KID_RE.test(k)));
+  return { kids, ignorados: itens.length - kids.size };
+}
+
+/**
+ * Integridade de um registro selado (PORTAL-API §6.7.6). Antes, faltar hash/kid ou trocar o kid
+ * dava `null` (sem alerta) e um documento adulterado aparecia como válido. Agora:
+ *   - servidor sem assinador → null (não verificável agora; não é culpa do documento);
+ *   - sem hash E sem kid → null só quando `exigeSelo:false` (certificado legado); senão false;
+ *   - só um dos dois, ou kid fora do formato → false (selo mutilado);
+ *   - kid atual ou anterior → true|false pelo HMAC (cripto.verificar);
+ *   - kid desconhecido → null se aposentado (declarado), false se não (kid forjado).
+ * @returns {true|false|null}
+ */
+export function conferirSelo({ assinador, tipo, campos, hash, kid, exigeSelo = true, kidsAposentados = null }) {
+  if (!assinador || typeof assinador.verificar !== 'function') return null;
+  const presente = v => v !== undefined && v !== null && v !== '';
+  const temHash = presente(hash);
+  const temKid = presente(kid);
+  if (!temHash && !temKid) return exigeSelo ? false : null;
+  if (!temHash || !temKid || typeof kid !== 'string' || !KID_RE.test(kid)) return false;
+  const r = assinador.verificar(tipo, campos, hash, kid);
+  if (r === true || r === false) return r;
+  return kidsAposentados instanceof Set && kidsAposentados.has(kid) ? null : false;
+}
+
 const idDaMatricula = m => (m ? String(m._id ?? m.id ?? '') : '');
 function turmaCodigoDe(m) {
   if (!m) return null;
@@ -101,21 +145,22 @@ function itemDoHistorico(d) {
 
 /**
  * Validadores DMC (certificado) e DEC (declaração) do grupo `validador` (API §4.4).
- * @param {{ repo, assinador:()=>object|null }} deps
+ * @param {{ repo, assinador:()=>object|null, kidsAposentados?:Set<string>|string[] }} deps
  */
-export function criarValidadores({ repo, assinador }) {
+export function criarValidadores({ repo, assinador, kidsAposentados = null }) {
   const sel = () => (typeof assinador === 'function' ? assinador() : assinador) || null;
+  const aposentados = kidsAposentados instanceof Set ? kidsAposentados : new Set(Array.isArray(kidsAposentados) ? kidsAposentados : []);
   const dmc = {
     prefixo: 'DMC',
     async validar(codigo) {
       const c = await repo('certificados').findOne({ codigo });
       if (!c) return null;
-      const s = sel();
-      const integro = c.hash && c.kid && s ? s.verificar('certificado', camposSeloCertificado(c), c.hash, c.kid) : null;
+      // exigeSelo:false — o certificado legado (sem hash e sem kid) segue válido com integro:null (DC-65).
+      const integro = conferirSelo({ assinador: sel(), tipo: 'certificado', campos: camposSeloCertificado(c), hash: c.hash, kid: c.kid, exigeSelo: false, kidsAposentados: aposentados });
       const curso = c.cursoId ? await repo('cursos').findOne({ _id: String(c.cursoId) }, { projection: { nivel: 1 } }) : null;
       return {
         valido: true, codigo: c.codigo, tipo: 'certificado', rotulo: 'Certificado', emitidoEm: iso(c.emitidoEm), emissor: 'Complexo DMC',
-        iniciais: iniciais(c.nomeAluno || ''), integro: integro === undefined ? null : integro, situacao: 'valido',
+        iniciais: iniciais(c.nomeAluno || ''), integro, situacao: 'valido',
         hashPrefixo: c.hash ? hashPrefixo(c.hash) : null,
         detalhes: { tituloCurso: c.tituloCurso || '', cargaHoraria: c.cargaHoraria || '', ...(rotuloNivel(curso?.nivel) ? { nivelRotulo: rotuloNivel(curso.nivel) } : {}) }
       };
@@ -130,12 +175,12 @@ export function criarValidadores({ repo, assinador }) {
     async validar(codigo) {
       const d = await repo('declaracoes').findOne({ codigo });
       if (!d) return null;
-      const s = sel();
-      const integro = d.hash && d.kid && s ? s.verificar('declaracao', camposSeloDeclaracao(d), d.hash, d.kid) : null;
+      // A emissão sempre sela (declaracoes.emitir falha sem assinador): sem selo, não confere.
+      const integro = conferirSelo({ assinador: sel(), tipo: 'declaracao', campos: camposSeloDeclaracao(d), hash: d.hash, kid: d.kid, exigeSelo: true, kidsAposentados: aposentados });
       return {
         valido: true, codigo: d.codigo, tipo: 'declaracao', rotulo: ROTULOS_DECLARACAO[d.tipo] || 'Declaração',
         emitidoEm: iso(d.emitidaEm), emissor: 'Complexo DMC', iniciais: d.iniciaisTitular || iniciais(nomeTitularDeDados(d.dados) || ''),
-        integro: integro === undefined ? null : integro, situacao: d.revogada ? 'revogado' : 'valido',
+        integro, situacao: d.revogada ? 'revogado' : 'valido',
         hashPrefixo: hashPrefixo(d.hash),
         detalhes: {
           curso: d.dados?.cursoTitulo ?? null, ano: d.ano ?? null, nivelRotulo: d.dados?.nivelRotulo ?? null,
@@ -428,6 +473,12 @@ export function criarRotaDeclaracoes(deps = {}) {
     const saida = {};
     for (const k of CHAVES_VALIDACAO) saida[k] = r[k] ?? null;
     saida.valido = true;
+    // Selo (A08): só true/false/null saem; hashPrefixo só no formato de 16 hex em grupos; e, nos
+    // prefixos que sempre nascem selados, "sem selo" é false — vale para os validadores de
+    // todas as fatias, mesmo que algum devolva null por atalho.
+    saida.integro = r.integro === true ? true : r.integro === false ? false : null;
+    if (typeof saida.hashPrefixo !== 'string' || !HASH_PREFIXO_RE.test(saida.hashPrefixo)) saida.hashPrefixo = null;
+    if (saida.integro !== true && saida.hashPrefixo === null && PREFIXOS_SELO_OBRIGATORIO.has(codigo.slice(0, 3))) saida.integro = false;
     saida.detalhes = limparDetalhes(r.detalhes ?? {});
     if (typeof saida.iniciais !== 'string' || !/^(\p{Lu}\.)( \p{Lu}\.)?$/u.test(saida.iniciais)) saida.iniciais = '';
     saida.emissor = 'Complexo DMC';
@@ -456,7 +507,11 @@ export default async function montar(ctx) {
   const emissor = criarServicoDeclaracoes({ repo: comum.repo, assinador, agora: comum.agora, garantia: comum.garantia });
   servicos.registrar('declaracoes.emitir', emissor.emitir);
 
-  const { dmc, dec } = criarValidadores({ repo: comum.repo, assinador });
+  const aposentados = lerKidsAposentados(process.env);
+  if (aposentados.ignorados > 0) {
+    try { (comum.log?.warn || comum.log?.error || console.warn).call(comum.log || console, `[portal] PORTAL_SELO_KIDS_APOSENTADOS: ${aposentados.ignorados} item(ns) fora do formato de 8 hex ignorado(s)`); } catch { /* nada */ }
+  }
+  const { dmc, dec } = criarValidadores({ repo: comum.repo, assinador, kidsAposentados: aposentados.kids });
   servicos.adicionar('validador', dmc);
   servicos.adicionar('validador', dec);
 

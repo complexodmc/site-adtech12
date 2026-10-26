@@ -9,6 +9,10 @@ import { criarBancoMemoria } from './apoio/banco-memoria.js';
 import { semear, IDS } from './apoio/fixtures-portal.js';
 import { subir, fechar, cliente, usuarioDeTeste } from './apoio/http.js';
 import { silencioso, criarLogEspiao } from './apoio/falsos.js';
+import { spawnSync } from 'node:child_process';
+import os from 'node:os';
+import { randomBytes } from 'node:crypto';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 process.env.MONGODB_URI ||= 'mongodb://127.0.0.1:9/sem-conexao-nos-testes';
 process.env.JWT_SECRET ||= 'segredo-apenas-para-testes';
@@ -30,7 +34,7 @@ const MODULO = M.MODULOS_PADRAO.find(m => m.caminho === 'routes/portal-turmas.js
  * App no formato do server.js: agregador (com ou sem a F4a) ANTES de /api/liberacoes.
  * `comPortal:false` = rota legada sem nenhum serviço (módulo isolado ou instância fria).
  */
-async function subirApp({ comPortal = true, devSimularPagamento = false, log = silencioso } = {}) {
+async function subirApp({ comPortal = true, devSimularPagamento = false, log = silencioso, ambiente } = {}) {
   const banco = criarBancoMemoria({ indices: [...especificacoesRegistradas(), ...INDICES_SECRETARIA] });
   await semear(banco);
   const servicos = criarServicos();
@@ -47,7 +51,8 @@ async function subirApp({ comPortal = true, devSimularPagamento = false, log = s
   }
   app.use('/api/liberacoes', criarRotaLiberacoes({
     colecoes: { users: () => banco.collection('users'), liberacoes: () => banco.collection('liberacoes'), cursos: () => banco.collection('cursos') },
-    exigirLogin: requireAuth, exigirAdmin: requireAdmin, devSimularPagamento, servicos, log
+    exigirLogin: requireAuth, exigirAdmin: requireAdmin, devSimularPagamento, servicos, log,
+    ...(ambiente ? { ambiente } : {})
   }));
   app.use('/api', (_req, res) => res.status(404).json({ error: 'Rota não encontrada.' }));
   app.use(criarTratarErroGlobal({ log: silencioso }));
@@ -160,6 +165,76 @@ describe('/api/liberacoes/dev/simular-pagamento com a flag injetada (D-49)', () 
     const desconhecido = await ctx.api.post('/api/liberacoes/dev/simular-pagamento', { cursoIds: ['nao-existe'] }, { usuario: 'u-aluno1' });
     assert.deepEqual([desconhecido.status, desconhecido.corpo], [404, { error: 'Curso(s) não encontrado(s).' }]);
     assert.equal((await ctx.api.post('/api/liberacoes/dev/simular-pagamento', { cursoIds: ['curso-02'] })).status, 401);
+  });
+});
+
+// G2 · OWASP A05 (flag de dev sem trava): DEV_SIMULAR_PAGAMENTO=true no painel da Vercel
+// (ex.: .env colado inteiro na troca de segredos do T3) NÃO pode registrar a simulação.
+// Mesma regra do QA_SERVIDOR (config-portal): VERCEL_ENV presente ou NODE_ENV=production.
+describe('/api/liberacoes/dev/simular-pagamento travada em produção (A05)', () => {
+  const PRODUCAO = [
+    ['Vercel produção', { VERCEL: '1', VERCEL_ENV: 'production', NODE_ENV: 'production' }],
+    ['Vercel preview', { VERCEL: '1', VERCEL_ENV: 'preview' }],
+    ['VERCEL_ENV vazio (presente)', { VERCEL_ENV: '' }],
+    ['NODE_ENV=production fora da Vercel', { NODE_ENV: 'production' }]
+  ];
+  for (const [nome, ambiente] of PRODUCAO) {
+    test(`${nome}: flag ligada → 404 da API, nada liberado, aviso no log`, async () => {
+      const log = criarLogEspiao();
+      const ctx = await subirApp({ devSimularPagamento: true, ambiente, log });
+      try {
+        const r = await ctx.api.post('/api/liberacoes/dev/simular-pagamento', { cursoIds: ['curso-02'] }, { usuario: 'u-aluno1' });
+        assert.deepEqual([r.status, r.corpo], [404, { error: 'Rota não encontrada.' }]);
+        assert.equal(await ctx.banco.collection('liberacoes').findOne({ userId: IDS['u-aluno1'], cursoId: 'curso-02' }), null);
+        assert.equal(vigentes(ctx.banco, IDS['u-aluno1'], 'curso-02').length, 0);
+        assert.match(log.texto(), /DEV_SIMULAR_PAGAMENTO ignorada/);
+        // o resto do contrato segue igual
+        const me = await ctx.api.get('/api/liberacoes/me', { usuario: 'u-aluno1' });
+        assert.deepEqual([me.status, me.corpo], [200, { cursoIds: ['curso-01'] }]);
+      } finally { await fechar(ctx.server); }
+    });
+  }
+
+  test('fora de produção a flag injetada continua valendo (D-49) e sem a flag não há aviso', async () => {
+    const log = criarLogEspiao();
+    const ctx = await subirApp({ devSimularPagamento: true, ambiente: { NODE_ENV: 'development' }, log });
+    try {
+      const r = await ctx.api.post('/api/liberacoes/dev/simular-pagamento', { cursoIds: ['curso-02'] }, { usuario: 'u-aluno1' });
+      assert.deepEqual([r.status, r.corpo], [200, { ok: true, liberados: 1 }]);
+      assert.doesNotMatch(log.texto(), /DEV_SIMULAR_PAGAMENTO ignorada/);
+    } finally { await fechar(ctx.server); }
+    const log2 = criarLogEspiao();
+    const ctx2 = await subirApp({ devSimularPagamento: false, ambiente: { VERCEL_ENV: 'production' }, log: log2 });
+    try {
+      assert.equal((await ctx2.api.post('/api/liberacoes/dev/simular-pagamento', { cursoIds: ['curso-02'] }, { usuario: 'u-aluno1' })).status, 404);
+      assert.doesNotMatch(log2.texto(), /DEV_SIMULAR_PAGAMENTO/);
+    } finally { await fechar(ctx2.server); }
+  });
+
+  test('módulo real (export default): na Vercel com DEV_SIMULAR_PAGAMENTO=true a rota não é registrada e o aviso sai no carregamento', () => {
+    const modulo = pathToFileURL(fileURLToPath(new URL('../src/routes/liberacoes.js', import.meta.url))).href;
+    const codigo = 'const m = await import(process.argv[1]);'
+      + 'console.log(JSON.stringify(m.default.stack.filter(l => l.route).map(l => Object.keys(l.route.methods)[0].toUpperCase() + " " + l.route.path)));'
+      + 'process.exit(0);';
+    // segredo forte gerado na hora: em produção o config recusa JWT_SECRET fraco (G2 · T3)
+    const segredoForte = randomBytes(48).toString('base64');
+    const rodar = env => {
+      const r = spawnSync(process.execPath, ['--input-type=module', '-e', codigo, modulo], {
+        cwd: os.tmpdir(), encoding: 'utf8', timeout: 15000,
+        env: {
+          PATH: process.env.PATH, DOTENV_CONFIG_QUIET: 'true', DOTENV_CONFIG_PATH: '/dev/null',
+          MONGODB_URI: 'mongodb://127.0.0.1:9/sem-conexao', JWT_SECRET: segredoForte, DEV_SIMULAR_PAGAMENTO: 'true', ...env
+        }
+      });
+      assert.equal(r.status, 0, r.stderr);
+      return { rotas: JSON.parse(r.stdout.trim().split('\n').pop()), stderr: r.stderr };
+    };
+    const vercel = rodar({ VERCEL: '1', VERCEL_ENV: 'production', NODE_ENV: 'production' });
+    assert.equal(vercel.rotas.includes('POST /dev/simular-pagamento'), false);
+    assert.ok(vercel.rotas.includes('GET /me'), 'as rotas legadas continuam registradas');
+    assert.match(vercel.stderr, /DEV_SIMULAR_PAGAMENTO ignorada/);
+    const local = rodar({ NODE_ENV: 'development' });
+    assert.equal(local.rotas.includes('POST /dev/simular-pagamento'), true, 'em desenvolvimento a flag continua valendo');
   });
 });
 

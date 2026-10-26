@@ -1,4 +1,5 @@
-// Home · seção 09 Newsletter (#newsletterForm → POST /api/newsletter).
+// Newsletter · POST /api/newsletter. A seção 09 (#newsletterForm) saiu da home em 2026-10-25; o bloco de
+// frontend fica desativado (skip) até o formulário existir de novo em alguma página. A API continua testada.
 // Contrato: HOME_REDESIGN.md §3.09, contratos-qa.md §3.1, server/src/routes/newsletter.js.
 // Com mongod descartável (tests/server/serve.mjs) usa a API REAL e confere a coleção
 // newsletter_inscricoes; sem ele, intercepta a rota com o contrato do servidor e marca a
@@ -46,7 +47,7 @@ function contarPosts(page) {
 }
 const json = (status, body) => (r) => r.fulfill({ status, contentType: 'application/json', body: JSON.stringify(body) });
 
-test.describe('newsletter da home — frontend', () => {
+test.describe.skip('newsletter da home — frontend (formulário retirado da home em 2026-10-25)', () => {
   test('contrato do formulário: action, method, origem, campos, honeypot, status e texto de descadastro', async ({ page, request }) => {
     const form = await abrirForm(page);
     await expect(form).toHaveAttribute('action', '/api/newsletter');

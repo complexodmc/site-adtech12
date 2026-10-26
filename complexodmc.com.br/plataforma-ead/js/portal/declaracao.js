@@ -145,11 +145,17 @@
   function desenharCertificado(el, c, despacho) {
     const nivel = despacho && despacho.detalhes && despacho.detalhes.nivelRotulo ? despacho.detalhes.nivelRotulo : null;
     const hash = despacho ? despacho.hashPrefixo : null;
-    const semSelo = despacho && despacho.valido && !hash ? 'Emitido antes da verificação por selo' : null;
+    // Selo (A08): registro que não confere com o selo nunca sai como certificado limpo, nem no papel.
+    const naoConfere = !!(despacho && despacho.valido && despacho.integro === false);
+    const semSelo = despacho && despacho.valido && !hash ? (naoConfere ? 'Não confere' : 'Emitido antes da verificação por selo') : null;
+    const alertaSelo = naoConfere
+      ? html`<div class="pf-alerta pf-alerta--erro" role="alert" data-selo="nao-confere"><p>O registro deste certificado não confere com o selo de emissão e não vale como documento. Fale com a coordenação.</p></div>`
+      : '';
     el.innerHTML = html`
       <article class="pf-documento pf-escopo-claro cert-doc" aria-labelledby="pf-dec-doc-titulo">
         ${cabecalho('Certificado')}
         <div class="pf-documento__corpo">
+          ${alertaSelo}
           <p class="pf-dec-doc__texto">Certificamos que</p>
           <p class="pf-dec-doc__nome cert-doc__nome">${c.nomeAluno}</p>
           <p class="pf-dec-doc__texto">concluiu o curso <strong>${c.tituloCurso}</strong>${nivel ? ` (${nivel})` : ''}${c.cargaHoraria ? `, com carga horária de ${c.cargaHoraria}` : ''}, oferecido pela Plataforma Complexo DMC.</p>

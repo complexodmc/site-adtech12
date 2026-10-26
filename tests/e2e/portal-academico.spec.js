@@ -49,7 +49,7 @@ async function exigirF3a(request, token) {
  */
 async function semear(request) {
   await P.exigirMongo(request);
-  const { aluno, admin } = await P.criarPapeis(request);
+  const { aluno, professor, admin } = await P.criarPapeis(request);
   await exigirF3a(request, aluno.token);
   const C = await P.semearCurso(request, { aulas: [{}, {}, {}] });
   await P.liberarCurso(request, aluno.id, C.cursoId);
@@ -78,7 +78,7 @@ async function semear(request) {
   const E1 = await criar({ turmaId: String(turmaId), moduloId: C.moduloId, aulaGravadaId: C.aulas[2].id, titulo: `Sexta · noite ${sufixo}`, inicioEm: new Date(Date.now() - 5 * 60e3).toISOString(), url: `${SALA}/agora-${sufixo}` });
   const E2 = await criar({ titulo: `Sábado · manhã ${sufixo}`, inicioEm: new Date(Date.now() + 2 * 864e5).toISOString(), url: `${SALA}/futuro-${sufixo}` });
   const E3 = await criar({ moduloId: C.moduloId, aulaGravadaId: C.aulas[1].id, titulo: `Domingo · manhã ${sufixo}`, inicioEm: new Date(Date.now() - 3 * 864e5).toISOString(), url: `${SALA}/passado-${sufixo}` });
-  return { aluno, admin, C, turmaId: String(turmaId), turmaCodigo, matriculaId: String(matriculaId), numero, E1, E2, E3 };
+  return { aluno, professor, admin, C, turmaId: String(turmaId), turmaCodigo, matriculaId: String(matriculaId), numero, E1, E2, E3 };
 }
 
 test('F3a · jornada: agenda → Entrar registra presença → Acadêmico, Comprovantes e matriz com a MESMA frequência; impressão sem QR', async ({ page, request }) => {
@@ -266,5 +266,46 @@ test('F3a · backoffice (professor.html): agendar encontro pela tela, abrir pres
   await expect(page.locator('main')).toContainText('Alunos esperados neste encontro');
   await page.goto(`${EAD}professor.html#/turmas/${s.turmaId}/frequencia`);
   await expect(page.locator('main')).toContainText(s.numero);
+  await fechar(mon);
+});
+
+test('F3a · docência pelo GRAVADO: docente só de turma lê o encontro de curso inteiro, não gere (404) e a tela abre só leitura', async ({ page, request }) => {
+  test.skip(!fs.existsSync(path.join(P.EAD_DISCO, 'professor.html')) || !fs.existsSync(path.join(P.EAD_DISCO, 'js', 'portal', 'professor.js')), 'bloqueado: hospedeira da F8 (professor.html) ausente');
+  test.setTimeout(120_000);
+  const s = await semear(request);
+  // docência SÓ da turma semeada (PORTAL-API §6.7.2: curso inteiro só docente geral; §4.2)
+  await P.comBanco(request, db => db.collection('docencias').insertOne({ userId: s.professor.id, cursoId: s.C.cursoId, turmaId: new ObjectId(s.turmaId), criadoEm: new Date(), criadoPor: 'qa-f3a' }));
+  const D = P.api(request, s.professor.token);
+
+  // leitura: agenda e GET do encontro de curso inteiro (E2, E3) com podeGerir:false
+  const um = await D.get(`/api/portal/professor/encontros/${s.E2.id}`);
+  expect(um.status, JSON.stringify(um.json)).toBe(200);
+  expect(um.json.encontro.podeGerir).toBe(false);
+  expect((await D.get(`/api/portal/professor/encontros/${s.E1.id}`)).json.encontro.podeGerir).toBe(true);
+  // gestão: 404 e nada muda
+  expect((await D.get(`/api/portal/professor/encontros/${s.E3.id}/presencas`)).status).toBe(404);
+  expect((await D.post(`/api/portal/professor/encontros/${s.E3.id}/presencas`, { matriculaId: s.matriculaId, presente: true, motivo: 'Tentativa fora da docência (QA).' })).status).toBe(404);
+  expect((await D.put(`/api/portal/professor/encontros/${s.E2.id}`, { versao: 1, url: 'https://site-externo.invalid/qa' })).status).toBe(404);
+  expect((await D.post(`/api/portal/professor/encontros/${s.E2.id}/cancelar`, { motivo: 'Cancelamento indevido (QA).' })).status).toBe(404);
+  expect((await D.del(`/api/portal/professor/encontros/${s.E2.id}`)).status).toBe(404);
+  const e2 = (await P.api(request, s.admin.token).get(`/api/portal/professor/encontros/${s.E2.id}`)).json.encontro;
+  expect([e2.url, e2.status, e2.versao]).toEqual([s.E2.url, s.E2.status, 1]);
+  // a turma dele continua gerível
+  expect((await D.get(`/api/portal/professor/encontros/${s.E1.id}/presencas`)).status).toBe(200);
+
+  // tela: só leitura, sem pedir presenças (nenhum 404 no console e na rede)
+  const mon = P.monitorarConsoleERede(page);
+  for (const f of ['qr.js', 'tutoriais.js']) {
+    if (!fs.existsSync(path.join(P.EAD_DISCO, 'js', 'portal', f))) P.esperar(page, { status: 404, url: new RegExp(`/js/portal/${f.replace('.', '\\.')}`) });
+  }
+  await P.entrarComToken(page, s.professor.token);
+  await page.goto(`${EAD}professor.html#/ao-vivo/${s.E2.id}`);
+  await expect(page.locator('[data-ac-somente-leitura]')).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator('main')).toContainText('Curso inteiro (todas as turmas)');
+  await expect(page.locator('[data-ac-form]')).toHaveCount(0);
+  await expect(page.locator('[data-ac-cancelar], [data-ac-excluir], [data-ac-presenca]')).toHaveCount(0);
+  await page.goto(`${EAD}professor.html#/ao-vivo/${s.E1.id}`);
+  await expect(page.locator('main')).toContainText('Alunos esperados neste encontro');
+  await expect(page.locator('[data-ac-form]')).toBeVisible();
   await fechar(mon);
 });

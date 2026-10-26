@@ -72,13 +72,19 @@ const PASTAS_EXCLUIDAS = Object.freeze({
 /**
  * Trechos marcados que a guarda ignora, cada um só no seu arquivo (§6.1, UX §3 fase 0 e A):
  * o :root legado e as seções LOGIN/EIXO 3D de plataforma.css são lidos por
- * login-classico.html (sem tokens.css); o @dmc-compat de portal.css neutraliza classes
- * legadas até a limpeza da F0s-final. Marcador sem par, aninhado ou fora do arquivo reprova.
+ * login-classico.html (sem tokens.css) e ficam até a aposentadoria dela (D-44).
+ * Marcador sem par, aninhado ou fora do arquivo reprova.
  */
 const MARCADORES = Object.freeze({
   'dmc-root-legado': 'css/plataforma.css',
   'dmc-legado-login': 'css/plataforma.css',
-  'dmc-compat': 'css/portal.css',
+});
+/**
+ * Marcadores aposentados (G2, §8.3 fase 2: "bloco @dmc-compat removido, prova por grep"): o
+ * @dmc-compat de portal.css saiu na F0s-final. Não excluem nada e não podem reaparecer.
+ */
+const MARCADORES_APOSENTADOS = Object.freeze({
+  'dmc-compat': 'removido de css/portal.css na F0s-final (G2)',
 });
 
 /** Regras da guarda (UX §3 E.1). `em`: extensões em que a regra vale. */
@@ -244,6 +250,18 @@ describe(`front-estatico · guarda da plataforma EAD — modo ${MODO}`, () => {
     assert.deepEqual(erros, []);
   });
 
+  test('marcadores aposentados não reaparecem (prova por grep, G2)', () => {
+    const achados = [];
+    for (const c of arquivosDaPlataforma()) {
+      if (motivoExcluido(c)) continue;
+      const texto = ler(c);
+      for (const [nome, motivo] of Object.entries(MARCADORES_APOSENTADOS)) {
+        if (texto.includes(`@${nome}`)) achados.push(`${c}: @${nome} (${motivo})`);
+      }
+    }
+    assert.deepEqual(achados, []);
+  });
+
   test(`nenhuma violação da guarda (${MODO})`, (t) => {
     const todos = arquivosDaPlataforma();
     const alvo = [];
@@ -330,11 +348,13 @@ describe('front-estatico · as regras pegam o que devem (amostras sintéticas)',
   test('marcador sem par, aninhado ou fora do arquivo reprova', () => {
     assert.match(semTrechosMarcados('css/plataforma.css', '/* @dmc-root-legado:inicio */ .a{}').erros.join(), /sem fim/);
     assert.match(semTrechosMarcados('css/plataforma.css', '/* @dmc-root-legado:inicio */ /* @dmc-legado-login:inicio */ /* @dmc-legado-login:fim */ /* @dmc-root-legado:fim */').erros.join(), /aninhado/);
-    assert.match(semTrechosMarcados('css/outro.css', '/* @dmc-compat:inicio */ /* @dmc-compat:fim */').erros.join(), /fora de css\/portal\.css/);
-    const ok = semTrechosMarcados('css/portal.css', 'a\n/* @dmc-compat:inicio */\n.bg-grid{}\n/* @dmc-compat:fim */\nb');
+    assert.match(semTrechosMarcados('css/outro.css', '/* @dmc-legado-login:inicio */ /* @dmc-legado-login:fim */').erros.join(), /fora de css\/plataforma\.css/);
+    const ok = semTrechosMarcados('css/plataforma.css', 'a\n/* @dmc-legado-login:inicio */\n.bg-grid{}\n/* @dmc-legado-login:fim */\nb');
     assert.deepEqual(ok.erros, []);
     assert.equal(ok.texto.split('\n').length, 5, 'preserva as linhas');
     assert.ok(!ok.texto.includes('bg-grid'));
+    // Marcador aposentado não exclui nada: o conteúdo entre ele volta a ser varrido.
+    assert.ok(varrer('css/portal.css', '/* @dmc-compat:inicio */\n.bg-grid{}\n/* @dmc-compat:fim */').some((a) => a.regra === 'bg-grid'));
   });
   test('arquivos excluídos têm motivo e são os de §6.1', () => {
     for (const c of ['login.html', 'login-classico.html', 'css/business-school.css', 'js/business-school.js', 'css/login.css', 'js/eixo-3d.js', 'js/login/cena-three.js', 'js/vendor/three/three.min.js', 'js/vendor/qrcode-generator/qrcode.js']) {
@@ -343,5 +363,70 @@ describe('front-estatico · as regras pegam o que devem (amostras sintéticas)',
     for (const c of ['css/plataforma.css', 'css/portal.css', 'js/app.js', 'loja.html']) assert.equal(motivoExcluido(c), null);
     assert.equal(donoDe('login.html'), DONO_2D);
     assert.equal(donoDe('js/login/x.js'), DONO_NINGUEM);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// tutoriais.html — catálogo mínimo da UX §6.17 (critério da F0r-final, índice §8.5). Guia só
+// de tela que existe (conferido com as telas finais pela F0r); categoria sem guia não aparece;
+// nada de "em breve"; entrada por CPF e o código da verificação em duas etapas no login só depois
+// do aceite do login da 2d (§9.9 item 1a, D-71); trecho de recurso opcional nasce `hidden` com
+// data-recurso e só aparece quando DMC_Auth.recursos() confirma.
+// ---------------------------------------------------------------------------
+describe('front-estatico · tutoriais.html (catálogo da UX §6.17)', () => {
+  const html = fs.readFileSync(path.join(RAIZ_EAD, 'tutoriais.html'), 'utf8');
+  const semComentarios = html.replace(/<!--[\s\S]*?-->/g, '');
+  const CATALOGO = Object.freeze({
+    'primeiros-passos': ['novo-portal', 'pedido'],
+    aulas: ['aula'],
+    avaliacoes: ['avaliacao'],
+    academico: ['academico', 'regulamento'],
+    'ao-vivo': ['ao-vivo'],
+    financeiro: ['financeiro'],
+    documentacao: ['documentos', 'contrato', 'certificados', 'validar'],
+    atendimento: ['atendimento', 'ouvidoria'],
+    conta: ['perfil', 'seguranca'],
+    acessibilidade: ['aparencia'],
+  });
+  const secoes = [...semComentarios.matchAll(/<section class="pf-tut-categoria" data-tut-categoria="([^"]+)"[\s\S]*?<\/section>/g)];
+
+  test('10 categorias, cada uma com ≥ 1 guia, na ordem da UX', () => {
+    assert.deepEqual(secoes.map((s) => s[1]), Object.keys(CATALOGO));
+    for (const [corpo, cat] of secoes) {
+      const ids = [...corpo.matchAll(/<article class="pf-tut-artigo" id="([^"]+)"/g)].map((m) => m[1]);
+      assert.ok(ids.length >= 1, `categoria ${cat} sem guia publicado`);
+      assert.deepEqual(ids, CATALOGO[cat], `guias da categoria ${cat}`);
+    }
+  });
+
+  test('os 17 guias do catálogo publicados, com âncora estável, índice e passos', () => {
+    const ids = [...semComentarios.matchAll(/<article class="pf-tut-artigo" id="([^"]+)"/g)].map((m) => m[1]);
+    assert.equal(ids.length, 17);
+    assert.deepEqual(ids, Object.values(CATALOGO).flat());
+    const indice = [...semComentarios.matchAll(/class="pf-tut-indice__link" href="#([^"]+)"/g)].map((m) => m[1]);
+    assert.deepEqual(indice, ids, 'o índice lista os mesmos guias, na mesma ordem');
+    for (const id of ids) {
+      const art = semComentarios.match(new RegExp(`<article class="pf-tut-artigo" id="${id}"[\\s\\S]*?</article>`))[0];
+      assert.match(art, new RegExp(`<h3 class="pf-tut-artigo__titulo" id="${id}-t"`), `${id}: título com id estável`);
+      assert.ok((art.match(/<li\b/g) || []).length >= 2, `${id}: passos numerados`);
+      assert.match(art, /data-tut-tour>Rever o tour do portal</, `${id}: rodapé com [Rever o tour do portal]`);
+      assert.match(art, /Ainda com dúvida\? <a href="atendimentos\.html\?novo=1">Iniciar atendimento<\/a>/, `${id}: rodapé com Iniciar atendimento`);
+    }
+  });
+
+  test('nada de "em breve", nem guia de CPF no login ou de verificação em duas etapas (D-71)', () => {
+    assert.doesNotMatch(semComentarios, /em breve|embreve|disponível em breve/i);
+    assert.doesNotMatch(semComentarios, /duas etapas|2FA|autenticador|c[óo]digo de recupera/i);
+    assert.doesNotMatch(semComentarios, /entrar com (o )?CPF|login (por|com) CPF|CPF (no|na) (login|entrada)/i);
+    assert.doesNotMatch(semComentarios, /data-recurso="doisFatores"/);
+  });
+
+  test('trecho de recurso opcional nasce hidden, só com recursos conhecidos', () => {
+    const trechos = [...semComentarios.matchAll(/<([a-z]+)\b[^>]*data-recurso="([^"]+)"[^>]*>/g)];
+    assert.ok(trechos.length >= 1);
+    for (const [tag, , recurso] of trechos) {
+      assert.ok(['linkMagico', 'recuperacaoSenha'].includes(recurso), `data-recurso="${recurso}" não previsto nesta rodada`);
+      assert.match(tag, /\shidden(?=[\s>])/, `trecho ${recurso} precisa nascer hidden`);
+    }
   });
 });

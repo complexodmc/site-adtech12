@@ -40,11 +40,11 @@
   <link rel="stylesheet" href="css/shared.css?v=3">
   <link rel="stylesheet" href="css/eixos.css?v=4">
   <link rel="stylesheet" href="../assets/css/components.css?v=3">
-  <link rel="stylesheet" href="css/sobre.css?v=9">
+  <link rel="stylesheet" href="css/sobre.css?v=13">
 
-  <script src="../assets/js/navbar.js?v=c4" defer></script>
+  <script src="../assets/js/navbar.js?v=c5" defer></script>
   <script src="../assets/js/video.js?v=1" defer></script>
-  <script src="../assets/js/sobre.js?v=1" defer></script>
+  <script src="../assets/js/sobre.js?v=2" defer></script>
 
   <!-- Dados estruturados: rodapé + documento institucional (razão social, CNPJ, CEP, fundador). -->
   <script type="application/ld+json">
@@ -196,7 +196,7 @@
     <!-- ============================== 2 · FATOS ==============================
          Só estrutura verificável (D7): números do documento institucional
          aprovado pelo CEO (2026-10-17). Nenhum número de resultado. -->
-    <section class="sb-fatos sb-paper dmc-on-paper" aria-label="A estrutura do Complexo DMC">
+    <section class="sb-fatos sb-paper-2 dmc-on-paper" aria-label="A estrutura do Complexo DMC">
       <div class="dmc-wrap">
         <ul class="sb-fatos__lista">
           <li><span class="sb-fatos__valor"><b>3</b> andares</span><span class="sb-fatos__rotulo">de operação no Edifício Central Riachuelo</span></li>
@@ -204,6 +204,57 @@
           <li><span class="sb-fatos__valor"><b>6</b> eixos</span><span class="sb-fatos__rotulo">de atuação, com uma só governança</span></li>
           <li><span class="sb-fatos__valor"><b>1</b> endereço</span><span class="sb-fatos__rotulo">no centro histórico de São Paulo</span></li>
         </ul>
+      </div>
+    </section>
+
+    <!-- ============================== 2b · RELATO DE CLIENTE ==============================
+         Logo abaixo dos fatos (pedido do CEO, 2026-10-21). Vídeo próprio, H.264 720×1280,
+         com legendas gravadas na imagem; original em assets/videos/Historias (1).mov.
+         Citações literais da legenda e sem resultado de caso (Provimento 205/2021).
+         Sem JS: <video controls> nativo. Com JS (assets/js/sobre.js): capa com botão
+         de play e trechos clicáveis que levam o vídeo ao segundo de data-t. -->
+    <section class="sb-sec sb-relato sb-paper-2 dmc-on-paper" id="relato" aria-labelledby="relato-titulo" data-sb-relato>
+      <div class="dmc-wrap sb-relato__grade">
+        <div class="sb-relato__cabeca">
+          <h2 class="sb-overline" id="relato-titulo">Relato de cliente</h2>
+          <blockquote class="sb-relato__citacao">
+            <p>Aqui na DMC eu encontrei clareza, honestidade, <em>humanidade e confiança.</em></p>
+          </blockquote>
+        </div>
+
+        <figure class="sb-relato__video">
+          <div class="sb-relato__moldura">
+            <video controls playsinline preload="metadata" width="720" height="1280"
+                   poster="../assets/images/sobre/depoimento-cliente-poster.webp"
+                   aria-label="Relato em vídeo de uma cliente do Complexo DMC, com legendas">
+              <source src="../assets/videos/depoimento-cliente.mp4" type="video/mp4">
+              <a href="../assets/videos/depoimento-cliente.mp4">Assistir ao relato (MP4)</a>
+            </video>
+          </div>
+          <figcaption><b>Ceci</b> · cliente do Complexo DMC · 1min18 · com legendas</figcaption>
+        </figure>
+
+        <div class="sb-relato__corpo">
+          <p class="sb-relato__intro">Ela chegou depois de ficar sem acompanhamento em um assunto da família e conta, com as próprias palavras, como foi o atendimento desde a primeira conversa.</p>
+          <ol class="sb-relato__trechos" aria-label="Trechos do relato">
+            <li><button type="button" class="sb-relato__trecho" data-t="0"><span class="sb-relato__tempo">0:00</span><span class="sb-relato__frase">“Clareza, honestidade, humanidade e confiança.”</span></button></li>
+            <li><button type="button" class="sb-relato__trecho" data-t="13"><span class="sb-relato__tempo">0:13</span><span class="sb-relato__frase">“Agradeci por ter conhecido vocês, pelo atendimento […] a atenção que você deu.”</span></button></li>
+            <li><button type="button" class="sb-relato__trecho" data-t="45"><span class="sb-relato__tempo">0:45</span><span class="sb-relato__frase">“Amei o atendimento. Muita atenção, você não sabe o valor que dá.”</span></button></li>
+            <li><button type="button" class="sb-relato__trecho" data-t="73"><span class="sb-relato__tempo">1:13</span><span class="sb-relato__frase">“Tem outros problemas, aí já trouxe tudo pra cá.”</span></button></li>
+          </ol>
+        </div>
+
+        <!-- Resposta do CEO (texto dele, 2026-10-21): linha inteira, fecha a seção. -->
+        <div class="sb-relato__fecho">
+          <figure class="sb-relato__resposta">
+            <blockquote><p>Nós que agradecemos, Ceci, por poder <em>fazer parte da sua história!</em></p></blockquote>
+            <figcaption>
+              <img src="../assets/images/sobre/daniel-480.webp" width="480" height="600" loading="lazy" decoding="async" alt="">
+              <span><b>Daniel Mathias</b> CEO do Complexo DMC</span>
+            </figcaption>
+          </figure>
+          <p class="sb-relato__nota">Relato pessoal sobre o atendimento, publicado com autorização. Cada caso tem circunstâncias próprias.</p>
+        </div>
       </div>
     </section>
 
@@ -736,12 +787,11 @@
           <ul class="dmc-footer__list">
             <li><a href="sobre.html" aria-current="page">Sobre o Complexo DMC</a></li>
             <li><a href="../#features">Soluções</a></li>
-            <li><a href="../#treinamentos">Treinamentos</a></li>
+            <li><a href="../verticais-de-negocio/">Segmentos</a></li>
             <li><a href="tecnologia.html">Tecnologia</a></li>
             <li><a href="../parcerias/">Parcerias</a></li>
             <li><a href="por-que-urgente.html">O que muda sem planejamento sucessório</a></li>
             <li><a href="../plataforma-ead/login.html">DMC Business School</a></li>
-            <li><a href="https://adtech-app.complexodmc.com.br" rel="noopener">ADTECH</a></li>
           </ul>
         </nav>
 

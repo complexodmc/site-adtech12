@@ -303,8 +303,14 @@ export function validarCodigoPostal(v) {
 const CPF_MASCARA_RE = /(?<![\d.\-])\d{3}\.\d{3}\.\d{3}-\d{2}(?![\d.\-])/g;
 // 13–19 dígitos agrupados por espaço ou hífen (cartão).
 const CARTAO_RE = /(?<![\dA-Za-z])\d(?:[ -]?\d){12,18}(?![\dA-Za-z])/g;
-// 7+ dígitos seguidos, com ou sem ponto/hífen entre eles (RG, telefone, conta); sufixo -X do RG.
-const NUMERO_RE = /(?<![\dA-Za-z])\d(?:[.-]?\d){6,}(?:-[\dXx])?(?![\dA-Za-z])/g;
+// Espaço "horizontal" aceito entre grupos de dígitos (espaço, tab, NBSP, espaços finos); quebra de linha NÃO une números.
+const ESPACO_H = '[ \\t\\u00A0\\u2007\\u202F]';
+// Grupos de dígitos separados por ponto, hífen ou 1–3 espaços horizontais, com sufixo -X do RG: CPF, RG, telefone,
+// conta e CEP digitados com ou sem espaço ('529 982 247 25', '12 345 678-9', '(11) 98765 4321'). Casa toda sequência
+// de dígitos; quem decide é mascararSequencia (7+ dígitos mascarados, datas ISO preservadas). Sem aninhamento
+// ambíguo: o laço só avança dígito a dígito, então a varredura é linear.
+const NUMERO_RE = new RegExp(`(?<![\\dA-Za-z])\\d(?:(?:[.\\-]|${ESPACO_H}{1,3})?\\d)*(?:-[Xx])?(?![\\dA-Za-z])`, 'g');
+const ESPACOS_H_RE = new RegExp(`(${ESPACO_H}+)`);
 const DATA_ISO_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 const CHAR_LOCAL_EMAIL = /[A-Za-z0-9._%+-]/;
@@ -337,9 +343,38 @@ function mascararEmails(s) {
   return saida + s.slice(ultimo);
 }
 
+// Um número (já sem as datas ISO): 7+ dígitos → [CPF] se forem 11 com dígito verificador válido, senão [NÚMERO].
+function mascararGrupo(texto) {
+  const d = texto.replace(/\D/g, '');
+  if (d.length < 7) return texto;
+  return d.length === 11 && validarCpf(d) ? '[CPF]' : '[NÚMERO]';
+}
+
+// Uma sequência casada por NUMERO_RE: os segmentos separados por espaço formam um número só, e cada data
+// 'AAAA-MM-DD' corta a sequência e fica como está ('2026-10-20 19:30', 'de 2026-10-18 a 2026-10-25').
+function mascararSequencia(m) {
+  const partes = m.split(ESPACOS_H_RE); // segmentos nos índices pares, espaços (preservados) nos ímpares
+  let saida = '';
+  let grupo = null;
+  for (let i = 0; i < partes.length; i += 2) {
+    const antes = i > 0 ? partes[i - 1] : '';
+    if (DATA_ISO_RE.test(partes[i])) {
+      if (grupo !== null) { saida += mascararGrupo(grupo); grupo = null; }
+      saida += antes + partes[i];
+    } else if (grupo === null) {
+      saida += antes;
+      grupo = partes[i];
+    } else {
+      grupo += antes + partes[i];
+    }
+  }
+  return grupo === null ? saida : saida + mascararGrupo(grupo);
+}
+
 /**
- * Mascara dado pessoal em texto livre: e-mail → [E-MAIL]; CPF (com ou sem máscara) → [CPF];
- * cartão (13–19 dígitos, agrupados ou não) e sequências de 7+ dígitos (RG, telefone, conta) → [NÚMERO].
+ * Mascara dado pessoal em texto livre: e-mail → [E-MAIL]; CPF (com ou sem máscara, inclusive em partes separadas
+ * por espaço, validado pelo dígito verificador) → [CPF]; cartão (13–19 dígitos, agrupados ou não) e sequências
+ * de 7+ dígitos com ponto, hífen ou espaço entre eles (RG, telefone, conta, CEP) → [NÚMERO].
  * Datas 'AAAA-MM-DD' são preservadas (a IA e o log precisam delas).
  */
 export function mascararDadosPessoais(entrada) {
@@ -347,13 +382,9 @@ export function mascararDadosPessoais(entrada) {
   const original = s;
   s = mascararEmails(s);
   s = s.replace(CPF_MASCARA_RE, '[CPF]');
-  s = s.replace(CARTAO_RE, '[NÚMERO]');
-  s = s.replace(NUMERO_RE, (m) => {
-    if (DATA_ISO_RE.test(m)) return m;
-    const d = m.replace(/[^\d]/g, '');
-    if (d.length === 11 && /^\d+$/.test(m) && validarCpf(m)) return '[CPF]';
-    return '[NÚMERO]';
-  });
+  // Duas datas ISO lado a lado ('2026-10-18 2026-10-19') têm o feitio de cartão: vão para a regra das sequências.
+  s = s.replace(CARTAO_RE, (m) => (m.split(ESPACOS_H_RE).some(seg => DATA_ISO_RE.test(seg)) ? mascararSequencia(m) : '[NÚMERO]'));
+  s = s.replace(NUMERO_RE, mascararSequencia);
   return { texto: s, mascarado: s !== original };
 }
 

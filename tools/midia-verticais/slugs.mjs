@@ -1,0 +1,1 @@
+export const SLUGS = ['indice', 'familias-empresarias-holdings', 'agronegocio-patrimonio-rural', 'incorporacao-construcao-imobiliario', 'cartorios-servicos-registrais', 'infraestrutura-saneamento-energia', 'industria-comercio-distribuicao', 'saude-profissionais-liberais', 'educacao-terceiro-setor', 'credito-garantias-instituicoes-financeiras'];

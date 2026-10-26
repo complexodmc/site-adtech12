@@ -56,15 +56,22 @@
     if (situacao === 'revogado') aviso = html`<div class="pf-alerta pf-alerta--aviso" role="status"><p>Este documento foi revogado${d.revogadaEm ? ` em ${fmtData(d.revogadaEm)}` : ''}.</p></div>`;
     else if (situacao === 'cancelado') aviso = html`<div class="pf-alerta pf-alerta--aviso" role="status"><p>Este documento foi cancelado${d.canceladoEm ? ` em ${fmtData(d.canceladoEm)}` : ''}.</p></div>`;
     else if (situacao === 'anulado') aviso = html`<div class="pf-alerta pf-alerta--aviso" role="status"><p>Este registro foi anulado${d.anuladoEm ? ` em ${fmtData(d.anuladoEm)}` : ''}.</p></div>`;
-    const integridade = r.integro === false
-      ? html`<div class="pf-alerta pf-alerta--erro" role="alert"><p>O registro deste documento não confere com o selo de emissão. Fale com a coordenação antes de aceitá-lo.</p></div>`
-      : '';
+    // Selo (A08): "Documento válido" só com integro === true. false → "Não confere" + alerta;
+    // null → aviso explícito (selo não verificável), e o certificado legado sem selo diz o que é.
+    const integro = r.integro === true ? true : r.integro === false ? false : null;
+    const legado = integro === null && r.tipo === 'certificado' && !r.hashPrefixo;
+    let integridade = '';
+    if (integro === false) integridade = html`<div class="pf-alerta pf-alerta--erro" role="alert" data-selo="nao-confere"><p>O registro deste documento não confere com o selo de emissão. Fale com a coordenação antes de aceitá-lo.</p></div>`;
+    else if (legado) integridade = html`<div class="pf-alerta" role="status" data-selo="anterior"><p>Este certificado foi emitido antes da verificação por selo: os dados deste registro não podem ser conferidos por ele. Em caso de dúvida, fale com a coordenação.</p></div>`;
+    else if (integro === null) integridade = html`<div class="pf-alerta pf-alerta--aviso" role="alert" data-selo="nao-verificado"><p>Não foi possível verificar o selo de emissão deste documento. Fale com a coordenação antes de aceitá-lo.</p></div>`;
     const selo = r.hashPrefixo
       ? html`<span class="pf-dec-cert__codigo">${r.hashPrefixo}</span> <span class="pf-ajuda">Compare com o código impresso no documento.</span>`
-      : (r.tipo === 'certificado' ? 'Emitido antes da verificação por selo' : '—');
-    const marcador = situacao === 'valido'
-      ? html`<span class="pf-estado pf-estado--sucesso">Documento válido</span>`
-      : html`<span class="pf-estado pf-estado--aviso">Documento ${situacao === 'revogado' ? 'revogado' : situacao === 'cancelado' ? 'cancelado' : 'anulado'}</span>`;
+      : (legado ? 'Emitido antes da verificação por selo' : 'Ausente');
+    let marcador;
+    if (integro === false) marcador = html`<span class="pf-estado pf-estado--erro">Não confere</span>`;
+    else if (situacao !== 'valido') marcador = html`<span class="pf-estado pf-estado--aviso">Documento ${situacao === 'revogado' ? 'revogado' : situacao === 'cancelado' ? 'cancelado' : 'anulado'}</span>`;
+    else if (integro === null && !legado) marcador = html`<span class="pf-estado pf-estado--aviso">Selo não verificado</span>`;
+    else marcador = html`<span class="pf-estado pf-estado--sucesso">Documento válido</span>`;
     el.innerHTML = html`
       <section class="pf-dec-resultado" aria-labelledby="pf-dec-res-titulo">
         <h2 class="pf-secao-titulo" id="pf-dec-res-titulo">${marcador}</h2>

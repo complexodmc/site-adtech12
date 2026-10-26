@@ -249,6 +249,51 @@ instrução de registrar como D10 foi adaptada para não duplicar identificador.
   política de privacidade sem `[CONFIRMAR]` (condição da newsletter) e as pendências listadas em
   `docs/dmc/home-redesign/RELATORIO-CEO.md` §5.
 
+### T11 — `#conheca` numa tela, sem overline, rinoceronte no centro da rede (2026-10-17)
+- Decisão do CEO (pedido direto, sessão `#conheca`): retirar a palavra "Sobre" da seção (o overline
+  sai; "Sobre" segue no menu, no rodapé e em `pages/sobre.html`), fazer a seção caber numa tela e
+  usar `assets/videos/rino-alpha-gold.webm`. Sobrepõe a S15 de D11 ("sem rinoceronte em vídeo na seção
+  Sobre", item 14 do `RELATORIO-CEO.md`) e o overline registrado em T6; o histórico acima fica como está.
+- Implementação: o rinoceronte entra no centro da rede, no lugar do selo "DMC" (a interação aprovada em
+  T6 continua: tablist com setas/Home/End, hover lista↔rede, clique no nó, avanço de 5 s que para na
+  primeira interação). Fonte escolhida em `rede-neural.js` por motor: HEVC `.mov` no WebKit, WebM VP9
+  nos demais (não por ordem de `<source>`, porque Edge/Chrome com extensão HEVC tocariam o `.mov` sem
+  alfa); só baixa e toca com a rede visível; reduce, Save-Data ou sem JS = pôster
+  `rino-alpha-gold-poster.webp` (quadro 0, 23 KB). ≥1024px a seção mede `100svh − header`; a leitura do
+  eixo ativo fica abaixo da rede, com a base alinhada à dos botões; o fio da aba ativa marca o tempo do
+  avanço automático. `aria-live` saiu do foco (o avanço de 5 s faria o leitor de tela anunciar a cada troca).
+- Custo medido (Chromium, 1440×800, 6 s com a seção na tela): thread principal 8,6% com o vídeo × 7,9%
+  com o pôster (CPU ×4: 16,5% × 16,1%); a decodificação não pesa na thread principal. +820 KB só quando
+  a seção chega perto da tela.
+- Impacto: `index.html` (bloco `#conheca`, `styles.css?v=c8`, `rede-neural.js?v=3`), `styles.css` (bloco
+  SOBRE e o `.casa__tab::before` solto do topo), `rede-neural.js`, `assets/images/rino-alpha-gold-poster.webp`.
+  e2e home-secoes + movimento + eixos + viewports: 267/267.
+- Pendência: validar o HEVC com alfa em Safari e iPhone reais (testado só em Chromium).
+
+### T12 — Rede de #conheca vira rede de produtos, em dourado único (2026-10-17)
+- Decisão (pedido do CEO, "Prompt master — ecossistema neural dos 6 eixos"): a rede da seção
+  #conheca ganha o nível 3 — as soluções de cada eixo, como nós que se expandem em leque a partir
+  do eixo aberto (cursor > foco > seleção), malha triangulada, sinais de energia e rótulos que são
+  links reais. Os seis eixos usam só o dourado institucional (#C6A15B / #E3C689) dentro da seção;
+  os acentos por eixo (np-pillar-*) continuam valendo no resto do site. Rinoceronte, anéis e
+  arquitetura radial (T11) preservados.
+- Dados: `assets/js/data/eixos-servicos.js` (29 soluções). E1, E3 e E6 = catálogo "Todas as
+  soluções por eixo" da home; E2, E4 e E5 = catálogo + itens de "O que entregamos" da página do
+  eixo, com destino na seção `#beneficios` (sem página própria — lacuna registrada). Nenhuma rota
+  nova. Celular: os rótulos saem do canvas e viram lista no painel do eixo (≥44px).
+- Impacto: `index.html` (#conheca: `.casa__rede` deixa de ser aria-hidden; canvas, SVG e vídeo
+  seguem aria-hidden), `assets/js/rede-neural.js?v=4`, `assets/css/styles.css?v=c9` (bloco .casa).
+  QA: e2e home-secoes + movimento + eixos + viewports + a11y + console 383/383; roteiro de
+  interação 16/16 (hover, rótulo, clique, teclado, reduce, celular).
+- Aprovação necessária: não (pedido direto do CEO). Commit: aguardando o CEO, junto com T11.
+- Revisão (2026-10-18, CEO: "texto muito junto"): três órbitas concêntricas — rinoceronte,
+  eixos (R 0,29) e órbita das soluções (R 0,40), com arco próprio, filamentos curvos do eixo até
+  cada nó e treliça entre as órbitas. O leque de cada eixo abre só o necessário para que nenhum
+  rótulo encoste em outro, num nome de eixo ou num nó (folga ≥ 12px); rótulo sem espaço quebra em
+  até duas linhas ou desce na diagonal, nunca cobre o próprio nó. Verificado nos 6 eixos em
+  1024, 1280, 1440, 1920 e 820 (tablet): 0 sobreposição, 0 texto vazado, nada fora da tela.
+  `rede-neural.js?v=5`, `styles.css?v=c11`. e2e da home 383/383; roteiro de interação 11/11.
+
 ## Portal acadêmico (2026-10-18)
 
 Portal do Aluno + Portal do Professor sobre a EAD existente. Fonte única: `docs/dmc/PORTAL-ACADEMICO.md` (índice;
@@ -375,3 +420,12 @@ na seção do índice citada. Numeração local `PA-n` (não colide com D/T de s
   e bloqueante do G0-a (índice §8.3, "contrato da 2d entregue"): indicar quem responde pela 2d para receber o aviso da
   §5.5 (itens 1–10 e 7a) ou aceitar por escrito o plano B (D-70) e abrir a fase 1 sem o aviso. O lado do código foi
   conferido às 10:41 (`docs/dmc/qa/2026-10-18-g0a-r4-principal/`); a equipe não decide no lugar do CEO.
+
+### VN-1 — Seção Verticais de Negócio e item "Segmentos" no menu (2026-10-18)
+- Pedido do CEO: tirar "Treinamentos" do menu, criar "Segmentos" (referência estrutural: planning.com.br/verticais-de-negocio) e executar o prompt das 9 verticais. Rotas em `/verticais-de-negocio/` e `/verticais-de-negocio/<slug>/` (pastas com `index.html`; redirects sem barra → com barra e atalhos `/verticais`, `/segmentos` no `vercel.json`).
+- Conteúdo em `tools/verticais/dados.mjs` (fora da pasta pública, porque guarda `case.cliente_interno`), páginas geradas por `tools/verticais/gerar.mjs`. Vertical 8 (a partir da 2ª dor) e vertical 9 foram redigidas pela equipe porque o prompt chegou truncado: **pendente de revisão do CEO** (`revisao_pendente: true`).
+- Tokens do site prevalecem sobre a paleta "Visual Law" do prompt (o próprio prompt prevê isso): páginas no ouro da casa; cartões de "Como atuamos", chips e matriz no acento do eixo (`.np-pillar-*`).
+- Menu: "Segmentos ▾" com submenu (visão geral + 9) no lugar de "Treinamentos", desktop e gaveta; rodapé das 31 páginas troca o link "Treinamentos" por "Segmentos"; as páginas novas têm coluna "Segmentos" completa. A seção `#treinamentos` da home continua (só saiu do menu/rodapé); EAD segue por "DMC Business School" e Acessar.
+- Formulário: reutiliza `POST /api/contato` com campos opcionais `segmento`, `faturamento`, `patrimonio`, `motivo`; com segmento válido, `perfil`/`eixo` são derivados e a mensagem vira opcional (o cliente manda um resumo). Contrato antigo intacto (28 testes).
+- Mídia: 10 heróis (cartaz 1600×900 + 960×540, loop 6 s WebM/MP4) renderizados em `tools/midia-verticais/` (Three.js procedural, linguagem de `midia-home`); nada de banco de imagens.
+- Aprovação: CEO (pedido direto); conteúdo das verticais 8 e 9 pendente.

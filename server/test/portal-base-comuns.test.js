@@ -3,7 +3,7 @@
 // nada muda), limitador, e-mail, acesso/equipe, perfis-leitura e o localizador de
 // serviços com os executores dos grupos. Nenhum Mongo, nenhuma rede.
 // Rode com `npm test` na raiz.
-import { test, describe } from 'node:test';
+import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import zlib from 'node:zlib';
 import express from 'express';
@@ -11,7 +11,7 @@ import { ObjectId } from 'mongodb';
 
 import { criarBancoMemoria } from './apoio/banco-memoria.js';
 import { semear, IDS, oid } from './apoio/fixtures-portal.js';
-import { subir, fechar, cliente } from './apoio/http.js';
+import { subir, fechar, cliente, usuarioDeTeste } from './apoio/http.js';
 import {
   silencioso, criarLogEspiao, relogio, fetchFalso, montarPdf, pdfMinimo, pdfComJavascript, pngMinimo, pngComTexto,
   jpegMinimo, jpegComExif, webpMinimo, webpComExif, htmlDisfarcado, gerarCpfValido
@@ -26,7 +26,7 @@ import { criarServicoNotificacoes, INTERVALO_VARREDURA_MS } from '../src/portal/
 import {
   detectarTipo, pdfTemConteudoAtivo, normalizarNomesPdf, removerMetadadosImagem, lerCorpoBinario, criarArquivos, nomeDeDownload
 } from '../src/portal/arquivos.js';
-import { criarAuditoria, calcularMudancas, campoSensivel, MASCARA } from '../src/portal/auditoria.js';
+import { criarAuditoria, calcularMudancas, campoSensivel, mascararMudancasLegadas, MASCARA } from '../src/portal/auditoria.js';
 import { criarContadorPersistente, limitePersistente, conferirSenhaAtual, chaveUsuario } from '../src/portal/limitador.js';
 import { criarEnviadorEmail, MODELOS, montarLinkDeAcesso, RODAPE_SEGURANCA, mascararEmail } from '../src/portal/email.js';
 import { criarAcesso } from '../src/portal/acesso.js';
@@ -188,8 +188,12 @@ describe('arquivos.js — PDF com conteúdo ativo', () => {
     assert.deepEqual(pdfTemConteudoAtivo(flate), { ativo: true, motivo: 'JavaScript' });
     const cru = montarPdf([catalogo, paginas, pagina, comStream('<< /Type /ObjStm /N 1 /First 4 >>', objetos)]);
     assert.equal(pdfTemConteudoAtivo(cru).ativo, true);
+    // G2: ASCIIHexDecode agora é aberto (cadeia inteira de filtros) — o JavaScript aparece; o caso
+    // "filtro que não abre" passa a usar um filtro que de fato não abre (DCTDecode num object stream).
     const hex = montarPdf([catalogo, paginas, pagina, comStream('<< /Type /ObjStm /N 1 /First 4 /Filter /ASCIIHexDecode >>', Buffer.from(objetos.toString('hex') + '>'))]);
-    assert.deepEqual(pdfTemConteudoAtivo(hex), { ativo: true, motivo: 'objstm-ilegivel' });
+    assert.deepEqual(pdfTemConteudoAtivo(hex), { ativo: true, motivo: 'JavaScript' });
+    const naoAbre = montarPdf([catalogo, paginas, pagina, comStream('<< /Type /ObjStm /N 1 /First 4 /Filter /DCTDecode >>', comp)]);
+    assert.deepEqual(pdfTemConteudoAtivo(naoAbre), { ativo: true, motivo: 'objstm-ilegivel' });
   });
 
   test('bomba de compressão → ativo (motivo compressao), sem estourar memória', () => {
@@ -206,6 +210,154 @@ describe('arquivos.js — PDF com conteúdo ativo', () => {
     const img = zlib.deflateSync(Buffer.from('\x00\x01/JS \x02\x03', 'latin1'));
     const pdf = montarPdf([catalogo, paginas, pagina, comStream('<< /Type /XObject /Subtype /Image /Width 1 /Height 1 /Filter /FlateDecode >>', img)]);
     assert.equal(pdfTemConteudoAtivo(pdf).ativo, false);
+  });
+});
+
+// G2 · revisão OWASP (A04, ASVS 12.1/12.2.1): achados confirmados em arquivos.js — varredura
+// quadrática (CWE-407) e desvios do filtro de PDF ativo. Cada caso falhava no código anterior.
+describe('arquivos.js — PDF ativo: endurecimento G2 (tempo linear e desvios do filtro)', () => {
+  const MIB = 1024 * 1024;
+  const t = s => Buffer.from(s, 'latin1');
+  const catalogo = '<< /Type /Catalog /Pages 2 0 R >>';
+  const paginas = '<< /Type /Pages /Kids [3 0 R] /Count 1 >>';
+  const pagina = '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 200 200] >>';
+  const comStream = (dic, dados) => `${dic.replace(/>>$/, ` /Length ${dados.length} >>`)}\nstream\n${dados.toString('latin1')}\nendstream`;
+  const repetir = (unidade, tamanho) => t('%PDF-1.7\n' + unidade.repeat(Math.floor((tamanho - 9) / unidade.length)));
+  const cronometrar = buf => { const t0 = performance.now(); const r = pdfTemConteudoAtivo(buf); return { r, ms: performance.now() - t0 }; };
+  // LZWDecode do PDF (EarlyChange 1) só para cargas curtas: todos os códigos com 9 bits.
+  function lzwPdf(texto) {
+    const bytes = t(texto);
+    const saida = [];
+    let acum = 0;
+    let bits = 0;
+    const por = cod => { acum = (acum << 9) | cod; bits += 9; while (bits >= 8) { bits -= 8; saida.push((acum >>> bits) & 0xff); } acum &= (1 << bits) - 1; };
+    const tabela = new Map();
+    let prox = 258;
+    const codigo = w => (w.length === 1 ? w.charCodeAt(0) : tabela.get(w));
+    por(256);
+    let w = String.fromCharCode(bytes[0]);
+    for (const b of bytes.subarray(1)) {
+      const c = String.fromCharCode(b);
+      if (tabela.has(w + c)) { w += c; continue; }
+      por(codigo(w));
+      tabela.set(w + c, prox++);
+      w = c;
+    }
+    por(codigo(w));
+    por(257);
+    if (bits) saida.push((acum << (8 - bits)) & 0xff);
+    assert.ok(prox < 500, 'carga curta (códigos de 9 bits)');
+    return Buffer.from(saida);
+  }
+
+  test('DoS (CWE-407): 1 MiB e 4 MiB de "Xstream\\nendstream" sem "obj" terminam em menos de 1 s', () => {
+    for (const tamanho of [MIB, 4 * MIB]) {
+      const { r, ms } = cronometrar(repetir('Xstream\nendstream\n', tamanho));
+      assert.ok(ms < 1000, `${tamanho / MIB} MiB levou ${ms.toFixed(0)} ms`);
+      assert.equal(r.ativo, true, 'centenas de milhares de "stream" fora da estrutura: recusado');
+    }
+  });
+
+  test('pior caso de 4 MiB em outros formatos: cada um termina em menos de 1 s', () => {
+    const z = zlib.deflateSync(t('q Q'));
+    const flate = `1 0 obj << /Filter /FlateDecode /Length ${z.length} >>\nstream\n${z.toString('latin1')}\nendstream\nendobj\n`;
+    const umMiB = zlib.deflateSync(t('/J#41'.repeat(Math.floor(MIB / 5))));
+    const formatos = {
+      'obj antes de cada stream': repetir('1 0 obj\nXstream\nendstream\n', 4 * MIB),
+      'dicionário vazio + stream (mais de 10.000)': repetir('<<>>stream\n\nendstream\n', 4 * MIB),
+      '9.999 streams Flate válidos': t('%PDF-1.7\n' + flate.repeat(9999) + '%' + 'x'.repeat(4 * MIB - 9999 * flate.length - 32) + '\n'),
+      '"stream" dentro de strings': repetir('(stream\n)', 4 * MIB),
+      'nomes com #xx': repetir('/a#41', 4 * MIB),
+      'dicionário único de 4 MiB': t('%PDF-1.7\n1 0 obj << ' + '/K 1 0 R '.repeat(Math.floor((4 * MIB - 100) / 9)) + '>>\nstream\nq\nendstream\nendobj\n'),
+      '17 streams de 1 MiB descomprimido (teto total)': t('%PDF-1.7\n' + `1 0 obj << /Filter /FlateDecode /Length ${umMiB.length} >>\nstream\n${umMiB.toString('latin1')}\nendstream\nendobj\n`.repeat(17))
+    };
+    for (const [rotulo, buf] of Object.entries(formatos)) {
+      const { ms } = cronometrar(buf);
+      assert.ok(ms < 1000, `${rotulo}: ${ms.toFixed(0)} ms`);
+    }
+    assert.deepEqual(pdfTemConteudoAtivo(formatos['dicionário vazio + stream (mais de 10.000)']), { ativo: true, motivo: 'estrutura' });
+    assert.deepEqual(pdfTemConteudoAtivo(formatos['17 streams de 1 MiB descomprimido (teto total)']), { ativo: true, motivo: 'compressao' });
+    assert.equal(pdfTemConteudoAtivo(formatos['9.999 streams Flate válidos']).ativo, false, 'PDF grande e inofensivo continua aceito');
+  });
+
+  test('desvio A: "stream" dentro de comentário ou string não abre stream (o que vem depois continua varrido)', () => {
+    const xfa = '<< /Type /Catalog /Pages 2 0 R /AcroForm << /XFA 5 0 R >> >>';
+    const casos = {
+      'comentário com /Length1': `%PDF-1.7\n% /Length1 upstream\n1 0 obj\n${xfa}\nendobj\n% endstream\n2 0 obj\n${paginas}\nendobj\ntrailer << /Root 1 0 R >>\n%%EOF\n`,
+      'comentário com filtro de imagem': `%PDF-1.7\n% /Filter /DCTDecode upstream\n1 0 obj\n${xfa}\nendobj\n% endstream\ntrailer << /Root 1 0 R >>\n%%EOF\n`,
+      'string com /Length1': `%PDF-1.7\n9 0 obj << /Length1 1 /Info (upstream\n) >> endobj\n1 0 obj\n${xfa}\nendobj\n9 0 obj (endstream) endobj\ntrailer << /Root 1 0 R >>\n%%EOF\n`,
+      'PoC da revisão (JavaScript)': '%PDF-1.7\n1 0 obj << /Type /Catalog /Pages 2 0 R /OpenAction 3 0 R >> endobj\n2 0 obj << /Type /Pages /Kids [] /Count 0 >> endobj\n% /Length1 upstream\n3 0 obj << /S /JavaScript /JS (app.alert\\(1\\)) >> endobj\n% endstream\ntrailer << /Root 1 0 R >>\n%%EOF'
+    };
+    for (const [rotulo, pdf] of Object.entries(casos)) assert.equal(pdfTemConteudoAtivo(t(pdf)).ativo, true, rotulo);
+    assert.equal(pdfTemConteudoAtivo(t(casos['comentário com /Length1'])).motivo, 'XFA');
+    // sem falso positivo: "stream" num comentário de PDF inofensivo
+    const inofensivo = montarPdf([catalogo, paginas, pagina]).toString('latin1').replace('%PDF-1.4\n', '%PDF-1.4\n% gerado no fluxo upstream\n');
+    assert.deepEqual(pdfTemConteudoAtivo(t(inofensivo)), { ativo: false, motivo: null });
+  });
+
+  test('desvio B: cadeia INTEIRA de filtros (Flate + ASCIIHex, ASCII85, LZW, RunLength, abreviações)', () => {
+    const objetos = '3 0 << /S /Launch /F (cmd.exe) >>';
+    const flateHex = zlib.deflateSync(t(Buffer.from(objetos, 'latin1').toString('hex') + '>'));
+    const pdfB = montarPdf([catalogo, paginas, pagina, comStream('<< /Type /ObjStm /N 1 /First 4 /Filter [/FlateDecode /ASCIIHexDecode] >>', flateHex)]);
+    assert.doesNotMatch(pdfB.toString('latin1'), /Launch/);
+    assert.deepEqual(pdfTemConteudoAtivo(pdfB), { ativo: true, motivo: 'Launch' }, 'PoC da revisão');
+    const a85 = t(ascii85(t('<< /S /JS (x) >>')));
+    assert.doesNotMatch(a85.toString('latin1'), /\/JS/, 'o nome não aparece cru');
+    const casos = {
+      'ASCII85 + Flate': comStream('<< /Filter [/ASCII85Decode /FlateDecode] >>', t(a85ParaFlate(objetos))),
+      'abreviação /Fl': comStream('<< /Type /ObjStm /N 1 /First 4 /Filter /Fl >>', zlib.deflateSync(t(objetos))),
+      'LZWDecode': comStream('<< /Type /ObjStm /N 1 /First 4 /Filter /LZWDecode >>', lzwPdf(objetos + ' ' + '-'.repeat(40))),
+      'RunLengthDecode': comStream('<< /Type /ObjStm /N 1 /First 4 /Filter /RunLengthDecode >>', Buffer.concat([Buffer.from([objetos.length - 1]), t(objetos), Buffer.from([128])])),
+      'ASCII85 direto': comStream('<< /Filter /A85 >>', a85)
+    };
+    for (const [rotulo, s] of Object.entries(casos)) assert.equal(pdfTemConteudoAtivo(montarPdf([catalogo, paginas, pagina, s])).ativo, true, rotulo);
+    assert.equal(pdfTemConteudoAtivo(montarPdf([catalogo, paginas, pagina, casos['ASCII85 direto']])).motivo, 'JS');
+    assert.deepEqual([...lzwPdf('-----A---B')], [0x80, 0x0b, 0x60, 0x50, 0x22, 0x0c, 0x0c, 0x85, 0x01], 'codificador do teste confere com o exemplo da norma');
+    // inofensivo com cadeia (ex.: Distiller antigo) continua aceito
+    const benigno = comStream('<< /Filter [/ASCII85Decode /FlateDecode] >>', t(a85ParaFlate('BT /F1 12 Tf (Contrato) Tj ET')));
+    assert.deepEqual(pdfTemConteudoAtivo(montarPdf([catalogo, paginas, pagina, benigno])), { ativo: false, motivo: null });
+  });
+
+  // ASCII85 (com 'z' e grupo final curto) e ASCII85 do zlib do texto (cadeia [/ASCII85Decode /FlateDecode]).
+  const a85ParaFlate = texto => ascii85(zlib.deflateSync(t(texto)));
+  function ascii85(d) {
+    let s = '';
+    for (let i = 0; i < d.length; i += 4) {
+      const g = Buffer.alloc(4);
+      d.copy(g, 0, i, Math.min(d.length, i + 4));
+      const n = Math.min(4, d.length - i);
+      let v = g.readUInt32BE(0);
+      if (v === 0 && n === 4) { s += 'z'; continue; }
+      const c = [];
+      for (let j = 0; j < 5; j++) { c.unshift(String.fromCharCode(33 + (v % 85))); v = Math.floor(v / 85); }
+      s += c.join('').slice(0, n + 1);
+    }
+    return s + '~>';
+  }
+
+  test('object stream reconhecido pelo conteúdo (/N + /First sem /Type) e pelas chaves de cima do dicionário', () => {
+    const comp = zlib.deflateSync(t('3 0 << /S /Launch /F (calc.exe) >>'));
+    const semType = comStream('<< /N 1 /First 4 /X << /Filter /DCTDecode >> /Filter /FlateDecode >>', comp);
+    assert.deepEqual(pdfTemConteudoAtivo(montarPdf([catalogo, paginas, pagina, semType])), { ativo: true, motivo: 'Launch' });
+    const preditor = comStream('<< /Type /ObjStm /N 1 /First 4 /Filter /FlateDecode /DecodeParms << /Predictor 12 /Columns 4 >> >>', comp);
+    assert.deepEqual(pdfTemConteudoAtivo(montarPdf([catalogo, paginas, pagina, preditor])), { ativo: true, motivo: 'objstm-ilegivel' }, 'preditor muda os bytes: não dá para varrer');
+    const repetido = comStream('<< /Type /ObjStm /N 1 /First 4 /Filter /FlateDecode /Filter /ASCIIHexDecode >>', comp);
+    assert.deepEqual(pdfTemConteudoAtivo(montarPdf([catalogo, paginas, pagina, repetido])), { ativo: true, motivo: 'objstm-ilegivel' }, '/Filter repetido é ambíguo');
+    const desconhecido = comStream('<< /Filter /XYZDecode >>', t('qualquer'));
+    assert.deepEqual(pdfTemConteudoAtivo(montarPdf([catalogo, paginas, pagina, desconhecido])), { ativo: true, motivo: 'filtro-desconhecido' });
+    const foto = comStream('<< /Type /XObject /Subtype /Image /Width 1 /Height 1 /Filter /DCTDecode >>', jpegMinimo());
+    assert.equal(pdfTemConteudoAtivo(montarPdf([catalogo, paginas, pagina, foto])).ativo, false, 'imagem JPEG continua aceita');
+  });
+
+  test('NUL é espaço no PDF: /Launch seguido de \\0 é /Launch', () => {
+    const pdf = t('%PDF-1.7\n1 0 obj << /Type /Catalog /OpenAction 3 0 R >> endobj\n3 0 obj << /S /Launch\x00/F (calc.exe) >> endobj\ntrailer << /Root 1 0 R >>\n%%EOF');
+    assert.deepEqual(pdfTemConteudoAtivo(pdf), { ativo: true, motivo: 'Launch' });
+    assert.equal(pdfTemConteudoAtivo(montarPdf([catalogo, paginas, pagina, '<< /S /GoToR\x00/F (x.pdf) >>'])).motivo, 'GoToR');
+  });
+
+  test('/Length direto mais curto: o que o leitor lê depois dele volta para a varredura', () => {
+    const pdf = montarPdf([catalogo, paginas, pagina, '<< /Type /XObject /Subtype /Image /Width 1 /Height 1 /Length 0 >>\nstream\n<< /XFA 9 0 R >>\nendstream']);
+    assert.deepEqual(pdfTemConteudoAtivo(pdf), { ativo: true, motivo: 'XFA' });
   });
 });
 
@@ -269,6 +421,41 @@ describe('arquivos.js — entrada (lerCorpoBinario) e repositório', () => {
       const grande = await api.post('/up', undefined, { corpoCru: Buffer.concat([pdfMinimo(), Buffer.alloc(8192, 0x20)]), tipo: 'application/pdf' });
       assert.equal(grande.status, 413);
       assert.equal(grande.corpo.codigo, 'arquivo-grande');
+    } finally { await fechar(server); }
+  });
+
+  test('G2: pelo middleware das rotas (4 MiB, pdf/jpg/png) — desvios A e B → 415 pdf-ativo; bomba de 4 MiB → 415 sem travar o processo', async () => {
+    const app = express();
+    app.get('/ping', (_q, res) => res.json({ ok: true }));
+    app.post('/up', ...lerCorpoBinario({ limiteBytes: 4 * 1024 * 1024, tipos: ['pdf', 'jpg', 'png'] }), (req, res) => res.status(201).json({ tipo: req.arquivo.tipo }));
+    app.use(criarTratadorErroPortal({ log: silencioso }));
+    app.use(criarTratarErroGlobal({ log: silencioso }));
+    const { server, base } = await subir(app);
+    const api = cliente(base);
+    const t = s => Buffer.from(s, 'latin1');
+    try {
+      const desvioA = t('%PDF-1.7\n1 0 obj << /Type /Catalog /Pages 2 0 R /AcroForm << /XFA 3 0 R >> >> endobj\n% /Length1 upstream\n2 0 obj << /Type /Pages /Kids [] /Count 0 >> endobj\n% endstream\ntrailer << /Root 1 0 R >>\n%%EOF');
+      const cab = '3 0 ';
+      const comp = zlib.deflateSync(t(Buffer.from(cab + '<< /S /Launch /F (cmd.exe) >>', 'latin1').toString('hex') + '>'));
+      const desvioB = Buffer.concat([t(`%PDF-1.7\n1 0 obj << /Type /Catalog /Pages 2 0 R /OpenAction 3 0 R >> endobj\n4 0 obj << /Type /ObjStm /N 1 /First ${cab.length} /Filter [/FlateDecode /ASCIIHexDecode] /Length ${comp.length} >>\nstream\n`), comp, t('\nendstream\nendobj\ntrailer << /Root 1 0 R >>\n%%EOF')]);
+      for (const [rotulo, corpo] of Object.entries({ desvioA, desvioB })) {
+        const r = await api.post('/up', undefined, { corpoCru: corpo, tipo: 'application/pdf' });
+        assert.equal(r.status, 415, rotulo);
+        assert.equal(r.corpo.codigo, 'pdf-ativo', rotulo);
+      }
+      const bomba = t('%PDF-1.7\n' + 'Xstream\nendstream\n'.repeat(Math.floor((4 * 1024 * 1024 - 9) / 18)));
+      const t0 = performance.now();
+      const envio = api.post('/up', undefined, { corpoCru: bomba, tipo: 'application/pdf' });
+      await new Promise(resolve => setTimeout(resolve, 50));
+      const ping = await api.get('/ping');
+      const msPing = performance.now() - t0;
+      const r = await envio;
+      const msEnvio = performance.now() - t0;
+      assert.equal(r.status, 415);
+      assert.equal(r.corpo.codigo, 'pdf-ativo');
+      assert.equal(ping.status, 200);
+      assert.ok(msEnvio < 2000, `envio de 4 MiB levou ${msEnvio.toFixed(0)} ms`);
+      assert.ok(msPing < 2000, `GET /ping concorrente esperou ${msPing.toFixed(0)} ms`);
     } finally { await fechar(server); }
   });
 
@@ -407,7 +594,163 @@ describe('auditoria.js', () => {
       { campo: 'senhaHash', de: MASCARA, para: MASCARA }
     ]);
     for (const c of ['passaporte.numero', 'etnia', 'fotoArquivoId', 'segredo', 'chaveCifrada', 'apiKey', 'tokenHash']) assert.ok(campoSensivel(c), c);
-    for (const c of ['celular', 'nomeSocial', 'endereco.regiao', 'codigo']) assert.ok(!campoSensivel(c), c);
+    for (const c of ['celular', 'nomeRegistro', 'nomeEmDocumentos', 'endereco.regiao', 'codigo']) assert.ok(!campoSensivel(c), c);
+  });
+
+  // Achado G2 (LGPD, retenção): nome social e redes dependem de consentimento e são apagados na
+  // revogação; a trilha (só de inserção, sem TTL) não pode guardar o valor em claro.
+  test('mudancas()/registrar/executar: nome social e redes gravam (alterado), nunca o valor (LGPD, consentimento)', async () => {
+    for (const c of ['nomeSocial', 'redes', 'redes.instagram', 'redes.facebook', 'perfil.nomeSocial']) assert.ok(campoSensivel(c), c);
+    const antes = { nomeSocial: null, redes: { instagram: null, facebook: null }, celular: null };
+    const depois = { nomeSocial: 'Nome Social Escolhido', redes: { instagram: 'perfil.da.aluna', facebook: 'perfil.da.aluna' }, celular: '+5511987654321' };
+    assert.deepEqual(calcularMudancas(antes, depois, ['nomeSocial', 'redes.instagram', 'redes.facebook', 'celular']), [
+      { campo: 'nomeSocial', de: MASCARA, para: MASCARA },
+      { campo: 'redes.instagram', de: MASCARA, para: MASCARA },
+      { campo: 'redes.facebook', de: MASCARA, para: MASCARA },
+      { campo: 'celular', de: null, para: '+5511987654321' }
+    ]);
+    // Mesmo quem monta `mudancas` à mão (sem calcularMudancas) não grava o valor.
+    const banco = await bancoSemeado();
+    const aud = criarAuditoria({ repo: repoDe(banco), log: silencioso });
+    const req = await reqDe(banco, 'u-aluno1');
+    const crus = [{ campo: 'nomeSocial', de: 'Nome Social Escolhido', para: null }, { campo: 'redes.instagram', de: 'perfil.da.aluna', para: null }];
+    await aud.registrar({ acao: 'perfil.alterado', entidade: { tipo: 'perfil', id: IDS['u-aluno1'] }, alvoUserId: IDS['u-aluno1'], mudancas: crus }, req);
+    await aud.executar({ acao: 'perfil.alterado', entidade: { tipo: 'perfil', id: IDS['u-aluno1'] }, alvoUserId: IDS['u-aluno1'], mudancas: crus }, req, async () => {});
+    const docs = banco.documentos('auditoria');
+    assert.equal(docs.length, 2);
+    for (const d of docs) assert.deepEqual(d.mudancas.map(m => [m.campo, m.de, m.para]), [['nomeSocial', MASCARA, MASCARA], ['redes.instagram', MASCARA, MASCARA]]);
+    assert.doesNotMatch(JSON.stringify(docs), /Nome Social Escolhido|perfil\.da\.aluna/);
+  });
+
+  test('mascararMudancasLegadas: simulação não grava; --aplicar mascara só o sensível; idempotente; deixa rastro', async () => {
+    const banco = novoBanco();
+    const col = banco.collection('auditoria');
+    const em = new Date('2026-10-01T12:00:00Z');
+    const ator = { userId: IDS['u-aluno1'], papel: 'aluno', ipTruncado: '203.0.113.0/24' };
+    const base = { em, ator, alvoUserId: IDS['u-aluno1'], cursoId: null, motivo: null, extra: null, estado: 'concluido', concluidoEm: em, erro: null };
+    const legado = {
+      ...base, acao: 'perfil.alterado', entidade: { tipo: 'perfil', id: IDS['u-aluno1'] },
+      mudancas: [
+        { campo: 'nomeRegistro', de: 'Aluna Um', para: 'Aluna Um da Silva' },
+        { campo: 'nomeSocial', de: null, para: 'Nome Social Escolhido' },
+        { campo: 'redes.instagram', de: null, para: 'perfil.da.aluna' },
+        { campo: 'cpf', de: MASCARA, para: MASCARA }
+      ]
+    };
+    const semSensivel = { ...base, acao: 'perfil.alterado', entidade: { tipo: 'perfil', id: IDS['u-aluno2'] }, mudancas: [{ campo: 'celular', de: null, para: '+5511900000000' }] };
+    const jaMascarado = { ...base, acao: 'perfil.alterado', entidade: { tipo: 'perfil', id: IDS['u-aluno2'] }, mudancas: [{ campo: 'genero', de: MASCARA, para: MASCARA }] };
+    const soCampo = { ...base, acao: 'publicacao.alterada', entidade: { tipo: 'publicacao', id: 'p1' }, mudancas: [{ campo: 'titulo' }] };
+    await col.insertMany([legado, semSensivel, jaMascarado, soCampo]);
+    const antes = JSON.stringify(banco.documentos('auditoria'));
+
+    const sim = await mascararMudancasLegadas({ repo: repoDe(banco), log: silencioso });
+    assert.deepEqual(sim, { aplicar: false, candidatos: 1, entradas: 2, mascarados: 0 });
+    assert.equal(JSON.stringify(banco.documentos('auditoria')), antes, 'simulação só lê');
+
+    const r = await mascararMudancasLegadas({ repo: repoDe(banco), aplicar: true, agora: relogio('2026-10-18T12:00:00Z'), log: silencioso });
+    assert.deepEqual(r, { aplicar: true, candidatos: 1, entradas: 2, mascarados: 1 });
+    const docs = banco.documentos('auditoria');
+    const d = docs.find(x => x.entidade.id === IDS['u-aluno1'] && x.acao === 'perfil.alterado');
+    assert.deepEqual(d.mudancas, [
+      { campo: 'nomeRegistro', de: 'Aluna Um', para: 'Aluna Um da Silva' },
+      { campo: 'nomeSocial', de: MASCARA, para: MASCARA },
+      { campo: 'redes.instagram', de: MASCARA, para: MASCARA },
+      { campo: 'cpf', de: MASCARA, para: MASCARA }
+    ]);
+    assert.deepEqual([d.em, d.ator, d.estado, d.concluidoEm], [em, ator, 'concluido', em], 'só `mudancas` muda');
+    assert.deepEqual(docs.find(x => x.entidade.id === IDS['u-aluno2'] && x.mudancas[0].campo === 'celular').mudancas, semSensivel.mudancas);
+    assert.deepEqual(docs.find(x => x.acao === 'publicacao.alterada').mudancas, [{ campo: 'titulo' }]);
+    assert.doesNotMatch(JSON.stringify(docs), /Nome Social Escolhido|perfil\.da\.aluna/);
+    const rastro = docs.filter(x => x.acao === 'auditoria.registros_mascarados');
+    assert.equal(rastro.length, 1);
+    assert.equal(rastro[0].ator.papel, 'sistema');
+    assert.deepEqual(rastro[0].extra, { entradas: 2, registros: 1 });
+
+    const de_novo = await mascararMudancasLegadas({ repo: repoDe(banco), aplicar: true, log: silencioso });
+    assert.deepEqual(de_novo, { aplicar: true, candidatos: 0, entradas: 0, mascarados: 0 }, 'idempotente');
+    assert.equal(banco.documentos('auditoria').filter(x => x.acao === 'auditoria.registros_mascarados').length, 1, 'sem rastro quando nada muda');
+  });
+});
+
+// Achado G2 reproduzido pelas rotas reais (F0t): gravar nome social e Instagram com aceite,
+// revogar as duas finalidades e ler a auditoria da coordenação (JSON e CSV).
+describe('auditoria.js — revogação de nome social e redes não deixa o valor na trilha', () => {
+  let ctx;
+  before(async () => {
+    process.env.MONGODB_URI ||= 'mongodb://127.0.0.1:9/sem-conexao-nos-testes';
+    process.env.JWT_SECRET ||= 'segredo-apenas-para-testes';
+    process.env.DOTENV_CONFIG_QUIET = 'true';
+    const { montarPortal, MODULOS_PADRAO } = await import('../src/portal/montar.js');
+    const { requireAuth, requireAdmin } = await import('../src/auth.js');
+    const { lerConfigPortal } = await import('../src/portal/config-portal.js');
+    const { criarTratarErroGlobal } = await import('../src/portal/erros.js');
+    const banco = await bancoSemeado();
+    const portal = montarPortal({
+      getDb: () => banco, jwtSecret: 'segredo-de-teste', exigirLogin: requireAuth, exigirAdmin: [requireAuth, requireAdmin],
+      servicos: criarServicos(), modulos: MODULOS_PADRAO.filter(m => m.fatia === 'F0t'),
+      configPortal: lerConfigPortal({ NODE_ENV: 'test', JWT_SECRET: 'segredo-de-teste' }), falharCedo: true, log: silencioso,
+      fetchImpl: fetchFalso([{ status: 200, json: { id: 'falso' } }])
+    });
+    const app = express();
+    app.use(express.json({ limit: '1mb' }));
+    app.use('/api', usuarioDeTeste({ banco }));
+    app.use('/api', portal);
+    app.use(criarTratarErroGlobal({ log: silencioso }));
+    const { server, base } = await subir(app);
+    ctx = { banco, server, api: cliente(base) };
+  });
+  after(() => ctx && fechar(ctx.server));
+
+  test('PUT com aceite → revogar → GET /admin/auditoria e CSV sem "Nome Social Escolhido" nem "perfil.da.aluna"', async () => {
+    const { api, banco } = ctx;
+    const uid = IDS['u-aluno1'];
+    const put = await api.put('/api/portal/me/perfil', {
+      versao: 0, nomeRegistro: 'Aluna Um da Silva', nomeSocial: 'Nome Social Escolhido', redes: { instagram: 'perfil.da.aluna' },
+      consentimentos: { nomeSocial: { aceito: true, versaoTexto: 'v1' }, redes: { aceito: true, versaoTexto: 'v1' } }
+    }, { usuario: 'u-aluno1' });
+    assert.equal(put.status, 200, JSON.stringify(put.corpo));
+    for (const f of ['perfil_nome_social', 'perfil_redes']) {
+      assert.equal((await api.post(`/api/portal/me/dados/consentimentos/${f}/revogar`, {}, { usuario: 'u-aluno1' })).status, 200, f);
+    }
+    const perfil = await banco.collection('perfis').findOne({ userId: uid });
+    assert.equal(perfil.nomeSocial, null);
+    assert.deepEqual(perfil.redes, { instagram: null, facebook: null });
+    assert.equal((await banco.collection('users').findOne({ _id: oid('u-aluno1') })).nome, 'Aluna Um da Silva');
+
+    const lista = await api.get(`/api/portal/admin/auditoria?alvoUserId=${uid}&acao=perfil.alterado`, { usuario: 'u-admin' });
+    assert.equal(lista.status, 200, JSON.stringify(lista.corpo));
+    const mud = lista.corpo.itens.flatMap(i => i.mudancas || []);
+    assert.deepEqual(mud.filter(m => m.campo === 'nomeSocial').map(m => [m.de, m.para]), [[MASCARA, MASCARA]]);
+    assert.deepEqual(mud.filter(m => m.campo === 'redes.instagram').map(m => [m.de, m.para]), [[MASCARA, MASCARA]]);
+    assert.doesNotMatch(JSON.stringify(lista.corpo), /Nome Social Escolhido|perfil\.da\.aluna/);
+
+    const csv = await api.get(`/api/portal/admin/auditoria?alvoUserId=${uid}&formato=csv`, { usuario: 'u-admin' });
+    assert.equal(csv.status, 200);
+    assert.match(csv.texto, /nomeSocial/);
+    assert.doesNotMatch(csv.texto, /Nome Social Escolhido|perfil\.da\.aluna/);
+    assert.doesNotMatch(JSON.stringify(banco.documentos('auditoria')), /Nome Social Escolhido|perfil\.da\.aluna/, 'coleção auditoria');
+  });
+});
+
+describe('scripts/mascarar-auditoria.js — simulação por padrão, recusa antes de conectar', () => {
+  const script = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../scripts/mascarar-auditoria.js');
+  const rodar = (args, env) => spawnSync(process.execPath, [script, ...args], {
+    cwd: os.tmpdir(), encoding: 'utf8', timeout: 15000,
+    env: { PATH: process.env.PATH, DOTENV_CONFIG_QUIET: 'true', ...env }
+  });
+
+  test('sem MONGODB_DB, sem URI ou banco fora de _qa sem --confirmar-banco → código 2, nada feito', () => {
+    const semBanco = rodar(['--aplicar'], { MONGODB_URI: 'mongodb://127.0.0.1:9' });
+    assert.equal(semBanco.status, 2, semBanco.stderr);
+    assert.match(semBanco.stderr, /MONGODB_DB é obrigatório/);
+    const semUri = rodar([], { MONGODB_DB: 'complexodmc_portal_f0m_qa' });
+    assert.equal(semUri.status, 2, semUri.stderr);
+    assert.match(semUri.stderr, /MONGODB_URI ausente/);
+    const real = rodar(['--aplicar'], { MONGODB_URI: 'mongodb://127.0.0.1:9', MONGODB_DB: 'complexodmc_local' });
+    assert.equal(real.status, 2, real.stderr);
+    assert.match(real.stderr, /--confirmar-banco=complexodmc_local/);
+    const errado = rodar(['--aplicar', '--confirmar-banco=outro'], { MONGODB_URI: 'mongodb://127.0.0.1:9', MONGODB_DB: 'complexodmc_local' });
+    assert.equal(errado.status, 2, errado.stderr);
   });
 });
 

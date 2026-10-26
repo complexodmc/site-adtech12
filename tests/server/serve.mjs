@@ -28,7 +28,7 @@
 //   GEMINI_API_KEY só vem de QA_GEMINI_API_KEY (a chave do shell nunca entra);
 //   PORTAL_MODULOS, PORTAL_MODULOS_IGNORAR e PORTAL_2FA passam do ambiente.
 // - CSP: os cabeçalhos são os do vercel.json (inclusive a CSP estrita
-//   report-only de /plataforma-ead/, D-43), pela mesma regra de rotas.
+//   APLICADA de /plataforma-ead/ desde o G2, D-43), pela mesma regra de rotas.
 // =============================================================
 import http from 'node:http';
 import net from 'node:net';

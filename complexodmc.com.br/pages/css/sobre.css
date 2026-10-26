@@ -6,7 +6,8 @@
    Estrutura (referência de qualidade: planning.com.br/sobre, nunca
    de cópia — DECISIONS D2):
      1. .sb-hero        herói com imagem da marca, trilha e tese
-     2. .sb-fatos       faixa de fatos verificáveis sobre o herói (D7)
+     2. .sb-fatos       faixa de fatos verificáveis sobre o herói (D7; papel 2, emenda com o relato)
+     2b. .sb-relato     relato de cliente: vídeo vertical + trechos clicáveis (papel 2)
      3. .sb-somos       "Somos o Complexo DMC": foto da recepção + texto (papel)
      4. .sb-lideranca   responsabilidade técnica: três retratos (papel 2)
      5. .sb-proposito   faixa escura com o propósito
@@ -185,6 +186,203 @@
   .sb-fatos__lista li { padding: var(--space-8) var(--space-7); border-width: 0; }
   .sb-fatos__lista li + li { border-left-width: var(--border-hair); }
   .sb-fatos__rotulo { font-size: var(--fs-body); }
+}
+
+/* ============================================================
+   2b · RELATO DE CLIENTE — vídeo vertical 9:16 em moldura com fio
+   de ouro deslocado; citação grande e trechos que levam ao segundo
+   do vídeo (assets/js/sobre.js). Celular: citação → vídeo → trechos.
+   ============================================================ */
+.sb-relato__grade {
+  display: grid;
+  gap: var(--space-8);
+  grid-template-areas: "cabeca" "video" "corpo" "fecho";
+}
+.sb-relato__cabeca { grid-area: cabeca; display: grid; gap: var(--space-5); }
+.sb-relato__citacao { position: relative; padding-top: var(--space-6); }
+/* aspas de abertura em ouro, desenhadas pelo CSS (não é texto) */
+.sb-relato__citacao::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.18em;
+  left: -0.04em;
+  font-family: var(--font-display);
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--color-gold-deep);
+}
+.sb-relato__citacao p {
+  font-family: var(--font-display);
+  font-weight: var(--fw-light);
+  font-size: var(--fs-h2);
+  line-height: 1.12;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  color: var(--text-ink-1);
+}
+.sb-relato__citacao em { font-style: italic; color: var(--color-gold-deep); }
+
+.sb-relato__video { grid-area: video; display: grid; gap: var(--space-4); justify-items: start; }
+.sb-relato__moldura {
+  position: relative;
+  width: min(calc(100% - var(--space-4)), 25rem);   /* sobra para o fio deslocado */
+  aspect-ratio: 9 / 16;
+}
+.sb-relato__moldura::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translate(var(--space-4), var(--space-4));
+  border: var(--border-hair) solid var(--color-gold-deep);
+  border-radius: var(--radius-2);
+  pointer-events: none;
+}
+.sb-relato__moldura video {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--surface-0);
+  border-radius: var(--radius-2);
+  box-shadow: var(--shadow-overlay);
+}
+.sb-relato__video figcaption { font-size: var(--fs-small); color: var(--text-ink-3); margin-top: var(--space-3); }
+.sb-relato__video figcaption b { font-weight: var(--fw-semibold); color: var(--text-ink-1); }
+
+/* Capa com play (só com JS): cobre o vídeo até o primeiro clique */
+.sb-relato__capa {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-7) var(--space-5);
+  border: 0;
+  border-radius: var(--radius-2);
+  background: linear-gradient(180deg, var(--hero-veil-off) 40%, var(--hero-veil) 100%);
+  color: var(--text-1);
+  font: var(--fw-semibold) var(--fs-small)/1.3 var(--font-text);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.sb-relato__capa-play {
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: var(--color-gold);
+  color: var(--color-black);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.sb-relato__capa-play svg { width: 1.6rem; height: 1.6rem; margin-left: 0.2rem; fill: currentColor; }
+.sb-relato__capa:hover .sb-relato__capa-play,
+.sb-relato__capa:focus-visible .sb-relato__capa-play { transform: scale(1.06); }
+.sb-relato__capa:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 4px; }
+.sb-relato.is-tocando .sb-relato__capa { display: none; }
+
+.sb-relato__corpo { grid-area: corpo; display: grid; gap: var(--space-6); align-content: start; }
+.sb-relato__intro { font-size: var(--fs-lead); line-height: 1.5; color: var(--text-ink-2); max-width: var(--measure); }
+.sb-relato__trechos { border-top: var(--border-hair) solid var(--color-line-ink); }
+.sb-relato__trechos li { border-bottom: var(--border-hair) solid var(--color-line-ink); }
+.sb-relato__trecho {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  align-items: baseline;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: var(--hit);
+  padding: var(--space-4) 0 var(--space-4) var(--space-4);
+  border: 0;
+  background: none;
+  color: var(--text-ink-2);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: color var(--dur-base) var(--ease-out);
+}
+.sb-relato__trecho::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: var(--space-4);
+  bottom: var(--space-4);
+  width: 2px;
+  background: var(--color-gold-deep);
+  transform: scaleY(0);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.sb-relato__trecho:hover,
+.sb-relato__trecho[aria-current="true"] { color: var(--text-ink-1); }
+.sb-relato__trecho[aria-current="true"]::before { transform: scaleY(1); }
+.sb-relato__tempo { font-size: var(--fs-small); font-feature-settings: var(--font-numeric); color: var(--color-gold-deep); }
+.sb-relato__frase { font-family: var(--font-display); font-style: italic; font-weight: var(--fw-light); font-size: var(--fs-h4); line-height: 1.35; }
+/* Sem JS os trechos são só leitura */
+.sb-relato:not(.js-relato) .sb-relato__trecho { cursor: default; }
+/* Fecho: resposta do CEO centrada, em linha inteira sob vídeo e trechos.
+   Mesmo sistema dos títulos: roman leve + itálico no ouro profundo. */
+.sb-relato__fecho {
+  grid-area: fecho;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+  text-align: center;
+}
+.sb-relato__fecho .sb-relato__nota { text-wrap: balance; }
+.sb-relato__resposta { display: grid; justify-items: center; gap: var(--space-6); max-width: 46rem; }
+.sb-relato__resposta::before {
+  content: "";
+  width: var(--space-9);
+  height: var(--border-accent);
+  background: var(--color-gold-deep);
+}
+.sb-relato__resposta blockquote p {
+  font-family: var(--font-display);
+  font-weight: var(--fw-light);
+  font-size: var(--fs-h2);
+  line-height: 1.12;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  color: var(--text-ink-1);
+}
+.sb-relato__resposta blockquote em { font-style: italic; color: var(--color-gold-deep); }
+.sb-relato__resposta figcaption { display: flex; align-items: center; gap: var(--space-4); text-align: left; }
+.sb-relato__resposta img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 20%;
+  filter: grayscale(1);
+}
+.sb-relato__resposta figcaption span { display: grid; font-size: var(--fs-small); color: var(--text-ink-3); }
+.sb-relato__resposta figcaption b { font-weight: var(--fw-semibold); font-size: var(--fs-body); color: var(--text-ink-1); }
+.sb-relato__nota { font-size: var(--fs-small); color: var(--text-ink-3); max-width: var(--measure); }
+
+@media (min-width: 1024px) {
+  /* Vídeo à esquerda alinhado ao topo; à direita, citação no topo e
+     trechos no pé, para as duas colunas terminarem juntas. */
+  .sb-relato__grade {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: none;
+    column-gap: var(--grid-gap);
+    row-gap: var(--space-8);
+  }
+  .sb-relato__video { grid-column: 1 / span 5; grid-row: 1 / span 2; align-self: start; }
+  .sb-relato__cabeca { grid-column: 7 / span 6; grid-row: 1; }
+  .sb-relato__corpo { grid-column: 7 / span 6; grid-row: 2; align-self: end; }
+  .sb-relato__fecho { grid-column: 1 / -1; grid-row: 3; margin-top: var(--space-10); }
+  /* aspas penduradas na margem: o texto alinha com os trechos */
+  .sb-relato__citacao { padding-top: 0; }
+  .sb-relato__citacao::before { top: -0.12em; left: -0.6em; }
 }
 
 /* ============================================================
@@ -702,5 +900,8 @@
   .sb-eixo.is-entering,
   .sb-faq__item[open] .sb-faq__resposta { animation: none; }
   .sb-aba::after,
-  .sb-faq__item summary svg { transition: none; }
+  .sb-faq__item summary svg,
+  .sb-relato__capa-play,
+  .sb-relato__trecho,
+  .sb-relato__trecho::before { transition: none; }
 }

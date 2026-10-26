@@ -115,6 +115,34 @@ describe('integração com MongoDB real (F0m)', { skip: pular }, () => {
     assert.equal(await arq.ler(s.id, { contexto: 'material' }), null);
   });
 
+  test('mascararMudancasLegadas no Mongo real: o $regex em mudancas.campo acha o legado; só o sensível muda; idempotente', async () => {
+    const { mascararMudancasLegadas, MASCARA } = await import('../src/portal/auditoria.js');
+    const inicio = new Date();
+    const ent = `${MARCA}-legado`;
+    const em = new Date('2026-10-01T12:00:00Z');
+    const base = { em, ator: { userId: null, papel: 'sistema', ipTruncado: null }, alvoUserId: null, cursoId: null, motivo: null, extra: null, estado: 'concluido', concluidoEm: em, erro: null };
+    await db.collection('auditoria').insertMany([
+      { ...base, acao: 'perfil.alterado', entidade: { tipo: 'perfil', id: ent }, mudancas: [
+        { campo: 'nomeRegistro', de: 'A', para: 'B' }, { campo: 'nomeSocial', de: null, para: 'Nome Social Escolhido' },
+        { campo: 'redes.instagram', de: null, para: 'perfil.da.aluna' }
+      ] },
+      { ...base, acao: 'perfil.alterado', entidade: { tipo: 'perfil', id: `${ent}-limpo` }, mudancas: [{ campo: 'celular', de: null, para: '+5511900000000' }] }
+    ]);
+    try {
+      const sim = await mascararMudancasLegadas({ repo, log: silencioso });
+      assert.ok(sim.candidatos >= 1 && sim.mascarados === 0);
+      assert.equal((await db.collection('auditoria').findOne({ 'entidade.id': ent })).mudancas[1].para, 'Nome Social Escolhido', 'simulação só lê');
+      const r = await mascararMudancasLegadas({ repo, aplicar: true, log: silencioso });
+      assert.ok(r.mascarados >= 1);
+      const d = await db.collection('auditoria').findOne({ 'entidade.id': ent });
+      assert.deepEqual(d.mudancas, [{ campo: 'nomeRegistro', de: 'A', para: 'B' }, { campo: 'nomeSocial', de: MASCARA, para: MASCARA }, { campo: 'redes.instagram', de: MASCARA, para: MASCARA }]);
+      assert.deepEqual((await db.collection('auditoria').findOne({ 'entidade.id': `${ent}-limpo` })).mudancas, [{ campo: 'celular', de: null, para: '+5511900000000' }]);
+      assert.deepEqual(await mascararMudancasLegadas({ repo, aplicar: true, log: silencioso }), { aplicar: true, candidatos: 0, entradas: 0, mascarados: 0 });
+    } finally {
+      await db.collection('auditoria').deleteMany({ acao: 'auditoria.registros_mascarados', em: { $gte: inicio } });
+    }
+  });
+
   test('agregador sobre o banco real: saúde, rota de módulo, erro 500 registrado em erros_servidor', async () => {
     const { montarPortal } = await import('../src/portal/montar.js');
     const { criarServicos } = await import('../src/portal/servicos.js');

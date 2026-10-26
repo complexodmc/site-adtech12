@@ -36,7 +36,8 @@
           <p class="pf-cabecalho__descricao pf-prof-cabecalho__descricao">Edite direto na tela: cada campo é salvo ao sair dele.</p>
         </div>
         <div class="admin-hero__actions">
-          <button type="button" class="btn-ghost" id="btn-export"></button>
+          <!-- Nascem desabilitados: js/admin.js habilita depois de ligar o clique (corrida da D5 R11). -->
+          <button type="button" class="btn-ghost" id="btn-export" disabled>Exportar estrutura (JSON)</button>
         </div>
       </section>
 
@@ -47,7 +48,7 @@
             <h2 class="pf-prof-editor-lateral" id="admin-cursos-titulo">Programas cadastrados</h2>
           </div>
           <div id="curso-list"></div>
-          <button type="button" class="btn-add-curso" id="btn-add-curso"></button>
+          <button type="button" class="btn-add-curso" id="btn-add-curso" disabled>Novo curso</button>
         </aside>
 
         <section class="admin-main" id="curso-editor" aria-label="Editor do curso"></section>

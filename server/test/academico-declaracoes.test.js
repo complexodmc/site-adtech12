@@ -199,8 +199,9 @@ describe('declarações e validação pública (F3b)', () => {
 
     await banco.collection('declaracoes').updateOne({ codigo }, { $set: { 'dados.nomeTitular': 'Nome Trocado' } });
     assert.equal((await api.get(`/api/portal/validar/${codigo}`)).corpo.integro, false);
+    // kid desconhecido e não declarado como aposentado = kid forjado → false (A08; antes era null, sem alerta)
     await banco.collection('declaracoes').updateOne({ codigo }, { $set: { 'dados.nomeTitular': 'Ána Béatriz Souza', kid: 'ffffffff' } });
-    assert.equal((await api.get(`/api/portal/validar/${codigo}`)).corpo.integro, null);
+    assert.equal((await api.get(`/api/portal/validar/${codigo}`)).corpo.integro, false);
 
     // revogação (admin, com motivo, auditada)
     const id = r.corpo.declaracao.id;
@@ -322,6 +323,135 @@ describe('declarações e validação pública (F3b)', () => {
     await subirPortal({ jwtSecret: 'segredo-novo-depois-da-rotacao', env: { PORTAL_MATERIAL_ANTERIOR: MATERIAL_TESTE } });
     const v = await api.get(`/api/portal/validar/${declaracao.codigo}`);
     assert.equal(v.corpo.integro, true);
+  });
+
+  // ---------- selo sem atalho para null (A08, achado de G2) ----------
+  test('selo DEC (A08): kid trocado → false; hash e kid apagados → false; selo pela metade → false; o curso adulterado nunca sai como íntegro', async () => {
+    await subirPortal({ extras: COM_F4A_F3A });
+    await comPerfil();
+    const r = await api.post('/api/portal/me/declaracoes', { tipo: 'matricula', matriculaId: IDS['mat-aluno1'] }, A1);
+    const codigo = r.corpo.declaracao.codigo;
+    const col = banco.collection('declaracoes');
+    const original = await col.findOne({ codigo });
+    const ver = async () => (await api.get(`/api/portal/validar/${codigo}`)).corpo;
+    assert.equal((await ver()).integro, true);
+
+    await col.updateOne({ codigo }, { $set: { 'dados.cursoTitulo': 'Curso FALSO', kid: 'deadbeef' } });
+    const kidTrocado = await ver();
+    assert.equal(kidTrocado.detalhes.curso, 'Curso FALSO');
+    assert.equal(kidTrocado.integro, false, 'kid desconhecido não declarado como aposentado é kid forjado');
+
+    await col.updateOne({ codigo }, { $unset: { hash: '', kid: '' } });
+    const semSelo = await ver();
+    assert.equal(semSelo.integro, false, 'declaração sempre nasce selada: sem hash e sem kid não confere');
+    assert.equal(semSelo.hashPrefixo, null);
+
+    await col.updateOne({ codigo }, { $set: { 'dados.cursoTitulo': original.dados.cursoTitulo, hash: original.hash, kid: original.kid } });
+    assert.equal((await ver()).integro, true, 'restaurado → volta a conferir');
+    await col.updateOne({ codigo }, { $unset: { kid: '' } });
+    assert.equal((await ver()).integro, false, 'só o kid apagado');
+    await col.updateOne({ codigo }, { $set: { kid: original.kid }, $unset: { hash: '' } });
+    assert.equal((await ver()).integro, false, 'só o hash apagado');
+    await col.updateOne({ codigo }, { $set: { hash: 12345 } });
+    assert.equal((await ver()).integro, false, 'hash de outro tipo');
+  });
+
+  test('selo DMC (A08): kid trocado → false; selo pela metade → false; certificado legado (sem hash e sem kid) segue null', async () => {
+    await subirPortal();
+    const assinador = servicos.obter('assinador');
+    const novo = { codigo: 'DMC-K7Q2-MX9P', userId: IDS['u-aluno1'], cursoId: 'curso-01', nomeAluno: 'Joana da Silva', nomeOrigem: 'registro', tituloCurso: 'Curso de Teste APE', cargaHoraria: '12h', totalAulas: 5, emitidoEm: new Date('2026-10-01T12:00:00Z'), matriculaId: oid('mat-aluno1'), notaFinal: 8, regra: 'aprovacao' };
+    Object.assign(novo, assinador.assinar('certificado', camposSeloCertificado(novo)));
+    await banco.collection('certificados').insertOne(novo);
+    const col = banco.collection('certificados');
+    const ver = async () => (await api.get('/api/portal/validar/DMC-K7Q2-MX9P')).corpo;
+    assert.equal((await ver()).integro, true);
+
+    await col.updateOne({ codigo: novo.codigo }, { $set: { tituloCurso: 'Curso FALSO', kid: 'deadbeef' } });
+    assert.equal((await ver()).integro, false, 'kid forjado');
+    await col.updateOne({ codigo: novo.codigo }, { $unset: { kid: '' } });
+    assert.equal((await ver()).integro, false, 'hash sem kid');
+    await col.updateOne({ codigo: novo.codigo }, { $set: { kid: novo.kid }, $unset: { hash: '' } });
+    assert.equal((await ver()).integro, false, 'kid sem hash');
+
+    // sem hash E sem kid = forma do certificado legado (DC-65): continua null, e a tela avisa (validar.js)
+    await col.updateOne({ codigo: novo.codigo }, { $unset: { hash: '', kid: '' } });
+    const legado = await ver();
+    assert.equal(legado.integro, null);
+    assert.equal(legado.hashPrefixo, null);
+  });
+
+  test('selo: kid aposentado declarado em PORTAL_SELO_KIDS_APOSENTADOS → null (selo antigo); sem a declaração → false', async () => {
+    const antigo = criarAssinador({ material: MATERIAL_TESTE });
+    const emissor = criarServicoDeclaracoes({ repo: n => banco.collection(n), assinador: antigo });
+    const { declaracao } = await emissor.emitir({ tipo: 'matricula', userId: IDS['u-aluno1'], matriculaId: oid('mat-aluno1'), cursoId: 'curso-01', dados: { nomeTitular: 'Ana Souza', cursoTitulo: 'Curso de Teste APE' } });
+    // rotação concluída: material novo, sem PORTAL_MATERIAL_ANTERIOR
+    await subirPortal({ jwtSecret: 'segredo-novo-depois-da-rotacao' });
+    assert.equal((await api.get(`/api/portal/validar/${declaracao.codigo}`)).corpo.integro, false, 'kid antigo não declarado');
+    await fechar(server); server = null;
+
+    const anterior = process.env.PORTAL_SELO_KIDS_APOSENTADOS;
+    process.env.PORTAL_SELO_KIDS_APOSENTADOS = ` 0000000z, ${antigo.kid.toUpperCase()} ;  `;
+    try {
+      await subirPortal({ jwtSecret: 'segredo-novo-depois-da-rotacao' });
+      const v = await api.get(`/api/portal/validar/${declaracao.codigo}`);
+      assert.equal(v.corpo.integro, null, 'kid aposentado: selo antigo, não verificável, sem acusar adulteração');
+      assert.match(v.corpo.hashPrefixo, /^[0-9A-F]{4}(-[0-9A-F]{4}){3}$/);
+    } finally {
+      if (anterior === undefined) delete process.env.PORTAL_SELO_KIDS_APOSENTADOS; else process.env.PORTAL_SELO_KIDS_APOSENTADOS = anterior;
+    }
+  });
+
+  test('despacho (A08): DEC, FRQ e CTR sem selo → integro:false mesmo que o validador devolva null; AVL sem selo segue null; valores fora de true/false/null → null', async () => {
+    await subirPortal({});
+    const respostas = {
+      FRQ: { tipo: 'frequencia', integro: null, hashPrefixo: null },
+      CTR: { tipo: 'contrato', integro: undefined, hashPrefixo: 'zzzz' },
+      AVL: { tipo: 'avaliacao', integro: null, hashPrefixo: null }
+    };
+    for (const prefixo of Object.keys(respostas)) {
+      servicos.adicionar('validador', {
+        prefixo,
+        validar: async (codigo) => ({ valido: true, codigo, rotulo: 'X', emitidoEm: null, iniciais: 'J. S.', situacao: 'valido', detalhes: {}, ...respostas[prefixo] }),
+        nomeTitular: async () => 'Joana Teste'
+      });
+    }
+    const ver = async p => (await api.get(`/api/portal/validar/${p}-AAAA-BBBB-CCCC`)).corpo;
+    const frq = await ver('FRQ');
+    assert.deepEqual([frq.integro, frq.hashPrefixo], [false, null], 'FRQ sempre nasce selado');
+    const ctr = await ver('CTR');
+    assert.deepEqual([ctr.integro, ctr.hashPrefixo], [false, null], 'CTR: hashPrefixo fora do formato não sai e conta como sem selo');
+    const avl = await ver('AVL');
+    assert.deepEqual([avl.integro, avl.hashPrefixo], [null, null], 'AVL pode nascer sem selo (falha do assinador): null, a tela avisa');
+
+    // com selo, o despacho não rebaixa nem promove: só normaliza
+    respostas.FRQ = { tipo: 'frequencia', integro: 'sim', hashPrefixo: '9C1E-07AB-12CD-34EF' };
+    respostas.AVL = { tipo: 'avaliacao', integro: true, hashPrefixo: '9C1E-07AB-12CD-34EF' };
+    assert.deepEqual([(await ver('FRQ')).integro, (await ver('FRQ')).hashPrefixo], [null, '9C1E-07AB-12CD-34EF']);
+    assert.equal((await ver('AVL')).integro, true);
+  });
+});
+
+describe('selo: funções puras (A08)', () => {
+  test('conferirSelo: sem assinador → null; legado só com exigeSelo:false; mutilado, kid fora do formato ou forjado → false; aposentado → null', async () => {
+    const { conferirSelo, lerKidsAposentados } = await import('../src/routes/portal-declaracoes.js');
+    const a = criarAssinador({ material: MATERIAL_TESTE });
+    const campos = { codigo: 'DEC-AAAA-BBBB-CCCC', dados: { cursoTitulo: 'Curso A' } };
+    const { hash, kid } = a.assinar('declaracao', campos);
+    const c = (extra) => conferirSelo({ assinador: a, tipo: 'declaracao', campos, hash, kid, ...extra });
+    assert.equal(c({}), true);
+    assert.equal(c({ campos: { ...campos, dados: { cursoTitulo: 'Curso FALSO' } } }), false);
+    assert.equal(c({ assinador: null }), null);
+    assert.equal(c({ hash: null, kid: null }), false);
+    assert.equal(c({ hash: undefined, kid: '', exigeSelo: false }), null);
+    assert.equal(c({ kid: null }), false);
+    assert.equal(c({ hash: '' }), false);
+    assert.equal(c({ kid: 'DEADBEEF' }), false, 'kid fora do formato (maiúsculas)');
+    assert.equal(c({ kid: { $ne: null } }), false, 'kid de outro tipo');
+    assert.equal(c({ kid: 'deadbeef' }), false, 'kid forjado');
+    assert.equal(c({ kid: 'deadbeef', kidsAposentados: new Set(['deadbeef']) }), null, 'kid aposentado');
+    assert.deepEqual([...lerKidsAposentados({ PORTAL_SELO_KIDS_APOSENTADOS: 'ABCD1234, deadbeef;x  0123456' }).kids], ['abcd1234', 'deadbeef']);
+    assert.equal(lerKidsAposentados({ PORTAL_SELO_KIDS_APOSENTADOS: 'ABCD1234, deadbeef;x  0123456' }).ignorados, 2);
+    assert.equal(lerKidsAposentados({}).kids.size, 0);
   });
 });
 

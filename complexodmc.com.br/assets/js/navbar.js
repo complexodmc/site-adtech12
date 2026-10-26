@@ -13,12 +13,12 @@
    "index.html": em produção /index.html é 301 → / (vercel.json). Só em
    file:// (sem servidor) o link leva a index.html, senão abriria a pasta.
 
-   Barra (≥1200): Eixos ▾ · Sobre · Treinamentos · Parcerias ▾ ·
+   Barra (≥1200): Eixos ▾ · Sobre · Segmentos ▾ · Parcerias ▾ ·
    Tecnologia | Acessar ▾ · CTA dourado. Abaixo de 1200 a gaveta assume
    (o CTA continua na barra a partir de 768). A altura de 72px segue
    valendo desde 1024 (--header-h-lg), que é o que os heróis compensam.
 
-   Painéis (Eixos, Parcerias, Acessar): cada um fica no DOM logo depois
+   Painéis (Eixos, Segmentos, Parcerias, Acessar): cada um fica no DOM logo depois
    do botão, dentro do mesmo <li>, para que Tab entre nele após
    Enter/Espaço e Shift+Tab volte ao botão. ↓/↑ abrem focando o
    primeiro/último item; dentro do painel ↓/↑/Home/End percorrem os
@@ -40,7 +40,7 @@
   if (window.customElements && customElements.get('dmc-navbar')) return;
 
   var SCRIPT = document.currentScript;
-  var VERSION = '3';
+  var VERSION = '4';
   var ADTECH = 'https://adtech-app.complexodmc.com.br';
   var WIDE = '(min-width: 1200px)';
   var FONTS = 'https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400..600&family=Newsreader:ital,opsz,wght@0,48,300;1,48,300&display=swap';
@@ -67,6 +67,20 @@
     { nome: 'Visão geral', sub: 'Central de Parcerias DMC', href: 'parcerias/' },
     { nome: 'Advogados Parceiros', sub: 'Partner Lawyers', href: 'parcerias/advogados-parceiros/' },
     { nome: 'Agente Prospector', sub: 'Business Partner', href: 'parcerias/business-partner/' }
+  ];
+
+  // Verticais de Negócio (Segmentos). Fonte: tools/verticais/dados.mjs —
+  // número, nome curto e áreas acionadas; pastas com index.html (ver dir()).
+  var SEGMENTOS = [
+    { n: 1, slug: 'familias-empresarias-holdings', nome: 'Famílias Empresárias e Holdings', areas: 'E1 · E2 · E3 · E4' },
+    { n: 2, slug: 'agronegocio-patrimonio-rural', nome: 'Agronegócio e Patrimônio Rural', areas: 'E1 · E2 · E3 · E4 · E5' },
+    { n: 3, slug: 'incorporacao-construcao-imobiliario', nome: 'Incorporação e Mercado Imobiliário', areas: 'E2 · E3 · E4 · E6' },
+    { n: 4, slug: 'cartorios-servicos-registrais', nome: 'Cartórios e Serviços Registrais', areas: 'E3 · E4 · E6' },
+    { n: 5, slug: 'infraestrutura-saneamento-energia', nome: 'Infraestrutura, Saneamento e Energia', areas: 'E1 · E2 · E3 · E5' },
+    { n: 6, slug: 'industria-comercio-distribuicao', nome: 'Indústria, Comércio e Distribuição', areas: 'E1 · E2 · E4 · E5 · E6' },
+    { n: 7, slug: 'saude-profissionais-liberais', nome: 'Saúde e Profissionais Liberais', areas: 'E1 · E2 · E4 · E6' },
+    { n: 8, slug: 'educacao-terceiro-setor', nome: 'Educação e Terceiro Setor', areas: 'E2 · E3 · E4 · E6' },
+    { n: 9, slug: 'credito-garantias-instituicoes-financeiras', nome: 'Crédito e Instituições Financeiras', areas: 'E2 · E3 · E4 · E5' }
   ];
 
   // Portal digital (Acessar). `entrar` = há login real; sem ele, o item
@@ -189,6 +203,15 @@
         '<span class="dmc-sub__text"><b>' + esc(p.nome) + '</b><small>' + esc(p.sub) + '</small></span></a></li>';
     };
     var parcerias = PARCERIAS.map(parceria).join('');
+    var emSegmentos = location.pathname.indexOf(r + 'verticais-de-negocio/') === 0;
+    var segmento = function (g) {
+      var href = dir('verticais-de-negocio/' + g.slug + '/');
+      return '<li><a href="' + href + '"' + cur(href) + '><span class="dmc-sub__num">0' + g.n + '</span>' +
+        '<span class="dmc-sub__text"><b>' + esc(g.nome) + '</b><small>' + esc(g.areas) + '</small></span></a></li>';
+    };
+    var segmentos = '<li class="dmc-sub__all"><a href="' + dir('verticais-de-negocio/') + '"' + cur(dir('verticais-de-negocio/')) + '><span class="dmc-sub__num">—</span>' +
+      '<span class="dmc-sub__text"><b>Verticais de Negócio</b><small>Os nove segmentos que atendemos</small></span></a></li>' +
+      SEGMENTOS.map(segmento).join('');
     var cta = function (cls) {
       return '<a class="dmc-btn dmc-nav__cta ' + cls + '" href="' + h('#contact') + '">Converse com nossos especialistas ' + ICON.arrowUp + '</a>';
     };
@@ -211,7 +234,8 @@
           '<nav class="dmc-nav__menu" aria-label="Principal"><ul class="dmc-nav__links">' +
             '<li><button class="dmc-nav__trigger" type="button" aria-expanded="false" aria-controls="dmc-mega" data-dmc="mega">Eixos ' + ICON.chevron + '</button>' + mega + '</li>' +
             '<li><a class="dmc-nav__link" href="' + r + 'pages/sobre.html"' + cur(r + 'pages/sobre.html') + '>Sobre</a></li>' +
-            '<li><a class="dmc-nav__link" href="' + h('#treinamentos') + '">Treinamentos</a></li>' +
+            '<li class="dmc-sub"><button class="dmc-nav__trigger' + (emSegmentos ? ' is-current' : '') + '" type="button" aria-expanded="false" aria-controls="dmc-sub-segmentos" data-dmc="segmentos">Segmentos ' + ICON.chevron + '</button>' +
+              '<ul class="dmc-sub__menu dmc-sub__menu--segmentos" id="dmc-sub-segmentos" hidden aria-label="Verticais de Negócio">' + segmentos + '</ul></li>' +
             '<li class="dmc-sub"><button class="dmc-nav__trigger' + (emParcerias ? ' is-current' : '') + '" type="button" aria-expanded="false" aria-controls="dmc-sub-parcerias" data-dmc="parcerias">Parcerias ' + ICON.chevron + '</button>' +
               '<ul class="dmc-sub__menu" id="dmc-sub-parcerias" hidden>' + parcerias + '</ul></li>' +
             '<li><a class="dmc-nav__link" href="' + tecnologia + '"' + cur(tecnologia) + '>Tecnologia</a></li>' +
@@ -239,7 +263,8 @@
             '<li><button class="dmc-drawer__acc" type="button" aria-expanded="false" aria-controls="dmc-drawer-eixos">Eixos ' + ICON.chevron + '</button>' +
               '<ul class="dmc-drawer__axes" id="dmc-drawer-eixos" hidden>' + EIXOS.map(function (e) { return eixoItem(e, r, 'span'); }).join('') + '</ul></li>' +
             '<li><a href="' + r + 'pages/sobre.html"' + cur(r + 'pages/sobre.html') + '>Sobre</a></li>' +
-            '<li><a href="' + h('#treinamentos') + '">Treinamentos</a></li>' +
+            '<li><button class="dmc-drawer__acc" type="button" aria-expanded="' + emSegmentos + '" aria-controls="dmc-drawer-segmentos">Segmentos ' + ICON.chevron + '</button>' +
+              '<ul class="dmc-drawer__sub" id="dmc-drawer-segmentos"' + (emSegmentos ? '' : ' hidden') + '>' + segmentos + '</ul></li>' +
             '<li><button class="dmc-drawer__acc" type="button" aria-expanded="' + emParcerias + '" aria-controls="dmc-drawer-parcerias">Parcerias ' + ICON.chevron + '</button>' +
               '<ul class="dmc-drawer__sub" id="dmc-drawer-parcerias"' + (emParcerias ? '' : ' hidden') + '>' + parcerias + '</ul></li>' +
             '<li><a href="' + tecnologia + '"' + cur(tecnologia) + '>Tecnologia</a></li>' +
@@ -339,9 +364,11 @@
     }
     var megaBtn = host.querySelector('[data-dmc="mega"]');
     var subBtn = host.querySelector('[data-dmc="parcerias"]');
+    var segBtn = host.querySelector('[data-dmc="segmentos"]');
     var accessBtn = host.querySelector('[data-dmc="access"]');
     if (megaBtn) makePanel(megaBtn, host.querySelector('#dmc-mega'), true);
     if (subBtn) makePanel(subBtn, host.querySelector('#dmc-sub-parcerias'), false);
+    if (segBtn) makePanel(segBtn, host.querySelector('#dmc-sub-segmentos'), false);
     if (accessBtn) makePanel(accessBtn, host.querySelector('#dmc-access-menu'), false);
 
     document.addEventListener('pointerdown', function (e) {

@@ -38,6 +38,11 @@ app.disable('x-powered-by');
 // IP real atrás do proxy da Vercel (1 salto); localmente não confia em X-Forwarded-For.
 // Ver config.trustProxy. É o que dá sentido ao throttle por IP.
 app.set('trust proxy', config.trustProxy);
+// Nenhuma resposta da API vai para cache (§9.8 A05, ASVS 8.2.1): sem o cabeçalho, a Vercel
+// aplica `public, max-age=0, must-revalidate` e o navegador guarda o JSON autenticado em
+// disco. Primeiro de tudo em /api, inclusive antes dos parsers (413/400 também saem assim).
+// Quem quer cache (capas, vitrine, materiais, arquivos) sobrescreve no próprio router.
+app.use('/api', (_req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
 // /api/contato tem parser próprio com teto de 16 KB. Fica antes do JSON global:
 // o corpo já chega consumido e o parser de 1 MB apenas segue adiante.
 app.use('/api/contato', corpoContato());

@@ -312,3 +312,55 @@ describe('criarNotificadorEmail', () => {
     await assert.rejects(notificar(lead), /HTTP 422/);
   });
 });
+
+// ---------- Verticais de Negócio (/verticais-de-negocio/**) ----------
+describe('validarContato — campos de vertical', () => {
+  const VERTICAL = Object.freeze({
+    nome: 'João Pereira', email: 'joao@exemplo.com', telefone: '(11) 98888-7777',
+    segmento: 'agronegocio-patrimonio-rural', faturamento: '20-50mi', patrimonio: '50-200mi',
+    motivo: 'sucessao-inventario', consentimento: 'true', origem: 'verticais-de-negocio/agronegocio-patrimonio-rural/'
+  });
+
+  test('segmento válido dispensa perfil, eixo e mensagem; deriva perfil e eixo', () => {
+    const r = validarContato(VERTICAL);
+    assert.equal(r.ok, true, JSON.stringify(r.erros));
+    assert.equal(r.dados.segmento, 'agronegocio-patrimonio-rural');
+    assert.equal(r.dados.perfil, 'produtor-rural');
+    assert.equal(r.dados.eixo, 'E1');
+    assert.equal(r.dados.faturamento, '20-50mi');
+    assert.equal(r.dados.patrimonio, '50-200mi');
+    assert.equal(r.dados.motivo, 'sucessao-inventario');
+    assert.equal('mensagem' in r.dados, false);
+  });
+
+  test('perfil e eixo enviados prevalecem sobre os derivados', () => {
+    const r = validarContato({ ...VERTICAL, perfil: 'investidor', eixo: 'E5' });
+    assert.equal(r.ok, true);
+    assert.equal(r.dados.perfil, 'investidor');
+    assert.equal(r.dados.eixo, 'E5');
+  });
+
+  test('segmento, faturamento, patrimônio e motivo fora da lista são rejeitados', () => {
+    const r = validarContato({ ...VERTICAL, segmento: 'x', faturamento: 'y', patrimonio: 'z', motivo: 'w' });
+    assert.equal(r.ok, false);
+    for (const k of ['faturamento', 'motivo', 'patrimonio', 'segmento']) assert.ok(k in r.erros, k);
+    // sem segmento válido não há de onde derivar perfil/eixo, e a mensagem volta a ser obrigatória
+    for (const k of ['perfil', 'eixo', 'mensagem']) assert.ok(k in r.erros, k);
+  });
+
+  test('sem segmento, o contrato antigo continua: mensagem, perfil e eixo obrigatórios', () => {
+    const r = validarContato({ nome: 'Ana', email: 'ana@exemplo.com', consentimento: true });
+    assert.equal(r.ok, false);
+    assert.deepEqual(Object.keys(r.erros).sort(), ['eixo', 'mensagem', 'perfil']);
+  });
+
+  test('o e-mail à equipe traz segmento, faturamento, patrimônio e motivo por extenso', () => {
+    const { dados } = validarContato(VERTICAL);
+    const lead = { ...dados, createdAt: new Date('2026-10-18T12:00:00Z') };
+    const corpo = corpoEmail(lead);
+    assert.match(corpo, /Segmento: Agronegócio e Patrimônio Rural \(agronegocio-patrimonio-rural\)/);
+    assert.match(corpo, /Faturamento anual: R\$ 20–50 mi/);
+    assert.match(corpo, /Patrimônio envolvido: R\$ 50–200 mi/);
+    assert.match(corpo, /Motivo do contato: Sucessão ou inventário/);
+  });
+});

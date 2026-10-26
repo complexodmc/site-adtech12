@@ -82,6 +82,41 @@
     lista.classList.add('is-pronto');
   });
 
+  // ---------- 2b · Lente do comparativo ----------
+  // Sem JS a tabela mostra os dois programas. Aqui nasce o grupo de botões
+  // (aria-pressed) que grava data-foco no cartão; o CSS esmaece a outra coluna
+  // (≥768) ou a esconde (<768). A tabela continua inteira no DOM.
+  Array.prototype.forEach.call(doc.querySelectorAll('[data-pp-lente-slot]'), function (slot) {
+    var cartao = doc.querySelector('[data-pp-cmp]');
+    if (!cartao) return;
+    var OPCOES = [['', 'Os dois', ''], ['pl', 'Partner Lawyers', 'pp-pl'], ['bp', 'Business Partner', 'pp-bp']];
+    var rotulo = doc.createElement('p');
+    var grupo = doc.createElement('div');
+    rotulo.className = 'pp-lente__rotulo';
+    rotulo.id = 'pp-lente-rotulo';
+    rotulo.textContent = 'Destacar programa';
+    grupo.className = 'pp-lente__grupo';
+    grupo.setAttribute('role', 'group');
+    grupo.setAttribute('aria-labelledby', rotulo.id);
+    var botoes = OPCOES.map(function (o) {
+      var b = doc.createElement('button');
+      b.type = 'button';
+      b.className = 'pp-lente__btn' + (o[2] ? ' ' + o[2] : '');
+      b.textContent = o[1];
+      b.setAttribute('aria-pressed', String(!o[0]));
+      b.addEventListener('click', function () {
+        botoes.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        if (o[0]) cartao.setAttribute('data-foco', o[0]);
+        else cartao.removeAttribute('data-foco');
+        track('partnership_compare_focus', { foco: o[0] || 'ambos' });
+      });
+      grupo.appendChild(b);
+      return b;
+    });
+    slot.appendChild(rotulo);
+    slot.appendChild(grupo);
+  });
+
   // ---------- 3 · Formulários ----------
   Array.prototype.forEach.call(doc.querySelectorAll('form[data-pp-form]'), iniciarForm);
 

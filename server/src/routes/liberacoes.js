@@ -13,6 +13,8 @@
 //     liberacao.revogada (auditoria.registrar, sem e-mail em claro:
 //     extra.emailHmac + cursoIds; alvo = userId);
 //   - DELETE NÃO cancela matrícula (ela passa a aparecer com semAcesso).
+// G2 · A05: /dev/simular-pagamento nunca é registrada em produção
+// (VERCEL_ENV presente ou NODE_ENV=production), mesmo com a flag ligada.
 // Serviço ausente (módulo da F4a isolado, agregador ainda não carregado)
 // → comportamento de hoje + console.warn, nunca 503 (API §4.4).
 // =============================================================
@@ -24,12 +26,25 @@ import { config } from '../config.js';
 import { servicos as servicosDoProcesso } from '../portal/servicos.js';
 
 /**
+ * Produção para a trava da simulação (OWASP A05): a mesma regra do QA_SERVIDOR
+ * (config-portal) — VERCEL_ENV presente (production, preview ou development da
+ * Vercel) ou NODE_ENV=production. Assim a flag colada por engano no painel da
+ * Vercel não abre a liberação gratuita de cursos.
+ */
+export function ambienteDeProducao(env = process.env) {
+  const presente = nome => env?.[nome] !== undefined && env?.[nome] !== null;
+  return presente('VERCEL_ENV') || String(env?.NODE_ENV ?? '').trim() === 'production';
+}
+
+/**
  * @param {{ colecoes: { users: () => object, liberacoes: () => object, cursos: () => object },
  *   exigirLogin: Function, exigirAdmin: Function, devSimularPagamento?: boolean,
- *   servicos?: object, log?: Console }} deps
+ *   servicos?: object, log?: Console, ambiente?: Record<string, string|undefined> }} deps
+ *   `ambiente` (padrão process.env) só decide a trava de produção da simulação.
  */
 export function criarRotaLiberacoes({
-  colecoes, exigirLogin, exigirAdmin, devSimularPagamento = false, servicos = servicosDoProcesso, log = console
+  colecoes, exigirLogin, exigirAdmin, devSimularPagamento = false, servicos = servicosDoProcesso, log = console,
+  ambiente = process.env
 } = {}) {
   if (!colecoes || typeof colecoes.users !== 'function' || typeof colecoes.liberacoes !== 'function' || typeof colecoes.cursos !== 'function') {
     throw new Error('criarRotaLiberacoes: informe colecoes { users, liberacoes, cursos }.');
@@ -178,9 +193,16 @@ export function criarRotaLiberacoes({
 
   // ============ DEV-ONLY ============
   // Equivalente à antiga RPC dev_simular_pagamento: o próprio aluno
-  // libera cursos pra si. Só existe com DEV_SIMULAR_PAGAMENTO=true —
-  // sem a flag a rota nem é registrada (cai no 404 da API).
-  if (devSimularPagamento) router.post('/dev/simular-pagamento', exigirLogin, async (req, res) => {
+  // libera cursos pra si. Só existe com DEV_SIMULAR_PAGAMENTO=true E fora
+  // de produção (ambienteDeProducao) — senão a rota nem é registrada (cai
+  // no 404 da API). Com a flag ligada em produção, avisa no carregamento
+  // do módulo (o aviso de start() no server.js não roda na Vercel).
+  const simulacaoTravada = devSimularPagamento === true && ambienteDeProducao(ambiente);
+  if (simulacaoTravada) {
+    avisar('DEV_SIMULAR_PAGAMENTO ignorada: ambiente de produção (VERCEL_ENV presente ou NODE_ENV=production); '
+      + 'POST /api/liberacoes/dev/simular-pagamento não foi registrada. Remova a variável do painel');
+  }
+  if (devSimularPagamento === true && !simulacaoTravada) router.post('/dev/simular-pagamento', exigirLogin, async (req, res) => {
     const cursoIds = (Array.isArray(req.body.cursoIds) ? req.body.cursoIds : [])
       .map(v => String(v || '').trim())
       .filter(Boolean);

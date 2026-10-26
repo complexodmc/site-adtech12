@@ -273,6 +273,68 @@ describe('professor: criar, editar, cancelar, excluir encontros', () => {
   });
 });
 
+describe('docência pelo GRAVADO (§6.7.2, §4.2): docente só de turma × encontro de curso inteiro', () => {
+  const P = { usuario: 'u-prof-t1' };
+  const base = '/api/portal/professor/encontros/e-agora-geral';
+
+  test('PUT, cancelar, DELETE e GET/POST presenças → 404, sem vazar aluno de outra turma e sem mudar nada', async () => {
+    const t = await subirF3a();
+    try {
+      const antes = await t.banco.collection('lives').findOne({ _id: 'e-agora-geral' });
+      // lista de presença: não vaza nome e e-mail de aluno de outra turma
+      const pres = await t.api.get(`${base}/presencas`, P);
+      assert.equal(pres.status, 404);
+      assert.doesNotMatch(JSON.stringify(pres.corpo), /aluno2|Aluno Dois/i);
+      // lançar ou anular frequência de aluno fora das turmas dele
+      for (const presente of [true, false]) {
+        const r = await t.api.post(`${base}/presencas`, { matriculaId: IDS['mat-aluno2'], presente, motivo: 'Tentativa fora da turma' }, P);
+        assert.equal(r.status, 404, `presente:${presente}`);
+      }
+      assert.equal(t.banco.documentos('frequencias').length, 0, 'nenhuma frequência lançada');
+      // trocar o link da sala, cancelar e excluir
+      assert.equal((await t.api.put(base, { versao: 1, url: 'https://site-externo.invalid/phish', titulo: 'Sala nova' }, P)).status, 404);
+      assert.equal((await t.api.post(`${base}/cancelar`, { motivo: 'Cancelamento indevido' }, P)).status, 404);
+      assert.equal((await t.api.del(base, P)).status, 404);
+      const depois = await t.banco.collection('lives').findOne({ _id: 'e-agora-geral' });
+      assert.ok(depois, 'não foi excluído');
+      assert.deepEqual([depois.url, depois.titulo, !!depois.cancelado, depois.versao ?? null], [antes.url, antes.titulo, false, antes.versao ?? null]);
+      assert.ok(!t.banco.documentos('auditoria').some(a => a.acao === 'encontro.cancelado'));
+      // a docência geral do mesmo curso continua gerindo; o docente da T1 continua gerindo o da T1
+      const geral = await t.api.get(`${base}/presencas`, { usuario: 'u-prof' });
+      assert.equal(geral.status, 200);
+      assert.equal(geral.corpo.esperados, 2);
+      assert.equal((await t.api.get('/api/portal/professor/encontros/e-agora-t1/presencas', P)).status, 200);
+      assert.equal((await t.api.put('/api/portal/professor/encontros/e-agora-t1', { versao: 1, titulo: 'Encontro da T1 revisto' }, P)).status, 200);
+    } finally { await t.fechar(); }
+  });
+
+  test('agenda: encontro encerrado sem turma conta presentes/esperados só nas turmas do docente', async () => {
+    const t = await subirF3a();
+    try {
+      const passado = (await agenda(t, 'u-prof-t1')).corpo.itens.find(i => i.id === 'e-passado');
+      assert.ok(passado, 'continua visível (§8.6)');
+      assert.deepEqual([passado.presentes, passado.esperados], [0, 1], 'só a T1, como na matriz da turma');
+      const adm = (await agenda(t, 'u-admin')).corpo.itens.find(i => i.id === 'e-passado');
+      assert.deepEqual([adm.presentes, adm.esperados], [0, 2]);
+      const geral = (await agenda(t, 'u-prof')).corpo.itens.find(i => i.id === 'e-passado');
+      assert.deepEqual([geral.presentes, geral.esperados], [0, 2]);
+    } finally { await t.fechar(); }
+  });
+
+  test('leitura continua (GET e entrar) e GET /:id informa podeGerir pelo gravado', async () => {
+    const t = await subirF3a();
+    try {
+      const um = await t.api.get(base, P);
+      assert.equal(um.status, 200);
+      assert.equal(um.corpo.encontro.podeGerir, false, 'curso inteiro: só a docência geral gere');
+      assert.equal((await t.api.get('/api/portal/professor/encontros/e-agora-t1', P)).corpo.encontro.podeGerir, true);
+      assert.equal((await t.api.get(base, { usuario: 'u-prof' })).corpo.encontro.podeGerir, true);
+      assert.equal((await t.api.get(base, { usuario: 'u-admin' })).corpo.encontro.podeGerir, true);
+      assert.equal((await t.api.post('/api/portal/encontros/e-agora-geral/entrar', {}, P)).status, 200);
+    } finally { await t.fechar(); }
+  });
+});
+
 describe('matriz da turma e lives legado', () => {
   test('matriz turmas/:id/frequencia: estados iguais ao Acadêmico; outra turma 403', async () => {
     const t = await subirF3a();

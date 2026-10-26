@@ -175,14 +175,15 @@ on(form, 'submit', async (e) => {
     return;
   }
   const u = Au.user();
-  if (est.perfil === 'professor' && !(u && u.isAdmin)) {
+  // perfil "Professor": papel === 'professor' ou isAdmin (índice §5.5 item 5); destino por papel
+  if (est.perfil === 'professor' && !(u && (u.isAdmin || u.papel === 'professor'))) {
     ocupado(false);
     mostrarSessao(u, M.prof);
     $('bs-ir-aluno').focus();
     return;
   }
   aviso.textContent = AV.liberado;
-  location.href = proximo() || (est.perfil === 'professor' ? 'admin.html' : 'dashboard.html');
+  location.href = proximo() || (est.perfil === 'professor' ? (u.isAdmin ? 'admin.html' : 'professor.html') : 'dashboard.html');
 });
 
 function mostrarSessao(u, msg) {

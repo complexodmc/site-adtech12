@@ -253,6 +253,29 @@
     return { destruir: soltar };
   }
 
+  /** Encontro de curso inteiro aberto por docente só de turma: só leitura (gestão da docência geral). */
+  function montarEncontroLeitura(el, ctx, e) {
+    const ui = ctx.ui;
+    el.removeAttribute('aria-busy');
+    const cancelado = e.status === 'cancelada';
+    const st = STATUS[e.status] || STATUS.agendada;
+    el.replaceChildren(nos(ui, ui.html`
+      <p class="pf-ac-meta">${e.cursoTitulo} · ${dataHora(e.inicioEm)} · ${estado(ui, st[0], st[1])}</p>
+      ${cancelado ? ui.html`<div class="pf-alerta pf-alerta--aviso" role="note"><p>Encontro cancelado${e.motivoCancelamento ? `: ${e.motivoCancelamento}` : '.'}</p></div>` : ''}
+      <div class="pf-alerta pf-alerta--aviso" role="note" data-ac-somente-leitura><p>Encontro do curso inteiro. Editar, cancelar e lançar presenças cabem à docência geral do curso ou à coordenação. A frequência dos seus alunos está na matriz de cada turma.</p></div>
+      <h2 class="pf-secao-titulo pf-ac-secao">Dados do encontro</h2>
+      <dl class="pf-ac-matricula__dados">
+        <div><dt>Turma</dt><dd>${e.turma && e.turma.codigo ? e.turma.codigo : 'Curso inteiro (todas as turmas)'}</dd></div>
+        <div><dt>Módulo</dt><dd>${e.modulo ? `${e.modulo.numero || ''} ${e.modulo.titulo}`.trim() : '—'}</dd></div>
+        <div><dt>Aula gravada correspondente</dt><dd>${e.aulaGravada ? e.aulaGravada.titulo : '—'}</dd></div>
+        <div><dt>Duração</dt><dd class="pf-ac-num">${`${e.duracaoMin} min`}</dd></div>
+        <div><dt>Plataforma</dt><dd>${e.plataforma || '—'}</dd></div>
+        <div><dt>Link da sala</dt><dd>${e.url ? ui.html`<a href="${e.url}" target="_blank" rel="noopener noreferrer">${e.url}</a>` : '—'}</dd></div>
+      </dl>
+      ${e.descricao ? ui.html`<p class="pf-ajuda">${e.descricao}</p>` : ''}
+      <p class="pf-ac-links"><a class="dmc-btn dmc-btn--secondary" href="#/ao-vivo">Voltar à agenda</a></p>`));
+  }
+
   // ---------------------------------------------------------------
   // #/ao-vivo/:encontroId — editar, cancelar, presenças
   // ---------------------------------------------------------------
@@ -263,7 +286,9 @@
     let enc;
     let pres;
     try {
-      [enc, pres] = await Promise.all([ctx.api.get(API.encontro(id)), ctx.api.get(API.presencas(id))]);
+      enc = await ctx.api.get(API.encontro(id));
+      // Gestão pela docência GRAVADA (§6.7.2): sem ela, presenças nem são pedidas (o servidor daria 404).
+      if (enc.encontro.podeGerir !== false) pres = await ctx.api.get(API.presencas(id));
     } catch (err) {
       if (err && err.status === 401) throw err;
       ui.erroCarga(el, err, { tentarDeNovo: () => montarEncontro(el, ctx) });
@@ -271,6 +296,7 @@
     }
     const e = enc.encontro;
     ctx.definirTitulo(e.titulo);
+    if (!pres) { montarEncontroLeitura(el, ctx, e); return; }
     const opcoes = await opcoesDoCurso(ctx, e.cursoId);
     el.removeAttribute('aria-busy');
     const cancelado = e.status === 'cancelada';

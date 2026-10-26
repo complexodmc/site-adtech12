@@ -347,7 +347,10 @@
   color: var(--pf-texto-2);
   border-color: var(--pf-linha-forte);
 }
-.pf-prof-editor :is(.btn-add-curso, .btn-add-modulo, .btn-add-aula):hover { color: var(--pf-texto-1); border-color: var(--pf-acento); }
+.pf-prof-editor :is(.btn-add-curso, .btn-add-modulo, .btn-add-aula):hover:not(:disabled) { color: var(--pf-texto-1); border-color: var(--pf-acento); }
+/* "Novo curso" e "Exportar" nascem desabilitados e habilitam quando o admin.js liga o
+   clique (corrida da D5 R11): enquanto isso ficam esmaecidos e sem realce de hover. */
+.pf-prof-editor :is(#btn-add-curso, #btn-export):disabled { opacity: .6; pointer-events: none; }
 
 /* ---------- editor: capa vertical, capa e tipo do módulo (D-53, D-56) ---------- */
 .pf-prof-editor-capa { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: flex-start; }

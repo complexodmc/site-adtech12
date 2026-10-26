@@ -102,6 +102,26 @@
       "source": "/parcerias/partner-lawyers/",
       "destination": "/parcerias/advogados-parceiros/",
       "statusCode": 301
+    },
+    {
+      "source": "/verticais-de-negocio",
+      "destination": "/verticais-de-negocio/",
+      "statusCode": 301
+    },
+    {
+      "source": "/verticais-de-negocio/:slug([a-z0-9-]+)",
+      "destination": "/verticais-de-negocio/:slug/",
+      "statusCode": 301
+    },
+    {
+      "source": "/verticais",
+      "destination": "/verticais-de-negocio/",
+      "statusCode": 301
+    },
+    {
+      "source": "/segmentos",
+      "destination": "/verticais-de-negocio/",
+      "statusCode": 301
     }
   ],
   "rewrites": [
@@ -132,7 +152,7 @@
       "source": "/plataforma-ead/((?!login(?:-classico)?(?:\\.html)?$).*)?",
       "headers": [
         {
-          "key": "Content-Security-Policy-Report-Only",
+          "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob: https:; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
         }
       ]

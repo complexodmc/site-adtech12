@@ -17,6 +17,11 @@
 //   falha ao auditar → 503 e NADA muda. Concorrência por `versao`.
 // - users.nome = nomeSocial || nomeRegistro (nome de exibição).
 // - Endereço no Brasil (CEP + UF) ou no exterior (código postal + região).
+// - Diversidade (gênero/etnia, LGPD art. 11 — achado G2, §9.8): a trilha
+//   registra só 'diversidade' (nem valor nem qual dos dois mudou) e o
+//   relatório sai de um RETRATO mensal, refeito só com 5+ pessoas cuja
+//   mudança afeta a contagem (`perfis.diversidadeAlteradaEm`), para que
+//   duas leituras + o horário do evento não revelem o dado de ninguém.
 // =============================================================
 import { ObjectId } from 'mongodb';
 import { ErroPortal, MENSAGENS } from '../../portal/erros.js';
@@ -31,9 +36,10 @@ import { calcularCompletude } from '../../portal/perfis-leitura.js';
 import { chaveUsuario, conferirSenhaAtual } from '../../portal/limitador.js';
 import { MODELOS, montarLinkDeAcesso } from '../../portal/email.js';
 import { criptoPadrao } from '../../portal/cripto.js';
-import { FINALIDADE_DA_CHAVE, textoConsentimento, textosParaTela, VERSAO_TEXTO_ATUAL } from '../../portal/consentimentos-textos.js';
+import { FINALIDADE_DA_CHAVE, textoConsentimento, textosParaTela, VERSAO_TEXTO_ATUAL, CAMPOS_DIVERSIDADE } from '../../portal/consentimentos-textos.js';
 import { criarConsentimentos } from './meus-dados.js';
 import { emitirToken, erroCampo } from './auth-extra.js';
+import { generalizarDiversidade } from './auditoria.js';
 
 export const INDICES_PERFIS = Object.freeze([
   { colecao: 'perfis', chave: { userId: 1 }, opcoes: { name: 'uq_perfis_user', unique: true } },
@@ -425,7 +431,8 @@ export function criarRotaPerfil(deps = {}) {
       await consentimentos.registrar({ userId, finalidade, versaoTexto: t.versaoTexto, textoSha256: t.textoSha256, via: 'perfil', req });
     }
 
-    const mudancas = calcularMudancas(atual, novo, CAMPOS_AUDITADOS);
+    // Gênero/etnia na trilha só como 'diversidade' (achado G2).
+    const mudancas = generalizarDiversidade(calcularMudancas(atual, novo, CAMPOS_AUDITADOS));
     const t = agora();
     const porId = String(req.user._id);
     const camposGravados = {};
@@ -434,6 +441,10 @@ export function criarRotaPerfil(deps = {}) {
     camposGravados.consentimentos = await consentimentos.espelhoDe(userId);
     camposGravados.atualizadoEm = t;
     camposGravados.atualizadoPor = porId;
+    // Mudança que afeta a contagem do relatório → marca para a regra de renovação do retrato.
+    const diversidadeMudou = CAMPOS_DIVERSIDADE.filter(c => valorContavel(atual, atual.consentimentos, c) !== valorContavel(novo, camposGravados.consentimentos, c));
+    const marcasNoInsert = diversidadeMudou.length ? { diversidadeAlteradaEm: Object.fromEntries(diversidadeMudou.map(c => [c, t])) } : {};
+    const marcasNoUpdate = Object.fromEntries(diversidadeMudou.map(c => [`diversidadeAlteradaEm.${c}`, t]));
     const nomeExibicao = (novo.nomeSocial && String(novo.nomeSocial).trim()) || novo.nomeRegistro || null;
 
     await auditoria.executar({
@@ -442,9 +453,9 @@ export function criarRotaPerfil(deps = {}) {
     }, req, async () => {
       try {
         if (!doc) {
-          await repo('perfis').insertOne({ ...perfilVazio(userId), ...camposGravados, versao: 1, criadoEm: t });
+          await repo('perfis').insertOne({ ...perfilVazio(userId), ...camposGravados, ...marcasNoInsert, versao: 1, criadoEm: t });
         } else {
-          const r = await repo('perfis').updateOne({ userId, versao }, { $set: camposGravados, $inc: { versao: 1 } });
+          const r = await repo('perfis').updateOne({ userId, versao }, { $set: { ...camposGravados, ...marcasNoUpdate }, $inc: { versao: 1 } });
           if (!r || r.matchedCount === 0) throw new ErroPortal(409, 'conflito-versao');
         }
       } catch (err) {
@@ -616,37 +627,80 @@ export function criarAvisoPerfilIncompleto({ repo }) {
 
 const ROTULOS_GENERO = Object.freeze({ feminino: 'Feminino', masculino: 'Masculino', nao_binario: 'Não binário', outro: 'Outro' });
 const ROTULOS_ETNIA = Object.freeze({ branca: 'Branca', preta: 'Preta', parda: 'Parda', amarela: 'Amarela', indigena: 'Indígena' });
+const ROTULOS_DIVERSIDADE = Object.freeze({ genero: ROTULOS_GENERO, etnia: ROTULOS_ETNIA });
 export const MINIMO_CELULA = 5;
+
+/** Valor que entra na contagem do relatório (autorizado e numa categoria contada) ou null. */
+function valorContavel(perfil, espelho, campo) {
+  const v = perfil?.[campo];
+  return espelho?.[campo]?.aceito === true && typeof v === 'string' && Object.hasOwn(ROTULOS_DIVERSIDADE[campo], v) ? v : null;
+}
 
 /**
  * Relatório `diversidade` (grupo `relatorio`, §6.11.3): contagens por gênero e por etnia, SÓ de quem
  * autorizou (consentimento vigente no espelho), sem "prefiro não informar"; células < 5 → '<5'.
  * Só coordenação e só JSON (nenhum dado individual sai daqui).
+ *
+ * RETRATO, não tempo real (achado G2, §9.8): cada dimensão sai do último retrato gravado em
+ * `diversidade_retratos` (só os totais já publicados, sem id de ninguém). Um retrato novo só é feito
+ * num mês posterior ao do último E quando pelo menos MINIMO_CELULA pessoas tiveram mudança que afeta
+ * a contagem desde ele (`perfis.diversidadeAlteradaEm.<campo>`, marcado por perfil.js e pelo serviço
+ * de consentimentos). Assim a diferença entre dois retratos nunca isola uma pessoa: mesmo sabendo
+ * quem mexeu no cadastro e quando, sobram pelo menos 5 candidatas para cada mudança.
  */
-export function criarRelatorioDiversidade({ repo }) {
-  async function contar(campo, chaveConsent, rotulos) {
+export function criarRelatorioDiversidade({ repo, agora = () => new Date() }) {
+  const DIMENSOES = Object.freeze([
+    Object.freeze({ campo: 'genero', dimensao: 'Gênero', rotulos: ROTULOS_GENERO }),
+    Object.freeze({ campo: 'etnia', dimensao: 'Cor ou etnia (IBGE)', rotulos: ROTULOS_ETNIA })
+  ]);
+  async function contar({ campo, rotulos }) {
     const docs = await repo('perfis').find(
-      { [campo]: { $in: Object.keys(rotulos) }, [`consentimentos.${chaveConsent}.aceito`]: true },
+      { [campo]: { $in: Object.keys(rotulos) }, [`consentimentos.${campo}.aceito`]: true },
       { projection: { [campo]: 1 } }
     ).toArray();
     const n = Object.fromEntries(Object.keys(rotulos).map(k => [k, 0]));
     for (const d of docs) if (Object.hasOwn(n, d[campo])) n[d[campo]]++;
     return Object.entries(rotulos).map(([k, rotulo]) => ({ categoria: rotulo, pessoas: n[k] >= MINIMO_CELULA ? n[k] : '<5' }));
   }
+  async function retrato(dim, t) {
+    const col = repo('diversidade_retratos');
+    const periodo = hojeSP(t).slice(0, 7);
+    const [ultimo] = await col.find({ dimensao: dim.campo }, { sort: { periodo: -1 }, limit: 1 }).toArray();
+    if (ultimo && ultimo.periodo >= periodo) return ultimo;
+    if (ultimo) {
+      const mudaram = await repo('perfis').countDocuments({ [`diversidadeAlteradaEm.${dim.campo}`]: { $gt: ultimo.geradoEm } });
+      if (mudaram < MINIMO_CELULA) return ultimo;
+    }
+    const _id = `${dim.campo}:${periodo}`;
+    const novo = { dimensao: dim.campo, periodo, geradoEm: t, celulas: await contar(dim) };
+    try {
+      // Duas leituras ao mesmo tempo: fica o primeiro retrato gravado no período.
+      await col.updateOne({ _id }, { $setOnInsert: novo }, { upsert: true });
+    } catch (err) { if (err?.code !== 11000) throw err; }
+    return (await col.findOne({ _id })) || novo;
+  }
   return {
     id: 'diversidade',
     titulo: 'Diversidade (estatística agregada, só de quem autorizou)',
+    descricao: 'Retrato mensal, não em tempo real: os totais só mudam no mês seguinte e quando pelo menos 5 pessoas alteraram a informação desde o retrato anterior. Só de quem autorizou; grupos com menos de 5 pessoas aparecem como "<5".',
     papeis: ['admin'],
     formatos: ['json'],
     filtros: [],
     colunas: [
       { chave: 'dimensao', rotulo: 'Dimensão', tipo: 'texto' },
       { chave: 'categoria', rotulo: 'Categoria', tipo: 'texto' },
-      { chave: 'pessoas', rotulo: 'Pessoas', tipo: 'texto' }
+      { chave: 'pessoas', rotulo: 'Pessoas', tipo: 'texto' },
+      { chave: 'retratoDe', rotulo: 'Retrato de', tipo: 'data' }
     ],
     async consultar() {
-      const [g, e] = await Promise.all([contar('genero', 'genero', ROTULOS_GENERO), contar('etnia', 'etnia', ROTULOS_ETNIA)]);
-      return [...g.map(l => ({ dimensao: 'Gênero', ...l })), ...e.map(l => ({ dimensao: 'Cor ou etnia (IBGE)', ...l }))];
+      const t = agora();
+      const linhas = [];
+      for (const dim of DIMENSOES) {
+        const r = await retrato(dim, t);
+        const retratoDe = iso(r.geradoEm instanceof Date ? r.geradoEm : new Date(r.geradoEm));
+        for (const c of Array.isArray(r.celulas) ? r.celulas : []) linhas.push({ dimensao: dim.dimensao, categoria: c.categoria, pessoas: c.pessoas, retratoDe });
+      }
+      return linhas;
     }
   };
 }
@@ -660,5 +714,5 @@ export default async function montar(ctx) {
     arquivos: c.arquivos, email: c.email, configPortal: c.configPortal, agora: c.agora, throttle: c.throttle, cripto: c.cifra || null, log: c.log
   });
   ctx.servicos.adicionar('aviso', criarAvisoPerfilIncompleto({ repo: c.repo }));
-  ctx.servicos.adicionar('relatorio', criarRelatorioDiversidade({ repo: c.repo }));
+  ctx.servicos.adicionar('relatorio', criarRelatorioDiversidade({ repo: c.repo, agora: c.agora }));
 }

@@ -34,6 +34,9 @@
   };
   const PAGINA_ATENDIMENTO_NOVO = 'atendimentos.html?novo=1';
   const LINK_PRIVACIDADE = '../pages/politica-de-privacidade.html';
+  // Texto mudou desde o último aceite (409 entre exibição e aceite, ou `consentimento.textoAlterado` do servidor
+  // quando a coordenação muda os prazos de guarda depois do aceite): o aluno é avisado com destaque.
+  const AVISO_TEXTO_ATUALIZADO = 'O texto da autorização foi atualizado. Leia a versão atual antes de concordar.';
   const CATEGORIAS = [
     ['academico', 'Acadêmico'], ['secretaria', 'Secretaria'], ['financeiro', 'Financeiro'], ['tecnico', 'Acesso e tecnologia']
   ];
@@ -257,7 +260,7 @@
     } catch (err) {
       if (err.status === 409) {
         st.estado = await pedir('GET', API.estado, undefined, st.ctx.sinal);
-        renderConsentimento({ aviso: 'O texto da autorização foi atualizado. Leia a versão atual antes de concordar.' });
+        renderConsentimento({ aviso: AVISO_TEXTO_ATUALIZADO });
         return;
       }
       renderConsentimento({ erro: err.message || 'Não foi possível registrar a autorização agora.' });
@@ -446,7 +449,11 @@
       st.pendenteTexto = texto;
       try { st.estado = await pedir('GET', API.estado, undefined, st.ctx.sinal); } catch { /* mantém o anterior */ }
       st.estado.consentimento = { ...st.estado.consentimento, necessario: true };
-      renderConsentimento({ aviso: 'É preciso registrar a sua autorização para continuar. Sua pergunta foi guardada neste campo.' });
+      renderConsentimento({
+        aviso: st.estado.consentimento.textoAlterado
+          ? `${AVISO_TEXTO_ATUALIZADO} Sua pergunta foi guardada neste campo.`
+          : 'É preciso registrar a sua autorização para continuar. Sua pergunta foi guardada neste campo.'
+      });
       return;
     }
     if (err.status === 429 && cod === 'limite') {
@@ -744,7 +751,9 @@
     st.estado = await pedir('GET', API.estado, undefined, ctx.sinal);
     carregarHistorico();
     if (!st.estado.disponivel) renderIndisponivel(st.estado.motivo);
-    else if (st.estado.consentimento && st.estado.consentimento.necessario) renderConsentimento();
+    else if (st.estado.consentimento && st.estado.consentimento.necessario) {
+      renderConsentimento(st.estado.consentimento.textoAlterado ? { aviso: AVISO_TEXTO_ATUALIZADO } : undefined);
+    }
     else renderChat();
   }
 

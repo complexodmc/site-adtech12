@@ -245,6 +245,56 @@ test('aluno sem curso liberado: estado honesto (sem compositor)', { tag: ['@F6b'
   await monitor.verificar();
 });
 
+test('prazo de guarda alterado depois do aceite: o aluno é avisado, lê o texto novo e autoriza de novo (LGPD art. 8º §6º)', { tag: ['@F6b'] }, async ({ page, request }) => {
+  await garantirLigado(request);
+  const RET = '/api/portal/admin/configuracoes/retencao';
+  const a = P.api(request, admin.token);
+  const outro = await P.criarUsuario(request, { papel: 'aluno', nome: 'Diana Teste Prazos', rotulo: 'ia-prazos' });
+  await P.liberarCurso(request, outro.id, curso.cursoId);
+  const b = P.api(request, outro.token);
+
+  // Aceite do texto com os prazos de agora (pela API, como a tela faz: versão + sha256 do texto exibido)
+  const e0 = (await b.get('/api/portal/me/ia/estado')).json;
+  const sha0 = crypto.createHash('sha256').update(e0.consentimento.texto, 'utf8').digest('hex');
+  expect((await b.post('/api/portal/me/ia/consentimento', { aceito: true, versaoTexto: e0.consentimento.versaoTexto, textoSha256: sha0 })).status).toBe(201);
+  expect((await b.get('/api/portal/me/ia/estado')).json.consentimento.necessario).toBe(false);
+
+  const atual = (await a.get(RET)).json;
+  expect(atual && atual.retencao, JSON.stringify(atual)).toBeTruthy();
+  const r0 = atual.retencao;
+  const prazos = Object.fromEntries(Object.entries(r0.prazosDescritivos || {}).filter(([, v]) => typeof v === 'string' && v));
+  const novoPrazo = r0.conversasIaDias === 365 ? 366 : 365;
+  const put = await a.put(RET, { conversasIaDias: novoPrazo, notificacoesDias: r0.notificacoesDias, trilhaIaDias: r0.trilhaIaDias, prazosDescritivos: prazos, versao: atual.versao });
+  expect(put.status, JSON.stringify(put.json)).toBe(200);
+  try {
+    const e1 = (await b.get('/api/portal/me/ia/estado')).json;
+    expect(e1.consentimento.necessario).toBe(true);
+    expect(e1.consentimento.textoAlterado).toBe(true);
+    expect((await b.post('/api/portal/me/ia/conversas', { mensagem: 'Como está o meu desempenho?' })).status).toBe(428);
+
+    const monitor = P.monitorarConsoleERede(page, { fatia: 'F6b' });
+    await P.entrarComToken(page, outro.token);
+    await page.goto(EAD('assistente.html'));
+    const bloco = page.locator('[data-ia="consentimento"]');
+    await expect(page.getByRole('heading', { name: 'Antes de começar' })).toBeVisible();
+    await expect(bloco.getByRole('status').filter({ hasText: 'O texto da autorização foi atualizado. Leia a versão atual antes de concordar.' })).toBeVisible();
+    await expect(bloco).toBeFocused();
+    await expect(bloco.getByText(`As conversas ficam guardadas por ${novoPrazo} dias`, { exact: false })).toBeVisible();
+    await expect(page.locator('#pf-ia-campo')).toHaveCount(0);
+    await capturar(page, 'assistente-consentimento-prazo-alterado');
+    await page.getByRole('button', { name: 'Concordo e quero usar' }).click();
+    await expect(page.getByRole('heading', { name: 'Olá, Diana.' })).toBeVisible();
+    const e2 = (await b.get('/api/portal/me/ia/estado')).json;
+    expect(e2.consentimento.necessario).toBe(false);
+    expect(e2.consentimento.textoAlterado).toBeUndefined();
+    await monitor.verificar();
+  } finally {
+    const v = (await a.get(RET)).json.versao;
+    const volta = await a.put(RET, { conversasIaDias: r0.conversasIaDias, notificacoesDias: r0.notificacoesDias, trilhaIaDias: r0.trilhaIaDias, prazosDescritivos: prazos, versao: v });
+    expect(volta.status, JSON.stringify(volta.json)).toBe(200);
+  }
+});
+
 test('qualidade: axe nos dois temas (1440 e 390), sem rolagem horizontal de 320 a 1920, alvos de 44 px', { tag: ['@F6b'] }, async ({ page, request }) => {
   await garantirLigado(request);
   const marca = marcaDeTeste('qual');

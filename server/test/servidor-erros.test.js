@@ -7,7 +7,9 @@
 //   1. o texto de server.js tem os três pontos, uma vez cada e na posição de §5.3;
 //   2. o app REAL de server.js, com JSON quebrado contendo a senha em
 //      POST /api/auth/senha/trocar, responde 400 `formato-invalido` (JSON) e nenhuma
-//      linha de console — log espião — traz a senha.
+//      linha de console — log espião — traz a senha;
+//   3. `Cache-Control: no-store` em toda /api, montado antes de qualquer rota (§9.8 A05,
+//      achado do G2): texto + app real sem banco; os 200 com banco em tests/e2e/api-cache.spec.js.
 // O JSON é recusado pelo express.json global, antes de ensureConnected: nenhum Mongo é
 // aberto (a URI aponta para uma porta morta de loopback) e server/.env nunca é lido.
 // Rode com `npm test` na raiz (ou `NODE_ENV=test node --test server/test/servidor-erros.test.js`).
@@ -150,5 +152,84 @@ describe('server.js — JSON quebrado chega ao tratarErroGlobal (app real)', () 
 
     const vazadas = linhas.filter((l) => FRAGMENTOS_PROIBIDOS.some((f) => l.includes(f)));
     assert.deepEqual(vazadas, [], 'o log não pode trazer a senha nem trecho do corpo');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// 3. Cache-Control: no-store em TODA /api (§9.8 A05, ASVS 8.2.1 — achado do G2)
+// ---------------------------------------------------------------------------
+// O `semCache` do agregador só cobre /api/portal/* e as rotas novas de /api/auth/*. As
+// legadas montadas fora dele (/api/auth/me, signin, liberacoes, certificados, lives,
+// progresso, duvidas, parcerias/admin) saíam sem Cache-Control e a Vercel aplicava
+// `public, max-age=0, must-revalidate`: o navegador guardava o JSON autenticado em disco.
+// server.js põe `no-store` antes de qualquer rota de /api; quem quer cache (capas, vitrine,
+// materiais, arquivos) sobrescreve depois, no próprio router. Aqui:
+//   a. texto — o no-store é a PRIMEIRA montagem de /api (antes dos parsers e de /api/health);
+//   b. app real, sem banco — 200 de /api/health, 413 do parser do contato e 503 (banco fora)
+//      das rotas legadas saem com `no-store`; o site estático fica fora (não é /api).
+// Os 200 autenticados das rotas legadas, com banco, ficam no E2E tests/e2e/api-cache.spec.js.
+describe('server.js — Cache-Control: no-store em toda /api (A05)', () => {
+  const fonte = fs.readFileSync(ARQUIVO_SERVIDOR, 'utf8');
+  const semComentarios = fonte.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+  const MARCA = "res.set('Cache-Control', 'no-store')";
+  const METODOS = ['log', 'info', 'warn', 'error', 'debug', 'trace'];
+  const originais = {};
+  let servidor = null;
+  let base = null;
+
+  before(async () => {
+    // Os 503 de banco fora logam pelo tratarErroGlobal; silenciados só neste bloco.
+    for (const m of METODOS) { originais[m] = console[m]; console[m] = () => {}; }
+    const { app } = await import('../src/server.js');
+    await new Promise((ok, erro) => {
+      servidor = app.listen(0, '127.0.0.1', () => { base = `http://127.0.0.1:${servidor.address().port}`; ok(); });
+      servidor.on('error', erro);
+    });
+  });
+
+  after(async () => {
+    for (const m of METODOS) console[m] = originais[m];
+    if (servidor) {
+      servidor.closeAllConnections?.();
+      await new Promise((ok) => servidor.close(() => ok()));
+    }
+  });
+
+  test('texto: o no-store fica dentro da PRIMEIRA montagem de /api, em app.use(\'/api\', …)', () => {
+    const marca = semComentarios.indexOf(MARCA);
+    assert.ok(marca >= 0, `server.js não tem «${MARCA}»`);
+    assert.equal(semComentarios.indexOf(MARCA, marca + 1), -1, `«${MARCA}» deve aparecer uma vez só`);
+    const montagens = [...semComentarios.matchAll(/app\.(?:use|get|post|put|patch|delete|all)\(\s*'\/api[^']*'/g)].map((m) => m.index);
+    assert.ok(montagens.length > 1, 'server.js sem montagens de /api?');
+    assert.ok(montagens[0] < marca && marca < montagens[1],
+      'o no-store deve estar na PRIMEIRA montagem de /api (antes de corpoContato, /api/health e das rotas legadas)');
+    assert.match(semComentarios.slice(montagens[0], marca), /^app\.use\(\s*'\/api'\s*,/, 'a primeira montagem deve ser app.use(\'/api\', …) — /api inteira');
+  });
+
+  const CASOS = [
+    { nome: 'GET /api/health (200, sem banco)', metodo: 'GET', caminho: '/api/health', status: 200 },
+    {
+      nome: 'POST /api/contato com corpo > 16 KB (413 do parser próprio, antes do JSON global)',
+      metodo: 'POST', caminho: '/api/contato', status: 413,
+      headers: { 'content-type': 'application/json' }, body: JSON.stringify({ mensagem: 'x'.repeat(17 * 1024) })
+    },
+    { nome: 'GET /api/auth/me legado com Bearer (503, banco fora)', metodo: 'GET', caminho: '/api/auth/me', status: 503, headers: { authorization: 'Bearer token-qualquer' } },
+    { nome: 'GET /api/liberacoes/me legado com Bearer (503, banco fora)', metodo: 'GET', caminho: '/api/liberacoes/me', status: 503, headers: { authorization: 'Bearer token-qualquer' } }
+  ];
+  for (const c of CASOS) {
+    test(`${c.nome} → Cache-Control: no-store`, async () => {
+      const r = await fetch(`${base}${c.caminho}`, { method: c.metodo, headers: c.headers, body: c.body });
+      const texto = await r.text();
+      const diagnostico = `status ${r.status}, cache-control «${r.headers.get('cache-control')}», corpo ${texto.slice(0, 160)}`;
+      assert.equal(r.status, c.status, diagnostico);
+      assert.equal(r.headers.get('cache-control'), 'no-store', diagnostico);
+    });
+  }
+
+  test('site estático (/index.html) fica fora: sem no-store', async () => {
+    const r = await fetch(`${base}/index.html`);
+    await r.arrayBuffer();
+    assert.equal(r.status, 200);
+    assert.doesNotMatch(r.headers.get('cache-control') || '', /no-store/, 'o no-store vale só para /api');
   });
 });

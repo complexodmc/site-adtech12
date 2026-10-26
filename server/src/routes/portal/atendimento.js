@@ -18,7 +18,8 @@ import { lerTexto, lerEnum, lerInteiro, lerPagina, regexBusca, validarLinkIntern
 import { papelDe } from '../../portal/papeis.js';
 import {
   CATEGORIAS, PEDIDOS_TITULAR, STATUS, ORIGENS, ATD_RE, OUV_RE, MAX_MENSAGENS, INDICES_ATENDIMENTO, ROTULOS_CATEGORIA,
-  rotear, itemDoAluno, detalheDoAluno, itemDaEquipe, detalheDaEquipe, filtroDaFila, criarServicoAtendimento, novoIdMensagem, consumirLimites
+  rotear, itemDoAluno, detalheDoAluno, itemDaEquipe, detalheDaEquipe, filtroDaFila, criarServicoAtendimento, novoIdMensagem, consumirLimites,
+  filaDeAbertura
 } from '../../portal/atendimento/protocolos.js';
 
 const HORA = 60 * 60 * 1000;
@@ -227,12 +228,13 @@ export function criarRotasAtendimento({
     return doc;
   }
 
-  async function detalheCompleto(doc) {
+  /** Detalhe da equipe na visão de QUEM LÊ: o anexo e o resumo da IA são recortados para quem não é admin (§6.10.3). */
+  async function detalheCompleto(doc, req) {
     const ids = [doc.userId, doc.roteamento?.responsavelId];
     const [mapa, cursos] = await Promise.all([nomes(ids), cursosPorId([doc.cursoId])]);
     const p = mapa.get(doc.userId);
     const alunoInfo = p ? { id: p.id, nome: p.nomeSocial || p.nome, email: p.email } : null;
-    return detalheDaEquipe(doc, { aluno: alunoInfo, curso: doc.cursoId ? cursos.get(doc.cursoId) : null, nomes: mapa });
+    return detalheDaEquipe(doc, { aluno: alunoInfo, curso: doc.cursoId ? cursos.get(doc.cursoId) : null, nomes: mapa, leitor: papelDe(req.user) });
   }
 
   professor.get('/atendimentos', async (req, res) => {
@@ -281,7 +283,7 @@ export function criarRotasAtendimento({
     const protocolo = lerProtocolo(req);
     if (!protocolo) throw naoEncontrado();
     const doc = await carregarDaFila(req, protocolo);
-    res.json(await detalheCompleto(doc));
+    res.json(await detalheCompleto(doc, req));
   });
 
   professor.post('/atendimentos/:protocolo/mensagens', async (req, res) => {
@@ -382,9 +384,13 @@ export function criarRotasAtendimento({
     const t = agora();
     const nomeResp = responsavelId ? (mapa.get(responsavelId)?.nome || 'responsável') : null;
     const evento = { tipo: 'reatribuido', texto: nomeResp ? `Coordenação atribuiu a ${nomeResp}` : `Coordenação moveu para ${ROTULOS_CATEGORIA[categoria]}`, em: t };
+    // Protocolo da IA: registra para quem o conteúdo foi preparado e se o professor que o
+    // receber verá o recorte (anexo e resposta do assistente reservados à coordenação, §6.10.3).
+    const preparadoPara = doc.origem === 'ia' ? filaDeAbertura(doc) : null;
+    const extra = preparadoPara ? { origem: 'ia', preparadoPara, recorteParaProfessores: preparadoPara !== 'professores_do_curso' } : undefined;
     await auditoria.executar({
       acao: 'protocolo.reatribuido', entidade: { tipo: 'protocolo', id: protocolo }, alvoUserId: doc.userId, cursoId,
-      mudancas: auditoria.mudancas(antes, depois, ['categoria', 'cursoId', 'fila', 'responsavelId']), motivo
+      mudancas: auditoria.mudancas(antes, depois, ['categoria', 'cursoId', 'fila', 'responsavelId']), motivo, extra
     }, req, async () => {
       const r = await col().updateOne({ _id: doc._id, versao }, { $set: { ...novo, ultimaAtividadeEm: doc.ultimaAtividadeEm }, $push: { eventos: evento }, $inc: { versao: 1 } });
       if (r.modifiedCount !== 1) throw new ErroPortal(409, 'conflito-versao');
@@ -397,7 +403,7 @@ export function criarRotasAtendimento({
       });
     }
     const atualizado = await col().findOne({ _id: doc._id });
-    res.json(await detalheCompleto(atualizado));
+    res.json(await detalheCompleto(atualizado, req));
   });
 
   return { aluno, professor, admin, servico: srv };

@@ -16,6 +16,77 @@ function required(name) {
   return v.trim();
 }
 
+// ---------- Força dos segredos (OWASP A02/A05) ----------
+// O JWT_SECRET assina os JWT (HS256) e é o material do HKDF do portal (cifra
+// AES-256-GCM, selo, HMAC) e do HMAC do descadastro da newsletter; o
+// PORTAL_MATERIAL_ANTERIOR ainda decifra e verifica durante a rotação. Em
+// produção a carga é RECUSADA se um deles for curto, repetitivo, o texto de
+// exemplo do .env.example ou se o anterior for igual ao atual. Fora de
+// produção só avisa (nunca nos testes). O log nunca traz o valor.
+export const SEGREDO_MIN_BYTES = 32;
+const SEGREDO_MIN_DISTINTOS = 8;
+const TRECHOS_DE_EXEMPLO = Object.freeze(['troque-por']); // server/.env.example
+const MOTIVOS_SEGREDO = Object.freeze({
+  curto: `tem menos de ${SEGREDO_MIN_BYTES} bytes`,
+  repetitivo: `tem menos de ${SEGREDO_MIN_DISTINTOS} caracteres distintos`,
+  exemplo: 'é o texto de exemplo do .env.example',
+  'igual-ao-atual': 'é igual ao JWT_SECRET (a rotação não trocou o segredo)'
+});
+
+/** Produção = NODE_ENV=production ou VERCEL_ENV presente (a Vercel real sempre a define; o serve.mjs de QA, não). */
+export function ehProducao(env = process.env) {
+  return String(env.NODE_ENV || '').trim() === 'production' || env.VERCEL_ENV !== undefined;
+}
+
+function motivosDeFraqueza(valor) {
+  const m = [];
+  if (Buffer.byteLength(valor, 'utf8') < SEGREDO_MIN_BYTES) m.push('curto');
+  if (new Set(Array.from(valor)).size < SEGREDO_MIN_DISTINTOS) m.push('repetitivo');
+  const minusculo = valor.toLowerCase();
+  if (TRECHOS_DE_EXEMPLO.some(t => minusculo.includes(t))) m.push('exemplo');
+  return m;
+}
+
+/**
+ * Problemas de força do JWT_SECRET e do PORTAL_MATERIAL_ANTERIOR. Puro em
+ * relação ao `env`. Devolve [{ variavel, motivo }] — nunca o valor.
+ * Ausência do JWT_SECRET é do required(); anterior vazio = sem rotação.
+ */
+export function problemasDosSegredos(env = process.env) {
+  const txt = nome => (typeof env[nome] === 'string' ? env[nome].trim() : '');
+  const atual = txt('JWT_SECRET');
+  const anterior = txt('PORTAL_MATERIAL_ANTERIOR');
+  const problemas = [];
+  if (atual) for (const motivo of motivosDeFraqueza(atual)) problemas.push({ variavel: 'JWT_SECRET', motivo });
+  if (anterior) {
+    for (const motivo of motivosDeFraqueza(anterior)) problemas.push({ variavel: 'PORTAL_MATERIAL_ANTERIOR', motivo });
+    if (atual && anterior === atual) problemas.push({ variavel: 'PORTAL_MATERIAL_ANTERIOR', motivo: 'igual-ao-atual' });
+  }
+  return problemas;
+}
+
+function conferirSegredos(env = process.env) {
+  const problemas = problemasDosSegredos(env);
+  if (!problemas.length) return;
+  const porVariavel = new Map();
+  for (const { variavel, motivo } of problemas) {
+    porVariavel.set(variavel, [...(porVariavel.get(variavel) || []), MOTIVOS_SEGREDO[motivo]]);
+  }
+  if (ehProducao(env)) {
+    for (const [variavel, motivos] of porVariavel) {
+      console.error(`[DMC] ${variavel} recusado em produção: ${motivos.join('; ')}.`);
+    }
+    console.error('[DMC] Gere um segredo novo com `openssl rand -base64 48` e grave-o no painel da Vercel '
+      + '(o PORTAL_MATERIAL_ANTERIOR, se usado, é o segredo anterior real e diferente do atual).');
+    process.exit(1);
+  }
+  if (String(env.NODE_ENV || '').trim() !== 'test') {
+    for (const [variavel, motivos] of porVariavel) {
+      console.warn(`[DMC] aviso: ${variavel} fraco (${motivos.join('; ')}) — aceito só fora de produção.`);
+    }
+  }
+}
+
 // Teto do upload de material de apoio (PDF das aulas).
 const maxUploadMb = Number(process.env.MAX_UPLOAD_MB) || 25;
 
@@ -103,3 +174,6 @@ export const config = {
   maxUploadMb,
   maxUploadBytes: maxUploadMb * 1024 * 1024
 };
+
+// Depois do required(): segredo ausente mantém a mensagem de sempre.
+conferirSegredos(process.env);

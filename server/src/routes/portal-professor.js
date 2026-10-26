@@ -22,13 +22,16 @@
 //   DELETE /duvidas/:id/respostas/:respId  apaga a própria resposta (admin: qualquer)
 //
 // Exportador `duvidas` (Meus dados, API §6.3.4): as dúvidas do próprio titular.
+// Serviço `duvidas.esquecerNomes(userId)`: apaga as cópias de nome gravadas no formato antigo das
+// dúvidas e respostas do titular (para a revogação do nome social, F0t). Nome sempre montado na leitura.
 // =============================================================
 import { Router } from 'express';
 import { ErroPortal } from '../portal/erros.js';
 import { lerTexto, lerEnum, lerPagina, lerIdLegado, ID_RE, regexBusca } from '../portal/validacao.js';
 import { papelDe } from '../portal/papeis.js';
 import {
-  RESPOSTA_MAX, duvidaPublica, respostaPublica, novaResposta, notificarResposta, itensDaFila, objectIdOu, iso
+  RESPOSTA_MAX, duvidaPublica, respostaPublica, novaResposta, notificarResposta, itensDaFila, objectIdOu, iso,
+  nomesAtuais, idsDosAutores, nomeDe, esquecerNomesCopiados
 } from './duvidas.js';
 
 const STATUS_ROTULO = Object.freeze({ ativa: 'Ativa', trancada: 'Trancada', concluida: 'Concluída', cancelada: 'Cancelada' });
@@ -369,14 +372,16 @@ export function criarRotaPortalProfessor({ repo, servicos, agora = () => new Dat
       const semResposta = docs.filter(d => d.resolvida !== true && !(d.respostas || []).length).length;
       const total = fila.length;
       const pag = fila.slice((pagina - 1) * porPagina, pagina * porPagina);
-      const base = await itensDaFila(repo, pag);
+      // Todas as dúvidas de `pag` são de alunos que o docente pode ver (duvidasDoEscopo): nome atual.
+      const nomes = await nomesAtuais({ servicos, repo, log }, idsDosAutores(pag));
+      const base = await itensDaFila(repo, pag, { nomes });
       // Acréscimos à forma da fila legada: cursoId, sigla e código da aula, resolvida e as respostas
       // (com autor e quando), que a tela do professor mostra (UX §7.8).
       const aulas = pag.length ? await repo('aulas').find({ _id: { $in: [...new Set(pag.map(d => d.aulaId))] } }, { projection: { _id: 1, codigo: 1 } }).toArray() : [];
       const codigo = new Map(aulas.map(x => [x._id, x.codigo || null]));
       const itens = base.map((it, k) => {
         const d = pag[k];
-        const pub = duvidaPublica(d, req.user);
+        const pub = duvidaPublica(d, req.user, { nomes, veNome: true });
         return { ...it, cursoId: texto(d.cursoId), aulaCodigo: codigo.get(d.aulaId) ?? null, resolvida: !!d.resolvida, respostas: pub.respostas.map((r, j) => ({ ...r, minha: String(d.respostas[j]?.userId) === String(req.user._id) })) };
       });
       res.json({ itens, pendentes: semResposta, pagina, porPagina, total, totalPaginas: Math.max(1, Math.ceil(total / porPagina)) });
@@ -394,8 +399,9 @@ export function criarRotaPortalProfessor({ repo, servicos, agora = () => new Dat
         { $push: { respostas: resposta }, $set: { resolvida: true, respondidaEm: resposta.createdAt } }
       );
       if (!matchedCount) throw naoEncontrado('Dúvida não encontrada.');
-      await notificarResposta({ servicos, duvida: d, resposta, log });
-      res.status(201).json({ resposta: respostaPublica(resposta) });
+      const autorNome = nomeDe(req.user);
+      await notificarResposta({ servicos, duvida: d, resposta, autorNome, log });
+      res.status(201).json({ resposta: respostaPublica(resposta, new Map([[resposta.userId, autorNome]])) });
     } catch (err) { next(err); }
   });
 
@@ -448,4 +454,14 @@ export default async function montar(ctx) {
   const { rotas, servicos, comum } = ctx;
   rotas.professor.use(criarRotaPortalProfessor({ repo: comum.repo, servicos, agora: comum.agora, log: comum.log }));
   servicos.adicionar('exportador', criarExportadorDuvidas({ repo: comum.repo }));
+  servicos.registrar('duvidas.esquecerNomes', criarEsquecerNomes({ repo: comum.repo }));
+}
+
+/** Serviço `duvidas.esquecerNomes(userId)`: só com um userId válido (a limpeza total é a função exportada). */
+export function criarEsquecerNomes({ repo }) {
+  return async function esquecerNomes(userId) {
+    const uid = userId === null || userId === undefined ? '' : String(userId);
+    if (!ID_RE.test(uid)) throw new TypeError('duvidas.esquecerNomes: informe o userId.');
+    return esquecerNomesCopiados(repo, { userId: uid });
+  };
 }

@@ -20,6 +20,9 @@
 //   provedor (enviarEmSegundoPlano), com a mesma resposta com ou sem conta.
 // - 2FA (TOTP RFC 6238 + 10 códigos de recuperação): ativação só com
 //   PORTAL_2FA=1; quem já tem 2FA ativo sempre passa pelo segundo fator.
+//   O código conferido com a sessão aberta (reautenticação da coordenação,
+//   2fa/desativar, 2fa/codigos) conta no MESMO limite `2fa:<userId>` do
+//   login (conferirSegundoFatorLogado): sem varredura do TOTP (OWASP A07).
 // - Nenhuma resposta leva senhaHash, segredo TOTP, hash de token ou código
 //   de recuperação já gravado.
 //
@@ -183,25 +186,82 @@ export async function conferirSegundoFator(repo, userId, codigo, { agora = () =>
   return { ok: true, metodo: 'recuperacao', restantes: (depois?.codigos || []).filter(x => !x.usadoEm).length };
 }
 
+/** Chave do contador persistente do segundo fator da conta (a MESMA do login, API §4.16). */
+export const chave2fa = userId => `2fa:${String(userId)}`;
+
+const erroBloqueio2fa = retryAfterSeg => new ErroPortal(429, 'muitas-tentativas', undefined, { retryAfterSeg, persistente: true });
+
+/** Segundo fator da conta bloqueado (`bloquear` vigente em `2fa:<userId>`) → lança 429 `muitas-tentativas`. */
+export async function barrarSegundoFatorBloqueado(contador, userId, { agora = () => new Date() } = {}) {
+  const l = await contador.ler(chave2fa(userId));
+  if (l.bloqueadoAte) throw erroBloqueio2fa(Math.max(1, Math.ceil((l.bloqueadoAte.getTime() - agora().getTime()) / 1000)));
+}
+
+/**
+ * Segundo fator de quem JÁ está logado (reautenticação da coordenação, 2fa/desativar, 2fa/codigos;
+ * exportado para as outras fatias que conferem TOTP de sessão). Mesmas regras do POST /auth/2fa/verificar,
+ * no MESMO contador `2fa:<userId>` (LIMITE_2FA: 10 falhas por hora somando login e sessão; a 11ª → bloqueio
+ * de 1 h). Sem isso, quem tem a sessão e a senha varreria o TOTP sem limite nem alarme (OWASP A07).
+ * - bloqueado → 429 `muitas-tentativas` ANTES de conferir (até o código certo);
+ * - código errado → conta, audita `auth.2fa_falha` (`extra.contexto`); ao estourar: bloqueio de 1 h,
+ *   `sessaoVersao++` (derruba a sessão, como o conferirSenhaAtual), auditoria `auth.2fa_bloqueado`,
+ *   `MODELOS.aviso2faBloqueado` ao titular e 429;
+ * - código ausente ou vazio → { ok:false } SEM contar (não há palpite);
+ * - segredo ilegível → 409 `2fa-indisponivel`.
+ * → { ok, metodo?, restantes?, semDoisFatores? } (o chamador escolhe o 400 do campo dele).
+ */
+export async function conferirSegundoFatorLogado(req, codigo, { repo, contador, auditoria = null, email = null, agora = () => new Date(), cripto, contexto = 'logado' } = {}) {
+  if (!req?.user?._id) throw new TypeError('conferirSegundoFatorLogado: requisição sem usuário.');
+  if (!contador || typeof repo !== 'function') throw new TypeError('conferirSegundoFatorLogado: informe contador e repo.');
+  const uid = String(req.user._id);
+  const entidade = { tipo: 'usuario', id: uid };
+  await barrarSegundoFatorBloqueado(contador, uid, { agora });
+  let v;
+  try {
+    v = await conferirSegundoFator(repo, uid, codigo, { agora, ...(cripto ? { cripto } : {}) });
+  } catch (err) {
+    if (err instanceof ChaveIlegivelError) {
+      if (auditoria) await auditoria.registrar({ acao: 'auth.2fa_falha', entidade, alvoUserId: uid, extra: { motivo: 'chave-ilegivel', contexto } }, req);
+      throw new ErroPortal(409, '2fa-indisponivel');
+    }
+    throw err;
+  }
+  if (v.ok || v.semDoisFatores) return v;
+  const informado = (typeof codigo === 'string' || typeof codigo === 'number') && String(codigo).replace(/\s/g, '') !== '';
+  if (!informado) return v;
+  const k = chave2fa(uid);
+  const r = await contador.consumir(k, { janelaMs: LIMITE_2FA.janelaMs, max: LIMITE_2FA.max });
+  if (auditoria) await auditoria.registrar({ acao: 'auth.2fa_falha', entidade, alvoUserId: uid, extra: { falhasNaJanela: r.n, contexto } }, req);
+  if (!r.ok) {
+    await contador.bloquear(k, LIMITE_2FA.bloqueioMs);
+    if (r.n === LIMITE_2FA.max + 1) {
+      await repo('users').updateOne({ _id: oidDe(req.user) }, { $inc: { sessaoVersao: 1 } });
+      if (auditoria) await auditoria.registrar({ acao: 'auth.2fa_bloqueado', entidade, alvoUserId: uid, extra: { falhas: r.n, contexto } }, req);
+      if (email && req.user.email) {
+        email.enviarEmSegundoPlano({ para: req.user.email, ...MODELOS.aviso2faBloqueado({ nome: req.user.nome, ateEm: new Date(agora().getTime() + LIMITE_2FA.bloqueioMs) }) });
+      }
+    }
+    throw erroBloqueio2fa(LIMITE_2FA.bloqueioMs / 1000);
+  }
+  return v;
+}
+
 /**
  * Reautenticação da coordenação (corpo `reautenticacao:{ senha, codigo? }`): senha atual pelo
- * `conferirSenhaAtual` (contador compartilhado) + código do 2FA quando o admin o tem ativo.
- * Errada → 400 `campos.senha`/`campos.codigo` (nunca 401).
+ * `conferirSenhaAtual` (contador compartilhado) + código do 2FA quando o admin o tem ativo, pelo
+ * `conferirSegundoFatorLogado` (contador `2fa:<userId>` do login; bloqueado → 429 antes da senha).
+ * Errada → 400 `campos.senha`/`campos.codigo` (nunca 401); excesso → 429 `muitas-tentativas`.
  */
 export async function conferirReautenticacao(req, reautenticacao, { repo, contador, auditoria = null, email = null, agora = () => new Date(), cripto } = {}) {
   const r = reautenticacao && typeof reautenticacao === 'object' && !Array.isArray(reautenticacao) ? reautenticacao : null;
   if (!r || typeof r.senha !== 'string' || !r.senha) throw erroCampo('senha', 'Confirme a sua senha para continuar.');
+  const doc = await repo('auth_2fa').findOne({ userId: String(req.user._id) }, { projection: { ativo: 1 } });
+  const com2fa = doc?.ativo === true || req.user.doisFatoresAtivo === true;
+  if (com2fa) await barrarSegundoFatorBloqueado(contador, req.user._id, { agora });
   const ok = await conferirSenhaAtual(req, r.senha, { contador, auditoria, email, repo, agora });
   if (!ok) throw erroCampo('senha', 'Senha incorreta.');
-  const doc = await repo('auth_2fa').findOne({ userId: String(req.user._id) }, { projection: { ativo: 1 } });
-  if (doc?.ativo === true || req.user.doisFatoresAtivo === true) {
-    let v;
-    try {
-      v = await conferirSegundoFator(repo, req.user._id, r.codigo, { agora, ...(cripto ? { cripto } : {}) });
-    } catch (err) {
-      if (err instanceof ChaveIlegivelError) throw new ErroPortal(409, '2fa-indisponivel');
-      throw err;
-    }
+  if (com2fa) {
+    const v = await conferirSegundoFatorLogado(req, r.codigo, { repo, contador, auditoria, email, agora, cripto, contexto: 'reautenticacao' });
     if (!v.ok && !v.semDoisFatores) throw erroCampo('codigo', 'Código inválido.');
   }
   return true;
@@ -427,7 +487,7 @@ export function criarRotaAuthExtra(deps = {}) {
     const doc = TOKEN_RE.test(desafio) ? await repo('auth_tokens').findOne({ hash: hashToken(desafio), tipo: 'desafio_2fa' }) : null;
     if (!doc || doc.usadoEm || !(doc.expiraEm > t)) throw new ErroPortal(410, 'desafio-expirado');
     const userId = String(doc.userId);
-    const k2fa = `2fa:${userId}`;
+    const k2fa = chave2fa(userId);
     const l = await contador.ler(k2fa);
     if (l.bloqueadoAte) throw new ErroPortal(429, 'muitas-tentativas', undefined, { retryAfterSeg: Math.ceil((l.bloqueadoAte.getTime() - t.getTime()) / 1000), persistente: true });
     const user = await usuarioPorId(repo, userId);
@@ -527,12 +587,10 @@ export function criarRotaAuthExtra(deps = {}) {
   async function senhaECodigo(req) {
     const { senha, codigo } = req.body || {};
     if (typeof senha !== 'string' || !senha) throw erroCampo('senha', 'Informe a sua senha.');
+    // Mesmo contador do login (`2fa:<userId>`): bloqueado → 429 antes da senha; código errado conta (A07).
+    await barrarSegundoFatorBloqueado(contador, req.user._id, { agora });
     if (!(await conferirSenhaAtual(req, senha, depsSenha))) throw erroCampo('senha', 'Senha incorreta.');
-    let v;
-    try { v = await conferirSegundoFator(repo, req.user._id, codigo ?? '', { agora, cripto: cr() }); } catch (err) {
-      if (err instanceof ChaveIlegivelError) throw new ErroPortal(409, '2fa-indisponivel');
-      throw err;
-    }
+    const v = await conferirSegundoFatorLogado(req, codigo ?? '', { ...depsSenha, cripto: cr(), contexto: 'logado' });
     if (v.semDoisFatores) throw new ErroPortal(409, 'transicao-invalida', 'A verificação em duas etapas não está ativa.');
     if (!v.ok) throw erroCampo('codigo', 'Código inválido.');
     return v;

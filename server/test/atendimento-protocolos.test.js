@@ -395,3 +395,143 @@ describe('sem o serviço da secretaria (F4a ausente)', () => {
     assert.ok(!t1.corpo.itens.some(i => i.protocolo === p));
   });
 });
+
+// ---------------------------------------------------------------------------
+// Protocolo vindo do assistente e reatribuído (API §6.10.3; achado de segurança da
+// fase 2, A01/minimização). O anexo e o resumo são preparados para a fila do momento do
+// escalonamento; a reatribuição não pode levar ao professor o que foi preparado só para
+// a coordenação. O escalonamento é reproduzido com as MESMAS funções do ia.js (F6b),
+// para que uma mudança de formato lá derrube este teste em vez de reabrir o vazamento.
+// ---------------------------------------------------------------------------
+const IA = await import('../src/routes/portal/ia.js');
+
+const PAR_ACADEMICO = [
+  { papel: 'aluno', texto: 'Como está o módulo 1?', ferramentas: [] },
+  { papel: 'assistente', texto: 'No módulo 1 a sua situação é Cursando.', ferramentas: [{ nome: 'minhas_notas_e_situacao', ok: true }] }
+];
+const PAR_FINANCEIRO = [
+  { papel: 'aluno', texto: 'Tenho algo em aberto?', ferramentas: [] },
+  { papel: 'assistente', texto: 'Você tem 1 lançamento em atraso: Mensalidade, R$ 890,00, vencido em 2026-10-05.', ferramentas: [{ nome: 'meus_lancamentos_em_aberto', ok: true }] }
+];
+const CONVERSA_IA = [...PAR_ACADEMICO, ...PAR_FINANCEIRO]; // a última resposta é a sensível
+
+/** O que o `POST /me/ia/conversas/:id/escalar` faz, com o resumo sugerido aceito sem edição. */
+async function escalarDaIa(ctx, { categoria, cursoId = null, incluirConversa = true, conversa = CONVERSA_IA }) {
+  const fila = IA.rotear(categoria, cursoId);
+  const f = IA.filtrarAnexo(conversa, fila);
+  const abrir = ctx.servicos.obter('atendimento.abrirProtocolo');
+  const r = await abrir({
+    userId: IDS['u-aluno1'], categoria, assunto: 'Dúvida levada do assistente', mensagem: IA.resumoExtrativo(f.mensagens),
+    cursoId, origem: 'ia', anexoConversa: incluirConversa ? { mensagens: f.mensagens.map(m => ({ papel: m.papel, texto: m.texto, em: new Date() })), omitidas: f.omitidas } : null
+  });
+  return { protocolo: r.protocolo, fila, omitidas: f.omitidas };
+}
+
+const SENSIVEL = ['890', '2026-10-05', 'Mensalidade'];
+const semSensivel = (corpo, rotulo) => {
+  const s = JSON.stringify(corpo);
+  for (const x of SENSIVEL) assert.ok(!s.includes(x), `${rotulo}: "${x}" chegou ao professor`);
+};
+
+describe('protocolo da IA reatribuído: o que foi preparado para a coordenação não chega ao professor', () => {
+  let ctx;
+  before(async () => { ctx = await subirPortal(); });
+  after(() => fechar(ctx.server));
+
+  test('a mesma regra de fila no ia.js (F6b) e no rotear() da F6a', () => {
+    for (const categoria of ['academico', 'secretaria', 'financeiro', 'tecnico']) {
+      for (const cursoId of [null, 'curso-01']) assert.equal(IA.rotear(categoria, cursoId), P.rotear({ categoria, cursoId }).fila, `${categoria}/${cursoId}`);
+    }
+  });
+
+  test('financeiro → acadêmico do curso: o professor passa a ver o protocolo, mas não a conversa nem a resposta do assistente; a coordenação segue vendo tudo', async () => {
+    const { protocolo, fila, omitidas } = await escalarDaIa(ctx, { categoria: 'financeiro' });
+    assert.equal(fila, 'coordenacao');
+    assert.equal(omitidas, 0, 'a coordenação recebe a conversa inteira');
+    const gravado = await ctx.banco.collection('protocolos').findOne({ protocolo });
+    assert.equal(gravado.filaNaAbertura, 'coordenacao');
+    assert.equal(gravado.anexoConversa.filtradoPara, 'coordenacao');
+    assert.equal((await ctx.api.get(`/api/portal/professor/atendimentos/${protocolo}`, { usuario: 'u-prof' })).status, 404);
+
+    const adm = await ctx.api.get(`/api/portal/professor/atendimentos/${protocolo}`, { usuario: 'u-admin' });
+    assert.equal(adm.corpo.anexoConversa.mensagens.length, 4);
+    const re = await ctx.api.put(`/api/portal/admin/atendimentos/${protocolo}`, { categoria: 'academico', cursoId: 'curso-01', motivo: 'A questão é do curso, não financeira', versao: adm.corpo.versao }, { usuario: 'u-admin' });
+    assert.equal(re.status, 200, JSON.stringify(re.corpo));
+    assert.equal(re.corpo.roteamento.fila, 'professores_do_curso');
+    assert.equal(re.corpo.anexoConversa.mensagens.length, 4, 'a resposta da reatribuição é da coordenação: completa');
+    assert.ok(re.corpo.mensagens[0].texto.includes('R$ 890,00'));
+    const aud = await ctx.banco.collection('auditoria').findOne({ acao: 'protocolo.reatribuido', 'entidade.id': protocolo });
+    assert.equal(aud.extra.origem, 'ia');
+    assert.equal(aud.extra.preparadoPara, 'coordenacao');
+    assert.equal(aud.extra.recorteParaProfessores, true);
+
+    for (const quem of ['u-prof', 'u-prof-t1']) {
+      const prof = await ctx.api.get(`/api/portal/professor/atendimentos/${protocolo}`, { usuario: quem });
+      assert.equal(prof.status, 200, quem);
+      semSensivel(prof.corpo, quem);
+      assert.deepEqual(prof.corpo.anexoConversa.mensagens, [], `${quem}: nenhuma mensagem do anexo`);
+      assert.equal(prof.corpo.anexoConversa.omitidas, 2, `${quem}: os 2 pares contam como omitidos`);
+      assert.ok(prof.corpo.mensagens[0].texto.includes('Tenho algo em aberto?'), 'as perguntas (texto da própria aluna) continuam');
+      assert.ok(prof.corpo.mensagens[0].texto.includes(P.AVISO_RESERVADO_COORDENACAO));
+    }
+    const aluna = await ctx.api.get(`/api/portal/me/atendimentos/${protocolo}`, { usuario: 'u-aluno1' });
+    assert.ok(JSON.stringify(aluna.corpo).includes('R$ 890,00'), 'a titular continua vendo a própria conversa');
+    const depois = await ctx.api.get(`/api/portal/professor/atendimentos/${protocolo}`, { usuario: 'u-admin' });
+    assert.equal(depois.corpo.anexoConversa.mensagens.length, 4, 'nada foi apagado: o recorte é na leitura');
+  });
+
+  test('variante: continua na coordenação e é atribuído a professor do curso (sem anexo) → o resumo perde a resposta do assistente', async () => {
+    const { protocolo } = await escalarDaIa(ctx, { categoria: 'financeiro', cursoId: 'curso-01', incluirConversa: false });
+    const adm = await ctx.api.get(`/api/portal/professor/atendimentos/${protocolo}`, { usuario: 'u-admin' });
+    assert.equal(adm.corpo.anexoConversa, null);
+    const re = await ctx.api.put(`/api/portal/admin/atendimentos/${protocolo}`, { responsavelId: IDS['u-prof'], motivo: 'Professora vai orientar a aluna', versao: adm.corpo.versao }, { usuario: 'u-admin' });
+    assert.equal(re.status, 200, JSON.stringify(re.corpo));
+    assert.equal(re.corpo.roteamento.fila, 'coordenacao');
+    const prof = await ctx.api.get(`/api/portal/professor/atendimentos/${protocolo}`, { usuario: 'u-prof' });
+    assert.equal(prof.status, 200);
+    semSensivel(prof.corpo, 'u-prof');
+    assert.equal(prof.corpo.anexoConversa, null);
+    assert.ok(prof.corpo.mensagens[0].texto.includes(P.AVISO_RESERVADO_COORDENACAO));
+  });
+
+  test('escalado direto para a fila de professores: o anexo já filtrado continua visível ao professor, também depois de atribuído a ele', async () => {
+    const { protocolo, fila, omitidas } = await escalarDaIa(ctx, { categoria: 'academico', cursoId: 'curso-01' });
+    assert.equal(fila, 'professores_do_curso');
+    assert.equal(omitidas, 1);
+    const prof = await ctx.api.get(`/api/portal/professor/atendimentos/${protocolo}`, { usuario: 'u-prof' });
+    assert.equal(prof.status, 200);
+    assert.deepEqual(prof.corpo.anexoConversa.mensagens.map(m => m.texto), PAR_ACADEMICO.map(m => m.texto));
+    assert.equal(prof.corpo.anexoConversa.omitidas, 1);
+    semSensivel(prof.corpo, 'u-prof');
+    assert.ok(!prof.corpo.mensagens[0].texto.includes(P.AVISO_RESERVADO_COORDENACAO), 'resumo preparado para professores fica intacto');
+    const re = await ctx.api.put(`/api/portal/admin/atendimentos/${protocolo}`, { responsavelId: IDS['u-prof'], motivo: 'Atribuição à professora do curso', versao: prof.corpo.versao }, { usuario: 'u-admin' });
+    assert.equal(re.status, 200);
+    const depois = await ctx.api.get(`/api/portal/professor/atendimentos/${protocolo}`, { usuario: 'u-prof' });
+    assert.equal(depois.corpo.anexoConversa.mensagens.length, 2);
+  });
+
+  test('protocolo antigo, sem a marca da fila de abertura: na dúvida, reservado à coordenação; protocolo humano não é recortado', () => {
+    const base = {
+      protocolo: 'ATD-2026-ABCDEF', userId: IDS['u-aluno1'], categoria: 'academico', assunto: 'Dúvida', status: 'aberto', origem: 'ia', versao: 3,
+      roteamento: { fila: 'professores_do_curso', cursoId: 'curso-01', turmaId: null, responsavelId: null },
+      mensagens: [{ id: 'm-1', autorPapel: 'aluno', autorNome: 'Aluna', texto: IA.resumoExtrativo(PAR_FINANCEIRO), em: new Date() }],
+      anexoConversa: { mensagens: PAR_FINANCEIRO.map(m => ({ papel: m.papel, texto: m.texto, em: new Date() })), omitidas: 0 }
+    };
+    const reatribuido = { ...base, eventos: [{ tipo: 'reatribuido', texto: 'Coordenação moveu para Acadêmico', em: new Date() }] };
+    const prof = P.detalheDaEquipe(reatribuido, { leitor: 'professor' });
+    semSensivel(prof, 'antigo reatribuído');
+    assert.deepEqual(prof.anexoConversa, { mensagens: [], omitidas: 1 });
+    assert.equal(P.detalheDaEquipe(reatribuido, { leitor: 'admin' }).anexoConversa.mensagens.length, 2);
+    // sem reatribuição e na fila de professores desde a abertura: foi filtrado para eles
+    const direto = P.detalheDaEquipe({ ...base, eventos: [] }, { leitor: 'professor' });
+    assert.equal(direto.anexoConversa.mensagens.length, 2);
+    // omitidas > 0 só acontece no filtro da fila de professores
+    const filtrado = P.detalheDaEquipe({ ...reatribuido, anexoConversa: { mensagens: PAR_ACADEMICO, omitidas: 1 } }, { leitor: 'professor' });
+    assert.equal(filtrado.anexoConversa.mensagens.length, 2);
+    // sem `leitor`, vale o recorte (padrão fechado)
+    semSensivel(P.detalheDaEquipe(reatribuido), 'sem leitor');
+    // protocolo humano: a 1ª mensagem é da aluna e nunca é recortada
+    const humano = P.detalheDaEquipe({ ...reatribuido, origem: 'humano', anexoConversa: null }, { leitor: 'professor' });
+    assert.equal(humano.mensagens[0].texto, base.mensagens[0].texto);
+  });
+});

@@ -21,6 +21,9 @@ const { lerConfigPortal } = await import('../src/portal/config-portal.js');
 const { especificacoesRegistradas } = await import('../src/portal/indices.js');
 const { criarTratarErroGlobal } = await import('../src/portal/erros.js');
 const { config } = await import('../src/config.js');
+const { criarCripto } = await import('../src/portal/cripto.js');
+const { aadDoSegredo, codigoTotp, passoAtual } = await import('../src/portal/totp.js');
+const { MATERIAL_TESTE, SEGREDO_TOTP_FIXTURE } = await import('./apoio/fixtures-portal.js');
 // Importa os módulos antes de criar o banco: os índices únicos deles entram na simulação.
 await import('../src/routes/portal-equipe.js');
 await import('../src/routes/portal/perfil.js');
@@ -285,6 +288,82 @@ describe('equipe: papel, senha temporária, 2FA, e-mail, desativar', () => {
     const re = await ctx.api.post(`/api/portal/admin/usuarios/${IDS['u-intruso']}/reativar`, { motivo: 'Reativada após conferência' }, { usuario: 'u-admin' });
     assert.equal(re.status, 200);
     assert.equal(re.corpo.usuario.desativadoEm, null);
+  });
+});
+
+describe('reautenticação da coordenação com 2FA (A07: sem força bruta do código)', () => {
+  const adminCom2fa = async (banco) => {
+    const cripto = criarCripto({ material: MATERIAL_TESTE });
+    await banco.collection('users').updateOne({ _id: oid('u-admin') }, { $set: { doisFatoresAtivo: true } });
+    await banco.collection('auth_2fa').insertOne({
+      userId: IDS['u-admin'], ativo: true, segredo: cripto.cifrar(SEGREDO_TOTP_FIXTURE, 'totp', aadDoSegredo(IDS['u-admin'])),
+      pendente: null, pendenteCriadoEm: null, ativadoEm: new Date(), ultimoPasso: 0, codigos: []
+    });
+  };
+  const com = (codigo) => ({ reautenticacao: { senha: SENHA_FIXTURE, ...(codigo === undefined ? {} : { codigo }) } });
+
+  test('senha certa + código errado: 10 × 400 campos.codigo e a 11ª → 429 muitas-tentativas no contador 2fa:<userId>; depois nem o código certo passa em nenhuma ação; nada muda; auditoria e sessão derrubada', async () => {
+    const ctx = await subirPortal({ env: { ...ENV_EMAIL, PORTAL_2FA: '1' }, prep: adminCom2fa });
+    try {
+      const k = `2fa:${IDS['u-admin']}`;
+      const papel = (p, corpo) => ctx.api.put(`/api/portal/admin/usuarios/${IDS['u-prof']}/papel`, { papel: p, ...corpo }, { usuario: 'u-admin' });
+      const p0 = passoAtual(Date.now());
+      // O caminho legítimo continua: código certo → 200.
+      const ok = await papel('professor', com(codigoTotp(SEGREDO_TOTP_FIXTURE, p0)));
+      assert.equal(ok.status, 200, JSON.stringify(ok.corpo));
+      // Sem código: 400 campos.codigo, sem contar (não é palpite).
+      const sem = await papel('admin', com());
+      assert.equal(sem.status, 400);
+      assert.ok(sem.corpo.campos?.codigo);
+      assert.equal(await ctx.banco.collection('limites').findOne({ chave: k }), null);
+      const sv0 = (await userDe(ctx.banco, 'u-admin')).sessaoVersao || 0;
+      const st = [];
+      let ultimo;
+      for (let i = 0; i < 11; i++) {
+        ultimo = await papel('admin', com('000000'));
+        st.push(ultimo.status);
+        if (ultimo.status === 400) assert.ok(ultimo.corpo.campos?.codigo, JSON.stringify(ultimo.corpo));
+      }
+      assert.deepEqual(st, [...Array(10).fill(400), 429], st.join(','));
+      assert.equal(ultimo.corpo.codigo, 'muitas-tentativas');
+      // Bloqueado por 1 h: o código certo (passo seguinte, ainda não usado) é recusado aqui e nas outras ações críticas.
+      const certo = codigoTotp(SEGREDO_TOTP_FIXTURE, p0 + 1);
+      assert.equal((await papel('admin', com(certo))).status, 429);
+      const tmp = await ctx.api.post(`/api/portal/admin/usuarios/${IDS['u-aluno1']}/senha-temporaria`, { motivo: 'Aluna perdeu o acesso ao e-mail', ...com(certo) }, { usuario: 'u-admin' });
+      assert.equal(tmp.status, 429);
+      assert.notEqual((await userDe(ctx.banco, 'u-aluno1')).senhaTemporaria, true);
+      const u = await userDe(ctx.banco, 'u-prof');
+      assert.deepEqual([u.papel, u.isAdmin === true], ['professor', false], 'o alvo não foi promovido');
+      const lim = await ctx.banco.collection('limites').findOne({ chave: k });
+      assert.ok(lim?.bloqueadoAte instanceof Date && lim.bloqueadoAte > new Date());
+      // Detecção: falhas auditadas, um bloqueio, sessões da coordenação derrubadas, aviso ao titular.
+      const falhas = await ctx.banco.collection('auditoria').find({ acao: 'auth.2fa_falha', alvoUserId: IDS['u-admin'] }).toArray();
+      assert.equal(falhas.length, 11);
+      assert.ok(falhas.every(f => f.extra?.contexto === 'reautenticacao'));
+      assert.equal(await ctx.banco.collection('auditoria').countDocuments({ acao: 'auth.2fa_bloqueado', alvoUserId: IDS['u-admin'] }), 1);
+      assert.equal((await userDe(ctx.banco, 'u-admin')).sessaoVersao || 0, sv0 + 1);
+      await esperar(20);
+      const adminEmail = (await userDe(ctx.banco, 'u-admin')).email;
+      assert.equal(ctx.fetchImpl.chamadas.filter(c => c.corpo?.to?.[0] === adminEmail && /Tentativas de código bloqueadas/.test(c.corpo?.subject || '')).length, 1);
+    } finally { await fechar(ctx.server); }
+  });
+
+  test('senha errada não gasta o 2fa:<userId> (segue no contador da senha); com o bloqueio do 2FA ativo, nem a senha é conferida', async () => {
+    const ctx = await subirPortal({ env: { ...ENV_EMAIL, PORTAL_2FA: '1' }, prep: adminCom2fa });
+    try {
+      const k = `2fa:${IDS['u-admin']}`;
+      const r = await ctx.api.put(`/api/portal/admin/usuarios/${IDS['u-prof']}/papel`, { papel: 'admin', reautenticacao: { senha: 'errada-123', codigo: '000000' } }, { usuario: 'u-admin' });
+      assert.equal(r.status, 400);
+      assert.ok(r.corpo.campos?.senha);
+      assert.equal(await ctx.banco.collection('limites').findOne({ chave: k }), null);
+      await ctx.banco.collection('limites').insertOne({ chave: k, n: 11, expiraEm: new Date(Date.now() + 3600e3), bloqueadoAte: new Date(Date.now() + 3600e3) });
+      const antes = await ctx.banco.collection('limites').findOne({ chave: `senha-logado:${IDS['u-admin']}` });
+      const b = await ctx.api.put(`/api/portal/admin/usuarios/${IDS['u-prof']}/papel`, { papel: 'admin', reautenticacao: { senha: 'errada-456', codigo: '000000' } }, { usuario: 'u-admin' });
+      assert.equal(b.status, 429);
+      assert.equal(b.corpo.codigo, 'muitas-tentativas');
+      const depois = await ctx.banco.collection('limites').findOne({ chave: `senha-logado:${IDS['u-admin']}` });
+      assert.equal(depois?.n, antes?.n, 'bloqueado: a senha nem é conferida');
+    } finally { await fechar(ctx.server); }
   });
 });
 

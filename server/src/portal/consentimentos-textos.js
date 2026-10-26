@@ -31,6 +31,16 @@ export const CHAVE_ESPELHO = Object.freeze({
 /** Inverso de CHAVE_ESPELHO: 'genero' → 'perfil_genero'. */
 export const FINALIDADE_DA_CHAVE = Object.freeze(Object.fromEntries(Object.entries(CHAVE_ESPELHO).map(([f, k]) => [k, f])));
 
+/**
+ * Dado sensível de diversidade (LGPD, art. 11). Na trilha de auditoria, que a coordenação lê,
+ * as duas finalidades e os dois campos aparecem só como 'diversidade': nem o valor nem qual dos
+ * dois (gênero ou etnia) mudou. Com o retrato mensal do relatório (perfil.js), impede descobrir
+ * o dado de uma pessoa comparando duas leituras com o horário do evento (achado G2, §9.8).
+ */
+export const FINALIDADES_DIVERSIDADE = Object.freeze(['perfil_genero', 'perfil_etnia']);
+export const CAMPOS_DIVERSIDADE = Object.freeze(['genero', 'etnia']);
+export const DIVERSIDADE_NA_TRILHA = 'diversidade';
+
 const TEXTO_DIVERSIDADE = (dado) => `Autorizo o registro ${dado} para estatísticas agregadas de diversidade da plataforma. A informação aparece só para mim; a coordenação vê apenas totais de grupos com 5 ou mais pessoas, e ela nunca é usada em decisões sobre mim nem mostrada à equipe. Posso retirar a autorização em Meus dados, e a informação é apagada.`;
 
 /** Textos por finalidade e versão (literais da API §6.3.1 e da D-55). */

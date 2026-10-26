@@ -234,8 +234,44 @@ describe('validacao — mascaramento, URLs, busca e nomes', () => {
     assert.equal(V.mascararDadosPessoais('a.b@x.com.br, j@k.com. fim; e@f; @g.com').texto, '[E-MAIL], [E-MAIL]. fim; e@f; @g.com');
   });
 
+  // Achado G2 (§9.8, segredos-ia): o consentimento da IA promete que "números desse tipo digitados por você são
+  // substituídos por marcadores antes do envio"; CPF, RG e telefone digitados com ESPAÇO passavam em claro ao Gemini
+  // e a conversas_ia, e 'cpf 529982247 25' expunha o final do CPF.
+  test('mascararDadosPessoais: CPF, RG e telefone com espaço como separador; datas ISO (com hora) preservadas', () => {
+    const cpf = gerarCpfValido('masc-espaco');
+    const [a, b, c, d] = [cpf.slice(0, 3), cpf.slice(3, 6), cpf.slice(6, 9), cpf.slice(9)];
+    const casos = [
+      ['meu cpf é 529 982 247 25', 'meu cpf é [CPF]'],
+      [`cpf ${a} ${b} ${c} ${d}.`, 'cpf [CPF].'],
+      [`cpf ${a}${b}${c} ${d}`, 'cpf [CPF]'],
+      [`cpf ${a}.${b}.${c} ${d}`, 'cpf [CPF]'],
+      [`cpf ${a} ${b} ${c}-${d}`, 'cpf [CPF]'],
+      [`cpf ${a}  ${b} ${c}\t${d}`, 'cpf [CPF]'],
+      ['cpf 123 456 789 00 (digitado errado)', 'cpf [NÚMERO] (digitado errado)'],
+      ['rg 12 345 678-9', 'rg [NÚMERO]'],
+      ['rg 12 345 678 9', 'rg [NÚMERO]'],
+      ['rg 12 345 678-X', 'rg [NÚMERO]'],
+      ['cel (11) 98765 4321', 'cel (11) [NÚMERO]'],
+      ['tel 11 9 8765 4321', 'tel [NÚMERO]'],
+      ['fixo (11) 3456 7890', 'fixo (11) [NÚMERO]'],
+      ['whats +55 11 98765 4321', 'whats +[NÚMERO]'],
+      ['cep 01310 100', 'cep [NÚMERO]']
+    ];
+    for (const [entrada, esperado] of casos) {
+      assert.deepEqual(V.mascararDadosPessoais(entrada), { texto: esperado, mascarado: true }, entrada);
+    }
+    // Sem dado pessoal: datas ISO (sozinhas, em intervalo ou com hora), códigos, notas e números curtos ficam iguais.
+    for (const livre of [
+      'aula em 2026-10-20 19:30', 'de 2026-10-18 a 2026-10-25', 'datas 2026-10-18 2026-10-19', 'turma APE-2026-01 2026-10-18',
+      'nota 7,5 e 8,0; módulo 3 aula 12; carga 360 h', 'protocolo ATD-2026-ABCDEF', 'notas 10 9 8', '2026-10-18T19:30:00.000Z'
+    ]) {
+      assert.deepEqual(V.mascararDadosPessoais(livre), { texto: livre, mascarado: false }, livre);
+    }
+  });
+
   test('mascararDadosPessoais é linear (sem ReDoS) em textos longos', () => {
-    for (const s of ['a'.repeat(200_000), '1'.repeat(200_000) + 'x', 'a@'.repeat(100_000), 'a@' + 'a.'.repeat(100_000) + '!', '1.'.repeat(100_000)]) {
+    for (const s of ['a'.repeat(200_000), '1'.repeat(200_000) + 'x', 'a@'.repeat(100_000), 'a@' + 'a.'.repeat(100_000) + '!', '1.'.repeat(100_000),
+      '1 '.repeat(100_000), '1 '.repeat(100_000) + '1x', '12   '.repeat(50_000), '1 '.repeat(100_000) + 'x', '1 - '.repeat(60_000), '2026-10-18 '.repeat(20_000)]) {
       const inicio = performance.now();
       V.mascararDadosPessoais(s);
       assert.ok(performance.now() - inicio < 1500, `lento demais para ${s.slice(0, 6)}…`);

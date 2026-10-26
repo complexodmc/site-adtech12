@@ -127,6 +127,72 @@ function anexoPublico(anexo) {
   };
 }
 
+// ---------- protocolo vindo do assistente: recorte por quem lê (API §6.10.3) ----------
+// O anexo e o resumo (1ª mensagem) de um protocolo `origem:'ia'` são preparados para a fila
+// do MOMENTO do escalonamento: a coordenação recebe tudo; a fila de professores, só os pares
+// que não usaram documentos, contratos nem financeiro (filtrarAnexo, F6b). Uma reatribuição
+// posterior (fila de professores ou responsável professor) não pode levar ao professor o que
+// foi preparado só para a coordenação: o recorte é feito na LEITURA, para quem não é admin,
+// e nada é apagado (a coordenação e a titular continuam vendo tudo).
+
+/** Aviso que substitui, para o professor, a resposta do assistente no resumo. */
+export const AVISO_RESERVADO_COORDENACAO = '[Resposta do assistente reservada à coordenação.]';
+// Cabeçalho que o resumoExtrativo (ia.js) põe antes da última resposta do assistente.
+const MARCA_RESPOSTA_IA = /(?:^|\n)[ \t]*Última resposta do assistente:/iu;
+const PROFESSORES = 'professores_do_curso';
+
+/**
+ * Para que fila o conteúdo do protocolo foi preparado na abertura.
+ * Gravado desde a correção (`filaNaAbertura`); em protocolo antigo, deduz pelo lado seguro:
+ * só é "da fila de professores" se o anexo foi filtrado (omitidas > 0, o que só o filtro
+ * dela faz) ou se o protocolo nunca foi reatribuído e está nessa fila.
+ */
+export function filaDeAbertura(p) {
+  if (FILAS.includes(p?.filaNaAbertura)) return p.filaNaAbertura;
+  if (Number(p?.anexoConversa?.omitidas) > 0) return PROFESSORES;
+  const reatribuido = (Array.isArray(p?.eventos) ? p.eventos : []).some(e => e?.tipo === 'reatribuido');
+  return !reatribuido && p?.roteamento?.fila === PROFESSORES ? PROFESSORES : 'coordenacao';
+}
+
+/** Fila para a qual o anexo foi filtrado (`anexoConversa.filtradoPara`; antigo → filaDeAbertura). */
+export function anexoFiltradoPara(p) {
+  const f = p?.anexoConversa?.filtradoPara;
+  return FILAS.includes(f) ? f : filaDeAbertura(p);
+}
+
+/** Conta os trechos do anexo como o filtro conta (pergunta + resposta = 1; mensagem solta = 1). */
+function contarTrechos(mensagens) {
+  const lista = Array.isArray(mensagens) ? mensagens : [];
+  let n = 0;
+  for (let i = 0; i < lista.length; i++) {
+    if (lista[i]?.papel === 'aluno' && lista[i + 1]?.papel === 'assistente') i++;
+    n++;
+  }
+  return n;
+}
+
+/** Resumo sem a resposta do assistente (as perguntas são texto da própria titular e ficam). */
+export function recortarResumoIa(texto) {
+  const s = String(texto ?? '').normalize('NFC');
+  const i = s.search(MARCA_RESPOSTA_IA);
+  if (i < 0) return s;
+  const antes = s.slice(0, i).trimEnd();
+  return antes ? `${antes}\n\n${AVISO_RESERVADO_COORDENACAO}` : AVISO_RESERVADO_COORDENACAO;
+}
+
+/** Anexo na visão de quem lê: admin vê o gravado; os demais, só o que foi filtrado para professores. */
+function anexoParaLeitor(p, leitor) {
+  const anexo = anexoPublico(p.anexoConversa);
+  if (!anexo || leitor === 'admin' || anexoFiltradoPara(p) === PROFESSORES) return anexo;
+  return { mensagens: [], omitidas: anexo.omitidas + contarTrechos(anexo.mensagens) };
+}
+
+/** Recorta o resumo (1ª mensagem de protocolo da IA) quando ele foi preparado para a coordenação. */
+function textoParaLeitor(p, m, indice, leitor) {
+  if (leitor === 'admin' || indice !== 0 || p.origem !== 'ia' || m.autorPapel !== 'aluno') return m.texto;
+  return filaDeAbertura(p) === PROFESSORES ? m.texto : recortarResumoIa(m.texto);
+}
+
 /** Protocolo completo na visão do titular (equipe assina "Equipe Complexo DMC"). */
 export function detalheDoAluno(p, { curso = null } = {}) {
   return {
@@ -163,8 +229,12 @@ export function itemDaEquipe(p, { nomes = new Map(), cursos = new Map(), comPedi
   };
 }
 
-/** Protocolo completo na visão da equipe (com aluno, roteamento e autores). */
-export function detalheDaEquipe(p, { aluno = null, curso = null, nomes = new Map() } = {}) {
+/**
+ * Protocolo completo na visão da equipe (com aluno, roteamento e autores).
+ * `leitor` = papel de quem lê (`papelDe`); só 'admin' recebe o anexo e o resumo da IA como
+ * gravados. Ausente → recorte (padrão fechado).
+ */
+export function detalheDaEquipe(p, { aluno = null, curso = null, nomes = new Map(), leitor = null } = {}) {
   const resp = p.roteamento?.responsavelId ?? null;
   return {
     ...itemDoAluno(p),
@@ -178,9 +248,9 @@ export function detalheDaEquipe(p, { aluno = null, curso = null, nomes = new Map
       responsavelId: resp,
       responsavelNome: resp ? (nomes.get(resp)?.nome ?? null) : null
     },
-    mensagens: (p.mensagens || []).map(m => ({ id: m.id, autor: m.autorPapel === 'aluno' ? 'aluno' : 'equipe', autorPapel: m.autorPapel, autorNome: m.autorNome || '', texto: m.texto, em: iso(m.em) })),
+    mensagens: (p.mensagens || []).map((m, i) => ({ id: m.id, autor: m.autorPapel === 'aluno' ? 'aluno' : 'equipe', autorPapel: m.autorPapel, autorNome: m.autorNome || '', texto: textoParaLeitor(p, m, i, leitor), em: iso(m.em) })),
     eventos: (p.eventos || []).map(e => ({ tipo: e.tipo, texto: e.texto, em: iso(e.em) })),
-    anexoConversa: anexoPublico(p.anexoConversa),
+    anexoConversa: anexoParaLeitor(p, leitor),
     pedido: pedidoPublico(p.pedido),
     primeiraRespostaEm: iso(p.primeiraRespostaEm),
     encerradoEm: iso(p.encerradoEm),
@@ -370,8 +440,11 @@ export function criarServicoAtendimento({ repo, servicos, acesso, auditoria = nu
       cursoId: cursoId || null,
       origem,
       conversaIaId: conversaIaId ? (typeof conversaIaId === 'object' ? conversaIaId : (hex(conversaIaId) ? new ObjectId(hex(conversaIaId)) : null)) : null,
+      // Para quem o conteúdo foi preparado: o ia.js filtra o anexo e monta o resumo pela mesma
+      // regra de fila do rotear() acima (teste de paridade em atendimento-protocolos.test.js).
+      filaNaAbertura: roteamento.fila,
       anexoConversa: anexoConversa && Array.isArray(anexoConversa.mensagens)
-        ? { mensagens: anexoConversa.mensagens.map(m => ({ papel: m.papel, texto: String(m.texto ?? ''), em: m.em instanceof Date ? m.em : new Date(m.em || t) })), omitidas: Number(anexoConversa.omitidas) || 0 }
+        ? { mensagens: anexoConversa.mensagens.map(m => ({ papel: m.papel, texto: String(m.texto ?? ''), em: m.em instanceof Date ? m.em : new Date(m.em || t) })), omitidas: Number(anexoConversa.omitidas) || 0, filtradoPara: roteamento.fila }
         : null,
       pedido: pedido
         ? {

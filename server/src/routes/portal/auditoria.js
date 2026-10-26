@@ -8,15 +8,50 @@
 // resolvido no servidor; nada encontrado → lista vazia). CSV com as mesmas
 // colunas (anti-fórmula do csv.js); acima de 20.000 linhas → 413.
 // Exportar CSV gera `relatorio.exportado`.
+// Gênero e etnia (LGPD, art. 11) saem só como 'diversidade': no campo das
+// mudanças, na finalidade e no id do consentimento, também nos registros
+// gravados antes da correção; o filtro por entidade não separa os dois
+// (achado G2, §9.8).
 // =============================================================
 import { ObjectId } from 'mongodb';
 import { ErroPortal } from '../../portal/erros.js';
 import { lerPagina, validarDataCalendario, validarEmail, ID_RE } from '../../portal/validacao.js';
 import { LIMITE_LINHAS_CSV, enviarCsv } from '../../portal/csv.js';
-import { ACAO_RE } from '../../portal/auditoria.js';
+import { ACAO_RE, MASCARA } from '../../portal/auditoria.js';
+import { CAMPOS_DIVERSIDADE, FINALIDADES_DIVERSIDADE, DIVERSIDADE_NA_TRILHA } from '../../portal/consentimentos-textos.js';
 
 const iso = d => (d instanceof Date && !Number.isNaN(d.getTime()) ? d.toISOString() : null);
 const TEXTO_FILTRO_RE = /^[A-Za-z0-9_.:@-]{1,120}$/;
+const SUFIXOS_DIVERSIDADE = [...FINALIDADES_DIVERSIDADE, DIVERSIDADE_NA_TRILHA];
+const ID_DIVERSIDADE_RE = new RegExp(`^(.+):(${SUFIXOS_DIVERSIDADE.join('|')})$`);
+
+/**
+ * Mudanças com gênero/etnia trocados por UM item 'diversidade' mascarado (na posição do primeiro).
+ * Usado na gravação (perfil.js) e na leitura (registros antigos).
+ */
+export function generalizarDiversidade(mudancas) {
+  if (!Array.isArray(mudancas)) return mudancas ?? null;
+  const out = [];
+  let marcou = false;
+  for (const m of mudancas) {
+    if (m && CAMPOS_DIVERSIDADE.includes(m.campo)) {
+      if (!marcou) out.push({ campo: DIVERSIDADE_NA_TRILHA, de: MASCARA, para: MASCARA });
+      marcou = true;
+    } else out.push(m);
+  }
+  return out;
+}
+
+/** Id de entidade de consentimento com a finalidade de diversidade generalizada (`<uid>:diversidade`). */
+function idDeEntidadeNaTrilha(id) {
+  const m = typeof id === 'string' ? ID_DIVERSIDADE_RE.exec(id) : null;
+  return m ? `${m[1]}:${DIVERSIDADE_NA_TRILHA}` : id;
+}
+
+function extraNaTrilha(extra) {
+  if (!extra || typeof extra !== 'object' || !FINALIDADES_DIVERSIDADE.includes(extra.finalidade)) return extra ?? null;
+  return { ...extra, finalidade: DIVERSIDADE_NA_TRILHA };
+}
 
 /** Código de objeto → { colecao, campo, tipo } (resolução no servidor). */
 export const OBJETOS = Object.freeze([
@@ -77,7 +112,11 @@ export function criarRotaAuditoria({ router, repo, auditoria, agora = () => new 
     const entidadeTipo = lerFiltroTexto(q.entidadeTipo, 'entidadeTipo');
     if (entidadeTipo) f['entidade.tipo'] = entidadeTipo;
     const entidadeId = lerFiltroTexto(q.entidadeId, 'entidadeId');
-    if (entidadeId) f['entidade.id'] = entidadeId;
+    if (entidadeId) {
+      // `<uid>:perfil_genero`, `<uid>:perfil_etnia` e `<uid>:diversidade` devolvem o MESMO conjunto.
+      const m = ID_DIVERSIDADE_RE.exec(entidadeId);
+      f['entidade.id'] = m ? { $in: SUFIXOS_DIVERSIDADE.map(s => `${m[1]}:${s}`) } : entidadeId;
+    }
     const cursoId = lerFiltroTexto(q.cursoId, 'cursoId');
     if (cursoId) f.cursoId = cursoId;
     const de = q.de === undefined || q.de === '' ? null : validarDataCalendario(String(q.de));
@@ -122,7 +161,8 @@ export function criarRotaAuditoria({ router, repo, auditoria, agora = () => new 
       em: iso(d.em), acao: d.acao,
       ator: { userId: d.ator?.userId ?? null, nome: d.ator?.userId ? (nomes.get(d.ator.userId) ?? null) : null, papel: d.ator?.papel ?? null, ipTruncado: d.ator?.ipTruncado ?? null },
       alvo: d.alvoUserId ? { userId: d.alvoUserId, nome: nomes.get(d.alvoUserId) ?? null } : null,
-      entidade: d.entidade ?? null, mudancas: d.mudancas ?? null, motivo: d.motivo ?? null, extra: d.extra ?? null, estado: d.estado
+      entidade: d.entidade ? { ...d.entidade, id: idDeEntidadeNaTrilha(d.entidade.id) } : null,
+      mudancas: generalizarDiversidade(d.mudancas ?? null), motivo: d.motivo ?? null, extra: extraNaTrilha(d.extra), estado: d.estado
     }));
   }
 

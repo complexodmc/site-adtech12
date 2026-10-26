@@ -11,7 +11,7 @@ import { ObjectId } from 'mongodb';
 import { criarBancoMemoria } from './apoio/banco-memoria.js';
 import { semear, IDS, oid } from './apoio/fixtures-portal.js';
 import { subir, fechar, cliente, usuarioDeTeste } from './apoio/http.js';
-import { silencioso, servicosFalsos } from './apoio/falsos.js';
+import { silencioso, servicosFalsos, fetchFalso } from './apoio/falsos.js';
 
 process.env.MONGODB_URI ||= 'mongodb://127.0.0.1:9/sem-conexao-nos-testes';
 process.env.JWT_SECRET ||= 'segredo-apenas-para-testes';
@@ -22,7 +22,8 @@ const { criarServicos } = await import('../src/portal/servicos.js');
 const { lerConfigPortal } = await import('../src/portal/config-portal.js');
 const E = await import('../src/portal/erros.js');
 const { especificacoesRegistradas } = await import('../src/portal/indices.js');
-const { criarRotaDuvidas } = await import('../src/routes/duvidas.js');
+const D = await import('../src/routes/duvidas.js');
+const { criarRotaDuvidas } = D;
 const { criarRotaPortalProfessor, criarExportadorDuvidas } = await import('../src/routes/portal-professor.js');
 
 const CFG_TESTE = lerConfigPortal({ NODE_ENV: 'test', JWT_SECRET: 'segredo-de-teste' });
@@ -410,6 +411,157 @@ describe('dúvidas do professor e rotas legadas (duvidas.js)', () => {
       assert.equal(a.corpo.duvida.minha, true);
       const b = await t.api.post('/api/aulas/c01-m01-a01/duvidas', { texto: 'Outra logo em seguida' }, { usuario: 'u-aluno1' });
       assert.equal(b.status, 429);
+    } finally { await fechar(t.server); }
+  });
+});
+
+// =============================================================
+// LGPD · nome de quem pergunta (achado G2: cópia fixa em `duvidas.autorNome`).
+// Texto v1 aceito em `perfil_nome_social`: o nome aparece para a coordenação e para os professores
+// das turmas; Meus dados põe o nome de registro só para o titular e a coordenação. Logo: o colega vê
+// "Colega"; o autor, a coordenação e o docente do aluno veem o nome ATUAL (users.nome), montado na
+// leitura; a revogação vale na hora; dúvida e resposta novas não gravam cópia do nome.
+const MODULOS_TITULAR = M.MODULOS_PADRAO.filter(m => m.caminho === 'routes/portal/perfil.js' || m.caminho === 'routes/portal/meus-dados.js');
+const L1 = new ObjectId('0000000000000000000000e1'); // aluna 1 (T1), formato antigo, com cópia do nome
+const L2 = new ObjectId('0000000000000000000000e2'); // aluno 2 (T2), formato antigo, com cópia do nome
+const REGISTRO = 'Registro Civil Da Aluna';
+const SOCIAL = 'Nome Social Escolhido';
+
+/** Agregador real com o perfil e Meus dados (F0t) + F8 + rotas legadas de dúvidas, sobre o mesmo banco. */
+async function subirComTitular() {
+  const b = criarBancoMemoria({ indices: especificacoesRegistradas() });
+  await semear(b);
+  await b.collection('users').updateOne({ _id: oid('u-aluno1') }, { $set: { nome: REGISTRO } });
+  await b.collection('perfis').insertOne({ userId: IDS['u-aluno1'], nomeRegistro: REGISTRO, nomeSocial: null, versao: 1 });
+  const em = (h) => new Date(Date.now() - h * 3600 * 1000);
+  await b.collection('duvidas').insertMany([
+    { _id: L1, aulaId: 'c01-m01-a01', moduloId: 'c01-m01', cursoId: 'curso-01', userId: IDS['u-aluno1'], autorNome: REGISTRO, texto: 'Pergunta antiga da aluna', createdAt: em(48), resolvida: false, respostas: [] },
+    { _id: L2, aulaId: 'c01-m01-a01', moduloId: 'c01-m01', cursoId: 'curso-01', userId: IDS['u-aluno2'], autorNome: 'Aluno Dois de Teste', texto: 'Pergunta antiga do aluno dois', createdAt: em(47), resolvida: false, respostas: [] }
+  ]);
+  const servicos = criarServicos();
+  const portal = M.montarPortal({
+    getDb: () => b, jwtSecret: 'segredo-de-teste', exigirLogin: requireAuth, exigirAdmin: [requireAuth, requireAdmin],
+    servicos, modulos: [...MODULOS_TITULAR, MODULO_F8],
+    configPortal: lerConfigPortal({ NODE_ENV: 'test', JWT_SECRET: 'segredo-de-teste', RESEND_API_KEY: 'chave-falsa', PORTAL_EMAIL_FROM: 'Plataforma <nao-responda@exemplo.invalid>', PORTAL_BASE_URL: 'https://portal.exemplo.invalid' }),
+    falharCedo: true, log: silencioso, fetchImpl: fetchFalso([{ status: 200, json: { id: 'falso' } }])
+  });
+  const app = express();
+  app.use(express.json({ limit: '1mb' }));
+  app.use('/api', usuarioDeTeste({ banco: b }));
+  app.use('/api', portal);
+  app.use('/api', criarRotaDuvidas({ repo: n => b.collection(n), servicos, exigirLogin: requireAuth, exigirAdmin: requireAdmin, log: silencioso }));
+  app.use('/api', (_req, res) => res.status(404).json({ error: 'Rota não encontrada.' }));
+  app.use(E.criarTratarErroGlobal({ log: silencioso }));
+  const { server, base } = await subir(app);
+  const api = cliente(base);
+  await api.get('/api/portal/saude');
+  return { api, server, banco: b, servicos };
+}
+
+const nomePorId = (corpo) => Object.fromEntries((corpo.itens || []).map(i => [i.id, i.autorNome]));
+
+describe('LGPD: nome de quem pergunta montado na leitura (duvidas.js)', () => {
+  test('colega vê "Colega"; autor, docente do aluno e coordenação veem o nome ATUAL; a revogação do nome social vale na hora', async () => {
+    const t = await subirComTitular();
+    try {
+      const ns = await t.api.put('/api/portal/me/perfil', { versao: 1, nomeSocial: SOCIAL, consentimentos: { nomeSocial: { aceito: true, versaoTexto: 'v1' } } }, { usuario: 'u-aluno1' });
+      assert.equal(ns.status, 200, JSON.stringify(ns.corpo));
+      const nova = await t.api.post('/api/aulas/c01-m01-a01/duvidas', { texto: 'Pergunta depois do nome social' }, { usuario: 'u-aluno1' });
+      assert.equal(nova.status, 201);
+      assert.equal(nova.corpo.duvida.autorNome, SOCIAL, 'quem pergunta vê o próprio nome');
+      const daAluna = [String(L1), nova.corpo.duvida.id];
+
+      // Colega (aluno 2): nenhum nome da aluna, nem o social nem o de registro; o próprio nome continua.
+      const colega = await t.api.get('/api/aulas/c01-m01-a01/duvidas', { usuario: 'u-aluno2' });
+      assert.equal(colega.status, 200);
+      assert.deepEqual(daAluna.map(id => nomePorId(colega.corpo)[id]), ['Colega', 'Colega']);
+      assert.equal(nomePorId(colega.corpo)[String(L2)], 'Aluno Dois de Teste');
+      assert.ok(!colega.texto.includes(SOCIAL) && !colega.texto.includes(REGISTRO), 'colega não recebe o nome da aluna');
+
+      // Autora, docente geral, docente da turma da aluna (T1) e coordenação: o nome atual nas duas dúvidas
+      // (inclusive na antiga, gravada com o nome de registro).
+      for (const u of ['u-aluno1', 'u-prof', 'u-prof-t1', 'u-admin']) {
+        const r = await t.api.get('/api/aulas/c01-m01-a01/duvidas', { usuario: u });
+        assert.equal(r.status, 200, u);
+        assert.deepEqual(daAluna.map(id => nomePorId(r.corpo)[id]), [SOCIAL, SOCIAL], u);
+      }
+      const t1 = await t.api.get('/api/aulas/c01-m01-a01/duvidas', { usuario: 'u-prof-t1' });
+      assert.equal(nomePorId(t1.corpo)[String(L2)], 'Colega', 'docente só da T1 não vê o nome do aluno da T2');
+      const fila = await t.api.get('/api/portal/professor/duvidas', { usuario: 'u-prof' });
+      assert.deepEqual(daAluna.map(id => nomePorId(fila.corpo)[id]), [SOCIAL, SOCIAL]);
+      const pend = await t.api.get('/api/duvidas/pendentes', { usuario: 'u-admin' });
+      assert.deepEqual(daAluna.map(id => nomePorId(pend.corpo)[id]), [SOCIAL, SOCIAL]);
+
+      // Revogação (Meus dados): o nome social some na hora para todos.
+      const rev = await t.api.post('/api/portal/me/dados/consentimentos/perfil_nome_social/revogar', {}, { usuario: 'u-aluno1' });
+      assert.equal(rev.status, 200);
+      for (const u of ['u-aluno2', 'u-aluno1', 'u-prof', 'u-prof-t1', 'u-admin']) {
+        const r = await t.api.get('/api/aulas/c01-m01-a01/duvidas', { usuario: u });
+        assert.ok(!r.texto.includes(SOCIAL), `${u} ainda recebe o nome social revogado`);
+        assert.deepEqual(daAluna.map(id => nomePorId(r.corpo)[id]), u === 'u-aluno2' ? ['Colega', 'Colega'] : [REGISTRO, REGISTRO], u);
+      }
+      for (const c of ['/api/portal/professor/duvidas?status=todas', '/api/duvidas/pendentes']) {
+        const r = await t.api.get(c, { usuario: 'u-admin' });
+        assert.equal(r.status, 200, c);
+        assert.ok(!r.texto.includes(SOCIAL), c);
+      }
+
+      // A dúvida nova não guarda cópia do nome (só o userId).
+      const doc = await t.banco.collection('duvidas').findOne({ _id: new ObjectId(nova.corpo.duvida.id) });
+      assert.ok(!Object.hasOwn(doc, 'autorNome'), 'dúvida nova sem cópia do nome');
+      assert.equal(doc.userId, IDS['u-aluno1']);
+      assert.ok(!JSON.stringify(await t.banco.collection('duvidas').find({}).toArray()).includes(SOCIAL), 'nome social não fica gravado nas dúvidas');
+    } finally { await fechar(t.server); }
+  });
+
+  test('resposta da equipe não grava cópia do nome; o aluno vê o nome atual de quem respondeu', async () => {
+    const t = await subirComTitular();
+    try {
+      const r = await t.api.post(`/api/portal/professor/duvidas/${L1}/respostas`, { texto: 'Resposta da professora' }, { usuario: 'u-prof' });
+      assert.equal(r.status, 201);
+      assert.equal(r.corpo.resposta.autorNome, 'Professora Geral de Teste');
+      const a = await t.api.post(`/api/duvidas/${L2}/respostas`, { texto: 'Resposta da coordenação' }, { usuario: 'u-admin' });
+      assert.equal(a.status, 201);
+      assert.equal(a.corpo.resposta.autorNome, 'Coordenação de Teste');
+      const docs = await t.banco.collection('duvidas').find({ _id: { $in: [L1, L2] } }).toArray();
+      assert.ok(docs.every(d => d.respostas.length === 1 && d.respostas.every(x => !Object.hasOwn(x, 'autorNome'))), 'resposta sem cópia do nome');
+      assert.equal(await t.banco.collection('notificacoes').countDocuments({ userId: IDS['u-aluno1'], tipo: 'duvida.respondida' }), 1);
+
+      await t.banco.collection('users').updateOne({ _id: oid('u-prof') }, { $set: { nome: 'Professora Com Nome Novo' } });
+      const al = await t.api.get('/api/aulas/c01-m01-a01/duvidas', { usuario: 'u-aluno1' });
+      const d = al.corpo.itens.find(i => i.id === String(L1));
+      assert.equal(d.respostas[0].autorNome, 'Professora Com Nome Novo');
+      assert.equal(d.respostas[0].autorPapel, 'professor');
+      const fila = await t.api.get('/api/portal/professor/duvidas?status=todas', { usuario: 'u-prof' });
+      const f = fila.corpo.itens.find(i => i.id === String(L1));
+      assert.equal(f.respostas[0].autorNome, 'Professora Com Nome Novo');
+      assert.equal(f.respostas[0].minha, true);
+    } finally { await fechar(t.server); }
+  });
+
+  test('cópias antigas: esquecerNomesCopiados apaga as do titular (pergunta e respostas); o serviço duvidas.esquecerNomes faz o mesmo', async () => {
+    const t = await subirF8();
+    try {
+      const repo = n => t.banco.collection(n);
+      assert.deepEqual(await D.esquecerNomesCopiados(repo, { userId: IDS['u-aluno1'] }), { duvidas: 2, respostas: 0 });
+      assert.ok(!Object.hasOwn(await t.banco.collection('duvidas').findOne({ _id: D1 }), 'autorNome'));
+      assert.equal((await t.banco.collection('duvidas').findOne({ _id: D2 })).autorNome, 'Aluno Dois de Teste', 'só o titular');
+
+      await t.api.get('/api/portal/saude');
+      const esquecer = t.servicos.obter('duvidas.esquecerNomes');
+      assert.deepEqual(await esquecer(IDS['u-admin']), { duvidas: 0, respostas: 1 });
+      const d4 = await t.banco.collection('duvidas').findOne({ _id: D4 });
+      assert.ok(!Object.hasOwn(d4.respostas[0], 'autorNome'));
+      assert.equal(d4.respostas[0].texto, 'ok', 'o resto da resposta fica');
+      assert.deepEqual(await esquecer(IDS['u-admin']), { duvidas: 0, respostas: 0 }, 'idempotente');
+      await assert.rejects(() => esquecer(''), /userId/);
+
+      // Sem userId: limpeza única de todas as cópias (migração antes de publicar).
+      assert.deepEqual(await D.esquecerNomesCopiados(repo), { duvidas: 2, respostas: 0 });
+      assert.equal(await t.banco.collection('duvidas').countDocuments({ autorNome: { $exists: true } }), 0);
+      // As telas continuam com o nome atual (montado na leitura).
+      const p = await t.api.get('/api/duvidas/pendentes', { usuario: 'u-admin' });
+      assert.equal(nomePorId(p.corpo)[String(D1)], 'Aluna Um de Teste');
     } finally { await fechar(t.server); }
   });
 });

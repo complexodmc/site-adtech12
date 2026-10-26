@@ -21,16 +21,15 @@ test('regras do emulador = config.json compilado pela Vercel', async () => {
   expect(diferentes).toEqual([]);
 });
 
-// CSP da plataforma EAD (PORTAL-ACADEMICO §9.6, D-43): confere o cabeçalho EFETIVO, como
-// o navegador o recebe do serve.mjs (que aplica o vercel.json real pela mesma regra de rotas).
-// G0/G1: política estrita em report-only em toda /plataforma-ead/*; G2 (QA_ESTRITO=1): a mesma
-// política APLICADA. login(.html) e login-classico(.html), da 2d, seguem com a report-only do
-// site até a 2d tirar o script inline — nas duas fases.
+// CSP da plataforma EAD (PORTAL-ACADEMICO §9.6, §9.9 item 7, D-43): confere o cabeçalho EFETIVO,
+// como o navegador o recebe do serve.mjs (que aplica o vercel.json real pela mesma regra de rotas).
+// Desde o G2 a política estrita sai APLICADA (Content-Security-Policy) em toda /plataforma-ead/*,
+// em qualquer modo (com ou sem QA_ESTRITO). login(.html) e login-classico(.html), da 2d, seguem
+// com a report-only do site até a 2d tirar o script inline.
 const CSP_PLATAFORMA = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
   "font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://i.ytimg.com; media-src 'self' blob: https:; " +
   "frame-src https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self'; object-src 'none'; base-uri 'none'; " +
   "form-action 'self'; frame-ancestors 'none'";
-const CSP_APLICADA = process.env.QA_ESTRITO === '1';
 
 function cspDoSite() {
   const cfg = JSON.parse(fs.readFileSync(path.join(RAIZ_REPO, 'vercel.json'), 'utf8'));
@@ -44,16 +43,14 @@ test.describe('CSP efetiva de /plataforma-ead/ (D-43)', () => {
     '/plataforma-ead/', '/plataforma-ead', '/plataforma-ead/css/plataforma.css'
   ];
   for (const url of PLATAFORMA) {
-    test(`plataforma: ${url} traz a CSP estrita ${CSP_APLICADA ? 'aplicada (G2)' : 'em report-only (G0/G1)'}`, async ({ request }) => {
+    test(`plataforma: ${url} traz a CSP estrita aplicada (G2)`, async ({ request }) => {
       const r = await request.get(url, { maxRedirects: 0 });
       expect(r.status(), url).toBe(200);
       const h = r.headers();
-      if (CSP_APLICADA) {
-        expect(h['content-security-policy'], `${url}: Content-Security-Policy`).toBe(CSP_PLATAFORMA);
-      } else {
-        expect(h['content-security-policy-report-only'], `${url}: Content-Security-Policy-Report-Only`).toBe(CSP_PLATAFORMA);
-        expect(h['content-security-policy'], `${url}: nenhuma CSP aplicada antes do G2`).toBeUndefined();
-      }
+      expect(h['content-security-policy'], `${url}: Content-Security-Policy`).toBe(CSP_PLATAFORMA);
+      // A report-only do site (regra global, chave diferente) também chega; é mais larga que a
+      // estrita em toda diretiva (serve.test.mjs confere), então não reporta nada a mais.
+      expect(h['content-security-policy-report-only'], `${url}: report-only do site`).toBe(cspDoSite());
     });
   }
 

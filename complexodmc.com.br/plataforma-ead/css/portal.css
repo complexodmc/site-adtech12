@@ -25,13 +25,12 @@
      Uma propriedade que usa var() é resolvida no elemento onde é
      declarada e herdada já calculada: por isso cada escopo
      redeclara as duas camadas.
-   - O trecho marcado no item 6 sai na limpeza final; o teste
-     estático ignora só o que está entre os dois marcadores.
+   - Sem trecho marcado: o teste estático lê o arquivo inteiro.
 
    SEÇÕES
      1 Fontes · 2 Camada 1 (temas) · 3 Escala e medidas
      4 Camada 2 (derivados e compatibilidade) · 5 Camada 3 (cor de
-     cada escopo) · 6 Neutralização sem tocar HTML · 7 Base
+     cada escopo) · 6 (encerrada na F0s-final) · 7 Base
      tipográfica · 8 .btn-primary
      ── catálogo (UX §4.3, §5; F0s, depois do S2) ──
      9 Utilitários e aplicação (pf-app, pf-main, deslocamentos)
@@ -206,8 +205,8 @@ html[data-pf-tema="escuro"] .pf-leitura {
 
 /* 4 · Camada 2 — derivados e compatibilidade (§2.2, §3 fase A) --
    Vence o :root legado de plataforma.css porque vem depois. O
-   mapa neon → ouro mora aqui (não no trecho marcado do item 6):
-   o legado continua lendo estes nomes até as fases B e C. */
+   mapa neon → ouro mora aqui: o legado continua lendo estes
+   nomes até as fases B e C. */
 :root,
 .pf-escopo-claro,
 .pf-escopo-escuro,
@@ -258,27 +257,11 @@ html[data-pf-tema="escuro"] .pf-leitura {
 }
 
 
-/* 6 · Neutralização sem tocar HTML (§3 fase A) ------------------
-   Fundo decorativo e texto em degradê do legado, até o cabeçalho
-   novo tirar essas classes das páginas. O trecho entre os
-   marcadores sai na limpeza final, com prova por grep. */
-/* @dmc-compat:inicio */
-.bg-grid::before,
-.glow-corner,
-.glow-corner--alt { display: none; }
-.gradient-text {
-  background: none;
-  -webkit-text-fill-color: currentColor;
-  color: var(--pf-acento);
-  font-style: italic;
-  font-weight: inherit;
-}
-/* @dmc-compat:fim */
-
-/* Fora do trecho marcado (não contém termo barrado): some até a
-   fatia dona remover o elemento. */
-.eixo-stage__halo,
-.loja-card__shine { display: none; }
+/* 6 · Neutralização do legado — encerrada na F0s-final ----------
+   O cabeçalho novo (S2) tirou das páginas o fundo decorativo, os
+   halos e o texto em degradê; nenhuma tela os gera mais (conferido
+   em todas as páginas e rotas, fora as da 2d). A seção fica vazia
+   para não renumerar as referências deste arquivo. */
 
 
 /* 7 · Base tipográfica (§2.4, §2.7, §2.8) ----------------------- */

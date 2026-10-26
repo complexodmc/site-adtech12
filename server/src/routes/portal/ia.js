@@ -271,11 +271,21 @@ export function criarRotaIa(deps = {}) {
     return acesso.temVinculo(userIdDe(req));
   }
 
-  async function consentimentoVigente(userId) {
+  /**
+   * Aceite vigente = o último aceite tem a versão atual E o sha256 do texto que o aluno leu é o do texto de agora.
+   * Os prazos de guarda entram no texto (instrucao.js), então prazo alterado pela coordenação depois do aceite →
+   * aceite antigo não vale e o aluno lê e autoriza de novo (LGPD art. 8º §6º e art. 9º II). `textoAlterado` = havia
+   * aceite, mas de outro texto. `ret` = prazos já lidos pelo chamador (o mesmo valor do texto exibido ou gravado).
+   */
+  async function consentimentoVigente(userId, ret) {
     const f = servico('consentimentos.vigente');
-    if (!f) return { disponivel: false, vigente: null };
+    if (!f) return { disponivel: false, vigente: null, textoAlterado: false };
     const v = await f(userId, T.FINALIDADE_IA);
-    return { disponivel: true, vigente: v && v.versaoTexto === T.VERSAO_CONSENTIMENTO ? v : null };
+    if (!v) return { disponivel: true, vigente: null, textoAlterado: false };
+    const shaAtual = T.sha256Texto(T.textoConsentimentoV1(ret || await retencao()));
+    const mesmoTexto = v.versaoTexto === T.VERSAO_CONSENTIMENTO
+      && typeof v.textoSha256 === 'string' && v.textoSha256.toLowerCase() === shaAtual;
+    return { disponivel: true, vigente: mesmoTexto ? v : null, textoAlterado: !mesmoTexto };
   }
 
   async function resumoRegulamento() {
@@ -381,10 +391,12 @@ export function criarRotaIa(deps = {}) {
     if (!ch.origem) throw nao(503, 'ia-sem-chave');
     if (!ch.legivel) throw nao(503, 'chave-ilegivel');
     if (!(await temVinculo(req))) throw nao(403, 'ia-sem-curso');
-    const cons = await consentimentoVigente(userId);
+    // Os prazos conferidos com o aceite são os mesmos que a conversa e a trilha gravam (sem 2ª leitura).
+    const ret = await retencao();
+    const cons = await consentimentoVigente(userId, ret);
     if (!cons.disponivel) throw nao(503, 'servico-indisponivel');
     if (!cons.vigente) throw nao(428, 'consentimento-necessario', undefined, { finalidade: T.FINALIDADE_IA });
-    return { cfg, ch, userId };
+    return { cfg, ch, userId, ret };
   }
 
   function montarSistema(trechos) {
@@ -424,7 +436,7 @@ export function criarRotaIa(deps = {}) {
   }
 
   async function processarMensagem(req, conversaId) {
-    const { cfg, ch, userId } = await preCondicoes(req);
+    const { cfg, ch, userId, ret } = await preCondicoes(req);
     let conversa = null;
     if (conversaId) {
       conversa = await repo('conversas_ia').findOne({ _id: conversaId, userId });
@@ -462,7 +474,6 @@ export function criarRotaIa(deps = {}) {
     }
 
     const em = agora();
-    const ret = await retencao();
     const ferrs = resultado.chamadas.map(c => ({ nome: c.nome, ok: !!c.ok }));
     const textoAssistente = mascararDadosPessoais(resultado.texto).texto;
     const sugestao = resultado.chamadas.find(c => c.nome === 'sugerir_falar_com_equipe' && c.ok);
@@ -572,7 +583,7 @@ export function criarRotaIa(deps = {}) {
       const u = await repo('ia_uso_diario').findOne({ _id: diaHoje() });
       if ((Number(u?.mensagens) || 0) >= cfg.limites.mensagensGlobaisPorDia) motivo = 'teto-global';
     }
-    const cons = await consentimentoVigente(userId);
+    const cons = await consentimentoVigente(userId, ret);
     const dia = await contador.ler(`ia-dia:u:${userId}`);
     res.json({
       disponivel: motivo === null,
@@ -582,6 +593,7 @@ export function criarRotaIa(deps = {}) {
         versaoTexto: T.VERSAO_CONSENTIMENTO,
         texto: T.textoConsentimentoV1(ret),
         ...(cons.vigente ? { em: cons.vigente.em ?? null } : {}),
+        ...(cons.textoAlterado ? { textoAlterado: true } : {}),
         ...(cons.disponivel ? {} : { registroIndisponivel: true })
       },
       saudacao: T.saudacaoPara(await nomeDeExibicao(req)),

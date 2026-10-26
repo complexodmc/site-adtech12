@@ -21,7 +21,7 @@ body.pp-pl, body.pp-bp { --focus-color: var(--pa); --focus-color-ink: var(--pd);
 .pp-quebra { white-space: normal; overflow-wrap: anywhere; }
 
 /* overline */
-.pp-selo, .pp-painel__publico, .pp-tabela thead th, .pp-tabela tbody td::before { font: 600 var(--fs-overline)/1.3 var(--font-text); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--pa); }
+.pp-selo, .pp-painel__publico { font: 600 var(--fs-overline)/1.3 var(--font-text); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--pa); }
 
 .pp-head { display: grid; gap: var(--s5); max-width: 48rem; margin-bottom: var(--space-block); }
 .pp-head--sem-margem { margin-bottom: 0; }
@@ -69,7 +69,14 @@ body.pp-pl, body.pp-bp { --focus-color: var(--pa); --focus-color-ink: var(--pd);
 /* HERÓI — ≥768 véu sólido até o fim do texto (--pp-veu), depois .6 e 0 */
 .pp-hero { --pp-texto: 34rem; position: relative; isolation: isolate; overflow: hidden; padding-bottom: var(--space-section); background: var(--surface-0); color: var(--text-1); }
 .pp-hero__media { position: relative; z-index: -2; aspect-ratio: 4 / 3; overflow: hidden; background: var(--surface-1); }
-.pp-hero__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%; }
+.pp-hero__media :is(img, video) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%; }
+/* Filme do herói: a mesma cena do cartaz com a câmera em movimento lento. O cartaz é o
+   quadro 0 e fica por baixo (LCP); o vídeo entra por cima quando começa a tocar. Com
+   prefers-reduced-motion nenhum <source> casa e fica só o cartaz.
+   SEM z-index de propósito: posicionado, cobre o <img> estático, mas continua abaixo do
+   ::after (o véu que garante a leitura do texto) e do ::before da grade do BP, que vêm
+   depois dele na ordem de pintura. Pôr z-index aqui apaga o véu. */
+.pp-hero__filme { position: absolute; inset: 0; pointer-events: none; }
 .pp-hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, var(--hero-veil-mid) 0%, var(--hero-veil-off) 32%, var(--hero-veil-off) 58%, var(--color-black) 100%); }
 .pp-hero__inner { display: grid; gap: var(--s5); max-width: var(--pp-texto); padding-top: var(--s4); }
 .pp-hero__titulo { font: 300 var(--fs-h1)/1.08 var(--font-display); letter-spacing: var(--tracking-display); text-wrap: balance; }
@@ -143,22 +150,126 @@ body.pp-pl, body.pp-bp { --focus-color: var(--pa); --focus-color-ink: var(--pd);
 }
 @media (min-width: 1280px) { .pp-painel__corpo { padding: var(--s9) var(--s9) var(--s9) var(--s8); } }
 
-/* HUB · tabela; <768 blocos */
-.pp-tabela { width: 100%; border-collapse: collapse; text-align: left; }
-.pp-tabela :is(th, td) { padding: var(--s5) var(--s6) var(--s5) 0; vertical-align: top; }
-.pp-tabela thead th { padding-block: 0 var(--s4); border-bottom: 2px solid var(--pa); vertical-align: bottom; }
-.pp-tabela thead td { border-bottom: 1px solid var(--color-line-strong); }
-.pp-tabela tbody tr { border-bottom: 1px solid var(--color-line); }
-.pp-tabela tbody th { width: 22%; font-weight: 600; color: var(--text-1); }
+/* HUB · comparativo = painel de decisão (cartão + tabela). Cada célula .pp-pl/.pp-bp
+   redefine --pa. Lente [data-foco] vem do parcerias.js. <768 blocos; <1024 etapas
+   na vertical. */
+.pp-cmp__topo { display: grid; gap: var(--s6); margin-bottom: var(--space-block); }
+@media (min-width: 1024px) { .pp-cmp__topo { grid-template-columns: minmax(0, 1fr) auto; align-items: end; } }
+.pp-sec--cmp { position: relative; isolation: isolate; overflow: hidden; }
+.pp-sec--cmp::before { content: ""; position: absolute; inset: 0 0 auto; z-index: -1; height: 36rem; background: radial-gradient(40rem 22rem at 30% 0, rgba(227, 207, 166, .07), transparent 70%), radial-gradient(40rem 22rem at 78% 10%, rgba(192, 138, 82, .08), transparent 70%); pointer-events: none; }
+
+/* lente: grupo de botões aria-pressed */
+.pp-lente:empty { display: none; }
+.pp-lente { display: grid; gap: var(--s2); }
+.pp-lente__rotulo { font: 600 var(--fs-overline)/1.3 var(--font-text); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--text-3); }
+.pp-lente__grupo { display: inline-flex; flex-wrap: wrap; justify-self: start; padding: 3px; border: 1px solid var(--color-line-strong); border-radius: var(--radius-3); background: var(--surface-0); }
+.pp-lente__btn { --pa: var(--text-1); display: inline-flex; align-items: center; gap: var(--s2); min-height: var(--hit); margin: 0; padding: 0 var(--s4); border: 0; border-radius: calc(var(--radius-3) - 3px); background: none; color: var(--text-2); font: 500 var(--fs-small)/1 var(--font-text); cursor: pointer; transition: var(--transition-state); }
+.pp-lente__btn.pp-pl, .pp-lente__btn.pp-bp { --pa: rgb(var(--np-accent)); }
+.pp-lente__btn::before { content: ""; flex: none; width: .5rem; height: .5rem; border-radius: 50%; background: var(--pa); opacity: .55; }
+.pp-lente__btn:hover { color: var(--text-1); }
+.pp-lente__btn[aria-pressed="true"] { background: var(--surface-3); color: var(--text-1); }
+.pp-lente__btn[aria-pressed="true"]::before { opacity: 1; box-shadow: 0 0 0 3px rgba(var(--np-accent), .25); }
+.pp-lente__btn:not(.pp-pl):not(.pp-bp)::before { background: linear-gradient(90deg, rgb(227, 207, 166) 50%, rgb(192, 138, 82) 50%); }
+@media (max-width: 479px) { .pp-lente__grupo { display: grid; justify-self: stretch; grid-template-columns: repeat(3, minmax(0, 1fr)); } .pp-lente__btn { justify-content: center; padding: 0 var(--s2); text-align: center; } .pp-lente__btn::before { display: none; } }
+
+/* cartão */
+.pp-cmp { position: relative; border: 1px solid var(--color-line-strong); border-radius: var(--radius-3); background: linear-gradient(180deg, var(--surface-2) 0, var(--surface-0) 22rem); box-shadow: var(--shadow-overlay); overflow: hidden; }
+.pp-tabela { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 0; text-align: left; }
+.pp-tabela :is(th, td) { padding: var(--s6); vertical-align: top; transition: background-color var(--dur-base) linear, opacity var(--dur-base) linear; }
+.pp-tabela :is(td, th) + :is(td, th) { border-left: 1px solid var(--color-line); }
+.pp-tabela :is(tbody, tfoot) :is(th, td) { border-top: 1px solid var(--color-line); }
+
+/* cabeçalho das colunas: numeral vazado + ícone + nome + subtítulo */
+.pp-cmp__canto { width: 24%; }
+.pp-tabela thead .pp-cmp__canto { vertical-align: bottom; }
+.pp-tabela tfoot .pp-cmp__canto { vertical-align: middle; }
+.pp-cmp__canto span { display: grid; justify-items: start; gap: var(--s3); font: 600 var(--fs-overline)/1.5 var(--font-text); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--text-3); }
+.pp-cmp__canto img { width: auto; height: 18px; opacity: .8; }
+.pp-cmp__col { width: 38%; position: relative; overflow: hidden; padding-block: var(--s8) var(--s6) !important; font-weight: 400; background: radial-gradient(120% 90% at 0 0, rgba(var(--np-accent), .12), transparent 60%); }
+.pp-cmp__col::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--pa); }
+.pp-bp.pp-cmp__col::before { background: linear-gradient(100deg, var(--pa) 0 74%, var(--color-gold) 74%); }
+.pp-cmp__num { position: absolute; top: var(--s4); right: var(--s5); font: italic 300 clamp(4.5rem, 3rem + 4vw, 7.5rem)/1 var(--font-display); color: transparent; -webkit-text-stroke: 1px rgba(var(--np-accent), .38); pointer-events: none; user-select: none; }
+.pp-bp .pp-cmp__num { font: 600 clamp(4rem, 2.8rem + 3.6vw, 6.75rem)/1 var(--font-text); letter-spacing: -.05em; }
+.pp-cmp__ico { display: grid; place-items: center; width: 3rem; height: 3rem; margin-bottom: var(--s5); border: 1px solid rgba(var(--np-accent), .45); border-radius: var(--radius-3); background: rgba(var(--np-accent), .08); }
+.pp-cmp__ico svg, .pp-cmp__crit svg { fill: none; stroke: var(--pa); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.pp-cmp__ico svg { width: 1.5rem; height: 1.5rem; }
+.pp-cmp__nome, .pp-cmp__sub { position: relative; display: block; }
+.pp-cmp__nome { font: 300 var(--fs-h3)/1.1 var(--font-display); letter-spacing: var(--tracking-heading); color: var(--text-1); }
+.pp-cmp__sub { margin-top: var(--s2); font: 600 var(--fs-overline)/1.4 var(--font-text); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--pa); }
+
+/* critérios (cabeçalho de linha) */
+.pp-tabela tbody th { color: var(--text-1); font-weight: 600; }
+.pp-cmp__crit { display: flex; align-items: flex-start; gap: var(--s3); line-height: 1.35; }
+.pp-cmp__crit svg { --pa: var(--color-gold); flex: none; width: 1.25rem; height: 1.25rem; margin-top: .05em; }
 .pp-tabela tbody td { color: var(--text-2); }
+.pp-cmp__destaque { color: var(--text-1); font-size: 1.0625rem; line-height: 1.55; }
+
+/* selo da natureza */
+.pp-cmp__selo { display: table; margin-bottom: var(--s3); padding: .35em .7em; border: 1px solid rgba(var(--np-accent), .45); border-radius: var(--radius-1); background: rgba(var(--np-accent), .1); font: 600 var(--fs-overline)/1.3 var(--font-text); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--pa); }
+
+/* chips do pré-requisito */
+.pp-chips { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.pp-chips li { display: inline-flex; align-items: center; gap: var(--s2); padding: .5rem .8rem; border: 1px solid var(--color-line-strong); border-radius: var(--radius-2); background: rgba(255, 255, 255, .03); color: var(--text-1); font-size: var(--fs-small); line-height: 1.35; }
+.pp-chips li::before { content: ""; flex: none; width: .9rem; height: .9rem; background: var(--pa); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3 8.5 3.2 3L13 4.5' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m3 8.5 3.2 3L13 4.5' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
+
+/* etapas: vertical por padrão; ≥1024 trilho horizontal */
+.pp-passos { display: grid; gap: var(--s3); counter-reset: pp-passo; }
+.pp-passos li { position: relative; display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); align-items: center; gap: var(--s3); color: var(--text-1); font-size: var(--fs-small); line-height: 1.4; counter-increment: pp-passo; }
+.pp-passos li::before { content: counter(pp-passo); display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 1px solid var(--pa); border-radius: 50%; background: var(--surface-0); color: var(--pa); font: 600 .75rem/1 var(--font-text); font-feature-settings: var(--font-numeric); }
+.pp-passos li:last-child::before { background: var(--pa); color: var(--color-black); }
+.pp-passos li + li::after { content: ""; position: absolute; left: calc(.875rem - .5px); bottom: calc(100% - .1rem); width: 1px; height: var(--s3); background: rgba(var(--np-accent), .5); }
+@media (min-width: 1024px) {
+  .pp-passos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); }
+  .pp-passos li { grid-template-columns: none; align-items: start; gap: var(--s3); }
+  .pp-passos li + li::after { left: auto; right: calc(100% + var(--s4) - 1.75rem); bottom: auto; top: .875rem; width: calc(100% - 1.75rem + var(--s4) - var(--s2) * 2); height: 1px; margin-right: var(--s2); background: linear-gradient(90deg, rgba(var(--np-accent), .6), rgba(var(--np-accent), .25)); }
+}
+
+/* o que não faz parte: faixa hachurada + X */
+.pp-cmp__limite > * { background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, .022) 0 1px, transparent 1px 10px); }
+.pp-cmp__fora { display: grid; gap: var(--s2); }
+.pp-cmp__fora li { position: relative; padding-left: var(--s6); color: var(--text-2); font-size: var(--fs-small); line-height: 1.5; }
+.pp-cmp__fora li::before, .pp-cmp__fora li::after { content: ""; position: absolute; left: .15rem; top: .72em; width: .8rem; height: 1.5px; background: var(--pa); transform: rotate(45deg); }
+.pp-cmp__fora li::after { transform: rotate(-45deg); }
+
+/* rodapé com o próximo passo */
+.pp-tabela tfoot td { padding-block: var(--s5) var(--s6); background: rgba(255, 255, 255, .015); }
+.pp-tabela tfoot .dmc-btn { white-space: normal; }
+
+/* destaque por hover (≥1024, mouse) e pela lente */
+@media (min-width: 1024px) and (hover: hover) {
+  .pp-cmp:not([data-foco]):has(.pp-pl:hover) td.pp-pl, .pp-cmp:not([data-foco]):has(.pp-bp:hover) td.pp-bp { background-color: rgba(var(--np-accent), .045); }
+}
+@media (min-width: 768px) {
+  .pp-cmp[data-foco="pl"] .pp-bp, .pp-cmp[data-foco="bp"] .pp-pl { opacity: .28; }
+  .pp-cmp[data-foco="pl"] td.pp-pl, .pp-cmp[data-foco="bp"] td.pp-bp { background-color: rgba(var(--np-accent), .06); }
+}
+
+/* entrada das linhas com a rolagem (só onde há scroll-timeline e sem redução de movimento) */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .pp-cmp tbody tr { animation: pp-cmp-entra linear both; animation-timeline: view(); animation-range: entry 5% entry 45%; }
+    @keyframes pp-cmp-entra { from { opacity: 0; transform: translateY(var(--reveal-distance)); } }
+  }
+}
+
 @media (max-width: 767px) {
-  .pp-tabela, .pp-tabela :is(tbody, tr, th, td) { display: block; width: auto; }
+  .pp-cmp { border-radius: var(--radius-2); }
+  .pp-tabela, .pp-tabela :is(tbody, tfoot, tr, th, td) { display: block; width: auto; }
   .pp-tabela thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .pp-tabela tbody { border-top: 1px solid var(--color-line-strong); }
-  .pp-tabela tbody tr { padding: var(--s5) 0 var(--s6); }
-  .pp-tabela tbody th { width: auto; padding: 0 0 var(--s2); font-size: var(--fs-h4); }
-  .pp-tabela tbody td { margin-top: var(--s4); padding: 0 0 0 var(--s4); border-left: 2px solid var(--pa); }
-  .pp-tabela tbody td::before { content: attr(data-rotulo); content: attr(data-rotulo) / ""; display: block; margin-bottom: var(--s1); }
+  .pp-tabela :is(td, th) + :is(td, th) { border-left: 0; }
+  .pp-tabela :is(tbody, tfoot) :is(th, td) { border-top: 0; }
+  .pp-tabela :is(tbody, tfoot) tr { padding: var(--s5) var(--s5) var(--s6); border-top: 1px solid var(--color-line); }
+  .pp-tabela tbody tr:first-child { border-top: 0; }
+  .pp-tabela tbody th { padding: 0 0 var(--s1); font-size: var(--fs-h4); }
+  .pp-tabela tbody td { margin-top: var(--s4); padding: 0 0 0 var(--s4); border-left: 2px solid var(--pa) !important; background: none !important; }
+  .pp-tabela tbody td::before { content: attr(data-rotulo); content: attr(data-rotulo) / ""; display: block; margin-bottom: var(--s2); font: 600 var(--fs-overline)/1.3 var(--font-text); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--pa); }
+  .pp-tabela tfoot tr { display: grid; gap: var(--s3); background: rgba(255, 255, 255, .015); }
+  .pp-tabela tfoot td { padding: 0; background: none; }
+  .pp-tabela tfoot .pp-cmp__canto { display: none; }
+  .pp-tabela tfoot .dmc-btn { width: 100%; justify-content: space-between; }
+  .pp-cmp__limite { background-image: repeating-linear-gradient(-45deg, rgba(255, 255, 255, .022) 0 1px, transparent 1px 10px); }
+  .pp-cmp__limite > * { background-image: none; }
+  .pp-cmp[data-foco="pl"] .pp-bp, .pp-cmp[data-foco="bp"] .pp-pl { display: none; }
 }
 
 /* grade numerada = .benefit-grid (eixos.css) + 4/5 colunas */
@@ -224,7 +335,6 @@ body.pp-pl .pp-sec { padding-block: calc(var(--space-section) * 1.12); }
 .pp-pl .pp-etapas > li::after { left: .7rem; top: 2.5rem; }
 @media (min-width: 1024px) { .pp-split--etapas .pp-split__corpo { padding-top: var(--s3); } }
 .pp-etapas--escada .pp-etapa__n { font: 600 1.75rem/1 var(--font-text); letter-spacing: -.03em; }
-}
 @media (min-width: 1280px) {
   .pp-etapas--escada { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0 var(--s4); align-items: start; }
   .pp-etapas--escada > li { --d: 6; display: flex; flex-direction: column; gap: var(--s3); margin-top: calc(var(--d) * var(--s5)); padding: var(--s5) 0 0; border-top: 2px solid var(--pa); }

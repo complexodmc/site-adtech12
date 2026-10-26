@@ -4,9 +4,19 @@
 // PORTAL-API §6.12, §6.13, §7.6 · índice §8.1 · dono: F8.
 //
 // Coleção `duvidas`:
-//   { _id:ObjectId, aulaId, moduloId, cursoId, userId, autorNome,
+//   { _id:ObjectId, aulaId, moduloId, cursoId, userId,
 //     texto, createdAt, resolvida, respondidaEm,
-//     respostas: [{ id, userId, autorNome, autorPapel?, texto, createdAt }] }
+//     respostas: [{ id, userId, autorPapel?, texto, createdAt }] }
+//
+// Nome de quem pergunta e de quem responde (LGPD, achado G2): NÃO é gravado.
+// Só o userId; o nome é montado na leitura por `perfis.publicos` (users.nome =
+// nomeSocial || nomeRegistro, mantido pela F0t), então a revogação do nome
+// social vale na hora. Quem vê o nome de quem perguntou: o próprio autor, a
+// coordenação e o docente do aluno (geral do curso ou da turma do aluno) — o
+// público do texto v1 de `perfil_nome_social` e de Meus dados. Colega vê
+// "Colega". Documentos antigos ainda trazem `autorNome` (cópia): ele nunca é
+// lido; `esquecerNomesCopiados` (e o serviço `duvidas.esquecerNomes`,
+// registrado pela F8) apaga essas cópias.
 //
 // cursoId e moduloId ficam desnormalizados de propósito: a listagem do
 // painel e a cascata de exclusão do catálogo filtram por eles sem
@@ -64,15 +74,90 @@ export function iso(d) {
   return d instanceof Date ? d.toISOString() : d || null;
 }
 
+/** Rótulos neutros: colega (nome não visível), conta sem nome legível, equipe sem nome legível. */
+export const ROTULO_COLEGA = 'Colega';
+export const ROTULO_ALUNO = 'Aluno';
+export const ROTULO_EQUIPE = 'Instrutor';
+
+/** Nome de exibição de quem está logado (o mesmo critério de sempre: users.nome, senão o usuário do e-mail). */
+export function nomeDe(user) {
+  return (typeof user?.nome === 'string' && user.nome.trim()) ? user.nome : str(user?.email).split('@')[0];
+}
+
+/** userIds de quem perguntou e de quem respondeu, sem repetição. */
+export function idsDosAutores(docs, { soPerguntas = false } = {}) {
+  const ids = new Set();
+  for (const d of docs || []) {
+    if (d?.userId) ids.add(String(d.userId));
+    if (!soPerguntas) for (const r of (Array.isArray(d?.respostas) ? d.respostas : [])) if (r?.userId) ids.add(String(r.userId));
+  }
+  return [...ids];
+}
+
+/**
+ * Nomes de exibição ATUAIS → Map<userId, nome>, por `perfis.publicos` (F0m). Nunca a cópia gravada no
+ * documento. Serviço ausente ou com falha → lê só `users.nome` (o mesmo campo; nada além dele).
+ * Conta inexistente fica fora do Map (o chamador usa o rótulo neutro).
+ */
+export async function nomesAtuais({ servicos, repo, log = console }, userIds) {
+  const ids = [...new Set((userIds || []).filter(v => v !== null && v !== undefined && v !== '').map(String))];
+  const mapa = new Map();
+  if (!ids.length) return mapa;
+  const publicos = servicos && typeof servicos.tentar === 'function' ? servicos.tentar('perfis.publicos') : null;
+  if (typeof publicos === 'function') {
+    try {
+      const m = await publicos(ids);
+      for (const [id, p] of (m instanceof Map ? m : [])) {
+        if (p && typeof p.nome === 'string' && p.nome.trim()) mapa.set(String(id), p.nome);
+      }
+      return mapa;
+    } catch (err) {
+      try { log.warn('[portal] perfis.publicos falhou nas dúvidas; lendo users.nome:', err?.message || err); } catch { /* nada */ }
+    }
+  }
+  const oids = ids.filter(id => /^[a-f0-9]{24}$/i.test(id)).map(id => new ObjectId(id));
+  if (!oids.length || typeof repo !== 'function') return mapa;
+  const users = await repo('users').find({ _id: { $in: oids } }, { projection: { nome: 1 } }).toArray();
+  for (const u of users) if (typeof u.nome === 'string' && u.nome.trim()) mapa.set(String(u._id), u.nome);
+  return mapa;
+}
+
+/**
+ * Apaga as cópias de nome gravadas no formato antigo (`duvidas.autorNome` e `respostas[].autorNome`).
+ * Com `userId`: só as do titular (efeito da revogação do nome social). Sem `userId`: todas (limpeza única).
+ * Idempotente. @returns {Promise<{ duvidas:number, respostas:number }>}
+ */
+export async function esquecerNomesCopiados(repo, { userId = null } = {}) {
+  if (typeof repo !== 'function') throw new TypeError('esquecerNomesCopiados: informe repo.');
+  const col = repo('duvidas');
+  const uid = userId === null || userId === undefined ? null : String(userId);
+  const comCopia = uid ? { userId: uid, autorNome: { $exists: true } } : { autorNome: { $exists: true } };
+  const r = await col.updateMany(comCopia, { $unset: { autorNome: '' } });
+  let respostas = 0;
+  const docs = await col.find({ respostas: { $elemMatch: comCopia } }, { projection: { _id: 1, respostas: 1 } }).toArray();
+  for (const d of docs) {
+    // Uma resposta por vez pelo operador posicional (sem arrayFilters); para quando não houver mais cópia.
+    for (let i = 0; i < (d.respostas || []).length; i++) {
+      const u = await col.updateOne({ _id: d._id, respostas: { $elemMatch: comCopia } }, { $unset: { 'respostas.$.autorNome': '' } });
+      if (!u.matchedCount) break;
+      respostas += 1;
+    }
+  }
+  return { duvidas: r.modifiedCount ?? r.matchedCount ?? 0, respostas };
+}
+
 /** Papel de quem responde: só 'professor' ou 'admin' (aluno nunca responde). */
 export function papelDaResposta(user) {
   const p = papelDe(user);
   return p === 'admin' || p === 'professor' ? p : null;
 }
 
-/** Resposta no formato entregue ao front (o mesmo para o aluno e para a equipe). */
-export function respostaPublica(r) {
-  const autorNome = r.autorNome || 'Instrutor';
+/**
+ * Resposta no formato entregue ao front (o mesmo para o aluno e para a equipe).
+ * `nomes`: Map<userId, nome atual> (nomesAtuais); a cópia antiga `r.autorNome` nunca é lida.
+ */
+export function respostaPublica(r, nomes = new Map()) {
+  const autorNome = nomes.get(String(r.userId)) || ROTULO_EQUIPE;
   return {
     id: r.id,
     autorNome,
@@ -86,29 +171,34 @@ export function respostaPublica(r) {
 /**
  * Formato entregue ao front. `minha` marca a autoria pro aluno poder
  * apagar a própria pergunta sem que o front precise expor userId de terceiros.
+ * `nomes`: Map<userId, nome atual>; `veNome`: quem lê pode ver o nome de quem perguntou
+ * (autor, coordenação, docente do aluno). Sem isso → "Colega". A cópia `d.autorNome` nunca é lida.
  */
-export function duvidaPublica(d, user) {
-  const respostas = (Array.isArray(d.respostas) ? d.respostas : []).map(respostaPublica);
+export function duvidaPublica(d, user, { nomes = new Map(), veNome = false } = {}) {
+  const respostas = (Array.isArray(d.respostas) ? d.respostas : []).map(r => respostaPublica(r, nomes));
+  const minha = !!user && String(d.userId) === String(user._id);
+  const autorNome = (minha || veNome)
+    ? (nomes.get(String(d.userId)) || (minha ? nomeDe(user) : '') || ROTULO_ALUNO)
+    : ROTULO_COLEGA;
   return {
     id: String(d._id),
     aulaId: d.aulaId,
-    autorNome: d.autorNome || 'Aluno',
-    autorIniciais: iniciaisDe(d.autorNome || 'Aluno'),
+    autorNome,
+    autorIniciais: iniciaisDe(autorNome),
     texto: d.texto || '',
     createdAt: iso(d.createdAt),
     resolvida: !!d.resolvida,
-    minha: !!user && String(d.userId) === String(user._id),
+    minha,
     respostas
   };
 }
 
-/** Monta o documento de resposta (o MESMO para o admin legado e para o professor). */
+/** Monta o documento de resposta (o MESMO para o admin legado e para o professor). Sem cópia do nome. */
 export function novaResposta(user, texto, agora = new Date()) {
   const papel = papelDaResposta(user);
   return {
     id: 'resp-' + randomUUID().replace(/-/g, '').slice(0, 12),
     userId: String(user._id),
-    autorNome: user.nome || str(user.email).split('@')[0],
     ...(papel ? { autorPapel: papel } : {}),
     texto,
     createdAt: agora
@@ -119,7 +209,7 @@ export function novaResposta(user, texto, agora = new Date()) {
  * Notifica o autor da dúvida (`duvida.respondida`, API §3.5). Melhor esforço:
  * serviço ausente ou falha só vira aviso no log; nunca derruba a resposta.
  */
-export async function notificarResposta({ servicos, duvida, resposta, log = console }) {
+export async function notificarResposta({ servicos, duvida, resposta, autorNome = '', log = console }) {
   try {
     const notif = servicos && typeof servicos.tentar === 'function' ? servicos.tentar('notificacoes') : null;
     if (!notif || typeof notif.emitir !== 'function') return;
@@ -128,7 +218,7 @@ export async function notificarResposta({ servicos, duvida, resposta, log = cons
       userIds: [String(duvida.userId)],
       tipo: 'duvida.respondida',
       titulo: 'Sua dúvida recebeu resposta',
-      texto: `${resposta.autorNome} respondeu à sua dúvida na aula.`,
+      texto: `${autorNome || 'A equipe'} respondeu à sua dúvida na aula.`,
       link: `aula.html?id=${encodeURIComponent(str(duvida.aulaId))}#duvidas`,
       entidade: { tipo: 'duvida', id: String(duvida._id) },
       chave: `duvida:${String(duvida._id)}:${resposta.id}`
@@ -200,6 +290,32 @@ export function criarRotaDuvidas({
     }
   }
 
+  /**
+   * Quem lê pode ver o nome de quem perguntou? O próprio autor, a coordenação, o docente geral do
+   * curso e o docente da turma do aluno (`acesso.podeVerAluno`). Colega e docente de outra turma: não.
+   * Sem o serviço `acesso`: só o autor e o admin legado. @returns {Promise<(userId) => Promise<boolean>>}
+   */
+  async function quemVeONome(req, cursoId) {
+    const eu = String(req.user._id);
+    if (req.user.isAdmin) return async () => true;
+    const acesso = acessoOu();
+    let ctx = null;
+    if (acesso && typeof acesso.contexto === 'function') {
+      try { ctx = await acesso.contexto(req); } catch { ctx = null; }
+    }
+    const c = str(cursoId);
+    const geral = !!ctx && (ctx.papel === 'admin' || !!ctx.cursosDocenteGeral?.has(c));
+    const deTurma = !!ctx && !geral && !!ctx.turmasDocente?.has(c) && typeof acesso.podeVerAluno === 'function';
+    const cache = new Map();
+    return async (userId) => {
+      const u = str(userId);
+      if (u === eu || geral) return true;
+      if (!deTurma || !u) return false;
+      if (!cache.has(u)) cache.set(u, Promise.resolve(acesso.podeVerAluno(req, u)).then(Boolean, () => false));
+      return cache.get(u);
+    };
+  }
+
   // ============ FILA DO PAINEL (admin) ============
   // Precisa vir antes de /duvidas/:id — "pendentes" casaria com o :id.
   router.get('/duvidas/pendentes', exigirAdmin, async (_req, res) => {
@@ -213,7 +329,8 @@ export function criarRotaDuvidas({
     const semResposta = abertas.filter(d => !(d.respostas || []).length);
     const respondidas = abertas.filter(d => (d.respostas || []).length);
     const fila = [...semResposta, ...respondidas];
-    const itens = await itensDaFila(repo, fila);
+    const nomes = await nomesAtuais({ servicos, repo, log }, idsDosAutores(fila, { soPerguntas: true }));
+    const itens = await itensDaFila(repo, fila, { nomes });
     res.json({
       itens,
       // Só o que ainda não tem resposta conta como pendência de verdade.
@@ -234,8 +351,15 @@ export function criarRotaDuvidas({
       .sort({ createdAt: -1 })
       .toArray();
 
+    // Nome só de quem o leitor pode ver (minimização: os demais nem são buscados).
+    const veNome = await quemVeONome(req, ctx.cursoId);
+    const visivel = new Map();
+    for (const d of itens) visivel.set(String(d._id), await veNome(d.userId));
+    const ids = idsDosAutores(itens.map(d => (visivel.get(String(d._id)) ? d : { respostas: d.respostas })));
+    const nomes = await nomesAtuais({ servicos, repo, log }, ids);
+
     res.json({
-      itens: itens.map(d => duvidaPublica(d, req.user)),
+      itens: itens.map(d => duvidaPublica(d, req.user, { nomes, veNome: visivel.get(String(d._id)) })),
       podeResponder: await podeResponder(req, ctx.cursoId)
     });
   });
@@ -267,7 +391,6 @@ export function criarRotaDuvidas({
       moduloId: ctx.aula.moduloId,
       cursoId: ctx.cursoId,
       userId: String(req.user._id),
-      autorNome: req.user.nome || req.user.email.split('@')[0],
       texto,
       createdAt: agora(),
       resolvida: false,
@@ -276,7 +399,8 @@ export function criarRotaDuvidas({
     const { insertedId } = await duvidas().insertOne(doc);
     doc._id = insertedId;
 
-    res.status(201).json({ duvida: duvidaPublica(doc, req.user) });
+    const nomes = new Map([[String(req.user._id), nomeDe(req.user)]]);
+    res.status(201).json({ duvida: duvidaPublica(doc, req.user, { nomes }) });
   });
 
   // ============ RESPONDER (admin legado) ============
@@ -296,9 +420,10 @@ export function criarRotaDuvidas({
     if (!matchedCount) return res.status(404).json({ error: 'Dúvida não encontrada.' });
 
     const duvida = await duvidas().findOne({ _id }, { projection: { userId: 1, aulaId: 1 } });
-    await notificarResposta({ servicos, duvida, resposta, log });
+    const autorNome = nomeDe(req.user);
+    await notificarResposta({ servicos, duvida, resposta, autorNome, log });
 
-    res.status(201).json({ resposta: respostaPublica(resposta) });
+    res.status(201).json({ resposta: respostaPublica(resposta, new Map([[resposta.userId, autorNome]])) });
   });
 
   // ============ REABRIR / MARCAR COMO RESOLVIDA (admin) ============
@@ -356,8 +481,9 @@ export function criarRotaDuvidas({
 /**
  * Itens da fila (mesmo formato de GET /api/duvidas/pendentes), com títulos de aula e curso.
  * Exportado para a fila do professor (`GET /portal/professor/duvidas`, API §6.12).
+ * Só para a equipe que pode ver o aluno; `nomes`: Map<userId, nome atual> (nomesAtuais).
  */
-export async function itensDaFila(repo, fila) {
+export async function itensDaFila(repo, fila, { nomes = new Map() } = {}) {
   const aulaIds = [...new Set(fila.map(d => d.aulaId).filter(Boolean))];
   const cursoIds = [...new Set(fila.map(d => d.cursoId).filter(Boolean))];
   const [aulas, cursos] = await Promise.all([
@@ -373,13 +499,14 @@ export async function itensDaFila(repo, fila) {
   return fila.map(d => {
     const aula = aulaPorId.get(d.aulaId);
     const curso = cursoPorId.get(d.cursoId);
+    const autorNome = nomes.get(String(d.userId)) || ROTULO_ALUNO;
     return {
       id: String(d._id),
       aulaId: d.aulaId,
       aulaTitulo: aula ? aula.titulo || '' : 'Aula removida',
       cursoTitulo: curso ? curso.titulo || '' : '—',
-      autorNome: d.autorNome || 'Aluno',
-      autorIniciais: iniciaisDe(d.autorNome || 'Aluno'),
+      autorNome,
+      autorIniciais: iniciaisDe(autorNome),
       texto: d.texto || '',
       createdAt: iso(d.createdAt),
       respondida: !!(d.respostas || []).length
