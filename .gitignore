@@ -60,3 +60,7 @@ docs/dmc/home-redesign/aceite/
 docs/dmc/home-redesign/partials/preview/
 docs/dmc/home-redesign/integracao/*.png
 docs/dmc/home-redesign/midia-contact-sheet.png
+
+# Resultados do Playwright: ficam só locais
+test-results/
+playwright-report/
